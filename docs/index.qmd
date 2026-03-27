@@ -1,0 +1,20 @@
+---
+format: html
+navbar:
+  left:
+    - href: index.qmd
+      text: "Página de Inicio"
+---
+
+<div style="text-align:center; margin-bottom:30px;">
+  <img src="portada.png" alt="Optimización y Aprendizaje Automático II" style="width:100%; height:auto;">
+</div>
+
+
+
+# Bienvenido a OAA2
+
+Este sitio contiene los materiales de las distintas ediciones del curso.
+
+- [2025](2025/)
+- [2026](2026/)
