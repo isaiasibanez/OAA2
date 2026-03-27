@@ -12,9 +12,15 @@ navbar:
 
 
 
-# Bienvenido a OAA2
+# Bienvenidos
 
 Este sitio contiene los materiales de las distintas ediciones del curso.
 
-- [2025](2025/)
-- [2026](2026/)
+<h2>Ediciones disponibles</h2>
+<a href="2025/" style="padding:10px 20px; background-color:#007ACC; color:white; text-decoration:none; border-radius:5px;">2025</a>
+<a href="2026/" style="padding:10px 20px; background-color:#28A745; color:white; text-decoration:none; border-radius:5px;">2026</a>
+
+
+<p style="margin-top:40px; font-size:0.9em; color:gray;">
+Autor: Isaías Ibañez
+</p>
