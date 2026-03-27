@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: ../docs/2026
+
+website:
+  title: "Optimización y Aprendizaje Automático II"
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "1. OPTIMIZACIÓN MATEMÁTICA"
+        contents:
+          - href: CAPITULO_1/A1_intro_optimizacion.qmd
+            text: "1.1 Introducción a la optimización"
+          - href: CAPITULO_1/A2_optimizacion_convexa.qmd
+            text: "1.2 Optimización convexa"
+  page-navigation: true  # Activar navegación entre páginas
+
+format:
+  live-html:
+    pyodide:
+      cell-options:
+        edit: true
+        include: true
+    css: style.css
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-floating: true
+# number-sections: true
+lang: es

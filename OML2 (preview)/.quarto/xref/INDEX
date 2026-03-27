@@ -1,0 +1,110 @@
+{
+  "CAPITULO_1/A1_intro_optimizacion.qmd": {
+    "A1_intro_optimizacion.html": "4c8a098f"
+  },
+  "CAPITULO_1/A2_optimalidad.qmd": {
+    "A2_optimalidad.html": "d4a299fd"
+  },
+  "CAPITULO_2/01_reg_lineal_logistica.qmd": {
+    "01_reg_lineal_logistica.html": "cd310b17"
+  },
+  "CAPITULO_2/02_GLM.qmd": {
+    "02_GLM.html": "5b535438"
+  },
+  "CAPITULO_2/03_optimizacion_ML.qmd": {
+    "03_optimizacion_ML.html": "83cda5d8"
+  },
+  "CAPITULO_2/04_modelos_generativos.qmd": {
+    "04_modelos_generativos.html": "7f94e060"
+  },
+  "CAPITULO_2/05_clustering.qmd": {
+    "05_clustering.html": "4b020895"
+  },
+  "CAPITULO_2/06_EM.qmd": {
+    "06_EM.html": "4d9fcd9b"
+  },
+  "index.qmd": {
+    "index.html": "8ca9b142"
+  },
+  "macros.qmd": {
+    "macros.html": "55dcfd12"
+  },
+  "TEMPORAL/A2_optimalidad.qmd": {
+    "A2_optimalidad.html": "0462f17c"
+  },
+  "CAPITULO_1/A3_metodos_optimizacion.qmd": {
+    "A3_metodos_optimizacion.html": "938ea149"
+  },
+  "TEMPORAL/A1_intro_optimizacion/A1_intro_optimizacion.qmd": {
+    "A1_intro_optimizacion.html": "00398d11"
+  },
+  "TEMPORAL/A1_intro_optimizacion/macros.qmd": {
+    "macros.html": "43dd9314"
+  },
+  "TEMPORAL/A2_optimalidad/A2_optimalidad.qmd": {
+    "A2_optimalidad.html": "4b3b195d"
+  },
+  "TEMPORAL/A2_optimalidad/macros.qmd": {
+    "macros.html": "e17bdff9"
+  },
+  "TEMPORAL/A3_metodos_optimizacion/A3_metodos_optimizacion.qmd": {
+    "A3_metodos_optimizacion.html": "9f24c15f"
+  },
+  "TEMPORAL/A3_metodos_optimizacion/macros.qmd": {
+    "macros.html": "4ce29bab"
+  },
+  "CAPITULO_1/A2_optimizacion_convexa.qmd": {
+    "A2_optimizacion_convexa.html": "7212372f"
+  },
+  "CAPITULO_1/A3_herramientas_computacionales.qmd": {
+    "A3_herramientas_computacionales.html": "cafd841e"
+  },
+  "CAPITULO_1/A4_condiciones_optimalidad.qmd": {
+    "A4_condiciones_optimalidad.html": "a612571b"
+  },
+  "CAPITULO_1/A5_metodos_optimizacion.qmd": {
+    "A5_metodos_optimizacion.html": "f4f4eb79"
+  },
+  "CAPITULO_1/A3_resolucion_computacional.qmd": {
+    "A3_resolucion_computacional.html": "072a4e99"
+  },
+  "CAPITULO_2/B1_regresion_lineal_logistica.qmd": {
+    "B1_regresion_lineal_logistica.html": "ea859e67"
+  },
+  "CAPITULO_2/B2_glm.qmd": {
+    "B2_glm.html": "30339b42"
+  },
+  "CAPITULO_2/B3_ridge_lasso.qmd": {
+    "B3_ridge_lasso.html": "2c461050"
+  },
+  "CAPITULO_2/B4_svm_lineal.qmd": {
+    "B4_svm_lineal.html": "a29b492c"
+  },
+  "CAPITULO_2/B5_evaluacion_validacion.qmd": {
+    "B5_evaluacion_validacion.html": "02414cb1"
+  },
+  "CAPITULO_2/B4_svm.qmd": {
+    "B4_svm.html": "7f909fac"
+  },
+  "CAPITULO_2/B5_intro_redes.qmd": {
+    "B5_intro_redes.html": "29124b7e"
+  },
+  "CAPITULO_2/B5_mlp.qmd": {
+    "B5_mlp.html": "4f85f7c7"
+  },
+  "CAPITULO_3/C1_regresion_lineal_logistica - copia.qmd": {
+    "C1_regresion_lineal_logistica - copia.html": "07eeee5c"
+  },
+  "CAPITULO_3/C2_gmm.qmd": {
+    "C2_gmm.html": "5b1baf5e"
+  },
+  "CAPITULO_3/C3_em.qmd": {
+    "C3_em.html": "7db2c30f"
+  },
+  "CAPITULO_3/C1_gda.qmd": {
+    "C1_gda.html": "73ca7e25"
+  },
+  "CAPITULO_3/C2_clustering.qmd": {
+    "C2_clustering.html": "42cf8ba0"
+  }
+}

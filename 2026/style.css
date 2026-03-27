@@ -1,0 +1,267 @@
+.definicion {
+background-color: #fcfefc; /* Verde muy muy suave */
+  border: 2px solid #4CAF50; /* Borde verde */
+  padding: 15px;            /* Espaciado interno */
+  padding-bottom: 2px;
+  border-radius: 8px;       /* Bordes redondeados */
+  margin: 15px 0;           /* Margen arriba y abajo */
+  font-family: Arial, sans-serif; /* Fuente opcional */
+}
+
+.teorema {
+  background-color: #fffafa;  /* Fondo más claro */
+  border: 2px solid #b22222;  /* Borde más oscuro */
+  padding: 15px;
+  padding-bottom: 2px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.highlight {
+  background-color: #ffffff; /* Fondo muy suave */
+  border: 2px solid #08055D; /* Borde naranja */
+  padding: 10px;            /* Espaciado interno */
+  border-radius: 5px;       /* Bordes suavemente redondeados */
+  margin: 10px 0;           /* Margen arriba y abajo */
+  font-family: Arial, sans-serif; /* Fuente opcional */
+}
+
+.bg-custom {
+  background-color: #08055D !important;
+  color: #fff !important;
+}
+
+
+.myhighlight {
+  max-width: 60%;
+  margin: 0em auto;
+  padding: 0.5em;
+  padding-bottom: 0em;
+  border: 0px solid #ccc;
+  border-top: 1.5px solid #5b2c6f;
+  border-bottom: 1.5px solid #5b2c6f;
+  background-color: #ffffff;
+  text-align: center;
+  color: #5b2c6f;
+  font-style: normal;
+  border-radius: 0;
+}
+
+
+.myhighlight2 {
+  max-width: 50%;
+  margin: 0em auto;
+  padding: 0.5em 0.5em 0.01em 0.5em;
+  border: 0px;
+  text-align: center;
+  color: #1a5276;             /* azul */
+  font-style: normal;
+  border-radius: 0;
+}
+
+
+.myhighlight3 {
+  max-width: 60%;
+  margin: 0em auto;
+  padding: 0.5em 0.5em 0.1em 0.5em;
+  border: 1.5px solid #e67e22;    /* naranja oscuro */
+  background-color: #fffdfa;      /* naranja ultra suave, casi blanco */
+  text-align: center;
+  color: #b03a00;                 /* naranja oscuro más profundo */
+  font-style: normal;
+  border-radius: 0;
+}
+
+
+.myhighlight4 {
+  max-width: 80%;
+  margin: 0em auto;
+  padding: 0.5em 0.5em 0.1em 0.5em;
+  border: 1.5px solid #7b241c;       /* borde dark red */
+  background-color: #fff5f5;         /* fondo rojo pastel más claro */
+  text-align: center;
+  color: #6e0b0b;                    /* texto dark red intenso */
+  font-style: normal;
+  border-radius: 0;
+}
+
+
+
+
+.myhighlight p {
+  text-align: center;
+}
+
+.myhighlight2 p {
+  text-align: center;
+}
+
+.myhighlight3 p {
+  text-align: center;
+}
+
+
+.myhighlight4 p {
+  text-align: center;
+}
+
+
+
+.metodo {
+  background-color: #e6f0ff; /* azul claro */
+  border: 2px solid #3b82f6; /* azul brillante */
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-family: Arial, sans-serif;
+}
+
+  
+/* Estilo para bloques de código preformateado (<pre>) */
+pre {
+  font-family: "Fira Code", "Courier New", monospace; /* Fuente monoespaciada */
+  font-size: 15px; /* Tamaño de fuente */
+  background-color: #2e3440; /* Fondo oscuro */
+  color: #d8dee9; /* Texto claro */
+  padding: 15px; /* Espaciado interno */
+  border-radius: 8px; /* Bordes redondeados */
+  border: 1px solid #4c566a; /* Borde sutil */
+  overflow-x: auto; /* Barra de desplazamiento horizontal si es necesario */
+  line-height: 1.5; /* Mejor separación entre líneas */
+  margin: 15px 0; /* Separación vertical */
+}
+
+
+
+
+blockquote {
+  color: black;          /* Cambia el color del texto */
+  /* font-family: 'Georgia', serif;  /* Cambia la tipografía */
+  font-size: 1.15em;     /* Tamaño de letra */
+  border-left: 2px solid #000000; /* Personaliza la barra lateral */
+  padding-left: 0em;
+  margin-left: 1.5em;
+}
+
+
+aside {
+  background: #f0f8ff;
+  border-left: 4px solid #2a4d8f;
+  padding: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  color: #333;
+}
+
+
+/* Cambiar color de fondo y texto de la pestaña activa */
+.nav-tabs .nav-link.active {
+  background-color: #2a4d8f;  /* azul oscuro */
+  color: white;
+}
+
+/* Cambiar color de texto en las pestañas inactivas */
+.nav-tabs .nav-link {
+  color: #2a4d8f;
+}
+
+/* Opcional: agregar borde o estilos hover */
+.nav-tabs .nav-link:hover {
+  background-color: #dce6f3;
+}
+
+
+
+
+
+
+
+
+
+.callout-example {
+  background-color: #f5f7fa;  /* fondo clarito, casi blanco */
+  border-left: 3px solid #0d6efd; /* azul fuerte */
+  padding: 0.75em 0.75em;
+  border-radius: 5px;
+  margin-bottom: 1em;
+  position: relative;
+  color: #000000;  /* texto negro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.refs {
+  font-size: 0.95em;
+}
+
+
+p {
+  text-align: justify;
+}
+
+
+
+mark {
+  /* background-color: #ccffcc; /* verde resaltador */
+  background-color: #d4edda; /* verde éxito tipo Bootstrap */
+  color: black;
+  padding: 0.1em;
+  border-radius: 3px;
+}
+
+
+
+
+
+/* Despues probar si hace falta dominar el tamaño de letra: 
+body {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.3em; }
+
+
+img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+figure {
+  text-align: center;
+  margin: auto;
+}
+*/
+
+
+.linea-corta {
+  width: 27%;          /* 0.5 del ancho del contenedor */
+  margin-left: 0;      /* alineado a la izquierda (podés cambiar) */
+  margin-top: 0.2em;   /* espacio pequeño arriba, para acercarla al texto */
+  margin-bottom: 1em;  /* espacio abajo, ajustalo a gusto */
+  border: 0.5px solidrgba(0, 26, 78, 0.71); /* grosor y color de la línea */
+}
+
+
+
+.callout.question {
+  border-left: 2px solid #f97316 !important;
+  background-color: #f5f5f5 !important; /* Gris apenas más oscuro */
+  color: #000000 !important;
+  padding-left: 0.4em;
+  
+  font-size: 0.9em;
+  width: 80%;
+  
+  margin-left: auto;
+  margin-right: auto;
+  
+  padding-top: 0em;
+  padding-bottom: 0em;
+
+  border-radius: 0 !important;  /* Quitar esquinas redondeadas */
+}

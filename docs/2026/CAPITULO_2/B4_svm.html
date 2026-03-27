@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Máquinas de vectores soporte – Optimización y Aprendizaje Automático II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Optimización y Aprendizaje Automático II
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Optimización y Aprendizaje Automático II</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1. OPTIMIZACIÓN MATEMÁTICA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A1_intro_optimizacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Introducción a la optimización</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A2_optimizacion_convexa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Optimización convexa</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#hiperplano-separador-óptimo" id="toc-hiperplano-separador-óptimo" class="nav-link active" data-scroll-target="#hiperplano-separador-óptimo">Hiperplano separador óptimo</a>
+  <ul class="collapse">
+  <li><a href="#formulación-clásica" id="toc-formulación-clásica" class="nav-link" data-scroll-target="#formulación-clásica">Formulación clásica</a></li>
+  <li><a href="#aplicación-de-condiciones-kkt-y-dualidad" id="toc-aplicación-de-condiciones-kkt-y-dualidad" class="nav-link" data-scroll-target="#aplicación-de-condiciones-kkt-y-dualidad">Aplicación de condiciones KKT y dualidad</a></li>
+  </ul></li>
+  <li><a href="#variables-de-holgura-y-margen-suave" id="toc-variables-de-holgura-y-margen-suave" class="nav-link" data-scroll-target="#variables-de-holgura-y-margen-suave">Variables de holgura y margen suave</a>
+  <ul class="collapse">
+  <li><a href="#aplicación-de-condiciones-kkt-y-dualidad-1" id="toc-aplicación-de-condiciones-kkt-y-dualidad-1" class="nav-link" data-scroll-target="#aplicación-de-condiciones-kkt-y-dualidad-1">Aplicación de condiciones KKT y dualidad</a></li>
+  </ul></li>
+  <li><a href="#máquinas-de-vectores-soporte-no-lineal" id="toc-máquinas-de-vectores-soporte-no-lineal" class="nav-link" data-scroll-target="#máquinas-de-vectores-soporte-no-lineal">Máquinas de vectores soporte no lineal</a>
+  <ul class="collapse">
+  <li><a href="#núcleos-reproductores" id="toc-núcleos-reproductores" class="nav-link" data-scroll-target="#núcleos-reproductores">Núcleos reproductores</a></li>
+  <li><a href="#formulación-del-problema" id="toc-formulación-del-problema" class="nav-link" data-scroll-target="#formulación-del-problema">Formulación del problema</a></li>
+  </ul></li>
+  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Máquinas de vectores soporte</h1>
+<p class="subtitle lead">Capítulo 2 - Sección 4</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+<div class="hidden">
+<p><span class="math display">\[
+\def\NN{\mathbb{N}}
+\def\ZZ{\mathbb{Z}}
+\def\RR{\mathbb{R}}
+\def\media{\mathbb{E}}
+\def\cov{\text{Cov}}
+\def\prob{\mathbb{P}}
+\def\calL{\mathcal{L}}
+\def\calG{\mathcal{G}}
+\def\calH{\mathcal{H}}
+\def\calD{\mathcal{D}}
+\def\calN{\mathcal{N}}
+\def\aa{{\bf a}}
+\def\bb{{\bf b}}
+\def\cc{{\bf c}}
+\def\dd{{\bf d}}
+\def\hh{{\bf h}}
+\def\qq{{\bf q}}
+\def\xx{{\bf x}}
+\def\yy{{\bf y}}
+\def\zz{{\bf z}}
+\def\uu{{\bf u}}
+\def\vv{{\bf v}}
+\def\ww{{\bf w}}
+\def\XX{{\bf X}}
+\def\TT{{\bf T}}
+\def\SS{{\bf S}}
+\def\bfZ{{\bf Z}}
+\def\bfg{{\bf g}}
+\def\bftheta{\boldsymbol{\theta}}
+\def\bfphi{\boldsymbol{\phi}}
+\def\bfmu{\boldsymbol{\mu}}
+\def\bfxi{\boldsymbol{\xi}}
+\def\bflambda{\boldsymbol{\lambda}}
+\def\bfgamma{\boldsymbol{\gamma}}
+\def\bfbeta{\boldsymbol{\beta}}
+\def\bfalpha{\boldsymbol{\alpha}}
+\def\bfeta{\boldsymbol{\eta}}
+\def\bfmu{\boldsymbol{\mu}}
+\def\bfnu{\boldsymbol{\nu}}
+\def\bfTheta{\boldsymbol{\Theta}}
+\def\bfSigma{\boldsymbol{\Sigma}}
+\def\bfone{\mathbf{1}}
+\def\bfzero{\mathbf{0}}
+\def\argmin{\mathop{\mathrm{arg\,min\,}}}
+\def\argmax{\mathop{\mathrm{arg\,max\,}}}
+\]</span></p>
+</div>
+<p>En esta sección vamos a estudiar un algoritmo de aprendizaje supervisado ampliamente utilizado para problemas de clasificación, que ha demostrado ser especialmente efectivo en tareas donde se requiere obtener fronteras de decisión robustas y con buena capacidad de generalización. Su construcción sigue una secuencia natural de conceptos: en primer lugar, se aborda la formulación básica basada en hiperplanos separadores óptimos, cuyo objetivo es maximizar el margen de separación entre clases perfectamente separables; luego, se incorpora el uso de <em>variables de holgura</em> para tratar datos no separables; y, finalmente, se presenta la generalización mediante <em>núcleos reproductores</em>, lo que permite obtener fronteras de decisión no lineales.</p>
+<p>Una característica distintiva de estos métodos es que su desarrollo se apoya fuertemente en la formulación dual de problemas de optimización y en las condiciones de Karush-Kuhn-Tucker (KKT), lo que proporciona una interpretación clara en términos de vectores soporte y explica su gran potencial.</p>
+<div style="margin-top:2em;">
+
+</div>
+<hr>
+<p>En lo que sigue, vamos a asumir que estamos trabajando con un conjunto de datos de entrenamiento <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span> de un problema de clasificación binaria cuya variable respuesta, por cuestiones de simplicidad, se considera <span class="math inline">\(Y\in\{-1,+1\}\)</span>.</p>
+<div style="margin-top:2.5em;">
+
+</div>
+<section id="hiperplano-separador-óptimo" class="level2">
+<h2 class="anchored" data-anchor-id="hiperplano-separador-óptimo">Hiperplano separador óptimo</h2>
+<p>El caso más simple de análisis surge de suponer que las clases <span class="math inline">\(\{\xx_i \mid y_i=-1\}\)</span> y <span class="math inline">\(\{\xx_i \mid y_i=+1\}\)</span> pueden ser separados totalmente por una frontera lineal.</p>
+<div class="definicion">
+<p><strong>Definición 1.</strong> (Separabilidad lineal) Un conjunto de datos <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, se dice que es <em>linealmente separable</em> si existen <span class="math inline">\(\bfbeta\in\RR^p\)</span> y <span class="math inline">\(\beta_0\in\RR\)</span> tales que <span class="math display">\[
+y_i=\text{sign}(\bfbeta^\top\xx_i+\beta_0)\qquad \forall i=1,\ldots,n.
+\tag{1}
+\]</span></p>
+<p>El hiperplano <span class="math inline">\(\bfbeta^\top\xx+\beta_0=0\)</span> se denomina <em>hiperplano separador</em> y la función <span class="math inline">\(f:\RR^p\to\RR\)</span> definida por <span class="math inline">\(f(\xx)=\bfbeta^\top\xx+\beta_0\)</span> se conoce como <em>función score</em>.</p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">📝</span><br> Pruebe que <span class="math inline">\(\bfbeta\)</span> es el vector normal al hiperplano <span class="math inline">\(\bfbeta^\top\xx+\beta_0=0\)</span> y que la distancia entre un punto <span class="math inline">\(\xx_0\in\RR^p\)</span> y dicho hiperplano es igual a <span class="math inline">\(|f(\xx_0)|/\|\bfbeta\|_2\)</span>.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_datos_ls.svg" alt="…" width="500px" class="figure-img">
+<figcaption>
+<strong>Figura 1</strong>. Datos linealmente separables y algunos hiperplanos separadores.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<p>Observar que la expresión (1) es equivalente a requerir <span class="math display">\[
+y_i(\bfbeta^\top\xx_i+\beta_0)&gt;0\qquad\forall i=1,\ldots, n.
+\tag{2}
+\]</span></p>
+<p>Algo intuitivo (ver Figura 1) es que si las clases son totalmente separables, existen infinitos hiperplanos separadores. Por lo tanto, resulta necesario definir un criterio que permita seleccionar un hiperplano único y óptimo.</p>
+<div class="myhighlight2">
+<span style="font-size:0.8em;"><em>Primer principio</em></span>
+<div style="margin-top:0em;">
+
+</div>
+<p>Cada vector <span class="math inline">\(\bfbeta\in\RR^p\)</span> puede definir un único hiperplano separador.</p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>Dado <span class="math inline">\(\bfbeta\in\RR^p\)</span>, asociamos a él el hiperplano separador con vector normal <span class="math inline">\(\bfbeta\)</span> que <em>equidista</em> a ambas clases. Para poder caracterizar esto matemáticamente, necesitamos antes imponer una restricción de normalización, debido a que la distancia de un punto al hiperplano depende de <span class="math inline">\(\|\bfbeta\|_2\)</span>.</p>
+<div class="myhighlight2">
+<span style="font-size:0.8em;"><em>Segundo principio</em></span>
+<div style="margin-top:0em;">
+
+</div>
+<p>Se restringe la elección de <span class="math inline">\(\bfbeta\)</span> a aquellos vectores que cumplen <span class="math inline">\(\|\bfbeta\|_2=1\)</span>.</p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>Bajo estas condiciones, la distancia entre cualquier punto <span class="math inline">\(\xx_i\)</span> y el hiperplano <span class="math inline">\(\bfbeta^\top\xx+\beta_0=0\)</span> está dada por <span class="math display">\[
+|f(\xx_i)|=y_i(\bfbeta^\top\xx_i+\beta_0).
+\]</span></p>
+<p>Así:</p>
+<div class="myhighlight">
+<p>Un hiperplano separador <span class="math inline">\(\bfbeta^\top\xx+\beta_0=0\)</span> equidista a ambas clases si existe una <em>distancia mínima</em> <span class="math inline">\(M\in\RR^+\)</span> tal que <span class="math display">\[
+y_i(\bfbeta^\top\xx_i+\beta_0)\geq M\qquad\forall i=1,\ldots,n,
+\]</span> con igualdad para al menos un punto de cada clase.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>A la distancia mínima <span class="math inline">\(M\)</span> nos referiremos como <mark>margen</mark> del hiperplano separador. Es importante observar que los puntos para los cuales se cumple la igualdad en la restricción son los que caracterizan al hiperplano; estos se denominan <mark>vectores soporte</mark> (su definición formal se presentará más adelante).</p>
+<div style="margin-top:2em;">
+
+</div>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_margenes.svg" alt="…" width="550px" class="figure-img">
+<figcaption>
+<strong>Figura 2</strong>. Hiperplanos separadores y sus margenes asociados.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<p>Ya estamos en condiciones de determinar qué consideraremos como hiperplano separador óptimo.</p>
+<div class="definicion">
+<p><strong>Definición 2.</strong> (Hiperplano separador óptimo) Sea <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, un conjunto de datos linealmente separable. El <em>hiperplano separador óptimo</em> es aquel que maximiza el <em>margen</em> <span class="math inline">\(M\)</span>.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>En base a lo descrito, la búsqueda del hiperplano separador óptimo queda determinada por el siguiente problema de optimización:</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; M\\
+\text{sujeto a }  &amp; y_i(\bfbeta^\top\xx_i+\beta_0)\geq M,\qquad i=1,\ldots,n,\\
+                  &amp; \|\bfbeta\|_2=1.
+\end{array}
+\tag{3}
+\]</span></p>
+<p>Por supuesto, las variables de optimización son <span class="math inline">\(\bfbeta\in\RR^p\)</span> y <span class="math inline">\(\beta_0\in\RR\)</span>. Si bien esta formulación refleja directamente la intención de maximizar el margen, vamos a ajustarla para obtener una formulación clásica más conveniente.</p>
+<section id="formulación-clásica" class="level3">
+<h3 class="anchored" data-anchor-id="formulación-clásica">Formulación clásica</h3>
+<p>Hemos visto que la restricción <span class="math inline">\(\|\bfbeta\|_2=1\)</span> permite interpretar al margen <span class="math inline">\(M\)</span> como la distancia mínima de los puntos al hiperplano. Si se relaja dicha condición, dicha interpretación sigue siendo cierta si se escribe <span class="math display">\[
+\frac{y_i(\bfbeta^\top\xx_i+\beta_0)}{\|\bfbeta\|_2}\geq M,\qquad i=1,\ldots,n.
+\]</span></p>
+<p>En consecuencia, el problema (3) se puede reescribir como <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; M\\
+\text{sujeto a }  &amp; y_i(\bfbeta^\top\xx_i+\beta_0)\geq \|\bfbeta\|_2M,\qquad i=1,\ldots,n,
+\end{array}
+\tag{4}
+\]</span> con una pequeña diferencia: dado un punto óptimo <span class="math inline">\(\bfbeta^\star\)</span>, ahora habrán infinitos puntos óptimos <span class="math inline">\(k\bfbeta^\star\)</span> (<span class="math inline">\(k\in\RR\)</span>). De todos ellos, nos interesa particularmente aquel que verifica <span class="math display">\[
+\|\bfbeta^\star\|_2=\frac{1}{M^\star},
+\]</span> donde <span class="math inline">\(M^\star\)</span> es el margen óptimo. Esta idea nos va a permitir reformular el problema de optimización a partir de una reformulación del segundo principio.</p>
+<div class="myhighlight2">
+<span style="font-size:0.8em;"><em>Segundo principio (reformulación)</em></span>
+<div style="margin-top:0.2em;">
+
+</div>
+<p>Se elige <span class="math inline">\(\bfbeta\)</span> de manera tal que su norma esté relacionada con el margen <span class="math inline">\(M\)</span> mediante la igualdad <span class="math display">\[
+\|\bfbeta\|_2=1/M.
+\]</span></p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>Claramente, bajo estas condiciones, maximizar <span class="math inline">\(M\)</span> es equivalente a minimizar <span class="math inline">\(\|\bfbeta\|_2\)</span> y, convenientemente, también equivalente a minimizar <span class="math inline">\(\frac{1}{2}\|\bfbeta\|_2^2\)</span>. De esta manera, retomando (4), podemos redefinir el problema de optimización de interés (3) como sigue.</p>
+<div class="definicion">
+<p><strong>Definición 3.</strong> (Problema de optimización del hiperplano separador óptimo) Dado un conjunto de datos <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span> linealmente separables, el hiperplano separador óptimo es <span class="math display">\[
+(\bfbeta^\star)^\top\xx+\beta_0^\star=0,
+\]</span> con <span class="math inline">\(\bfbeta^\star\in\RR^p\)</span> y <span class="math inline">\(\beta_0^\star\in\RR\)</span> puntos óptimos del problema <span class="math display">\[
+\begin{array}{ll}
+\text{minimizar } &amp; \frac{1}{2}\|\bfbeta\|_2^2\\
+\text{sujeto a }  &amp; y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1,\qquad i=1,\ldots,n.
+\end{array}
+\tag{5}
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="myhighlight">
+<p>El problema (5) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>El Corolario 1 del <a href="A4_condiciones_optimalidad.html#el-caso-particular-de-restricciones-afines">C1-S4</a> nos asegura que las condiciones de Karush-Kuhn-Tucker (KKT) son suficientes y necesarias para la optimalidad. Más aún, el Teorema 6 de esa misma sección (Teorema de Slater) permite afirmar que hay dualidad fuerte.</p>
+</section>
+<section id="aplicación-de-condiciones-kkt-y-dualidad" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-de-condiciones-kkt-y-dualidad">Aplicación de condiciones KKT y dualidad</h3>
+<p>Las condiciones KKT son <span class="math display">\[
+\begin{array}{cl}
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-1\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
+\lambda_i^\star\geq 0\qquad\forall i=1,\ldots,n\qquad &amp;\text{(Factibilidad dual)}\\[3pt]
+\lambda_i^\star\left[y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-1\right]=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
+\bfbeta^\star=\sum_{i=1}^n\lambda_i^\star y_i\xx_i,\quad 0=\sum_{i=1}^n\lambda_i^\star y_i\qquad&amp;\text{(Estacionariedad)}
+\end{array}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="highlight">
+<p>⚠️ Si bien las condiciones KKT permiten caracterizar completamente la solución óptima, no proporcionan un método directo y eficiente para calcular <span class="math inline">\(\bflambda^\star\)</span>. Por ello, resulta conveniente formular el problema dual de Lagrange, cuya resolución es computacionalmente más sencilla, esto último debido a que resulta ser un problema de optimización cuadrática.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>El Lagrangiano asociado al problema (5) es <span class="math inline">\(\calL:\RR^{p+1}\times\RR^n\to\RR\)</span> definido por <span class="math display">\[
+\calL(\bfbeta,\beta_0,\bflambda)=\frac{1}{2}\|\bfbeta\|_2^2-\sum_{i=1}^n\lambda_i\left[y_i(\bfbeta^\top\xx_i+\beta_0)-1\right].
+\]</span></p>
+<p>Dado que el Lagrangiano es una función convexa en <span class="math inline">\((\bfbeta,\beta_0)\)</span>, la ecuación <span class="math inline">\(\nabla_{(\bfbeta,\beta_0)}\calL=\bfzero\)</span> caracteriza el ínfimo de <span class="math inline">\(\calL\)</span> para cada <span class="math inline">\(\bflambda\)</span>. Así, podemos obtener <span class="math display">\[
+\calG(\bflambda):=\inf_{\bfbeta,\beta_0}\calL(\bfbeta,\beta_0,\bflambda)
+\]</span> a partir de las expresiones <span class="math display">\[
+\bfbeta=\sum_{i=1}^n\lambda_i y_i \xx_i,\qquad \sum_{i=1}^n\lambda_i y_i=0.
+\]</span></p>
+<p>Observar que estas define explícitamente a <span class="math inline">\(\bfbeta\)</span> en términos de <span class="math inline">\(\bflambda\)</span> y, aunque <span class="math inline">\(\beta_0\)</span> no queda determinado de forma directa, sí nos provee una restricción de consistencia sobre los multiplicadores. Reemplazando, obtenemos <span class="math display">\[
+\begin{align}
+\calG(\bflambda)&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i\xx_i\right\|_2^2-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j\xx_j\right)^\top\xx_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i\\
+&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j \xx_i^\top\xx_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j\xx_j^\top\xx_i+\sum_{i=1}^n\lambda_i\\
+&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_j^\top\xx_i.
+\end{align}
+\]</span></p>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Observar, en la primera igualdad, el término <span class="math display">\[
+-\beta_0\sum_{i=1}^n\lambda_i y_i.
+\]</span></p>
+<p>Esto implica que <span class="math inline">\(\calG(\bflambda)=-\infty\)</span> si <span class="math inline">\(\sum_{i=1}^n\lambda_i y_i\neq 0\)</span>. Por lo tanto, para el problema dual solo tienen sentido los <span class="math inline">\(\bflambda\)</span> que cumplen justamente la restricción <span class="math display">\[
+\sum_{i=1}^n\lambda_i y_i=0.
+\]</span></p>
+<p>Al incluir esta condición como restricción en el problema dual, se descartan automáticamente del conjunto factible los <span class="math inline">\(\bflambda\)</span> que no la cumplen, eliminando así el término en cuestión tal como lo hicimos.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Finalmente, el problema dual es <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_j^\top\xx_i\\
+\text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq\bfzero.
+\end{array}
+\tag{6}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success">Hiperplano separador óptimo</span></p>
+<p>Para obtener el hiperplano separador óptimo de un conjunto de datos linealmente separable:</p>
+<ol type="1">
+<li><p>Se resuelve el problema dual (6) para obtener <span class="math inline">\(\bflambda^\star\)</span>.</p></li>
+<li><p>Se obtiene el punto óptimo <span class="math inline">\(\bfbeta^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
+\bfbeta^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_i\xx_i.
+\]</span></p></li>
+<li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
+\beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-(\bfbeta^\star)^\top\xx_i\right),
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}\)</span>. Los términos se obtienen al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span>.</p></li>
+</ol>
+</div>
+<p>Luego, una vez obtenidos los puntos óptimos <span class="math inline">\(\bfbeta^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
+<table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
+<tbody><tr>
+<td style="padding: 16px 8px; border: none;">
+Hiperplano separador óptimo
+</td>
+<td style="padding: 16px 8px; border: none;">
+<span class="math inline">\((\bfbeta^\star)^\top\xx+\beta_0^\star=0\)</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+Función score
+</td>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+<span class="math inline">\(\hat{f}(\xx)=(\bfbeta^\star)^\top\xx+\beta_0^\star\)</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+Clasificador
+</td>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+<span class="math inline">\(\hat{G}(\xx)=\text{sign}(\hat{f}(\xx))\)</span>
+</td>
+</tr>
+</tbody></table>
+<div style="margin-top:2em;">
+
+</div>
+<section id="interpretación-de-kkt" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-de-kkt">Interpretación de KKT</h4>
+<p>Pongamos foco en la factibilidad primal y la holgura complementaria:</p>
+<p><span class="math display">\[
+\begin{array}{cl}
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-1\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
+\lambda_i^\star\left[y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-1\right]=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
+\end{array}
+\]</span></p>
+<p>Si <span class="math inline">\(\lambda_i^\star&gt;0\)</span>, entonces <span class="math display">\[
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)=1,
+\]</span> lo cual significa que <span class="math inline">\(\xx_i\)</span> está sobre el <em>borde</em> del margen.</p>
+<div class="definicion">
+<p><strong>Definición 4.</strong> (Vector soporte) Un dato <span class="math inline">\(\xx_i\)</span> se denomina <em>vector soporte</em> si el multiplicador asociado <span class="math inline">\(\lambda_i\)</span> es estrictamente positivo.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="myhighlight">
+<p>Si <span class="math inline">\(\xx_i\)</span> no es un vector soporte, entonces <span class="math inline">\(\lambda_i^\star=0\)</span>.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_vectores_soporte.svg" alt="…" width="550px" class="figure-img">
+<figcaption>
+<strong>Figura 3</strong>. Vectores soporte de un hiperplano separador óptimo.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
+<p>Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos el hiperplano separador óptimo e identificaremos los vectores soporte.</p>
+<div id="34a626a7" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Mostrar código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">100</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X_pos <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X_neg <span class="op">=</span> <span class="fl">1.5</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.vstack((X_pos, X_neg))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span> <span class="op">+</span> [<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Hiperplano separador óptimo:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>, C<span class="op">=</span><span class="fl">1e6</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>clf.fit(X, y)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros óptimos:</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>alpha_values <span class="op">=</span> np.full(<span class="bu">len</span>(X), <span class="fl">0.2</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>alpha_values[clf.support_] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[y<span class="op">==</span><span class="dv">1</span>,<span class="dv">0</span>], X[y<span class="op">==</span><span class="dv">1</span>,<span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, s<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span>alpha_values[y<span class="op">==</span><span class="dv">1</span>], label<span class="op">=</span><span class="st">'Clase +1'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[y<span class="op">==-</span><span class="dv">1</span>,<span class="dv">0</span>], X[y<span class="op">==-</span><span class="dv">1</span>,<span class="dv">1</span>], c<span class="op">=</span><span class="st">'darkred'</span>, s<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span>alpha_values[y<span class="op">==-</span><span class="dv">1</span>], label<span class="op">=</span><span class="st">'Clase -1'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Hiperplano y márgenes:</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>xx <span class="op">=</span> np.linspace(X[:,<span class="dv">0</span>].<span class="bu">min</span>()<span class="op">-</span><span class="dv">1</span>, X[:,<span class="dv">0</span>].<span class="bu">max</span>()<span class="op">+</span><span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>yy <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b)<span class="op">/</span>w[<span class="dv">1</span>]</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>margin_up <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b <span class="op">-</span> <span class="dv">1</span>)<span class="op">/</span>w[<span class="dv">1</span>]</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>margin_down <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b <span class="op">+</span> <span class="dv">1</span>)<span class="op">/</span>w[<span class="dv">1</span>]</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, yy, <span class="st">'k-'</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, margin_up, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, margin_down, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x_1$'</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$x_2$'</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.yticks([])</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 📋:</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hiperplano óptimo: </span><span class="sc">{</span>w[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">*x1 + </span><span class="sc">{</span>w[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">*x2 + </span><span class="sc">{</span>b<span class="sc">:.3f}</span><span class="ss"> = 0"</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Número de vectores soporte: </span><span class="sc">{</span><span class="bu">len</span>(clf.support_)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="B4_svm_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="415"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hiperplano óptimo: 1.125*x1 + 1.131*x2 + -1.987 = 0
+Número de vectores soporte: 3</code></pre>
+</div>
+</div>
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+</section>
+</section>
+<section id="variables-de-holgura-y-margen-suave" class="level2">
+<h2 class="anchored" data-anchor-id="variables-de-holgura-y-margen-suave">Variables de holgura y margen suave</h2>
+<p>En la formulación del hiperplano separador óptimo, se asume que el conjunto de datos <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span> es linealmente separable. Sin embargo, en la práctica lo habitual es que exista solapamiento entre las clases. Para extender el análisis del apartado anterior, la estrategia consiste en introducir <em>variables de holgura</em>, simbolizadas con <span class="math inline">\(\boldsymbol{\xi}\in\RR^n\)</span>, que permitan que algunos puntos violen el margen o incluso queden mal clasificados. Este enfoque, conocido como <em>margen suave</em> (<em>soft-margin</em>, en inglés), es lo que desarrollaremos a continuación.</p>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_holgura.svg" alt="…" width="550px" class="figure-img">
+<figcaption>
+<strong>Figura 4</strong>. Variables de holgura.
+</figcaption>
+</figure>
+<p>La incorporación de las variables de holgura <span class="math inline">\(\bfxi\)</span> al problema de optimización (5) conduce al siguiente problema de optimización: <span class="math display">\[
+\begin{array}{ll}
+\text{minimizar } &amp; \frac{1}{2}\|\bfbeta\|_2^2\\
+\text{sujeto a }  &amp; y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
+                  &amp; \bfxi\succeq\bfzero,\;\sum_{i=1}^n\xi_i\leq\text{cte}.
+\end{array}
+\tag{7}
+\]</span></p>
+<p>Este nuevo problema de optimización tiene variables <span class="math inline">\(\bfbeta\in\RR^p\)</span>, <span class="math inline">\(\beta_0\in\RR\)</span> y <span class="math inline">\(\bfxi\in\RR^{n}\)</span>. La restricción <span class="math inline">\(\sum_{i=1}^n=\xi_i\leq\text{cte}\)</span> permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, derivando en la siguiente forma alternativa de (7):</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\text{minimizar } &amp; \frac{1}{2}\|\bfbeta\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
+\text{sujeto a }  &amp; y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
+                  &amp; \bfxi\succeq\bfzero.
+\end{array}
+\tag{8}
+\]</span></p>
+<p>A <span class="math inline">\(C&gt;0\)</span> se lo conoce como <mark><em>hiperparámetro de costo</em></mark>. Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho.</p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="myhighlight">
+<p>El problema (8) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos al método construido hasta aquí como <mark>Máquina de Vectores Soporte (SVM) lineal</mark>.</p>
+<section id="aplicación-de-condiciones-kkt-y-dualidad-1" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-de-condiciones-kkt-y-dualidad-1">Aplicación de condiciones KKT y dualidad</h3>
+<p>En (8) se distinguen <span class="math inline">\(2n\)</span> restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, <span class="math inline">\(\bfxi\succeq 0\)</span>, distinguiremos sus multiplicadores con la notación <span class="math inline">\(\bfmu=(\mu_1,\ldots,\mu_n)\)</span>. Las condiciones KKT son <span class="math display">\[
+\begin{array}{cl}
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-(1-\xi_i^\star)\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
+\lambda_i^\star\geq 0,\;\mu_i^\star\geq 0\qquad\forall i=1,\ldots,n\qquad &amp;\text{(Factibilidad dual)}\\[3pt]
+\lambda_i^\star\left[y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-(1-\xi_i^\star)\right]=0,\quad\mu_i^\star\xi_i^\star=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
+\bfbeta^\star=\sum_{i=1}^n\lambda_i^\star y_i\xx_i,\quad 0=\sum_{i=1}^n\lambda_i^\star y_i,\quad C=\lambda_i^\star+\mu_i^\star\;(\forall i)\qquad&amp;\text{(Estacionariedad)}
+\end{array}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<p>Como antes, es conveniente formular el problema dual de Lagrange. En este caso, el Lagrangiano es <span class="math inline">\(\calL:\RR^{p+1}\times\RR^n\times\RR^n\to\RR\)</span> definido por <span class="math display">\[
+\calL(\bfbeta,\beta_0,\bflambda,\bfmu)=\frac{1}{2}\|\bfbeta\|_2^2+C\sum_{i=1}^n\xi_i-\sum_{i=1}^n\lambda_i\left[y_i(\bfbeta^\top\xx_i+\beta_0)-(1-\xi_i)\right]-\sum_{i=1}^n\mu_i\xi_i.
+\]</span></p>
+<p>La función dual es <span class="math display">\[
+\begin{align}
+\calG(\bflambda)&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i\xx_i\right\|_2^2+C\sum_{i=1}^n\xi_i-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j\xx_j\right)^\top\xx_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i-\sum_{i=1}^n\underbrace{(\lambda_i+\mu_i)}_{=C}\xi_i\\
+&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j \xx_i^\top\xx_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j\xx_j^\top\xx_i+\sum_{i=1}^n\lambda_i\\
+&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_j^\top\xx_i.
+\end{align}
+\]</span></p>
+<p>Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción <span class="math inline">\(\bfmu\succeq \bfzero\)</span>. Resulta: <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_j^\top\xx_i\\
+\text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq\bfzero,\;\bfmu\succeq\bfzero.
+\end{array}
+\tag{9}
+\]</span></p>
+<p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (9) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_j^\top\xx_i\\
+\text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
+                  &amp; 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
+\end{array}
+\tag{10}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success">SVM lineal</span></p>
+<p>Para obtener el hiperplano óptimo de un conjunto de datos:</p>
+<ol type="1">
+<li><p>Se resuelve el problema dual (10) para obtener <span class="math inline">\(\bflambda^\star\)</span>.</p></li>
+<li><p>Se obtiene el punto óptimo <span class="math inline">\(\bfbeta^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
+\bfbeta^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_i\xx_i.
+\]</span></p></li>
+<li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span>, mediante el promedio <span class="math display">\[
+\beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} \left(y_i-(\bfbeta^\star)^\top\xx_i\right),
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Los términos se obtienen al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+</ol>
+</div>
+<p>Luego, una vez obtenidos los puntos óptimos <span class="math inline">\(\bfbeta^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
+<table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
+<tbody><tr>
+<td style="padding: 16px 8px; border: none;">
+Hiperplano separador óptimo
+</td>
+<td style="padding: 16px 8px; border: none;">
+<span class="math inline">\((\bfbeta^\star)^\top\xx+\beta_0^\star=0\)</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+Función score
+</td>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+<span class="math inline">\(\hat{f}(\xx)=(\bfbeta^\star)^\top\xx+\beta_0^\star\)</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+Clasificador
+</td>
+<td style="padding: 16px 8px; border-top: 1px solid #a0c080;">
+<span class="math inline">\(\hat{G}(\xx)=\text{sign}(\hat{f}(\xx))\)</span>
+</td>
+</tr>
+</tbody></table>
+<div style="margin-top:2em;">
+
+</div>
+<section id="interpretación-de-kkt-1" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-de-kkt-1">Interpretación de KKT</h4>
+<p>Nuevamente pongamos foco en la factibilidad primal y la holgura complementaria:</p>
+<p><span class="math display">\[
+\begin{array}{cl}
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-(1-\xi_i)\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
+\lambda_i^\star\left[y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-(1-\xi_i)\right]=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
+\end{array}
+\]</span></p>
+<p>Si <span class="math inline">\(\lambda_i^\star&gt;0\)</span>, entonces <span class="math display">\[
+y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)=1-\xi_i^\star.
+\]</span></p>
+<p>Esto da dos opciones para los vectores soporte:</p>
+<ul>
+<li>Si <span class="math inline">\(\xi_i^\star=0\)</span>, <span class="math inline">\(\xx_i\)</span> está sobre el <em>borde</em> del margen.</li>
+<li>Si, por el contrario, <span class="math inline">\(\xi_i&gt;0\)</span>, entonces <span class="math inline">\(\xx_i\)</span> viola el margen.</li>
+</ul>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">📝</span><br> Analice en qué caso un punto soporte queda mal clasificado.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="myhighlight">
+<p>Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen o fuera del margen pero mal clasificado.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_vectores_soporte_2.svg" alt="…" width="550px" class="figure-img">
+<figcaption>
+<strong>Figura 5</strong>. Vectores soporte de un hiperplano óptimo con margen suave.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<p>Por otro lado, si <span class="math inline">\(y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)&gt;1-\xi_i^\star\)</span>, la holgura complementaria indica que debe ocurrir <span class="math inline">\(\lambda_i^\star=0\)</span>. ¡Cuidado! En principio, el hecho de tener holgura positiva no garantiza automáticamente que el punto sea vector soporte. Necesitamos hacer un análisis adicional.</p>
+<div class="myhighlight3">
+<p>¿Qué característica tienen los puntos con holgura positiva?</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Si <span class="math inline">\(\xi_i^\star&gt;0\)</span>, la condición de holgura complementaria <span class="math inline">\(\mu_i^\star\xi_i^\star=0\)</span> junto a la condición de estacionariedad <span class="math inline">\(C=\lambda_i^\star+\mu_i^\star\)</span>, nos permiten deducir que se verifica <span class="math display">\[
+\lambda_i^\star=C.
+\]</span></p>
+<p>Dado que asumimos <span class="math inline">\(C&gt;0\)</span>, concluimos que:</p>
+<div class="myhighlight">
+<p>Todo punto con holgura positiva es un vector soporte.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>A continuación, resumamos las posibilidades para un punto <span class="math inline">\(\xx_i\)</span> con multiplicador <span class="math inline">\(\lambda_i^\star\)</span>.</p>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<span style="font-size: 1.3em;">📝</span><br>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  th {
+    color: black;
+  }
+
+  tr {
+    border-bottom: 1px solid lightgray;
+  }
+
+  td:first-child, th:first-child {
+    white-space: nowrap;
+    text-align: center;
+  }
+</style>
+<table>
+<thead>
+<tr>
+<th>
+Multiplicador
+</th>
+<th>
+¿Es vector soporte?
+</th>
+<th>
+¿Tiene holgura positiva?
+</th>
+<th>
+Posición respecto al margen
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="math inline">\(\lambda_i^\star=0\)</span>
+</td>
+<td>
+<input type="checkbox" name="afin1">
+</td>
+<td>
+<input type="checkbox" name="cono1">
+</td>
+<td>
+<select name="miSelect1"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(0&lt;\lambda_i^\star&lt;C\)</span>
+</td>
+<td>
+<input type="checkbox" name="afin2">
+</td>
+<td>
+<input type="checkbox" name="cono2">
+</td>
+<td>
+<select name="miSelect2"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(\lambda_i^\star=C\)</span>
+</td>
+<td>
+<input type="checkbox" name="afin2">
+</td>
+<td>
+<input type="checkbox" name="cono2">
+</td>
+<td>
+<select name="miSelect3"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con solapamiento </span></p>
+<p>Modificaremos el ejemplo 1, generando datos de manera que las clases no sean linealmente separables, aunque la frontera de decisión lineal siga siendo una opción razonable. Luego, obtendremos el hiperplano óptimo e identificaremos los vectores soporte.</p>
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIkMiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLnN2bSBpbXBvcnQgU1ZDXG5cbiMgRGF0b3MgKG5vIHBlcmZlY3RhbWVudGUgc2VwYXJhYmxlcyk6XG5ucC5yYW5kb20uc2VlZCgxMDApXG5YX3BvcyA9IDMuMiAqIG5wLnJhbmRvbS5yYW5kbig1MCwgMikgKyBbMiwgNV1cblhfbmVnID0gMi44ICogbnAucmFuZG9tLnJhbmRuKDUwLCAyKSArIFstMywgLTJdXG5YID0gbnAudnN0YWNrKChYX3BvcywgWF9uZWcpKVxueSA9IG5wLmFycmF5KFsxXSo1MCArIFstMV0qNTApXG5cbiMgSGlwZXJwbGFubyDDs3B0aW1vIChjb24gaG9sZ3VyYSk6XG5jbGYgPSBTVkMoa2VybmVsPSdsaW5lYXInLCBDPUMpXG5jbGYuZml0KFgsIHkpXG5cbiMgUGFyw6FtZXRyb3Mgw7NwdGltb3M6XG53ID0gY2xmLmNvZWZfWzBdXG5iID0gY2xmLmludGVyY2VwdF9bMF1cblxuIyDwn5OIOlxucGx0LmZpZ3VyZShmaWdzaXplPSg3LDUpKVxuYWxwaGFfdmFsdWVzID0gbnAuZnVsbChsZW4oWCksIDAuMilcbmFscGhhX3ZhbHVlc1tjbGYuc3VwcG9ydF9dID0gMS4wXG5wbHQuc2NhdHRlcihYW3k9PTEsMF0sIFhbeT09MSwxXSwgYz0nYmx1ZScsIHM9NTAsIGFscGhhPWFscGhhX3ZhbHVlc1t5PT0xXSwgbGFiZWw9J0NsYXNlICsxJylcbnBsdC5zY2F0dGVyKFhbeT09LTEsMF0sIFhbeT09LTEsMV0sIGM9J2RhcmtyZWQnLCBzPTUwLCBhbHBoYT1hbHBoYV92YWx1ZXNbeT09LTFdLCBsYWJlbD0nQ2xhc2UgLTEnKVxuXG4jIEhpcGVycGxhbm8geSBtw6FyZ2VuZXM6XG54eCA9IG5wLmxpbnNwYWNlKFhbOiwwXS5taW4oKS0xLCBYWzosMF0ubWF4KCkrMSwgMTAwKVxueXkgPSAtKHdbMF0qeHggKyBiKS93WzFdXG5tYXJnaW5fdXAgPSAtKHdbMF0qeHggKyBiIC0gMSkvd1sxXVxubWFyZ2luX2Rvd24gPSAtKHdbMF0qeHggKyBiICsgMSkvd1sxXVxucGx0LnBsb3QoeHgsIHl5LCAnay0nKVxucGx0LnBsb3QoeHgsIG1hcmdpbl91cCwgY29sb3I9J29yYW5nZScsIGxpbmVzdHlsZT0nLS0nLCBsdz0wLjcpXG5wbHQucGxvdCh4eCwgbWFyZ2luX2Rvd24sIGNvbG9yPSdvcmFuZ2UnLCBsaW5lc3R5bGU9Jy0tJywgbHc9MC43KVxucGx0LnhsYWJlbCgnJHhfMSQnLCBzaXplPTE2KVxucGx0LnlsYWJlbCgnJHhfMiQnLCBzaXplPTE2KVxucGx0Lnh0aWNrcyhbXSlcbnBsdC55dGlja3MoW10pXG5wbHQuc2hvdygpXG5cbiMg8J+TizpcbnByaW50KGZcIkhpcGVycGxhbm8gw7NwdGltbzoge3dbMF06LjNmfSp4MSArIHt3WzFdOi4zZn0qeDIgKyB7YjouM2Z9ID0gMFwiKVxucHJpbnQoZlwiTsO6bWVybyBkZSB2ZWN0b3JlcyBzb3BvcnRlOiB7bGVuKGNsZi5zdXBwb3J0Xyl9XCIpIn0=
+</script>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="807" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 806;"><span id="cb3-807"><a href="#cb3-807" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb3-808"><a href="#cb3-808" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb3-809"><a href="#cb3-809" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb3-810"><a href="#cb3-810" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+</section>
+</section>
+<section id="máquinas-de-vectores-soporte-no-lineal" class="level2">
+<h2 class="anchored" data-anchor-id="máquinas-de-vectores-soporte-no-lineal">Máquinas de vectores soporte no lineal</h2>
+<p>El uso de hiperplanos separadores tiene la limitación de que determina una frontera de decisión lineal. En muchos problemas reales, esta hipótesis resulta demasiado restrictiva: los datos pueden estar distribuidos de manera tal que no exista un hiperplano capaz de separarlos correctamente, ni siquiera permitiendo un margen suave. Para graficar esto, veamos el siguiente ejemplo.</p>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Transformación de datos de <span class="math inline">\(\RR^2\)</span> a <span class="math inline">\(\RR^3\)</span> </span></p>
+<p>En la siguiente figura se presenta un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>.</p>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_ej_motivador.png" alt="…" width="350px" class="figure-img">
+</figure>
+<p>Claramente no sería conveniente intentar clasificar mediante una frontera de decisión lineal. Una estrategia más apropiada es transformar los datos a <span class="math inline">\(\RR^3\)</span>, añadiendo la variable <span class="math display">\[
+Z = X_1^2+X_2^2.
+\]</span></p>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/svm_ej_motivador_3d.png" alt="…" width="350px" class="figure-img">
+</figure>
+<p>En el espacio transformado <span class="math inline">\(\RR^3\)</span>, los puntos de las dos clases están ahora claramente separados a lo largo de la coordenada <span class="math inline">\(Z\)</span>. Por lo tanto, es apropiado aplicar allí un hiperplano separador, ya que ahora existe una frontera lineal que separa perfectamente las dos clases.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Formalmente, definimos una transformación como <span class="math display">\[
+\phi:\RR^p\to\calH,
+\]</span></p>
+<p>donde <span class="math inline">\(\calH\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\calH}\)</span> definido, de manera tal que podemos calcular <span class="math display">\[
+\langle \phi(\xx_1),\phi(\xx_2)\rangle_{\calH}\qquad\forall\xx_1,\xx_2\in\RR^p.
+\tag{11}
+\]</span></p>
+<p>Observar que en el Ejemplo 3 la transformación se hace entre dos espacios de dimensión finita, ya que allí <span class="math inline">\(\calH=\RR^3\)</span>. No obstante, en general, será necesario transformar a un espacio de dimensión infinita.</p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>De ahora en adelante, consideraremos <span class="math inline">\(\calH\)</span> un espacio de funciones de la forma <span class="math inline">\(h:\RR^p\to\RR\)</span>. Es decir, el mapeo será de la forma <span class="math display">\[
+\xx\mapsto h
+\]</span></p>
+<p>Veremos que esto no representa ninguna dificultad adicional; por el contrario, permite utilizar una herramienta muy poderosa que justifica el éxito de las máquinas de vectores soporte.</p>
+</div>
+<section id="núcleos-reproductores" class="level3">
+<h3 class="anchored" data-anchor-id="núcleos-reproductores">Núcleos reproductores</h3>
+<p>El cálculo de productos internos en (11) será fundamental para la generalización de SVM. Para un <span class="math inline">\(\calH\)</span> arbitrario, esto significa que necesitamos conocer explícitamente su producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\calH}\)</span>, lo cual resulta ser una limitación práctica. Una manera de sortear esto es utilizar un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS).</p>
+<div class="definicion">
+<p><strong>Definición 5.</strong> (RKHS) Un espacio de Hilbert <span class="math inline">\(\calH\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\RR^p\times\RR^p\to\RR\)</span> que verifica las siguientes propiedades:</p>
+<ul>
+<li><p>Para todo <span class="math inline">\(\xx\in\RR^p\)</span>, <span class="math inline">\(k(\xx,\cdot)\in\calH\)</span>.</p></li>
+<li><p>Para todo <span class="math inline">\(\xx\in\RR^p\)</span> y toda <span class="math inline">\(h\in\calH\)</span>, <span class="math display">\[
+h(\xx)=\langle h,k(\xx,\cdot)\rangle_{\calH}.
+\]</span></p></li>
+</ul>
+</div>
+<p>Veamos el efecto de trabajar con RKHS para el cálculo de productos internos en (11). Las propiedades de la Definición 5 implican que</p>
+<div class="myhighlight">
+<p><span class="math display">\[
+k(\xx_1,\xx_2)=\langle k(\xx_1,\cdot),k(\xx_2,\cdot)\rangle_{\calH}\qquad\forall \xx_1,\xx_2\in\RR^p.
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/rkhs.svg" alt="…" width="400px" class="figure-img">
+<figcaption>
+<strong>Figura 6</strong>. Mapeo característico <span class="math inline">\(\phi:\RR^p\to\calH\)</span> asociado a un RKHS.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<p>Este último resultado es crucial: afirma que, dado un <mark>mapeo característico</mark> <span class="math display">\[
+\xx\mapsto k(\xx,\cdot),
+\]</span></p>
+<p>lo único que necesitamos para poder calcular productos internos en <span class="math inline">\(\calH\)</span> es conocer explícitamente el núcleo reproductor <span class="math inline">\(k\)</span>. Ahora bien:</p>
+<div class="myhighlight3">
+<p>¿Cómo se construye un núcleo <span class="math inline">\(k\)</span> válido?</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Para responder a esta pregunta, es necesario introducir la siguiente definición.</p>
+<div class="definicion">
+<p><strong>Definición 6.</strong> Una función <span class="math inline">\(k:\RR^p\times\RR^p\to\RR\)</span> se dice <em>definida positiva</em> si para todo <span class="math inline">\(n\in\NN\)</span>, <span class="math inline">\(\alpha_1,\ldots,\alpha_n\in\RR\)</span> y <span class="math inline">\(\xx_1,\ldots,\xx_n\in\RR^p\)</span> resulta <span class="math display">\[
+\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jk(\xx_i,\xx_j)\geq 0.
+\tag{12}
+\]</span></p>
+<p>Por otra parte, <span class="math inline">\(k\)</span> es <em>simétrica</em> si <span class="math display">\[
+k(\xx_1,\xx_2)=k(\xx_2,\xx_1)\qquad\forall\xx_1,\xx_2\in\RR^p.
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Dado <span class="math inline">\(\xx_1,\ldots,\xx_n\in\RR^p\)</span>, la matriz <span class="math inline">\(K\in\RR^{n\times n}\)</span> definida por <span class="math display">\[
+K_{ij}=k(\xx_i,\xx_j)
+\]</span> se conoce como <mark>matriz de Gram</mark>. La expresión (12) es equivalente a <span class="math inline">\(K\succeq 0\)</span>.</p>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Algunos de los núcleos más habituales en aplicaciones de SVM son:</p>
+<ul>
+<li><p><em>Núcleo lineal</em>: corresponde a SVM lineal; es decir, no hay transformación de los datos. <span class="math display">\[
+k(\xx_1,\xx_2)=\xx_1^\top\xx_2.
+\]</span></p></li>
+<li><p><em>Núcleo polinómico</em>: <span class="math display">\[
+k(\xx_1,\xx_2)=(\gamma\,\xx_1^\top\xx_2+b)^d.
+\]</span></p></li>
+<li><p><em>Núcleo gaussiano (RBF)</em>: <span class="math display">\[
+k(\xx_1,\xx_2)=\exp\left\{-\gamma\,\|\xx_1-\xx_2\|_2^2\right\}.
+\]</span></p></li>
+<li><p><em>Núcleo sigmoide</em>: <span class="math display">\[
+k(\xx_1,\xx_2)=\tanh(\gamma\,\xx_1^\top\xx_2+b).
+\]</span></p></li>
+</ul>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+</section>
+<section id="formulación-del-problema" class="level3">
+<h3 class="anchored" data-anchor-id="formulación-del-problema">Formulación del problema</h3>
+<p>La idea básica es aplicar la metodología de hiperplano separador con margen suave en el <mark>espacio de características</mark> <span class="math inline">\(\calH\)</span>. Esto significa que la función dual es <span class="math display">\[
+\calG(\lambda)=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j \underbrace{\langle k(\xx_i,\cdot), k(\xx_j,\cdot)\rangle_{\calH}}_{k(\xx_i,\xx_j)}.
+\]</span></p>
+<p>El problema dual correspondiente es <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\displaystyle\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j k(\xx_i,\xx_j)\\
+\text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq 0.
+\end{array}
+\tag{13}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success">SVM no lineal</span></p>
+<p>Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS:</p>
+<ol type="1">
+<li><p>Se resuelve el problema dual (13) para obtener <span class="math inline">\(\bflambda^\star\)</span>.</p></li>
+<li><p>Se obtiene el punto óptimo <span class="math inline">\(\bfbeta^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
+\bfbeta^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik(\xx_i,\cdot).
+\]</span></p></li>
+<li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
+\beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\langle \bfbeta^\star, k(\xx_i,\cdot)\rangle_{\calH}\right)=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\sum_{\substack{j=1\\\lambda_j^\star\neq 0}}^n\lambda_j^\star y_j k(\xx_i,\xx_j)\right),
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Como antes, esto resulta de despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+</ol>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Una vez obtenidos los puntos óptimos <span class="math inline">\(\bfbeta^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
+<table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7;">
+<tbody><tr style="border-bottom: 1px solid #cccccc;">
+<td style="padding: 16px 8px;">
+Función score
+</td>
+<td style="padding: 16px 8px;">
+<span class="math inline">\(\hat{f}(\xx)=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik(\xx_i,\xx)+\beta_0^\star\)</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 16px 8px;">
+Clasificador
+</td>
+<td style="padding: 16px 8px;">
+<span class="math inline">\(\hat{G}(\xx)=\text{sign}(\hat{f}(\xx))\)</span>
+</td>
+</tr>
+</tbody></table>
+<div style="margin-top:3em;">
+
+</div>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con diferentes patrones </span></p>
+<p>Mostraremos diferentes estructuras de datos de clasificación binaria y veremos cómo se adaptan los diferentes núcleos. Además, veremos el efecto del valor de <span class="math inline">\(C\)</span>. Es importante remarcar que, en estos ejemplos, los distintos hiperparámetros de los modelos se utilizan con sus valores por defecto. Sin embargo, el rendimiento de un modelo puede mejorarse significativamente seleccionando cuidadosamente los hiperparámetros mediante algún proceso de validación.</p>
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIkNfMSIsImtlcm5lbF8xIiwiZ2FtbWFfMSIsImRfMSIsInJfMSJdfSwiY29kZSI6IlxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5mcm9tIHNrbGVhcm4uc3ZtIGltcG9ydCBTVkNcbmZyb20gc2tsZWFybi5tb2RlbF9zZWxlY3Rpb24gaW1wb3J0IHRyYWluX3Rlc3Rfc3BsaXRcbmZyb20gc2tsZWFybi5tZXRyaWNzIGltcG9ydCBhY2N1cmFjeV9zY29yZVxuXG4jID09PSBEYXRvcyA9PT1cbm5wLnJhbmRvbS5zZWVkKDQyKVxucl9wb3MgPSAyICsgMC4zICogbnAucmFuZG9tLnJhbmRuKDUwKVxudGhldGFfcG9zID0gMiAqIG5wLnBpICogbnAucmFuZG9tLnJhbmQoNTApXG5YX3BvcyA9IG5wLmNfW3JfcG9zICogbnAuY29zKHRoZXRhX3BvcyksIHJfcG9zICogbnAuc2luKHRoZXRhX3BvcyldXG5cbnJfbmVnID0gMC44ICsgMC4zICogbnAucmFuZG9tLnJhbmRuKDUwKVxudGhldGFfbmVnID0gMiAqIG5wLnBpICogbnAucmFuZG9tLnJhbmQoNTApXG5YX25lZyA9IG5wLmNfW3JfbmVnICogbnAuY29zKHRoZXRhX25lZyksIHJfbmVnICogbnAuc2luKHRoZXRhX25lZyldXG5cblggPSBucC52c3RhY2soKFhfcG9zLCBYX25lZykpXG55ID0gbnAuYXJyYXkoWzFdKjUwICsgWy0xXSo1MClcblxuIyBUcmFpbi10ZXN0IHNwbGl0OlxuWF90cmFpbiwgWF90ZXN0LCB5X3RyYWluLCB5X3Rlc3QgPSB0cmFpbl90ZXN0X3NwbGl0KFgsIHksIHRlc3Rfc2l6ZT0wLjMsIHJhbmRvbV9zdGF0ZT00Miwgc3RyYXRpZnk9eSlcblxuIyBFbnRyZW5hbWllbnRvOlxuY2xmID0gU1ZDKGtlcm5lbD1rZXJuZWxfMSwgQz1DXzEsIGdhbW1hPWdhbW1hXzEsIGRlZ3JlZT1kXzEsIGNvZWYwPXJfMSlcbmNsZi5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyBQcmVkaWNjacOzbjpcbnlfcHJlZF90cmFpbiA9IGNsZi5wcmVkaWN0KFhfdHJhaW4pXG55X3ByZWRfdGVzdCA9IGNsZi5wcmVkaWN0KFhfdGVzdClcbmFjY190cmFpbiA9IGFjY3VyYWN5X3Njb3JlKHlfdHJhaW4sIHlfcHJlZF90cmFpbilcbmFjY190ZXN0ID0gYWNjdXJhY3lfc2NvcmUoeV90ZXN0LCB5X3ByZWRfdGVzdClcblxuIyDwn5OIOlxueHgsIHl5ID0gbnAubWVzaGdyaWQobnAubGluc3BhY2UoLTMsIDMsIDMwMCksIG5wLmxpbnNwYWNlKC0zLCAzLCAzMDApKVxuWiA9IGNsZi5kZWNpc2lvbl9mdW5jdGlvbihucC5jX1t4eC5yYXZlbCgpLCB5eS5yYXZlbCgpXSkucmVzaGFwZSh4eC5zaGFwZSlcblxuZmlnLCBheGVzID0gcGx0LnN1YnBsb3RzKDIsIDIsIGZpZ3NpemU9KDExLCAxMCkpXG5wbHQuc3VicGxvdHNfYWRqdXN0KHdzcGFjZT0wLjIsIGhzcGFjZT0wLjI1KVxuXG4jIFRyYWluLVRlc3Q6XG5heGVzWzAsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PTEsMF0sIFhfdHJhaW5beV90cmFpbj09MSwxXSwgYz0nYmx1ZScsIHM9NTAsIGxhYmVsPSdDbGFzZSArMScpXG5heGVzWzAsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PS0xLDBdLCBYX3RyYWluW3lfdHJhaW49PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MCwgbGFiZWw9J0NsYXNlIC0xJylcbmF4ZXNbMCwwXS5zZXRfdGl0bGUoXCJUcmFpblwiLCBmb250c2l6ZT0xOClcbmF4ZXNbMCwwXS5zZXRfeHRpY2tzKFtdKTsgYXhlc1swLDBdLnNldF95dGlja3MoW10pXG5cbmF4ZXNbMCwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PTEsMV0sIGM9J2JsdWUnLCBzPTUwLCBsYWJlbD0nQ2xhc2UgKzEnKVxuYXhlc1swLDFdLnNjYXR0ZXIoWF90ZXN0W3lfdGVzdD09LTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MCwgbGFiZWw9J0NsYXNlIC0xJylcbmF4ZXNbMCwxXS5zZXRfdGl0bGUoXCJUZXN0XCIsIGZvbnRzaXplPTE4KVxuYXhlc1swLDFdLnNldF94dGlja3MoW10pOyBheGVzWzAsMV0uc2V0X3l0aWNrcyhbXSlcblxuXG4jIFRyYWluLVRlc3QgU1ZNOlxuYXhlc1sxLDBdLmNvbnRvdXJmKHh4LCB5eSwgWiA+IDAsIGFscGhhPTAuMSwgY29sb3JzPVtcImRhcmtyZWRcIiwgXCJibHVlXCJdKVxuYXhlc1sxLDBdLmNvbnRvdXIoeHgsIHl5LCBaLCBsZXZlbHM9WzBdLCBjb2xvcnM9XCJrXCIsIGxpbmV3aWR0aHM9MSlcbmF4ZXNbMSwwXS5jb250b3VyKHh4LCB5eSwgWiwgbGV2ZWxzPVstMSwgMV0sIGNvbG9ycz1cIm9yYW5nZVwiLCBsaW5lc3R5bGVzPVwiLS1cIiwgbGluZXdpZHRocz0wLjgpXG5heGVzWzEsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PTEsMF0sIFhfdHJhaW5beV90cmFpbj09MSwxXSwgYz0nYmx1ZScsIHM9NTApXG5heGVzWzEsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PS0xLDBdLCBYX3RyYWluW3lfdHJhaW49PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MClcbmF4ZXNbMSwwXS5zZXRfdGl0bGUoZlwiQWNjdXJhY3kgPSB7YWNjX3RyYWluOi4yZn0gLSBTViA9IHtsZW4oY2xmLnN1cHBvcnRfKX1cIiwgZm9udHNpemU9MTgpXG5heGVzWzEsMF0uc2V0X3h0aWNrcyhbXSk7IGF4ZXNbMSwwXS5zZXRfeXRpY2tzKFtdKVxuXG4jIFRyYWluLVRlc3QgU1ZNOlxuYXhlc1sxLDFdLmNvbnRvdXJmKHh4LCB5eSwgWiA+IDAsIGFscGhhPTAuMSwgY29sb3JzPVtcImRhcmtyZWRcIiwgXCJibHVlXCJdKVxuYXhlc1sxLDFdLmNvbnRvdXIoeHgsIHl5LCBaLCBsZXZlbHM9WzBdLCBjb2xvcnM9XCJrXCIsIGxpbmV3aWR0aHM9MSlcbmF4ZXNbMSwxXS5jb250b3VyKHh4LCB5eSwgWiwgbGV2ZWxzPVstMSwgMV0sIGNvbG9ycz1cIm9yYW5nZVwiLCBsaW5lc3R5bGVzPVwiLS1cIiwgbGluZXdpZHRocz0wLjgpXG5heGVzWzEsMV0uc2NhdHRlcihYX3Rlc3RbeV90ZXN0PT0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0xLDFdLCBjPSdibHVlJywgcz01MClcbmF4ZXNbMSwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PS0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0tMSwxXSwgYz0nZGFya3JlZCcsIHM9NTApXG5heGVzWzEsMV0uc2V0X3RpdGxlKGZcIkFjY3VyYWN5ID0ge2FjY190ZXN0Oi4yZn1cIiwgZm9udHNpemU9MTgpXG5heGVzWzEsMV0uc2V0X3h0aWNrcyhbXSk7IGF4ZXNbMSwxXS5zZXRfeXRpY2tzKFtdKVxuXG5wbHQuc2hvdygpIn0=
+</script>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1138" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1137;"><span id="cb4-1138"><a href="#cb4-1138" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1139"><a href="#cb4-1139" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb4-1140"><a href="#cb4-1140" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb4-1141"><a href="#cb4-1141" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1142"><a href="#cb4-1142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1143"><a href="#cb4-1143" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1144"><a href="#cb4-1144" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb4-1145"><a href="#cb4-1145" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb4-1146"><a href="#cb4-1146" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1147"><a href="#cb4-1147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1148"><a href="#cb4-1148" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1149"><a href="#cb4-1149" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb4-1150"><a href="#cb4-1150" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb4-1151"><a href="#cb4-1151" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1152"><a href="#cb4-1152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1153"><a href="#cb4-1153" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1154"><a href="#cb4-1154" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1155"><a href="#cb4-1155" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb4-1156"><a href="#cb4-1156" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1157"><a href="#cb4-1157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1158"><a href="#cb4-1158" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1159"><a href="#cb4-1159" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1160"><a href="#cb4-1160" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb4-1161"><a href="#cb4-1161" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIkNfMiIsImtlcm5lbF8yIiwiZ2FtbWFfMiIsImRfMiIsInJfMiJdfSwiY29kZSI6IlxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5mcm9tIHNrbGVhcm4uZGF0YXNldHMgaW1wb3J0IG1ha2VfbW9vbnNcbmZyb20gc2tsZWFybi5zdm0gaW1wb3J0IFNWQ1xuZnJvbSBza2xlYXJuLm1vZGVsX3NlbGVjdGlvbiBpbXBvcnQgdHJhaW5fdGVzdF9zcGxpdFxuZnJvbSBza2xlYXJuLm1ldHJpY3MgaW1wb3J0IGFjY3VyYWN5X3Njb3JlXG5cbiMgPT09IERhdG9zIGVuIGZvcm1hIGRlIG1lZGlhcyBsdW5hcyA9PT1cblgsIHkgPSBtYWtlX21vb25zKG5fc2FtcGxlcz0yMDAsIG5vaXNlPTAuMTUsIHJhbmRvbV9zdGF0ZT00MilcbnkgPSBucC53aGVyZSh5PT0xLCAxLCAtMSkgICMgZXRpcXVldGFzIMKxMVxuXG4jID09PSBUcmFpbi9UZXN0ID09PVxuWF90cmFpbiwgWF90ZXN0LCB5X3RyYWluLCB5X3Rlc3QgPSB0cmFpbl90ZXN0X3NwbGl0KFgsIHksIHRlc3Rfc2l6ZT0wLjMsIHJhbmRvbV9zdGF0ZT00Miwgc3RyYXRpZnk9eSlcblxuIyA9PT0gRW50cmVuYW1pZW50byA9PT1cbmNsZiA9IFNWQyhrZXJuZWw9a2VybmVsXzIsIEM9Q18yLCBnYW1tYT1nYW1tYV8yLCBkZWdyZWU9ZF8yLCBjb2VmMD1yXzIpXG5jbGYuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5cbiMgPT09IFByZWRpY2Npb25lcyA9PT1cbnlfcHJlZF90cmFpbiA9IGNsZi5wcmVkaWN0KFhfdHJhaW4pXG55X3ByZWRfdGVzdCA9IGNsZi5wcmVkaWN0KFhfdGVzdClcbmFjY190cmFpbiA9IGFjY3VyYWN5X3Njb3JlKHlfdHJhaW4sIHlfcHJlZF90cmFpbilcbmFjY190ZXN0ID0gYWNjdXJhY3lfc2NvcmUoeV90ZXN0LCB5X3ByZWRfdGVzdClcblxuIyA9PT0gTWFsbGEgcGFyYSBmcm9udGVyYSA9PT1cbnh4LCB5eSA9IG5wLm1lc2hncmlkKG5wLmxpbnNwYWNlKC0yLCAzLCAzMDApLCBucC5saW5zcGFjZSgtMS41LCAyLCAzMDApKVxuWiA9IGNsZi5kZWNpc2lvbl9mdW5jdGlvbihucC5jX1t4eC5yYXZlbCgpLCB5eS5yYXZlbCgpXSkucmVzaGFwZSh4eC5zaGFwZSlcblxuIyA9PT0gRmlndXJhIDJ4MiA9PT1cbmZpZywgYXhlcyA9IHBsdC5zdWJwbG90cygyLCAyLCBmaWdzaXplPSgxMSwgMTApKVxucGx0LnN1YnBsb3RzX2FkanVzdCh3c3BhY2U9MC4yLCBoc3BhY2U9MC4yNSlcblxuIyAtLS0gKDEsMSkgVFJBSU4gU09MTyBEQVRPUyAtLS1cbmF4ZXNbMCwwXS5zY2F0dGVyKFhfdHJhaW5beV90cmFpbj09MSwwXSwgWF90cmFpblt5X3RyYWluPT0xLDFdLCBjPSdibHVlJywgcz01MCwgbGFiZWw9J0NsYXNlICsxJylcbmF4ZXNbMCwwXS5zY2F0dGVyKFhfdHJhaW5beV90cmFpbj09LTEsMF0sIFhfdHJhaW5beV90cmFpbj09LTEsMV0sIGM9J2RhcmtyZWQnLCBzPTUwLCBsYWJlbD0nQ2xhc2UgLTEnKVxuYXhlc1swLDBdLnNldF90aXRsZShcIlRyYWluXCIsIGZvbnRzaXplPTE4KVxuYXhlc1swLDBdLnNldF94dGlja3MoW10pOyBheGVzWzAsMF0uc2V0X3l0aWNrcyhbXSlcblxuXG4jIC0tLSAoMSwyKSBURVNUIFNPTE8gREFUT1MgLS0tXG5heGVzWzAsMV0uc2NhdHRlcihYX3Rlc3RbeV90ZXN0PT0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0xLDFdLCBjPSdibHVlJywgcz01MCwgbGFiZWw9J0NsYXNlICsxJylcbmF4ZXNbMCwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PS0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0tMSwxXSwgYz0nZGFya3JlZCcsIHM9NTAsIGxhYmVsPSdDbGFzZSAtMScpXG5heGVzWzAsMV0uc2V0X3RpdGxlKFwiVGVzdFwiLCBmb250c2l6ZT0xOClcbmF4ZXNbMCwxXS5zZXRfeHRpY2tzKFtdKTsgYXhlc1swLDFdLnNldF95dGlja3MoW10pXG5cblxuIyAtLS0gKDIsMSkgVFJBSU4gQ09OIFNWTSAtLS1cbmF4ZXNbMSwwXS5jb250b3VyZih4eCwgeXksIFogPiAwLCBhbHBoYT0wLjEsIGNvbG9ycz1bXCJkYXJrcmVkXCIsIFwiYmx1ZVwiXSlcbmF4ZXNbMSwwXS5jb250b3VyKHh4LCB5eSwgWiwgbGV2ZWxzPVswXSwgY29sb3JzPVwia1wiLCBsaW5ld2lkdGhzPTEpXG5heGVzWzEsMF0uY29udG91cih4eCwgeXksIFosIGxldmVscz1bLTEsIDFdLCBjb2xvcnM9XCJvcmFuZ2VcIiwgbGluZXN0eWxlcz1cIi0tXCIsIGxpbmV3aWR0aHM9MC44KVxuYXhlc1sxLDBdLnNjYXR0ZXIoWF90cmFpblt5X3RyYWluPT0xLDBdLCBYX3RyYWluW3lfdHJhaW49PTEsMV0sIGM9J2JsdWUnLCBzPTUwKVxuYXhlc1sxLDBdLnNjYXR0ZXIoWF90cmFpblt5X3RyYWluPT0tMSwwXSwgWF90cmFpblt5X3RyYWluPT0tMSwxXSwgYz0nZGFya3JlZCcsIHM9NTApXG5heGVzWzEsMF0uc2V0X3RpdGxlKGZcIkFjY3VyYWN5ID0ge2FjY190cmFpbjouMmZ9IC0gU1YgPSB7bGVuKGNsZi5zdXBwb3J0Xyl9XCIsIGZvbnRzaXplPTE4KVxuYXhlc1sxLDBdLnNldF94dGlja3MoW10pOyBheGVzWzEsMF0uc2V0X3l0aWNrcyhbXSlcblxuIyAtLS0gKDIsMikgVEVTVCBDT04gU1ZNIC0tLVxuYXhlc1sxLDFdLmNvbnRvdXJmKHh4LCB5eSwgWiA+IDAsIGFscGhhPTAuMSwgY29sb3JzPVtcImRhcmtyZWRcIiwgXCJibHVlXCJdKVxuYXhlc1sxLDFdLmNvbnRvdXIoeHgsIHl5LCBaLCBsZXZlbHM9WzBdLCBjb2xvcnM9XCJrXCIsIGxpbmV3aWR0aHM9MSlcbmF4ZXNbMSwxXS5jb250b3VyKHh4LCB5eSwgWiwgbGV2ZWxzPVstMSwgMV0sIGNvbG9ycz1cIm9yYW5nZVwiLCBsaW5lc3R5bGVzPVwiLS1cIiwgbGluZXdpZHRocz0wLjgpXG5heGVzWzEsMV0uc2NhdHRlcihYX3Rlc3RbeV90ZXN0PT0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0xLDFdLCBjPSdibHVlJywgcz01MClcbmF4ZXNbMSwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PS0xLDBdLCBYX3Rlc3RbeV90ZXN0PT0tMSwxXSwgYz0nZGFya3JlZCcsIHM9NTApXG5heGVzWzEsMV0uc2V0X3RpdGxlKGZcIkFjY3VyYWN5ID0ge2FjY190ZXN0Oi4yZn1cIiwgZm9udHNpemU9MTgpXG5heGVzWzEsMV0uc2V0X3h0aWNrcyhbXSk7IGF4ZXNbMSwxXS5zZXRfeXRpY2tzKFtdKVxuXG5wbHQuc2hvdygpIn0=
+</script>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1243" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1242;"><span id="cb5-1243"><a href="#cb5-1243" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1244"><a href="#cb5-1244" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb5-1245"><a href="#cb5-1245" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb5-1246"><a href="#cb5-1246" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1247"><a href="#cb5-1247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1248"><a href="#cb5-1248" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1249"><a href="#cb5-1249" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb5-1250"><a href="#cb5-1250" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb5-1251"><a href="#cb5-1251" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1252"><a href="#cb5-1252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1253"><a href="#cb5-1253" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1254"><a href="#cb5-1254" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb5-1255"><a href="#cb5-1255" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb5-1256"><a href="#cb5-1256" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1257"><a href="#cb5-1257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1258"><a href="#cb5-1258" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1259"><a href="#cb5-1259" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1260"><a href="#cb5-1260" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb5-1261"><a href="#cb5-1261" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1262"><a href="#cb5-1262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1263"><a href="#cb5-1263" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1264"><a href="#cb5-1264" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1265"><a href="#cb5-1265" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb5-1266"><a href="#cb5-1266" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIkNfMyIsImtlcm5lbF8zIiwiZ2FtbWFfMyIsImRfMyIsInJfMyJdfSwiY29kZSI6IlxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5mcm9tIHNrbGVhcm4uc3ZtIGltcG9ydCBTVkNcbmZyb20gc2tsZWFybi5kYXRhc2V0cyBpbXBvcnQgbWFrZV9jbGFzc2lmaWNhdGlvblxuZnJvbSBza2xlYXJuLm1vZGVsX3NlbGVjdGlvbiBpbXBvcnQgdHJhaW5fdGVzdF9zcGxpdFxuZnJvbSBza2xlYXJuLm1ldHJpY3MgaW1wb3J0IGFjY3VyYWN5X3Njb3JlXG5cbiMgPT09IERhdG9zIHRpcG8g4oCcc2lnbW9pZOKAnSBtw6FzIGN1cnZhZG9zID09PVxubnAucmFuZG9tLnNlZWQoNDIpXG4jIERhdG9zIGJhc2VcblggPSBucC5yYW5kb20ucmFuZG4oMjAwLCAyKVxuXG4jIFByaW1lciBncnVwbyAoMTUwIHB1bnRvcykgZGVzcGxhemFkbyArMlxuWFs6MTAwLCA6XSArPSAyXG5cbiMgU2VndW5kbyBncnVwbyAoNTAgcHVudG9zKSBkZXNwbGF6YWRvIC0yXG5YWzEwMToxNTAsIDpdIC09IDJcblxuIyBFdGlxdWV0YXNcbnkgPSBucC5hcnJheShbMV0qMTUwICsgWy0xXSo1MClcblxuIyA9PT0gVHJhaW4vVGVzdCA9PT1cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4zLCByYW5kb21fc3RhdGU9NDIsIHN0cmF0aWZ5PXkpXG5cbiMgPT09IEVudHJlbmFtaWVudG8gU1ZNID09PVxuY2xmID0gU1ZDKGtlcm5lbD1rZXJuZWxfMywgQz1DXzMsIGdhbW1hPWdhbW1hXzMsIGRlZ3JlZT1kXzMsIGNvZWYwPXJfMylcbmNsZi5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyA9PT0gUHJlZGljY2lvbmVzID09PVxueV9wcmVkX3RyYWluID0gY2xmLnByZWRpY3QoWF90cmFpbilcbnlfcHJlZF90ZXN0ID0gY2xmLnByZWRpY3QoWF90ZXN0KVxuYWNjX3RyYWluID0gYWNjdXJhY3lfc2NvcmUoeV90cmFpbiwgeV9wcmVkX3RyYWluKVxuYWNjX3Rlc3QgPSBhY2N1cmFjeV9zY29yZSh5X3Rlc3QsIHlfcHJlZF90ZXN0KVxuXG4jID09PSBNYWxsYSBwYXJhIGZyb250ZXJhID09PVxueHgsIHl5ID0gbnAubWVzaGdyaWQobnAubGluc3BhY2UoLTMuNSwgMy41LCAzMDApLCBucC5saW5zcGFjZSgtMy41LCAzLjUsIDMwMCkpXG5aID0gY2xmLmRlY2lzaW9uX2Z1bmN0aW9uKG5wLmNfW3h4LnJhdmVsKCksIHl5LnJhdmVsKCldKS5yZXNoYXBlKHh4LnNoYXBlKVxuXG4jID09PSBGaWd1cmEgMngyID09PVxuZmlnLCBheGVzID0gcGx0LnN1YnBsb3RzKDIsIDIsIGZpZ3NpemU9KDExLCAxMCkpXG5wbHQuc3VicGxvdHNfYWRqdXN0KHdzcGFjZT0wLjIsIGhzcGFjZT0wLjI1KVxuXG4jIC0tLSAoMSwxKSBUUkFJTiBTT0xPIERBVE9TIC0tLVxuYXhlc1swLDBdLnNjYXR0ZXIoWF90cmFpblt5X3RyYWluPT0xLDBdLCBYX3RyYWluW3lfdHJhaW49PTEsMV0sIGM9J2JsdWUnLCBzPTUwLCBsYWJlbD0nQ2xhc2UgKzEnKVxuYXhlc1swLDBdLnNjYXR0ZXIoWF90cmFpblt5X3RyYWluPT0tMSwwXSwgWF90cmFpblt5X3RyYWluPT0tMSwxXSwgYz0nZGFya3JlZCcsIHM9NTAsIGxhYmVsPSdDbGFzZSAtMScpXG5heGVzWzAsMF0uc2V0X3RpdGxlKFwiVHJhaW5cIiwgZm9udHNpemU9MTgpXG5heGVzWzAsMF0uc2V0X3h0aWNrcyhbXSk7IGF4ZXNbMCwwXS5zZXRfeXRpY2tzKFtdKVxuXG5cbiMgLS0tICgxLDIpIFRFU1QgU09MTyBEQVRPUyAtLS1cbmF4ZXNbMCwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PTEsMV0sIGM9J2JsdWUnLCBzPTUwLCBsYWJlbD0nQ2xhc2UgKzEnKVxuYXhlc1swLDFdLnNjYXR0ZXIoWF90ZXN0W3lfdGVzdD09LTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MCwgbGFiZWw9J0NsYXNlIC0xJylcbmF4ZXNbMCwxXS5zZXRfdGl0bGUoXCJUZXN0XCIsIGZvbnRzaXplPTE4KVxuYXhlc1swLDFdLnNldF94dGlja3MoW10pOyBheGVzWzAsMV0uc2V0X3l0aWNrcyhbXSlcblxuXG4jIC0tLSAoMiwxKSBUUkFJTiBDT04gU1ZNIC0tLVxuYXhlc1sxLDBdLmNvbnRvdXJmKHh4LCB5eSwgWiA+IDAsIGFscGhhPTAuMSwgY29sb3JzPVtcImRhcmtyZWRcIiwgXCJibHVlXCJdKVxuYXhlc1sxLDBdLmNvbnRvdXIoeHgsIHl5LCBaLCBsZXZlbHM9WzBdLCBjb2xvcnM9XCJrXCIsIGxpbmV3aWR0aHM9MSlcbmF4ZXNbMSwwXS5jb250b3VyKHh4LCB5eSwgWiwgbGV2ZWxzPVstMSwgMV0sIGNvbG9ycz1cIm9yYW5nZVwiLCBsaW5lc3R5bGVzPVwiLS1cIiwgbGluZXdpZHRocz0wLjgpXG5heGVzWzEsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PTEsMF0sIFhfdHJhaW5beV90cmFpbj09MSwxXSwgYz0nYmx1ZScsIHM9NTApXG5heGVzWzEsMF0uc2NhdHRlcihYX3RyYWluW3lfdHJhaW49PS0xLDBdLCBYX3RyYWluW3lfdHJhaW49PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MClcbmF4ZXNbMSwwXS5zZXRfdGl0bGUoZlwiQWNjdXJhY3kgPSB7YWNjX3RyYWluOi4yZn0gLSBTViA9IHtsZW4oY2xmLnN1cHBvcnRfKX1cIiwgZm9udHNpemU9MTgpXG5heGVzWzEsMF0uc2V0X3h0aWNrcyhbXSk7IGF4ZXNbMSwwXS5zZXRfeXRpY2tzKFtdKVxuXG4jIC0tLSAoMiwyKSBURVNUIENPTiBTVk0gLS0tXG5heGVzWzEsMV0uY29udG91cmYoeHgsIHl5LCBaID4gMCwgYWxwaGE9MC4xLCBjb2xvcnM9W1wiZGFya3JlZFwiLCBcImJsdWVcIl0pXG5heGVzWzEsMV0uY29udG91cih4eCwgeXksIFosIGxldmVscz1bMF0sIGNvbG9ycz1cImtcIiwgbGluZXdpZHRocz0xKVxuYXhlc1sxLDFdLmNvbnRvdXIoeHgsIHl5LCBaLCBsZXZlbHM9Wy0xLCAxXSwgY29sb3JzPVwib3JhbmdlXCIsIGxpbmVzdHlsZXM9XCItLVwiLCBsaW5ld2lkdGhzPTAuOClcbmF4ZXNbMSwxXS5zY2F0dGVyKFhfdGVzdFt5X3Rlc3Q9PTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PTEsMV0sIGM9J2JsdWUnLCBzPTUwKVxuYXhlc1sxLDFdLnNjYXR0ZXIoWF90ZXN0W3lfdGVzdD09LTEsMF0sIFhfdGVzdFt5X3Rlc3Q9PS0xLDFdLCBjPSdkYXJrcmVkJywgcz01MClcbmF4ZXNbMSwxXS5zZXRfdGl0bGUoZlwiQWNjdXJhY3kgPSB7YWNjX3Rlc3Q6LjJmfVwiLCBmb250c2l6ZT0xOClcbmF4ZXNbMSwxXS5zZXRfeHRpY2tzKFtdKTsgYXhlc1sxLDFdLnNldF95dGlja3MoW10pXG5cbnBsdC5zaG93KCkifQ==
+</script>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1357" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1356;"><span id="cb6-1357"><a href="#cb6-1357" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1358"><a href="#cb6-1358" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb6-1359"><a href="#cb6-1359" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb6-1360"><a href="#cb6-1360" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1361"><a href="#cb6-1361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1362"><a href="#cb6-1362" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1363"><a href="#cb6-1363" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb6-1364"><a href="#cb6-1364" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb6-1365"><a href="#cb6-1365" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1366"><a href="#cb6-1366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1367"><a href="#cb6-1367" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1368"><a href="#cb6-1368" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb6-1369"><a href="#cb6-1369" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb6-1370"><a href="#cb6-1370" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1371"><a href="#cb6-1371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1372"><a href="#cb6-1372" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1373"><a href="#cb6-1373" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1374"><a href="#cb6-1374" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb6-1375"><a href="#cb6-1375" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1376"><a href="#cb6-1376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1377"><a href="#cb6-1377" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1378"><a href="#cb6-1378" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1379"><a href="#cb6-1379" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb6-1380"><a href="#cb6-1380" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="actividades" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
+✏️ <strong>Conceptuales</strong><br>
+
+<hr class="linea-corta">
+<details>
+<summary>
+Mostrar
+</summary>
+<div style="margin-top:1em;">
+
+</div>
+<ol type="1">
+<li><p>Supongamos que usamos un clasificador SVM lineal para un problema de clasificación binaria con el conjunto de puntos que se muestra en la Figura. Los puntos positivos (muestras rojas) y negativos (muestras azules) están distribuidos según las coordenadas indicadas. La línea sólida representa el hiperplano separador y las líneas punteadas los márgenes del clasificador.</p>
+<figure style="text-align: center;" class="figure">
+<p><img src="figuras/ejercicio_A.png" alt="…" width="400px" class="figure-img"></p>
+</figure>
+<ol type="a">
+<li><p>Liste los vectores soporte.</p></li>
+<li><p>Seleccione dos observaciones y calcule sus distancias al hiperplano <span class="math inline">\(x_1 - x_2 = 0\)</span>.</p></li>
+<li><p>Si se elimina la observación <span class="math inline">\((0, 1)\)</span>, ¿cambiaría la frontera de decisión? ¿Qué sucede si en cambio se elimina la muestra <span class="math inline">\((-1, -2.5)\)</span>?</p></li>
+<li><p>Si se agrega una nueva observación <span class="math inline">\((2, 0.5)\)</span> con target positivo, ¿cambiaría la frontera de decisión? En caso afirmativo, ¿qué método usaría en este caso?</p></li>
+<li><p>En el método SVM de , <span class="math inline">\(C\)</span> es un hiperparámetro. ¿Qué ocurriría al usar un valor de <span class="math inline">\(C\)</span> muy grande? ¿Y qué pasaría si <span class="math inline">\(C\)</span> es muy pequeño?</p></li>
+</ol></li>
+</ol>
+<div style="margin-top:1em;">
+
+</div>
+<ol start="2" type="1">
+<li><p>A continuación se presentan los resultados de aplicar un SVM lineal con margen suave a un mismo conjunto de datos, variando el valor del hiperparámetro <span class="math inline">\(C\)</span>.</p>
+<figure style="text-align: center;" class="figure">
+<p><img src="figuras/ejercicio_B.png" alt="…" width="800px" class="figure-img"></p>
+</figure>
+<ol type="a">
+<li><p>Ordene las figuras según los valores de <span class="math inline">\(C\)</span> utilizados para obtener cada solución (de manera creciente), justificando brevemente su elección.</p></li>
+<li><p>Identifique en cada caso cuáles son los vectores soporte.</p></li>
+<li><p>Para los vectores soporte encontrados, analice los valores de <span class="math inline">\(\lambda_i\)</span>, <span class="math inline">\(\mu_i\)</span> y <span class="math inline">\(\xi_i\)</span>, indicando qué representan y qué relación existe entre ellos según las condiciones KKT.</p></li>
+</ol></li>
+</ol>
+<div style="margin-top:1em;">
+
+</div>
+<ol start="3" type="1">
+<li><p>Considere el siguiente conjunto de datos de la forma <span class="math inline">\((x_i,y_i)\)</span>: <span class="math display">\[
+D = \{(-1, 1), (0, -1), (1, -1)\}
+\]</span></p>
+<ol type="a">
+<li><p>Analice graficamente el problema.</p></li>
+<li><p>¿Son linealmente separables? En base a su respuesta plantee el SVM que considere apropiado y encuentre el hiperplano de separación óptimo.</p></li>
+</ol></li>
+<li><p>Considere el siguiente conjunto de datos de la forma <span class="math inline">\((x_i,y_i)\)</span>: <span class="math display">\[
+D = \{ (-1, 1),(0, -1),(1, 1) \}.
+\]</span></p>
+<ol type="a">
+<li><p>Analice graficamente el problema</p></li>
+<li><p>¿Son linealmente separables? En base a su respuesta plantee el SVM que considere apropiado y encuentre el hiperplano de separación óptimo.</p></li>
+</ol></li>
+</ol>
+</details>
+<div style="margin-top:2em;">
+
+</div>
+💻 <strong>Prácticas</strong><br>
+
+<hr class="linea-corta">
+<div style="text-align:left;">
+<p><a href="https://colab.research.google.com/drive/1Q2Bq4eA7sHCZp-kDIi0kQ257kU3nErwx?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
+</div>
+<div style="margin-top: 5em;">
+
+</div>
+<div class="refs">
+<p><span style="color: #444;"><strong>Referencias</strong></span></p>
+<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em> (2nd ed.). Capítulo 4, Sección 5 y Capítulo 12. Springer.</p>
+<p>Steinwart, I., &amp; Christmann, A. (2008). <em>Support Vector Machines</em>. Springer.</p>
+</div>
+
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3B5b2RpZGVfdmFsdWVfNCA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRQeXRob24sIGI2NERlY29kZX0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcInB5b2RpZGUtNC1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBQeXRob24gY29kZVxuICBjb25zdCByZXN1bHQgPSBweW9kaWRlT2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7Q18zLCBrZXJuZWxfMywgZ2FtbWFfMywgZF8zLCByXzN9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiNFwiIGluIHB5b2RpZGVPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSBweXRob25cIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoaGlnaGxpZ2h0UHl0aG9uKGJsb2NrLmNvZGUpKTtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWdyb3cgc3Bpbm5lci1ncm93LXNtIG0tMiBwb3NpdGlvbi1hYnNvbHV0ZSB0b3AtMCBlbmQtMFwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChwcmVFbGVtKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItYm9yZGVyIHNwaW5uZXItYm9yZGVyLXNtXCI7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgfVxuXG4gICAgeWllbGQgY29udGFpbmVyO1xuICB9XG5cbiAgcHlvZGlkZU9qcy5yZW5kZXJlZE9qc1tcIjRcIl0gPSB0cnVlO1xuICB5aWVsZCBhd2FpdCByZXN1bHQ7XG59XG4ifSx7ImNlbGxOYW1lIjoicHlvZGlkZS0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il9weW9kaWRlX3ZhbHVlXzMgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UHl0aG9uLCBiNjREZWNvZGV9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInB5b2RpZGUtMy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJweW9kaWRlLTMtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUHl0aG9uIGNvZGVcbiAgY29uc3QgcmVzdWx0ID0gcHlvZGlkZU9qcy5wcm9jZXNzKHtjb2RlOiBibG9jay5jb2RlLCBvcHRpb25zfSwge0NfMiwga2VybmVsXzIsIGdhbW1hXzIsIGRfMiwgcl8yfSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjNcIiBpbiBweW9kaWRlT2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgcHl0aG9uXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFB5dGhvbihibG9jay5jb2RlKSk7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ncm93IHNwaW5uZXItZ3Jvdy1zbSBtLTIgcG9zaXRpb24tYWJzb2x1dGUgdG9wLTAgZW5kLTBcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQocHJlRWxlbSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWJvcmRlciBzcGlubmVyLWJvcmRlci1zbVwiO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgIH1cblxuICAgIHlpZWxkIGNvbnRhaW5lcjtcbiAgfVxuXG4gIHB5b2RpZGVPanMucmVuZGVyZWRPanNbXCIzXCJdID0gdHJ1ZTtcbiAgeWllbGQgYXdhaXQgcmVzdWx0O1xufVxuIn0seyJjZWxsTmFtZSI6InB5b2RpZGUtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfcHlvZGlkZV92YWx1ZV8yID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFB5dGhvbiwgYjY0RGVjb2RlfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwicHlvZGlkZS0yLWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFB5dGhvbiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHB5b2RpZGVPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHtDXzEsIGtlcm5lbF8xLCBnYW1tYV8xLCBkXzEsIHJfMX0pO1xuXG4gIC8vIEVhcmx5IHlpZWxkIHdoaWxlIHdlIHdhaXQgZm9yIHRoZSBmaXJzdCBldmFsdWF0aW9uIGFuZCByZW5kZXJcbiAgaWYgKG9wdGlvbnMub3V0cHV0ICYmICEoXCIyXCIgaW4gcHlvZGlkZU9qcy5yZW5kZXJlZE9qcykpIHtcbiAgICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICAgIGNvbnN0IHNwaW5uZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuXG4gICAgaWYgKG9wdGlvbnMuZWNobykge1xuICAgICAgLy8gU2hvdyBvdXRwdXQgYXMgaGlnaGxpZ2h0ZWQgc291cmNlXG4gICAgICBjb25zdCBwcmVFbGVtID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInByZVwiKTtcbiAgICAgIGNvbnRhaW5lci5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGVcIjtcbiAgICAgIHByZUVsZW0uY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlIHB5dGhvblwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRQeXRob24oYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICBweW9kaWRlT2pzLnJlbmRlcmVkT2pzW1wiMlwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3B5b2RpZGVfdmFsdWVfMSA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRQeXRob24sIGI2NERlY29kZX0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcInB5b2RpZGUtMS1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBQeXRob24gY29kZVxuICBjb25zdCByZXN1bHQgPSBweW9kaWRlT2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7Q30pO1xuXG4gIC8vIEVhcmx5IHlpZWxkIHdoaWxlIHdlIHdhaXQgZm9yIHRoZSBmaXJzdCBldmFsdWF0aW9uIGFuZCByZW5kZXJcbiAgaWYgKG9wdGlvbnMub3V0cHV0ICYmICEoXCIxXCIgaW4gcHlvZGlkZU9qcy5yZW5kZXJlZE9qcykpIHtcbiAgICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICAgIGNvbnN0IHNwaW5uZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuXG4gICAgaWYgKG9wdGlvbnMuZWNobykge1xuICAgICAgLy8gU2hvdyBvdXRwdXQgYXMgaGlnaGxpZ2h0ZWQgc291cmNlXG4gICAgICBjb25zdCBwcmVFbGVtID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInByZVwiKTtcbiAgICAgIGNvbnRhaW5lci5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGVcIjtcbiAgICAgIHByZUVsZW0uY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlIHB5dGhvblwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRQeXRob24oYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICBweW9kaWRlT2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBDID0gSW5wdXRzLnNlbGVjdChcbiAgWzAuMDAxLCAwLjAxLCAwLjEsIDEsIDEwLCAxMDBdLFxuICB7bGFiZWw6IFwiQzpcIiwgdmFsdWU6IDF9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgQ18xID0gSW5wdXRzLnNlbGVjdChcbiAgWzAuMDEsIDAuMSwgMSwgMTAsIDEwMF0sXG4gIHtsYWJlbDogXCJDOlwiLCB2YWx1ZTogMX1cbilcblxudmlld29mIGtlcm5lbF8xID0gSW5wdXRzLnNlbGVjdChcbiAgW1wibGluZWFyXCIsIFwicG9seVwiLCBcInJiZlwiLCBcInNpZ21vaWRcIl0sXG4gIHtsYWJlbDogXCJLZXJuZWw6XCIsIHZhbHVlOiBcImxpbmVhclwifVxuKVxuXG52aWV3b2YgZ2FtbWFfMSA9IElucHV0cy5zZWxlY3QoXG4gIFtcInNjYWxlXCIsIFwiYXV0b1wiLCAwLjAwMSwgMC4wMSwgMC4xLCAxLCAxMF0sXG4gIHtsYWJlbDogXCLOszpcIiwgdmFsdWU6IFwic2NhbGVcIn1cbilcblxudmlld29mIGRfMSA9IElucHV0cy5zZWxlY3QoXG4gIFsyLCAzLCA0LCA1XSxcbiAge2xhYmVsOiBcImQ6XCIsIHZhbHVlOiAzfVxuKVxuXG52aWV3b2Ygcl8xID0gSW5wdXRzLnNlbGVjdChcbiAgWzAsIDAuNSwgMSwgMiwgNV0sXG4gIHtsYWJlbDogXCJyOlwiLCB2YWx1ZTogMH1cbilcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIENfMiA9IElucHV0cy5zZWxlY3QoXG4gIFswLjAxLCAwLjEsIDEsIDEwLCAxMDBdLFxuICB7bGFiZWw6IFwiQzpcIiwgdmFsdWU6IDF9XG4pXG5cbnZpZXdvZiBrZXJuZWxfMiA9IElucHV0cy5zZWxlY3QoXG4gIFtcImxpbmVhclwiLCBcInBvbHlcIiwgXCJyYmZcIiwgXCJzaWdtb2lkXCJdLFxuICB7bGFiZWw6IFwiS2VybmVsOlwiLCB2YWx1ZTogXCJsaW5lYXJcIn1cbilcblxudmlld29mIGdhbW1hXzIgPSBJbnB1dHMuc2VsZWN0KFxuICBbXCJzY2FsZVwiLCBcImF1dG9cIiwgMC4wMDEsIDAuMDEsIDAuMSwgMSwgMTBdLFxuICB7bGFiZWw6IFwizrM6XCIsIHZhbHVlOiBcInNjYWxlXCJ9XG4pXG5cbnZpZXdvZiBkXzIgPSBJbnB1dHMuc2VsZWN0KFxuICBbMiwgMywgNCwgNV0sXG4gIHtsYWJlbDogXCJkOlwiLCB2YWx1ZTogM31cbilcblxudmlld29mIHJfMiA9IElucHV0cy5zZWxlY3QoXG4gIFswLCAwLjUsIDEsIDIsIDVdLFxuICB7bGFiZWw6IFwicjpcIiwgdmFsdWU6IDB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgQ18zID0gSW5wdXRzLnNlbGVjdChcbiAgWzAuMDEsIDAuMSwgMSwgMTAsIDEwMF0sXG4gIHtsYWJlbDogXCJDOlwiLCB2YWx1ZTogMX1cbilcblxudmlld29mIGtlcm5lbF8zID0gSW5wdXRzLnNlbGVjdChcbiAgW1wibGluZWFyXCIsIFwicG9seVwiLCBcInJiZlwiLCBcInNpZ21vaWRcIl0sXG4gIHtsYWJlbDogXCJLZXJuZWw6XCIsIHZhbHVlOiBcImxpbmVhclwifVxuKVxuXG52aWV3b2YgZ2FtbWFfMyA9IElucHV0cy5zZWxlY3QoXG4gIFtcInNjYWxlXCIsIFwiYXV0b1wiLCAwLjAwMSwgMC4wMSwgMC4xLCAxLCAxMF0sXG4gIHtsYWJlbDogXCLOszpcIiwgdmFsdWU6IFwic2NhbGVcIn1cbilcblxudmlld29mIGRfMyA9IElucHV0cy5zZWxlY3QoXG4gIFsyLCAzLCA0LCA1XSxcbiAge2xhYmVsOiBcImQ6XCIsIHZhbHVlOiAzfVxuKVxuXG52aWV3b2Ygcl8zID0gSW5wdXRzLnNlbGVjdChcbiAgWzAsIDAuNSwgMSwgMiwgNV0sXG4gIHtsYWJlbDogXCJyOlwiLCB2YWx1ZTogMH1cbilcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdDJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ0NfMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdrZXJuZWxfMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdnYW1tYV8xJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2RfMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyXzEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnQ18yJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2tlcm5lbF8yJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2dhbW1hXzInKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZF8yJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JfMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdDXzMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgna2VybmVsXzMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZ2FtbWFfMycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdkXzMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncl8zJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../CAPITULO_2";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
