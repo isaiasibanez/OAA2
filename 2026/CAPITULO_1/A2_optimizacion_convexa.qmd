@@ -8,6 +8,8 @@ subtitle: "Capítulo 1 - Sección 2"
 {{< include ../macros.qmd >}}
 
 
+<div>
+
 <a href="material/apunte_c1s2.pdf" target="_blank" class="btn btn-outline-primary">
 <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
 </a>
