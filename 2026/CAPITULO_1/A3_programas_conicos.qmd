@@ -1,0 +1,321 @@
+---
+title: "Resolución computacional y problemas clásicos de optimización convexa"
+subtitle: "Capítulo 1 - Sección 3"
+---
+
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+
+{{< include ../macros.qmd >}}
+
+
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c1s3.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c1s3.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
+
+Muchos problemas de optimización convexa pueden escribirse en una forma estándar, a la cual nos referiremos como *forma canónica*. Una subclase importante de problemas lo suficientemente general es la de los  <mark>*programas cónicos*</mark>. Un programa cónico es de la forma
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx\\ 
+\text{sujeto a }  & A\xx=\bb,\\
+                  & D(\xx)+d\in K,
+\end{array} 
+\tag{1} 
+$$ 
+
+donde $\cc,\xx\in\RR^p$, $A\in\RR^{m\times p}$, $\bb\in\RR^m$, $D:\RR^p\to Y$, $d\in Y$, con $Y$ un espacio euclídeo y $K\subset Y$  un cono convexo cerrado.
+
+Algunas elecciones de $Y$, $K$ y $D$ dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección tres de ellos: los *programas lineales*, los *programas cuadráticos* (QP) y los *programas semidefinidos* (SDP). 
+
+
+<div style="height:0.25em;"></div>
+
+::: {.myhighlight}
+La relación entre las clases de problemas es la siguiente:
+
+$$\text{LP}\subset\text{QP}\subset\text{SDP}\subset\text{Programas cónicos}$$
+
+:::
+
+<div style="height:2em;"></div>
+
+
+Además de presentar su formulación matemática, mostraremos cómo resolver estos problemas en la práctica mediante herramientas computacionales, utilizando bibliotecas de optimización.
+
+
+
+<div style="margin-top:2.5em;"></div>
+
+## Programa lineal
+
+Cuando tanto la función objetivo como todas las restricciones son afines, el problema de optimización se llama *programa lineal* (LP).
+
+<div class="alert alert-light text-dark" role="alert">
+<span class="badge bg-dark">Forma básica de LP</span>
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx\\ 
+\text{sujeto a }  & G\xx\preceq \hh,\\
+                  & A\xx=\bb,
+\end{array}
+$$ 
+
+donde $\cc\in\RR^p$, $G\in\RR^{r\times p}$, $\hh\in\RR^r$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+
+</div>
+
+
+El conjunto factible de un LP es un poliedro $\mathcal{P}$. Los conjuntos de nivel de la función objetivo son hiperplanos ortogonales a la dirección $\cc$. En consecuencia, el punto óptimo $\xx^{\star}$ es aquel punto de $\mathcal{P}$ lo más alejado posible en la dirección de $-\cc$.
+
+<figure style="text-align: center;">
+  <img src="figuras/lp_problem.png" alt="Programación lineal" width="400px">
+  <figcaption>**Figura 2**. Interpretación geométrica de un LP.</figcaption>
+</figure>
+
+<div style="height:1em;"></div>
+
+
+::: {.myhighlight}
+La *forma estándar* de un LP es
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx\\ 
+\text{sujeto a }  & A\xx=\bb,\\
+                  & \xx\geq \bfzero.
+\end{array}
+$$ 
+
+:::
+
+
+::: {.callout .question}
+<span style="font-size: 1.3em;">📝</span><br>
+Investigue el procedimiento para reescribir un LP en forma estándar.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+
+
+::: {.callout-tip}
+### La dieta
+
+Una dieta saludable contiene $m$ nutrientes diferentes en cantidades al menos iguales a $b_1, \ldots, b_m$. Podemos componer tal dieta eligiendo cantidades no negativas $x_1, \ldots, x_n$ de $n$ alimentos diferentes. Una unidad de cantidad del alimento $j$ contiene una cantidad $a_{ij}$ del nutriente $i$ y tiene un costo de $c_j$. Queremos determinar la dieta más barata que satisfaga los requisitos nutricionales. Esto conduce al siguiente LP:
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx\\ 
+\text{sujeto a }  & A\xx\succeq \bb\\
+                  & \xx\succeq \mathbf{0}
+\end{array}
+$$ 
+
+Varias variaciones de este problema también se pueden formular como LPs. Por ejemplo, podemos insistir en una cantidad exacta de un nutriente en la dieta (lo que da una restricción de igualdad lineal), o podemos imponer un límite superior en la cantidad de un nutriente, además del límite inferior como se indicó anteriormente.
+
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna librería.
+
+```{pyodide-python}
+# Resolver aquí
+```
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+:::
+
+
+
+::: {.callout-tip}
+### El centro de Chebyshev
+
+Consideremos el problema de encontrar la bola euclidiana más grande que se encuentra contenida en un poliedro descrito por desigualdades lineales:
+$$
+\mathcal{P} = \{\xx \in \RR^p \mid \aa_i^\top\xx \leq b_i,\quad i = 1, \ldots, m\}.
+$$
+
+El centro de la bola óptima se llama *centro de Chebyshev* del poliedro. Para poder formular el problema, debemos representar la bola mediante
+$$
+\mathcal{B}(\xx,r) = \{\xx + \uu \mid \|\uu\|_2 \leq r\}.
+$$
+
+Las variables en el problema son el centro $\xx\in\RR^p$ y el radio $r\in\RR$. El objetivo, por lo tanto, es maximizar $r$ sujeto a la restricción $\mathcal{B}(\xx,r)\subset\mathcal{P}$.
+
+Para definir las restricciones, vamos a usar el hecho que
+$$
+\sup\{\aa_i^\top\uu \mid \|\uu\|_2\leq r\}=r\|\aa_i\|_2\qquad\text{¿Porqué?}
+$$
+
+En consecuencia, el requisito de que $\mathcal{B}(\xx,r)$ pertenezca a cada subespacio $\aa_i^\top \xx\leq b_i$ puede escribirse como
+$$
+\aa_i^\top(\xx+\uu)=\aa_i^\top\xx+r\|\aa_i\|_2\leq b_i,
+$$
+lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es el siguiente LP en forma de desigualdad:
+
+$$ 
+\begin{array}{ll} 
+\text{maximizar } & r\\ 
+\text{sujeto a }  & \aa_i^\top\xx+r\|\aa_i\|_2\leq b_i,\quad i=1,\cdots, m
+\end{array}
+$$ 
+
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna librería.
+
+```{pyodide-python}
+# Resolver aquí
+```
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+:::
+
+
+
+<div style="margin-top:2.5em;"></div>
+
+## Programa cuadrático
+
+Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP).
+
+<div class="alert alert-light text-dark" role="alert">
+<span class="badge bg-dark">Forma básica de QP</span>
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \frac{1}{2}\xx^\top P \xx+\qq^\top\xx+r\\ 
+\text{sujeto a }  & G\xx\preceq \hh,\\
+                  & A\xx=\bb,
+\end{array}
+$$ 
+
+donde $P\in\mathbf{S}_{+}^p$, $\qq\in\RR^p$, $r\in\RR$, $G\in\RR^{r\times p}$, $\hh\in\RR^r$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+
+</div>
+
+
+El conjunto factible de un QP es un poliedro $\mathcal{P}$. La figura muestra el punto óptimo $\xx^{\star}$ y el vector  gradiente $-\nabla f(\xx^{\star})$, perpendicular tanto al conjunto de nivel (propiedad del vector gradiente) como a uno de las caras del poliedro.
+
+<figure style="text-align: center;">
+  <img src="figuras/qp_problem.png" alt="Programación cuadrática" width="400px">
+  <figcaption>**Figura 3**. Interpretación geométrica de un QP.</figcaption>
+</figure>
+
+<div style="height:1em;"></div>
+
+::: {.myhighlight}
+La *forma estándar* de un QP es
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx+\frac{1}{2}\xx^\top Q\xx\\ 
+\text{sujeto a }  & A\xx=\bb,\\
+                  & \xx\geq \bfzero.
+\end{array}
+$$ 
+
+:::
+
+
+::: {.callout .question}
+<span style="font-size: 1.3em;">📝</span><br>
+Investigue el procedimiento para reescribir un LP en forma estándar.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+
+::: {.callout-tip}
+### Distancia entre poliedros
+
+La distancia euclidiana entre los poliedros $\mathcal{P}_1 = \{\xx \mid A_1 \xx \preceq \bb_1\}$ y $\mathcal{P}_2 = \{\xx \mid A_2 \xx \preceq \bb_2\}$ en $\RR^p$ se define como
+
+$$
+\text{dist}\,(\mathcal{P}_1, \mathcal{P}_2) = \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \mathcal{P}_1, \xx_2 \in \mathcal{P}_2 \}.
+$$
+
+Si los poliedros se intersecan, la distancia es cero.
+
+Para encontrar la distancia entre $\mathcal{P}_1$ y $\mathcal{P}_2$, podemos resolver el QP con variables $\xx_1$ y $\xx_2$ definido como
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \|\xx_1-\xx_2\|_2^2\\ 
+\text{sujeto a }  & A_1\xx_1\preceq \bb_1\\
+                  & A_2\xx_2\preceq \bb_2
+\end{array}
+$$ 
+
+El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso $\xx_1=\xx2$. En cualquier otro caso, los puntos óptimos $\xx_1$ y $\xx_"$ son los puntos en $\mathcal{P}_1$ y $\mathcal{P}_2$, respectivamente, que están más cerca el uno del otro.
+
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna librería.
+
+```{pyodide-python}
+# Resolver aquí
+```
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+:::
+
+
+
+<div style="margin-top:2.5em;"></div>
+
+## Programa semidefinido
+
+
+
+
+
+
+
+
+
+
+<div style="margin-top: 5em;"></div>
+
+::: {.refs}
+<span style="color: #444;"><strong>Referencias</strong></span>
+
+Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Capítulo 4. Cambridge University Press.
+
+<!--
+Diamond, S., & Boyd, S. (s.f.). CVXPY: A Python-embedded modeling language for convex optimization. CVXPY. https://www.cvxpy.org
+
+SciPy Developers. (s.f.). SciPy optimize tutorial. SciPy. https://docs.scipy.org/doc/scipy/tutorial/optimize.html
+-->
+
+Tibshirani, R. Apuntes del curso CMU Machine Learning 10-725: *Convex Optimization*.  Teoría I (2018). Disponible en la [página del curso](https://www.stat.cmu.edu/~ryantibs/convexopt-F18/).
+
+:::

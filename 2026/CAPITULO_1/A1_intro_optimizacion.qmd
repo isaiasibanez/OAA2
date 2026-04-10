@@ -8,6 +8,17 @@ subtitle: "Capítulo 1 - Sección 1"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c1s1.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
 
 La optimización es una herramienta fundamental en matemática aplicada, ciencia de datos y otras disciplinas. En términos generales, el objetivo de un problema de optimización es encontrar el valor de una *variable* (o conjunto de variables) que *minimice* o *maximice* una determinada función, posiblemente bajo ciertas *restricciones*.
 

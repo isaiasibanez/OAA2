@@ -8,6 +8,22 @@ subtitle: "Capítulo 1 - Sección 5"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c1s5.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c1s5.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
+
 En general, los problemas de optimización que surgen en el área de estadística y *machine learning* involucran funciones complejas, no lineales y/o de alta dimensión. Como consecuencia, obtener una solución exacta suele ser inalcanzable o innecesario. Esto último sucede, por ejemplo, cuando la solución exacta es costosa computacionalmente.
 
 Aquí es cuando entran en juego los métodos de optimización numérica: algoritmos iterativos que aproximan una solución al problema de optimización. Su objetivo es construir una secuencia de puntos $\{\xx_t \mid t\in\mathbb{N}_0\}$ que converja al punto óptimo $\xx^\star$, o lo suficientemente cerca de él.
