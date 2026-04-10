@@ -15,7 +15,7 @@ subtitle: "Capítulo 1 - Sección 2"
 </a>
 
 <a href="material/tp_c1s2.pdf" class="btn btn-danger">
-<i class="fa-solid fa-clipboard-list-check me-2"></i>Guía de actividades
+<i class="fa-solid fa-clipboard-check me-2"></i>Guía de actividades
 </a>
 
 </div>
