@@ -25,8 +25,7 @@ navbar:
   </span>
   <a href="../" class="btn btn-link">
     <i class="fa-solid fa-chevron-left me-2"></i>
-    Elegir año
-</a>
+  </a>
 </div>
 
 

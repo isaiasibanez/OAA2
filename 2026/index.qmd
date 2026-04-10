@@ -15,7 +15,7 @@ navbar:
 
 
 <div style="display:flex; justify-content:flex-end; gap:10px;">
-  <a href="https://docs.google.com/spreadsheets/d/1cyJZpS2XOPQHe8OSe42KEhtIJCmwicDu0HB6J97rwi4/edit?usp=drive_link" target="_blank" class="btn btn-outline-warning">
+  <a href="https://docs.google.com/spreadsheets/d/1cyJZpS2XOPQHe8OSe42KEhtIJCmwicDu0HB6J97rwi4/edit?usp=drive_link" target="_blank" class="btn btn-warning">
     <i class="fa-solid fa-calendar-days me-2"></i>Cronograma
   </a>
   <span class="btn btn-success">
@@ -23,8 +23,7 @@ navbar:
   </span>
   <a href="../" class="btn btn-link">
     <i class="fa-solid fa-chevron-left me-2"></i>
-    Elegir año
-</a>
+  </a>
 </div>
 
 
