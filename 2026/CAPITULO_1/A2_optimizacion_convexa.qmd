@@ -8,13 +8,11 @@ subtitle: "Capítulo 1 - Sección 2"
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2" style="margin-top:5px">
-
 <a href="material/apunte_c1s2.pdf" target="_blank" class="btn btn-outline-primary">
 <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
 </a>
 
-<a href="material/tp_c1s2.pdf" class="btn btn-outline-info">
+<a href="material/tp_c1s2.pdf" target="_blank" class="btn btn-outline-success">
 <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
 </a>
 
