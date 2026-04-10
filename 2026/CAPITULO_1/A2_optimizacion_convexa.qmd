@@ -7,34 +7,14 @@ subtitle: "Capítulo 1 - Sección 2"
 
 {{< include ../macros.qmd >}}
 
-## Apuntes de la clase
+<div style="margin-top:10px">
 
-<div style="margin-top:15px">
-
-<strong>Apunte teórico</strong><br>
-
-<a href="material/apunte_c1s2.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-eye"></i> Ver
+<a href="material/apunte_c1s2.pdf" class="btn btn-primary btn-lg">
+Descargar apunte
 </a>
 
-<a href="material/apunte_c1s2.pdf" class="btn btn-danger">
-<i class="fa-solid fa-file-pdf"></i> Descargar
-</a>
-
-</div>
-
-<br>
-
-<div>
-
-<strong>Guía de ejercicios</strong><br>
-
-<a href="material/tp_c1s2.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-eye"></i> Ver
-</a>
-
-<a href="material/tp_c1s2.pdf" class="btn btn-danger">
-<i class="fa-solid fa-file-pdf"></i> Descargar
+<a href="material/tp_c1s2.pdf" class="btn btn-success btn-lg">
+Descargar TP
 </a>
 
 </div>
