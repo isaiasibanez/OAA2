@@ -1,5 +1,5 @@
 ---
-title: "Resolución computacional y problemas clásicos de optimización convexa"
+title: "Programas cónicos"
 subtitle: "Capítulo 1 - Sección 3"
 ---
 
