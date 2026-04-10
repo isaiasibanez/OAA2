@@ -1,5 +1,8 @@
 ---
 format: html
+include-in-header:
+  text: |
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 navbar:
   left:
     - href: index.qmd
@@ -10,6 +13,21 @@ navbar:
   <img src="portada.png" alt="Optimización y Aprendizaje Automático II" style="width:100%; height:auto;">
 </div>
 
+
+<div style="display:flex; justify-content:flex-end; gap:10px;">
+  <!--
+  <a href="https://docs.google.com/spreadsheets/d/1cyJZpS2XOPQHe8OSe42KEhtIJCmwicDu0HB6J97rwi4/edit?usp=drive_link" target="_blank" class="btn btn-outline-warning">
+    <i class="fa-solid fa-calendar-days me-2"></i>Cronograma
+  </a>
+  -->
+  <span class="btn btn-success">
+    2025
+  </span>
+  <a href="../" class="btn btn-link">
+    <i class="fa-solid fa-chevron-left me-2"></i>
+    Elegir año
+</a>
+</div>
 
 
 <h4 style="color:#8B0000; border-bottom: 2px solid #8B0000; padding-bottom:5px;">1 Optimización matemática</h4>
