@@ -8,16 +8,19 @@ subtitle: "Capítulo 1 - Sección 2"
 {{< include ../macros.qmd >}}
 
 
-<div style="margin-top:15px">
+<div class="d-flex gap-2" style="margin-top:10px">
 
 <a href="material/apunte_c1s2.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-light fa-file-pdf"></i> Versión PDF
+<i class="fa-solid fa-file-pdf me-2"></i>Versión PDF
 </a>
+
 <a href="material/tp_c1s2.pdf" class="btn btn-danger">
-<i class="fa-light fa-clipboard-list-check"></i> Guía de actividades
+<i class="fa-solid fa-clipboard-list-check me-2"></i>Guía de actividades
 </a>
+
 </div>
 
+<div style="margin-top:10px">
 
 
 En esta sección nos enfocaremos en los conceptos fundamentales que sustentan la optimización convexa, una rama central en la teoría y práctica de la optimización. A partir de las ideas presentadas en la [Introducción](A1_intro_optimizacion.html), donde destacamos el rol de la convexidad, ahora desarrollaremos con mayor profundidad las nociones teóricas que permiten formular y analizar este tipo de problemas.
