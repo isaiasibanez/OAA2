@@ -15,7 +15,7 @@ navbar:
   <a href="https://docs.google.com/spreadsheets/d/1cyJZpS2XOPQHe8OSe42KEhtIJCmwicDu0HB6J97rwi4/edit?usp=drive_link" target="_blank" class="btn btn-outline-info">
     <i class="fa-solid fa-calendar-days me-2"></i>Cronograma
   </a>
-  <span class="btn btn-success"">
+  <span class="btn btn-success">
     2026
   </span>
   <a href="../" class="btn btn-link">
