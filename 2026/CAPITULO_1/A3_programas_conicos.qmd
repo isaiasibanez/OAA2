@@ -52,6 +52,33 @@ $$\text{LP}\subset\text{QP}\subset\text{SDP}\subset\text{Programas cónicos}$$
 <div style="height:2em;"></div>
 
 
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Un cono $K\subset Y$ induce un orden parcial sobre $Y$ definido por
+$$
+x\preceq_K y \iff y-x\in K
+$$
+
+En particular:
+
+- Si $K=\RR_+^p$, $\xx\preceq\yy$ si y sólo si $x_i\leq y_i$ para todo $i=1,\ldots,p$. Esta es la comparación elemento a elemento a la cual ya estamos acostumbrados.
+
+- Si $K=\SS_+^p$, 
+    $$
+    X\preceq Y \iff Y-X\in\SS_+^p.
+    \tag{2}
+    $$
+
+    Observar que (2) es compatible con la notación de matriz semidefinida positiva.
+
+
+La definición de orden parcial inducido por un cono $K$ permite interpretar la restricción $D(\xx)+d\in K$ en (1) como una restricción de desigualdad. En la formulación de los tipos de problema que se presentan en este capítulo se sugiere identificar los elementos correspondientes en cada caso.   
+
+</div>
+
+
+
 Además de presentar su formulación matemática, mostraremos cómo resolver estos problemas en la práctica mediante herramientas computacionales, utilizando bibliotecas de optimización.
 
 
@@ -200,20 +227,20 @@ Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna libre
 
 ## Programa cuadrático
 
-Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP).
+Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP). Aunque la formulación no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes. Veremos esto más adelante.
 
 <div class="alert alert-light text-dark" role="alert">
 <span class="badge bg-dark">Forma básica de QP</span>
 
 $$ 
 \begin{array}{ll} 
-\text{minimizar } & \frac{1}{2}\xx^\top P \xx+\qq^\top\xx+r\\ 
+\text{minimizar } & \frac{1}{2}\xx^\top P \xx+\qq^\top\xx\\ 
 \text{sujeto a }  & G\xx\preceq \hh,\\
                   & A\xx=\bb,
 \end{array}
 $$ 
 
-donde $P\in\mathbf{S}_{+}^p$, $\qq\in\RR^p$, $r\in\RR$, $G\in\RR^{r\times p}$, $\hh\in\RR^r$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+donde $P\in\mathbf{S}_{+}^p$, $\qq\in\RR^p$, $G\in\RR^{r\times p}$, $\hh\in\RR^r$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
 
 </div>
 
@@ -293,6 +320,25 @@ Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna libre
 <div style="margin-top:2.5em;"></div>
 
 ## Programa semidefinido
+
+
+Mientras que en un LP el cono subyacente es simplemente el ortante positivo $\RR_+^p$, los programas semidefinidos (SDP) constituyen un caso importante en el cual se trabaja con el cono de las matrices semidefinidas positivas $\SS_+^p$.
+
+
+<div class="alert alert-light text-dark" role="alert">
+<span class="badge bg-dark">Forma básica de SDP</span>
+
+$$ 
+\begin{array}{ll} 
+\text{minimizar } & \cc^\top\xx\\ 
+\text{sujeto a }  & x_1 F_1+\ldots+x_n F_n\preceq F_0,\\
+                  & A\xx=\bb,
+\end{array}
+$$ 
+
+donde $\cc\in\RR^p$, $F_i\in\SS^p$ ($i=0,1,\ldots,p$), $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+
+</div>
 
 
 
