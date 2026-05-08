@@ -365,7 +365,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 </div>
 <p>Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, relacionado con el Teorema 1.2.3 del <a href="A2_optimizacion_convexa.html#problemas-de-optimización-convexa">C1-S2</a>.</p>
 <div class="teorema">
-<p><strong>Teorema 1.1.1.</strong> (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) Sea <span class="math inline">\(f:\RR^p\to\RR\)</span> una función diferenciable y convexa. Entonces <span class="math inline">\(\xx^\star\in \text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
+<p><strong>Teorema 1.4.1.</strong> (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) Sea <span class="math inline">\(f:\RR^p\to\RR\)</span> una función diferenciable y convexa. Entonces <span class="math inline">\(\xx^\star\in \text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
 \nabla f(\xx^\star)=\bfzero.
 \]</span></p>
 </div>
@@ -410,7 +410,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="300px" class="figure-img">
+<img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="400px" class="figure-img">
 <figcaption>
 <strong>Figura 1.4.1</strong>. Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.
 </figcaption>
@@ -418,7 +418,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 <div style="margin-top:2em;">
 
 </div>
-<p>Como se puede apreciar en la Figura 1, para un punto óptimo <span class="math inline">\(\xx^\star\)</span> el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma <span class="math inline">\(\yy-\xx^\star\)</span>. Esto se deduce del hecho que <span class="math display">\[
+<p>Como se puede apreciar en la Figura 1.4.1, para un punto óptimo <span class="math inline">\(\xx^\star\)</span> el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma <span class="math inline">\(\yy-\xx^\star\)</span>. Esto se deduce del hecho que <span class="math display">\[
 \langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2=\underbrace{\|\nabla f(\xx^\star)\|_2}_{\geq 0}\underbrace{\|\yy-\xx^\star\|_2}_{\geq 0}\cos \alpha\geq 0
 \]</span></p>
 <p>si y solo si <span class="math inline">\(\cos\alpha\geq 0\)</span> (o equivalentemente, <span class="math inline">\(0\leq\alpha\leq\pi/2\)</span>).</p>
@@ -436,7 +436,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="400px" class="figure-img">
+<img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
 <strong>Figura 1.4.2</strong>. Idea geométrica de la condición del gradiente para tres puntos críticos <span class="math inline">\(\xx_1,\xx_2,\xx_3\in\Omega\)</span> y un punto no crítico <span class="math inline">\(\xx_4\in\Omega\)</span>. En el caso de <span class="math inline">\(\xx_3\)</span>, se tiene <span class="math inline">\(\nabla f(\xx_3)=\bfzero\)</span>.
 </figcaption>
@@ -444,7 +444,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 <div style="margin-top:2em;">
 
 </div>
-<p>En la Figura 2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que <span class="math inline">\(\Omega\)</span> es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>. En particular, para puntos interiores de <span class="math inline">\(\Omega\)</span>, la condición se reduce a la ecuación <span class="math inline">\(\nabla f(\xx)=\bfzero\)</span>, típica de los problemas sin restricciones.</p>
+<p>En la Figura 1.4.2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que <span class="math inline">\(\Omega\)</span> es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>. En particular, para puntos interiores de <span class="math inline">\(\Omega\)</span>, la condición se reduce a la ecuación <span class="math inline">\(\nabla f(\xx)=\bfzero\)</span>, típica de los problemas sin restricciones.</p>
 <p>Todos los casos están caracterizados por el siguiente hecho:</p>
 <div class="myhighlight">
 <p>Los puntos críticos son aquellos en los cuales el opuesto del gradiente forma ángulos no agudos con todas las direcciones factibles.</p>

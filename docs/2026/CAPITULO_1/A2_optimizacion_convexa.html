@@ -375,7 +375,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 \|\xx\|_2:=(\xx^\top\xx)^{1/2}.
 \]</span></p>
 <p>Asimismo, recordemos que una matriz <span class="math inline">\(A\)</span> se dice <em>semidefinida positiva</em> (<span class="math inline">\(A\succeq 0\)</span>), si verifica <span class="math inline">\(\xx^\top A\xx\geq 0\)</span> para todo <span class="math inline">\(\xx\in\RR^p\)</span>, mientras que se dice <em>definida positiva</em> (<span class="math inline">\(A\succ 0\)</span>) si la desigualdad es estricta. De manera análoga, se definen las matrices semidefinidas negativas (<span class="math inline">\(A \preceq 0\)</span>) y definidas negativas (<span class="math inline">\(A \prec 0\)</span>).</p>
-<p>Al conjunto de matrices simétricas lo denotaremos <span class="math inline">\(\SS^p\)</span>, mientras que con <span class="math inline">\(\SS_+^p\)</span> y <span class="math inline">\(\SS_{++}^p\)</span> nos referiremos al conjunto de matrices simétricas semidefinidas positivas y simétricas definidas positivas, respectivamente.</p>
+<p>Al conjunto de matrices simétricas lo denotaremos <span class="math inline">\(\bfS^p\)</span>, mientras que con <span class="math inline">\(\bfS_+^p\)</span> y <span class="math inline">\(\bfS_{++}^p\)</span> nos referiremos al conjunto de matrices simétricas semidefinidas positivas y simétricas definidas positivas, respectivamente.</p>
 <p>Por último, del mismo modo que escribimos <span class="math inline">\(A\xx=\bb\)</span> para referirnos a un conjunto de igualdades de la forma <span class="math inline">\(\aa_i^\top\xx=b_i\)</span>, vamos a denotar <span class="math inline">\(A\xx\preceq\bb\)</span> al conjunto de desigualdades <span class="math inline">\(\aa_i^\top\xx\leq b_i\)</span>.</p>
 <div style="margin-top:2.5em;">
 
@@ -831,7 +831,7 @@ S_2:=\{(x,y)\in\RR^2\mid x^2+y^2\leq r\}.
 <div style="margin-top:2em;">
 
 </div>
-<div id="6989a846" class="cell" data-execution_count="1">
+<div id="2ed9edba" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -847,7 +847,7 @@ S_2:=\{(x,y)\in\RR^2\mid x^2+y^2\leq r\}.
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Elipsoide </span></p>
-<p>Sea <span class="math inline">\(\xx_0\in\RR^2\)</span> y <span class="math inline">\(P\in\SS_{++}^2\)</span>. El <em>elipsoide</em> <span class="math display">\[
+<p>Sea <span class="math inline">\(\xx_0\in\RR^2\)</span> y <span class="math inline">\(P\in\bfS_{++}^2\)</span>. El <em>elipsoide</em> <span class="math display">\[
 E=\{\xx\in\RR^p\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
 \]</span> es un conjunto convexo, ya que es la imagen del disco unitario <span class="math inline">\(B(\bfzero,1):=\{\xx\in\RR^2\mid\|\xx\|_2\leq 1\}\)</span> bajo la transformación afín <span class="math inline">\(f:\RR^2\to\RR^2\)</span> definida por <span class="math display">\[
 f(\xx)=P^{1/2}\xx+\xx_0.
@@ -1675,13 +1675,13 @@ f(\xx+\dd)\geq f(\xx)+\nabla f(\xx)^\top\dd,
 <p><span class="math display">\[
 f(\xx)=\frac{1}{2}\xx^\top A\xx+\bb^\top\xx+c,
 \]</span></p>
-<p>donde <span class="math inline">\(A\in\SS^p:=\{X\in\RR^{p\times p} \mid X=X^\top\}\)</span>, <span class="math inline">\(\bb\in\RR^p\)</span> y <span class="math inline">\(c\in\RR\)</span>. Dado que <span class="math inline">\(\nabla^2 f(\xx)=A\)</span> para todo <span class="math inline">\(\xx\)</span>, podemos afirmar que <span class="math inline">\(f\)</span> es convexa si y sólo si <span class="math inline">\(A\succeq 0\)</span>.</p>
+<p>donde <span class="math inline">\(A\in\bfS^p:=\{X\in\RR^{p\times p} \mid X=X^\top\}\)</span>, <span class="math inline">\(\bb\in\RR^p\)</span> y <span class="math inline">\(c\in\RR\)</span>. Dado que <span class="math inline">\(\nabla^2 f(\xx)=A\)</span> para todo <span class="math inline">\(\xx\)</span>, podemos afirmar que <span class="math inline">\(f\)</span> es convexa si y sólo si <span class="math inline">\(A\succeq 0\)</span>.</p>
 <p>Así, por ejemplo, la función <span class="math inline">\(f:\RR^2\to\RR\)</span> definida por</p>
 <p><span class="math display">\[
 f(x,y)=\frac{1}{2}\begin{pmatrix}x&amp;y\end{pmatrix}\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}\begin{pmatrix}x\\ y\end{pmatrix}=\frac{1}{2}(2x^2+2xy+3y^2)
 \]</span></p>
 <p>es convexa, ya que <span class="math inline">\(\xx^\top A\xx=2x^2+2xy+3y^2=x^2+(x+y)^2+2y^2\geq 0\)</span> para todo <span class="math inline">\((x,y)\in\RR^2\)</span>, lo cual significa que <span class="math inline">\(A\succeq 0\)</span>.</p>
-<div id="4149e0d5" class="cell" data-execution_count="2">
+<div id="838b0605" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

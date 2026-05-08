@@ -124,7 +124,7 @@ $$
 
 Asimismo, recordemos que una matriz $A$ se dice *semidefinida positiva* ($A\succeq 0$), si verifica $\xx^\top A\xx\geq 0$ para todo $\xx\in\RR^p$, mientras que se dice *definida positiva* ($A\succ 0$) si la desigualdad es estricta. De manera análoga, se definen las matrices semidefinidas negativas ($A \preceq 0$) y definidas negativas ($A \prec 0$).
 
-Al conjunto de matrices simétricas lo denotaremos $\SS^p$, mientras que con $\SS_+^p$ y $\SS_{++}^p$ nos referiremos al conjunto de matrices simétricas semidefinidas positivas y simétricas definidas positivas, respectivamente.
+Al conjunto de matrices simétricas lo denotaremos $\bfS^p$, mientras que con $\bfS_+^p$ y $\bfS_{++}^p$ nos referiremos al conjunto de matrices simétricas semidefinidas positivas y simétricas definidas positivas, respectivamente.
 
 Por último, del mismo modo que escribimos $A\xx=\bb$ para referirnos a un conjunto de igualdades de la forma $\aa_i^\top\xx=b_i$, vamos a denotar $A\xx\preceq\bb$ al conjunto de desigualdades $\aa_i^\top\xx\leq b_i$.
 
@@ -820,7 +820,7 @@ Ambos conjuntos son convexos (¿por qué?), por lo tanto $S_1+S_2$ también lo e
 Elipsoide
 </span>
 
-Sea $\xx_0\in\RR^2$ y $P\in\SS_{++}^2$. El *elipsoide*
+Sea $\xx_0\in\RR^2$ y $P\in\bfS_{++}^2$. El *elipsoide*
 $$
 E=\{\xx\in\RR^p\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
 $$
@@ -1860,7 +1860,7 @@ $$
 f(\xx)=\frac{1}{2}\xx^\top A\xx+\bb^\top\xx+c,
 $$
 
-donde $A\in\SS^p:=\{X\in\RR^{p\times p} \mid X=X^\top\}$, $\bb\in\RR^p$ y $c\in\RR$. Dado que $\nabla^2 f(\xx)=A$ para todo $\xx$, podemos afirmar que $f$ es convexa si y sólo si $A\succeq 0$. 
+donde $A\in\bfS^p:=\{X\in\RR^{p\times p} \mid X=X^\top\}$, $\bb\in\RR^p$ y $c\in\RR$. Dado que $\nabla^2 f(\xx)=A$ para todo $\xx$, podemos afirmar que $f$ es convexa si y sólo si $A\succeq 0$. 
 
 Así, por ejemplo, la función $f:\RR^2\to\RR$ definida por
 

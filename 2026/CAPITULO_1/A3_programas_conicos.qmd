@@ -64,9 +64,9 @@ En particular:
 
 - Si $K=\RR_+^p$, $\xx\preceq\yy$ si y sólo si $x_i\leq y_i$ para todo $i=1,\ldots,p$. Esta es la comparación elemento a elemento a la cual ya estamos acostumbrados.
 
-- Si $K=\SS_+^p$, 
+- Si $K=\bfS_+^p$, 
     $$
-    X\preceq Y \iff Y-X\in\SS_+^p.
+    X\preceq Y \iff Y-X\in\bfS_+^p.
     \tag{2}
     $$
 
@@ -322,7 +322,7 @@ Desarrolla un ejemplo con valores concretos y resuelvelo utilizando alguna libre
 ## Programa semidefinido
 
 
-Mientras que en un LP el cono subyacente es simplemente el ortante positivo $\RR_+^p$, los programas semidefinidos (SDP) constituyen un caso importante en el cual se trabaja con el cono de las matrices semidefinidas positivas $\SS_+^p$.
+Mientras que en un LP el cono subyacente es simplemente el ortante positivo $\RR_+^p$, los programas semidefinidos (SDP) constituyen un caso importante en el cual se trabaja con el cono de las matrices semidefinidas positivas $\bfS_+^p$.
 
 
 <div class="alert alert-light text-dark" role="alert">
@@ -336,7 +336,7 @@ $$
 \end{array}
 $$ 
 
-donde $\cc\in\RR^p$, $F_i\in\SS^p$ ($i=0,1,\ldots,p$), $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+donde $\cc\in\RR^p$, $F_i\in\bfS^p$ ($i=0,1,\ldots,p$), $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
 
 </div>
 
@@ -349,7 +349,7 @@ donde $\cc\in\RR^p$, $F_i\in\SS^p$ ($i=0,1,\ldots,p$), $A\in\RR^{m\times p}$ y $
 
 
 
-<div style="margin-top: 5em;"></div>
+<br><br>
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>

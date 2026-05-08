@@ -119,7 +119,7 @@ De inmediato surgen dos preguntas claves:
 Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, relacionado con el Teorema 1.2.3 del [C1-S2](A2_optimizacion_convexa.html#problemas-de-optimización-convexa).
 
 ::: {.teorema}
-**Teorema 1.1.1.** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) 
+**Teorema 1.4.1.** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) 
 Sea $f:\RR^p\to\RR$ una función diferenciable y  convexa. Entonces $\xx^\star\in \text{dom}\,f$ es un minimizador de $f$ si y solo si
 $$
 \nabla f(\xx^\star)=\bfzero.
@@ -183,14 +183,14 @@ $$
 
 
 <figure style="text-align: center;">
-  <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="300px">
+  <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="400px">
   <figcaption> **Figura 1.4.1**. Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.   </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
 
-Como se puede apreciar en la Figura 1, para un punto óptimo $\xx^\star$ el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma $\yy-\xx^\star$. Esto se deduce del hecho que
+Como se puede apreciar en la Figura 1.4.1, para un punto óptimo $\xx^\star$ el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma $\yy-\xx^\star$. Esto se deduce del hecho que
 $$
 \langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2=\underbrace{\|\nabla f(\xx^\star)\|_2}_{\geq 0}\underbrace{\|\yy-\xx^\star\|_2}_{\geq 0}\cos \alpha\geq 0
 $$
@@ -219,14 +219,14 @@ $$
 
 
 <figure style="text-align: center;">
-  <img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="400px">
+  <img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="450px">
   <figcaption>**Figura 1.4.2**. Idea geométrica de la condición del gradiente para tres puntos críticos $\xx_1,\xx_2,\xx_3\in\Omega$ y un punto no crítico $\xx_4\in\Omega$. En el caso de $\xx_3$, se tiene $\nabla f(\xx_3)=\bfzero$.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
 
-En la Figura 2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que $\Omega$ es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el [C1-S2](A2_optimizacion_convexa.html#conos-normales). En particular, para puntos interiores de $\Omega$, la condición se reduce a la ecuación $\nabla f(\xx)=\bfzero$, típica de los problemas sin restricciones.
+En la Figura 1.4.2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que $\Omega$ es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el [C1-S2](A2_optimizacion_convexa.html#conos-normales). En particular, para puntos interiores de $\Omega$, la condición se reduce a la ecuación $\nabla f(\xx)=\bfzero$, típica de los problemas sin restricciones.
 
 Todos los casos están caracterizados por el siguiente hecho: 
 

@@ -1329,7 +1329,7 @@ En el contexto multidimensional, la idea del método de la secante conduce a los
 
 ::: {.myhighlight}
 
-Si $H_t\in\SS^p$ satisface la *condición de la secante*
+Si $H_t\in\bfS^p$ satisface la *condición de la secante*
 $$
 \nabla f(\xx_t)-\nabla f(\xx_{t-1})=H_t(\xx_t-\xx_{t-1}),
 \tag{4}
