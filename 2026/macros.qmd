@@ -11,7 +11,7 @@ $$
 \def\calH{\mathcal{H}}
 \def\calD{\mathcal{D}}
 \def\calN{\mathcal{N}}
-\def\aa{{\bf a}}
+\def\bfa{{\bf a}}
 \def\bb{{\bf b}}
 \def\cc{{\bf c}}
 \def\dd{{\bf d}}
@@ -25,7 +25,7 @@ $$
 \def\ww{{\bf w}}
 \def\XX{{\bf X}}
 \def\TT{{\bf T}}
-\def\SS{{\bf S}}
+\def\bfS{{\bf S}}
 \def\bfZ{{\bf Z}}
 \def\bfg{{\bf g}}
 \def\bftheta{\boldsymbol{\theta}}

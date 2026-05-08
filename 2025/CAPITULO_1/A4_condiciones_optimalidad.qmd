@@ -174,7 +174,7 @@ $$
 
 
 <figure style="text-align: center;">
-  <img src="figuras/angulo_entre_gradiente_xy.png" alt="…" width="300px">
+  <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="300px">
   <figcaption> **Figura 1**. Interpretación geométrica de la condición necesaria (4) del Teorema 2.   </figcaption>
 </figure>
 
@@ -210,7 +210,7 @@ $$
 
 
 <figure style="text-align: center;">
-  <img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.png" alt="…" width="400px">
+  <img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="400px">
   <figcaption>**Figura 2**. Idea geométrica de la condición del gradiente para tres puntos críticos $\xx_1,\xx_2,\xx_3\in\Omega$ y un punto no crítico $\xx_4\in\Omega$. En el caso de $\xx_3$, se tiene $\nabla f(\xx_3)=\bfzero$.</figcaption>
 </figure>
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Optimización convexa – Optimización y Aprendizaje Automático II</title>
+<title>Optimización convexa – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -170,7 +170,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Optimización y Aprendizaje Automático II</a> 
+      <a href="../">Optimización y Aprendizaje Automático II - 2026</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -244,7 +244,6 @@ window.Quarto = {
   <li><a href="#operaciones-que-preservan-convexidad-1" id="toc-operaciones-que-preservan-convexidad-1" class="nav-link" data-scroll-target="#operaciones-que-preservan-convexidad-1">Operaciones que preservan convexidad</a></li>
   </ul></li>
   <li><a href="#problemas-de-optimización-convexa" id="toc-problemas-de-optimización-convexa" class="nav-link" data-scroll-target="#problemas-de-optimización-convexa">Problemas de optimización convexa</a></li>
-  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
   </ul>
 </nav>
     </div>
@@ -285,7 +284,7 @@ window.Quarto = {
 \def\calH{\mathcal{H}}
 \def\calD{\mathcal{D}}
 \def\calN{\mathcal{N}}
-\def\aa{{\bf a}}
+\def\bfa{{\bf a}}
 \def\bb{{\bf b}}
 \def\cc{{\bf c}}
 \def\dd{{\bf d}}
@@ -299,7 +298,7 @@ window.Quarto = {
 \def\ww{{\bf w}}
 \def\XX{{\bf X}}
 \def\TT{{\bf T}}
-\def\SS{{\bf S}}
+\def\bfS{{\bf S}}
 \def\bfZ{{\bf Z}}
 \def\bfg{{\bf g}}
 \def\bftheta{\boldsymbol{\theta}}
@@ -832,7 +831,7 @@ S_2:=\{(x,y)\in\RR^2\mid x^2+y^2\leq r\}.
 <div style="margin-top:2em;">
 
 </div>
-<div id="53a917c0" class="cell" data-execution_count="1">
+<div id="6989a846" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1682,7 +1681,7 @@ f(\xx)=\frac{1}{2}\xx^\top A\xx+\bb^\top\xx+c,
 f(x,y)=\frac{1}{2}\begin{pmatrix}x&amp;y\end{pmatrix}\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}\begin{pmatrix}x\\ y\end{pmatrix}=\frac{1}{2}(2x^2+2xy+3y^2)
 \]</span></p>
 <p>es convexa, ya que <span class="math inline">\(\xx^\top A\xx=2x^2+2xy+3y^2=x^2+(x+y)^2+2y^2\geq 0\)</span> para todo <span class="math inline">\((x,y)\in\RR^2\)</span>, lo cual significa que <span class="math inline">\(A\succeq 0\)</span>.</p>
-<div id="4341d1ed" class="cell" data-execution_count="2">
+<div id="4149e0d5" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1908,83 +1907,6 @@ f(\zz)\leq (1-\theta)f(\xx)+\theta f(\yy)&lt;(1-\theta)f(\xx)+\theta f(\xx)=f(\x
 </div>
 </details>
 <p><br><br></p>
-</section>
-<section id="actividades" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
-✏️ <strong>Conceptuales</strong><br>
-
-<hr class="linea-corta">
-<details>
-<summary>
-Mostrar
-</summary>
-<div style="margin-top:1em;">
-
-</div>
-<ol type="1">
-<li><p>Muestre que:</p>
-<ul>
-<li>un conjunto afín contiene cualquier combinación afín de sus puntos.</li>
-<li>un conjunto convexo contiene cualquier combinación convexa de sus puntos.</li>
-<li>un cono convexo contiene cualquier combinación cónica de sus puntos.</li>
-</ul></li>
-<li><p>Pruebe que, si <span class="math inline">\(C\)</span> es un conjunto afín y <span class="math inline">\(\xx_0\in C\)</span>, entonces <span class="math inline">\(V:= C-\xx_0\)</span> es un subespacio vectorial que no depende de la elección de <span class="math inline">\(\xx_0\in C\)</span>.</p></li>
-<li><p>Verifique que, para cualquier conjunto <span class="math inline">\(C\)</span>:</p>
-<ul>
-<li>la envolvente convexa <span class="math inline">\(\text{conv}\,C\)</span> es un conjunto convexo.</li>
-<li>la envolvente cónica <span class="math inline">\(\text{cone}\,C\)</span> es un cono convexo.</li>
-</ul></li>
-<li><p>Sea <span class="math inline">\(\{S_i\}_{i\in I}\)</span> una familia de conjuntos convexos. Probar que si <span class="math inline">\(S_i\)</span> es convexo para cada <span class="math inline">\(i\in I\)</span>, entonces <span class="math inline">\(\bigcap_{i\in I} S_i\)</span> es convexo. ¿Qué ocurre con <span class="math inline">\(\bigcup_{i\in I} S_i\)</span>?</p></li>
-<li><p>Sean <span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span> conjuntos convexos. Muestre que <span class="math inline">\(S_1\times S_2\)</span> es convexo.</p></li>
-<li><p>Sea <span class="math inline">\(S\subset\RR^p\)</span> un conjunto convexo, <span class="math inline">\(\aa\in\RR^p\)</span> y <span class="math inline">\(\alpha\in\RR\)</span>. Pruebe que los conjuntos <span class="math inline">\(S+\aa:=\{\xx+\aa \mid \xx\in S\}\)</span> y <span class="math inline">\(\alpha S:=\{\alpha\xx \mid \xx\in S\}\)</span> son convexos.</p></li>
-<li><p>(a) Realice la prueba del Ejemplo 12 de cono normal a un hiperplano. Es decir, muestre que <span class="math inline">\(\dd\in N_{\Omega}(\xx_0)\)</span> si y solo si es de la forma <span class="math inline">\(\dd=\lambda\aa\)</span> para algún <span class="math inline">\(\lambda\in\RR\)</span>. [<em>Ayuda: para el directo, suponga <span class="math inline">\(\dd\neq \lambda\aa\)</span> y utilice el hecho de que <span class="math inline">\(\dd\)</span> puede escribirse como <span class="math inline">\(\dd=(\xx-\xx_0)+k\aa\)</span>, donde <span class="math inline">\(\xx\)</span> es la proyección de <span class="math inline">\(\dd\)</span> sobre <span class="math inline">\(\Omega\)</span> y <span class="math inline">\(k\in\RR\)</span></em>.]</p>
-<p>(b) Considere el&nbsp;subconjunto de <span class="math inline">\(\RR^2\)</span> determinado por <span class="math inline">\(x_1+x_2 \leq \frac{1}{2}\)</span>, <span class="math inline">\(x_1\geq 0\)</span>, <span class="math inline">\(x_2\geq 0\)</span>, y utilice el resultado de (a) para hallar gráfica y simbólicamente los conos normales en cada vértice y lado del subconjunto.</p></li>
-<li><p>Muestre que los conjuntos de subnivel de una función <span class="math inline">\(f:\RR^p\to\RR\)</span> convexa, definidos como <span class="math display">\[
-C_\alpha:=\{\xx\in\text{dom}\,f \mid f(\xx)\leq\alpha\},
-\]</span> son convexos, pero que el recíproco no se cumple. Para esto último utilice algún contraejemplo.</p></li>
-<li><p>Pruebe que una función es convexa si y solo si su epígrafo es un conjunto convexo.</p></li>
-<li><p>El requisito separado de que <span class="math inline">\(\text{dom}\,f\)</span> sea convexo no puede eliminarse de las caracterizaciones de primer o segundo orden de convexidad y concavidad de <span class="math inline">\(f\)</span>. Analice el caso <span class="math inline">\(f(x)=1/x^2\)</span>.</p></li>
-<li><p>Justifique, utilizando alguno de los teoremas vistos, la convexidad de las siguientes funciones:</p>
-<ul>
-<li><span class="math inline">\(f:\RR^+\to\RR: f(x)=\log(1+e^x)\)</span>.</li>
-<li><span class="math inline">\(f:\RR^p\to\RR: f(\xx)=\aa^\top \xx+b\)</span>, <span class="math inline">\(\aa\in\RR^p\)</span>, <span class="math inline">\(b\in\RR\)</span>.</li>
-<li><span class="math inline">\(f:\RR^p\to\RR: f(\xx)=\|\xx\|_2^2\)</span>.</li>
-<li><span class="math inline">\(f:(\RR^+)^p\to\RR: f(\xx)=\sum_{i=1}^p\xx_i\log \xx_i\)</span>.</li>
-<li><span class="math inline">\(f:(\RR^+)^p\to\RR: f(\xx)=-\sum_{i=1}^p\log \xx_i\)</span>.</li>
-</ul></li>
-<li><p>Dada una matriz <span class="math inline">\(A\in\RR^{2\times 2}\)</span>, sea <span class="math inline">\(f:\RR^2\to\RR\)</span> la función cuadrática definida por <span class="math display">\[
-f(x)=\frac{1}{2}\xx^\top A\xx,\qquad A\in\RR^{2\times 2}.
-\]</span></p>
-<ul>
-<li>Proponga distintas matrices <span class="math inline">\(A\)</span>, grafique la función y explique qué observa con respecto a su convexidad.</li>
-<li>Determine si <span class="math inline">\(A\)</span> es semidefinida positiva, negativa o indefinida.</li>
-<li>Calcule los autovalores de <span class="math inline">\(A\)</span> y explique qué relación observa.</li>
-</ul></li>
-<li><p>La desigualdad de Jensen establece que si <span class="math inline">\(\XX\)</span> es una variable aleatoria tal que <span class="math inline">\(\XX\in\text{dom}\,f\)</span> con probabilidad uno y <span class="math inline">\(f\)</span> es una función convexa, entonces <span class="math display">\[
-f(\media \XX)\leq \media f(\XX),
-\]</span> siempre que la esperanza exista. Hallar una variable aleatoria <span class="math inline">\(\XX\)</span> que permita recuperar la desigualdad básica de la Definición 8 de función convexa a partir de la desigualdad de Jensen.</p></li>
-<li><p>Verifique que las operaciones presentadas efectivamente preservan la convexidad de las funciones. [<em>Ayuda: para el caso de supremo puntual, muestre que <span class="math inline">\(\text{epi}\,f=\bigcap_{i\in\mathcal{A}}\text{epi}\,f_i\)</span></em>.]</p></li>
-<li><p>Determine cuáles de las operaciones que preservan la convexidad siguen preservándola en el caso de funciones estrictamente convexas, ajustando las hipótesis cuando sea necesario.</p></li>
-<li><p>Sean <span class="math inline">\(C\subset\RR^p\)</span> y <span class="math inline">\(\|\cdot\|\)</span> una norma en <span class="math inline">\(\RR^p\)</span>. La <em>distancia al punto más lejano</em> de <span class="math inline">\(C\)</span> está dada por <span class="math display">\[
-f(\xx)=\sup_{\yy\in C}\|\xx-\yy\|.
-\]</span> Pruebe que <span class="math inline">\(f\)</span> es convexa.</p></li>
-<li><p>Dada una matriz simétrica, <span class="math inline">\(X\in\SS^p\)</span>, nos referimos con <span class="math inline">\(\lambda_{\text{max}}(X)\)</span> a su <em>valor propio máximo</em>. Pruebe que la función <span class="math inline">\(f:\mathbf{S}^p\to\RR\)</span>, definida por <span class="math display">\[
-f(X)=\lambda_{\text{max}}(X),
-\]</span> es convexa.</p></li>
-</ol>
-</details>
-<div style="margin-top:2em;">
-
-</div>
-💻 <strong>Prácticas</strong><br>
-
-<hr class="linea-corta">
-<div style="text-align:left;">
-<p><a href="https://colab.research.google.com/drive/19_X9Rj39rFVf2DFTYfbzBaEI5Rtc3tzQ?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
-</div>
-<div style="margin-top: 5em;">
-
-</div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Boyd, S., &amp; Vandenberghe, L. (2004). <em>Convex Optimization</em>. Capítulos 2 y 3. Cambridge University Press.</p>

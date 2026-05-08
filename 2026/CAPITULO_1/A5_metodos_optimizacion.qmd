@@ -1407,30 +1407,6 @@ Más allá de los métodos analizados en esta sección, existen varias familias 
 
 <br><br>
 
-## Actividades {.unnumbered}
-
-💻 **Prácticas**  
-<hr class="linea-corta">
-
-<div style="text-align:left;">
-  <a href="https://colab.research.google.com/drive/1q29m16SlEs6mF3hwpv1gSaUDjazL6SOR?usp=drive_link" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" 
-         alt="Colab" 
-         style="height:1.4em;">
-  </a>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div style="margin-top: 5em;"></div>
-
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 

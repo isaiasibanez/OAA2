@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introducción a la optimización – Optimización y Aprendizaje Automático II</title>
+<title>Introducción a la optimización – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -169,7 +169,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Optimización y Aprendizaje Automático II</a> 
+      <a href="../">Optimización y Aprendizaje Automático II - 2026</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -232,7 +232,6 @@ window.Quarto = {
   <ul>
   <li><a href="#optimización-matemática" id="toc-optimización-matemática" class="nav-link active" data-scroll-target="#optimización-matemática">Optimización matemática</a></li>
   <li><a href="#mínimos-cuadrados-y-programación-lineal" id="toc-mínimos-cuadrados-y-programación-lineal" class="nav-link" data-scroll-target="#mínimos-cuadrados-y-programación-lineal">Mínimos cuadrados y programación lineal</a></li>
-  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
   </ul>
 </nav>
     </div>
@@ -273,7 +272,7 @@ window.Quarto = {
 \def\calH{\mathcal{H}}
 \def\calD{\mathcal{D}}
 \def\calN{\mathcal{N}}
-\def\aa{{\bf a}}
+\def\bfa{{\bf a}}
 \def\bb{{\bf b}}
 \def\cc{{\bf c}}
 \def\dd{{\bf d}}
@@ -287,7 +286,7 @@ window.Quarto = {
 \def\ww{{\bf w}}
 \def\XX{{\bf X}}
 \def\TT{{\bf T}}
-\def\SS{{\bf S}}
+\def\bfS{{\bf S}}
 \def\bfZ{{\bf Z}}
 \def\bfg{{\bf g}}
 \def\bftheta{\boldsymbol{\theta}}
@@ -655,7 +654,7 @@ b^{\star}
 \]</span></p>
 <p><br></p>
 <p>En Python, podemos resolver problemas de mínimos cuadrados con la función <a href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html"><code>numpy.linalg.lstsq</code></a>.</p>
-<div id="9a6185a6" class="cell" data-execution_count="1">
+<div id="1b24e4af" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
@@ -762,7 +761,7 @@ Mostrar detalles
 <p>La relación geométrica en este ejemplo no es casual: en programación lineal, el óptimo (si existe) se alcanza siempre en alguno de los vértices de la región factible. Este hecho constituye la base del método del simplex y de otros algoritmos clásicos.</p>
 <p><br></p>
 <p>En Python, se pueden resolver problemas de este tipo utilizando <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html"><code>scipy.optimize.linprog</code></a>.</p>
-<div id="4269eb7f" class="cell" data-execution_count="2">
+<div id="24255e8a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficientes de la función objetivo (negativos porque linprog minimiza):</span></span>
@@ -802,68 +801,17 @@ Formule el siguiente problema y resuélvalo geométricamente. Luego, verifique s
 
 Una nutricionista debe diseñar una dieta usando dos alimentos, A y B. El alimento A cuesta $2 por unidad y contiene 3g de proteína y 1g de carbohidratos por unidad. El alimento B cuesta $3 por unidad y contiene 2g de proteína y 2g de carbohidratos por unidad. La dieta debe contener al menos 60g de proteína y 30g de carbohidratos. ¿Cuántas unidades de cada alimento debe incluir para minimizar el costo?
 
-```diuaewkeklyshldw
+```vhuwvfjtcarptyek
 # Grafique aquí.
 ``` 
 
-```diuaewkeklyshldw
+```vhuwvfjtcarptyek
 # Verifique la solución aquí.
 ``` 
 
 :::
 -->
 <p><br><br></p>
-</section>
-<section id="actividades" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
-✏️ <strong>Conceptuales</strong><br>
-
-<hr class="linea-corta">
-<details>
-<summary>
-Mostrar
-</summary>
-<div style="margin-top:1em;">
-
-</div>
-<ol type="1">
-<li><p>Dé ejemplos de problemas que haya resuelto en cursos anteriores que involucren maximizar o minimizar alguna cantidad. Para cada ejemplo, identifique sus elementos: función objetivo, variables de optimización, conjunto de restricciones.</p></li>
-<li><p>Muestre que efectivamente el problema de mínimos cuadrados se reduce a <span class="math inline">\((A^{\top} A)\xx=A^{\top}\bb\)</span>.</p></li>
-<li><p>Reescriba el problema de mínimos cuadrados ponderados como un problema de mínimos cuadrados estándar.</p></li>
-<li><p>Justifique cómo se reescribe el problema de aproximación de Chebyshev como un programa lineal.</p></li>
-</ol>
-</details>
-<div style="margin-top:2em;">
-
-</div>
-💻 <strong>Prácticas</strong><br>
-
-<hr class="linea-corta">
-<div style="text-align:left;">
-<p><a href="https://colab.research.google.com/drive/1gSAmoTQHiCQ-TlYiYbE4xdYdGrlyC86F?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
-</div>
-<!-- 
-1. Encuentre la recta que pasa por el origen que mejor ajusta, en el sentido de mínimos cuadrados, a los puntos $(1, 2)$, $(2, 3)$ y $(3, 6)$.
-
-
-1. Dado el vector $\bb=(4,2,5)$ y los vectores $\vv_1=(1,0,1)$, $\vv_2=(0,1,1)$, encuentre la combinación lineal $\alpha_1\vv_1+\alpha_2\vv_2$ que mejor aproxime a $\bb$, utilizando mínimos cuadrados.
-
-
-1. Una carpintería produce mesas y sillas. Cada mesa requiere 3 horas de trabajo y 2 metros de madera, generando una ganancia de $40. Cada silla requiere 1 hora de trabajo y 1 metro de madera, generando una ganancia de $15. La carpintería dispone de 18 horas de trabajo y 12 metros de madera por día. ¿Cuántas mesas y sillas debe producir para maximizar la ganancia?
-
-
-1. Una empresa tiene 2 fábricas (F1 y F2) que producen 100 y 150 unidades respectivamente. Debe abastecer a 3 almacenes (A1, A2, A3) con demandas de 80, 90 y 80 unidades respectivamente. Los costos de transporte por unidad son:
-
-   |     | A1  | A2  | A3  |
-   |-----|-----|-----|-----|
-   | F1  | $4  | $6  | $8  |
-   | F2  | $5  | $3  | $7  |
-
-   Determine el plan de transporte de costo mínimo.
--->
-<div style="margin-top: 5em;">
-
-</div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Boyd, S., &amp; Vandenberghe, L. (2004). <em>Convex Optimization</em>. Capítulo 1. Cambridge University Press.</p>

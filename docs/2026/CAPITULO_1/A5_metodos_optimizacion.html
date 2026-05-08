@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Métodos de optimización – Optimización y Aprendizaje Automático II</title>
+<title>Métodos de optimización – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -169,7 +169,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Optimización y Aprendizaje Automático II</a> 
+      <a href="../">Optimización y Aprendizaje Automático II - 2026</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -242,7 +242,6 @@ window.Quarto = {
   <li><a href="#métodos-quasi-newton" id="toc-métodos-quasi-newton" class="nav-link" data-scroll-target="#métodos-quasi-newton">Métodos Quasi-Newton</a></li>
   </ul></li>
   <li><a href="#breve-reseña-de-otros-métodos" id="toc-breve-reseña-de-otros-métodos" class="nav-link" data-scroll-target="#breve-reseña-de-otros-métodos">Breve reseña de otros métodos</a></li>
-  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
   </ul>
 </nav>
     </div>
@@ -283,7 +282,7 @@ window.Quarto = {
 \def\calH{\mathcal{H}}
 \def\calD{\mathcal{D}}
 \def\calN{\mathcal{N}}
-\def\aa{{\bf a}}
+\def\bfa{{\bf a}}
 \def\bb{{\bf b}}
 \def\cc{{\bf c}}
 \def\dd{{\bf d}}
@@ -297,7 +296,7 @@ window.Quarto = {
 \def\ww{{\bf w}}
 \def\XX{{\bf X}}
 \def\TT{{\bf T}}
-\def\SS{{\bf S}}
+\def\bfS{{\bf S}}
 \def\bfZ{{\bf Z}}
 \def\bfg{{\bf g}}
 \def\bftheta{\boldsymbol{\theta}}
@@ -395,7 +394,7 @@ f(\xx) \approx f(\xx_{t}) + \nabla f(\xx_{t})^\top(\xx - \xx_{t}).
 <li><code>tol_x</code>: tolerancia para norma de diferencia entre iteraciones (opcional).</li>
 </ul>
 <p>La salida es una lista con los puntos obtenidos en las iteraciones (<code>x_iter</code>), y los valores de la función (<code>f_iter</code>).</p>
-<div id="b079801f" class="cell" data-execution_count="1">
+<div id="649e6221" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(f, grad_f, x_inicial, lr<span class="op">=</span><span class="fl">0.1</span>, max_iter<span class="op">=</span><span class="dv">100</span>,</span>
@@ -447,7 +446,7 @@ f(x,y)=2(x-2)^2+5(y-3)^2,
 <p>el cual sabemos que ocurre en <span class="math inline">\((2,3)\)</span> (vértice del paraboloide elíptico). Necesitamos proporcionar el gradiente de <span class="math inline">\(f\)</span>, el cual es <span class="math display">\[
 \nabla f(x,y)=\left(4(x-2), 10(y-3)\right).
 \]</span></p>
-<div id="0ee5585f" class="cell" data-execution_count="2">
+<div id="42616190" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -479,7 +478,7 @@ Valor de f: 2.9931553533161224e-05</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="baa5f7bf" class="cell" data-execution_count="3">
+<div id="bbcc2062" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x_arr <span class="op">=</span> np.array(x_iter)</span>
@@ -522,7 +521,7 @@ Valor de f: 2.9931553533161224e-05</code></pre>
 </div>
 </div>
 <p>Por último, vamos a realizar la gráfica en el dominio <span class="math inline">\(\RR^2\)</span> de la función.</p>
-<div id="9546f897" class="cell" data-execution_count="4">
+<div id="bfc8d151" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grilla para graficar:</span></span>
@@ -832,7 +831,7 @@ f(\xx_T)-f(\xx^{\star})&amp;\leq \frac{1}{2T\eta}\|\xx^{\star}-\xx_0\|_2^2.
 <ul>
 <li><code>proy</code>: función de proyección sobre el conjunto factible.</li>
 </ul>
-<div id="5b2a3d49" class="cell" data-execution_count="5">
+<div id="21ba8714" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> projected_gradient_descent(f, grad_f, x_inicial, proy,</span>
@@ -892,7 +891,7 @@ f(\xx_T)-f(\xx^{\star})&amp;\leq \frac{1}{2T\eta}\|\xx^{\star}-\xx_0\|_2^2.
 \end{pmatrix}.
 \]</span></p>
 <p>Esto se calcula rápidamente con la función <code>np.clip</code> de NumPy.</p>
-<div id="94d39c6a" class="cell" data-execution_count="6">
+<div id="3fbb390b" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -928,7 +927,7 @@ Valor de f: 22.0</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="60861540" class="cell" data-execution_count="7">
+<div id="be769d67" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x_arr <span class="op">=</span> np.array(x_iter)</span>
@@ -961,7 +960,7 @@ Valor de f: 22.0</code></pre>
 </div>
 </div>
 <p>Por último, vamos a realizar la gráfica en el dominio <span class="math inline">\(\RR^2\)</span> de la función.</p>
-<div id="fc270d00" class="cell" data-execution_count="8">
+<div id="099e23b3" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grilla para graficar:</span></span>
@@ -997,7 +996,7 @@ Valor de f: 22.0</code></pre>
 <div class="cell-output cell-output-stderr">
 <pre><code>&lt;&gt;:21: SyntaxWarning: invalid escape sequence '\O'
 &lt;&gt;:21: SyntaxWarning: invalid escape sequence '\O'
-C:\Users\isaia\AppData\Local\Temp\ipykernel_9440\4178567754.py:21: SyntaxWarning: invalid escape sequence '\O'
+C:\Users\isaia\AppData\Local\Temp\ipykernel_21356\4178567754.py:21: SyntaxWarning: invalid escape sequence '\O'
   plt.plot(caja_x, caja_y, color='blue', linewidth=2, linestyle='-', label='$\Omega = [0,1]^2$')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1198,7 +1197,7 @@ x_{t+1}:=x_t-\frac{f'(x_t)}{f''(x_t)}.
 <ul>
 <li><code>hess_f</code>: función Hessiana de <span class="math inline">\(f\)</span>.</li>
 </ul>
-<div id="504fc77b" class="cell" data-execution_count="9">
+<div id="0db179a6" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> newton_method(f, grad_f, hess_f, x_inicial, lr<span class="op">=</span><span class="fl">0.1</span>,         </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  max_iter<span class="op">=</span><span class="dv">100</span>, tol_grad<span class="op">=</span><span class="va">None</span>, tol_x<span class="op">=</span><span class="va">None</span>, verbose<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1256,7 +1255,7 @@ f(x,y)=2(x-2)^2+5(y-3)^2,
 \nabla^2 f(x,y) = \begin{pmatrix} 4&amp;0\\0&amp;10 \end{pmatrix}.
 \]</span></p>
 <p>En primer lugar, utilizaremos la variante con paso reducido, con <span class="math inline">\(\eta=0.05\)</span>.</p>
-<div id="4a22630c" class="cell" data-execution_count="10">
+<div id="699baa0b" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1290,7 +1289,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="606531f9" class="cell" data-execution_count="11">
+<div id="3b3aca34" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x_arr <span class="op">=</span> np.array(x_iter)</span>
@@ -1317,7 +1316,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 </div>
 </div>
 <p>Por último, vamos a realizar la gráfica en el dominio <span class="math inline">\(\RR^2\)</span> de la función.</p>
-<div id="f22c85c0" class="cell" data-execution_count="12">
+<div id="c6e5a602" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grilla para graficar:</span></span>
@@ -1357,7 +1356,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 </div>
 </div>
 <p>Observar que los puntos iterados son colineales. Esto ocurre en problemas cuadráticos, debido a que la matriz Hessiana es constante. Veamos qué pasa si aplicamos directamente el método de Newton clásico (<span class="math inline">\(\eta=1\)</span>).</p>
-<div id="b1dfd645" class="cell" data-execution_count="13">
+<div id="656e4606" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1391,7 +1390,7 @@ Iteración final: 1
 Valor de f: 0.0</code></pre>
 </div>
 </div>
-<div id="b99a2986" class="cell" data-execution_count="14">
+<div id="16e5f1e3" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x_arr <span class="op">=</span> np.array(x_iter)</span>
@@ -1550,18 +1549,6 @@ x_{t+1}:=x_t-\frac{x_t-x_{t-1}}{f'(x_t)-f'(x_{t-1})}f'(x_t).
 <li><p><strong>Otros enfoques modernos</strong>: incluyen el descenso por coordenadas, el método de Frank-Wolfe, algoritmos acelerados, y métodos adaptativos o sin gradiente, que son útiles para problemas de alta dimensión o funciones no diferenciables.</p></li>
 </ul>
 <p><br><br></p>
-</section>
-<section id="actividades" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
-💻 <strong>Prácticas</strong><br>
-
-<hr class="linea-corta">
-<div style="text-align:left;">
-<p><a href="https://colab.research.google.com/drive/1q29m16SlEs6mF3hwpv1gSaUDjazL6SOR?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
-</div>
-<div style="margin-top: 5em;">
-
-</div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Farina, G. Apuntes del curso MIT 6.7220: <em>Nonlinear Optimization</em>. Lecciones 12, 14 y 15 (2025) y Lección 12 (2024). Disponible en la <a href="https://www.mit.edu/~gfarina/notes/">página del curso</a>.</p>
