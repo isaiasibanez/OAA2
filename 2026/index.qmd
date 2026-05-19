@@ -59,5 +59,13 @@ navbar:
 
 <h4 style="color:#8B0000; border-bottom: 2px solid #8B0000; padding-bottom:5px;">2 Modelos discriminativos</h4>
 
+<ul>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_2/B2_regresion_lineal_logistica.qmd" style="color:#333333; text-decoration:none;"><b>2.2 Regresión lineal y regresión logística</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  Regresión lineal y regresión logística: modelo y  optimalidad. Algoritmos iterativos. Propiedades de los estimadores.
+  </div>
+  </li>
+</ul>
+
 <h4 style="color:#8B0000; border-bottom: 2px solid #8B0000; padding-bottom:5px;">3 Modelos generativos</h4>
 

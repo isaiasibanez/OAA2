@@ -169,7 +169,7 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Observar, en esta última expresión, que maximizar $\ell(\theta)$ es equivalente a minimizar
+Observar, en esta última expresión, que maximizar $\ell(\bftheta)$ es equivalente a minimizar
 
 $$
 J(\bftheta)=\frac{1}{2} \sum_{i=1}^{n} (y_i - \bftheta^\top \xx_i)^2=\frac{1}{2}\|X\bftheta-\yy\|_2^2,
@@ -606,7 +606,7 @@ $$
 
 donde $\hat{\yy}\in\RR^n$ es el vector de valores ajustados dado por
 $$
-\hat{\yy} := (h(\bftheta^\top\xx_1),\ldots,h(\bftheta^\top\xx_n))^\top=\sigma(X\bftheta).
+\hat{\yy} := (h_{\bftheta}(\xx_1),\ldots,h_{\bftheta}(\xx_n))^\top=\sigma(X\bftheta).
 $$
 
 La expresión (5) muestra que $\nabla J(\bftheta)$ depende de $\bftheta$ de forma no lineal. Por lo tanto, no es posible obtener una solución explícita de $\nabla J(\hat{\bftheta})=\bfzero$ y la única opción es recurrir a métodos iterativos para aproximar $\hat{\bftheta}$.
@@ -687,7 +687,7 @@ Regresión logística en datos de cáncer
 
 El conjunto de datos de Breast Cancer ([disponible aquí](https://sklearner.com/scikit-learn-load_breast_cancer/)) contiene información de tumores de mama. Consta de 569 observaciones y 30 variables predictoras. La variable respuesta indica el tipo de tumor (0 para benigno y 1 para maligno), lo que convierte este problema en una tarea de clasificación binaria.
 
-Ajustaremos un modelo de regresión lineal a los datos, evaluaremos el *accuracy* en test y presentaremos los coeficientes estimados del modelo.
+Ajustaremos un modelo de regresión logística a los datos, evaluaremos el *accuracy* en test y presentaremos los coeficientes estimados del modelo.
 
 ```{python}
 #| code-summary: "Mostrar código"
@@ -739,7 +739,7 @@ $$
 \{(\xx_i,y_i)\}_{i=1}^n \text{ i.i.d.} & (\text{Independencia e idéntica distribución}) \\[1ex]
 0<\mathbb{P}(Y_i=1\mid \xx_i)<1 & \text{(No separabilidad)}\\[1ex]
 \mathbb{E}[\|\xx_i\|^2]<\infty & \text{(Momentos finitos)}\\[1ex]
-I(\bftheta^\star) = \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
+\mathcal{I}(\bftheta^\star) = \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
 \end{array}
 $$
 
@@ -752,12 +752,9 @@ $$
 
 - *Convergencia computacional*: como $J$ es convexa y $L$-suave con 
 $$
-L\leq\frac{\lambda_{\text{max}(X^\top X)}}{4},
+L\leq\frac{\lambda_{\text{max}}(X^\top X)}{4},
 $$
-el método de descenso por gradiente verifica
-$$
-J(\bftheta_t)\to\ J(\hat{\bftheta}).
-$$
+el método de descenso por gradiente con paso fijo $0<\eta<1/L$ converge al minimizador $\hat{\bftheta}$.
 
 
 <br><hr>

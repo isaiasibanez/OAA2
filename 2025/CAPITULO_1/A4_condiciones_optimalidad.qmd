@@ -261,7 +261,7 @@ $$
 Esto es cierto, de acuerdo a la definición de $\Omega$. De hecho, en la siguiente figura se puede ver que, efectivamente, $-\nabla f(0,0)\in N_{\Omega}(0,0)$. 
 
 <figure style="text-align: center;">
-  <img src="figuras/ej_grad_cono_fail.png" alt="…" width="300px">
+  <img src="figuras/ej_grad_cono_fail.svg" alt="…" width="300px">
 </figure>
 
 Pese a verificar la condición necesaria (4), el punto $(0,0)$ no es óptimo. De hecho, $f(0,0)=0$, mientras que el valor óptimo es $-\frac{1}{4}$ y ocurre en los vértices $(\pm\frac{1}{2},0)$.
@@ -377,7 +377,7 @@ $$
 - Faltan los vértices del triángulo. En la siguiente figura se muestra el comportamiento de $-\nabla f(\xx)$ en cada uno de ellos.
 
 <figure style="text-align: center;">
-  <img src="figuras/ej_vertices_no_optimos.png" alt="…" width="350px">
+  <img src="figuras/ej_vertices_no_optimos.svg" alt="…" width="350px">
 </figure>
 
 Dado que no cumplen la condición suficiente y necesaria (6), ningun vértice es un punto óptimo. En conclusión, el problema tiene solución única 
@@ -872,7 +872,7 @@ $$
 $$
 
 <figure style="text-align: center;">
-  <img src="figuras/ej_KKT_fail.png" alt="..." width="400px">
+  <img src="figuras/ej_KKT_fail.svg" alt="..." width="400px">
 </figure>
 
 Como se puede apreciar en la figura, $(x^\star,y^\star)=(1,0)$ es el único punto óptimo de este problema. Pero en él, los gradientes de la función objetivo y de las restricciones activas son

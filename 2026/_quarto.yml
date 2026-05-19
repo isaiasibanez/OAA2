@@ -21,6 +21,10 @@ website:
             text: "1.4 Condiciones de optimalidad"
           - href: CAPITULO_1/A5_metodos_optimizacion.qmd
             text: "1.5 Métodos de optimización"
+      - section: "2. MODELOS DISCRIMINATIVOS"
+        contents:
+          - href: CAPITULO_2\B2_regresion_lineal_logistica.qmd
+            text: "2.2 Regresión lineal y regresión logística"
   page-navigation: true  # Activar navegación entre páginas
 
 format:
