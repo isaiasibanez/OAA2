@@ -26,12 +26,11 @@ subtitle: "Capítulo 2 - Sección 1"
 
 En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisado: la regresión lineal, utilizada para variables de respuesta cuantitativas, y la regresión logística, empleada cuando la respuesta es categórica. Ambos modelos pueden ser formulados como problemas de optimización, lo que permite aplicar los conceptos vistos en el capítulo anterior. Para ambos modelos, analizaremos su formulación probabilística, las características del problema y los métodos de resolución más utilizados.
 
-<div style="margin-top:1em;"></div>
-
 
 <div style="border-top:1px solid #b7cdf5;
             background-color: #fafbff;
-            padding:0.1em 0;">
+            padding:0.1em 0;
+            margin-top:1em;">
 
 ✏️ **Notación**
 
@@ -47,7 +46,7 @@ Además, denotamos $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$ y
 
 
 
-## Regresión lineal
+## I <span style="color:#CCCCCC;">│</span>  Regresión lineal
 
 <div style="margin-top:-1em;"></div>
 
@@ -110,7 +109,7 @@ En consecuencia:
 
 La función de densidad condicional de $Y|\XX$ en el modelo de regresión lineal es
 $$
-p(y |\xx; \bftheta) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(y-\bftheta^\top \xx)^2}{2 \sigma^2}\right).
+p(y \mid \xx; \bftheta) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(y-\bftheta^\top \xx)^2}{2 \sigma^2}\right).
 $$
 
 :::
@@ -227,11 +226,11 @@ El algoritmo anterior trabaja con todas las observaciones a la vez en cada paso 
 
 Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch+. Observar que, para una observación $(\xx_i,y_i)$, la función de pérdida resulta
 $$
-\text{loss}\,(y_i,f(\xx_i;\bftheta))=\frac{1}{2}(y_i-\bftheta^\top\xx_i)^2,
+\loss(y_i,f(\xx_i;\bftheta))=\frac{1}{2}(y_i-\bftheta^\top\xx_i)^2,
 $$
 tal que
 $$
-\nabla_{\bftheta} \text{loss}\,(y_i,f(\xx_i;\bftheta)) = -(y_i-\bftheta^\top\xx_i)\,\xx_i.
+\nabla_{\bftheta} \loss(y_i,f(\xx_i;\bftheta)) = -(y_i-\bftheta^\top\xx_i)\,\xx_i.
 $$
 
 <div style="margin-top:2em;"></div>
@@ -339,7 +338,7 @@ En base a lo descrito, es fundamental distinguir dos niveles de convergencia:
 
 - **Convergencia estadística del estimador**: se refiere al hecho de que el estimador $\hat{\bftheta}_n$ converge en probabilidad al valor verdadero $\bftheta^\star$. Simbólicamente:
 $$
-\text{plim}_{n\to\infty}\hat{\bftheta}_n=\bftheta^\star\qquad (\hat{\bftheta}_n\xrightarrow{p}\bftheta^\star).
+\plim_{n\to\infty}\hat{\bftheta}_n=\bftheta^\star\qquad (\hat{\bftheta}_n\xrightarrow{p}\bftheta^\star).
 $$
 
     Observar que escribimos $\hat{\bftheta}_n$ para explicitar la dependencia del estimador respecto al tamaño muestral $n$.
@@ -385,7 +384,7 @@ Ahora sí estamos en condiciones de revisar algunos resultados conocidos para el
 
 
 
-## Regresión logística
+## II <span style="color:#CCCCCC;">│</span>  Regresión logística
 
 Consideremos ahora un problema de clasificación binaria, con variable respuesta $Y\in\{0,1\}$. Por ejemplo, si estamos tratando de construir un clasificador de spam para correos electrónicos, entonces una observación $\xx$ contendrá características de un correo electrónico, mientras que su etiqueta $y$ será 1 si es spam o 0 en caso contrario. 
 
@@ -437,9 +436,9 @@ Algunas características son:
 
 - $\sigma'(z)=\sigma(z)(1-\sigma(z))$.
 
-- Su inversa es la función $\text{logit}:(0,1)\to\RR$ definida por
+- Su inversa es la función $\logit:(0,1)\to\RR$ definida por
 	$$
-	\text{logit}(p):=\log\frac{p}{1-p}.
+	\logit(p):=\log\frac{p}{1-p}.
 	$$
 
 </div>
@@ -484,17 +483,22 @@ $$
 \begin{align*}
 	p(y \mid \xx; \bftheta)&=(h_{\bftheta}(\xx))^y(1-h_{\bftheta}(\xx))^{1-y} \\[2pt]
 	&=\exp\left\{y\log h_{\bftheta}(\xx)+(1-y)\log(1-h_{\bftheta}(\xx))\right\} \\[3pt]
-	&=\exp\left\{y\log\left(\frac{h_{\bftheta}(\xx)}{1-h_{\bftheta}(\xx)}\right)+\log(1-h_{\bftheta}(\xx))\right\} \\[3pt]
-	&=\exp\left(y\text{logit}(h_{\bftheta}(\xx))+\log(1-h_{\bftheta}(\xx))\right).
+	&=\exp\left\{y\log\left(\frac{h_{\bftheta}(\xx)}{1-h_{\bftheta}(\xx)}\right)+\log(1-h_{\bftheta}(\xx))\right\} \\[4pt]
+	&=\exp\left\{y\,\logit(h_{\bftheta}(\xx))+\log(1-h_{\bftheta}(\xx))\right\}.
 \end{align*}
 $$
 
+<div style="margin-top:2em;"></div>
+
 Definimos el *parámetro natural* $\eta\in\RR$ como
 $$
-\eta(\xx;\bftheta):=\text{logit}(h_{\bftheta}(\xx))=\bftheta^\top\xx.
+\eta(\xx;\bftheta):=\logit(h_{\bftheta}(\xx))=\bftheta^\top\xx.
 $$
 
+<div style="margin-top:1em;"></div>
+
 y la función $A:\RR\to\RR$ mediante $A(\eta)=\log(1+e^{\eta})$. Resulta:
+
 
 :::{.myhighlight}
 
@@ -511,8 +515,8 @@ $$
 Es importante observar que
 $$
 	\begin{array}{c}
-		A'(\eta)=\displaystyle\frac{e^\eta}{1+e^\eta}=\sigma(\eta)=h_{\bftheta}(\xx)=\media\left[Y|\XX=\xx\right],\\[7pt]
-		A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\bftheta}(\xx)(1-h_{\bftheta}(\xx))=\cov\left[Y|\XX=\xx\right].
+		A'(\eta)=\displaystyle\frac{e^\eta}{1+e^\eta}=\sigma(\eta)=h_{\bftheta}(\xx)=\media\left[Y\mid\XX=\xx\right],\\[7pt]
+		A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\bftheta}(\xx)(1-h_{\bftheta}(\xx))=\cov\left[Y\mid\XX=\xx\right].
 	\end{array}
   \tag{2.2.2}
 $$
@@ -684,7 +688,7 @@ $$
 
 donde
 $$
-W:=\text{diag}(w_1,\ldots,w_n)\qquad\text{con }w_i:=A''(\eta_i)=h_{\bftheta}(\xx_i)(1-h_{\bftheta}(\xx_i)).
+W:=\diag(w_1,\ldots,w_n)\qquad\text{con }w_i:=A''(\eta_i)=h_{\bftheta}(\xx_i)(1-h_{\bftheta}(\xx_i)).
 $$
 
 <div style="margin-top:2em;"></div>

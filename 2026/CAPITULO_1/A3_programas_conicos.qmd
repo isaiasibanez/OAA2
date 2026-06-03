@@ -283,7 +283,7 @@ Investigue el procedimiento para reescribir un LP en forma estándar.
 La distancia euclidiana entre los poliedros $\mathcal{P}_1 = \{\xx \mid A_1 \xx \preceq \bb_1\}$ y $\mathcal{P}_2 = \{\xx \mid A_2 \xx \preceq \bb_2\}$ en $\RR^p$ se define como
 
 $$
-\text{dist}\,(\mathcal{P}_1, \mathcal{P}_2) = \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \mathcal{P}_1, \xx_2 \in \mathcal{P}_2 \}.
+\dist(\mathcal{P}_1, \mathcal{P}_2) = \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \mathcal{P}_1, \xx_2 \in \mathcal{P}_2 \}.
 $$
 
 Si los poliedros se intersecan, la distancia es cero.

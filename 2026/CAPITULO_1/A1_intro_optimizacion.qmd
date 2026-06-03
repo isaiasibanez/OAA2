@@ -50,10 +50,10 @@ donde:
 
 El *valor óptimo* del problema es
 $$
-p^\star:=\inf\{f(\xx) \mid \xx\in\text{dom}\,f\;\land\;\xx\in\Omega\}.
+p^\star:=\inf\{f(\xx) \mid \xx\in\dom f\;\land\;\xx\in\Omega\}.
 $$
 
-Si $\text{dom}\,f\cap\Omega=\emptyset$ (es decir, no hay $\xx\in\RR^p$ *factible*), se dice que el problema es *infactible* y se asume $p^\star=\infty$. Por su parte, si el conjunto $\{f(\xx) \mid \xx\in\text{dom}\,f\;\land\;\xx\in\Omega\}$ no tiene cota inferior, se considera $p^\star=-\infty$.
+Si $\dom f\cap\Omega=\emptyset$ (es decir, no hay $\xx\in\RR^p$ *factible*), se dice que el problema es *infactible* y se asume $p^\star=\infty$. Por su parte, si el conjunto $\{f(\xx) \mid \xx\in\dom f\;\land\;\xx\in\Omega\}$ no tiene cota inferior, se considera $p^\star=-\infty$.
 
 En el caso que $p^\star$ existe y es finito, un vector $\xx^\star\in\Omega$ se denomina *punto óptimo* si $f(\xx^\star)=p^\star$.
 
@@ -64,10 +64,10 @@ En el caso que $p^\star$ existe y es finito, un vector $\xx^\star\in\Omega$ se d
 ::: {.myhighlight}
 Un problema de optimización tiene solución si existe al menos un punto óptimo $x^\star$. En tal caso, es válido escribir
 $$
-p^\star=\min\{f(x) \mid \xx\in \text{dom}\,f\;\land\xx\in\Omega\},
+p^\star=\min\{f(x) \mid \xx\in \dom f\;\land\xx\in\Omega\},
 $$
 $$
-\xx^\star\in\argmin\{f(x) \mid \xx\in \text{dom}\,f\;\land\xx\in\Omega\}.
+\xx^\star\in\argmin\{f(x) \mid \xx\in \dom f\;\land\xx\in\Omega\}.
 $$
 
 :::
@@ -94,7 +94,7 @@ Es decir, $\Omega$ queda definido a partir de un conjunto de *funciones de restr
 
 Un problema de optimización cuyo conjunto factible es de la forma (2) tiene una *restricción implícita*, a saber:
 $$
-\xx\in\mathcal{D}:=\text{dom}\,f\cap\bigcap_{i=1}^r\text{dom}\,g_i\cap\bigcap_{j=1}^m\text{dom}\,h_j.
+\xx\in\mathcal{D}:=\dom f\cap\bigcap_{i=1}^r\dom g_i\cap\bigcap_{j=1}^m\dom h_j.
 $$
 
 Algunas consideraciones importantes son:
@@ -103,7 +103,7 @@ Algunas consideraciones importantes son:
 
 - Las restricciones funcionales $g_i(\xx)\leq 0$ y $h_i(\xx)=0$ son *restricciones explícitas*.
 
-- Un problema es *sin restricciones* si no tiene restricciones explícitas. Es decir, su dominio es $\mathcal{D}:=\text{dom}\,f$.
+- Un problema es *sin restricciones* si no tiene restricciones explícitas. Es decir, su dominio es $\mathcal{D}:=\dom f$.
 
 </div>
 
@@ -324,353 +324,22 @@ La optimización matemática es una herramienta poderosa para tomar la mejor dec
 
 Estas aplicaciones son solo una pequeña muestra de la enorme variedad de problemas prácticos que pueden plantearse como problemas de optimización, presentes en áreas como ingeniería, control automático, diseño, finanzas, logística, redes, entre otras.
 
-<div style="margin-top:2.5em;"></div>
 
 
-## Mínimos cuadrados y programación lineal
 
-Vamos a introducir dos subclases muy conocidas y ampliamente utilizadas de optimización convexa: los problemas de mínimos cuadrados y la programación lineal.
 
 
-::: {.definicion}
-**Definición 2.** (Problema de mínimos cuadrados) Un *problema de mínimos cuadrados* es de la forma
-$$
-\begin{array}{ll}
-\text{minimizar } & \|A\xx-\bb\|_2^2,
-\end{array}
-\tag{3}
-$$
-donde $A\in\RR^{k\times p}$ ($k\geq p$), $\aa_i^{\top}$ son las filas de $A$ y $\bb\in\RR^k$. La variable de optimización es $\xx\in\RR^p$.
 
-:::
 
 
-<details>
-<summary>Mostrar detalles</summary>
 
-::: {.panel-tabset}
-
-### <span style="font-size: 1.25em;">&#x2460;</span>
-
-- Es un problema de optimización sin restricciones y su función objetivo es una suma de cuadrados de términos de la forma $\aa_i^{\top}\xx-b_i$.
-
-- Se puede reducir a resolver un conjunto de ecuaciones lineales:
-$$
-(A^{\top}A)\xx = A^{\top}\bb.
-$$
-En consecuencia, si $A$ es de rango completo (esto es, $\text{rango}\,A=p$), el problema <mark>tiene solución analítica</mark>:
-$$
-\xx^\star=(A^{\top}A)^{-1}A^{\top}\bb.
-$$
-En caso de que $\text{rango}\,A<p$, la matriz $A^\top A$ no es invertible. No obstante, el problema de mínimos cuadrados tiene solución, pero no es única. La solución de mínima norma está dada $\xx^\star=A^+\bb$, donde $A^+$ es la *pseudoinversa de Moore-Penrose* de $A$.
-
-### <span style="font-size: 1.25em;">&#x2461;</span>
-
-- Existen algoritmos para resolver el problema con alta precisión, con un tiempo aproximadamente proporcional a $n^2k$, con constante conocida.
-
-- Para aumentar su flexibilidad en las aplicaciones, se utilizan varias técnicas estándar. Por ejemplo, en los *mínimos cuadrados ponderados* se minimiza
-$$
-\sum_{i=1}^k w_i(\aa_i^{\top}\xx-b_i)^2,
-$$
-donde $w_i$ son pesos positivos. Otra técnica es la *regularización*, que consiste en agregar términos adicionales a la función objetivo para controlar ciertas propiedades de la solución. El caso más simple es
-$$
-\sum_{i=1}^{k}(\aa_{i}^{\top}\xx - b_{i})^{2} + \lambda \sum_{i=1}^{n}x_{i}^{2}.
-$$
-En el Capítulo 2 exploraremos con mayor detalle los métodos de regularización más clásicos.
-
-:::
-</details>
-
-<div style="margin-top:2em;"></div>
-
-
-::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 5</span> 
-
-<div style="float: right; width: 30%; margin-left: 1em; margin-bottom: 1em;">
-  <img src="figuras/ej_minimos_cuadrados.png" alt="Ejemplo" style="width: 100%;">
-</div>
-
-Dados los puntos $(1,2)$, $(2,2.5)$ y $(3,3.7)$, consideremos el problema de hallar la recta $y = mx + b$ que mejor los aproxime en el sentido de mínimos cuadrados. Esto define en el problema
-$$
-\begin{array}{ll}
-\text{minimizar } & \sum_{i=1}^3 (m x_i + b - y_i)^2.
-\end{array}
-$$
-
-Cuidado: las variables de optimización son los parámetros $m\in\RR$ y $b\in\RR$, mientras que $(x_i,y_i)$ son los datos conocidos. La función objetivo es la *suma de los cuadrados de los errores* (RSS). Matricialmente resulta en
-$$
-\begin{array}{ll}
-\text{minimizar } & \left\|A\begin{pmatrix}m\\b\end{pmatrix}-\yy\right\|_2^2,
-\end{array}
-$$
-con
-$$
-A = \begin{pmatrix}
-1 & 1\\
-2 & 1\\
-3 & 1
-\end{pmatrix},\qquad
-\yy=\begin{pmatrix}
-2\\
-2.5\\
-3.7
-\end{pmatrix}.
-$$
-
-La solución analítica es
-$$
-\begin{pmatrix}
-m^{\star}\\
-b^{\star}
-\end{pmatrix}=\left[\begin{pmatrix}
-1 & 1\\
-2 & 1\\
-3 & 1
-\end{pmatrix}^{\top}\begin{pmatrix}
-1 & 1\\
-2 & 1\\
-3 & 1
-\end{pmatrix}\right]^{-1}\begin{pmatrix}
-1 & 1\\
-2 & 1\\
-3 & 1
-\end{pmatrix}^{\top}
-\begin{pmatrix}
-2\\
-2.5\\
-3.7
-\end{pmatrix}
-= \begin{pmatrix}
-17/20 \\
-31/30
-\end{pmatrix}.
-$$
-
-Por lo tanto, la recta ajustada es 
-$$
-\hat{y} = \frac{17}{20}x+\frac{31}{30}.
-$$
-
-Esto permite obtener el vector de valores ajustados
-$$
-\hat{\yy}=\begin{pmatrix}
-\frac{17}{20}\cdot 1+\frac{31}{30}\\
-\frac{17}{20}\cdot 2+\frac{31}{30}\\
-\frac{17}{20}\cdot 3+\frac{31}{30}
-\end{pmatrix}
-=
-\begin{pmatrix}
-113/60\\
-51/30\\
-43/12
-\end{pmatrix}
-\approx
-\begin{pmatrix}
-1.88\\
-2.73\\
-3.58
-\end{pmatrix}.
-$$
-
-
-Por último, calculamos el valor de la función objetivo, que interpretamos como el error del ajuste obtenido:
-
-$$
-\text{RSS}=\|\hat{\yy}-\yy\|_2^2\approx (1.88-2)^2+(2.73-2.5)^2+3.58-3.7)^2=0.0817.
-$$
-
-<br>
-
-En Python, podemos resolver problemas de mínimos cuadrados con la función [`numpy.linalg.lstsq`](https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html).
-
-```{python}
-#| code-summary: "Mostrar código"
-#| code-fold: false
-#| fig-align: "center"
-
-import numpy as np
-
-# Datos:
-x_data = np.array([1, 2, 3])
-y_data = np.array([2, 2.5, 3.7])
-
-# Matriz A:
-A = np.vstack([np.ones_like(x_data), x_data]).T
-
-# Resolución:
-coeffs, residuals, *_ = np.linalg.lstsq(A, y_data, rcond=None)
-b, m = coeffs  # Ordenamos como y = mx + b
-
-
-# 📋:
-print(f"Recta ajustada: y = {m:.4f}x + {b:.4f}")
-print(f"RSS: {residuals}")
-```
-
-:::
-
-
-::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-
-Ajuste por mínimos cuadrados una parábola $y = ax^2 + bx + c$ a los puntos $(0, 2)$, $(1, 1)$, $(2, 3)$ y $(3, 8)$. Resuelva a mano y luego corrobore su resultado utilizando `np.linalg.lstsq`.
-
-```{pyodide-python}
-# Verifique la solución aquí.
-``` 
-
-:::
-
-<div style="margin-top:2em;"></div>
-
-
-
-::: {.definicion}
-**Definición 3.** (Programación lineal) Un *problema de programación lineal* es de la forma
-$$
-\begin{array}{lll}
-\text{minimizar } & \cc^{\top}\xx & \\
-\text{sujeto a } & \aa_i^{\top}\xx\leq b_i, & i=1,\ldots,m.
-\end{array}
-\tag{2}
-$$
-donde $\cc,\aa_1,\ldots,\aa_m\in\RR^p$ y $b_1,\ldots,b_m\in\RR$. La variable de optimización es $\xx\in\RR^p$.
-
-:::
-
-
-<details>
-<summary>Mostrar detalles</summary>
-
-::: {.panel-tabset}
-
-### <span style="font-size: 1.25em;">&#x2460;</span>
-
-- No existe una fórmula analítica simple para la solución, pero hay una variedad de métodos muy efectivos para resolver el problema, como el método simplex de Datnzig y los métodos de punto interior.
-
-- En la práctica, la complejidad es del orden de $p^2m$ (asumiendo $m\geq p$), pero con una constante que está menos caracterizada que en el caso de mínimos cuadrados.
-
-### <span style="font-size: 1.25em;">&#x2461;</span>
-
-En muchos casos, el problema de optimización original no tiene una forma estándar de programa lineal, pero puede transformarse en un programa lineal equivalente. Por ejemplo, el *problema de aproximación de Chebyshev*:
-$$
-\begin{array}{ll}
-\text{minimizar } & \max_{i=1,\ldots,k} |\aa_{i}^{\top}\xx- b_{i}|,
-\end{array}
-$$ 
-con variable $\xx\in\RR^p$, puede ser resuelto a través del programa lineal
-$$
-\begin{array}{lll}
-\text{minimizar } & t &\\
-\text{sujeto a } & \aa_i^{\top}\xx-t\leq b_i, & i=1,\ldots,k,\\
-      & -\aa_i^{\top}\xx-t\leq -b_i, & i=1,\ldots,k,
-\end{array}
-$$ 
-con variables $\xx\in\RR^p$ y $t\in\RR$.
-
-:::
-</details>
-
-<div style="margin-top:2em;"></div>
-
-
-::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 6</span> 
-
-Una fábrica produce dos productos, en cantidades que definimos como $x_1$ y $x_2$, los cuales generan ganancias de 3 y 5 unidades monetarias, respectivamente. Producir una unidad de cualquiera de los productos requiere 1 hora de tiempo de producción. Además, la producción de una unidad del primer producto consume 1 unidad de materia prima, mientras que para producir una unidad del segundo producto se necesitan 3 unidades de materia prima. Queremos maximizar la ganancia, teniendo en cuenta que se dispone de 5 horas de producción y 9 unidades de materia prima.
-
-La formulación del problema es
-
-$$
-\begin{array}{ll}
-\text{maximizar } & 3x_1+5x_2\\
-\text{sujeto a }  & x_1+x_2\leq 5,\\
-                  & x_1+3x_2\leq 9,\\
-                  & x_1\geq 0,\; x_2\geq 0. 
-\end{array}
-$$
-
-Una forma de obtener la solución gráficamente es analizando las curvas de nivel de la función objetivo $f(x_1,x_2)=3x_1+5x_2$, las cuales tienen la particularidad de ser rectas paralelas. La idea es controlar el valor del nivel $z$, con $z=3x_1+5x_2$, e ir aumentándolo progresivamente sin salirse de la región factible, hasta alcanzar el último punto de contacto. Ese último punto de contacto es el punto óptimo, que como puede verse gráficamente es uno de los vértices definidos por el polígono factible.
-
-<figure style="text-align: center;">
-  <img src="figuras/ej_prog_lineal.png" alt="..." width="500px">
-</figure>
-
-La ganancia máxima es 19 y ocurre cuando $x_1=3$ y $x_2=2$. 
-
-La relación geométrica en este ejemplo no es casual: en programación lineal, el óptimo (si existe) se alcanza siempre en alguno de los vértices de la región factible. Este hecho constituye la base del método del simplex y de otros algoritmos clásicos.
-
-<br>
-
-En Python, se pueden resolver problemas de este tipo utilizando [`scipy.optimize.linprog`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html).
-
-
-```{python}
-#| code-summary: "Mostrar código"
-#| code-fold: false
-#| fig-align: "center"
-
-from scipy.optimize import linprog
-
-# Coeficientes de la función objetivo (negativos porque linprog minimiza):
-c = [-3, -5]
-
-# Coeficientes de las restricciones (Ax <= b):
-A = [
-    [1, 1],    # x1 + x2 <= 5
-    [1, 3]     # x1 + 3x2 <= 9
-]
-b = [5, 9]
-
-# Restricciones de no negatividad:
-bounds = [(0, None), (0, None)]  # x1 >= 0, x2 >= 0
-
-# Resolución:
-res = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
-
-# 📋:
-print("Éxito:", res.success)
-print("x1 =", res.x[0])
-print("x2 =", res.x[1])
-print("Ganancia máxima =", -res.fun)
-```
-
-:::
-
-<!-- 
-::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-
-Formule el siguiente problema y resuélvalo geométricamente. Luego, verifique su resultado utilizando `scipy.optimize.linprog.`.
-
-Una nutricionista debe diseñar una dieta usando dos alimentos, A y B. El alimento A cuesta $2 por unidad y contiene 3g de proteína y 1g de carbohidratos por unidad. El alimento B cuesta $3 por unidad y contiene 2g de proteína y 2g de carbohidratos por unidad. La dieta debe contener al menos 60g de proteína y 30g de carbohidratos. ¿Cuántas unidades de cada alimento debe incluir para minimizar el costo?
-
-```{pyodide-python}
-# Grafique aquí.
-``` 
-
-```{pyodide-python}
-# Verifique la solución aquí.
-``` 
-
-:::
--->
-
-
-
-
-
-
-
-
-<br><br>
+<div style="margin-top: 5em;"></div>
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
 Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Capítulo 1. Cambridge University Press.
 
-Farina, G. Apuntes del curso MIT 6.7220: *Nonlinear Optimization*. Lección 1(2025). Disponible en la [página del curso](https://www.mit.edu/~gfarina/notes/).
+Farina, G. Apuntes del curso MIT 6.7220: *Nonlinear Optimization*. Lección 1 (2025). Disponible en la [página del curso](https://www.mit.edu/~gfarina/notes/).
 
 :::

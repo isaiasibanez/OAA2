@@ -3,7 +3,7 @@ project:
   output-dir: ../docs/2025
 
 website:
-  title: "Optimización y Aprendizaje Automático II"
+  title: "Optimización y Aprendizaje Automático II - 2025"
 
   sidebar:
     style: "docked"

@@ -752,7 +752,7 @@ $$
 
 - *Convergencia computacional*: como $J$ es convexa y $L$-suave con 
 $$
-L\leq\frac{\lambda_{\text{max}}(X^\top X)}{4},
+L\leq\frac{\lambda_{\text{max}}(X^\top X)}{4n},
 $$
 el método de descenso por gradiente con paso fijo $0<\eta<1/L$ converge al minimizador $\hat{\bftheta}$.
 

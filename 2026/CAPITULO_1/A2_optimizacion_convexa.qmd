@@ -126,7 +126,7 @@ Asimismo, recordemos que una matriz $A$ se dice *semidefinida positiva* ($A\succ
 
 Al conjunto de matrices simétricas lo denotaremos $\bfS^p$, mientras que con $\bfS_+^p$ y $\bfS_{++}^p$ nos referiremos al conjunto de matrices simétricas semidefinidas positivas y simétricas definidas positivas, respectivamente.
 
-Por último, del mismo modo que escribimos $A\xx=\bb$ para referirnos a un conjunto de igualdades de la forma $\aa_i^\top\xx=b_i$, vamos a denotar $A\xx\preceq\bb$ al conjunto de desigualdades $\aa_i^\top\xx\leq b_i$.
+Por último, del mismo modo que escribimos $A\xx=\bb$ para referirnos a un conjunto de igualdades de la forma $\bfa_i^\top\xx=b_i$, vamos a denotar $A\xx\preceq\bb$ al conjunto de desigualdades $\bfa_i^\top\xx\leq b_i$.
 
 
 <div style="margin-top:2.5em;"></div>
@@ -298,18 +298,18 @@ En el ejemplo anterior: ¿quién es el subespacio $V$ asociado a $S$? ¿se cumpl
 ::: {.definicion}
 **Definición 2.** (Envolvente afín) La *envolvente afín* de un conjunto $C\subset\RR^p$ es el conjunto de todas las combinaciones afines de puntos en $C$. Esto es
 $$
-\text{aff}\,C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\,\xx_{i} \in C,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
+\aff C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\,\xx_{i} \in C,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
 $$
 :::
 
 
 El concepto de *envolvente afín* es muy importante para optimización, ya que de él se derivan dos nociones que, si bien no son muy comunes, serán fundamentales más adelante: la *dimensión afín* y el *interior relativo*.
 
-- La *dimensión afín* de $C$ es la dimensión de su envolvente afín $\text{aff}\,C$.
+- La *dimensión afín* de $C$ es la dimensión de su envolvente afín $\aff C$.
 
-- El *interior relativo* de $C$ respecto a $\text{aff}\,C$ es
+- El *interior relativo* de $C$ respecto a $\aff C$ es
     $$
-    \text{relint}\,C:=\left\{\xx\in C\,\left|\exists r>0: B(\xx,r)\cap \text{aff}\,C\subset C\right.\right\},
+    \relint C:=\left\{\xx\in C\,\left|\exists r>0: B(\xx,r)\cap \aff C\subset C\right.\right\},
     $$
   donde $B(\xx,r):=\{\yy\mid\|\yy-\xx\|_2\leq r\}$ es la bola de centro $\xx$ y radio $r$.
 
@@ -332,12 +332,12 @@ $$
 
 La envolvente afín de $C$ es un plano:
 $$
-\text{aff}\,C=\{\xx\in\RR^3 \mid x_3=0\}.
+\aff C=\{\xx\in\RR^3 \mid x_3=0\}.
 $$
 
-Como consecuencia, a pesar de que el interior de $C$ es vacío ($\text{int}\,C=\emptyset$), el interior relativo es
+Como consecuencia, a pesar de que el interior de $C$ es vacío ($\int C=\emptyset$), el interior relativo es
 $$
-\text{relint}\,C=(-1,1)\times(-1,1)\times\{0\}.
+\relint C=(-1,1)\times(-1,1)\times\{0\}.
 $$
 
 :::
@@ -423,7 +423,7 @@ En la siguiente figura podemos ver el resultado obtenido. El triángulo determin
 ::: {.definicion}
 **Definición 4.** (Envolvente convexa) La *envolvente convexa* de un conjunto $C\subset\RR^p$ es el conjunto de todas las combinaciones convexas de puntos en $C$. Esto es
 $$
-\text{conv}\,C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\, \xx_{i} \in C,\; \theta_{i} \geq 0,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
+\conv C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\, \xx_{i} \in C,\; \theta_{i} \geq 0,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
 $$
 :::
 
@@ -435,11 +435,11 @@ $$
 
 ### <span style="font-size: 1.25em;">&#x2460;</span>
 
-Como su nombre lo indica, la envolvente convexa $\text{conv}\,C$ es siempre un conjunto convexo (📝 Ejercicio 3). 
+Como su nombre lo indica, la envolvente convexa $\conv C$ es siempre un conjunto convexo (📝 Ejercicio 3). 
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
-La envolvente convexa $\text{conv}\,C$ es el conjunto convexo más pequeño que contiene a $C$: si $E$ es cualquier conjunto convexo que contiene a $C$, entonces $\text{conv}\,C \subset E$. 
+La envolvente convexa $\conv C$ es el conjunto convexo más pequeño que contiene a $C$: si $E$ es cualquier conjunto convexo que contiene a $C$, entonces $\conv C \subset E$. 
 
 :::
 </details>
@@ -666,7 +666,7 @@ viewof theta2 = Inputs.range([0, 2], {step: 0.01, value: 0.5, label: "θ₂:"})
 ::: {.definicion}
 **Definición 6.** (Envolvente cónica) La *envolvente cónica* de un conjunto $C\in\RR^p$ es el conjunto de todas las combinaciones cónicas de puntos en $C$. Esto es
 $$
-\text{cone}\,C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\mid \xx_{i} \in C,\; \theta_{i} \geq 0\right\}.
+\cone C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\mid \xx_{i} \in C,\; \theta_{i} \geq 0\right\}.
 $$
 :::
 
@@ -678,11 +678,11 @@ $$
 
 ### <span style="font-size: 1.25em;">&#x2460;</span>
 
-La envolvente cónica $\text{cone}\,C$ es siempre un conjunto convexo (📝 Ejercicio 3). 
+La envolvente cónica $\cone C$ es siempre un conjunto convexo (📝 Ejercicio 3). 
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
-La envolvente cónica $\text{cone}\,C$ es el cono convexo más pequeño que contiene a $C$: si $E$ es cualquier cono convexo que contiene a $C$, entonces $\text{cone}\,C \subset E$. 
+La envolvente cónica $\cone C$ es el cono convexo más pequeño que contiene a $C$: si $E$ es cualquier cono convexo que contiene a $C$, entonces $\cone C \subset E$. 
 
 :::
 </details>
@@ -968,7 +968,7 @@ Vamos a describir algunos conjuntos convexos importantes. Pero primero veamos al
 
 Un <mark>*hiperplano*</mark> en $\RR^p$ es un conjunto de la forma
 $$
-\{\xx \mid \aa^\top \xx=b\},\qquad \aa\in\RR^p,\;\aa\neq\bfzero,\;b\in\RR.
+\{\xx \mid \bfa^\top \xx=b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
 $$
 
 <details>
@@ -978,11 +978,11 @@ $$
 
 ### <span style="font-size: 1.25em;">&#x2460;</span>
 
-El vector $\aa$ es *normal* al hiperplano. Dado un punto $\xx_0$ del hiperplano, se verifica $\aa^\top (\xx-\xx_0)=0$ para todo punto $\xx$ del hiperplano.
+El vector $\bfa$ es *normal* al hiperplano. Dado un punto $\xx_0$ del hiperplano, se verifica $\bfa^\top (\xx-\xx_0)=0$ para todo punto $\xx$ del hiperplano.
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
-El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. En efecto, la distancia del hiperplano al origen es $b/\|\aa\|_2$ (probaremos esto más adelante en este capítulo).
+El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. En efecto, la distancia del hiperplano al origen es $b/\|\bfa\|_2$ (probaremos esto más adelante en este capítulo).
 
 ### <span style="font-size: 1.25em;">📝</span>
 
@@ -1001,7 +1001,7 @@ El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. E
 
 <figure style="text-align: center;">
   <img src="figuras/hiperplano.png" alt="…" width="350px">
-  <figcaption>**Figura 5**. Hiperplano en $\RR^2$ con vector normal $\aa$.</figcaption>
+  <figcaption>**Figura 5**. Hiperplano en $\RR^2$ con vector normal $\bfa$.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -1009,7 +1009,7 @@ El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. E
 
 Un hiperplano divide a $\RR^p$ en dos <mark>*semiespacios*</mark>. Un semiespacio cerrado es un conjunto de la forma
 $$
-\{\xx \mid \aa^\top \xx\leq b\},\qquad \aa\in\RR^p,\;\aa\neq\bfzero,\;b\in\RR.
+\{\xx \mid \bfa^\top \xx\leq b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
 $$
 
 <figure style="text-align: center;">
@@ -1055,7 +1055,7 @@ $$
 
 Las igualdades y desigualdades son:
 $$
-\aa_i^\top\xx\leq b_i,\qquad i=1,\ldots,r,
+\bfa_i^\top\xx\leq b_i,\qquad i=1,\ldots,r,
 $$
 $$
 \cc_j^\top\xx= d_j,\qquad j=1,\ldots,m.
@@ -1184,16 +1184,16 @@ $$
   Cono normal a un hiperplano
 </span>
 
-Sea $\aa\in\RR^p$, $\aa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el hiperplano
+Sea $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el hiperplano
 $$
-\Omega:=\{\xx\in\RR^p \mid \aa^\top\xx=b\}.
+\Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx=b\}.
 $$
 
 :::{.columns}
 ::: {.column width="70%"}
-El cono normal a un punto $\xx_0\in\Omega$ es la recta con dirección $\aa$. Esto es,
+El cono normal a un punto $\xx_0\in\Omega$ es la recta con dirección $\bfa$. Esto es,
 $$
-N_{\Omega}(\xx_0)=\{\lambda\aa \mid \lambda\in\RR\}.
+N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR\}.
 $$
 
 La verificación se deja como tarea (📝 Ejercicio 7).
@@ -1216,18 +1216,18 @@ La verificación se deja como tarea (📝 Ejercicio 7).
   Cono normal a un semiespacio
 </span>
 
-Sean $\aa\in\RR^p$, $\aa\neq\mathbf{0}$, y $b\in\RR$. Definimos el semiespacio
+Sean $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Definimos el semiespacio
 $$
-\Omega:=\{\xx\in\RR^p \mid \aa^\top\xx\leq b\}.
+\Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx\leq b\}.
 $$
 
 :::{.columns}
 ::: {.column width="70%"}
-- Si $\xx_0$ está en el interior de $\Omega$, $\aa^\top\xx_0<b$, el cono normal es $N_{\Omega}(\xx_0)=\{\mathbf{0}\}$. 
+- Si $\xx_0$ está en el interior de $\Omega$, $\bfa^\top\xx_0<b$, el cono normal es $N_{\Omega}(\xx_0)=\{\mathbf{0}\}$. 
 
-- Si $\xx_0$ está en la frontera de $\Omega$, $\aa^\top\xx_0=b$, resulta
+- Si $\xx_0$ está en la frontera de $\Omega$, $\bfa^\top\xx_0=b$, resulta
 $$
-N_{\Omega}(\xx_0)=\{\lambda\aa \mid \lambda\in\RR_0^+\}.
+N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR_0^+\}.
 $$
 
 La diferencia con el ejemplo anterior radica en que ahora el cono normal es una semirrecta.
@@ -1251,18 +1251,18 @@ La diferencia con el ejemplo anterior radica en que ahora el cono normal es una 
   Cono normal a la intersección de dos semiespacios
 </span>
 
-Sean $\aa_1,\aa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Definimos la intersección de dos semiplanos como
+Sean $\bfa_1,\bfa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Definimos la intersección de dos semiplanos como
 $$
-\Omega:=\{\xx\in\RR^p \mid \aa_1^\top\xx\leq b_1\quad\text{y}\quad\aa_2^\top\xx\leq b_2\}.
+\Omega:=\{\xx\in\RR^p \mid \bfa_1^\top\xx\leq b_1\quad\text{y}\quad\bfa_2^\top\xx\leq b_2\}.
 $$
 
 :::{.columns}
 ::: {.column width="70%"}
 - Si $\xx_0$ está en el interior de $\Omega$ o en la frontera de solo uno de los semiespacios, el cono normal resulta del ejemplo anterior.
 
-- Si $\xx_0$ está en la intersección de ambas fronteras, $\aa_1^\top\xx_0=b_1$ y $\aa_2^\top\xx_0=b_2$, entonces el cono normal es la envolvente cónica de las direcciones $\aa_1$ y $\aa_2$. Esto es
+- Si $\xx_0$ está en la intersección de ambas fronteras, $\bfa_1^\top\xx_0=b_1$ y $\bfa_2^\top\xx_0=b_2$, entonces el cono normal es la envolvente cónica de las direcciones $\bfa_1$ y $\bfa_2$. Esto es
 $$
-N_{\Omega}(\xx_0)=\{\lambda_1\aa_1+\lambda_2\aa_2 \mid \lambda_1,\lambda_2\in\RR_0^+\}.
+N_{\Omega}(\xx_0)=\{\lambda_1\bfa_1+\lambda_2\bfa_2 \mid \lambda_1,\lambda_2\in\RR_0^+\}.
 $$
 
 :::
@@ -1286,9 +1286,9 @@ Probaremos este resultado, generalizado a $r$ semiespacios, en [C1-S4](A4_condic
 ## Funciones convexas
 
 ::: {.definicion}
-**Definición 8.** (Función convexa) Una función $f:\RR^p\rightarrow\RR$ es *convexa* si $\text{dom}\,f$ es un conjunto convexo y si verifica
+**Definición 8.** (Función convexa) Una función $f:\RR^p\rightarrow\RR$ es *convexa* si $\dom f$ es un conjunto convexo y si verifica
 $$
-f(\theta \xx_1 + (1 - \theta)\xx_2) \leq \theta f(\xx_1) + (1 - \theta)f(\xx_2)\qquad\forall\xx_1,\xx_2\in\text{dom}\,f,\; \forall\theta\in[0,1].
+f(\theta \xx_1 + (1 - \theta)\xx_2) \leq \theta f(\xx_1) + (1 - \theta)f(\xx_2)\qquad\forall\xx_1,\xx_2\in\dom f,\; \forall\theta\in[0,1].
 \tag{2}
 $$
 
@@ -1316,7 +1316,7 @@ Una función afín verifica la igualdad en la definición, por lo que todas las 
 
 ### <span style="font-size: 1.25em;">&#x2462;</span>
 
-Una función es convexa si y solo si, para todo $\xx\in\text{dom}\,f$ y $\vv\in\RR^p$, la restricción $g(t)=f(\xx+t\vv)$ es convexa en su dominio $\{t \mid \xx+t\vv\in\text{dom}\,f\}$.
+Una función es convexa si y solo si, para todo $\xx\in\dom f$ y $\vv\in\RR^p$, la restricción $g(t)=f(\xx+t\vv)$ es convexa en su dominio $\{t \mid \xx+t\vv\in\dom f\}$.
 
 :::
 </details>
@@ -1376,7 +1376,7 @@ lo cual concluye la prueba.
 
 El <mark>*epígrafo*</mark> de una función $f:\RR^p\to\RR$ se define como
 $$
-\text{epi}\,f = \{(\xx, t) \mid \xx \in \text{dom}\,f, f(\xx) \leq t\},
+\epi f = \{(\xx, t) \mid \xx \in \dom f, f(\xx) \leq t\},
 $$
 
 <figure style="text-align: center;">
@@ -1395,7 +1395,7 @@ Una función es convexa si y solo si su epígrafo es un conjunto convexo.
 
 La prueba es sencilla (📝Ejercicio 9). De manera análoga, una función es cóncava si y solo si su *hipógrafo*, definido como
 $$
-\text{hypo}\,f = \{(\xx, t) \mid t \leq f(\xx)\},
+\hypo f = \{(\xx, t) \mid t \leq f(\xx)\},
 $$
 es un conjunto convexo.
 
@@ -1559,9 +1559,9 @@ Pero $g(h)\to \varphi''(t_0)$ cuando $h\to 0$. Luego, $\varphi''(t_0)\ge 0$. $\q
 
 ::: {.teorema}
 **Teorema 1.** (Condición de primer orden para convexidad) 
-Sea $f:\RR^p\to\RR$ una función diferenciable. $f$ es convexa si y solo si $\text{dom}\,f$ es convexo y 
+Sea $f:\RR^p\to\RR$ una función diferenciable. $f$ es convexa si y solo si $\dom f$ es convexo y 
 $$
-f(\xx_2)\geq f(\xx_1)+\langle\nabla f(\xx_1),\xx_2-\xx_1\rangle_2\qquad\forall\xx_1,\xx_2\in\text{dom}\,f.
+f(\xx_2)\geq f(\xx_1)+\langle\nabla f(\xx_1),\xx_2-\xx_1\rangle_2\qquad\forall\xx_1,\xx_2\in\dom f.
 \tag{4}
 $$
 :::
@@ -1583,24 +1583,24 @@ La función afín de $\xx_2$, definida por $f(\xx_1) + \langle \nabla f(\xx_1), 
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
-La convexidad estricta también puede caracterizarse por una condición de primer orden: $f$ es estrictamente convexa si y solo si $\text{dom}\,f$ es convexo y
+La convexidad estricta también puede caracterizarse por una condición de primer orden: $f$ es estrictamente convexa si y solo si $\dom f$ es convexo y
 $$
 f(\xx_2) > f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2
 $$
-para todo $\xx_1, \xx_2 \in \text{dom}\,f$, con $\xx_1 \neq \xx_2$.
+para todo $\xx_1, \xx_2 \in \dom f$, con $\xx_1 \neq \xx_2$.
 
 ### <span style="font-size: 1.25em;">&#x2462;</span>
 
-Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es cóncava si y solo si $\text{dom}\,f$ es convexo y
+Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es cóncava si y solo si $\dom f$ es convexo y
 $$
 f(\xx_2) \leq f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2
 $$
-para todo $\xx_1, \xx_2 \in \text{dom}\,f$.
+para todo $\xx_1, \xx_2 \in \dom f$.
 
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
-($\Rightarrow$) Supongamos que $f$ es convexa. Fijemos $\xx_1,\xx_2 \in \text{dom}\,f$ y definamos
+($\Rightarrow$) Supongamos que $f$ es convexa. Fijemos $\xx_1,\xx_2 \in \dom f$ y definamos
 $$
 \varphi(t) = f(\xx_1 + t(\xx_2-\xx_1)), \qquad t\in[0,1].
 $$
@@ -1642,7 +1642,7 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-($\Leftarrow$) Supogamos que es cierta la desigualdad (4) del enunciado y probemos que $f$ es convexa. Sean $\xx_1,\xx_2\in\text{dom}\,f$ y $\theta\in[0,1]$, definamos
+($\Leftarrow$) Supogamos que es cierta la desigualdad (4) del enunciado y probemos que $f$ es convexa. Sean $\xx_1,\xx_2\in\dom f$ y $\theta\in[0,1]$, definamos
 $$
 \xx_\theta = (1-\theta)\xx_1+\theta \xx_2.
 $$
@@ -1758,10 +1758,10 @@ viewof theta3 = Inputs.range([0, 1], {step: 0.01, label: "θ:"})
 
 <div style="margin-top:2em;"></div>
 
-Una consecuencia importante del Teorema 1 es la siguiente: si para algún $\xx_0\in\text{dom}\,f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \text{dom}\,f$. Es decir, podemos afirmar que:
+Una consecuencia importante del Teorema 1 es la siguiente: si para algún $\xx_0\in\dom f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \dom f$. Es decir, podemos afirmar que:
 
 :::{.myhighlight}
-Si $f$ es una función convexa, cuyo $\text{dom}\,f$ es un conjunto abierto, y para algún $\xx$ se verifica $\nabla f(\xx)=\bfzero$, entonces $\xx$ es un mínimo global de $f$.
+Si $f$ es una función convexa, cuyo $\dom f$ es un conjunto abierto, y para algún $\xx$ se verifica $\nabla f(\xx)=\bfzero$, entonces $\xx$ es un mínimo global de $f$.
 :::
 
 <div style="margin-top:2em;"></div>
@@ -1769,9 +1769,9 @@ Si $f$ es una función convexa, cuyo $\text{dom}\,f$ es un conjunto abierto, y p
 
 ::: {.teorema}
 **Teorema 2.** (Condición de segundo orden para convexidad) 
-Sea $f:\RR^p\to\RR$ una función dos veces diferenciable. $f$ es convexa si y solo si $\text{dom}\,f$ es convexo y 
+Sea $f:\RR^p\to\RR$ una función dos veces diferenciable. $f$ es convexa si y solo si $\dom f$ es convexo y 
 $$
-\nabla^2 f(\xx)\succeq 0\qquad\forall\xx\in\text{dom}\,f.
+\nabla^2 f(\xx)\succeq 0\qquad\forall\xx\in\dom f.
 $$
 
 :::
@@ -1787,11 +1787,11 @@ $$
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
-La convexidad estricta también puede caracterizarse por una condición de segundo orden, pero de manera parcial: si $\text{dom}\,f$ es convexo y $\nabla^2 f\succ 0$ para todo $\xx\in\text{dom}\,f$, entonces $f$ es estrictamente convexa. El recíproco no es cierto: por ejemplo, $f(x)=x^4$ es estrictamente convexa pero $f''(0)=0$.
+La convexidad estricta también puede caracterizarse por una condición de segundo orden, pero de manera parcial: si $\dom f$ es convexo y $\nabla^2 f\succ 0$ para todo $\xx\in\dom f$, entonces $f$ es estrictamente convexa. El recíproco no es cierto: por ejemplo, $f(x)=x^4$ es estrictamente convexa pero $f''(0)=0$.
 
 ### <span style="font-size: 1.25em;">&#x2462;</span>
 
-Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es cóncava si y solo si $\text{dom}\,f$ es convexo y $\nabla^2 f(\xx)\preceq 0$ para todo $\xx\in\text{dom}\,f$.
+Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es cóncava si y solo si $\dom f$ es convexo y $\nabla^2 f(\xx)\preceq 0$ para todo $\xx\in\dom f$.
 
 
 
@@ -1810,7 +1810,7 @@ $$
 \psi''(t)=\dd^\top\nabla^2f(\xx+t\,\dd)\,\dd.
 $$
 
-En particular, para $t=0$ resulta $\dd^\top\nabla^2f(\xx)\,\dd\geq 0$. Como $\dd$ es arbitrario, esto implica $\nabla^2f(\xx)\succeq 0$ para todo $\xx\in\text{dom}\,f$.
+En particular, para $t=0$ resulta $\dd^\top\nabla^2f(\xx)\,\dd\geq 0$. Como $\dd$ es arbitrario, esto implica $\nabla^2f(\xx)\succeq 0$ para todo $\xx\in\dom f$.
 
 ($\Leftarrow$) Partimos de la fórmula de Taylor con resto integral:
 $$
@@ -1960,13 +1960,13 @@ es convexa. De manera similar, una suma ponderada no negativa de funciones cónc
 $$
 g(\xx):=f(A\xx+\bb)
 $$
-con $\text{dom}\,g = \{\xx \mid A\xx + \bb \in\text{dom}\,f\}$. Entonces, $g$ conserva la convexidad o concavidad de $f$.
+con $\dom g = \{\xx \mid A\xx + \bb \in\dom f\}$. Entonces, $g$ conserva la convexidad o concavidad de $f$.
 
 - **Máximo puntual**. Si $f_1$ y $f_2$ son funciones convexas, entonces su *máximo puntual* $f$, definido por
 $$
 f(\xx) = \max\{f_1(\xx), f_2(\xx)\},
 $$
-con $\text{dom}\,f = \text{dom}\,f_1 \cap \text{dom}\,f_2$, también es convexa. Además, este resultado se puede extender a: si $f_1,\dots,f_m$ son funciones convexas, entonces su máximo puntual, definido por $f(\xx)=\max\{f_1(\xx), \ldots, f_m(\xx)\}$, también lo es.
+con $\dom f = \dom f_1 \cap \dom f_2$, también es convexa. Además, este resultado se puede extender a: si $f_1,\dots,f_m$ son funciones convexas, entonces su máximo puntual, definido por $f(\xx)=\max\{f_1(\xx), \ldots, f_m(\xx)\}$, también lo es.
 
 - **Supremo puntual**. La propiedad del máximo puntual se extiende al supremo puntual sobre un conjunto infinito de funciones convexas. Si para $i\in\mathcal{A}$, donde $\mathcal{A}$ es un conjunto de índices, se tiene que $f_i(\xx)$ es convexa, entonces la función $f$ definida por
 $$
@@ -1974,7 +1974,7 @@ f(\xx) = \sup_{i \in \mathcal{A}} f_i(\xx)
 $$
 también es convexa en $\xx$. Aquí, el dominio de $f$ es
 $$
-\text{dom}\,f = \{\xx \mid \xx \in \text{dom}\,f_i (\forall i \in \mathcal{A}),\; \sup_{i \in \mathcal{A}} f_i(\xx) < \infty\}.
+\dom f = \{\xx \mid \xx \in \dom f_i (\forall i \in \mathcal{A}),\; \sup_{i \in \mathcal{A}} f_i(\xx) < \infty\}.
 $$
 De manera similar, el ínfimo puntual de un conjunto de funciones cóncavas es una función cóncava. 
 
@@ -2013,9 +2013,9 @@ Verifique que las siguientes funciones son convexas:
 
 - $f(\xx)=\alpha\,\|A\xx-\bb\|_2^2+\beta\,\|C\xx-\dd\|_1,\qquad \alpha,\beta\geq 0.$
 
-- $f(\xx)=\displaystyle\sum_{i=1}^m w_i\,\bigl|\aa_i^\top \xx+b_i\bigr|,\qquad w_i\geq 0.$
+- $f(\xx)=\displaystyle\sum_{i=1}^m w_i\,\bigl|\bfa_i^\top \xx+b_i\bigr|,\qquad w_i\geq 0.$
 
-- $f(\xx)=\log\left(\displaystyle\sum_{i=1}^m \exp\big(\aa_i^\top \xx + b_i\big)\right).$
+- $f(\xx)=\log\left(\displaystyle\sum_{i=1}^m \exp\big(\bfa_i^\top \xx + b_i\big)\right).$
 
 :::
 
@@ -2034,7 +2034,7 @@ $$
 \text{minimizar } & f(\xx)\\ 
 \text{sujeto a } & \xx\in\left\{\xx\in\RR^p\left|\;\begin{array}{ll}
 g_i(\xx)\leq 0,& i=1,\ldots,r\\
-\aa_j^\top \xx-b_j=0, & j=1,\ldots,m
+\bfa_j^\top \xx-b_j=0, & j=1,\ldots,m
 \end{array}\right.\right\},
 \end{array}
 $$ 
@@ -2043,7 +2043,7 @@ donde tanto la función objetivo $f$ como las funciones de restricción de desig
 :::
 
 
-Comparando con el problema en forma estándar general, podemos ver que las restricciones de igualdad, $h_i(\xx)=\aa_j^\top \xx-b_i=0$, son funciones afines. Esto permite asegurar inmediatamente que:
+Comparando con el problema en forma estándar general, podemos ver que las restricciones de igualdad, $h_i(\xx)=\bfa_j^\top \xx-b_i=0$, son funciones afines. Esto permite asegurar inmediatamente que:
 
 
 :::{.myhighlight}
@@ -2058,9 +2058,9 @@ El conjunto factible $\Omega$ de un problema de optimización convexa es convexo
 
 En efecto, es la intersección de los siguientes conjuntos convexos:
 
-- $\bigcap_{i=0}^r\text{dom}\,f_i$.
+- $\bigcap_{i=0}^r\dom f_i$.
 - $r$ conjunto de subnivel $\{\xx \mid g_i(\xx)\leq 0\}$.
-- $m$ hiperplanos $\{\xx \mid \aa_i^\top\xx-b_i=0\}$.
+- $m$ hiperplanos $\{\xx \mid \bfa_i^\top\xx-b_i=0\}$.
 
 <hr>
 </details>
@@ -2074,7 +2074,7 @@ $$
 \text{maximizar } & f(\xx)\\ 
 \text{sujeto a } & \xx\in\left\{\xx\in\RR^p\left|\;\begin{array}{ll}
 g_i(\xx)\leq 0,& i=1,\ldots,r\\
-\aa_j^\top \xx-b_i=0, & j=1,\ldots,m
+\bfa_j^\top \xx-b_i=0, & j=1,\ldots,m
 \end{array}\right.\right\},
 \end{array}
 $$ 
