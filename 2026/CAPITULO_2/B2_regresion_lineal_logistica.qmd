@@ -841,6 +841,6 @@ Para el caso de regresión logística, algunos resultados importantes son:
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 
-Ng, A. (2022). *Stanford CS229: Machine Learning - Lecture Notes*. Standford University. 🔗 URL: [https://cs229.stanford.edu/notes2022fall/main_notes.pdf](ir al sitio web).
+Ng, A. (2022). *Stanford CS229: Machine Learning - Lecture Notes*. Standford University. 🔗 [ir al sitio web](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
 
 :::
