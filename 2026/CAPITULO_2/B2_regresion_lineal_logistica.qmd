@@ -38,7 +38,11 @@ Durante este capítulo, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunt
 
 Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\mathbf{1} & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
 
-Además, denotamos $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$ y, para una variable aleatoria $Z$, se denota $\media\left[Z\right]$ su valor esperado y $\cov\left[Z\right]$ su varianza.
+Además:
+
+- $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$.
+- Para una variable aleatoria $Z\in\RR$, se denota $\media\left[Z\right]$ su valor esperado y $\var\left[Z\right]$ su varianza. 
+- La covarianza entre dos variables $Z_1$ y $Z_2$ se denota $\cov\left[Z_1,Z_2\right]$. Por supuesto, se cumple $\var\left[Z\right]=\cov\left[Z,Z\right]$.
 
 </div>
 
@@ -114,7 +118,7 @@ $$
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:1.5em;"></div>
 
 
 ### Función de verosimilitud
@@ -145,10 +149,10 @@ lo cual es la función de costo asociada a mínimos cuadrados.
 </div>
 
 
+
 ### Optimalidad
 
 El problema de optimización de interés,
-%
 $$ 
 \begin{array}{ll} 
 	\text{minimizar } & \displaystyle\frac{1}{2}\|X\bftheta-\yy\|_2^2,
@@ -224,7 +228,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 El algoritmo anterior trabaja con todas las observaciones a la vez en cada paso de actualización, por lo que se trata de un *descenso de gradiente por lotes*. Esta estrategia asegura una actualización estable del parámetro $\bftheta$, aunque puede ser costosa si el número de observaciones es muy grande.
 
-Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch+. Observar que, para una observación $(\xx_i,y_i)$, la función de pérdida resulta
+Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch*. Observar que, para una observación $(\xx_i,y_i)$, la función de pérdida resulta
 $$
 \loss(y_i,f(\xx_i;\bftheta))=\frac{1}{2}(y_i-\bftheta^\top\xx_i)^2,
 $$
@@ -322,7 +326,18 @@ for i, coef in enumerate(lr.coef_):
 
 :::
 
-<div style="margin-top:2em;"></div>
+
+
+### Resolución por método de Newton
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+
+Analice qué sucede al aplicar el método de Newton para resolver el problema de regresión lineal.
+
+:::
+
 
 
 ### Propiedades del estimador
@@ -471,6 +486,7 @@ $$
 <div style="margin-top:1em;"></div>
 
 
+
 ### Distribución condicional
 
 Bajo el modelo de regresión logística, resulta
@@ -516,7 +532,7 @@ Es importante observar que
 $$
 	\begin{array}{c}
 		A'(\eta)=\displaystyle\frac{e^\eta}{1+e^\eta}=\sigma(\eta)=h_{\bftheta}(\xx)=\media\left[Y\mid\XX=\xx\right],\\[7pt]
-		A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\bftheta}(\xx)(1-h_{\bftheta}(\xx))=\cov\left[Y\mid\XX=\xx\right].
+		A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\bftheta}(\xx)(1-h_{\bftheta}(\xx))=\var\left[Y\mid\XX=\xx\right].
 	\end{array}
   \tag{2.2.2}
 $$
@@ -553,7 +569,7 @@ $$
 
 con 
 $$
-\hat{y}_i:=h_{\bftheta}(\xx_i)=\frac{1}{1+e^{-\bftheta^\top\xx_i}}.
+\hat{y}_i:=h_{\bftheta}(\xx_i)=\frac{1}{1+e^{-\bftheta^\top\xx_i}},\qquad i=1,\ldots,n.
 $$
 
 La función $J(\theta)$ en (2.2.3), conocida como *entropía cruzada*, es la forma habitual de expresar la función de pérdida en problemas de clasificación binaria. Mide la disimilaridad entre las etiquetas reales $y_i$ y las probabilidades $\hat{y}_i$ predichas por el modelo. 
@@ -577,7 +593,7 @@ Verifique que se cumple $J(\bftheta)=-\ell(\bftheta)$.
 El problema de optimización resultante es
 $$ 
 \begin{array}{ll} 
-\text{minimizar} & \sum_{i=1}^n\left[\log(1+e^{\bftheta^\top\xx_i})-\bftheta^\top\xx_i y_i\right].
+\text{minimizar} & \displaystyle\sum_{i=1}^n\left[\log(1+e^{\bftheta^\top\xx_i})-\bftheta^\top\xx_i y_i\right].
 \end{array}
 \tag{4}
 $$
@@ -605,7 +621,8 @@ donde $\hat{\yy}=\left(h_{\bftheta}(\xx_1),\ldots,h_{\bftheta}(\xx_n)\right)\in\
 
 La expresión (2.2.5) muestra que $\nabla J(\bftheta)$ depende de $\bftheta$ de forma no lineal. Por lo tanto, no es posible obtener una solución explícita de $\nabla J(\hat{\bftheta})=\bfzero$ y la única opción es recurrir a métodos iterativos para aproximar $\hat{\bftheta}$.
 
-<div style="margin-top:2em;"></div>
+<div style="margin-top:1.5em;"></div>
+
 
 
 ### Resolución por descenso por gradiente
@@ -669,7 +686,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 Recordemos que el método de Newton actualiza los parámetros mediante
 $$ 
-\bftheta_{t+1}=\bftheta_t-\left[\nabla^2 J(\bftheta_t)\right]^{-1}\nabla J(\bftheta_t).
+\bftheta_{t+1}:=\bftheta_t-\left[\nabla^2 J(\bftheta_t)\right]^{-1}\nabla J(\bftheta_t).
 $$
 
 Para obtener los elementos de esta ecuación, tendremos en cuenta (2.2.2) y el cálculo del vector gradiente en (2.2.5). Podemos escribir
@@ -688,7 +705,7 @@ $$
 
 donde
 $$
-W:=\diag(w_1,\ldots,w_n)\qquad\text{con }w_i:=A''(\eta_i)=h_{\bftheta}(\xx_i)(1-h_{\bftheta}(\xx_i)).
+W:=\diag(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\bftheta}(\xx_i)(1-h_{\bftheta}(\xx_i)).
 $$
 
 <div style="margin-top:2em;"></div>
@@ -718,8 +735,6 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 <div style="margin-top:2em;"></div>
 
 
-
-
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 2.2.2</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
@@ -735,6 +750,7 @@ En este ejemplo utilizamos la implementación `LogisticRegression` de `scikit-le
 ```{python}
 #| code-summary: "Mostrar código"
 #| code-fold: false
+#| code-line-numbers: true
 #| fig-align: "center"
 
 import numpy as np
@@ -776,6 +792,7 @@ for i, coef in enumerate(logreg.coef_[0]):
 :::
 
 <div style="margin-top:2em;"></div>
+
 
 
 ### Propiedades del estimador
@@ -825,6 +842,5 @@ Para el caso de regresión logística, algunos resultados importantes son:
 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 
 Ng, A. (2022). *Stanford CS229: Machine Learning - Lecture Notes*. Standford University. URL: [https://cs229.stanford.edu/notes2022fall/main_notes.pdf](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
-
 
 :::

@@ -309,7 +309,7 @@ El concepto de *envolvente afín* es muy importante para optimización, ya que d
 
 - El *interior relativo* de $C$ respecto a $\aff C$ es
     $$
-    \relint C:=\left\{\xx\in C\,\left|\exists r>0: B(\xx,r)\cap \aff C\subset C\right.\right\},
+    \relinterior C:=\left\{\xx\in C\,\left|\exists r>0: B(\xx,r)\cap \aff C\subset C\right.\right\},
     $$
   donde $B(\xx,r):=\{\yy\mid\|\yy-\xx\|_2\leq r\}$ es la bola de centro $\xx$ y radio $r$.
 
@@ -335,9 +335,9 @@ $$
 \aff C=\{\xx\in\RR^3 \mid x_3=0\}.
 $$
 
-Como consecuencia, a pesar de que el interior de $C$ es vacío ($\int C=\emptyset$), el interior relativo es
+Como consecuencia, a pesar de que el interior de $C$ es vacío ($\interior C=\emptyset$), el interior relativo es
 $$
-\relint C=(-1,1)\times(-1,1)\times\{0\}.
+\relinterior C=(-1,1)\times(-1,1)\times\{0\}.
 $$
 
 :::

@@ -66,7 +66,7 @@ Una propiedad fundamental del vector gradiente $\nabla f(\xx)$ es que es la *dir
 
 ---
 
-Dado un *punto inicial* $\xx_0\in\text{dom}\,f$ y una *tasa de aprendizaje* $\eta>0$:
+Dado un *punto inicial* $\xx_0\in\dom f$ y una *tasa de aprendizaje* $\eta>0$:
 
 <div style="margin-left: 1em">
 
@@ -1234,7 +1234,7 @@ En primer lugar, enunciamos el siguiente teorema de convergencia.
 
 
 ::: {.teorema}
-**Teorema 6.** Sea $f:\RR^p\to\RR$ una función dos veces diferenciable y sea $\xx_\star$ un punto crítico. Supongamos que existe una bola $B(\xx_\star,\varepsilon)\subset \text{dom}\,f$ tal que:
+**Teorema 6.** Sea $f:\RR^p\to\RR$ una función dos veces diferenciable y sea $\xx_\star$ un punto crítico. Supongamos que existe una bola $B(\xx_\star,\varepsilon)\subset \dom f$ tal que:
 
 (i) Existe $\alpha>0$ tal que
 $$

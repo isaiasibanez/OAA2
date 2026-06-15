@@ -1273,18 +1273,18 @@ A\xx=\bb
 $$ 
 con $A\in\RR^{m\times p}$ y $\bb\in\RR^m$. Si se satisface la *condición de Slater* de que existe un punto *estrictamente factible*; esto es
 $$
-\exists\xx_0\in\relint \mathcal{D}:g_i(\xx_0)<0\;\forall i=1,\ldots,r\;\land\; A\xx_0=\bb,
+\exists\xx_0\in\relinterior \mathcal{D}:g_i(\xx_0)<0\;\forall i=1,\ldots,r\;\land\; A\xx_0=\bb,
 $$
 entonces se cumple la dualidad fuerte.
 :::
 
-Recordemos, del [C1-S2](A2_optimizacion_convexa.html), que $\relint \mathcal{D}$ es el interior relativo de $\mathcal{D}$ definido por
+Recordemos, del [C1-S2](A2_optimizacion_convexa.html), que $\relinterior \mathcal{D}$ es el interior relativo de $\mathcal{D}$ definido por
 $$
-\relint \mathcal{D}:=\left\{\xx\in \mathcal{D}\,\left|\exists r>0: B(\xx,r)\cap \aff\mathcal{D}\subset \mathcal{D}\right.\right\},
+\relinterior \mathcal{D}:=\left\{\xx\in \mathcal{D}\,\left|\exists r>0: B(\xx,r)\cap \aff\mathcal{D}\subset \mathcal{D}\right.\right\},
 $$
 
 
-La aparición de $\relint\mathcal{D}$ sirve para sortear posibles casos degenerados, en los que $\mathcal{D}$ esté contenido en un subespacio afín de $\RR^p$ y, por lo tanto, tenga interior vacío. Sin embargo, lo común es que $\relint\mathcal{D}=\int\mathcal{D}$, tal como sucede para problemas donde $\dom f=\RR^p$ y $\dom g_i=\RR^p$ . Además, si solo hay restricciones de igualdad, la condición de Slater se reduce simplemente a verificar que $\Omega$ sea no vacío.
+La aparición de $\relinterior\mathcal{D}$ sirve para sortear posibles casos degenerados, en los que $\mathcal{D}$ esté contenido en un subespacio afín de $\RR^p$ y, por lo tanto, tenga interior vacío. Sin embargo, lo común es que $\relinterior\mathcal{D}=\interior\mathcal{D}$, tal como sucede para problemas donde $\dom f=\RR^p$ y $\dom g_i=\RR^p$ . Además, si solo hay restricciones de igualdad, la condición de Slater se reduce simplemente a verificar que $\Omega$ sea no vacío.
 
 
 ::: {.callout-example}

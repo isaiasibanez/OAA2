@@ -49,8 +49,8 @@ $$
 
 \DeclareMathOperator{\conv}{conv}
 \DeclareMathOperator{\aff}{aff}
-\DeclareMathOperator{\int}{int}
-\DeclareMathOperator{\relint}{relint}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\relinterior}{relint}
 \DeclareMathOperator{\cone}{cone}
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\epi}{epi}
