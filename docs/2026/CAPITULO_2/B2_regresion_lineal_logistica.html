@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../CAPITULO_2/B3_glm.html" rel="next">
 <link href="../CAPITULO_1/A5_metodos_optimizacion.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -235,6 +236,12 @@ window.Quarto = {
  <span class="menu-text">2.2 Regresión lineal y regresión logística</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B3_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Modelos lineales generalizados</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -253,6 +260,7 @@ window.Quarto = {
   <li><a href="#función-de-verosimilitud" id="toc-función-de-verosimilitud" class="nav-link" data-scroll-target="#función-de-verosimilitud">Función de verosimilitud</a></li>
   <li><a href="#optimalidad" id="toc-optimalidad" class="nav-link" data-scroll-target="#optimalidad">Optimalidad</a></li>
   <li><a href="#resolución-por-descenso-por-gradiente" id="toc-resolución-por-descenso-por-gradiente" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</a></li>
+  <li><a href="#resolución-por-método-de-newton" id="toc-resolución-por-método-de-newton" class="nav-link" data-scroll-target="#resolución-por-método-de-newton">Resolución por método de Newton</a></li>
   <li><a href="#propiedades-del-estimador" id="toc-propiedades-del-estimador" class="nav-link" data-scroll-target="#propiedades-del-estimador">Propiedades del estimador</a></li>
   </ul></li>
   <li><a href="#ii-regresión-logística" id="toc-ii-regresión-logística" class="nav-link" data-scroll-target="#ii-regresión-logística">II <span style="color:#CCCCCC;">│</span> Regresión logística</a>
@@ -261,7 +269,7 @@ window.Quarto = {
   <li><a href="#función-de-verosimilitud-1" id="toc-función-de-verosimilitud-1" class="nav-link" data-scroll-target="#función-de-verosimilitud-1">Función de verosimilitud</a></li>
   <li><a href="#optimalidad-1" id="toc-optimalidad-1" class="nav-link" data-scroll-target="#optimalidad-1">Optimalidad</a></li>
   <li><a href="#resolución-por-descenso-por-gradiente-1" id="toc-resolución-por-descenso-por-gradiente-1" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente-1">Resolución por descenso por gradiente</a></li>
-  <li><a href="#resolución-por-método-de-newton" id="toc-resolución-por-método-de-newton" class="nav-link" data-scroll-target="#resolución-por-método-de-newton">Resolución por método de Newton</a></li>
+  <li><a href="#resolución-por-método-de-newton-1" id="toc-resolución-por-método-de-newton-1" class="nav-link" data-scroll-target="#resolución-por-método-de-newton-1">Resolución por método de Newton</a></li>
   <li><a href="#propiedades-del-estimador-1" id="toc-propiedades-del-estimador-1" class="nav-link" data-scroll-target="#propiedades-del-estimador-1">Propiedades del estimador</a></li>
   </ul></li>
   </ul>
@@ -310,7 +318,12 @@ window.Quarto = {
 <p>✏️ <strong>Notación</strong></p>
 <p>Durante este capítulo, consideraremos <span class="math inline">\({\bf X}=(X_1,\ldots,X_p)\in\mathbb{R}^p\)</span> un conjunto de variables predictoras y <span class="math inline">\(Y\in\mathbb{R}\)</span> una variable respuesta. Además, vamos a suponer que la distribución condicional de <span class="math inline">\(Y|{\bf X}\)</span> depende de un vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^q\)</span>.</p>
 <p>Para un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, denotamos <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> el vector de respuestas, <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span> la matriz de predictoras y <span class="math inline">\(\tilde{X}:=\begin{pmatrix}\mathbf{1} &amp; X\end{pmatrix}\in\mathbb{R}^{n\times (p+1)}\)</span> la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma <span class="math inline">\(\boldsymbol{\theta}^\top{\bf X}\)</span> al caso con intercepto <span class="math inline">\(\theta_0+\boldsymbol{\theta}^\top{\bf X}\)</span>.</p>
-<p>Además, denotamos <span class="math inline">\(\mathbb{P}(A)\)</span> la probabilidad de que ocurra un suceso <span class="math inline">\(A\)</span> y, para una variable aleatoria <span class="math inline">\(Z\)</span>, se denota <span class="math inline">\(\mathbb{E}\left[Z\right]\)</span> su valor esperado y <span class="math inline">\(\text{Cov}\left[Z\right]\)</span> su varianza.</p>
+<p>Además:</p>
+<ul>
+<li><span class="math inline">\(\mathbb{P}(A)\)</span> la probabilidad de que ocurra un suceso <span class="math inline">\(A\)</span>.</li>
+<li>Para una variable aleatoria <span class="math inline">\(Z\in\mathbb{R}\)</span>, se denota <span class="math inline">\(\mathbb{E}\left[Z\right]\)</span> su valor esperado y <span class="math inline">\(\var\left[Z\right]\)</span> su varianza.</li>
+<li>La covarianza entre dos variables <span class="math inline">\(Z_1\)</span> y <span class="math inline">\(Z_2\)</span> se denota <span class="math inline">\(\text{Cov}\left[Z_1,Z_2\right]\)</span>. Por supuesto, se cumple <span class="math inline">\(\var\left[Z\right]=\text{Cov}\left[Z,Z\right]\)</span>.</li>
+</ul>
 </div>
 <div style="margin-top:2.5em;">
 
@@ -367,7 +380,7 @@ Si <span class="math inline">\(Z\sim\mathcal{N}(\mu,\sigma^2)\)</span> y <span c
 p(y \mid {\bf x}; \boldsymbol{\theta}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(y-\boldsymbol{\theta}^\top {\bf x})^2}{2 \sigma^2}\right).
 \]</span></p>
 </div>
-<div style="margin-top:1em;">
+<div style="margin-top:1.5em;">
 
 </div>
 </section>
@@ -394,7 +407,7 @@ J(\boldsymbol{\theta})=\frac{1}{2} \sum_{i=1}^{n} (y_i - \boldsymbol{\theta}^\to
 </section>
 <section id="optimalidad" class="level3">
 <h3 class="anchored" data-anchor-id="optimalidad">Optimalidad</h3>
-<p>El problema de optimización de interés, % <span class="math display">\[
+<p>El problema de optimización de interés, <span class="math display">\[
 \begin{array}{ll}
     \text{minimizar } &amp; \displaystyle\frac{1}{2}\|X\boldsymbol{\theta}-{\bf y}\|_2^2,
 \end{array}
@@ -447,7 +460,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}\\
 
 </div>
 <p>El algoritmo anterior trabaja con todas las observaciones a la vez en cada paso de actualización, por lo que se trata de un <em>descenso de gradiente por lotes</em>. Esta estrategia asegura una actualización estable del parámetro <span class="math inline">\(\boldsymbol{\theta}\)</span>, aunque puede ser costosa si el número de observaciones es muy grande.</p>
-<p>Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch+. Observar que, para una observación <span class="math inline">\(({\bf x}_i,y_i)\)</span>, la función de pérdida resulta <span class="math display">\[
+<p>Como alternativas, podemos utilizar descenso de gradiente estocástico o <em>mini-batch</em>. Observar que, para una observación <span class="math inline">\(({\bf x}_i,y_i)\)</span>, la función de pérdida resulta <span class="math display">\[
 \mathop{\mathrm{loss}}(y_i,f({\bf x}_i;\boldsymbol{\theta}))=\frac{1}{2}(y_i-\boldsymbol{\theta}^\top{\bf x}_i)^2,
 \]</span> tal que <span class="math display">\[
 \nabla_{\boldsymbol{\theta}} \mathop{\mathrm{loss}}(y_i,f({\bf x}_i;\boldsymbol{\theta})) = -(y_i-\boldsymbol{\theta}^\top{\bf x}_i)\,{\bf x}_i.
@@ -489,7 +502,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}\\
 </div>
 </div>
 </div>
-<div id="2285b3fc" class="cell" data-execution_count="1">
+<div id="32423054" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -512,7 +525,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}\\
 <span id="cb1-20"><a href="#cb1-20"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-21"><a href="#cb1-21"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e17ebdb4" class="cell" data-execution_count="2">
+<div id="c767ab7e" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -527,8 +540,19 @@ Coeficientes estimados:
 </div>
 </div>
 </div>
-<div style="margin-top:2em;">
-
+</section>
+<section id="resolución-por-método-de-newton" class="level3">
+<h3 class="anchored" data-anchor-id="resolución-por-método-de-newton">Resolución por método de Newton</h3>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">📝</span><br></p>
+<p>Analice qué sucede al aplicar el método de Newton para resolver el problema de regresión lineal.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="propiedades-del-estimador" class="level3">
@@ -590,7 +614,7 @@ Coeficientes estimados:
 <p>Para <span class="math inline">\(z\in\mathbb{R}\)</span>, se define la <em>función logística</em> o <em>función sigmoide</em> <span class="math inline">\(\sigma:\mathbb{R}\to\mathbb{R}\)</span> mediante <span class="math display">\[
 \sigma(z) := \frac{1}{1 + e^{-z}} = \frac{e^z}{1+e^z}.
 \]</span></p>
-<div id="f9b775c5" class="cell" data-execution_count="3">
+<div id="c0546fb9" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -671,7 +695,7 @@ p(y \mid \eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\boldsymbol{\theta}
 <p>Es importante observar que <span class="math display">\[
     \begin{array}{c}
         A'(\eta)=\displaystyle\frac{e^\eta}{1+e^\eta}=\sigma(\eta)=h_{\boldsymbol{\theta}}({\bf x})=\mathbb{E}\left[Y\mid{\bf X}={\bf x}\right],\\[7pt]
-        A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\boldsymbol{\theta}}({\bf x})(1-h_{\boldsymbol{\theta}}({\bf x}))=\text{Cov}\left[Y\mid{\bf X}={\bf x}\right].
+        A''(\eta)=\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))=h_{\boldsymbol{\theta}}({\bf x})(1-h_{\boldsymbol{\theta}}({\bf x}))=\var\left[Y\mid{\bf X}={\bf x}\right].
     \end{array}
   \tag{2.2.2}
 \]</span></p>
@@ -698,7 +722,7 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 \tag{2.2.3}
 \]</span></p>
 <p>con <span class="math display">\[
-\hat{y}_i:=h_{\boldsymbol{\theta}}({\bf x}_i)=\frac{1}{1+e^{-\boldsymbol{\theta}^\top{\bf x}_i}}.
+\hat{y}_i:=h_{\boldsymbol{\theta}}({\bf x}_i)=\frac{1}{1+e^{-\boldsymbol{\theta}^\top{\bf x}_i}},\qquad i=1,\ldots,n.
 \]</span></p>
 <p>La función <span class="math inline">\(J(\theta)\)</span> en (2.2.3), conocida como <em>entropía cruzada</em>, es la forma habitual de expresar la función de pérdida en problemas de clasificación binaria. Mide la disimilaridad entre las etiquetas reales <span class="math inline">\(y_i\)</span> y las probabilidades <span class="math inline">\(\hat{y}_i\)</span> predichas por el modelo.</p>
 </div>
@@ -721,7 +745,7 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 <h3 class="anchored" data-anchor-id="optimalidad-1">Optimalidad</h3>
 <p>El problema de optimización resultante es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \sum_{i=1}^n\left[\log(1+e^{\boldsymbol{\theta}^\top{\bf x}_i})-\boldsymbol{\theta}^\top{\bf x}_i y_i\right].
+\text{minimizar} &amp; \displaystyle\sum_{i=1}^n\left[\log(1+e^{\boldsymbol{\theta}^\top{\bf x}_i})-\boldsymbol{\theta}^\top{\bf x}_i y_i\right].
 \end{array}
 \tag{4}
 \]</span></p>
@@ -746,7 +770,7 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 \]</span></p>
 <p>donde <span class="math inline">\(\hat{{\bf y}}=\left(h_{\boldsymbol{\theta}}({\bf x}_1),\ldots,h_{\boldsymbol{\theta}}({\bf x}_n)\right)\in\mathbb{R}^n\)</span> es el vector de probabilidades predichas.</p>
 <p>La expresión (2.2.5) muestra que <span class="math inline">\(\nabla J(\boldsymbol{\theta})\)</span> depende de <span class="math inline">\(\boldsymbol{\theta}\)</span> de forma no lineal. Por lo tanto, no es posible obtener una solución explícita de <span class="math inline">\(\nabla J(\hat{\boldsymbol{\theta}})=\mathbf{0}\)</span> y la única opción es recurrir a métodos iterativos para aproximar <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.</p>
-<div style="margin-top:2em;">
+<div style="margin-top:1.5em;">
 
 </div>
 </section>
@@ -790,10 +814,10 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 
 </div>
 </section>
-<section id="resolución-por-método-de-newton" class="level3">
-<h3 class="anchored" data-anchor-id="resolución-por-método-de-newton">Resolución por método de Newton</h3>
+<section id="resolución-por-método-de-newton-1" class="level3">
+<h3 class="anchored" data-anchor-id="resolución-por-método-de-newton-1">Resolución por método de Newton</h3>
 <p>Recordemos que el método de Newton actualiza los parámetros mediante <span class="math display">\[
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\left[\nabla^2 J(\boldsymbol{\theta}_t)\right]^{-1}\nabla J(\boldsymbol{\theta}_t).
+\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\left[\nabla^2 J(\boldsymbol{\theta}_t)\right]^{-1}\nabla J(\boldsymbol{\theta}_t).
 \]</span></p>
 <p>Para obtener los elementos de esta ecuación, tendremos en cuenta (2.2.2) y el cálculo del vector gradiente en (2.2.5). Podemos escribir <span class="math display">\[
 \nabla J(\boldsymbol{\theta})=\sum_{i=1}^n-{\bf x}_i\left[y_i-A'(\eta_i)\right].
@@ -806,7 +830,7 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 \end{align*}
 \]</span></p>
 <p>donde <span class="math display">\[
-W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n)\qquad\text{con }w_i:=A''(\eta_i)=h_{\boldsymbol{\theta}}({\bf x}_i)(1-h_{\boldsymbol{\theta}}({\bf x}_i)).
+W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol{\theta}}({\bf x}_i)(1-h_{\boldsymbol{\theta}}({\bf x}_i)).
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -840,30 +864,30 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n)\qquad\text{con }w_i:=A''(\eta_i)=h_{\b
 </div>
 </div>
 </div>
-<div id="f6b3d74e" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo:</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>logreg <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>logreg.fit(X_train, y_train)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción y accuracy:</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="22c57e99" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># Datos:</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb3-11"><a href="#cb3-11"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># Modelo:</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>logreg <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>logreg.fit(X_train, y_train)</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co"># Predicción y accuracy:</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
+<span id="cb3-21"><a href="#cb3-21"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="2f16dacf" class="cell" data-execution_count="5">
+<div id="fe12b9d9" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):
@@ -1374,6 +1398,9 @@ window._ojs.runtime.interpretFromScriptTags();
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../CAPITULO_2/B3_glm.html" class="pagination-link" aria-label="2.3 Modelos lineales generalizados">
+        <span class="nav-page-text">2.3 Modelos lineales generalizados</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Métodos de regularización – Optimización y Aprendizaje Automático II - 2025</title>
+<title>Métodos de regularización – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../CAPITULO_2/B4_svm.html" rel="next">
-<link href="../CAPITULO_2/B2_glm.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -111,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -154,7 +153,9 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B1_regresion_lineal_logistica.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B3_ridge_lasso.html">2.3 Métodos de regularización</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Optimización y Aprendizaje Automático II - 2026
+      </li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -169,7 +170,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Optimización y Aprendizaje Automático II - 2025</a> 
+      <a href="../">Optimización y Aprendizaje Automático II - 2026</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -202,8 +203,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_1/A3_resolucion_computacional.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1.3 Resolución computacional y problemas clásicos de optimización convexa</span></a>
+  <a href="../CAPITULO_1/A3_programas_conicos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.3 Programas cónicos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,49 +232,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_2/B1_regresion_lineal_logistica.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2.1 Regresión lineal y regresión logística</span></a>
+  <a href="../CAPITULO_2/B2_regresion_lineal_logistica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.2 Regresión lineal y regresión logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_2/B2_glm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2.2 Modelos lineales generalizados</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_2/B3_ridge_lasso.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">2.3 Métodos de regularización</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_2/B4_svm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2.4 Máquinas de vectores soporte</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">3. MODELOS GENERATIVOS</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_3/C1_gda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3.1 Modelos generativos para clasificación</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../CAPITULO_3/C2_clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3.2 Métodos de clustering</span></a>
+  <a href="../CAPITULO_2/B3_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Modelos lineales generalizados</span></a>
   </div>
 </li>
       </ul>
@@ -312,7 +278,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B1_regresion_lineal_logistica.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B3_ridge_lasso.html">2.3 Métodos de regularización</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Métodos de regularización</h1>
 <p class="subtitle lead">Capítulo 2 - Sección 3</p>
@@ -334,69 +300,24 @@ window.Quarto = {
 
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 <div class="hidden">
-<p><span class="math display">\[
-\def\NN{\mathbb{N}}
-\def\ZZ{\mathbb{Z}}
-\def\RR{\mathbb{R}}
-\def\media{\mathbb{E}}
-\def\cov{\text{Cov}}
-\def\prob{\mathbb{P}}
-\def\calL{\mathcal{L}}
-\def\calG{\mathcal{G}}
-\def\calH{\mathcal{H}}
-\def\calD{\mathcal{D}}
-\def\calN{\mathcal{N}}
-\def\aa{{\bf a}}
-\def\bb{{\bf b}}
-\def\cc{{\bf c}}
-\def\dd{{\bf d}}
-\def\hh{{\bf h}}
-\def\qq{{\bf q}}
-\def\xx{{\bf x}}
-\def\yy{{\bf y}}
-\def\zz{{\bf z}}
-\def\uu{{\bf u}}
-\def\vv{{\bf v}}
-\def\ww{{\bf w}}
-\def\XX{{\bf X}}
-\def\TT{{\bf T}}
-\def\SS{{\bf S}}
-\def\bfZ{{\bf Z}}
-\def\bfg{{\bf g}}
-\def\bftheta{\boldsymbol{\theta}}
-\def\bfphi{\boldsymbol{\phi}}
-\def\bfmu{\boldsymbol{\mu}}
-\def\bfxi{\boldsymbol{\xi}}
-\def\bflambda{\boldsymbol{\lambda}}
-\def\bfgamma{\boldsymbol{\gamma}}
-\def\bfbeta{\boldsymbol{\beta}}
-\def\bfalpha{\boldsymbol{\alpha}}
-\def\bfeta{\boldsymbol{\eta}}
-\def\bfmu{\boldsymbol{\mu}}
-\def\bfnu{\boldsymbol{\nu}}
-\def\bfTheta{\boldsymbol{\Theta}}
-\def\bfSigma{\boldsymbol{\Sigma}}
-\def\bfone{\mathbf{1}}
-\def\bfzero{\mathbf{0}}
-\def\argmin{\mathop{\mathrm{arg\,min\,}}}
-\def\argmax{\mathop{\mathrm{arg\,max\,}}}
-\]</span></p>
+<p>$$ </p>
+<p>$$</p>
 </div>
 <p>Una estrategia clásica para simplificar modelos y mejorar su interpretabilidad es la selección de variables, que consiste en identificar un subconjunto de predictores relevantes y descartar el resto. A pesar de que este enfoque puede conducir a modelos más simples, el hecho de ser un procedimiento discreto (en el que una determinada variable o bien es retenida o bien es eliminada) suele traducirse en alta varianza, ya que una pequeña perturbación en los datos podría conducir a un modelo totalmente diferente.</p>
 <p>Por tal motivo, una alternativa más estable y continua son los <em>métodos de regularización</em>, que ajustan los parámetros del modelo mediante penalizaciones, con el propósito de reducir la complejidad del modelo final, mejorar la precisión de las predicciones y controlar el sobreajuste. Estos métodos no seleccionan variables de manera abrupta, sino que introducen una penalización que tiende a reducir (o incluso anular) la influencia de las variables menos relevantes.</p>
-<p>En las secciones previas hemos visto que, en general, para un problema de aprendizaje supervisado con datos <span class="math inline">\(\{(\xx_i,y_i)\}_{i=1}^n\)</span>, donde se pretende modelar una función <span class="math inline">\(f(\xx;\bftheta)\)</span> que dependa del parámetro <span class="math inline">\(\bftheta\)</span>, el desempeño del modelo se evalúa mediante una función de pérdida de la forma <span class="math display">\[
-J(\bftheta)=\sum_{i=1}^n\text{loss}\,(y_i,f(\xx_i;\bftheta)),
+<p>En las secciones previas hemos visto que, en general, para un problema de aprendizaje supervisado con datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, donde se pretende modelar una función <span class="math inline">\(f({\bf x};\boldsymbol{\theta})\)</span> que dependa del parámetro <span class="math inline">\(\boldsymbol{\theta}\)</span>, el desempeño del modelo se evalúa mediante una función de pérdida de la forma <span class="math display">\[
+J(\boldsymbol{\theta})=\sum_{i=1}^n\text{loss}\,(y_i,f({\bf x}_i;\boldsymbol{\theta})),
 \]</span></p>
-<p>donde <span class="math inline">\(\text{loss}:\RR\times\RR\to\RR_0^+\)</span> mide el error entre las predicciones y las observaciones reales. Por ejemplo, en regresión suele utilizarse la suma de errores al cuadrado (RSS) o el error cuadrático medio (MSE).</p>
+<p>donde <span class="math inline">\(\text{loss}:\mathbb{R}\times\mathbb{R}\to\mathbb{R}_0^+\)</span> mide el error entre las predicciones y las observaciones reales. Por ejemplo, en regresión suele utilizarse la suma de errores al cuadrado (RSS) o el error cuadrático medio (MSE).</p>
 <p>La idea general de los métodos de regularización es modificar la función objetivo incorporando un término de penalización que depende de los parámetros del modelo. Así, en lugar de minimizar solamente la función de pérdida, se minimiza una expresión de la forma</p>
 <p><span class="math display">\[
-J(\bftheta) + \lambda \cdot \text{Penalizacion}(\bftheta),
+J(\boldsymbol{\theta}) + \lambda \cdot \text{Penalizacion}(\boldsymbol{\theta}),
 \tag{1}
 \]</span></p>
-<p>donde <span class="math inline">\(\lambda&gt; 0\)</span> es un <em>hiperparámetro de complejidad</em> que controla la intensidad de la regularización (a mayor <span class="math inline">\(\lambda\)</span>, mayor intensidad), y <span class="math inline">\(\text{Penalizacion}(\bftheta)\)</span> es una función que restringe la complejidad del modelo. La expresión (1) puede escribirse como un problema de optimización con restricciones: <span class="math display">\[
+<p>donde <span class="math inline">\(\lambda&gt; 0\)</span> es un <em>hiperparámetro de complejidad</em> que controla la intensidad de la regularización (a mayor <span class="math inline">\(\lambda\)</span>, mayor intensidad), y <span class="math inline">\(\text{Penalizacion}(\boldsymbol{\theta})\)</span> es una función que restringe la complejidad del modelo. La expresión (1) puede escribirse como un problema de optimización con restricciones: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; J(\bftheta) \\
-\text{sujeto a} &amp; \text{Penalizacion}(\bftheta) \leq t,
+\text{minimizar} &amp; J(\boldsymbol{\theta}) \\
+\text{sujeto a} &amp; \text{Penalizacion}(\boldsymbol{\theta}) \leq t,
 \end{array}
 \]</span></p>
 <p>donde <span class="math inline">\(t&gt;0\)</span> es un <em>hiperparámetro de umbral</em> ligado al valor de <span class="math inline">\(\lambda\)</span>.</p>
@@ -406,17 +327,17 @@ J(\bftheta) + \lambda \cdot \text{Penalizacion}(\bftheta),
 
 </div>
 <hr>
-<p>En lo que sigue, nos centraremos en el problema de regresión donde una variable respuesta <span class="math inline">\(Y\in\RR\)</span> se modela en función de un conjunto de variables predictoras <span class="math inline">\(\XX\in\RR^p\)</span>, a partir del modelo de regresión lineal multivariada <span class="math display">\[
-Y=\bftheta^\top\XX+\varepsilon,\qquad\varepsilon\sim\calN(0,\sigma^2).
+<p>En lo que sigue, nos centraremos en el problema de regresión donde una variable respuesta <span class="math inline">\(Y\in\mathbb{R}\)</span> se modela en función de un conjunto de variables predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>, a partir del modelo de regresión lineal multivariada <span class="math display">\[
+Y=\boldsymbol{\theta}^\top{\bf X}+\varepsilon,\qquad\varepsilon\sim\mathcal{N}(0,\sigma^2).
 \]</span></p>
-<p>Para un conjunto de datos de entrenamiento <span class="math inline">\(\left\{(\xx_i,y_i)\right\}_{i=1}^n\)</span>, usaremos la <em>función de pérdida</em> <span class="math display">\[
-J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\bftheta^\top\xx_i)^2,
+<p>Para un conjunto de datos de entrenamiento <span class="math inline">\(\left\{({\bf x}_i,y_i)\right\}_{i=1}^n\)</span>, usaremos la <em>función de pérdida</em> <span class="math display">\[
+J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\boldsymbol{\theta}^\top{\bf x}_i)^2,
 \tag{2}
 \]</span> donde MSE son las siglas de <em>mean squared error</em> (error cuadrático medio). El <mark>problema de mínimos cuadrados ordinarios (OLS)</mark> es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2}\|\yy-X\bftheta\|_2^2,
+\text{minimizar} &amp; \frac{1}{2}\|{\bf y}-X\boldsymbol{\theta}\|_2^2,
 \end{array}
-\]</span> cuyo punto óptimo denotaremos como <span class="math inline">\(\hat{\bftheta}^{\text{OLS}}\)</span>. De acuerdo a lo mencionado previamente, los métodos de regularización asociados a OLS se pueden expresar en dos formas equivalentes:</p>
+\]</span> cuyo punto óptimo denotaremos como <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{OLS}}\)</span>. De acuerdo a lo mencionado previamente, los métodos de regularización asociados a OLS se pueden expresar en dos formas equivalentes:</p>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Formulación sin restricciones</em></span>
 <div style="margin-top:-0.7em;">
@@ -424,7 +345,7 @@ J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n
 </div>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2}\|\yy-X\bftheta\|_2^2+\lambda\cdot\text{Penalizacion}(\bftheta).
+\text{minimizar} &amp; \frac{1}{2}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\cdot\text{Penalizacion}(\boldsymbol{\theta}).
 \end{array}
 \]</span></p>
 <span style="font-size:0.8em;"><em>Formulación con restricciones</em></span>
@@ -433,8 +354,8 @@ J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n
 </div>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2}\|\yy-X\bftheta\|_2^2 \\
-\text{sujeto a} &amp; \text{Penalizacion}(\bftheta) \leq t,
+\text{minimizar} &amp; \frac{1}{2}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
+\text{sujeto a} &amp; \text{Penalizacion}(\boldsymbol{\theta}) \leq t,
 \end{array}
 \]</span></p>
 </div>
@@ -446,10 +367,10 @@ J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n
 <div class="definicion">
 <p><strong>Definición 1.</strong> (Problema ridge) El <em>problema de regresión ridge</em> es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2,
+\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2,
 \tag{3}
 \end{array}
-\]</span> con <span class="math inline">\(\bftheta\in\RR^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\bftheta}^{\text{ridge}}\)</span>, es el <em>estimador ridge</em> de los coeficientes de la regresión.</p>
+\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{ridge}}\)</span>, es el <em>estimador ridge</em> de los coeficientes de la regresión.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -459,16 +380,16 @@ J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n
 <p>Vamos a ver que la expresión alternativa de (3) como problema de optimización con restricciones, a saber</p>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
-\text{sujeto a} &amp; \|\bftheta\|_2^2\leq t,
+\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
+\text{sujeto a} &amp; \|\boldsymbol{\theta}\|_2^2\leq t,
 \tag{4}
 \end{array},
 \]</span></p>
-<p>impone un valor de <span class="math inline">\(t\)</span> adecuado para que <span class="math inline">\(\lambda&gt;0\)</span>. En primer lugar, la equivalencia entre (3) y (4) se deriva directamente del hecho que (4) es un problema de optimización convexa que verifica la condición de Slater. Por lo tanto, hay dualidad fuerte y las condiciones KKT son suficientes y necesarias para la optimalidad (ver <a href="../CAPITULO_1/A4_condiciones_optimalidad.html#relación-entre-dualidad-y-kkt">C1-S4</a>). En particular, el punto óptimo <span class="math inline">\(\hat{\bftheta}^{\text{ridge}}\)</span> de (4) debe ser un minimizador de <span class="math display">\[
-\calL(\bftheta,\lambda^\star)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda^\star(\|\bftheta\|_2^2-t).
+<p>impone un valor de <span class="math inline">\(t\)</span> adecuado para que <span class="math inline">\(\lambda&gt;0\)</span>. En primer lugar, la equivalencia entre (3) y (4) se deriva directamente del hecho que (4) es un problema de optimización convexa que verifica la condición de Slater. Por lo tanto, hay dualidad fuerte y las condiciones KKT son suficientes y necesarias para la optimalidad (ver <a href="../CAPITULO_1/A4_condiciones_optimalidad.html#relación-entre-dualidad-y-kkt">C1-S4</a>). En particular, el punto óptimo <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{ridge}}\)</span> de (4) debe ser un minimizador de <span class="math display">\[
+\mathcal{L}(\boldsymbol{\theta},\lambda^\star)=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda^\star(\|\boldsymbol{\theta}\|_2^2-t).
 \]</span></p>
-<p>En la expresión anterior, <span class="math inline">\(\calL\)</span> es el Lagrangiano y <span class="math inline">\(\lambda^\star\)</span> es un punto óptimo del problema dual de Lagrange. Observar que la función objetivo de (3) es <span class="math display">\[
-\calL(\bftheta,\lambda)+\lambda t.
+<p>En la expresión anterior, <span class="math inline">\(\mathcal{L}\)</span> es el Lagrangiano y <span class="math inline">\(\lambda^\star\)</span> es un punto óptimo del problema dual de Lagrange. Observar que la función objetivo de (3) es <span class="math display">\[
+\mathcal{L}(\boldsymbol{\theta},\lambda)+\lambda t.
 \]</span></p>
 <p>Pero <span class="math inline">\(\lambda t\)</span> es constante, por lo cual queda claro que (3) y (4) son equivalentes. No obstante, si asumimos <span class="math inline">\(\lambda&gt;0\)</span>, el valor de <span class="math inline">\(t\)</span> debe ser adecuado, lo cual veremos a continuación.</p>
 <div style="margin-top:1em;">
@@ -481,16 +402,16 @@ J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n
 
 </div>
 <p>La respuesta a esta pregunta está en la condición KKT de holgura complementaria para la formulación con restricciones (4), la cual establece que <span class="math display">\[
-\lambda(\|\hat{\bftheta}^{\text{ridge}}\|_2^2-t)=0.
+\lambda(\|\hat{\boldsymbol{\theta}}^{\text{ridge}}\|_2^2-t)=0.
 \]</span></p>
 <p>La suposición <span class="math inline">\(\lambda&gt;0\)</span> implica que la restricción está activa, tal que <span class="math display">\[
-t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2.
+t=\|\hat{\boldsymbol{\theta}}^{\text{ridge}}\|_2^2.
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="myhighlight">
-<p>Si <span class="math inline">\(\lambda&gt;0\)</span>, entonces <span class="math inline">\(t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2\)</span>.</p>
+<p>Si <span class="math inline">\(\lambda&gt;0\)</span>, entonces <span class="math inline">\(t=\|\hat{\boldsymbol{\theta}}^{\text{ridge}}\|_2^2\)</span>.</p>
 </div>
 <div style="margin-top:1em;">
 
@@ -500,7 +421,7 @@ t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2.
 <figure style="text-align: center;" class="figure">
 <img src="figuras/ridge.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 1</strong>. Interpretación geométrica del problema ridge, de acuerdo a su formulación con restricciones (4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span> de la Definición 1, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}\)</span>.
+<strong>Figura 1</strong>. Interpretación geométrica del problema ridge, de acuerdo a su formulación con restricciones (4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span> de la Definición 1, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -509,13 +430,13 @@ t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2.
 <section id="características-del-problema-ridge" class="level3">
 <h3 class="anchored" data-anchor-id="características-del-problema-ridge">Características del problema ridge</h3>
 <p>La función objetivo del problema ridge (3) es <span class="math display">\[
-J(\bftheta)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2=\frac{1}{2n}\bftheta^\top X^\top X\bftheta+\lambda\bftheta^\top\bftheta-\frac{1}{n}\bftheta^\top X^\top\yy+\frac{1}{2n}\yy^\top\yy.
+J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\boldsymbol{\theta}^\top X^\top X\boldsymbol{\theta}+\lambda\boldsymbol{\theta}^\top\boldsymbol{\theta}-\frac{1}{n}\boldsymbol{\theta}^\top X^\top{\bf y}+\frac{1}{2n}{\bf y}^\top{\bf y}.
 \]</span></p>
 <p>Entonces <span class="math display">\[
-\nabla J(\bftheta)=\frac{1}{n}X^\top X\bftheta+2\lambda\bftheta-\frac{1}{n}X^\top \yy=\left(\frac{1}{n}X^\top X+2\lambda I\right)\bftheta-\frac{1}{n}X^\top\yy,
+\nabla J(\boldsymbol{\theta})=\frac{1}{n}X^\top X\boldsymbol{\theta}+2\lambda\boldsymbol{\theta}-\frac{1}{n}X^\top {\bf y}=\left(\frac{1}{n}X^\top X+2\lambda I\right)\boldsymbol{\theta}-\frac{1}{n}X^\top{\bf y},
 \tag{5}
 \]</span> <span class="math display">\[
-\nabla^2J(\bftheta)=\frac{1}{n}X^\top X+2\lambda I\succ 0.
+\nabla^2J(\boldsymbol{\theta})=\frac{1}{n}X^\top X+2\lambda I\succ 0.
 \]</span></p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -546,11 +467,11 @@ Mostrar detalles
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Observación</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>La verificación de existencia a partir de la formulación sin restricciones (3) se basa en que <span class="math inline">\(J\)</span> crece indefinidamente en cualquier dirección a partir de cualquier punto <span class="math inline">\(\bftheta\)</span>; esto es, <span class="math display">\[
-\lim_{t\to\infty}f(\bftheta+t\dd)=\infty\qquad\forall\bftheta\in\RR^p,\;\forall\dd\in\RR^p,\,\dd\neq\bfzero.
+<p>La verificación de existencia a partir de la formulación sin restricciones (3) se basa en que <span class="math inline">\(J\)</span> crece indefinidamente en cualquier dirección a partir de cualquier punto <span class="math inline">\(\boldsymbol{\theta}\)</span>; esto es, <span class="math display">\[
+\lim_{t\to\infty}f(\boldsymbol{\theta}+t{\bf d})=\infty\qquad\forall\boldsymbol{\theta}\in\mathbb{R}^p,\;\forall{\bf d}\in\mathbb{R}^p,\,{\bf d}\neq\mathbf{0}.
 \]</span></p>
 <p>En efecto, <span class="math display">\[
-\lim_{t\to\infty}f(\bftheta+t\dd)\geq\lim_{t\to\infty}\lambda\|\bftheta+t\dd\|_2^2=\lambda\lim_{t\to\infty}\left(t^2\|\dd\|_2^2+2t\,\bftheta^\top\dd+\|\bftheta\|_2^2\right)=\infty.
+\lim_{t\to\infty}f(\boldsymbol{\theta}+t{\bf d})\geq\lim_{t\to\infty}\lambda\|\boldsymbol{\theta}+t{\bf d}\|_2^2=\lambda\lim_{t\to\infty}\left(t^2\|{\bf d}\|_2^2+2t\,\boldsymbol{\theta}^\top{\bf d}+\|\boldsymbol{\theta}\|_2^2\right)=\infty.
 \]</span></p>
 <p>Este comportamiento de <span class="math inline">\(f\)</span> permite afirmar que no tiene direcciones de decrecimiento, también llamadas <em>direcciones de recesión</em>. Resultados teóricos (ver, por ejemplo, Teorema 27.1 de [Rockafellar, 1970]) aseguran que, en tales condiciones, un problema de optimización tiene al menos una solución.</p>
 <!--
@@ -565,17 +486,17 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 <div style="margin-top:2em;">
 
 </div>
-<p>Para caracterizar la solución del problema ridge, utilizaremos la condición de optimalidad <span class="math inline">\(\nabla J =\bfzero\)</span>. Por supuesto, el abordaje mediante la formulación (3) como problema de optimización con restricciones conduce a los mismos resultados, lo cual dejamos como ejercicio.</p>
+<p>Para caracterizar la solución del problema ridge, utilizaremos la condición de optimalidad <span class="math inline">\(\nabla J =\mathbf{0}\)</span>. Por supuesto, el abordaje mediante la formulación (3) como problema de optimización con restricciones conduce a los mismos resultados, lo cual dejamos como ejercicio.</p>
 </section>
 <section id="solución-del-problema-ridge" class="level3">
 <h3 class="anchored" data-anchor-id="solución-del-problema-ridge">Solución del problema ridge</h3>
-<p>A partir de la expresión (5), la condición de optimalidad <span class="math inline">\(\nabla f(\hat{\bftheta}^{\text{ridge}})=\bfzero\)</span> implica <span class="math display">\[
-\left(\frac{1}{n}X^\top X+2\lambda I\right)\hat{\bftheta}^{\text{ridge}}-\frac{1}{n}X^\top \yy=\bfzero
+<p>A partir de la expresión (5), la condición de optimalidad <span class="math inline">\(\nabla f(\hat{\boldsymbol{\theta}}^{\text{ridge}})=\mathbf{0}\)</span> implica <span class="math display">\[
+\left(\frac{1}{n}X^\top X+2\lambda I\right)\hat{\boldsymbol{\theta}}^{\text{ridge}}-\frac{1}{n}X^\top {\bf y}=\mathbf{0}
 \]</span></p>
 <p>Dado que <span class="math inline">\(\frac{1}{n}X^\top X+2\lambda I\succ 0\)</span>, es invertible. En consecuencia:</p>
 <div class="myhighlight">
 <p>La fórmula cerrada para el estimador ridge es <span class="math display">\[
-\hat{\bftheta}^{\text{ridge}}=\frac{1}{n}\left(\frac{1}{n}X^\top X+2\lambda I\right)^{-1}X^\top \yy.
+\hat{\boldsymbol{\theta}}^{\text{ridge}}=\frac{1}{n}\left(\frac{1}{n}X^\top X+2\lambda I\right)^{-1}X^\top {\bf y}.
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -589,7 +510,7 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 <p><span class="badge bg-primary">Ejemplo 1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión ridge en datos de diabetes </span></p>
 <p>Utilizaremos el conjunto de datos de diabetes de <code>sklearn.datasets</code> (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>) para ilustrar el efecto del parámetro de regularización <span class="math inline">\(\lambda\)</span> en Ridge. Este conjunto consiste en 442 observaciones y 10 variables predictoras.</p>
 <p>Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
-<div id="4faebb1f" class="cell" data-execution_count="1">
+<div id="200f6c18" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -665,7 +586,7 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="B3_ridge_lasso_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
+<p><img src="B4_ridge_lasso_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
 </figure>
 </div>
 </div>
@@ -691,24 +612,24 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 <div class="definicion">
 <p><strong>Definición 2.</strong> (Problema lasso) El <em>problema de regresión lasso</em> es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_1,
+\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_1,
 \end{array}
 \tag{6}
-\]</span> con <span class="math inline">\(\bftheta\in\RR^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\bftheta}^{\text{lasso}}\)</span>, es el <em>estimador lasso</em> de los coeficientes de la regresión.</p>
+\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>, es el <em>estimador lasso</em> de los coeficientes de la regresión.</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
 <p>De manera similar al análisis para el problema ridge, el problema lasso admite la siguiente formulación con restricciones: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
-\text{sujeto a} &amp; \|\bftheta\|_1\leq t.
+\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
+\text{sujeto a} &amp; \|\boldsymbol{\theta}\|_1\leq t.
 \end{array}
 \tag{7}
 \]</span></p>
 <p>En este caso:</p>
 <div class="myhighlight">
-<p>Si <span class="math inline">\(\lambda&gt;0\)</span>, entonces <span class="math inline">\(t=\|\hat{\bftheta}^{\text{lasso}}\|_1\)</span>.</p>
+<p>Si <span class="math inline">\(\lambda&gt;0\)</span>, entonces <span class="math inline">\(t=\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -716,7 +637,7 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 <figure style="text-align: center;" class="figure">
 <img src="figuras/lasso.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 2</strong>. Interpretación geométrica del problema lasso, de acuerdo a su formulación con restricciones (7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span> de la Definición 2, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}\)</span>.
+<strong>Figura 2</strong>. Interpretación geométrica del problema lasso, de acuerdo a su formulación con restricciones (7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span> de la Definición 2, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -745,17 +666,17 @@ Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\t
 
 </div>
 <p>La existencia de solución se justifica de manera similar al problema ridge: el conjunto factible en (7) es cerrado y acotado. A continuación, las dos posibilidades mencionadas se derivan de la matriz Hessiana de la función objetivo de la formulación con restricciones (7): <span class="math display">\[
-\nabla^2 J(\bftheta)=\frac{1}{n}X^\top X.
+\nabla^2 J(\boldsymbol{\theta})=\frac{1}{n}X^\top X.
 \]</span></p>
 <ul>
 <li><p>Si <span class="math inline">\(\text{rango}\,X=p\)</span>, entonces <span class="math inline">\(\frac{1}{n}X^\top X\succ 0\)</span> (¿por qué?). Luego, la función objetivo es estrictamente convexa y concluimos que el problema tiene solución única.</p></li>
-<li><p>Si <span class="math inline">\(\text{rango}\,X&lt;p\)</span>, la solución puede no ser única. En caso de no ser única, habrán infinitas soluciones. Para justificar esto último, supongamos <span class="math inline">\(\hat{\bftheta}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\bftheta}^{\text{lasso},2}\)</span> diferentes estimadores lasso; entonces <span class="math display">\[
-t\hat{\bftheta}^{\text{lasso},1}+(1-t)\hat{\bftheta}^{\text{lasso},2},\qquad t\in(0,1),
+<li><p>Si <span class="math inline">\(\text{rango}\,X&lt;p\)</span>, la solución puede no ser única. En caso de no ser única, habrán infinitas soluciones. Para justificar esto último, supongamos <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> diferentes estimadores lasso; entonces <span class="math display">\[
+t\hat{\boldsymbol{\theta}}^{\text{lasso},1}+(1-t)\hat{\boldsymbol{\theta}}^{\text{lasso},2},\qquad t\in(0,1),
 \]</span> también es una solución, por <em>convexidad del conjunto solución de un problema de optimización convexa</em>.</p></li>
 </ul>
 <p>Otras características importantes del problema lasso se enuncian en el siguiente lema.</p>
 <div class="teorema">
-<p><strong>Lema 1.</strong> Sean <span class="math inline">\(X\in\RR^{n\times p}\)</span>, <span class="math inline">\(\yy\in\RR^n\)</span> y <span class="math inline">\(\lambda&gt;0\)</span>. El valor <em>fiteado</em> <span class="math inline">\(X\hat{\bftheta}^{\text{lasso}}\)</span> y la norma <span class="math inline">\(\|\hat{\bftheta}^{\text{lasso}}\|_1\)</span> son independientes de la elección del estimador lasso.</p>
+<p><strong>Lema 1.</strong> Sean <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> y <span class="math inline">\(\lambda&gt;0\)</span>. El valor <em>fiteado</em> <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> y la norma <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> son independientes de la elección del estimador lasso.</p>
 </div>
 <details>
 <summary>
@@ -765,25 +686,25 @@ Mostrar detalles
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>(i) Sean <span class="math inline">\(\hat{\bftheta}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\bftheta}^{\text{lasso},2}\)</span> soluciones del problema lasso tales que <span class="math inline">\(X \hat{\bftheta}^{\text{lasso},1} \neq X \hat{\bftheta}^{\text{lasso},2}\)</span>. Para <span class="math inline">\(0&lt;t&lt;1\)</span>, denotemos <span class="math display">\[
-\hat{\bftheta}^{\text{lasso},t}:=t\hat{\bftheta}^{\text{lasso},1}+(1-t)\hat{\bftheta}^{\text{lasso},2}.
+<p>(i) Sean <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> soluciones del problema lasso tales que <span class="math inline">\(X \hat{\boldsymbol{\theta}}^{\text{lasso},1} \neq X \hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span>. Para <span class="math inline">\(0&lt;t&lt;1\)</span>, denotemos <span class="math display">\[
+\hat{\boldsymbol{\theta}}^{\text{lasso},t}:=t\hat{\boldsymbol{\theta}}^{\text{lasso},1}+(1-t)\hat{\boldsymbol{\theta}}^{\text{lasso},2}.
 \]</span></p>
-<p>La convexidad estricta de <span class="math inline">\(h(\xx)=\|\yy-\xx\|_2^2\)</span> y la suposición <span class="math inline">\(X\hat{\bftheta}^{\text{lasso},1}\neq X\hat{\bftheta}^{\text{lasso},1}\)</span> permiten escrbir <span class="math display">\[
-\|\yy-X\hat{\bftheta}^{\text{lasso},t}\|_2^2&lt;t\|\yy-X\hat{\bftheta}^{\text{lasso},1}\|_2^2+(1-t)\|\yy-X\hat{\bftheta}^{\text{lasso},2}\|_2^2.
+<p>La convexidad estricta de <span class="math inline">\(h({\bf x})=\|{\bf y}-{\bf x}\|_2^2\)</span> y la suposición <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\neq X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> permiten escrbir <span class="math display">\[
+\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_2^2&lt;t\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_2^2+(1-t)\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_2^2.
 \]</span></p>
 <p>Además, la norma 1 es convexa, tal que <span class="math display">\[
-\|\hat{\bftheta}^{\text{lasso},t}\|_1\leq\|\hat{\bftheta}^{\text{lasso},1}\|_1+(1-t)\|\hat{\bftheta}^{\text{lasso},2}\|_1.
+\|\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_1\leq\|\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_1+(1-t)\|\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_1.
 \]</span></p>
 <p>Combinando las desigualdades anteriores, se deduce <span class="math display">\[
-\frac{1}{2n}\|\yy-X\hat{\bftheta}^{\text{lasso},t}\|_2^2+\lambda\|\hat{\bftheta}^{\text{lasso},t}\|_1&lt;t J(\hat{\bftheta}^{\text{lasso},1})+(1-t)J(\hat{\bftheta}^{\text{lasso},2}) =p^\star,
+\frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_2^2+\lambda\|\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_1&lt;t J(\hat{\boldsymbol{\theta}}^{\text{lasso},1})+(1-t)J(\hat{\boldsymbol{\theta}}^{\text{lasso},2}) =p^\star,
 \]</span> donde <span class="math inline">\(p^\star\)</span> es el valor óptimo del problema lasso. El resultado contradice el hecho de que <span class="math inline">\(p^\star\)</span> es el valor óptimo y, en consecuencia, debe ser <span class="math display">\[
-X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
+X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\text{lasso},2}.
 \]</span></p>
 <p>(ii) De la prueba anterior, está claro que <span class="math display">\[
-\frac{1}{2n}\|\yy-X\hat{\bftheta}^{\text{lasso},1}\|_2^2=\frac{1}{2n}\|\yy-X\hat{\bftheta}^{\text{lasso},2}\|_2^2.
+\frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_2^2=\frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_2^2.
 \]</span></p>
 <p>Pero ambos minimizan la función objetivo en (7). Como <span class="math inline">\(\lambda&gt;0\)</span>, debe ser <span class="math display">\[
-\|\hat{\bftheta}^{\text{lasso},1}\|_1=\|\hat{\bftheta}^{\text{lasso},2}\|_1.
+\|\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_1=\|\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_1.
 \]</span></p>
 <div style="margin-top:-1em;">
 
@@ -798,7 +719,7 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 <div style="margin-top:2em;">
 
 </div>
-<p>Para estudiar la solución del problema lasso, trabajaremos con la formulación (7), de manera similar al caso del problema ridge, aprovechando el hecho que la condición de optimalidad <span class="math inline">\(\nabla J=\bfzero\)</span> es suficiente y necesaria.</p>
+<p>Para estudiar la solución del problema lasso, trabajaremos con la formulación (7), de manera similar al caso del problema ridge, aprovechando el hecho que la condición de optimalidad <span class="math inline">\(\nabla J=\mathbf{0}\)</span> es suficiente y necesaria.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -806,25 +727,25 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 <section id="solución-del-problema-lasso" class="level3">
 <h3 class="anchored" data-anchor-id="solución-del-problema-lasso">Solución del problema lasso</h3>
 <p>A diferencia del problema ridge, la función objetivo del problema lasso no es una función diferenciable, debido a la presencia del término <span class="math display">\[
-\|\bftheta\|_1:=\sum_{i=1}^p|\theta_1|+\ldots+|\theta_p|.
+\|\boldsymbol{\theta}\|_1:=\sum_{i=1}^p|\theta_1|+\ldots+|\theta_p|.
 \]</span></p>
 <p>Por tal motivo, para el análisis de las condiciones KKT es necesario primero hacer un breve repaso del concepto de subdiferencial. Luego, las condiciones KKT también pueden ser formuladas en términos de subdiferenciales, con el propósito de caracterizar la solución del problema lasso.</p>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>El <em>subdiferencial</em> de una función convexa <span class="math inline">\(f:\RR^p\to\RR\)</span> en un punto <span class="math inline">\(\xx_0\in\text{dom}\,f\)</span> es el conjunto <span class="math display">\[
-\partial f(\xx_0):=\{\bfgamma\in\RR^p \mid f(\xx)\geq f(\xx_0)+\bfgamma^\top(\xx-\xx_0)\quad\forall\xx\in\text{dom}\,f\}.
+<p>El <em>subdiferencial</em> de una función convexa <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> en un punto <span class="math inline">\({\bf x}_0\in\text{dom}\,f\)</span> es el conjunto <span class="math display">\[
+\partial f({\bf x}_0):=\{\boldsymbol{\gamma}\in\mathbb{R}^p \mid f({\bf x})\geq f({\bf x}_0)+\boldsymbol{\gamma}^\top({\bf x}-{\bf x}_0)\quad\forall{\bf x}\in\text{dom}\,f\}.
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <p>Un par de características importantes son:</p>
 <ul>
-<li><p>El subdiferencial <span class="math inline">\(\partial f(\xx_0)\)</span> es siempre un conjunto convexo no vacío.</p></li>
-<li><p>Si <span class="math inline">\(f\)</span> es diferenciable en <span class="math inline">\(\xx_0\)</span>, entonces <span class="math inline">\(\partial f(\xx_0)=\{\nabla f(\xx_0)\}\)</span>.</p></li>
+<li><p>El subdiferencial <span class="math inline">\(\partial f({\bf x}_0)\)</span> es siempre un conjunto convexo no vacío.</p></li>
+<li><p>Si <span class="math inline">\(f\)</span> es diferenciable en <span class="math inline">\({\bf x}_0\)</span>, entonces <span class="math inline">\(\partial f({\bf x}_0)=\{\nabla f({\bf x}_0)\}\)</span>.</p></li>
 <li><p>La condición de optimalidad para problemas de optimización <em>sin restricciones</em> está dada por el siguiente resultado.</p></li>
 </ul>
 <div class="teorema">
-<p><strong>Teorema 1.</strong> Sea <span class="math inline">\(f:\RR^p \to \RR\)</span> una función convexa. Entonces <span class="math inline">\(\xx^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
+<p><strong>Teorema 1.</strong> Sea <span class="math inline">\(f:\mathbb{R}^p \to \mathbb{R}\)</span> una función convexa. Entonces <span class="math inline">\({\bf x}^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
 0 \in \partial f(x^\star).
 \]</span></p>
 </div>
@@ -834,14 +755,14 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Subdiferencial de la norma 1 </span></p>
-<p>La norma 1 es la función <span class="math inline">\(\|\cdot\|_1:\RR^p\to\RR\)</span> definida por <span class="math display">\[
-\nabla\|\xx\|_1:=\sum_{i=1}^p|x_i|.
+<p>La norma 1 es la función <span class="math inline">\(\|\cdot\|_1:\mathbb{R}^p\to\mathbb{R}\)</span> definida por <span class="math display">\[
+\nabla\|{\bf x}\|_1:=\sum_{i=1}^p|x_i|.
 \]</span></p>
-<p>Esta función es diferenciable en todos los puntos <span class="math inline">\(\xx\)</span> tales que <span class="math inline">\(x_i\neq 0\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>. En tales puntos su subdiferencial está determinado por el vector gradiente, el cual es <span class="math display">\[
-\nabla \|\xx\|_1=(\text{sign}(x_1),\ldots,\text{sign}(x_p))\qquad \forall\xx\neq\bfzero.
+<p>Esta función es diferenciable en todos los puntos <span class="math inline">\({\bf x}\)</span> tales que <span class="math inline">\(x_i\neq 0\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>. En tales puntos su subdiferencial está determinado por el vector gradiente, el cual es <span class="math display">\[
+\nabla \|{\bf x}\|_1=(\text{sign}(x_1),\ldots,\text{sign}(x_p))\qquad \forall{\bf x}\neq\mathbf{0}.
 \]</span></p>
 <p>Sin embargo, si la <span class="math inline">\(i\)</span>-ésima coordenada es 0, el subgradiente tomará en esa componente el valor <span class="math inline">\([-1,1]\)</span>.</p>
-<p>Por lo tanto, <span class="math inline">\(\partial \|\xx\|_1\)</span> está formado por todos los vectores <span class="math inline">\(\bfgamma\)</span> que verifican <span class="math display">\[
+<p>Por lo tanto, <span class="math inline">\(\partial \|{\bf x}\|_1\)</span> está formado por todos los vectores <span class="math inline">\(\boldsymbol{\gamma}\)</span> que verifican <span class="math display">\[
 \gamma_i=\begin{cases}
 {\text{sign}(x_i)} &amp; \mbox{si }x_i\neq 0,\\
 [-1,1] &amp; \mbox{si }x_i=0.
@@ -859,13 +780,13 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 
 </div>
 <p>A partir de la expresión (7) y lo descripto sobre subdiferenciales, la condición de optimalidad para el problema lasso es <span class="math display">\[
-\bfzero\in \frac{1}{n}X^\top(X\hat{\bftheta}^{\text{lasso}}-\yy)+\lambda\,\partial \|\hat{\bftheta}^{\text{lasso}}\|_1.
+\mathbf{0}\in \frac{1}{n}X^\top(X\hat{\boldsymbol{\theta}}^{\text{lasso}}-{\bf y})+\lambda\,\partial \|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1.
 \tag{8}
 \]</span></p>
-<p>La expresión (8) es equivalente a la siguiente afirmación: existe <span class="math inline">\(\bfgamma\in\partial\|\hat{\bftheta}^{\text{lasso}}\|_1\)</span> tal que <span class="math display">\[
-\frac{1}{n}X^\top(X\hat{\bftheta}^{\text{lasso}}-\yy)+\lambda\bfgamma=\bfzero.
+<p>La expresión (8) es equivalente a la siguiente afirmación: existe <span class="math inline">\(\boldsymbol{\gamma}\in\partial\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> tal que <span class="math display">\[
+\frac{1}{n}X^\top(X\hat{\boldsymbol{\theta}}^{\text{lasso}}-{\bf y})+\lambda\boldsymbol{\gamma}=\mathbf{0}.
 \]</span></p>
-<p>Del Ejemplo 2, el vector <span class="math inline">\(\bfgamma\)</span> debe verificar lo siguiente: <span class="math display">\[
+<p>Del Ejemplo 2, el vector <span class="math inline">\(\boldsymbol{\gamma}\)</span> debe verificar lo siguiente: <span class="math display">\[
 \gamma_i=\begin{cases}
 {\text{sign}(\hat{\theta}_i^{\text{lasso}})} &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\
 [-1,1] &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
@@ -873,10 +794,10 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 \tag{9}
 \]</span></p>
 <p>La clave está en reescribir la condición de estacionariedad como <span class="math display">\[
-\frac{1}{n}X^\top(\yy-X\hat{\bftheta}^{\text{lasso}})=\lambda\bfgamma.
+\frac{1}{n}X^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})=\lambda\boldsymbol{\gamma}.
 \tag{10}
 \]</span></p>
-<p>La componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo de (10) mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\(\mathbf{r}:=\yy-X\hat{\bftheta}^{\text{lasso}}\)</span>. De hecho, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\(\yy\)</span> están estandarizados, entonces esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
+<p>La componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo de (10) mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\(\mathbf{r}:={\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>. De hecho, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\({\bf y}\)</span> están estandarizados, entonces esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
 \begin{align}
 \text{cor}(X_i,\mathbf{r}):&amp;=\frac{\text{cov}(X_i,\mathbf{r})}{\sqrt{\text{var}(X_i)\text{var}(\mathbf{r})}}\\
 &amp;=\frac{\frac{1}{n}X_i^\top\mathbf{r}}{\sqrt{\frac{1}{n}\|\mathbf{r}\|_2^2}}\\
@@ -888,13 +809,13 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 </div>
 <p>Ahora bien, de (9) y (10) podemos afirmar que:</p>
 <div class="myhighlight">
-<p><span class="math inline">\(\left|X_i^\top(\yy-X\hat{\bftheta}^{\text{lasso}})\right|\leq n\lambda\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>.</p>
+<p><span class="math inline">\(\left|X_i^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})\right|\leq n\lambda\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
 <div class="myhighlight">
-<p>Si <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>, entonces <span class="math inline">\(|X_i^\top(\yy-X\hat{\bftheta}^{\text{lasso}})|= n \lambda\)</span>.</p>
+<p>Si <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>, entonces <span class="math inline">\(|X_i^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})|= n \lambda\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -902,8 +823,8 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 <p>Observar que las variables que son incluidas en el modelo tienen correlación absoluta máxima con el residuo, igual a <span class="math inline">\(\lambda\)</span>. Esto muestra que el valor de <span class="math inline">\(\lambda\)</span> determina la exigencia del modelo para incluir una variable: valores grandes de <span class="math inline">\(\lambda\)</span> indican que únicamente variables con correlación fuerte con el residuo son consideradas para el modelo, mientras que valores pequeños de <span class="math inline">\(\lambda\)</span> conducen a más variables incluidas.</p>
 <p>La condición que verifican todas las variables incluidas en el modelo motiva la siguiente definición.</p>
 <div class="definicion">
-<p><strong>Definición 3.</strong> (Conjunto de equicorrelación) Sea <span class="math inline">\(\hat{\bftheta}^{\text{lasso}}\)</span> una solución del problema lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
-\mathcal{E}:=\left\{i\in\{1,\ldots,p\} \mid \left|X_i^\top \left(\yy-X\hat{\bftheta}^{\text{lasso}}\right)\right|=n\lambda\right\}.
+<p><strong>Definición 3.</strong> (Conjunto de equicorrelación) Sea <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> una solución del problema lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
+\mathcal{E}:=\left\{i\in\{1,\ldots,p\} \mid \left|X_i^\top \left({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\right)\right|=n\lambda\right\}.
 \]</span></p>
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
@@ -919,8 +840,8 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 <div style="margin-top:2em;">
 
 </div>
-<p>Vamos a separar el vector <span class="math inline">\(\hat{\bftheta}^{\text{lasso}}\)</span> en dos subvectores, discriminando de acuerdo a si el índice está o no en <span class="math inline">\(\mathcal{E}\)</span>. Para ello, denotamos <span class="math display">\[
-\hat{\bftheta}_{\mathcal{E}}^{\text{lasso}}=(\hat{\theta}_{i}^{\text{lasso}})_{i\in\mathcal{E}},\qquad \hat{\bftheta}_{-\mathcal{E}}^{\text{lasso}}=(\hat{\theta}_{i}^{\text{lasso}})_{i\notin\mathcal{E}}.
+<p>Vamos a separar el vector <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> en dos subvectores, discriminando de acuerdo a si el índice está o no en <span class="math inline">\(\mathcal{E}\)</span>. Para ello, denotamos <span class="math display">\[
+\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}=(\hat{\theta}_{i}^{\text{lasso}})_{i\in\mathcal{E}},\qquad \hat{\boldsymbol{\theta}}_{-\mathcal{E}}^{\text{lasso}}=(\hat{\theta}_{i}^{\text{lasso}})_{i\notin\mathcal{E}}.
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -928,7 +849,7 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 <p>En base a lo descrito, la primera afirmación que haremos es:</p>
 <div class="myhighlight">
 <p><span class="math display">\[
-\hat{\bftheta}_{-\mathcal{E}}^{\text{lasso}}=\bfzero.
+\hat{\boldsymbol{\theta}}_{-\mathcal{E}}^{\text{lasso}}=\mathbf{0}.
 \]</span></p>
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
@@ -953,16 +874,16 @@ X \hat{\bftheta}^{\text{lasso},1} = X \hat{\bftheta}^{\text{lasso},2}.
 </div>
 <p>Ahora bien, solo nos queda un último análisis:</p>
 <div class="myhighlight3">
-<p>¿Hay una expresión analítica para <span class="math inline">\(\hat{\bftheta}^{\text{lasso}}_{\mathcal{E}}\)</span>?</p>
+<p>¿Hay una expresión analítica para <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}_{\mathcal{E}}\)</span>?</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Centraremos nuestro análisis en el bloque <span class="math inline">\(\mathcal{E}\)</span>, es decir trabajaremos con la submatriz <span class="math inline">\(X_{\mathcal{E}}\in\RR^{n\times |E|}\)</span> formada por las columnas de <span class="math inline">\(X\)</span> cuyos índices estén en <span class="math inline">\(\mathcal{E}\)</span>. Si denotamos <span class="math display">\[
-\mathbf{s} := \text{sign}\left(\frac{1}{n}X_{\mathcal{E}}^\top(\yy-X\hat{\bftheta}^{\text{lasso}})\right),\qquad \mathbf{s}\in\{-1,1\}^{|E|},
+<p>Centraremos nuestro análisis en el bloque <span class="math inline">\(\mathcal{E}\)</span>, es decir trabajaremos con la submatriz <span class="math inline">\(X_{\mathcal{E}}\in\mathbb{R}^{n\times |E|}\)</span> formada por las columnas de <span class="math inline">\(X\)</span> cuyos índices estén en <span class="math inline">\(\mathcal{E}\)</span>. Si denotamos <span class="math display">\[
+\mathbf{s} := \text{sign}\left(\frac{1}{n}X_{\mathcal{E}}^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})\right),\qquad \mathbf{s}\in\{-1,1\}^{|E|},
 \]</span></p>
 <p>entonces la condición de optimalidad resulta en <span class="math display">\[
-\frac{1}{n} X_{\mathcal{E}}^\top\left(\yy-X_{\mathcal{E}}\hat{\bftheta}^{\text{lasso}}_{\mathcal{E}}\right)=\lambda \mathbf{s}.
+\frac{1}{n} X_{\mathcal{E}}^\top\left({\bf y}-X_{\mathcal{E}}\hat{\boldsymbol{\theta}}^{\text{lasso}}_{\mathcal{E}}\right)=\lambda \mathbf{s}.
 \tag{11}
 \]</span></p>
 <p>Esto significa que <span class="math inline">\(\lambda \mathbf{s}\)</span> es una combinación lineal de las filas de <span class="math inline">\(X_{\mathcal{E}}\)</span>. Por lo tanto, la proyección de <span class="math inline">\(\lambda\mathbf{s}\)</span> sobre <span class="math inline">\(\text{row}\,X_{\mathcal{E}}\)</span> es el mismo <span class="math inline">\(\lambda\mathbf{s}\)</span>. Esto es: <span class="math display">\[
@@ -971,16 +892,16 @@ X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}=\lambda\mathbf{s
 \]</span></p>
 <p>Reemplazando (12) en (11): <span class="math display">\[
 \begin{align*}
-X_{\mathcal{E}}^\top\yy-X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\bftheta}_{\mathcal{E}}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s} \\[2pt]
-X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\bftheta}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top\left(\yy-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
+X_{\mathcal{E}}^\top{\bf y}-X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s} \\[2pt]
+X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\boldsymbol{\theta}}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
 \end{align*}
 \]</span></p>
 <p>Usando la propiedad de pseudoinversa <span class="math inline">\(X_{\mathcal{E}}^+=(X_{\mathcal{E}}^\top X_{\mathcal{E}})^+X_{\mathcal{E}}^\top\)</span>, resulta <span class="math display">\[
-\hat{\bftheta}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left(\yy-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
+\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
 \]</span></p>
-<p>Por último, teniendo en cuenta que el valor fiteado <span class="math inline">\(X_{\mathcal{E}}\hat{\bftheta}_{\mathcal{E}}^{\text{lasso}}\)</span> no cambia si sumamos a esa solución un vector <span class="math inline">\(\bb\in\text{null}\,X_{\mathcal{E}}\)</span>, todas las soluciones del problema lasso quedan determinadas por la forma <span class="math display">\[
-\hat{\bftheta}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left(\yy-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right)+\bb,
-\]</span> donde <span class="math inline">\(\bb\in\text{null}\,X_{\mathcal{E}}\)</span> es válido siempre que el resultado final sea consistente con respecto a los signos de sus coeficientes no nulos, esto es, se verifique <span class="math inline">\(\text{sign}(\hat{\theta}_i^{\text{lasso}})=s_i\)</span> para todo <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>.</p>
+<p>Por último, teniendo en cuenta que el valor fiteado <span class="math inline">\(X_{\mathcal{E}}\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}\)</span> no cambia si sumamos a esa solución un vector <span class="math inline">\({\bf b}\in\text{null}\,X_{\mathcal{E}}\)</span>, todas las soluciones del problema lasso quedan determinadas por la forma <span class="math display">\[
+\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right)+{\bf b},
+\]</span> donde <span class="math inline">\({\bf b}\in\text{null}\,X_{\mathcal{E}}\)</span> es válido siempre que el resultado final sea consistente con respecto a los signos de sus coeficientes no nulos, esto es, se verifique <span class="math inline">\(\text{sign}(\hat{\theta}_i^{\text{lasso}})=s_i\)</span> para todo <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -993,9 +914,9 @@ X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\bftheta}^{\text{lasso}}&amp;=X_{\mathc
 </section>
 <section id="resolución-mediante-descenso-por-coordenadas" class="level3">
 <h3 class="anchored" data-anchor-id="resolución-mediante-descenso-por-coordenadas">Resolución mediante descenso por coordenadas</h3>
-<p>Si denotamos <span class="math inline">\(Q=\frac{1}{n}X^\top X\in\RR^{p\times p}\)</span> y <span class="math inline">\(\vv=\frac{1}{n}X^\top\yy\in\RR^{p}\)</span>, la formulación (7) del problema lasso es equivalente a <span class="math display">\[
+<p>Si denotamos <span class="math inline">\(Q=\frac{1}{n}X^\top X\in\mathbb{R}^{p\times p}\)</span> y <span class="math inline">\({\bf v}=\frac{1}{n}X^\top{\bf y}\in\mathbb{R}^{p}\)</span>, la formulación (7) del problema lasso es equivalente a <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\bftheta^\top Q\bftheta-\bftheta^\top\vv+\lambda\|\bftheta\|_1.
+\text{minimizar } &amp; \frac{1}{2}\boldsymbol{\theta}^\top Q\boldsymbol{\theta}-\boldsymbol{\theta}^\top{\bf v}+\lambda\|\boldsymbol{\theta}\|_1.
 \end{array}
 \tag{13}
 \]</span></p>
@@ -1013,7 +934,7 @@ X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\bftheta}^{\text{lasso}}&amp;=X_{\mathc
 
 </div>
 <p>La función objetivo en (13) puede escribirse como <span class="math display">\[
-f(\bftheta)=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta_j-\sum_{i=1}^p v_i\theta_i+\lambda\sum_{i=1}^p|\theta_i|.
+f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta_j-\sum_{i=1}^p v_i\theta_i+\lambda\sum_{i=1}^p|\theta_i|.
 \tag{14}
 \]</span></p>
 <p>Nos planteamos lo siguiente:</p>
@@ -1062,7 +983,7 @@ s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \t
 \text{minimizar } &amp; \frac{1}{2}(\theta-s)^2+\tau|\theta|.
 \end{array}
 \]</span></p>
-<p>Aquí, <span class="math inline">\(s\in\RR\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. La función objetivo <span class="math inline">\(f\)</span> es convexa pero no diferenciable. Su subdiferencial es <span class="math display">\[
+<p>Aquí, <span class="math inline">\(s\in\mathbb{R}\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. La función objetivo <span class="math inline">\(f\)</span> es convexa pero no diferenciable. Su subdiferencial es <span class="math display">\[
 \partial f(\theta)=\left\{
   \begin{array}{cl}
   \{\theta-s+\tau\,\text{sign}\,\theta\} &amp; \mbox{si }\theta\neq 0\\
@@ -1110,7 +1031,7 @@ s+\tau &amp; \mbox{si }s&lt;-\tau.
 
 </div>
 <div class="definicion">
-<p><strong>Definición 4.</strong> (Función <em>soft-thresholding</em>) Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\RR\to\RR\)</span> se define por <span class="math display">\[
+<p><strong>Definición 4.</strong> (Función <em>soft-thresholding</em>) Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\mathbb{R}\to\mathbb{R}\)</span> se define por <span class="math display">\[
 \text{soft}_{\tau}(s):=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 \]</span></p>
 </div>
@@ -1151,11 +1072,11 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="highlight">
 <p><span class="badge bg-dark">Método de descenso por coordenadas para LASSO</span></p>
 <hr>
-<p>Dado un <em>párametro inicial</em> <span class="math inline">\(\bftheta^{(0)}\in\RR^p\)</span> (en general, <span class="math inline">\(\bftheta^{(0)}=\bfzero\)</span>) y un <em>hiperparámetro de penalización</em> <span class="math inline">\(\lambda&gt;0\)</span>:</p>
+<p>Dado un <em>párametro inicial</em> <span class="math inline">\(\boldsymbol{\theta}^{(0)}\in\mathbb{R}^p\)</span> (en general, <span class="math inline">\(\boldsymbol{\theta}^{(0)}=\mathbf{0}\)</span>) y un <em>hiperparámetro de penalización</em> <span class="math inline">\(\lambda&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
 <p><strong>repetir</strong> para <span class="math inline">\(t = 1,2,\dots\)</span>:</p>
 <blockquote class="blockquote">
-<p>Inicializar <span class="math inline">\(\bftheta^{(t)}=\bftheta^{(t-1)}\)</span>.</p>
+<p>Inicializar <span class="math inline">\(\boldsymbol{\theta}^{(t)}=\boldsymbol{\theta}^{(t-1)}\)</span>.</p>
 <p>Para <span class="math inline">\(k=1,\ldots,p\)</span>:</p>
 <p><span class="math inline">\(\qquad\)</span> <strong>1°</strong> Calcular <span class="math inline">\(s_k=\left(v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i^{(t)}\right)/Q_{kk}\)</span>.</p>
 <p><span class="math inline">\(\qquad\)</span> <strong>2°</strong> Actualizar <span class="math inline">\(\theta_k^{(t)}=\text{soft}_{\tau}(s_k)\)</span> con <span class="math inline">\(\tau=\lambda/Q_{kk}\)</span>.</p>
@@ -1167,14 +1088,14 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div style="margin-top:2em;">
 
 </div>
-<p>Observar que en cada iteración <span class="math inline">\(t\)</span>, el vector <span class="math inline">\(\bftheta^{(t)}\)</span> se va actualizando coordenada por coordenada, utilizando los valores más recientes dentro de la misma iteración. Otra alternativa es actualizar todas las coordenadas en bloque a partir del mismo vector <span class="math inline">\(\bftheta^{(t-1)}\)</span>. Este último enfoque suele presentar una convergencia más lenta en este algoritmo.</p>
+<p>Observar que en cada iteración <span class="math inline">\(t\)</span>, el vector <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> se va actualizando coordenada por coordenada, utilizando los valores más recientes dentro de la misma iteración. Otra alternativa es actualizar todas las coordenadas en bloque a partir del mismo vector <span class="math inline">\(\boldsymbol{\theta}^{(t-1)}\)</span>. Este último enfoque suele presentar una convergencia más lenta en este algoritmo.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión lasso en datos de diabetes </span></p>
 <p>Al igual que para el caso de Ridge, implementaremos lasso sobre el conjunto de datos de diabetes. De acuerdo a los coeficientes obtenidos en el Ejemplo 1 (ridge), podemos esperar que ahora algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="e2b71e66" class="cell" data-execution_count="2">
+<div id="c4719283" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1249,7 +1170,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="B3_ridge_lasso_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
+<p><img src="B4_ridge_lasso_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
 </figure>
 </div>
 </div>
@@ -1277,18 +1198,18 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="definicion">
 <p><strong>Definición 5.</strong> (Problema Elastic Net) El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda_1\|\bftheta\|_1+\lambda_2\|\bftheta\|_2^2.
+\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda_1\|\boldsymbol{\theta}\|_1+\lambda_2\|\boldsymbol{\theta}\|_2^2.
 \tag{17}
 \end{array}
 \]</span></p>
-<p>con <span class="math inline">\(\bftheta\in\RR^p\)</span> las variables de optimización y <span class="math inline">\(\lambda_1,\lambda_2&gt;0\)</span> hiperparámetros. El punto óptimo, denotado por <span class="math inline">\(\hat{\bftheta}^{\text{EN}}\)</span>, es el <em>estimador Elastic Net</em> de los coeficientes de la regresión.</p>
+<p>con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda_1,\lambda_2&gt;0\)</span> hiperparámetros. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{EN}}\)</span>, es el <em>estimador Elastic Net</em> de los coeficientes de la regresión.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
 <section id="resultados-de-convergencia" class="level3">
 <h3 class="anchored" data-anchor-id="resultados-de-convergencia">Resultados de convergencia</h3>
-<p>Asumiendo que <span class="math inline">\(\bftheta^\star\)</span> es el vector de coeficientes verdadero que genera los datos, repasaremos cómo se comportan los estimadores penalizados ridge, lasso y elastic net.</p>
+<p>Asumiendo que <span class="math inline">\(\boldsymbol{\theta}^\star\)</span> es el vector de coeficientes verdadero que genera los datos, repasaremos cómo se comportan los estimadores penalizados ridge, lasso y elastic net.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1298,7 +1219,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <p>Por otra parte, definiendo <span class="math display">\[
   S_{\lambda}:=X(X^\top X+n\lambda I)^{-1}X^\top,
   \]</span> se puede descomponer el <em>riesgo</em> de la siguiente forma: <span class="math display">\[
-  \frac{1}{n}\media\|X(\hat{\bftheta}^{\text{ridge}}-\bftheta^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\bftheta^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2),
+  \frac{1}{n}\mathbb{E}\|X(\hat{\boldsymbol{\theta}}^{\text{ridge}}-\boldsymbol{\theta}^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\boldsymbol{\theta}^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2),
   \]</span> lo cual exhibe que existe un <span class="math inline">\(\lambda_2^\star\)</span> que minimiza el riesgo. Esto implica que, en señales densas y de alta colinealidad, Ridge puede predecir mejor que los otros métodos.</p>
 <p><small>📖 Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The elements of statistical learning</em> (2nd ed.). Springer. </small></p></li>
 </ul>
@@ -1307,8 +1228,8 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 <ul>
 <li><p><em>Problema lasso</em>: existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción <span class="math display">\[
-\frac{1}{n}\|X(\hat{\bftheta}^{\text{lasso}}-\bftheta^\star)\|_2^2
-\]</span> y para <span class="math inline">\(\|\hat{\bftheta}^{\text{lasso}}-\bftheta\|_1\)</span> y <span class="math inline">\(\|\hat{\bftheta}^{\text{lasso}}-\bftheta\|_2\)</span>, bajo condiciones razonables conocidas como <em>compatibilidad</em> y <em>RE</em> (<em>restricted eigenvalue</em>) que controlan el comportamiento de los datos, evitando que haya confusiones entre variables relevantes e irrelevantes.</p>
+\frac{1}{n}\|X(\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}^\star)\|_2^2
+\]</span> y para <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_1\)</span> y <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_2\)</span>, bajo condiciones razonables conocidas como <em>compatibilidad</em> y <em>RE</em> (<em>restricted eigenvalue</em>) que controlan el comportamiento de los datos, evitando que haya confusiones entre variables relevantes e irrelevantes.</p>
 <p><small>📖 Bühlmann, P., &amp; van de Geer, S. (2011). <em>Statistics for high-dimensional data: Methods, theory and applications</em>. Springer. </small></p>
 <p>Además, bajo condiciones más estrictas, Lasso puede identificar exactamente qué variables son relevantes, es decir, recuperar el soporte de los coeficientes verdaderos.</p>
 <p><small> 📖 Zhao, P., &amp; Yu, B. (2006). On model selection consistency of Lasso. Journal of Machine Learning Research, 7, 2541–2563. </small></p></li>
@@ -1334,8 +1255,8 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <h3 class="anchored" data-anchor-id="ejemplos-comparativos">Ejemplos comparativos</h3>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal densa y alta correlación </span></p>
-<p>Simulamos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\bftheta^\star\in\RR^p\)</span> dado por <span class="math display">\[
-\theta_j^\star=\frac{c}{\sqrt{p}}\qquad\forall j=1,\ldots,p,\qquad c\in\RR^+.
+<p>Simulamos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\boldsymbol{\theta}^\star\in\mathbb{R}^p\)</span> dado por <span class="math display">\[
+\theta_j^\star=\frac{c}{\sqrt{p}}\qquad\forall j=1,\ldots,p,\qquad c\in\mathbb{R}^+.
 \]</span></p>
 <p>La matriz de datos <span class="math inline">\(X\)</span> tiene correlación alta (<span class="math inline">\(\rho=0.9\)</span>, por defecto) entre todas sus columnas.</p>
 <p>Se espera un mejor rendimiento de Ridge en comparación con Lasso, ya que Ridge reparte la señal entre todas las variables altamente correlacionadas, mientras que Lasso tiende a sobre-encoger muchos coeficientes útiles. Elastic Net queda intermedio, combinando ambas estrategias.</p>
@@ -1403,7 +1324,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal esparsa y casi ortogonal </span></p>
-<p>Simulamos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\RR^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal, es decir, <span class="math display">\[
+<p>Simulamos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\mathbb{R}^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal, es decir, <span class="math display">\[
 X^\top X\approx n I_p.
 \]</span></p>
 <p>Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net queda intermedio, comportándose de manera similar a Lasso si el término de penalización <span class="math inline">\(\lambda_2\)</span> resulta pequeño.</p>
@@ -1567,17 +1488,17 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <h2 class="anchored" data-anchor-id="glm-penalizados">GLM penalizados</h2>
 <p>En la sección anterior (<a href="https://isaiasibanez.github.io/OML2/CAPITULO_2/B2_glm.html#optimalidad">C2-S1</a>) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). El problema de optimización asociado puede ser definido como <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{n}\sum_{i=1}^n\left[A(\bftheta^\top\xx_i)-\bftheta^\top\xx_i\, T(y_i)\right].
+\text{minimizar } &amp; \frac{1}{n}\sum_{i=1}^n\left[A(\boldsymbol{\theta}^\top{\bf x}_i)-\boldsymbol{\theta}^\top{\bf x}_i\, T(y_i)\right].
 \end{array}
 \]</span></p>
-<p>La expresión anterior se deriva del uso de la familia exponencial con parámetro natural <span class="math inline">\(\eta_i=\bftheta^\top\xx_i\)</span> y estadístico suficiente <span class="math inline">\(T:\RR\to\RR\)</span> (en general, <span class="math inline">\(T(y)=y\)</span>). Asimismo, el vector gradiente de la función objetivo es <span class="math display">\[
-\nabla J(\bftheta)=\frac{1}{n}X^\top(\bfmu-T(\yy)),
-\]</span> donde <span class="math inline">\(\bfmu\in\RR^n\)</span> está determinado por <span class="math inline">\(\mu_i:=A'(\bftheta^\top\xx_i)=\media\left[T(Y)\mid \XX=\xx_i\right]\)</span>.</p>
-<p>Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros <span class="math inline">\(\bftheta\)</span> da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Dichas condiciones se reducen para las formulaciones sin restricciones en la condición de estacionariedad. Por ejemplo, para Elastic Net resulta <span class="math display">\[
-\frac{1}{n}X^\top(\bfmu-T(\yy))+\lambda_1\partial\|\bftheta\|_1+2\lambda_2\bftheta=\bfzero.
+<p>La expresión anterior se deriva del uso de la familia exponencial con parámetro natural <span class="math inline">\(\eta_i=\boldsymbol{\theta}^\top{\bf x}_i\)</span> y estadístico suficiente <span class="math inline">\(T:\mathbb{R}\to\mathbb{R}\)</span> (en general, <span class="math inline">\(T(y)=y\)</span>). Asimismo, el vector gradiente de la función objetivo es <span class="math display">\[
+\nabla J(\boldsymbol{\theta})=\frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y})),
+\]</span> donde <span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^n\)</span> está determinado por <span class="math inline">\(\mu_i:=A'(\boldsymbol{\theta}^\top{\bf x}_i)=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i\right]\)</span>.</p>
+<p>Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Dichas condiciones se reducen para las formulaciones sin restricciones en la condición de estacionariedad. Por ejemplo, para Elastic Net resulta <span class="math display">\[
+\frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y}))+\lambda_1\partial\|\boldsymbol{\theta}\|_1+2\lambda_2\boldsymbol{\theta}=\mathbf{0}.
 \]</span></p>
 <p>Los estimadores penalizados Ridge, Lasso y Elastic Net se comportan de manera análoga a los casos lineales: Ridge reduce varianza en señales densas y correlacionadas, Lasso permite recuperación de soporte bajo ciertas condiciones de curvatura, y Elastic Net combina la selección de Lasso con mayor estabilidad frente a colinealidad. Las tasas no-asintóticas y garantías de consistencia se expresan de forma similar, adaptando al contexto de la familia exponencial.</p>
-<p>Respecto a los algoritmos iterativos que se utilizan para aproximar <span class="math inline">\(\hat{\bftheta}\)</span>, los más comunes son:</p>
+<p>Respecto a los algoritmos iterativos que se utilizan para aproximar <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>, los más comunes son:</p>
 <ul>
 <li><p><em>Descenso por coordenadas cíclico</em>: para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando <em>soft-thresholding</em>. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado en <a href="https://scikit-learn.org/stable/modules/linear_model.html"><code>sklearn.linear_model</code></a>.</p></li>
 <li><p><em>IRLS-Prox</em>: en cada iteración se resuelve un WLS penalizado, donde las ponderaciones dependen de <span class="math inline">\(A''(\eta_k)\)</span> y la pseudo-respuesta es <span class="math inline">\(z^{(k)}=\eta^{(k)}+{W^{(k)}}^{-1}(y-\mu^{(k)})\)</span>. Este enfoque adapta los algoritmos clásicos de IRLS a penalizaciones Lasso o Elastic Net.</p></li>
@@ -2039,18 +1960,6 @@ window._ojs.runtime.interpretFromScriptTags();
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../CAPITULO_2/B2_glm.html" class="pagination-link" aria-label="2.2 Modelos lineales generalizados">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.2 Modelos lineales generalizados</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../CAPITULO_2/B4_svm.html" class="pagination-link" aria-label="2.4 Máquinas de vectores soporte">
-        <span class="nav-page-text">2.4 Máquinas de vectores soporte</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

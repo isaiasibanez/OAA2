@@ -236,6 +236,12 @@ window.Quarto = {
  <span class="menu-text">2.2 Regresión lineal y regresión logística</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B3_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Modelos lineales generalizados</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -803,7 +809,7 @@ S_2:=\{(x,y)\in\mathbb{R}^2\mid x^2+y^2\leq r\}.
 <div style="margin-top:2em;">
 
 </div>
-<div id="10ed8afc" class="cell" data-execution_count="1">
+<div id="c5ee0808" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1611,7 +1617,7 @@ Mostrar detalles
 \]</span></p>
 <p>En particular, para <span class="math inline">\(t=0\)</span> resulta <span class="math inline">\({\bf d}^\top\nabla^2f({\bf x})\,{\bf d}\geq 0\)</span>. Como <span class="math inline">\({\bf d}\)</span> es arbitrario, esto implica <span class="math inline">\(\nabla^2f({\bf x})\succeq 0\)</span> para todo <span class="math inline">\({\bf x}\in\mathop{\mathrm{dom}}f\)</span>.</p>
 <p>(<span class="math inline">\(\Leftarrow\)</span>) Partimos de la fórmula de Taylor con resto integral: <span class="math display">\[
-f({\bf x}+{\bf d})=f({\bf x})+\nabla f({\bf x})^\top{\bf d}+\mathop{\mathrm{int}}_0^1 (1-t)\, {\bf d}^\top \nabla^2 f({\bf x}+t\,{\bf d})\,{\bf d}\,dt.
+f({\bf x}+{\bf d})=f({\bf x})+\nabla f({\bf x})^\top{\bf d}+\int_0^1 (1-t)\, {\bf d}^\top \nabla^2 f({\bf x}+t\,{\bf d})\,{\bf d}\,dt.
 \]</span></p>
 <p>Como, por hipótesis, la Hessiana <span class="math inline">\(\nabla^2f\)</span> es semidefinida positiva, el integrando es no negativo. En consecuencia, <span class="math display">\[
 f({\bf x}+{\bf d})\geq f({\bf x})+\nabla f({\bf x})^\top{\bf d},
@@ -1653,7 +1659,7 @@ f({\bf x})=\frac{1}{2}{\bf x}^\top A{\bf x}+{\bf b}^\top{\bf x}+c,
 f(x,y)=\frac{1}{2}\begin{pmatrix}x&amp;y\end{pmatrix}\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}\begin{pmatrix}x\\ y\end{pmatrix}=\frac{1}{2}(2x^2+2xy+3y^2)
 \]</span></p>
 <p>es convexa, ya que <span class="math inline">\({\bf x}^\top A{\bf x}=2x^2+2xy+3y^2=x^2+(x+y)^2+2y^2\geq 0\)</span> para todo <span class="math inline">\((x,y)\in\mathbb{R}^2\)</span>, lo cual significa que <span class="math inline">\(A\succeq 0\)</span>.</p>
-<div id="658460c2" class="cell" data-execution_count="2">
+<div id="d37fc468" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
