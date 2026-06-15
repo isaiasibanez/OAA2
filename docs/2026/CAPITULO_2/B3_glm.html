@@ -307,10 +307,10 @@ window.Quarto = {
             padding:0.1em 0;
             margin-top:1.5em;">
 <p>✏️ <strong>Notación</strong></p>
-<p>Para el caso de un vector aleatorio <span class="math inline">\(\mathbf{Z}\in\mathbb{R}^q\)</span> con distribución de probabilidad <span class="math inline">\(\mathbb{P}_{{\bf Z}}\)</span>, se definen el <em>vector de medias</em> <span class="math inline">\(\mathbb{E}\left[{\bf Z}\right]\in\mathbb{R}^q\)</span> y la <em>matriz de covarianza</em> <span class="math inline">\(\text{Cov}\left[{\bf Z}\right]\in\mathbb{R}^{q\times q}\)</span> como sigue: <span class="math display">\[
+<p>Para el caso de un vector aleatorio <span class="math inline">\(\mathbf{Z}\in\mathbb{R}^q\)</span> con distribución de probabilidad <span class="math inline">\(\mathbb{P}_{{\bf Z}}\)</span>, se definen el <em>vector de medias</em> <span class="math inline">\(\mathbb{E}\left[{\bf Z}\right]\in\mathbb{R}^q\)</span> y la <em>matriz de covarianza</em> <span class="math inline">\(\mathop{\mathrm{Cov}}\left[{\bf Z}\right]\in\mathbb{R}^{q\times q}\)</span> como sigue: <span class="math display">\[
 \mathbb{E}\left[{\bf Z}\right]:=\int \mathbf{z}\,d\mathbb{P}_{{\bf Z}}({\bf z}),
 \]</span> <span class="math display">\[
-\text{Cov}\left[{\bf Z}\right]:=\mathbb{E}\left[({\bf Z}-\mathbb{E}\left[{\bf Z}\right])({\bf Z}-\mathbb{E}\left[{\bf Z}\right])^\top\right].
+\mathop{\mathrm{Cov}}\left[{\bf Z}\right]:=\mathbb{E}\left[({\bf Z}-\mathbb{E}\left[{\bf Z}\right])({\bf Z}-\mathbb{E}\left[{\bf Z}\right])^\top\right].
 \]</span></p>
 </div>
 <div style="margin-top:2.5em;">
@@ -400,7 +400,7 @@ h(y)=\frac{1}{\sqrt{2\pi}}, \qquad A(\boldsymbol{\eta})=\frac{\mu^2}{2\sigma^2}+
 A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy.
 \]</span></p>
 <p>Se verifica que <span class="math display">\[
-\nabla A(\boldsymbol{\eta})=\mathbb{E}\left[T(Y)\right]\in\mathbb{R}^q,\qquad \nabla^2 A(\boldsymbol{\eta})=\text{Cov}\left[T(Y)\right]\in\mathbb{R}^{q\times q}.
+\nabla A(\boldsymbol{\eta})=\mathbb{E}\left[T(Y)\right]\in\mathbb{R}^q,\qquad \nabla^2 A(\boldsymbol{\eta})=\mathop{\mathrm{Cov}}\left[T(Y)\right]\in\mathbb{R}^{q\times q}.
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -423,7 +423,7 @@ Mostrar detalles
 \begin{align*}
 \nabla^2 A(\boldsymbol{\eta}) &amp;= \displaystyle\int T(y)T(y)^\top p(y\mid\boldsymbol{\eta})\,dy - \displaystyle\int T(y) p(y\mid\boldsymbol{\eta})\,dy \int T(y)^\top p(y\mid\boldsymbol{\eta})\,dy \\[3pt]
 &amp;=\mathbb{E}\left[T(y) T(y)^\top\right]-\mathbb{E}\left[T(y)\right]\mathbb{E}\left[T(y)\right]^\top \\[3pt]
-&amp;=\text{Cov}\left[T(Y)\right].
+&amp;=\mathop{\mathrm{Cov}}\left[T(Y)\right].
 \end{align*}
 \]</span></p>
 </div>
@@ -455,7 +455,7 @@ Mostrar detalles
 <li><p>Si <span class="math inline">\(Y\sim\text{Binom}(1,\phi)\)</span>, entonces <span class="math display">\[
   A'(\eta)=\frac{e^{\eta}}{1+e^{\eta}}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{1-\phi}}=\phi=\mathbb{E}\left[Y\right],
   \]</span> <span class="math display">\[
-  A''(\eta)=\frac{e^{\eta}}{(1+e^{\eta})^2}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{(1-\phi)^2}}=\phi(1-\phi)=\text{Cov}\left[Y\right].
+  A''(\eta)=\frac{e^{\eta}}{(1+e^{\eta})^2}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{(1-\phi)^2}}=\phi(1-\phi)=\mathop{\mathrm{Cov}}\left[Y\right].
   \]</span></p></li>
 <li><p>Para la distribución Normal univariada serán de utilidad sus momentos. Si <span class="math inline">\(Y\sim\mathcal{N}(\mu,\sigma^2)\)</span>, se tiene que <span class="math display">\[
   \mathbb{E}\left[Y\right]=\mu,\qquad\mathbb{E}\left[Y^2\right]=\mu^2+\sigma^2
@@ -471,9 +471,9 @@ Mostrar detalles
   \end{pmatrix} =\begin{pmatrix}
   \sigma^2 &amp; 2\mu\sigma^2 \\
   2\mu\sigma^2 &amp; 4\mu^2\sigma^2+2\sigma^4
-  \end{pmatrix}=\text{Cov}\left[T(Y)\right],
+  \end{pmatrix}=\mathop{\mathrm{Cov}}\left[T(Y)\right],
   \]</span> donde para esta última igualdad se usaron las igualdades <span class="math display">\[
-  \var\left[Y^2\right]=\mathbb{E}\left[Y^4\right]-\mathbb{E}\left[Y\right]^2,\qquad\text{Cov}\left[Y,Y^2\right]=\mathbb{E}\left[Y^3\right]-\mathbb{E}\left[Y\right]\,\mathbb{E}\left[Y^2\right].
+  \mathop{\mathrm{Var}}\left[Y^2\right]=\mathbb{E}\left[Y^4\right]-\mathbb{E}\left[Y\right]^2,\qquad\mathop{\mathrm{Cov}}\left[Y,Y^2\right]=\mathbb{E}\left[Y^3\right]-\mathbb{E}\left[Y\right]\,\mathbb{E}\left[Y^2\right].
   \]</span></p></li>
 </ul>
 </div>
@@ -630,9 +630,9 @@ A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top.
 \nabla J(\boldsymbol{\theta})=\sum_{i=1}^n(T(y_i)-\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right])\,{\bf x}_i,
 \]</span></p>
 <p>Para la Hessiana, por su parte, la propiedad de la función de partición <span class="math inline">\(A\)</span> nos permite escribir <span class="math display">\[
-\nabla^2 J(\boldsymbol{\theta})=-\sum_{i=1}^n\text{Cov}\left[T(Y)\mid{\bf X}={\bf x}_i\right]\,{\bf x}_i{\bf x}_i^\top=-X^\top W X,
+\nabla^2 J(\boldsymbol{\theta})=-\sum_{i=1}^n\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf X}={\bf x}_i\right]\,{\bf x}_i{\bf x}_i^\top=-X^\top W X,
 \]</span> donde <span class="math display">\[
-W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=\text{Cov}\left[T(Y)\mid {\bf X}={\bf x}_i\right].
+W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=\mathop{\mathrm{Cov}}\left[T(Y)\mid {\bf X}={\bf x}_i\right].
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -679,7 +679,7 @@ X^\top W {\bf z}=X^\top W\tilde{\boldsymbol{\eta}}+\sum_{i=1}^n(T(y_i)-\mathbb{E
 <p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
 <blockquote class="blockquote">
 <p><strong>1°</strong> Calcular <span class="math inline">\(\tilde{\boldsymbol{\eta}} = X \boldsymbol{\theta}_t\)</span> y <span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_i=\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right]\)</span>.</p>
-<p><strong>2°</strong> Construir la matriz diagonal de pesos <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{i} = \text{Cov}\left[T(Y)\mid X={\bf x}_i\right]\)</span>.</p>
+<p><strong>2°</strong> Construir la matriz diagonal de pesos <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{i} = \mathop{\mathrm{Cov}}\left[T(Y)\mid X={\bf x}_i\right]\)</span>.</p>
 <p><strong>3°</strong> Definir la pseudo-respuesta: <span class="math inline">\({\bf z}= \tilde{\boldsymbol{\eta}} + W^{-1}(T(\mathbf{y}) - \boldsymbol{\mu})\)</span>.</p>
 <p><strong>4°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=(X^\top W X)^{-1}X^\top W{\bf z}\)</span>.</p>
 </blockquote>
@@ -839,7 +839,7 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="c581e199" class="cell" data-execution_count="1">
+<div id="8dbe7043" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
@@ -863,7 +863,7 @@ T = \begin{pmatrix}
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="7e57be34" class="cell" data-execution_count="2">
+<div id="55913ea7" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -3,9 +3,6 @@ $$
 \def\NN{\mathbb{N}}
 \def\ZZ{\mathbb{Z}}
 \def\RR{\mathbb{R}}
-\def\media{\mathbb{E}}
-\def\cov{\text{Cov}}
-\def\prob{\mathbb{P}}
 \def\calL{\mathcal{L}}
 \def\calG{\mathcal{G}}
 \def\calH{\mathcal{H}}
@@ -46,6 +43,11 @@ $$
 
 \def\argmin{\mathop{\mathrm{arg\,min\,}}}
 \def\argmax{\mathop{\mathrm{arg\,max\,}}}
+
+\def\prob{\mathbb{P}}
+\def\media{\mathbb{E}}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\var}{Var}
 
 \DeclareMathOperator{\conv}{conv}
 \DeclareMathOperator{\aff}{aff}
