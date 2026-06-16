@@ -1,6 +1,6 @@
 ---
 title: "Métodos de regularización"
-subtitle: "Capítulo 2 - Sección 3"
+subtitle: "Capítulo 2 - Sección 4"
 ---
 
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">

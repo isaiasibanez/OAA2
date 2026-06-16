@@ -1,6 +1,6 @@
 ---
 title: "Regresión lineal y regresión logística"
-subtitle: "Capítulo 2 - Sección 1"
+subtitle: "Capítulo 2 - Sección 2"
 ---
 
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
