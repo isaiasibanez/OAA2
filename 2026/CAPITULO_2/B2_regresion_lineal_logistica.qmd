@@ -121,6 +121,7 @@ $$
 <div style="margin-top:1.5em;"></div>
 
 
+
 ### Función de verosimilitud
 
 Para un conjunto de datos $\{\xx_i, y_i\}_{i=1}^n$ i.i.d., la función de log-verosimilitud es

@@ -8,6 +8,21 @@ subtitle: "Capítulo 2 - Sección 3"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c2s4.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c2s4.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
 
 Una estrategia clásica para simplificar modelos y mejorar su interpretabilidad es la selección de variables, que consiste en identificar un subconjunto de predictores relevantes y descartar el resto. A pesar de que este enfoque puede conducir a modelos más simples, el hecho de ser un procedimiento discreto (en el que una determinada variable o bien es retenida o bien es eliminada) suele traducirse en alta varianza, ya que una pequeña perturbación en los datos podría conducir a un modelo totalmente diferente.
 
@@ -20,83 +35,61 @@ $$
 
 donde $\text{loss}:\RR\times\RR\to\RR_0^+$ mide el error entre las predicciones y las observaciones reales. Por ejemplo, en regresión suele utilizarse la suma de errores al cuadrado (RSS) o el error cuadrático medio (MSE). 
 
-La idea general de los métodos de regularización es modificar la función objetivo incorporando un término de penalización que depende de los parámetros del modelo. Así, en lugar de minimizar solamente la función de pérdida, se minimiza una expresión de la forma
-
+La idea general de los métodos de regularización es modificar la función objetivo, incorporando un término de penalización que depende de los parámetros del modelo. Esto deriva en el problema
 $$
-J(\bftheta) + \lambda \cdot \text{Penalizacion}(\bftheta),
-\tag{1}
+\begin{array}{ll}
+\text{minimizar} & J(\bftheta) + \lambda \cdot \text{Penalizacion}(\bftheta), 
+\end{array}
+\tag{2.4.1}
 $$
 
-donde $\lambda> 0$ es un *hiperparámetro de complejidad* que controla la intensidad de la regularización (a mayor $\lambda$, mayor intensidad), y $\text{Penalizacion}(\bftheta)$ es una función que restringe la complejidad del modelo. La expresión (1) puede escribirse como un problema de optimización con restricciones:
+donde $\lambda> 0$ es un *hiperparámetro de complejidad* que controla la intensidad de la regularización (a mayor $\lambda$, mayor intensidad), y $\text{Penalizacion}(\bftheta)$ es una función que restringe la complejidad del modelo. El problema (2.4.1) puede reescribirse con restricciones como
 $$
 \begin{array}{ll}
 \text{minimizar} & J(\bftheta) \\
 \text{sujeto a} & \text{Penalizacion}(\bftheta) \leq t,
 \end{array}
+\tag{2.4.2}
 $$
 
 donde $t>0$ es un *hiperparámetro de umbral* ligado al valor de $\lambda$.
 
-Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales: *ridge regression* y *LASSO*. La diferencia entre ambas es que, mientras ridge reduce la magnitud de los coeficientes, LASSO puede incluso forzar algunos a ser exactamente cero, generando así una forma de selección automática de variables. En ambos casos, se presentará la formulación matemática del problema, se estudiarán sus características y se discutirán las principales estrategias numéricas para resolverlos. 
-
-La sección finalizará con un breve abordaje de *Elastic Net*, una combinación de ridge y lasso que busca combinar lo mejor de ambos métodos.
-
-<div style="margin-top:2em;"></div>
-<hr>
-
-En lo que sigue, nos centraremos en el problema de regresión donde una variable respuesta $Y\in\RR$ se modela en función de un conjunto de variables predictoras $\XX\in\RR^p$, a partir del modelo de regresión lineal multivariada 
-$$
-Y=\bftheta^\top\XX+\varepsilon,\qquad\varepsilon\sim\calN(0,\sigma^2).
-$$
-
-Para un conjunto de datos de entrenamiento $\left\{(\xx_i,y_i)\right\}_{i=1}^n$, usaremos la *función de pérdida*
+Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales, *ridge regression* y *LASSO*, aplicadas al problema de regresión lineal, analizando su formulación matemática y sus características principales. Ambos métodos serán estudiados tanto en su formulación penalizada (2.4.1) como en su versión restringida (2.4.2). Además, para un conjunto de datos de entrenamiento $\{(\xx_i,y_i)\}_{i=1}^n$, la función de pérdida está determinada por
 $$
 J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\bftheta^\top\xx_i)^2,
-\tag{2}
 $$ 
-donde MSE son las siglas de *mean squared error* (error cuadrático medio). El <mark>problema de mínimos cuadrados ordinarios (OLS)</mark> es
+
+donde MSE son las siglas de *mean squared error* (error cuadrático medio). 
+
+
+<div style="border-top:1px solid #b7cdf5;
+            background-color: #fafbff;
+            padding:0.1em 0;
+            margin-top:1.5em;">
+
+✏️ **Notación**
+
+Denotaremos $\hat{\bftheta}^{\text{OLS}}$ al estimador de <mark>mínimos cuadrados ordinarios (OLS)</mark>, solución del problema de regresión lineal sin regularización:
 $$
 \begin{array}{ll}
-\text{minimizar} & \frac{1}{2}\|\yy-X\bftheta\|_2^2,
-\end{array}
-$$
-cuyo punto óptimo denotaremos como $\hat{\bftheta}^{\text{OLS}}$. De acuerdo a lo mencionado previamente, los métodos de regularización asociados a OLS se pueden expresar en dos formas equivalentes:
-
-::: {.myhighlight2}
-<span style="font-size:0.8em;">*Formulación sin restricciones*</span>
-<div style="margin-top:-0.7em;"></div>
-
-$$
-\begin{array}{ll}
-\text{minimizar} & \frac{1}{2}\|\yy-X\bftheta\|_2^2+\lambda\cdot\text{Penalizacion}(\bftheta).
-\end{array}
-$$
-
-
-<span style="font-size:0.8em;">*Formulación con restricciones*</span>
-<div style="margin-top:-0.7em;"></div>
-
-$$
-\begin{array}{ll}
-\text{minimizar} & \frac{1}{2}\|\yy-X\bftheta\|_2^2 \\
-\text{sujeto a} & \text{Penalizacion}(\bftheta) \leq t,
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2.
 \end{array}
 $$
 
-:::
+</div>
 
 <div style="margin-top:2.5em;"></div>
 
 
 
-## Regresión Ridge
+## I <span style="color:#CCCCCC;">│</span> Regresión Ridge
 
 ::: {.definicion}
-**Definición 1.** (Problema ridge) El *problema de regresión ridge* es
+**Definición 2.4.1.** (Problema ridge) El *problema de regresión ridge* es
 $$
 \begin{array}{ll}
-\text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2,
-\tag{3}
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2,
+\tag{2.4.3}
 \end{array}
 $$
 con $\bftheta\in\RR^p$ las variables de optimización y $\lambda>0$ el hiperparámetro. El punto óptimo, denotado por $\hat{\bftheta}^{\text{ridge}}$, es el *estimador ridge* de los coeficientes de la regresión.
@@ -109,27 +102,24 @@ con $\bftheta\in\RR^p$ las variables de optimización y $\lambda>0$ el hiperpar�
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Vamos a ver que la expresión alternativa de (3) como problema de optimización con restricciones, a saber
+Vamos a ver que la expresión alternativa de (2.4.3) como problema de optimización con restricciones, a saber
 
 $$
 \begin{array}{ll}
-\text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
 \text{sujeto a} & \|\bftheta\|_2^2\leq t,
-\tag{4}
+\tag{2.4.4}
 \end{array},
 $$
 
-impone un valor de $t$ adecuado para que $\lambda>0$. En primer lugar, la equivalencia entre (3) y (4) se deriva directamente del hecho que (4) es un problema de optimización convexa que verifica la condición de Slater. Por lo tanto, hay dualidad fuerte y las condiciones KKT son suficientes y necesarias para la optimalidad (ver [C1-S4](../CAPITULO_1/A4_condiciones_optimalidad.html#relación-entre-dualidad-y-kkt)). En particular, el punto óptimo $\hat{\bftheta}^{\text{ridge}}$ de (4) debe ser un minimizador de
+impone un valor de $t$ adecuado para que efectivamente sea $\lambda>0$. En primer lugar, la equivalencia entre (2.4.3) y (2.4.4) se deriva directamente del hecho que (2.4.4) es un problema de optimización convexa que verifica la condición de Slater. En efecto, por dualidad fuerte, las condiciones KKT son suficientes y necesarias para la optimalidad (ver [C1-S4](../CAPITULO_1/A4_condiciones_optimalidad.html#relación-entre-dualidad-y-kkt)). En consecuencia, el punto óptimo $\hat{\bftheta}$ de (2.4.4) debe ser un minimizador de
 $$
-\calL(\bftheta,\lambda^\star)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda^\star(\|\bftheta\|_2^2-t).
-$$
-
-En la expresión anterior, $\calL$ es el Lagrangiano y $\lambda^\star$ es un punto óptimo del problema dual de Lagrange. Observar que la función objetivo de (3) es
-$$
-\calL(\bftheta,\lambda)+\lambda t.
+\calL(\bftheta,\lambda^\star)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda^\star(\|\bftheta\|_2^2-t),
 $$
 
-Pero $\lambda t$ es constante, por lo cual queda claro que (3) y (4) son equivalentes. No obstante, si asumimos $\lambda>0$, el valor de $t$ debe ser adecuado, lo cual veremos a continuación. 
+donde $\calL$ es el Lagrangiano y $\lambda^\star$ es un punto óptimo del problema dual de Lagrange. Observar que está ultima expresión coincide, salvo una constante aditiva, con la función objetivo de (2.4.3), tomando $\lambda=\lambda^\star$. Es decir, que (2.4.3) y (2.4.4) son equivalentes o, lo que es lo mismo, que $\hat{\bftheta}=\hat{\bftheta}^{\text{ridge}}$. 
+
+No obstante, en la formulación penalizada (2.4.3) el parámetro $\lambda>0$ es fijado arbitrariamente. En consecuencia, para que ambos problemas sean efectivamente equivalentes, el valor de $t$ en (2.4.4) debe ser adecuado de modo que se satisfaga $\lambda^\star=\lambda$. Esto deriva en la siguiente pregunta:
 
 <div style="margin-top:1em;"></div>
 
@@ -141,15 +131,12 @@ Pero $\lambda t$ es constante, por lo cual queda claro que (3) y (4) son equival
 
 <div style="margin-top:1em;"></div>
 
-La respuesta a esta pregunta está en la condición KKT de holgura complementaria para la formulación con restricciones (4), la cual establece que
+La respuesta radica en la condición KKT de holgura complementaria asociada a la formulación con restricciones (2.4.4): si $\lambda=\lambda^\star$, entonces debe cumplirse
 $$
 \lambda(\|\hat{\bftheta}^{\text{ridge}}\|_2^2-t)=0.
 $$
 
-La suposición $\lambda>0$ implica que la restricción está activa, tal que
-$$
-t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2.
-$$
+En consecuencia:
 
 <div style="margin-top:2em;"></div>
 
@@ -159,32 +146,35 @@ Si $\lambda>0$, entonces $t=\|\hat{\bftheta}^{\text{ridge}}\|_2^2$.
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:2em;"></div>
 
 
-Debe quedar claro que la solución del problema (4) para un valor arbitrario de $t$ no necesariamente activa la restricción. En caso de no hacerlo, la holgura complementaria impone $\lambda=0$ y no hay penalización.
+Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario de $t$ no necesariamente activa la restricción de desigualdad. En caso de no hacerlo, la holgura complementaria impone $\lambda=0$ y no hay penalización.
 
 </div>
 
 <figure style="text-align: center;">
   <img src="figuras/ridge.svg" alt="…" width="450px">
-  <figcaption> **Figura 1**. Interpretación geométrica del problema ridge, de acuerdo a su formulación con restricciones (4). Bajo la suposición $\lambda>0$ de la Definición 1, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}$. </figcaption>
+  <figcaption> **Figura 2.4.1**. Interpretación geométrica del problema ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
 
+
 ### Características del problema ridge
 
-La función objetivo del problema ridge (3) es
+Desarrollamos la función objetivo del problema ridge (2.4.3):
 $$
 J(\bftheta)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2=\frac{1}{2n}\bftheta^\top X^\top X\bftheta+\lambda\bftheta^\top\bftheta-\frac{1}{n}\bftheta^\top X^\top\yy+\frac{1}{2n}\yy^\top\yy.
 $$
 
-Entonces
+<div style="margin-top:1em;"></div>
+
+Se tiene que
 $$
 \nabla J(\bftheta)=\frac{1}{n}X^\top X\bftheta+2\lambda\bftheta-\frac{1}{n}X^\top \yy=\left(\frac{1}{n}X^\top X+2\lambda I\right)\bftheta-\frac{1}{n}X^\top\yy,
-\tag{5}
+\tag{2.4.5}
 $$
 $$
 \nabla^2J(\bftheta)=\frac{1}{n}X^\top X+2\lambda I\succ 0.
@@ -198,9 +188,9 @@ Verifique que $\frac{1}{n}X^\top X+2\lambda I$ es simétrica definida positiva.
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:2em;"></div>
 
-En consecuencia, $J$ es estrictamente convexa, lo cual significa que, de haber solución, es única. Y la existencia de la solución es cierta, en virtud del hecho de que el conjunto factible de la formulación con restricciones (4) es cerrado y acotado. Entonces podemos hacer la siguiente afirmación:
+La función objetivo $J$ es estrictamente convexa. Por lo tanto, de haber solución, es única. Además, la existencia de la solución es cierta, en virtud del hecho de que el conjunto factible en (2.4.4) es cerrado y acotado. Estamos en condiciones de hacer la siguiente afirmación:
 
 ::: {.myhighlight}
 
@@ -208,16 +198,12 @@ El problema ridge tiene solución única.
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:2em;"></div>
 
-<details>
-<summary>Mostrar detalles</summary>
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
 
-::: {.panel-tabset}
-
-### Observación
-
-La verificación de existencia a partir de la formulación sin restricciones (3) se basa en que $J$ crece indefinidamente en cualquier dirección a partir de cualquier punto $\bftheta$; esto es,
+La existencia también puede justificarse directamente a partir de la formulación sin restricciones (2.4.3). La función objetivo $J$ crece indefinidamente en cualquier dirección a partir de cualquier punto $\bftheta$; esto es,
 $$
 \lim_{t\to\infty}f(\bftheta+t\dd)=\infty\qquad\forall\bftheta\in\RR^p,\;\forall\dd\in\RR^p,\,\dd\neq\bfzero.
 $$
@@ -228,28 +214,17 @@ $$
 $$
 
 
-Este comportamiento de $f$ permite afirmar que no tiene direcciones de decrecimiento, también llamadas *direcciones de recesión*. Resultados teóricos (ver, por ejemplo, Teorema 27.1 de [Rockafellar, 1970]) aseguran que, en tales condiciones, un problema de optimización tiene al menos una solución.
+Este comportamiento de $f$ permite afirmar que no tiene direcciones de decrecimiento, también llamadas *direcciones de recesión*. Resultados teóricos (ver, por ejemplo, Teorema 27.1 de (Rockafellar, 1970)) aseguran que, en tales condiciones, un problema de optimización tiene al menos una solución.
 
-<!--
-<aside>
-Una dirección $\dd\in\RR^p$ se denomina *dirección de recesión* de $f:\RR^p\to\RR$ si $f(\xx+t\dd)\leq f(\xx)$ para todo $\xx\in\text{dom}\,f$ y $t\geq 0$.
-</aside>
--->
-:::
-</details>
-
-
+</div>
 
 <div style="margin-top:2em;"></div>
-
-
-Para caracterizar la solución del problema ridge, utilizaremos la condición de optimalidad $\nabla J =\bfzero$. Por supuesto, el abordaje mediante la formulación (3) como problema de optimización con restricciones conduce a los mismos resultados, lo cual dejamos como ejercicio. 
 
 
 
 ### Solución del problema ridge
 
-A partir de la expresión (5), la condición de optimalidad $\nabla f(\hat{\bftheta}^{\text{ridge}})=\bfzero$ implica 
+Para caracterizar la solución del problema ridge, utilizaremos la condición de optimalidad $\nabla f(\hat{\bftheta}^{\text{ridge}})=\bfzero$. De (2.4.5) resulta 
 $$
 \left(\frac{1}{n}X^\top X+2\lambda I\right)\hat{\bftheta}^{\text{ridge}}-\frac{1}{n}X^\top \yy=\bfzero
 $$
@@ -266,23 +241,24 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-No obstante, en problemas donde la aplicación directa de esta fórmula resulta costosa, se suelen emplear métodos de optimización, como el gradiente descendente, para aproximar la solución de manera eficiente. 
+Por supuesto, en problemas donde la aplicación directa de esta fórmula resulta costosa, es más adecuado emplear métodos de optimización para aproximar la solución de manera eficiente. 
 
 <div style="margin-top:2em;"></div>
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 1</span> 
+<span class="badge bg-primary">Ejemplo 2.4.2</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Regresión ridge en datos de diabetes
 </span>
 
-Utilizaremos el conjunto de datos de diabetes de `sklearn.datasets` ([disponible aquí](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html)) para ilustrar el efecto del parámetro de regularización $\lambda$ en Ridge. Este conjunto consiste en 442 observaciones y 10 variables predictoras.
+Utilizaremos el conjunto de datos de diabetes de `sklearn.datasets` [disponible aquí](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html), el cual consiste en 442 observaciones de 10 variables predictoras.
 
 Veremos el efecto que causa el valor del parámetro $\lambda$ en el valor de los coeficientes estimados para el modelo. Además, elegiremos $\lambda$ por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.
 
 ```{python}
 #| code-summary: "Mostrar código"
 #| code-fold: false
+#| #| code-line-numbers: true
 #| fig-align: "center"
 
 import numpy as np
@@ -325,7 +301,11 @@ best_lambda = ridge_cv.alpha_
 
 idx_best = np.where(lambdas == best_lambda)[0][0]
 mse_best = mse_means[idx_best]
+```
 
+```{python}
+#| echo: false
+#| fig-align: "center"
 # 📈:
 plt.figure(figsize=(8, 6))
 
@@ -362,17 +342,19 @@ for i, coef in enumerate(ridge_best.coef_):
 
 :::
 
+<div style="margin-top:2.5em;"></div>
 
 
-## LASSO
+
+## II <span style="color:#CCCCCC;">│</span> LASSO
 
 ::: {.definicion}
-**Definición 2.** (Problema lasso) El *problema de regresión lasso* es
+**Definición 2.4.3.** (Problema lasso) El *problema de regresión lasso* es
 $$
 \begin{array}{ll}
 \text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_1,
 \end{array}
-\tag{6}
+\tag{2.4.6}
 $$
 con $\bftheta\in\RR^p$ las variables de optimización y $\lambda>0$ el hiperparámetro. El punto óptimo, denotado por $\hat{\bftheta}^{\text{lasso}}$, es el *estimador lasso* de los coeficientes de la regresión.
 
@@ -386,10 +368,10 @@ $$
 \text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
 \text{sujeto a} & \|\bftheta\|_1\leq t.
 \end{array}
-\tag{7}
+\tag{2.4.7}
 $$
 
-En este caso:
+Análogamente a ridge:
 
 ::: {.myhighlight}
 
@@ -401,7 +383,7 @@ Si $\lambda>0$, entonces $t=\|\hat{\bftheta}^{\text{lasso}}\|_1$.
 
 <figure style="text-align: center;">
   <img src="figuras/lasso.svg" alt="…" width="450px">
-  <figcaption> **Figura 2**. Interpretación geométrica del problema lasso, de acuerdo a su formulación con restricciones (7). Bajo la suposición $\lambda>0$ de la Definición 2, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}$. </figcaption>
+  <figcaption> **Figura 2.4.2**. Interpretación geométrica del problema lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -1575,32 +1557,6 @@ Ambos enfoques garantizan convergencia global gracias a la convexidad de la func
 
 <br><br>
 
-## Actividades {.unnumbered}
-
-<div style="margin-top:2em;"></div>
-
-💻 **Prácticas**  
-<hr class="linea-corta">
-
-<div style="text-align:left;">
-  <a href="https://colab.research.google.com/drive/1x3CaAM8iu8EoGekWoQCntooKa1F8a6Ma?usp=sharing" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" 
-         alt="Colab" 
-         style="height:1.4em;">
-  </a>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div style="margin-top: 5em;"></div>
-
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
@@ -1610,6 +1566,6 @@ Rockafellar, R. T. (1970). Convex analysis (Princeton Mathematical Series, Vol. 
 
 Rothman, A. J. (2024). Apuntes del curso STAT 5701 *Lasso-penalized Least Squares*. University of Minnesota.
 
-Tibshirani, R.J. (2013). *The Lasso problem and uniqueness*. Electron. J. Statist. 7 1456-1490. Disponible [aquí](https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-lasso-problem-and-uniqueness/10.1214/13-EJS815.full).
+Tibshirani, R.J. (2013). *The Lasso problem and uniqueness*. Electron. J. Statist. 7 1456-1490. 🔗 [ir al sitio web](https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-lasso-problem-and-uniqueness/10.1214/13-EJS815.full).
 
 :::

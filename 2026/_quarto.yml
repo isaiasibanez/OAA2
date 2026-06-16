@@ -27,6 +27,8 @@ website:
             text: "2.2 Regresión lineal y regresión logística"
           - href: CAPITULO_2/B3_glm.qmd
             text: "2.3 Modelos lineales generalizados"
+          - href: CAPITULO_2/B4_ridge_lasso.qmd
+            text: "2.4 Métodos de regularización"
   page-navigation: true  # Activar navegación entre páginas
 
 format:

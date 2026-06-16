@@ -8,6 +8,21 @@ subtitle: "Capítulo 2 - Sección 2"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
 
 Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para $Y|\XX$ que depende de un vector de parámetros $\bftheta\in\RR^p$.
 
@@ -43,7 +58,7 @@ $$
 ## I <span style="color:#CCCCCC;">│</span> La familia exponencial
 
 ::: {.definicion}
-**Definición 2.3.1.** (Familia exponencial)  Decimos que una clase de distribuciones pertenece a la familia exponencial si se puede escribir en la forma
+**Definición 2.3.1.** (Familia exponencial)  Decimos que una clase de distribuciones pertenece a la *familia exponencial* si se puede escribir en la forma
 
 $$
 p(y \mid \bfeta) := h(y) \exp\left\{\bfeta^\top T(y) - A(\bfeta)\right\},
@@ -434,7 +449,7 @@ Observar que lo del paréntesis es el *residuo* entre el valor observado de $T(y
 
 En general, no existe una solución explícita para el punto óptimo $\hat{\bftheta}$ y, en consecuencia, solo queda recurrir a métodos iterativos para aproximarlo. Afortunadamente, el método de Newton da lugar a un algoritmo eficiente para resolver un GLM.
 
-<div style="margin-top:2.5em;"></div>
+<div style="margin-top:2em;"></div>
 
 
 
@@ -649,6 +664,7 @@ $$
 <div style="margin-top:1em;"></div>
 
 
+
 ### Modelo
 
 El GLM asociado a la regresión softmax parte de la suposición
@@ -682,6 +698,7 @@ $$
 :::
 
 <div style="margin-top:2em;"></div>
+
 
 
 ### Optimalidad
