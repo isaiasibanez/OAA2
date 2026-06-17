@@ -261,21 +261,21 @@ window.Quarto = {
   <ul>
   <li><a href="#i-regresión-ridge" id="toc-i-regresión-ridge" class="nav-link active" data-scroll-target="#i-regresión-ridge">I <span style="color:#CCCCCC;">│</span> Regresión Ridge</a>
   <ul class="collapse">
-  <li><a href="#características-del-problema-ridge" id="toc-características-del-problema-ridge" class="nav-link" data-scroll-target="#características-del-problema-ridge">Características del problema ridge</a></li>
-  <li><a href="#solución-del-problema-ridge" id="toc-solución-del-problema-ridge" class="nav-link" data-scroll-target="#solución-del-problema-ridge">Solución del problema ridge</a></li>
+  <li><a href="#características-del-problema-ridge" id="toc-características-del-problema-ridge" class="nav-link" data-scroll-target="#características-del-problema-ridge">Características del problema Ridge</a></li>
+  <li><a href="#solución-del-problema-ridge" id="toc-solución-del-problema-ridge" class="nav-link" data-scroll-target="#solución-del-problema-ridge">Solución del problema Ridge</a></li>
   </ul></li>
-  <li><a href="#ii-lasso" id="toc-ii-lasso" class="nav-link" data-scroll-target="#ii-lasso">II <span style="color:#CCCCCC;">│</span> LASSO</a>
+  <li><a href="#ii-lasso" id="toc-ii-lasso" class="nav-link" data-scroll-target="#ii-lasso">II <span style="color:#CCCCCC;">│</span> Lasso</a>
   <ul class="collapse">
-  <li><a href="#características-del-problema-lasso" id="toc-características-del-problema-lasso" class="nav-link" data-scroll-target="#características-del-problema-lasso">Características del problema lasso</a></li>
-  <li><a href="#solución-del-problema-lasso" id="toc-solución-del-problema-lasso" class="nav-link" data-scroll-target="#solución-del-problema-lasso">Solución del problema lasso</a></li>
-  <li><a href="#resolución-mediante-descenso-por-coordenadas" id="toc-resolución-mediante-descenso-por-coordenadas" class="nav-link" data-scroll-target="#resolución-mediante-descenso-por-coordenadas">Resolución mediante descenso por coordenadas</a></li>
+  <li><a href="#características-del-problema-lasso" id="toc-características-del-problema-lasso" class="nav-link" data-scroll-target="#características-del-problema-lasso">Características del problema Lasso</a></li>
+  <li><a href="#solución-del-problema-lasso" id="toc-solución-del-problema-lasso" class="nav-link" data-scroll-target="#solución-del-problema-lasso">Solución del problema Lasso</a></li>
+  <li><a href="#resolución-por-descenso-por-coordenadas" id="toc-resolución-por-descenso-por-coordenadas" class="nav-link" data-scroll-target="#resolución-por-descenso-por-coordenadas">Resolución por descenso por coordenadas</a></li>
   </ul></li>
-  <li><a href="#elastic-net-convergencia-y-comparaciones" id="toc-elastic-net-convergencia-y-comparaciones" class="nav-link" data-scroll-target="#elastic-net-convergencia-y-comparaciones">Elastic Net, convergencia y comparaciones</a>
+  <li><a href="#iii-elastic-net-convergencia-y-comparaciones" id="toc-iii-elastic-net-convergencia-y-comparaciones" class="nav-link" data-scroll-target="#iii-elastic-net-convergencia-y-comparaciones">III <span style="color:#CCCCCC;">│</span> Elastic Net, convergencia y comparaciones</a>
   <ul class="collapse">
   <li><a href="#resultados-de-convergencia" id="toc-resultados-de-convergencia" class="nav-link" data-scroll-target="#resultados-de-convergencia">Resultados de convergencia</a></li>
   <li><a href="#ejemplos-comparativos" id="toc-ejemplos-comparativos" class="nav-link" data-scroll-target="#ejemplos-comparativos">Ejemplos comparativos</a></li>
   </ul></li>
-  <li><a href="#glm-penalizados" id="toc-glm-penalizados" class="nav-link" data-scroll-target="#glm-penalizados">GLM penalizados</a></li>
+  <li><a href="#iv-sobre-glm-penalizados" id="toc-iv-sobre-glm-penalizados" class="nav-link" data-scroll-target="#iv-sobre-glm-penalizados">IV <span style="color:#CCCCCC;">│</span> Sobre GLM penalizados</a></li>
   </ul>
 </nav>
     </div>
@@ -334,7 +334,7 @@ J(\boldsymbol{\theta})=\sum_{i=1}^n\text{loss}\,(y_i,f({\bf x}_i;\boldsymbol{\th
 \tag{2.4.2}
 \]</span></p>
 <p>donde <span class="math inline">\(t&gt;0\)</span> es un <em>hiperparámetro de umbral</em> ligado al valor de <span class="math inline">\(\lambda\)</span>.</p>
-<p>Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales, <em>ridge regression</em> y <em>LASSO</em>, aplicadas al problema de regresión lineal, analizando su formulación matemática y sus características principales. Ambos métodos serán estudiados tanto en su formulación penalizada (2.4.1) como en su versión restringida (2.4.2). Además, para un conjunto de datos de entrenamiento <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, la función de pérdida está determinada por <span class="math display">\[
+<p>Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales, <em>Ridge regression</em> y <em>Lasso</em>, aplicadas al problema de regresión lineal, analizando su formulación matemática y sus características principales. Ambos métodos serán estudiados tanto en su formulación penalizada (2.4.1) como en su versión restringida (2.4.2). Además, para un conjunto de datos de entrenamiento <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, la función de pérdida está determinada por <span class="math display">\[
 J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\boldsymbol{\theta}^\top{\bf x}_i)^2,
 \]</span></p>
 <p>donde MSE son las siglas de <em>mean squared error</em> (error cuadrático medio).</p>
@@ -355,12 +355,12 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <section id="i-regresión-ridge" class="level2">
 <h2 class="anchored" data-anchor-id="i-regresión-ridge">I <span style="color:#CCCCCC;">│</span> Regresión Ridge</h2>
 <div class="definicion">
-<p><strong>Definición 2.4.1.</strong> (Problema ridge) El <em>problema de regresión ridge</em> es <span class="math display">\[
+<p><strong>Definición 2.4.1.</strong> (Problema Ridge) El <em>problema de regresión Ridge</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2,
 \tag{2.4.3}
 \end{array}
-\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{ridge}}\)</span>, es el <em>estimador ridge</em> de los coeficientes de la regresión.</p>
+\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{ridge}}\)</span>, es el <em>estimador Ridge</em> de los coeficientes de la regresión.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -405,17 +405,17 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <p>Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario de <span class="math inline">\(t\)</span> no necesariamente activa la restricción de desigualdad. En caso de no hacerlo, la holgura complementaria impone <span class="math inline">\(\lambda=0\)</span> y no hay penalización.</p>
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/ridge.svg" alt="…" width="450px" class="figure-img">
+<img src="figuras/Ridge.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.1</strong>. Interpretación geométrica del problema ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
+<strong>Figura 2.4.1</strong>. Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
 <section id="características-del-problema-ridge" class="level3">
-<h3 class="anchored" data-anchor-id="características-del-problema-ridge">Características del problema ridge</h3>
-<p>Desarrollamos la función objetivo del problema ridge (2.4.3): <span class="math display">\[
+<h3 class="anchored" data-anchor-id="características-del-problema-ridge">Características del problema Ridge</h3>
+<p>Desarrollamos la función objetivo del problema Ridge (2.4.3): <span class="math display">\[
 J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\boldsymbol{\theta}^\top X^\top X\boldsymbol{\theta}+\lambda\boldsymbol{\theta}^\top\boldsymbol{\theta}-\frac{1}{n}\boldsymbol{\theta}^\top X^\top{\bf y}+\frac{1}{2n}{\bf y}^\top{\bf y}.
 \]</span></p>
 <div style="margin-top:1em;">
@@ -443,7 +443,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 <p>La función objetivo <span class="math inline">\(J\)</span> es estrictamente convexa. Por lo tanto, de haber solución, es única. Además, la existencia de la solución es cierta, en virtud del hecho de que el conjunto factible en (2.4.4) es cerrado y acotado. Estamos en condiciones de hacer la siguiente afirmación:</p>
 <div class="myhighlight">
-<p>El problema ridge tiene solución única.</p>
+<p>El problema Ridge tiene solución única.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -463,13 +463,13 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 </section>
 <section id="solución-del-problema-ridge" class="level3">
-<h3 class="anchored" data-anchor-id="solución-del-problema-ridge">Solución del problema ridge</h3>
-<p>Para caracterizar la solución del problema ridge, utilizaremos la condición de optimalidad <span class="math inline">\(\nabla f(\hat{\boldsymbol{\theta}}^{\text{ridge}})=\mathbf{0}\)</span>. De (2.4.5) resulta <span class="math display">\[
+<h3 class="anchored" data-anchor-id="solución-del-problema-ridge">Solución del problema Ridge</h3>
+<p>Para caracterizar la solución del problema Ridge, utilizaremos la condición de optimalidad <span class="math inline">\(\nabla f(\hat{\boldsymbol{\theta}}^{\text{ridge}})=\mathbf{0}\)</span>. De (2.4.5) resulta <span class="math display">\[
 \left(\frac{1}{n}X^\top X+2\lambda I\right)\hat{\boldsymbol{\theta}}^{\text{ridge}}-\frac{1}{n}X^\top {\bf y}=\mathbf{0}
 \]</span></p>
 <p>Dado que <span class="math inline">\(\frac{1}{n}X^\top X+2\lambda I\succ 0\)</span>, es invertible. En consecuencia:</p>
 <div class="myhighlight">
-<p>La fórmula cerrada para el estimador ridge es <span class="math display">\[
+<p>La fórmula cerrada para el estimador Ridge es <span class="math display">\[
 \hat{\boldsymbol{\theta}}^{\text{ridge}}=\frac{1}{n}\left(\frac{1}{n}X^\top X+2\lambda I\right)^{-1}X^\top {\bf y}.
 \]</span></p>
 </div>
@@ -481,52 +481,52 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2.4.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión ridge en datos de diabetes </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.4.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Ridge en datos de diabetes </span></p>
 <p>Utilizaremos el conjunto de datos de diabetes de <code>sklearn.datasets</code> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>, el cual consiste en 442 observaciones de 10 variables predictoras.</p>
 <p>Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
-<div id="25e21537" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetro lambda:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrenamiento de Ridge:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> []</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    ridge.fit(X, y)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    coefs.append(ridge.coef_)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> np.array(coefs)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE:</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mse_means <span class="op">=</span> []</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(ridge, X, y,</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    mse_means.append(mse_scores.mean())</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Mejor lambda por CV:</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="op">=</span> RidgeCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>ridge_cv.fit(X, y)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="op">=</span> ridge_cv.alpha_</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3c8b885a" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Datos:</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb1-11"><a href="#cb1-11"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Parámetro lambda:</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Entrenamiento de Ridge:</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>coefs <span class="op">=</span> []</span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    ridge.fit(X, y)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    coefs.append(ridge.coef_)</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>coefs <span class="op">=</span> np.array(coefs)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="co"># MSE:</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>mse_means <span class="op">=</span> []</span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a)</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(ridge, X, y,</span>
+<span id="cb1-30"><a href="#cb1-30"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    mse_means.append(mse_scores.mean())</span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="co"># Mejor lambda por CV:</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>Ridge_cv <span class="op">=</span> RidgeCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36"></a>Ridge_cv.fit(X, y)</span>
+<span id="cb1-37"><a href="#cb1-37"></a>best_lambda <span class="op">=</span> Ridge_cv.alpha_</span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb1-40"><a href="#cb1-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="986a1316" class="cell" data-execution_count="2">
+<div id="cdccbff7" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -555,26 +555,26 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </section>
 </section>
 <section id="ii-lasso" class="level2">
-<h2 class="anchored" data-anchor-id="ii-lasso">II <span style="color:#CCCCCC;">│</span> LASSO</h2>
+<h2 class="anchored" data-anchor-id="ii-lasso">II <span style="color:#CCCCCC;">│</span> Lasso</h2>
 <div class="definicion">
-<p><strong>Definición 2.4.3.</strong> (Problema lasso) El <em>problema de regresión lasso</em> es <span class="math display">\[
+<p><strong>Definición 2.4.3.</strong> (Problema Lasso) El <em>problema de regresión Lasso</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_1,
 \end{array}
 \tag{2.4.6}
-\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>, es el <em>estimador lasso</em> de los coeficientes de la regresión.</p>
+\]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>, es el <em>estimador Lasso</em> de los coeficientes de la regresión.</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
-<p>De manera similar al análisis para el problema ridge, el problema lasso admite la siguiente formulación con restricciones: <span class="math display">\[
+<p>De manera similar al análisis para el problema Ridge, el problema Lasso admite la siguiente formulación con restricciones: <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
 \text{sujeto a} &amp; \|\boldsymbol{\theta}\|_1\leq t.
 \end{array}
 \tag{2.4.7}
 \]</span></p>
-<p>Análogamente a ridge:</p>
+<p>Análogamente a Ridge:</p>
 <div class="myhighlight">
 <p>Si <span class="math inline">\(\lambda&gt;0\)</span>, entonces <span class="math inline">\(t=\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span>.</p>
 </div>
@@ -582,19 +582,19 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/lasso.svg" alt="…" width="450px" class="figure-img">
+<img src="figuras/Lasso.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.2</strong>. Interpretación geométrica del problema lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
+<strong>Figura 2.4.2</strong>. Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
 <section id="características-del-problema-lasso" class="level3">
-<h3 class="anchored" data-anchor-id="características-del-problema-lasso">Características del problema lasso</h3>
-<p>Una de las principales diferencias entre el problema lasso y el problema ridge queda determinado por la siguiente afirmación:</p>
+<h3 class="anchored" data-anchor-id="características-del-problema-lasso">Características del problema Lasso</h3>
+<p>Una de las principales diferencias entre el problema Lasso y el problema Ridge queda determinado por la siguiente afirmación:</p>
 <div class="myhighlight">
-<p>El problema lasso o bien tiene solución única o bien tiene infinitas soluciones.</p>
+<p>El problema Lasso o bien tiene solución única o bien tiene infinitas soluciones.</p>
 </div>
 <div style="margin-top:1em;">
 
@@ -605,25 +605,25 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br> Justifique la existencia de solución del problema lasso.</p>
+<p><span style="font-size: 1.3em;">📝</span><br> Justifique la existencia de solución del problema Lasso.</p>
 </div>
 </div>
 </div>
-<div style="margin-top:1em;">
+<div style="margin-top:2em;">
 
 </div>
-<p>La existencia de solución se justifica de manera similar al problema ridge: el conjunto factible en (7) es cerrado y acotado. A continuación, las dos posibilidades mencionadas se derivan de la matriz Hessiana de la función objetivo de la formulación con restricciones (7): <span class="math display">\[
+<p>Las dos posibilidades mencionadas se derivan de la matriz Hessiana de la función objetivo de la formulación con restricciones (2.4.7): <span class="math display">\[
 \nabla^2 J(\boldsymbol{\theta})=\frac{1}{n}X^\top X.
 \]</span></p>
 <ul>
 <li><p>Si <span class="math inline">\(\text{rango}\,X=p\)</span>, entonces <span class="math inline">\(\frac{1}{n}X^\top X\succ 0\)</span> (¿por qué?). Luego, la función objetivo es estrictamente convexa y concluimos que el problema tiene solución única.</p></li>
-<li><p>Si <span class="math inline">\(\text{rango}\,X&lt;p\)</span>, la solución puede no ser única. En caso de no ser única, habrán infinitas soluciones. Para justificar esto último, supongamos <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> diferentes estimadores lasso; entonces <span class="math display">\[
+<li><p>Si <span class="math inline">\(\text{rango}\,X&lt;p\)</span>, la solución puede no ser única. En caso de no ser única, habrán infinitas soluciones. Para justificar esto último, supongamos <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> diferentes estimadores Lasso; entonces <span class="math display">\[
 t\hat{\boldsymbol{\theta}}^{\text{lasso},1}+(1-t)\hat{\boldsymbol{\theta}}^{\text{lasso},2},\qquad t\in(0,1),
-\]</span> también es una solución, por <em>convexidad del conjunto solución de un problema de optimización convexa</em>.</p></li>
+\]</span> también es una solución, por convexidad del conjunto solución de un problema de optimización convexa.</p></li>
 </ul>
-<p>Otras características importantes del problema lasso se enuncian en el siguiente lema.</p>
+<p>Otras características importantes del problema Lasso se enuncian en el siguiente lema.</p>
 <div class="teorema">
-<p><strong>Lema 1.</strong> Sean <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> y <span class="math inline">\(\lambda&gt;0\)</span>. El valor <em>fiteado</em> <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> y la norma <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> son independientes de la elección del estimador lasso.</p>
+<p><strong>Lema 2.4.4.</strong> Sean <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> y <span class="math inline">\(\lambda&gt;0\)</span>. El valor <em>fiteado</em> <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> y la norma <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> son independientes de la elección del estimador Lasso.</p>
 </div>
 <details>
 <summary>
@@ -633,7 +633,7 @@ Mostrar detalles
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>(i) Sean <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> soluciones del problema lasso tales que <span class="math inline">\(X \hat{\boldsymbol{\theta}}^{\text{lasso},1} \neq X \hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span>. Para <span class="math inline">\(0&lt;t&lt;1\)</span>, denotemos <span class="math display">\[
+<p>(i) Sean <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> y <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span> soluciones del problema Lasso tales que <span class="math inline">\(X \hat{\boldsymbol{\theta}}^{\text{lasso},1} \neq X \hat{\boldsymbol{\theta}}^{\text{lasso},2}\)</span>. Para <span class="math inline">\(0&lt;t&lt;1\)</span>, denotemos <span class="math display">\[
 \hat{\boldsymbol{\theta}}^{\text{lasso},t}:=t\hat{\boldsymbol{\theta}}^{\text{lasso},1}+(1-t)\hat{\boldsymbol{\theta}}^{\text{lasso},2}.
 \]</span></p>
 <p>La convexidad estricta de <span class="math inline">\(h({\bf x})=\|{\bf y}-{\bf x}\|_2^2\)</span> y la suposición <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\neq X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\)</span> permiten escrbir <span class="math display">\[
@@ -644,13 +644,13 @@ Mostrar detalles
 \]</span></p>
 <p>Combinando las desigualdades anteriores, se deduce <span class="math display">\[
 \frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_2^2+\lambda\|\hat{\boldsymbol{\theta}}^{\text{lasso},t}\|_1&lt;t J(\hat{\boldsymbol{\theta}}^{\text{lasso},1})+(1-t)J(\hat{\boldsymbol{\theta}}^{\text{lasso},2}) =p^\star,
-\]</span> donde <span class="math inline">\(p^\star\)</span> es el valor óptimo del problema lasso. El resultado contradice el hecho de que <span class="math inline">\(p^\star\)</span> es el valor óptimo y, en consecuencia, debe ser <span class="math display">\[
+\]</span> donde <span class="math inline">\(p^\star\)</span> es el valor óptimo del problema Lasso. El resultado contradice el hecho de que <span class="math inline">\(p^\star\)</span> es el valor óptimo y, en consecuencia, debe ser <span class="math display">\[
 X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\text{lasso},2}.
 \]</span></p>
 <p>(ii) De la prueba anterior, está claro que <span class="math display">\[
 \frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_2^2=\frac{1}{2n}\|{\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_2^2.
 \]</span></p>
-<p>Pero ambos minimizan la función objetivo en (7). Como <span class="math inline">\(\lambda&gt;0\)</span>, debe ser <span class="math display">\[
+<p>Pero ambos minimizan la función objetivo en (2.4.7). Como <span class="math inline">\(\lambda&gt;0\)</span>, debe ser <span class="math display">\[
 \|\hat{\boldsymbol{\theta}}^{\text{lasso},1}\|_1=\|\hat{\boldsymbol{\theta}}^{\text{lasso},2}\|_1.
 \]</span></p>
 <div style="margin-top:-1em;">
@@ -666,17 +666,13 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <div style="margin-top:2em;">
 
 </div>
-<p>Para estudiar la solución del problema lasso, trabajaremos con la formulación (7), de manera similar al caso del problema ridge, aprovechando el hecho que la condición de optimalidad <span class="math inline">\(\nabla J=\mathbf{0}\)</span> es suficiente y necesaria.</p>
-<div style="margin-top:2em;">
-
-</div>
 </section>
 <section id="solución-del-problema-lasso" class="level3">
-<h3 class="anchored" data-anchor-id="solución-del-problema-lasso">Solución del problema lasso</h3>
-<p>A diferencia del problema ridge, la función objetivo del problema lasso no es una función diferenciable, debido a la presencia del término <span class="math display">\[
+<h3 class="anchored" data-anchor-id="solución-del-problema-lasso">Solución del problema Lasso</h3>
+<p>A diferencia del problema Ridge, la función objetivo del problema Lasso no es una función diferenciable, debido a la presencia del término <span class="math display">\[
 \|\boldsymbol{\theta}\|_1:=\sum_{i=1}^p|\theta_1|+\ldots+|\theta_p|.
 \]</span></p>
-<p>Por tal motivo, para el análisis de las condiciones KKT es necesario primero hacer un breve repaso del concepto de subdiferencial. Luego, las condiciones KKT también pueden ser formuladas en términos de subdiferenciales, con el propósito de caracterizar la solución del problema lasso.</p>
+<p>Por tal motivo, para el análisis de las condiciones KKT es necesario primero hacer un breve repaso del concepto de subdiferencial. Luego, las condiciones KKT también pueden ser formuladas en términos de subdiferenciales, con el propósito de caracterizar la solución del problema Lasso.</p>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
 <p>El <em>subdiferencial</em> de una función convexa <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> en un punto <span class="math inline">\({\bf x}_0\in\text{dom}\,f\)</span> es el conjunto <span class="math display">\[
@@ -689,11 +685,11 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <ul>
 <li><p>El subdiferencial <span class="math inline">\(\partial f({\bf x}_0)\)</span> es siempre un conjunto convexo no vacío.</p></li>
 <li><p>Si <span class="math inline">\(f\)</span> es diferenciable en <span class="math inline">\({\bf x}_0\)</span>, entonces <span class="math inline">\(\partial f({\bf x}_0)=\{\nabla f({\bf x}_0)\}\)</span>.</p></li>
-<li><p>La condición de optimalidad para problemas de optimización <em>sin restricciones</em> está dada por el siguiente resultado.</p></li>
+<li><p>La condición de optimalidad para problemas de optimización <em>sin restricciones</em> está dada por el siguiente resultado. La prueba es sencilla y queda como ejercicio.</p></li>
 </ul>
 <div class="teorema">
-<p><strong>Teorema 1.</strong> Sea <span class="math inline">\(f:\mathbb{R}^p \to \mathbb{R}\)</span> una función convexa. Entonces <span class="math inline">\({\bf x}^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
-0 \in \partial f(x^\star).
+<p><strong>Teorema 2.4.5.</strong> (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subgradientes) Sea <span class="math inline">\(f:\mathbb{R}^p \to \mathbb{R}\)</span> una función convexa. Entonces <span class="math inline">\({\bf x}^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
+\mathbf{0}\in \partial f({\bf x}^\star).
 \]</span></p>
 </div>
 </div>
@@ -701,76 +697,66 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Subdiferencial de la norma 1 </span></p>
-<p>La norma 1 es la función <span class="math inline">\(\|\cdot\|_1:\mathbb{R}^p\to\mathbb{R}\)</span> definida por <span class="math display">\[
-\nabla\|{\bf x}\|_1:=\sum_{i=1}^p|x_i|.
+<p><span class="badge bg-primary">Ejemplo 2.4.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Subdiferencial de la norma 1 </span></p>
+<p>Como ya sabemos, la norma 1 es la función <span class="math inline">\(\|\cdot\|_1:\mathbb{R}^p\to\mathbb{R}\)</span> definida por <span class="math display">\[
+\|{\bf x}\|_1:=\sum_{i=1}^p|x_i|.
 \]</span></p>
-<p>Esta función es diferenciable en todos los puntos <span class="math inline">\({\bf x}\)</span> tales que <span class="math inline">\(x_i\neq 0\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>. En tales puntos su subdiferencial está determinado por el vector gradiente, el cual es <span class="math display">\[
+<p>Esta función es diferenciable en todos los puntos <span class="math inline">\({\bf x}\)</span> tales que <span class="math inline">\(x_i\neq 0\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>. En tales puntos su subdiferencial está determinado por el vector gradiente; esto es, <span class="math display">\[
 \nabla \|{\bf x}\|_1=(\text{sign}(x_1),\ldots,\text{sign}(x_p))\qquad \forall{\bf x}\neq\mathbf{0}.
 \]</span></p>
-<p>Sin embargo, si la <span class="math inline">\(i\)</span>-ésima coordenada es 0, el subgradiente tomará en esa componente el valor <span class="math inline">\([-1,1]\)</span>.</p>
-<p>Por lo tanto, <span class="math inline">\(\partial \|{\bf x}\|_1\)</span> está formado por todos los vectores <span class="math inline">\(\boldsymbol{\gamma}\)</span> que verifican <span class="math display">\[
+<p>Sin embargo, si la <span class="math inline">\(i\)</span>-ésima coordenada es 0, el subgradiente tomará en esa componente el valor <span class="math inline">\([-1,1]\)</span>. Por lo tanto, <span class="math inline">\(\partial \|{\bf x}\|_1\)</span> está formado por todos los vectores <span class="math inline">\(\boldsymbol{\gamma}\)</span> que verifican <span class="math display">\[
 \gamma_i=\begin{cases}
 {\text{sign}(x_i)} &amp; \mbox{si }x_i\neq 0,\\
 [-1,1] &amp; \mbox{si }x_i=0.
 \end{cases}
 \]</span></p>
-<figure style="text-align:center;" class="figure">
-<iframe src="figuras/subgradiente_ggb.html" style="width:90%; height:600px;">
-</iframe>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/subdiferencial_ejemplo.JPG" alt="…" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 3</strong>. Subdiferencial de la función <span class="math inline">\(f(x,y)=|x| + |y|\)</span> en <span class="math inline">\((2,0)\)</span>.
+<strong>Figura 2.4.3</strong>. Subdiferencial de la función <span class="math inline">\(f(x,y)=|x| + |y|\)</span> en <span class="math inline">\((1,0)\)</span>.
 </figcaption>
 </figure>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>A partir de la expresión (7) y lo descripto sobre subdiferenciales, la condición de optimalidad para el problema lasso es <span class="math display">\[
+<p>La condición de optimalidad para el problema Lasso es <span class="math display">\[
 \mathbf{0}\in \frac{1}{n}X^\top(X\hat{\boldsymbol{\theta}}^{\text{lasso}}-{\bf y})+\lambda\,\partial \|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1.
-\tag{8}
 \]</span></p>
-<p>La expresión (8) es equivalente a la siguiente afirmación: existe <span class="math inline">\(\boldsymbol{\gamma}\in\partial\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> tal que <span class="math display">\[
-\frac{1}{n}X^\top(X\hat{\boldsymbol{\theta}}^{\text{lasso}}-{\bf y})+\lambda\boldsymbol{\gamma}=\mathbf{0}.
+<p>De manera equivalente, podemos afirmar que existe <span class="math inline">\(\boldsymbol{\gamma}\in\partial\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> tal que <span class="math display">\[
+\begin{align*}
+\frac{1}{n}X^\top(X\hat{\boldsymbol{\theta}}^{\text{lasso}}-{\bf y})+\lambda\boldsymbol{\gamma}&amp;=\mathbf{0}\\
+\frac{1}{n}X^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})&amp;=\lambda\boldsymbol{\gamma}.
+\end{align*}
+\tag{2.4.8}
 \]</span></p>
-<p>Del Ejemplo 2, el vector <span class="math inline">\(\boldsymbol{\gamma}\)</span> debe verificar lo siguiente: <span class="math display">\[
+<p>Del Ejemplo 2.4.6, el vector <span class="math inline">\(\boldsymbol{\gamma}\)</span> debe verificar lo siguiente: <span class="math display">\[
 \gamma_i=\begin{cases}
 {\text{sign}(\hat{\theta}_i^{\text{lasso}})} &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\
 [-1,1] &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
 \end{cases}
-\tag{9}
+\tag{2.4.9}
 \]</span></p>
-<p>La clave está en reescribir la condición de estacionariedad como <span class="math display">\[
-\frac{1}{n}X^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})=\lambda\boldsymbol{\gamma}.
-\tag{10}
-\]</span></p>
-<p>La componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo de (10) mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\(\mathbf{r}:={\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>. De hecho, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\({\bf y}\)</span> están estandarizados, entonces esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
-\begin{align}
-\text{cor}(X_i,\mathbf{r}):&amp;=\frac{\text{cov}(X_i,\mathbf{r})}{\sqrt{\text{var}(X_i)\text{var}(\mathbf{r})}}\\
-&amp;=\frac{\frac{1}{n}X_i^\top\mathbf{r}}{\sqrt{\frac{1}{n}\|\mathbf{r}\|_2^2}}\\
-&amp;\propto X_i^\top\mathbf{r}.
-\end{align}
+<p>En la expresión (2.4.8), la componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\({\bf r}:={\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>. En efecto, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\({\bf y}\)</span> están estandarizados, esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
+\text{cor}(X_i,{\bf r}):=\frac{\text{cov}(X_i,{\bf r})}{\sqrt{\text{var}(X_i)\text{var}({\bf r})}}=\frac{\frac{1}{n}X_i^\top{\bf r}}{\sqrt{\frac{1}{n}\|{\bf r}\|_2^2}}\propto X_i^\top{\bf r}.
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
-<p>Ahora bien, de (9) y (10) podemos afirmar que:</p>
+<p>Ahora bien, de (2.4.8) y (2.4.9) podemos afirmar que:</p>
 <div class="myhighlight">
-<p><span class="math inline">\(\left|X_i^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})\right|\leq n\lambda\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>.</p>
+<p><span class="math inline">\(\left|X_i^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})\right|\leq n\lambda\qquad\forall i=1,\ldots,p\)</span>.</p>
+<p>Además, una condición suficiente para la igualdad es <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<div class="myhighlight">
-<p>Si <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>, entonces <span class="math inline">\(|X_i^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})|= n \lambda\)</span>.</p>
-</div>
-<div style="margin-top:2em;">
+<p>Así, las variables que son incluidas en el modelo tienen correlación absoluta máxima con el residuo. Esto muestra que el valor de <span class="math inline">\(\lambda\)</span> determina la exigencia del modelo para incluir una variable: valores grandes de <span class="math inline">\(\lambda\)</span> indican que únicamente variables con correlación fuerte con el residuo son consideradas para el modelo, mientras que valores pequeños de <span class="math inline">\(\lambda\)</span> relajan el criterio de inclusión de variables. Esta idea motiva la siguiente definición.</p>
+<div style="margin-top:1em;">
 
 </div>
-<p>Observar que las variables que son incluidas en el modelo tienen correlación absoluta máxima con el residuo, igual a <span class="math inline">\(\lambda\)</span>. Esto muestra que el valor de <span class="math inline">\(\lambda\)</span> determina la exigencia del modelo para incluir una variable: valores grandes de <span class="math inline">\(\lambda\)</span> indican que únicamente variables con correlación fuerte con el residuo son consideradas para el modelo, mientras que valores pequeños de <span class="math inline">\(\lambda\)</span> conducen a más variables incluidas.</p>
-<p>La condición que verifican todas las variables incluidas en el modelo motiva la siguiente definición.</p>
 <div class="definicion">
-<p><strong>Definición 3.</strong> (Conjunto de equicorrelación) Sea <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> una solución del problema lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
+<p><strong>Definición 2.4.7.</strong> (Conjunto de equicorrelación) Sea <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> una solución del problema Lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
 \mathcal{E}:=\left\{i\in\{1,\ldots,p\} \mid \left|X_i^\top \left({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\right)\right|=n\lambda\right\}.
 \]</span></p>
 </div>
@@ -780,7 +766,7 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br> Justifique que el conjunto de equicorrelación es el mismo para cualquier solución del problema lasso.</p>
+<p><span style="font-size: 1.3em;">📝</span><br> Justifique que el conjunto de equicorrelación es el mismo para cualquier solución del problema Lasso.</p>
 </div>
 </div>
 </div>
@@ -793,79 +779,29 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <div style="margin-top:2em;">
 
 </div>
-<p>En base a lo descrito, la primera afirmación que haremos es:</p>
+<p>Claramente, <span class="math inline">\(\hat{\boldsymbol{\theta}}_{-\mathcal{E}}^{\text{lasso}}\)</span> es un vector nulo. Por su parte, <span class="math inline">\(\hat{\boldsymbol{\theta}}_{\mathcal{E}}\)</span> puede o no tener componentes nulas, ya que <span class="math inline">\(\mathcal{E}\)</span> puede contener índices de variables que no sean incluidas en el modelo. En efecto, para algún índice <span class="math inline">\(i_0\)</span> puede ocurrir que <span class="math inline">\(\hat{\theta}_{i_0}^{\text{lasso}}=0\)</span> y <span class="math inline">\(\gamma_{i_0}=\pm 1\)</span>, tal que <span class="math inline">\(i_0\in\mathcal{E}\)</span>. En otras palabras:</p>
 <div class="myhighlight">
-<p><span class="math display">\[
-\hat{\boldsymbol{\theta}}_{-\mathcal{E}}^{\text{lasso}}=\mathbf{0}.
-\]</span></p>
-</div>
-<div class="question callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br> Verifique la afirmación anterior.</p>
-</div>
-</div>
+<p>El conjunto <span class="math inline">\(\mathcal{E}\)</span> incluye todos los índices candidatos a tener coeficientes no nulos. A las variables con coeficiente no nulo las llamaremos <em>variables activas</em>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Cuidado, el conjunto <span class="math inline">\(\mathcal{E}\)</span> puede contener índices de variables que no sean incluidas en el modelo. En efecto, para algún índice <span class="math inline">\(i_0\)</span> puede ocurrir que <span class="math inline">\(\hat{\theta}_{i_0}^{\text{lasso}}=0\)</span> y <span class="math inline">\(\gamma_{i_0}=\pm 1\)</span>, tal que <span class="math inline">\(i_0\in\mathcal{E}\)</span>. No obstante, podemos afirmar que:</p>
-<div class="myhighlight">
-<p>El conjunto <span class="math inline">\(\mathcal{E}\)</span> incluye todos los índices candidatos a tener coeficientes no nulos. A las variables asociadas las llamaremos <em>variables activas</em>.</p>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Ahora bien, solo nos queda un último análisis:</p>
+<p>Ahora bien, llegados a este punto, cabe preguntarse:</p>
 <div class="myhighlight3">
-<p>¿Hay una expresión analítica para <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}_{\mathcal{E}}\)</span>?</p>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Centraremos nuestro análisis en el bloque <span class="math inline">\(\mathcal{E}\)</span>, es decir trabajaremos con la submatriz <span class="math inline">\(X_{\mathcal{E}}\in\mathbb{R}^{n\times |E|}\)</span> formada por las columnas de <span class="math inline">\(X\)</span> cuyos índices estén en <span class="math inline">\(\mathcal{E}\)</span>. Si denotamos <span class="math display">\[
-\mathbf{s} := \text{sign}\left(\frac{1}{n}X_{\mathcal{E}}^\top({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}})\right),\qquad \mathbf{s}\in\{-1,1\}^{|E|},
-\]</span></p>
-<p>entonces la condición de optimalidad resulta en <span class="math display">\[
-\frac{1}{n} X_{\mathcal{E}}^\top\left({\bf y}-X_{\mathcal{E}}\hat{\boldsymbol{\theta}}^{\text{lasso}}_{\mathcal{E}}\right)=\lambda \mathbf{s}.
-\tag{11}
-\]</span></p>
-<p>Esto significa que <span class="math inline">\(\lambda \mathbf{s}\)</span> es una combinación lineal de las filas de <span class="math inline">\(X_{\mathcal{E}}\)</span>. Por lo tanto, la proyección de <span class="math inline">\(\lambda\mathbf{s}\)</span> sobre <span class="math inline">\(\text{row}\,X_{\mathcal{E}}\)</span> es el mismo <span class="math inline">\(\lambda\mathbf{s}\)</span>. Esto es: <span class="math display">\[
-X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}=\lambda\mathbf{s}.
-\tag{12}
-\]</span></p>
-<p>Reemplazando (12) en (11): <span class="math display">\[
-\begin{align*}
-X_{\mathcal{E}}^\top{\bf y}-X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s} \\[2pt]
-X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\boldsymbol{\theta}}^{\text{lasso}}&amp;=X_{\mathcal{E}}^\top\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
-\end{align*}
-\]</span></p>
-<p>Usando la propiedad de pseudoinversa <span class="math inline">\(X_{\mathcal{E}}^+=(X_{\mathcal{E}}^\top X_{\mathcal{E}})^+X_{\mathcal{E}}^\top\)</span>, resulta <span class="math display">\[
-\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right).
-\]</span></p>
-<p>Por último, teniendo en cuenta que el valor fiteado <span class="math inline">\(X_{\mathcal{E}}\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}\)</span> no cambia si sumamos a esa solución un vector <span class="math inline">\({\bf b}\in\text{null}\,X_{\mathcal{E}}\)</span>, todas las soluciones del problema lasso quedan determinadas por la forma <span class="math display">\[
-\hat{\boldsymbol{\theta}}_{\mathcal{E}}^{\text{lasso}}=(X_{\mathcal{E}})^{+}\left({\bf y}-(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}\right)+{\bf b},
-\]</span> donde <span class="math inline">\({\bf b}\in\text{null}\,X_{\mathcal{E}}\)</span> es válido siempre que el resultado final sea consistente con respecto a los signos de sus coeficientes no nulos, esto es, se verifique <span class="math inline">\(\text{sign}(\hat{\theta}_i^{\text{lasso}})=s_i\)</span> para todo <span class="math inline">\(\hat{\theta}_i^{\text{lasso}}\neq 0\)</span>.</p>
-<div style="margin-top:2em;">
-
-</div>
-<div class="highlight">
-<p>⚠️ A pesar de haber hallado una expresión analítica de todas las soluciones del problema lasso, su uso práctico es limitado. En general, el conjunto <span class="math inline">\(\mathcal{E}\)</span> no se conoce de antemano y su identificación requiere de un proceso costoso. Además, la expresión depende de la pseudoinversa de submatrices de <span class="math inline">\(X\)</span>, lo cual puede ser computacionalmente costoso e inestable. Por estas razones, en la práctica se utilizan algoritmos iterativos eficientes para resolver el problema lasso. Uno de los más populares y efectivos es el <em>descenso por coordenadas</em>, que describiremos a continuación.</p>
+<p>¿Hay una expresión analítica para <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>?</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
+<p>En general, la respuesta es no. Si bien es posible obtener una caracterización analítica de <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>, esta depende del conjunto de equicorrelación <span class="math inline">\(\mathcal{E}\)</span> y de un vector de signos asociado (ver Lema 2 de (Tibshirani 2013) ). Salvo en algunos casos particulares, ambos elementos se obtienen a partir de una solución del problema Lasso y, por lo tanto, no se conocen de antemano. En consecuencia, dicha caracterización no proporciona un método efectivo para obtener el estimador. Por este motivo, en la práctica se recurre a algoritmos iterativos eficientes. Uno de los más populares y efectivos es el <em>descenso por coordenadas</em>, que describiremos a continuación.</p>
 </section>
-<section id="resolución-mediante-descenso-por-coordenadas" class="level3">
-<h3 class="anchored" data-anchor-id="resolución-mediante-descenso-por-coordenadas">Resolución mediante descenso por coordenadas</h3>
-<p>Si denotamos <span class="math inline">\(Q=\frac{1}{n}X^\top X\in\mathbb{R}^{p\times p}\)</span> y <span class="math inline">\({\bf v}=\frac{1}{n}X^\top{\bf y}\in\mathbb{R}^{p}\)</span>, la formulación (7) del problema lasso es equivalente a <span class="math display">\[
+<section id="resolución-por-descenso-por-coordenadas" class="level3">
+<h3 class="anchored" data-anchor-id="resolución-por-descenso-por-coordenadas">Resolución por descenso por coordenadas</h3>
+<p>Si denotamos <span class="math inline">\(Q=\frac{1}{n}X^\top X\in\mathbb{R}^{p\times p}\)</span> y <span class="math inline">\({\bf v}=\frac{1}{n}X^\top{\bf y}\in\mathbb{R}^{p}\)</span>, la formulación (2.4.6) del problema Lasso es equivalente a <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\boldsymbol{\theta}^\top Q\boldsymbol{\theta}-\boldsymbol{\theta}^\top{\bf v}+\lambda\|\boldsymbol{\theta}\|_1.
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\boldsymbol{\theta}^\top Q\boldsymbol{\theta}-\boldsymbol{\theta}^\top{\bf v}+\lambda\|\boldsymbol{\theta}\|_1.
 \end{array}
-\tag{13}
+\tag{2.4.10}
 \]</span></p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -873,16 +809,16 @@ X_{\mathcal{E}}^\top X_{\mathcal{E}}\hat{\boldsymbol{\theta}}^{\text{lasso}}&amp
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br> Justifique la expresión (13).</p>
+<p><span style="font-size: 1.3em;">📝</span><br> Justifique la expresión (2.4.10).</p>
 </div>
 </div>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>La función objetivo en (13) puede escribirse como <span class="math display">\[
+<p>La función objetivo en (2.4.10) puede escribirse como <span class="math display">\[
 f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta_j-\sum_{i=1}^p v_i\theta_i+\lambda\sum_{i=1}^p|\theta_i|.
-\tag{14}
+\tag{2.4.11}
 \]</span></p>
 <p>Nos planteamos lo siguiente:</p>
 <div class="myhighlight3">
@@ -893,7 +829,7 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 </div>
 <p>Sea <span class="math inline">\(k\in\{1,\ldots,p\}\)</span>. Al dejar fijas todas las variables de optimización excepto <span class="math inline">\(\theta_k\)</span>, estamos formulando un problema de optimización univariada, cuya función objetivo es <span class="math display">\[
 \tilde{f}(\theta_k)=\frac{1}{2}Q_{kk}\theta_k^2+\theta_k\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i-v_k\theta_k+\lambda|\theta_k|+\text{constante}.
-\tag{15}
+\tag{2.4.12}
 \]</span></p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -901,7 +837,7 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br> Justifique la expresión (15), partiendo de (14) y marcando como constante los términos que no dependen de <span class="math inline">\(k\)</span>.</p>
+<p><span style="font-size: 1.3em;">📝</span><br> Justifique la expresión (2.4.12), partiendo de (2.4.11) y marcando como constante los términos que no dependen de <span class="math inline">\(k\)</span>.</p>
 </div>
 </div>
 </div>
@@ -916,18 +852,18 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 </div>
 <p>Finalmente, el problema de optimización univariada resultante es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\theta_k^2-s\theta_k+\tau|\theta_k|,
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\theta_k^2-s\theta_k+\tau|\theta_k|,
 \end{array}
-\tag{16}
+\tag{2.4.13}
 \]</span> con <span class="math display">\[
 s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \tau=\frac{\lambda}{Q_{kk}}.
 \]</span></p>
-<p>Claramente, la solución del problema de optimización (16) depende de <span class="math inline">\(s\)</span> y <span class="math inline">\(\tau\)</span>. Su análisis conduce a la denominada <mark>función de <em>soft-thresholding</em></mark>, que estudiaremos a continuación.</p>
-<section id="función-de-soft-thresholding" class="level4">
-<h4 class="anchored" data-anchor-id="función-de-soft-thresholding">Función de <em>soft-thresholding</em></h4>
-<p>Vamos a denotar <span class="math inline">\(\theta\)</span> la variable de optimización del problema (16). Podemos reformular dicho problema y obtener el siguiente: <span class="math display">\[
+<p>El estudio de (2.4.13) conduce a la denominada <mark>función de <em>soft-thresholding</em></mark>, que presentamos a continuación.</p>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success text-light">Función de <em>soft-thresholding</em></span></p>
+<p>Un problema equivalente a (2.4.13) es el siguiente: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}(\theta-s)^2+\tau|\theta|.
+\text{minimizar } &amp; \displaystyle\frac{1}{2}(\theta-s)^2+\tau|\theta|.
 \end{array}
 \]</span></p>
 <p>Aquí, <span class="math inline">\(s\in\mathbb{R}\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. La función objetivo <span class="math inline">\(f\)</span> es convexa pero no diferenciable. Su subdiferencial es <span class="math display">\[
@@ -938,32 +874,7 @@ s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \t
   \end{array}
   \right.
 \]</span></p>
-<p>Sabemos que <span class="math inline">\(\theta^\star\)</span> es punto óptimo si y solo si <span class="math inline">\(0\in\partial f(\theta^\star)\)</span>. Por lo tanto, analicemos cuando esta última condición es cierta:</p>
-<hr>
-<ul>
-<li><p><em>Caso <span class="math inline">\(\theta^\star&gt;0\)</span></em>: se tiene <span class="math inline">\(\text{sign}\,\theta^\star=1\)</span>, entonces la condición resulta en <span class="math display">\[
-\begin{align}
-\theta^\star-s+\tau &amp;= 0 \\
-\theta^\star &amp;=s-\tau.
-\end{align}
-\]</span> Esto es válido siempre que <span class="math inline">\(s-\tau&gt;0\)</span>.</p></li>
-<li><p><em>Caso <span class="math inline">\(\theta^\star&lt;0\)</span></em>: aquí <span class="math inline">\(\text{sign}\,\theta^\star=-1\)</span>, tal que <span class="math display">\[
-\begin{align}
-\theta^\star-s-\tau &amp; = 0 \\
-\theta^\star &amp;= s+\tau.
-\end{align}
-\]</span></p>
-<p>Esto es válido siempre que <span class="math inline">\(s+\tau &lt;0\)</span>.</p></li>
-<li><p><em>Caso <span class="math inline">\(\theta^\star=0\)</span></em>: esto ocurre si y solo si <span class="math display">\[
-\begin{align}
--s-\tau&lt;&amp;0&lt;-s+\tau \\
--\tau &lt;&amp;s&lt;\tau \\
-&amp;|s|&lt;\tau.
-\end{align}
-\]</span></p></li>
-</ul>
-<hr>
-<p>Los tres casos anteriores se resumen en: <span class="math display">\[
+<p>Sabemos que <span class="math inline">\(\theta^\star\)</span> es punto óptimo si y solo si <span class="math inline">\(0\in\partial f(\theta^\star)\)</span>. Del análisis de esta condición resulta <span class="math display">\[
 \theta^\star=\left\{\begin{array}{cl}
 s-\tau &amp; \mbox{si }s&gt;\tau,\\
 0 &amp; \mbox{si }|s|\leq\tau,\\
@@ -971,14 +882,48 @@ s+\tau &amp; \mbox{si }s&lt;-\tau.
 \end{array}
 \right.
 \]</span></p>
+<details>
+<summary>
+Mostrar detalles
+</summary>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star&gt;0\)</span></em></span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star&lt;0\)</span></em></span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star=0\)</span></em></span></a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Se tiene <span class="math inline">\(\text{sign}\,\theta^\star=1\)</span>. Entonces la condición resulta en <span class="math display">\[
+\begin{align}
+\theta^\star-s+\tau &amp;= 0 \\
+\theta^\star &amp;=s-\tau.
+\end{align}
+\]</span></p>
+<p>Esto es válido siempre que <span class="math inline">\(s-\tau&gt;0\)</span>.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Aquí <span class="math inline">\(\text{sign}\,\theta^\star=-1\)</span>, tal que <span class="math display">\[
+\begin{align}
+\theta^\star-s-\tau &amp; = 0 \\
+\theta^\star &amp;= s+\tau.
+\end{align}
+\]</span></p>
+<p>Esto es válido siempre que <span class="math inline">\(s+\tau &lt;0\)</span>.</p>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Esto ocurre si y solo si <span class="math display">\[
+\begin{align}
+-s-\tau&lt;&amp;0&lt;-s+\tau \\
+-\tau &lt;&amp;s&lt;\tau \\
+&amp;|s|&lt;\tau.
+\end{align}
+\]</span></p>
+</div>
+</div>
+</div>
+</details>
 <p>Una expresión alternativa es <span class="math display">\[
 \theta^\star=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 \]</span></p>
-<div style="margin-top:2em;">
-
-</div>
 <div class="definicion">
-<p><strong>Definición 4.</strong> (Función <em>soft-thresholding</em>) Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\mathbb{R}\to\mathbb{R}\)</span> se define por <span class="math display">\[
+<p><strong>Definición 2.4.8.</strong> (Función <em>soft-thresholding</em>) Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\mathbb{R}\to\mathbb{R}\)</span> se define por <span class="math display">\[
 \text{soft}_{\tau}(s):=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 \]</span></p>
 </div>
@@ -992,41 +937,39 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="943" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 942;"><span id="cb3-943"><a href="#cb3-943" aria-hidden="true" tabindex="-1"></a>viewof tau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.5</span>]<span class="op">,</span> {</span>
-<span id="cb3-944"><a href="#cb3-944" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb3-945"><a href="#cb3-945" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"𝜏:"</span><span class="op">,</span></span>
-<span id="cb3-946"><a href="#cb3-946" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb3-947"><a href="#cb3-947" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="875" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 874;"><span id="cb3-875"><a href="#cb3-875" aria-hidden="true" tabindex="-1"></a>viewof tau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.5</span>]<span class="op">,</span> {</span>
+<span id="cb3-876"><a href="#cb3-876" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb3-877"><a href="#cb3-877" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"𝜏:"</span><span class="op">,</span></span>
+<span id="cb3-878"><a href="#cb3-878" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb3-879"><a href="#cb3-879" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div style="margin-top:2.5em;">
+</div>
+<div style="margin-top:2em;">
 
 </div>
-</section>
-<section id="descenso-por-coordenadas" class="level4">
-<h4 class="anchored" data-anchor-id="descenso-por-coordenadas">Descenso por coordenadas</h4>
-<p>Volvamos al problema de interés en (13). Recordemos que el propósito era analizar la solución del problema lasso cuando fijamos todos los parámetros excepto uno. De acuerdo a lo visto, para minimizar <span class="math inline">\(\theta_k\)</span> para algún <span class="math inline">\(k=1,\ldots,p\)</span>, manteniendo el resto fijo, resulta <span class="math display">\[
+<p>Volvamos al problema de interés (2.4.13). Recordemos que el propósito era analizar la solución del problema Lasso cuando fijamos todos los parámetros excepto uno. De acuerdo a lo visto, para minimizar <span class="math inline">\(\theta_k\)</span> para algún <span class="math inline">\(k=1,\ldots,p\)</span>, manteniendo el resto fijo, resulta <span class="math display">\[
 \theta_k^\star=\text{soft}_{\tau}\left(\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}}\right),\qquad \tau=\frac{\lambda}{Q_{kk}}.
 \]</span></p>
-<p>Esto conduce de manera natural a un algoritmo iterativo para resolver el problema lasso, conocido como <mark>descenso por coordenada</mark>, en el cual se actualiza un coeficiente a la vez, manteniendo fijos los demás.</p>
+<p>Ya estamos en condiciones de definir el algoritmo iterativo de descenso por coordenadas para resolver un problema Lasso.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="highlight">
-<p><span class="badge bg-dark">Método de descenso por coordenadas para LASSO</span></p>
+<p><span class="badge bg-custom">Algoritmo de descenso por coordenadas</span></p>
 <hr>
 <p>Dado un <em>párametro inicial</em> <span class="math inline">\(\boldsymbol{\theta}^{(0)}\in\mathbb{R}^p\)</span> (en general, <span class="math inline">\(\boldsymbol{\theta}^{(0)}=\mathbf{0}\)</span>) y un <em>hiperparámetro de penalización</em> <span class="math inline">\(\lambda&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
 <p><strong>repetir</strong> para <span class="math inline">\(t = 1,2,\dots\)</span>:</p>
 <blockquote class="blockquote">
-<p>Inicializar <span class="math inline">\(\boldsymbol{\theta}^{(t)}=\boldsymbol{\theta}^{(t-1)}\)</span>.</p>
-<p>Para <span class="math inline">\(k=1,\ldots,p\)</span>:</p>
-<p><span class="math inline">\(\qquad\)</span> <strong>1°</strong> Calcular <span class="math inline">\(s_k=\left(v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i^{(t)}\right)/Q_{kk}\)</span>.</p>
-<p><span class="math inline">\(\qquad\)</span> <strong>2°</strong> Actualizar <span class="math inline">\(\theta_k^{(t)}=\text{soft}_{\tau}(s_k)\)</span> con <span class="math inline">\(\tau=\lambda/Q_{kk}\)</span>.</p>
+<p><strong>1°</strong> Inicializar <span class="math inline">\(\boldsymbol{\theta}^{(t)}=\boldsymbol{\theta}^{(t-1)}\)</span>.</p>
+<p><strong>2°</strong> Para <span class="math inline">\(k=1,\ldots,p\)</span>:</p>
+<p><span class="math inline">\(\qquad\)</span> ● Calcular <span class="math inline">\(s_k=\left(v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i^{(t)}\right)/Q_{kk}\)</span>.</p>
+<p><span class="math inline">\(\qquad\)</span> ● Actualizar <span class="math inline">\(\theta_k^{(t)}=\text{soft}_{\tau}(s_k)\)</span> con <span class="math inline">\(\tau=\lambda/Q_{kk}\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -1035,89 +978,60 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div style="margin-top:2em;">
 
 </div>
-<p>Observar que en cada iteración <span class="math inline">\(t\)</span>, el vector <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> se va actualizando coordenada por coordenada, utilizando los valores más recientes dentro de la misma iteración. Otra alternativa es actualizar todas las coordenadas en bloque a partir del mismo vector <span class="math inline">\(\boldsymbol{\theta}^{(t-1)}\)</span>. Este último enfoque suele presentar una convergencia más lenta en este algoritmo.</p>
+<p>Observar que, en cada iteración <span class="math inline">\(t\)</span>, el vector <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> se va actualizando coordenada por coordenada, utilizando los valores más recientes dentro de la misma iteración. Otra alternativa es actualizar todas las coordenadas en bloque a partir del mismo vector <span class="math inline">\(\boldsymbol{\theta}^{(t-1)}\)</span>, aunque este último enfoque suele presentar una convergencia más lenta en este algoritmo.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión lasso en datos de diabetes </span></p>
-<p>Al igual que para el caso de Ridge, implementaremos lasso sobre el conjunto de datos de diabetes. De acuerdo a los coeficientes obtenidos en el Ejemplo 1 (ridge), podemos esperar que ahora algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="6c63c4ce" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, LassoCV</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetro lambda:</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrenamiento de Lasso:</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> []</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    lasso.fit(X, y)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    coefs.append(lasso.coef_)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> np.array(coefs)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE:</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>mse_means <span class="op">=</span> []</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span>a, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(lasso, X, y,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    mse_means.append(mse_scores.mean())</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Mejor lambda por CV:</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="op">=</span> LassoCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>lasso_cv.fit(X, y)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="op">=</span> lasso_cv.alpha_</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot:</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>plt.plot(np.log10(lambdas), coefs)</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.log10(best_lambda), color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs"> óptimo = </span><span class="sc">{</span>best_lambda<span class="sc">:.2f}</span><span class="vs">"</span>)</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">log_</span><span class="op">{10}</span><span class="kw">(</span><span class="er">\</span><span class="vs">lambda</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Coeficientes"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Trace plot (Lasso)"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">12</span>, loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE vs lambda:</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.scatter(np.log10(lambdas), mse_means, s<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.log10(best_lambda), color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="vs">fr"</span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs"> óptimo = </span><span class="sc">{</span>best_lambda<span class="sc">:.2f}</span><span class="vs">"</span>)</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">log_</span><span class="op">{10}</span><span class="kw">(</span><span class="er">\</span><span class="vs">lambda</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"MSE"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="vs">r"MSE vs </span><span class="dv">$</span><span class="er">\</span><span class="vs">lambda</span><span class="dv">$</span><span class="vs"> </span><span class="kw">(</span><span class="vs">Lasso</span><span class="kw">)</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">12</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 📋 (lambda óptimo):</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>lasso_best <span class="op">=</span> Lasso(alpha<span class="op">=</span>best_lambda, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>lasso_best.fit(X, y)</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Coeficientes de Lasso con lambda óptimo (MSE = </span><span class="sc">{</span>mse_best<span class="sc">:.2f}</span><span class="ss">):"</span>)</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, coef <span class="kw">in</span> <span class="bu">enumerate</span>(lasso_best.coef_):</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"θ_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>coef<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="badge bg-primary">Ejemplo 2.4.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
+<p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
+<div id="76074b3c" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, LassoCV</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># Datos:</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb4-11"><a href="#cb4-11"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co"># Parámetro lambda:</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co"># Entrenamiento de Lasso:</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>coefs <span class="op">=</span> []</span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    lasso.fit(X, y)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    coefs.append(lasso.coef_)</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>coefs <span class="op">=</span> np.array(coefs)</span>
+<span id="cb4-24"><a href="#cb4-24"></a></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co"># MSE:</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>mse_means <span class="op">=</span> []</span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span>a, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb4-29"><a href="#cb4-29"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(lasso, X, y,</span>
+<span id="cb4-30"><a href="#cb4-30"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb4-32"><a href="#cb4-32"></a>    mse_means.append(mse_scores.mean())</span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co"># Mejor lambda por CV:</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>Lasso_cv <span class="op">=</span> LassoCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb4-36"><a href="#cb4-36"></a>Lasso_cv.fit(X, y)</span>
+<span id="cb4-37"><a href="#cb4-37"></a>best_lambda <span class="op">=</span> Lasso_cv.alpha_</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="905ecaab" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="B4_ridge_lasso_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
+<p><img src="B4_ridge_lasso_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="757" height="564"></p>
 </figure>
 </div>
 </div>
@@ -1136,14 +1050,16 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 </div>
+<div style="margin-top:2.5em;">
+
+</div>
 </section>
 </section>
-</section>
-<section id="elastic-net-convergencia-y-comparaciones" class="level2">
-<h2 class="anchored" data-anchor-id="elastic-net-convergencia-y-comparaciones">Elastic Net, convergencia y comparaciones</h2>
-<p>Para finalizar esta sección, vamos a formular el método Elastic Net, realizar algunos ejemplos comparativos entre los métodos abordados y realizar algunas observaciones sobre resultados de convergencia.</p>
+<section id="iii-elastic-net-convergencia-y-comparaciones" class="level2">
+<h2 class="anchored" data-anchor-id="iii-elastic-net-convergencia-y-comparaciones">III <span style="color:#CCCCCC;">│</span> Elastic Net, convergencia y comparaciones</h2>
+<p>Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método <em>Elastic Net</em> combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunjs ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.</p>
 <div class="definicion">
-<p><strong>Definición 5.</strong> (Problema Elastic Net) El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
+<p><strong>Definición 2.4.9.</strong> (Problema Elastic Net) El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda_1\|\boldsymbol{\theta}\|_1+\lambda_2\|\boldsymbol{\theta}\|_2^2.
 \tag{17}
@@ -1156,12 +1072,12 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 <section id="resultados-de-convergencia" class="level3">
 <h3 class="anchored" data-anchor-id="resultados-de-convergencia">Resultados de convergencia</h3>
-<p>Asumiendo que <span class="math inline">\(\boldsymbol{\theta}^\star\)</span> es el vector de coeficientes verdadero que genera los datos, repasaremos cómo se comportan los estimadores penalizados ridge, lasso y elastic net.</p>
+<p>Asumiendo que <span class="math inline">\(\boldsymbol{\theta}^\star\)</span> es el vector de coeficientes verdadero que genera los datos, repasaremos cómo se comportan los estimadores penalizados Ridge, Lasso y elastic net.</p>
 <div style="margin-top:2em;">
 
 </div>
 <ul>
-<li><p><em>Problema ridge</em>: bajo las condiciones <span class="math inline">\(\frac{1}{n}X^\top X\to\Sigma\)</span> y <span class="math inline">\(\lambda=\lambda(n)\to 0\)</span>, el estimador ridge es consistente y sus predicciones tienden a las verdaderas.</p>
+<li><p><em>Problema Ridge</em>: bajo las condiciones <span class="math inline">\(\frac{1}{n}X^\top X\to\Sigma\)</span> y <span class="math inline">\(\lambda=\lambda(n)\to 0\)</span>, el estimador Ridge es consistente y sus predicciones tienden a las verdaderas.</p>
 <p><small>📖 Hoerl, A. E., &amp; Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67. </small></p>
 <p>Por otra parte, definiendo <span class="math display">\[
   S_{\lambda}:=X(X^\top X+n\lambda I)^{-1}X^\top,
@@ -1174,7 +1090,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 
 </div>
 <ul>
-<li><p><em>Problema lasso</em>: existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción <span class="math display">\[
+<li><p><em>Problema Lasso</em>: existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción <span class="math display">\[
 \frac{1}{n}\|X(\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}^\star)\|_2^2
 \]</span> y para <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_1\)</span> y <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_2\)</span>, bajo condiciones razonables conocidas como <em>compatibilidad</em> y <em>RE</em> (<em>restricted eigenvalue</em>) que controlan el comportamiento de los datos, evitando que haya confusiones entre variables relevantes e irrelevantes.</p>
 <p><small>📖 Bühlmann, P., &amp; van de Geer, S. (2011). <em>Statistics for high-dimensional data: Methods, theory and applications</em>. Springer. </small></p>
@@ -1185,7 +1101,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 
 </div>
 <ul>
-<li><p><em>Elastic Net</em>: puede reescribirse como un problema lasso sobre la matriz aumentada <span class="math display">\[
+<li><p><em>Elastic Net</em>: puede reescribirse como un problema Lasso sobre la matriz aumentada <span class="math display">\[
   \begin{pmatrix}
   X \\
   \sqrt{n\lambda_2} I_p
@@ -1201,8 +1117,8 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <section id="ejemplos-comparativos" class="level3">
 <h3 class="anchored" data-anchor-id="ejemplos-comparativos">Ejemplos comparativos</h3>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal densa y alta correlación </span></p>
-<p>Simulamos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\boldsymbol{\theta}^\star\in\mathbb{R}^p\)</span> dado por <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 2.4.10</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal densa y alta correlación </span></p>
+<p>Simularemos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\boldsymbol{\theta}^\star\in\mathbb{R}^p\)</span> dado por <span class="math display">\[
 \theta_j^\star=\frac{c}{\sqrt{p}}\qquad\forall j=1,\ldots,p,\qquad c\in\mathbb{R}^+.
 \]</span></p>
 <p>La matriz de datos <span class="math inline">\(X\)</span> tiene correlación alta (<span class="math inline">\(\rho=0.9\)</span>, por defecto) entre todas sus columnas.</p>
@@ -1216,29 +1132,29 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1254" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1253;"><span id="cb6-1254"><a href="#cb6-1254" aria-hidden="true" tabindex="-1"></a>viewof n1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb6-1255"><a href="#cb6-1255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb6-1256"><a href="#cb6-1256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb6-1257"><a href="#cb6-1257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
-<span id="cb6-1258"><a href="#cb6-1258" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1259"><a href="#cb6-1259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1260"><a href="#cb6-1260" aria-hidden="true" tabindex="-1"></a>viewof p1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
-<span id="cb6-1261"><a href="#cb6-1261" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb6-1262"><a href="#cb6-1262" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb6-1263"><a href="#cb6-1263" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
-<span id="cb6-1264"><a href="#cb6-1264" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1265"><a href="#cb6-1265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1266"><a href="#cb6-1266" aria-hidden="true" tabindex="-1"></a>viewof rho1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb6-1267"><a href="#cb6-1267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb6-1268"><a href="#cb6-1268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb6-1269"><a href="#cb6-1269" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.9</span></span>
-<span id="cb6-1270"><a href="#cb6-1270" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1271"><a href="#cb6-1271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1272"><a href="#cb6-1272" aria-hidden="true" tabindex="-1"></a>viewof c1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb6-1273"><a href="#cb6-1273" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb6-1274"><a href="#cb6-1274" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb6-1275"><a href="#cb6-1275" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
-<span id="cb6-1276"><a href="#cb6-1276" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1191" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1190;"><span id="cb6-1191"><a href="#cb6-1191" aria-hidden="true" tabindex="-1"></a>viewof n1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb6-1192"><a href="#cb6-1192" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb6-1193"><a href="#cb6-1193" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb6-1194"><a href="#cb6-1194" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
+<span id="cb6-1195"><a href="#cb6-1195" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1196"><a href="#cb6-1196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1197"><a href="#cb6-1197" aria-hidden="true" tabindex="-1"></a>viewof p1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb6-1198"><a href="#cb6-1198" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb6-1199"><a href="#cb6-1199" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb6-1200"><a href="#cb6-1200" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb6-1201"><a href="#cb6-1201" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1202"><a href="#cb6-1202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1203"><a href="#cb6-1203" aria-hidden="true" tabindex="-1"></a>viewof rho1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb6-1204"><a href="#cb6-1204" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb6-1205"><a href="#cb6-1205" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
+<span id="cb6-1206"><a href="#cb6-1206" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.9</span></span>
+<span id="cb6-1207"><a href="#cb6-1207" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1208"><a href="#cb6-1208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1209"><a href="#cb6-1209" aria-hidden="true" tabindex="-1"></a>viewof c1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb6-1210"><a href="#cb6-1210" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb6-1211"><a href="#cb6-1211" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb6-1212"><a href="#cb6-1212" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
+<span id="cb6-1213"><a href="#cb6-1213" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -1270,8 +1186,8 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal esparsa y casi ortogonal </span></p>
-<p>Simulamos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\mathbb{R}^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal, es decir, <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 2.4.11</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal esparsa y casi ortogonal </span></p>
+<p>Simularemos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\mathbb{R}^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal, es decir, <span class="math display">\[
 X^\top X\approx n I_p.
 \]</span></p>
 <p>Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net queda intermedio, comportándose de manera similar a Lasso si el término de penalización <span class="math inline">\(\lambda_2\)</span> resulta pequeño.</p>
@@ -1284,29 +1200,29 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1363" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1362;"><span id="cb7-1363"><a href="#cb7-1363" aria-hidden="true" tabindex="-1"></a>viewof n2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb7-1364"><a href="#cb7-1364" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb7-1365"><a href="#cb7-1365" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb7-1366"><a href="#cb7-1366" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
-<span id="cb7-1367"><a href="#cb7-1367" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1368"><a href="#cb7-1368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1369"><a href="#cb7-1369" aria-hidden="true" tabindex="-1"></a>viewof p2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
-<span id="cb7-1370"><a href="#cb7-1370" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb7-1371"><a href="#cb7-1371" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb7-1372"><a href="#cb7-1372" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
-<span id="cb7-1373"><a href="#cb7-1373" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1374"><a href="#cb7-1374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1375"><a href="#cb7-1375" aria-hidden="true" tabindex="-1"></a>viewof s <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {</span>
-<span id="cb7-1376"><a href="#cb7-1376" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb7-1377"><a href="#cb7-1377" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb7-1378"><a href="#cb7-1378" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">5</span></span>
-<span id="cb7-1379"><a href="#cb7-1379" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1380"><a href="#cb7-1380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1381"><a href="#cb7-1381" aria-hidden="true" tabindex="-1"></a>viewof c2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb7-1382"><a href="#cb7-1382" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb7-1383"><a href="#cb7-1383" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb7-1384"><a href="#cb7-1384" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span></span>
-<span id="cb7-1385"><a href="#cb7-1385" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1300" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1299;"><span id="cb7-1300"><a href="#cb7-1300" aria-hidden="true" tabindex="-1"></a>viewof n2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb7-1301"><a href="#cb7-1301" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb7-1302"><a href="#cb7-1302" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb7-1303"><a href="#cb7-1303" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
+<span id="cb7-1304"><a href="#cb7-1304" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1305"><a href="#cb7-1305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1306"><a href="#cb7-1306" aria-hidden="true" tabindex="-1"></a>viewof p2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb7-1307"><a href="#cb7-1307" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb7-1308"><a href="#cb7-1308" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb7-1309"><a href="#cb7-1309" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb7-1310"><a href="#cb7-1310" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1311"><a href="#cb7-1311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1312"><a href="#cb7-1312" aria-hidden="true" tabindex="-1"></a>viewof s <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {</span>
+<span id="cb7-1313"><a href="#cb7-1313" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb7-1314"><a href="#cb7-1314" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
+<span id="cb7-1315"><a href="#cb7-1315" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb7-1316"><a href="#cb7-1316" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1317"><a href="#cb7-1317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1318"><a href="#cb7-1318" aria-hidden="true" tabindex="-1"></a>viewof c2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb7-1319"><a href="#cb7-1319" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb7-1320"><a href="#cb7-1320" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb7-1321"><a href="#cb7-1321" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span></span>
+<span id="cb7-1322"><a href="#cb7-1322" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -1338,8 +1254,8 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Esparsidad por grupos </span></p>
-<p>Simulamos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación (<span class="math inline">\(\rho=0.9\)</span>, por defecto) y todos los coeficientes son no nulos.</p>
+<p><span class="badge bg-primary">Ejemplo 2.4.12</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Esparsidad por grupos </span></p>
+<p>Simularemos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación (<span class="math inline">\(\rho=0.9\)</span>, por defecto) y todos los coeficientes son no nulos.</p>
 <p>Se espera un mejor rendimiento de Elastic Net en comparación con Lasso y Ridge, ya que Elastic Net selecciona grupos completos de variables altamente correlacionadas, mientras que Lasso tiende a elegir solo un representante por grupo y Ridge no realiza selección de variables.</p>
 <div>
 <div id="pyodide-4" class="exercise-cell">
@@ -1350,41 +1266,41 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1478" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1477;"><span id="cb8-1478"><a href="#cb8-1478" aria-hidden="true" tabindex="-1"></a>viewof n3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb8-1479"><a href="#cb8-1479" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb8-1480"><a href="#cb8-1480" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb8-1481"><a href="#cb8-1481" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">300</span></span>
-<span id="cb8-1482"><a href="#cb8-1482" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1483"><a href="#cb8-1483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1484"><a href="#cb8-1484" aria-hidden="true" tabindex="-1"></a>viewof p3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">200</span>]<span class="op">,</span> {</span>
-<span id="cb8-1485"><a href="#cb8-1485" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb8-1486"><a href="#cb8-1486" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb8-1487"><a href="#cb8-1487" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">100</span></span>
-<span id="cb8-1488"><a href="#cb8-1488" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1489"><a href="#cb8-1489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1490"><a href="#cb8-1490" aria-hidden="true" tabindex="-1"></a>viewof n_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb8-1491"><a href="#cb8-1491" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb8-1492"><a href="#cb8-1492" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos:"</span><span class="op">,</span></span>
-<span id="cb8-1493"><a href="#cb8-1493" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">8</span></span>
-<span id="cb8-1494"><a href="#cb8-1494" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1495"><a href="#cb8-1495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1496"><a href="#cb8-1496" aria-hidden="true" tabindex="-1"></a>viewof a_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb8-1497"><a href="#cb8-1497" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb8-1498"><a href="#cb8-1498" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos activos:"</span><span class="op">,</span></span>
-<span id="cb8-1499"><a href="#cb8-1499" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span></span>
-<span id="cb8-1500"><a href="#cb8-1500" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1501"><a href="#cb8-1501" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1502"><a href="#cb8-1502" aria-hidden="true" tabindex="-1"></a>viewof rho3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb8-1503"><a href="#cb8-1503" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb8-1504"><a href="#cb8-1504" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb8-1505"><a href="#cb8-1505" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.90</span></span>
-<span id="cb8-1506"><a href="#cb8-1506" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1507"><a href="#cb8-1507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1508"><a href="#cb8-1508" aria-hidden="true" tabindex="-1"></a>viewof c3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb8-1509"><a href="#cb8-1509" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb8-1510"><a href="#cb8-1510" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb8-1511"><a href="#cb8-1511" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
-<span id="cb8-1512"><a href="#cb8-1512" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1415" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1414;"><span id="cb8-1415"><a href="#cb8-1415" aria-hidden="true" tabindex="-1"></a>viewof n3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb8-1416"><a href="#cb8-1416" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb8-1417"><a href="#cb8-1417" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb8-1418"><a href="#cb8-1418" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">300</span></span>
+<span id="cb8-1419"><a href="#cb8-1419" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1420"><a href="#cb8-1420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1421"><a href="#cb8-1421" aria-hidden="true" tabindex="-1"></a>viewof p3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">200</span>]<span class="op">,</span> {</span>
+<span id="cb8-1422"><a href="#cb8-1422" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb8-1423"><a href="#cb8-1423" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb8-1424"><a href="#cb8-1424" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">100</span></span>
+<span id="cb8-1425"><a href="#cb8-1425" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1426"><a href="#cb8-1426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1427"><a href="#cb8-1427" aria-hidden="true" tabindex="-1"></a>viewof n_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb8-1428"><a href="#cb8-1428" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-1429"><a href="#cb8-1429" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos:"</span><span class="op">,</span></span>
+<span id="cb8-1430"><a href="#cb8-1430" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">8</span></span>
+<span id="cb8-1431"><a href="#cb8-1431" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1432"><a href="#cb8-1432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1433"><a href="#cb8-1433" aria-hidden="true" tabindex="-1"></a>viewof a_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb8-1434"><a href="#cb8-1434" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-1435"><a href="#cb8-1435" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos activos:"</span><span class="op">,</span></span>
+<span id="cb8-1436"><a href="#cb8-1436" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span></span>
+<span id="cb8-1437"><a href="#cb8-1437" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1438"><a href="#cb8-1438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1439"><a href="#cb8-1439" aria-hidden="true" tabindex="-1"></a>viewof rho3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb8-1440"><a href="#cb8-1440" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb8-1441"><a href="#cb8-1441" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
+<span id="cb8-1442"><a href="#cb8-1442" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.90</span></span>
+<span id="cb8-1443"><a href="#cb8-1443" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1444"><a href="#cb8-1444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1445"><a href="#cb8-1445" aria-hidden="true" tabindex="-1"></a>viewof c3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb8-1446"><a href="#cb8-1446" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb8-1447"><a href="#cb8-1447" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb8-1448"><a href="#cb8-1448" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
+<span id="cb8-1449"><a href="#cb8-1449" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -1429,35 +1345,37 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 </div>
+<div style="margin-top:2.5em;">
+
+</div>
 </section>
 </section>
-<section id="glm-penalizados" class="level2">
-<h2 class="anchored" data-anchor-id="glm-penalizados">GLM penalizados</h2>
-<p>En la sección anterior (<a href="https://isaiasibanez.github.io/OML2/CAPITULO_2/B2_glm.html#optimalidad">C2-S1</a>) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). El problema de optimización asociado puede ser definido como <span class="math display">\[
+<section id="iv-sobre-glm-penalizados" class="level2">
+<h2 class="anchored" data-anchor-id="iv-sobre-glm-penalizados">IV <span style="color:#CCCCCC;">│</span> Sobre GLM penalizados</h2>
+<p>En la sección anterior (<a href="https://isaiasibanez.github.io/OML2/CAPITULO_2/B3_glm.html#optimalidad">C2-S3</a>) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). En la expresión (2.3.4) habíamos definido el problema de optimización asociado, que puede ser escrito también como <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{n}\sum_{i=1}^n\left[A(\boldsymbol{\theta}^\top{\bf x}_i)-\boldsymbol{\theta}^\top{\bf x}_i\, T(y_i)\right].
+\text{minimizar } &amp; \displaystyle\frac{1}{n}\sum_{i=1}^n\left[A(\boldsymbol{\theta}^\top{\bf x}_i)-\boldsymbol{\theta}^\top{\bf x}_i\, T(y_i)\right].
 \end{array}
 \]</span></p>
-<p>La expresión anterior se deriva del uso de la familia exponencial con parámetro natural <span class="math inline">\(\eta_i=\boldsymbol{\theta}^\top{\bf x}_i\)</span> y estadístico suficiente <span class="math inline">\(T:\mathbb{R}\to\mathbb{R}\)</span> (en general, <span class="math inline">\(T(y)=y\)</span>). Asimismo, el vector gradiente de la función objetivo es <span class="math display">\[
+<p>El vector gradiente de la función objetivo es <span class="math display">\[
 \nabla J(\boldsymbol{\theta})=\frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y})),
 \]</span> donde <span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^n\)</span> está determinado por <span class="math inline">\(\mu_i:=A'(\boldsymbol{\theta}^\top{\bf x}_i)=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i\right]\)</span>.</p>
-<p>Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Dichas condiciones se reducen para las formulaciones sin restricciones en la condición de estacionariedad. Por ejemplo, para Elastic Net resulta <span class="math display">\[
+<p>Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Como sabemos, para el caso de problemas de optimización sin restricciones, dichas condiciones se reducen a la condición de estacionariedad. Por ejemplo, para Elastic Net resulta <span class="math display">\[
 \frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y}))+\lambda_1\partial\|\boldsymbol{\theta}\|_1+2\lambda_2\boldsymbol{\theta}=\mathbf{0}.
 \]</span></p>
 <p>Los estimadores penalizados Ridge, Lasso y Elastic Net se comportan de manera análoga a los casos lineales: Ridge reduce varianza en señales densas y correlacionadas, Lasso permite recuperación de soporte bajo ciertas condiciones de curvatura, y Elastic Net combina la selección de Lasso con mayor estabilidad frente a colinealidad. Las tasas no-asintóticas y garantías de consistencia se expresan de forma similar, adaptando al contexto de la familia exponencial.</p>
 <p>Respecto a los algoritmos iterativos que se utilizan para aproximar <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>, los más comunes son:</p>
 <ul>
-<li><p><em>Descenso por coordenadas cíclico</em>: para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando <em>soft-thresholding</em>. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado en <a href="https://scikit-learn.org/stable/modules/linear_model.html"><code>sklearn.linear_model</code></a>.</p></li>
-<li><p><em>IRLS-Prox</em>: en cada iteración se resuelve un WLS penalizado, donde las ponderaciones dependen de <span class="math inline">\(A''(\eta_k)\)</span> y la pseudo-respuesta es <span class="math inline">\(z^{(k)}=\eta^{(k)}+{W^{(k)}}^{-1}(y-\mu^{(k)})\)</span>. Este enfoque adapta los algoritmos clásicos de IRLS a penalizaciones Lasso o Elastic Net.</p></li>
+<li><p><em>IRLS</em>: para GLKM con penalización Ridge, el algoritmo IRLS se mantiene esencialmente sin modificaciones respecto al caso no penalizado. En cada iteración se resuelve un problema de mínimos cuadrados ponderados (WLS), incorporando la penalización <span class="math inline">\(\ell_2\)</span> al cálculo.</p></li>
+<li><p><em>Descenso por coordenadas cíclico</em>: para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando el operador de <em>soft-thresholding</em>. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado, por ejemplo, en <a href="https://scikit-learn.org/stable/modules/linear_model.html"><code>sklearn.linear_model</code></a>.</p></li>
 </ul>
-<p>Ambos enfoques garantizan convergencia global gracias a la convexidad de la función objetivo y permiten aplicar Lasso o Elastic Net en GLM de manera eficiente.</p>
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em> (2nd ed.). Capítulo 3, Sección 4. Springer.</p>
 <p>Rockafellar, R. T. (1970). Convex analysis (Princeton Mathematical Series, Vol. 28). Princeton University Press.</p>
 <p>Rothman, A. J. (2024). Apuntes del curso STAT 5701 <em>Lasso-penalized Least Squares</em>. University of Minnesota.</p>
-<p>Tibshirani, R.J. (2013). <em>The Lasso problem and uniqueness</em>. Electron. J. Statist. 7 1456-1490. 🔗 <a href="https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-lasso-problem-and-uniqueness/10.1214/13-EJS815.full">ir al sitio web</a>.</p>
+<p>Tibshirani, R. (2013). <em>The lasso problem and uniqueness</em>. Electron. J. Statist. 7 1456-1490. 🔗 <a href="https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-Lasso-problem-and-uniqueness/10.1214/13-EJS815.full">ir al sitio web</a>.</p>
 </div>
 
 

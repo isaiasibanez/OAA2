@@ -537,7 +537,7 @@ Un par de características importantes son:
 ::: {.teorema}
 **Teorema 1.** Sea $f:\RR^p \to \RR$ una función convexa. Entonces $\xx^\star\in\text{dom}\,f$ es un minimizador de $f$ si y solo si
 $$
-0 \in \partial f(x^\star).
+\bfzero \in \partial f(\xx^\star).
 $$
 
 :::
@@ -555,7 +555,7 @@ Subdiferencial de la norma 1
 
 La norma 1 es la función $\|\cdot\|_1:\RR^p\to\RR$ definida por
 $$
-\nabla\|\xx\|_1:=\sum_{i=1}^p|x_i|.
+\|\xx\|_1:=\sum_{i=1}^p|x_i|.
 $$
 
 Esta función es diferenciable en todos los puntos $\xx$ tales que $x_i\neq 0$ para todo $i=1,\ldots,p$. En tales puntos su subdiferencial está determinado por el vector gradiente, el cual es
@@ -642,7 +642,7 @@ Si $\hat{\theta}_i^{\text{lasso}}\neq 0$, entonces $|X_i^\top(\yy-X\hat{\bftheta
 
 <div style="margin-top:2em;"></div>
 
-Observar que las variables que son incluidas en el modelo tienen correlación absoluta máxima con el residuo, igual a $\lambda$. Esto muestra que el valor de $\lambda$ determina la exigencia del modelo para incluir una variable: valores grandes de $\lambda$ indican que únicamente variables con correlación fuerte con el residuo son consideradas para el modelo, mientras que valores pequeños de $\lambda$ conducen a más variables incluidas.
+Observar que las variables que son incluidas en el modelo tienen correlación absoluta máxima con el residuo, igual a $n\lambda$. Esto muestra que el valor de $\lambda$ determina la exigencia del modelo para incluir una variable: valores grandes de $\lambda$ indican que únicamente variables con correlación fuerte con el residuo son consideradas para el modelo, mientras que valores pequeños de $\lambda$ conducen a más variables incluidas.
 
 La condición que verifican todas las variables incluidas en el modelo motiva la siguiente definición.
 
@@ -724,7 +724,7 @@ $$
 \tag{11}
 $$
 
-Esto significa que $\lambda \mathbf{s}$ es una combinación lineal de las filas de $X_{\mathcal{E}}$. Por lo tanto, la proyección de $\lambda\mathbf{s}$ sobre $\text{row}\,X_{\mathcal{E}}$ es el mismo $\lambda\mathbf{s}$. Esto es:
+Esto significa que $\lambda \mathbf{s}$ es una combinación lineal de las filas de $X_{\mathcal{E}}$. Por lo tanto, la proyección de $\lambda\mathbf{s}$ sobre el espacio fila de $X_{\mathcal{E}}$ es el mismo $\lambda\mathbf{s}$.. Esto es:
 $$
 X_{\mathcal{E}}^\top(X_{\mathcal{E}}^\top)^{+}\lambda\mathbf{s}=\lambda\mathbf{s}.
 \tag{12}
@@ -1536,7 +1536,7 @@ viewof c3 = Inputs.range([0.5, 10], {
 
 ## GLM penalizados
 
-En la sección anterior ([C2-S1](https://isaiasibanez.github.io/OML2/CAPITULO_2/B2_glm.html#optimalidad)) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). El problema de optimización asociado puede ser definido como 
+En la sección anterior ([C2-S2](https://isaiasibanez.github.io/OML2/CAPITULO_2/B2_glm.html#optimalidad)) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). El problema de optimización asociado puede ser definido como 
 $$
 \begin{array}{ll}
 \text{minimizar } & \frac{1}{n}\sum_{i=1}^n\left[A(\bftheta^\top\xx_i)-\bftheta^\top\xx_i\, T(y_i)\right].

@@ -36,11 +36,11 @@ En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisa
 
 Durante este capítulo, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y|\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
 
-Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\mathbf{1} & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
+Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\bfone & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
 
 Además:
 
-- $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$.
+- $\prob(A)$ la probabilidad de que ocurra un suceso $A$.
 - Para una variable aleatoria $Z\in\RR$, se denota $\media\left[Z\right]$ su valor esperado y $\var\left[Z\right]$ su varianza. 
 - La covarianza entre dos variables $Z_1$ y $Z_2$ se denota $\cov\left[Z_1,Z_2\right]$. Por supuesto, se cumple $\var\left[Z\right]=\cov\left[Z,Z\right]$.
 
@@ -382,7 +382,7 @@ Ahora sí estamos en condiciones de revisar algunos resultados conocidos para el
     $$
         se verifica
     $$
-    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\mathcal{N}(0,\sigma^2\Sigma_X^{-1}).
+    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\calN(0,\sigma^2\Sigma_X^{-1}).
     $$
 
 <div style="margin-top:2em;"></div>
@@ -419,7 +419,7 @@ $$
 
 ```{python}
 #| echo: false
-#| fig-align: center
+#| fig-align: "center"
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -478,7 +478,7 @@ $$
 $$
 \begin{array}{c}
 Y\in\{0,1\} \\[2pt]
-\mathbb{P}(y=1\mid\xx;\bftheta)=h_{\bftheta}(\xx)
+\prob{P}(y=1\mid\xx;\bftheta)=h_{\bftheta}(\xx)
 \end{array}
 $$
 
@@ -806,15 +806,15 @@ Para el caso de regresión logística, algunos resultados importantes son:
     $$
     \begin{array}{cl}
     \{(\xx_i,y_i)\}_{i=1}^n \text{ i.i.d.} & (\text{Independencia e idéntica distribución}) \\[1ex]
-    0<\mathbb{P}(Y_i=1\mid \xx_i)<1 & \text{(No separabilidad)}\\[1ex]
-    \mathbb{E}[\|\xx_i\|^2]<\infty & \text{(Momentos finitos)}\\[1ex]
-    \mathcal{I}(\bftheta^\star) = \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
+    0<\prob(Y_i=1\mid \xx_i)<1 & \text{(No separabilidad)}\\[1ex]
+    \media\left[\|\xx_i\|^2\right]<\infty & \text{(Momentos finitos)}\\[1ex]
+    \mathcal{I}(\bftheta^\star) := \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
     \end{array}
     $$
 
     se verifica
     $$
-    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\mathcal{N}(0,\mathcal{I}(\bftheta^\star)^{-1}).
+    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\calN(0,\mathcal{I}(\bftheta^\star)^{-1}).
     $$
 
 <div style="margin-top:2em;"></div>

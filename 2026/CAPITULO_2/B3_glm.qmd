@@ -26,7 +26,7 @@ subtitle: "Capítulo 2 - Sección 3"
 
 Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para $Y|\XX$ que depende de un vector de parámetros $\bftheta\in\RR^p$.
 
-- En regresión lineal, suponemos $Y|\XX=\xx\sim\mathcal{N}(\bftheta^\top\xx,\sigma^2)$.
+- En regresión lineal, suponemos $Y|\XX=\xx\sim\calN(\bftheta^\top\xx,\sigma^2)$.
 
 - En regresión logística, suponemos $Y|\XX=\xx\sim\text{Binom}(1,h_{\bftheta}(\xx))$, con $h_{\bftheta}(\xx)=\sigma(\bftheta^\top\xx)$ y $\sigma:\RR\to\RR$ la función logística.
 
@@ -41,9 +41,9 @@ En esta sección estudiaremos una familia más amplia de modelos, los <mark>*Mod
 
 ✏️ **Notación**
 
-Para el caso de un vector aleatorio $\mathbf{Z}\in\RR^q$ con distribución de probabilidad $\prob_{\bfZ}$, se definen el *vector de medias* $\media\left[\bfZ\right]\in\RR^q$ y la *matriz de covarianza* $\cov\left[\bfZ\right]\in\RR^{q\times q}$ como sigue:
+Para el caso de un vector aleatorio $\bfZ\in\RR^q$ con distribución de probabilidad $\prob_{\bfZ}$, se definen el *vector de medias* $\media\left[\bfZ\right]\in\RR^q$ y la *matriz de covarianza* $\cov\left[\bfZ\right]\in\RR^{q\times q}$ como sigue:
 $$
-\media\left[\bfZ\right]:=\int \mathbf{z}\,d\prob_{\bfZ}(\zz),
+\media\left[\bfZ\right]:=\int \zz\,d\prob_{\bfZ}(\zz),
 $$
 $$
 \cov\left[\bfZ\right]:=\media\left[(\bfZ-\media\left[\bfZ\right])(\bfZ-\media\left[\bfZ\right])^\top\right].
@@ -127,7 +127,7 @@ $$
 Distribución Normal univariada
 </span>
 
-Sea $Y\in\RR$ tal que $Y\sim\mathcal{N}(\mu,\sigma^2)$. Entonces
+Sea $Y\in\RR$ tal que $Y\sim\calN(\mu,\sigma^2)$. Entonces
 
 $$
 \begin{align*}
@@ -195,7 +195,7 @@ $$
 
 donde hemos asumido que la derivación bajo el signo integral es válida para $\bfeta$ en un conjunto abierto. De (2.3.2) resulta
 $$
-\nabla A(\bfeta)=\int T(y)\, p(y\mid\bfeta)\,dy=\mathbb{E}\left[T(Y)\right].
+\nabla A(\bfeta)=\int T(y)\, p(y\mid\bfeta)\,dy=\media\left[T(Y)\right].
 $$
 
 Ahora bien, aplicando regla del cociente, resulta
@@ -544,7 +544,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 >  
 > **2°** Construir la matriz diagonal de pesos $W\in\RR^{n\times n}$ tal que $w_{i} = \cov\left[T(Y)\mid X=\xx_i\right]$.  
 >
-> **3°** Definir la pseudo-respuesta: $\zz = \tilde{\bfeta} + W^{-1}(T(\mathbf{y}) - \bfmu)$.
+> **3°** Definir la pseudo-respuesta: $\zz = \tilde{\bfeta} + W^{-1}(T(\yy) - \bfmu)$.
 >
 > **4°** Actualizar $\bftheta_{t+1}:=(X^\top W X)^{-1}X^\top W\zz$.
 
@@ -764,7 +764,7 @@ En este ejemplo utilizamos la implementación `LogisticRegression` de `scikit-le
 ```{python}
 #| code-summary: "Mostrar código"
 #| code-fold: false
-#| #| code-line-numbers: true
+#| code-line-numbers: true
 #| fig-align: "center"
 
 import numpy as np
