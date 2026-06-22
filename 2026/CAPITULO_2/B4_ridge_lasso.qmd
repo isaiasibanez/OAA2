@@ -514,7 +514,7 @@ Un par de características importantes son:
 - La condición de optimalidad para problemas de optimización *sin restricciones* está dada por el siguiente resultado. La prueba es sencilla y queda como ejercicio.
 
 ::: {.teorema}
-**Teorema 2.4.5.** (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subgradientes) Sea $f:\RR^p \to \RR$ una función convexa. Entonces $\xx^\star\in\text{dom}\,f$ es un minimizador de $f$ si y solo si
+**Teorema 2.4.5.** (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subdiferenciales) Sea $f:\RR^p \to \RR$ una función convexa. Entonces $\xx^\star\in\text{dom}\,f$ es un minimizador de $f$ si y solo si
 $$
 \bfzero \in \partial f(\xx^\star).
 $$
@@ -541,7 +541,7 @@ $$
 \nabla \|\xx\|_1=(\text{sign}(x_1),\ldots,\text{sign}(x_p))\qquad \forall\xx\neq\bfzero.
 $$
 
-Sin embargo, si la $i$-ésima coordenada es 0, el subgradiente tomará en esa componente el valor $[-1,1]$. Por lo tanto, $\partial \|\xx\|_1$ está formado por todos los vectores $\bfgamma$ que verifican
+Sin embargo, si la $i$-ésima coordenada es 0, el subdiferencial tomará en esa componente el valor $[-1,1]$. Por lo tanto, $\partial \|\xx\|_1$ está formado por todos los vectores $\bfgamma$ que verifican
 $$
 \gamma_i=\begin{cases}
 {\text{sign}(x_i)} & \mbox{si }x_i\neq 0,\\

@@ -29,6 +29,8 @@ website:
             text: "2.3 Modelos lineales generalizados"
           - href: CAPITULO_2/B4_ridge_lasso.qmd
             text: "2.4 Métodos de regularización"
+          - href: CAPITULO_2\B5_svm.qmd
+            text: "2.5 Máquinas de vectores soporte"
   page-navigation: true  # Activar navegación entre páginas
 
 format:

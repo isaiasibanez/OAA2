@@ -8,6 +8,21 @@ subtitle: "Capítulo 2 - Sección 4"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c2s5.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c2s5.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
 
 En esta sección vamos a estudiar un algoritmo de aprendizaje supervisado ampliamente utilizado para problemas de clasificación, que ha demostrado ser especialmente efectivo en tareas donde se requiere obtener fronteras de decisión robustas y con buena capacidad de generalización. Su construcción sigue una secuencia natural de conceptos: en primer lugar, se aborda la formulación básica basada en hiperplanos separadores óptimos, cuyo objetivo es maximizar el margen de separación entre clases perfectamente separables; luego, se incorpora el uso de *variables de holgura* para tratar datos no separables; y, finalmente, se presenta la generalización mediante *núcleos reproductores*, lo que permite obtener fronteras de decisión no lineales.
 

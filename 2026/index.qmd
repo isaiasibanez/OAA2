@@ -75,6 +75,11 @@ navbar:
   Regresión Ridge y LASSO: formulación y características. Elastic Net.
   </div>
   </li>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_2/B5_svm.qmd" style="color:#333333; text-decoration:none;"><b>2.5 Máquinas de vectores soporte</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  Hiperplano separador óptimo. Variables de holgura y margen suave. Máquinas de vectores soporte no lineal.
+  </div>
+  </li>
 </ul>
 
 <h4 style="color:#8B0000; border-bottom: 2px solid #8B0000; padding-bottom:5px;">3 Modelos generativos</h4>
