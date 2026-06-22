@@ -658,7 +658,7 @@ Ahora bien, llegados a este punto, cabe preguntarse:
 <div style="margin-top:1em;"></div>
 
 
-En general, la respuesta es no. Si bien es posible obtener una caracterización analítica de $\hat{\bftheta}^{\text{lasso}}$, esta depende del conjunto de equicorrelación $\calE$ y de un vector de signos asociado (ver Lema 2 de (Tibshirani 2013) ). Salvo en algunos casos particulares, ambos elementos se obtienen a partir de una solución del problema Lasso y, por lo tanto, no se conocen de antemano. En consecuencia, dicha caracterización no proporciona un método efectivo para obtener el estimador. Por este motivo, en la práctica se recurre a algoritmos iterativos eficientes. Uno de los más populares y efectivos es el *descenso por coordenadas*, que describiremos a continuación.
+En general, la respuesta es no. Si bien es posible obtener una caracterización analítica de $\hat{\bftheta}^{\text{lasso}}$, esta depende del conjunto de equicorrelación $\calE$ y de un vector de signos asociado (ver Lema 2 de (Tibshirani 2013)). Salvo en algunos casos particulares, ambos elementos se obtienen a partir de una solución del problema Lasso y, por lo tanto, no se conocen de antemano. En consecuencia, dicha caracterización no proporciona un método efectivo para obtener el estimador. Por este motivo, en la práctica se recurre a algoritmos iterativos eficientes. Uno de los más populares y efectivos es el *descenso por coordenadas*, que describiremos a continuación.
 
 
 
