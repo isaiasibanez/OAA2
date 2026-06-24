@@ -1410,8 +1410,8 @@ Más allá de los métodos analizados en esta sección, existen varias familias 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
-Farina, G. Apuntes del curso MIT 6.7220: *Nonlinear Optimization*. Lecciones 12, 14 y 15 (2025) y Lección 12 (2024). Disponible en la [página del curso](https://www.mit.edu/~gfarina/notes/).
+Farina, G. *MIT 6.7220: Nonlinear Optimization*. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
 
-Flammarion, N. Apuntes del curso EPFL CS-439: *Optimization for machine learning*,  Lecciones 2, 3, 5 y 7. Disponible en [este repositorio GitHub](https://github.com/epfml/OptML_course).
+Flammarion, N. *EPFL CS-439: Optimization for machine learning*. 🔗 [ir al sitio web](https://github.com/epfml/OptML_course).
 
 :::

@@ -244,7 +244,7 @@ $$
 \bfbeta=\sum_{i=1}^n\lambda_i y_i \xx_i,\qquad \sum_{i=1}^n\lambda_i y_i=0.
 $$
 
-Observar que estas define explícitamente a $\bfbeta$ en términos de $\bflambda$ y, aunque $\beta_0$ no queda determinado de forma directa, sí nos provee una restricción de consistencia sobre los multiplicadores. Reemplazando, obtenemos
+Observar que estas definen explícitamente a $\bfbeta$ en términos de $\bflambda$ y, aunque $\beta_0$ no queda determinado de forma directa, sí nos provee una restricción de consistencia sobre los multiplicadores. Reemplazando, obtenemos
 $$
 \begin{align}
 \calG(\bflambda)&=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i\xx_i\right\|_2^2-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j\xx_j\right)^\top\xx_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i\\
@@ -870,7 +870,7 @@ Observar que en el Ejemplo 3 la transformación se hace entre dos espacios de di
 
 De ahora en adelante, consideraremos $\calH$ un espacio de funciones de la forma $h:\RR^p\to\RR$. Es decir, el mapeo será de la forma
 $$
-\xx\mapsto h
+\xx\mapsto h.
 $$
 
 
@@ -881,7 +881,7 @@ Veremos que esto no representa ninguna dificultad adicional; por el contrario, p
 
 ### Núcleos reproductores
 
-El cálculo de productos internos en (11) será fundamental para la generalización de SVM. Para un $\calH$ arbitrario, esto significa que necesitamos conocer explícitamente su producto interno $\langle\cdot,\cdot\rangle_{\calH}$, lo cual resulta ser una limitación práctica. Una manera de sortear esto es utilizar un *espacio de Hilbert con núcleo reproductor* (RKHS).
+El cálculo de productos internos en $\calH$ será fundamental para la generalización de SVM. Para un $\calH$ arbitrario, conocer explícitamente su producto interno $\langle\cdot,\cdot\rangle_{\calH}$ resulta ser una limitación práctica. Una manera de sortear esto es utilizar un *espacio de Hilbert con núcleo reproductor* (RKHS).
 
 
 ::: {.definicion}
@@ -897,7 +897,7 @@ El cálculo de productos internos en (11) será fundamental para la generalizaci
 :::
 
 
-Veamos el efecto de trabajar con RKHS para el cálculo de productos internos en (11). Las propiedades de la Definición 5 implican que
+Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (11). Las propiedades de la Definición 5 implican que
 
 ::: {.myhighlight}
 $$
@@ -1034,7 +1034,7 @@ Una vez obtenidos los puntos óptimos $\bfbeta^\star$ y $\beta_0^\star$, resulta
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7;">
   <tr style="border-bottom: 1px solid #cccccc;">
     <td style="padding: 16px 8px;">Función score</td>
-    <td style="padding: 16px 8px;">$\hat{f}(\xx)=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik(\xx_i,\xx)+\beta_0^\star$</td>
+    <td style="padding: 16px 8px;">$\hat{f}(\xx)=\displaystyle\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik(\xx_i,\xx)+\beta_0^\star$</td>
   </tr>
   <tr>
     <td style="padding: 16px 8px;">Clasificador</td>

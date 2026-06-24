@@ -354,7 +354,7 @@ donde $\cc\in\RR^p$, $F_i\in\bfS^p$ ($i=0,1,\ldots,p$), $A\in\RR^{m\times p}$ y 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
-Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Capítulo 4. Cambridge University Press.
+Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press.
 
 <!--
 Diamond, S., & Boyd, S. (s.f.). CVXPY: A Python-embedded modeling language for convex optimization. CVXPY. https://www.cvxpy.org
@@ -362,6 +362,6 @@ Diamond, S., & Boyd, S. (s.f.). CVXPY: A Python-embedded modeling language for c
 SciPy Developers. (s.f.). SciPy optimize tutorial. SciPy. https://docs.scipy.org/doc/scipy/tutorial/optimize.html
 -->
 
-Tibshirani, R. Apuntes del curso CMU Machine Learning 10-725: *Convex Optimization*.  Teoría I (2018). Disponible en la [página del curso](https://www.stat.cmu.edu/~ryantibs/convexopt-F18/).
+Tibshirani, R. (2018) *CMU Machine Learning 10-725: Convex Optimization*. 🔗 [ir al sitio web](https://www.stat.cmu.edu/~ryantibs/convexopt-F18/).
 
 :::

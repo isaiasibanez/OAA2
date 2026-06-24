@@ -407,7 +407,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <p>Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario de <span class="math inline">\(t\)</span> no necesariamente activa la restricción de desigualdad. En caso de no hacerlo, la holgura complementaria impone <span class="math inline">\(\lambda=0\)</span> y no hay penalización.</p>
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/Ridge.svg" alt="…" width="450px" class="figure-img">
+<img src="figuras/ridge.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
 <strong>Figura 2.4.1</strong>. Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
 </figcaption>
@@ -486,7 +486,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <p><span class="badge bg-primary">Ejemplo 2.4.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Ridge en datos de diabetes </span></p>
 <p>Utilizaremos el conjunto de datos de diabetes de <code>sklearn.datasets</code> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>, el cual consiste en 442 observaciones de 10 variables predictoras.</p>
 <p>Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
-<div id="48c35340" class="cell" data-execution_count="1">
+<div id="ab47b8a2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -528,7 +528,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <span id="cb1-39"><a href="#cb1-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb1-40"><a href="#cb1-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="91cd8b2b" class="cell" data-execution_count="2">
+<div id="b63d9644" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -584,7 +584,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/Lasso.svg" alt="…" width="450px" class="figure-img">
+<img src="figuras/lasso.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
 <strong>Figura 2.4.2</strong>. Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
 </figcaption>
@@ -987,7 +987,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.4.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
 <p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="43e25cc1" class="cell" data-execution_count="3">
+<div id="ed72baae" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1029,7 +1029,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="67c76bb1" class="cell" data-execution_count="4">
+<div id="f318e0ac" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1374,9 +1374,9 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
-<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em> (2nd ed.). Capítulo 3, Sección 4. Springer.</p>
-<p>Rockafellar, R. T. (1970). Convex analysis (Princeton Mathematical Series, Vol. 28). Princeton University Press.</p>
-<p>Rothman, A. J. (2024). Apuntes del curso STAT 5701 <em>Lasso-penalized Least Squares</em>. University of Minnesota.</p>
+<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed.&nbsp;Springer Series in Statistics. New York: Springer.</p>
+<p>Rockafellar, R. T. (1970). <em>Convex analysis</em>. Princeton Landmarks in Mathmenatics. Princeton University Press.</p>
+<p>Rothman, A. J. (2024). <em>STAT 5701: Lasso-penalized Least Squares</em>. University of Minnesota.</p>
 <p>Tibshirani, R. (2013). <em>The lasso problem and uniqueness</em>. Electron. J. Statist. 7 1456-1490. 🔗 <a href="https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-Lasso-problem-and-uniqueness/10.1214/13-EJS815.full">ir al sitio web</a>.</p>
 </div>
 

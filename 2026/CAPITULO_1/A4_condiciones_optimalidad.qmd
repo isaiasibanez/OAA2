@@ -1561,8 +1561,8 @@ Vamos a finalizar esta sección con un cuadro resumen con los principales result
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
-Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Capítulo 5. Cambridge University Press.
+Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press.
 
-Farina, G. Apuntes del curso MIT 6.7220: *Nonlinear Optimization*. Lección 2 (2025) y lección 5 (2024). Disponible en la [página del curso](https://www.mit.edu/~gfarina/notes/).
+Farina, G. *MIT 6.7220: Nonlinear Optimization*. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
 
 :::

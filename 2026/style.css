@@ -19,10 +19,10 @@ background-color: #fcfefc; /* Verde muy muy suave */
 
 .highlight {
   background-color: #ffffff; /* Fondo muy suave */
-  border: 2px solid #08055D; /* Borde naranja */
+  border: 2px solid #eba309; /* Borde naranja */
   padding: 10px;            /* Espaciado interno */
   border-radius: 5px;       /* Bordes suavemente redondeados */
-  margin: 10px 0;           /* Margen arriba y abajo */
+  margin: 15px 0;           /* Margen arriba y abajo */
   font-family: Arial, sans-serif; /* Fuente opcional */
 }
 

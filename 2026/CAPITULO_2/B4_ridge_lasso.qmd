@@ -154,7 +154,7 @@ Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario
 </div>
 
 <figure style="text-align: center;">
-  <img src="figuras/Ridge.svg" alt="…" width="450px">
+  <img src="figuras/ridge.svg" alt="…" width="450px">
   <figcaption> **Figura 2.4.1**. Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}$. </figcaption>
 </figure>
 
@@ -382,7 +382,7 @@ Si $\lambda>0$, entonces $t=\|\hat{\bftheta}^{\text{lasso}}\|_1$.
 <div style="margin-top:2em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/Lasso.svg" alt="…" width="450px">
+  <img src="figuras/lasso.svg" alt="…" width="450px">
   <figcaption> **Figura 2.4.2**. Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}$. </figcaption>
 </figure>
 
@@ -1497,11 +1497,11 @@ Respecto a los algoritmos iterativos que se utilizan para aproximar $\hat{\bfthe
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
 
-Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction* (2nd ed.). Capítulo 3, Sección 4. Springer.
+Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 
-Rockafellar, R. T. (1970). Convex analysis (Princeton Mathematical Series, Vol. 28). Princeton University Press.
+Rockafellar, R. T. (1970). *Convex analysis*. Princeton Landmarks in Mathmenatics. Princeton University Press.
 
-Rothman, A. J. (2024). Apuntes del curso STAT 5701 *Lasso-penalized Least Squares*. University of Minnesota.
+Rothman, A. J. (2024). *STAT 5701: Lasso-penalized Least Squares*. University of Minnesota.
 
 Tibshirani, R. (2013). *The lasso problem and uniqueness*. Electron. J. Statist. 7 1456-1490. 🔗 [ir al sitio web](https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-7/issue-none/The-Lasso-problem-and-uniqueness/10.1214/13-EJS815.full).
 

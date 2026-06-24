@@ -260,21 +260,20 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#hiperplano-separador-óptimo" id="toc-hiperplano-separador-óptimo" class="nav-link active" data-scroll-target="#hiperplano-separador-óptimo">Hiperplano separador óptimo</a>
+  <li><a href="#i-hiperplano-separador-óptimo" id="toc-i-hiperplano-separador-óptimo" class="nav-link active" data-scroll-target="#i-hiperplano-separador-óptimo">I <span style="color:#CCCCCC;">│</span> Hiperplano separador óptimo</a>
   <ul class="collapse">
   <li><a href="#formulación-clásica" id="toc-formulación-clásica" class="nav-link" data-scroll-target="#formulación-clásica">Formulación clásica</a></li>
-  <li><a href="#aplicación-de-condiciones-kkt-y-dualidad" id="toc-aplicación-de-condiciones-kkt-y-dualidad" class="nav-link" data-scroll-target="#aplicación-de-condiciones-kkt-y-dualidad">Aplicación de condiciones KKT y dualidad</a></li>
+  <li><a href="#optimalidad" id="toc-optimalidad" class="nav-link" data-scroll-target="#optimalidad">Optimalidad</a></li>
   </ul></li>
-  <li><a href="#variables-de-holgura-y-margen-suave" id="toc-variables-de-holgura-y-margen-suave" class="nav-link" data-scroll-target="#variables-de-holgura-y-margen-suave">Variables de holgura y margen suave</a>
+  <li><a href="#ii-variables-de-holgura-y-margen-suave" id="toc-ii-variables-de-holgura-y-margen-suave" class="nav-link" data-scroll-target="#ii-variables-de-holgura-y-margen-suave">II <span style="color:#CCCCCC;">│</span> Variables de holgura y margen suave</a>
   <ul class="collapse">
-  <li><a href="#aplicación-de-condiciones-kkt-y-dualidad-1" id="toc-aplicación-de-condiciones-kkt-y-dualidad-1" class="nav-link" data-scroll-target="#aplicación-de-condiciones-kkt-y-dualidad-1">Aplicación de condiciones KKT y dualidad</a></li>
+  <li><a href="#optimalidad-1" id="toc-optimalidad-1" class="nav-link" data-scroll-target="#optimalidad-1">Optimalidad</a></li>
   </ul></li>
-  <li><a href="#máquinas-de-vectores-soporte-no-lineal" id="toc-máquinas-de-vectores-soporte-no-lineal" class="nav-link" data-scroll-target="#máquinas-de-vectores-soporte-no-lineal">Máquinas de vectores soporte no lineal</a>
+  <li><a href="#iii-máquinas-de-vectores-soporte-no-lineal" id="toc-iii-máquinas-de-vectores-soporte-no-lineal" class="nav-link" data-scroll-target="#iii-máquinas-de-vectores-soporte-no-lineal">III <span style="color:#CCCCCC;">│</span> Máquinas de vectores soporte no lineal</a>
   <ul class="collapse">
   <li><a href="#núcleos-reproductores" id="toc-núcleos-reproductores" class="nav-link" data-scroll-target="#núcleos-reproductores">Núcleos reproductores</a></li>
   <li><a href="#formulación-del-problema" id="toc-formulación-del-problema" class="nav-link" data-scroll-target="#formulación-del-problema">Formulación del problema</a></li>
   </ul></li>
-  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
   </ul>
 </nav>
     </div>
@@ -314,22 +313,18 @@ window.Quarto = {
 
 </div>
 <p>En esta sección vamos a estudiar un algoritmo de aprendizaje supervisado ampliamente utilizado para problemas de clasificación, que ha demostrado ser especialmente efectivo en tareas donde se requiere obtener fronteras de decisión robustas y con buena capacidad de generalización. Su construcción sigue una secuencia natural de conceptos: en primer lugar, se aborda la formulación básica basada en hiperplanos separadores óptimos, cuyo objetivo es maximizar el margen de separación entre clases perfectamente separables; luego, se incorpora el uso de <em>variables de holgura</em> para tratar datos no separables; y, finalmente, se presenta la generalización mediante <em>núcleos reproductores</em>, lo que permite obtener fronteras de decisión no lineales.</p>
-<p>Una característica distintiva de estos métodos es que su desarrollo se apoya fuertemente en la formulación dual de problemas de optimización y en las condiciones de Karush-Kuhn-Tucker (KKT), lo que proporciona una interpretación clara en términos de vectores soporte y explica su gran potencial.</p>
-<div style="margin-top:2em;">
-
-</div>
-<hr>
-<p>En lo que sigue, vamos a asumir que estamos trabajando con un conjunto de datos de entrenamiento <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> de un problema de clasificación binaria cuya variable respuesta, por cuestiones de simplicidad, se considera <span class="math inline">\(Y\in\{-1,+1\}\)</span>.</p>
+<p>Una característica distintiva de estos métodos es que su desarrollo se apoya fuertemente en la formulación dual de problemas de optimización y en las condiciones de Karush-Kuhn-Tucker (KKT), lo que permite interpretar la solución en términos de los vectores soporte y comprender el funcionamiento del método.</p>
+<p>Durante esta sección, vamos a considerar un problema de clasificación binaria. Sin pérdida de generalidad, supondremos que el conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> tiene etiquetas <span class="math inline">\(y_i\in\{-1,+1\}\)</span>.</p>
 <div style="margin-top:2.5em;">
 
 </div>
-<section id="hiperplano-separador-óptimo" class="level2">
-<h2 class="anchored" data-anchor-id="hiperplano-separador-óptimo">Hiperplano separador óptimo</h2>
+<section id="i-hiperplano-separador-óptimo" class="level2">
+<h2 class="anchored" data-anchor-id="i-hiperplano-separador-óptimo">I <span style="color:#CCCCCC;">│</span> Hiperplano separador óptimo</h2>
 <p>El caso más simple de análisis surge de suponer que las clases <span class="math inline">\(\{{\bf x}_i \mid y_i=-1\}\)</span> y <span class="math inline">\(\{{\bf x}_i \mid y_i=+1\}\)</span> pueden ser separados totalmente por una frontera lineal.</p>
 <div class="definicion">
-<p><strong>Definición 1.</strong> (Separabilidad lineal) Un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, se dice que es <em>linealmente separable</em> si existen <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> y <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> tales que <span class="math display">\[
-y_i=\text{sign}(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\qquad \forall i=1,\ldots,n.
-\tag{1}
+<p><strong>Definición 2.5.1.</strong> (Separabilidad lineal) Un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, se dice que es <em>linealmente separable</em> si existen <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> y <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> tales que <span class="math display">\[
+y_i=\sign(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\qquad \forall i=1,\ldots,n.
+\tag{2.5.1}
 \]</span></p>
 <p>El hiperplano <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> se denomina <em>hiperplano separador</em> y la función <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> definida por <span class="math inline">\(f({\bf x})=\boldsymbol{\beta}^\top{\bf x}+\beta_0\)</span> se conoce como <em>función score</em>.</p>
 </div>
@@ -352,17 +347,21 @@ y_i=\text{sign}(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\qquad \forall i=1,\ldo
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_datos_ls.svg" alt="…" width="500px" class="figure-img">
 <figcaption>
-<strong>Figura 1</strong>. Datos linealmente separables y algunos hiperplanos separadores.
+<strong>Figura 2.5.1</strong>. Datos linealmente separables y algunos hiperplanos separadores.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
-<p>Observar que la expresión (1) es equivalente a requerir <span class="math display">\[
+<p>Observar que la expresión (2.5.1) es equivalente a requerir <span class="math display">\[
 y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)&gt;0\qquad\forall i=1,\ldots, n.
-\tag{2}
+\tag{2.5.2}
 \]</span></p>
-<p>Algo intuitivo (ver Figura 1) es que si las clases son totalmente separables, existen infinitos hiperplanos separadores. Por lo tanto, resulta necesario definir un criterio que permita seleccionar un hiperplano único y óptimo.</p>
+<p>Algo intuitivo (ver Figura 2.5.1) es que si las clases son totalmente separables, existen infinitos hiperplanos separadores. Por lo tanto, resulta necesario definir un criterio que permita seleccionar un hiperplano único y óptimo.</p>
+<p>En primer lugar, establecemos lo siguiente:</p>
+<div style="margin-top:-0.5em;">
+
+</div>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Primer principio</em></span>
 <div style="margin-top:0em;">
@@ -373,7 +372,10 @@ y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)&gt;0\qquad\forall i=1,\ldots, n.
 <div style="margin-top:1em;">
 
 </div>
-<p>Dado <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>, asociamos a él el hiperplano separador con vector normal <span class="math inline">\(\boldsymbol{\beta}\)</span> que <em>equidista</em> a ambas clases. Para poder caracterizar esto matemáticamente, necesitamos antes imponer una restricción de normalización, debido a que la distancia de un punto al hiperplano depende de <span class="math inline">\(\|\boldsymbol{\beta}\|_2\)</span>.</p>
+<p>Este primer principio justifica considerar a <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> como variable de optimización, ya que establece una correspondencia biunívoca entre cada vector <span class="math inline">\(\boldsymbol{\beta}\)</span> y un hiperplano separador, ¿cuál? Elegimos aquel que <em>equidista</em> de ambas clases. Para caracterizar esta propiedad, primero necesitamos imponer una restricción de normalización, ya que la distancia de un punto al hiperplano depende de <span class="math inline">\(\|\boldsymbol{\beta}\|_2\)</span>.</p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Segundo principio</em></span>
 <div style="margin-top:0em;">
@@ -384,36 +386,39 @@ y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)&gt;0\qquad\forall i=1,\ldots, n.
 <div style="margin-top:1em;">
 
 </div>
-<p>Bajo estas condiciones, la distancia entre cualquier punto <span class="math inline">\({\bf x}_i\)</span> y el hiperplano <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> está dada por <span class="math display">\[
-|f({\bf x}_i)|=y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0).
+<p>Así, bajo este segundo principio, la distancia entre cualquier punto <span class="math inline">\({\bf x}_i\)</span> y el hiperplano <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> está dada por <span class="math display">\[
+|f({\bf x}_i)|=|\boldsymbol{\beta}^\top{\bf x}_i+\beta_0|=y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0).
 \]</span></p>
-<p>Así:</p>
-<div class="myhighlight">
-<p>Un hiperplano separador <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> equidista a ambas clases si existe una <em>distancia mínima</em> <span class="math inline">\(M\in\mathbb{R}^+\)</span> tal que <span class="math display">\[
+<p>Con estas consideraciones, ya podemos definir el hiperplano separador asociado a un vector <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>. Esta definición determina el valor del intercepto <span class="math inline">\(\beta_0\)</span>, completando así la caracterización del hiperplano.</p>
+<div style="margin-top:1em;">
+
+</div>
+<div class="definicion">
+<p><strong>Definición 2.5.2.</strong> (Hiperplano separador asociado a un vector) A un vector <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> se le asocia el hiperplano separador <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> cuya distancia mínima a ambas clases es la misma. Es decir, existe <span class="math inline">\(M\in\mathbb{R}^+\)</span> tal que <span class="math display">\[
 y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq M\qquad\forall i=1,\ldots,n,
-\]</span> con igualdad para al menos un punto de cada clase.</p>
+\]</span> con igualdad para al menos un punto de cada clase. Al valor <span class="math inline">\(M\)</span> lo denominamos <em>margen</em> del hiperplano separador asociado a <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>A la distancia mínima <span class="math inline">\(M\)</span> nos referiremos como <mark>margen</mark> del hiperplano separador. Es importante observar que los puntos para los cuales se cumple la igualdad en la restricción son los que caracterizan al hiperplano; estos se denominan <mark>vectores soporte</mark> (su definición formal se presentará más adelante).</p>
+<p>Es importante observar que los puntos para los cuales se cumple la igualdad en la restricción son los que caracterizan al hiperplano; estos se denominan <mark>vectores soporte</mark> (su definición formal se presentará más adelante).</p>
 <div style="margin-top:2em;">
 
 </div>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_margenes.svg" alt="…" width="550px" class="figure-img">
 <figcaption>
-<strong>Figura 2</strong>. Hiperplanos separadores y sus margenes asociados.
+<strong>Figura 2.5.2</strong>. Hiperplanos separadores y sus margenes asociados.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
-<p>Ya estamos en condiciones de determinar qué consideraremos como hiperplano separador óptimo.</p>
+<p>Ya estamos en condiciones de determinar qué consideraremos como hiperplano separador óptimo de un conjunto de datos linealmente separables.</p>
 <div class="definicion">
-<p><strong>Definición 2.</strong> (Hiperplano separador óptimo) Sea <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, un conjunto de datos linealmente separable. El <em>hiperplano separador óptimo</em> es aquel que maximiza el <em>margen</em> <span class="math inline">\(M\)</span>.</p>
+<p><strong>Definición 2.5.3.</strong> (Hiperplano separador óptimo) Sea <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, con <span class="math inline">\(y_i\in\{-1,+1\}\)</span>, un conjunto de datos linealmente separable. El <em>hiperplano separador óptimo</em> es aquel que maximiza el <em>margen</em> <span class="math inline">\(M\)</span>.</p>
 </div>
-<div style="margin-top:2em;">
+<div style="margin-top:1em;">
 
 </div>
 <p>En base a lo descrito, la búsqueda del hiperplano separador óptimo queda determinada por el siguiente problema de optimización:</p>
@@ -423,60 +428,61 @@ y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq M\qquad\forall i=1,\ldots,n,
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq M,\qquad i=1,\ldots,n,\\
                   &amp; \|\boldsymbol{\beta}\|_2=1.
 \end{array}
-\tag{3}
+\tag{2.5.3}
 \]</span></p>
-<p>Por supuesto, las variables de optimización son <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> y <span class="math inline">\(\beta_0\in\mathbb{R}\)</span>. Si bien esta formulación refleja directamente la intención de maximizar el margen, vamos a ajustarla para obtener una formulación clásica más conveniente.</p>
+<p>Observar que las variables de optimización son <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> y <span class="math inline">\(\beta_0\in\mathbb{R}\)</span>. Si bien esta formulación refleja directamente la intención de maximizar el margen, vamos a ajustarla para obtener una formulación clásica más conveniente.</p>
+<div style="margin-top:1em;">
+
+</div>
 <section id="formulación-clásica" class="level3">
 <h3 class="anchored" data-anchor-id="formulación-clásica">Formulación clásica</h3>
-<p>Hemos visto que la restricción <span class="math inline">\(\|\boldsymbol{\beta}\|_2=1\)</span> permite interpretar al margen <span class="math inline">\(M\)</span> como la distancia mínima de los puntos al hiperplano. Si se relaja dicha condición, dicha interpretación sigue siendo cierta si se escribe <span class="math display">\[
+<p>En base a lo descripto anteriormente, la restricción <span class="math inline">\(\|\boldsymbol{\beta}\|_2=1\)</span> permite interpretar al margen <span class="math inline">\(M\)</span> como la distancia mínima de los puntos al hiperplano. Si se relaja dicha condición, dicha interpretación sigue siendo cierta si se escribe <span class="math display">\[
 \frac{y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)}{\|\boldsymbol{\beta}\|_2}\geq M,\qquad i=1,\ldots,n.
 \]</span></p>
-<p>En consecuencia, el problema (3) se puede reescribir como <span class="math display">\[
+<p>En consecuencia, el problema (2.5.3) se puede reescribir como <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; M\\
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq \|\boldsymbol{\beta}\|_2M,\qquad i=1,\ldots,n,
 \end{array}
-\tag{4}
-\]</span> con una pequeña diferencia: dado un punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span>, ahora habrán infinitos puntos óptimos <span class="math inline">\(k\boldsymbol{\beta}^\star\)</span> (<span class="math inline">\(k\in\mathbb{R}\)</span>). De todos ellos, nos interesa particularmente aquel que verifica <span class="math display">\[
+\tag{2.5.4}
+\]</span> con una importante diferencia: dado un punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> de (2.5.4), también lo son los puntos <span class="math inline">\(k\boldsymbol{\beta}^\star\)</span>, con <span class="math inline">\(k\in\mathbb{R}^+\)</span>. Es decir, al eliminar la restricción <span class="math inline">\(\|\boldsymbol{\beta}\|_2=1\)</span>, la elección del vector normal asociado a un hiperplano vuelve a ser arbitraria. Por tal motivo, elegiremos nuevamente un representante entre todos los múltiplos escalares de un mismo vector normal, aunque esta vez la elección dependerá del valor del margen <span class="math inline">\(M\)</span>.</p>
+<div class="myhighlight">
+<p>Entre todos los puntos óptimos del problema (2.5.4) que representan el mismo hiperplano separador, elegimos el único que verifica <span class="math display">\[
 \|\boldsymbol{\beta}^\star\|_2=\frac{1}{M^\star},
-\]</span> donde <span class="math inline">\(M^\star\)</span> es el margen óptimo. Esta idea nos va a permitir reformular el problema de optimización a partir de una reformulación del segundo principio.</p>
-<div class="myhighlight2">
-<span style="font-size:0.8em;"><em>Segundo principio (reformulación)</em></span>
-<div style="margin-top:0.2em;">
+\]</span> donde <span class="math inline">\(M^\star\)</span> es el margen óptimo.</p>
+</div>
+<div style="margin-top:2em;">
 
 </div>
-<p>Se elige <span class="math inline">\(\boldsymbol{\beta}\)</span> de manera tal que su norma esté relacionada con el margen <span class="math inline">\(M\)</span> mediante la igualdad <span class="math display">\[
-\|\boldsymbol{\beta}\|_2=1/M.
-\]</span></p>
-</div>
-<div style="margin-top:1em;">
-
-</div>
-<p>Claramente, bajo estas condiciones, maximizar <span class="math inline">\(M\)</span> es equivalente a minimizar <span class="math inline">\(\|\boldsymbol{\beta}\|_2\)</span> y, convenientemente, también equivalente a minimizar <span class="math inline">\(\frac{1}{2}\|\boldsymbol{\beta}\|_2^2\)</span>. De esta manera, retomando (4), podemos redefinir el problema de optimización de interés (3) como sigue.</p>
+<p>Esta idea nos va a permitir reformular nuestro problema de optimización. En efecto, bajo estas nuevas condiciones, maximizar <span class="math inline">\(M\)</span> es equivalente a minimizar <span class="math inline">\(\|\boldsymbol{\beta}\|_2\)</span> y, convenientemente, también equivalente a minimizar <span class="math inline">\(\frac{1}{2}\|\boldsymbol{\beta}\|_2^2\)</span>. Finalmente:</p>
 <div class="definicion">
-<p><strong>Definición 3.</strong> (Problema de optimización del hiperplano separador óptimo) Dado un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> linealmente separables, el hiperplano separador óptimo es <span class="math display">\[
+<p><strong>Definición 2.5.4.</strong> (Problema de optimización del hiperplano separador óptimo) Dado un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> linealmente separables, el hiperplano separador óptimo es <span class="math display">\[
 (\boldsymbol{\beta}^\star)^\top{\bf x}+\beta_0^\star=0,
 \]</span> con <span class="math inline">\(\boldsymbol{\beta}^\star\in\mathbb{R}^p\)</span> y <span class="math inline">\(\beta_0^\star\in\mathbb{R}\)</span> puntos óptimos del problema <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\|\boldsymbol{\beta}\|_2^2\\
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2\\
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1,\qquad i=1,\ldots,n.
 \end{array}
-\tag{5}
+\tag{2.5.5}
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
+<p>Observar que:</p>
 <div class="myhighlight">
-<p>El problema (5) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
+<p>El problema (2.5.5) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>El Corolario 1 del <a href="A4_condiciones_optimalidad.html#el-caso-particular-de-restricciones-afines">C1-S4</a> nos asegura que las condiciones de Karush-Kuhn-Tucker (KKT) son suficientes y necesarias para la optimalidad. Más aún, el Teorema 6 de esa misma sección (Teorema de Slater) permite afirmar que hay dualidad fuerte.</p>
+<p>En consecuencia, el Corolario 1.4.8 del <a href="A4_condiciones_optimalidad.html#el-caso-particular-de-restricciones-afines">C1-S4</a> nos asegura que las condiciones de Karush-Kuhn-Tucker (KKT) son suficientes y necesarias para la optimalidad. Más aún, el Teorema 1.4.19 de esa misma sección (Teorema de Slater) permite afirmar que hay dualidad fuerte.</p>
+<div style="margin-top:2em;">
+
+</div>
 </section>
-<section id="aplicación-de-condiciones-kkt-y-dualidad" class="level3">
-<h3 class="anchored" data-anchor-id="aplicación-de-condiciones-kkt-y-dualidad">Aplicación de condiciones KKT y dualidad</h3>
+<section id="optimalidad" class="level3">
+<h3 class="anchored" data-anchor-id="optimalidad">Optimalidad</h3>
 <p>Las condiciones KKT son <span class="math display">\[
 \begin{array}{cl}
 y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
@@ -494,30 +500,30 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <div style="margin-top:2em;">
 
 </div>
-<p>El Lagrangiano asociado al problema (5) es <span class="math inline">\(\mathcal{L}:\mathbb{R}^{p+1}\times\mathbb{R}^n\to\mathbb{R}\)</span> definido por <span class="math display">\[
+<p>El Lagrangiano asociado al problema (2.5.5) es <span class="math inline">\(\mathcal{L}:\mathbb{R}^{p+1}\times\mathbb{R}^n\to\mathbb{R}\)</span> definido por <span class="math display">\[
 \mathcal{L}(\boldsymbol{\beta},\beta_0,\boldsymbol{\lambda})=\frac{1}{2}\|\boldsymbol{\beta}\|_2^2-\sum_{i=1}^n\lambda_i\left[y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)-1\right].
 \]</span></p>
-<p>Dado que el Lagrangiano es una función convexa en <span class="math inline">\((\boldsymbol{\beta},\beta_0)\)</span>, la ecuación <span class="math inline">\(\nabla_{(\boldsymbol{\beta},\beta_0)}\mathcal{L}=\mathbf{0}\)</span> caracteriza el ínfimo de <span class="math inline">\(\mathcal{L}\)</span> para cada <span class="math inline">\(\boldsymbol{\lambda}\)</span>. Así, podemos obtener <span class="math display">\[
-\mathcal{G}(\boldsymbol{\lambda}):=\inf_{\boldsymbol{\beta},\beta_0}\mathcal{L}(\boldsymbol{\beta},\beta_0,\boldsymbol{\lambda})
-\]</span> a partir de las expresiones <span class="math display">\[
+<p>Dado que el Lagrangiano es una función convexa en <span class="math inline">\((\boldsymbol{\beta},\beta_0)\)</span>, la ecuación <span class="math inline">\(\nabla_{(\boldsymbol{\beta},\beta_0)}\mathcal{L}=\mathbf{0}\)</span> caracteriza el ínfimo de <span class="math inline">\(\mathcal{L}\)</span> para cada <span class="math inline">\(\boldsymbol{\lambda}\)</span>. Esto resulta en las expresiones <span class="math display">\[
 \boldsymbol{\beta}=\sum_{i=1}^n\lambda_i y_i {\bf x}_i,\qquad \sum_{i=1}^n\lambda_i y_i=0.
 \]</span></p>
-<p>Observar que estas define explícitamente a <span class="math inline">\(\boldsymbol{\beta}\)</span> en términos de <span class="math inline">\(\boldsymbol{\lambda}\)</span> y, aunque <span class="math inline">\(\beta_0\)</span> no queda determinado de forma directa, sí nos provee una restricción de consistencia sobre los multiplicadores. Reemplazando, obtenemos <span class="math display">\[
+<p>Observar que <span class="math inline">\(\boldsymbol{\beta}\)</span> queda definida en términos de <span class="math inline">\(\boldsymbol{\lambda}\)</span> y, aunque <span class="math inline">\(\beta_0\)</span> no queda determinado de forma directa, sí nos provee una restricción de consistencia sobre los multiplicadores. Reemplazando, obtenemos la función dual de Lagrange: <span class="math display">\[
 \begin{align}
-\mathcal{G}(\boldsymbol{\lambda})&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i{\bf x}_i\right\|_2^2-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j{\bf x}_j\right)^\top{\bf x}_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i\\
+\mathcal{G}(\boldsymbol{\lambda}):&amp;=\inf_{\boldsymbol{\beta},\beta_0}\mathcal{L}(\boldsymbol{\beta},\beta_0,\boldsymbol{\lambda})\\
+&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i{\bf x}_i\right\|_2^2-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j{\bf x}_j\right)^\top{\bf x}_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i\\
 &amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
 &amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i.
 \end{align}
+\tag{2.5.6}
 \]</span></p>
-<div class="alert alert-light text-dark" role="important">
+<div class="alert alert-light text-dark" style="margin-top:2em;" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>Observar, en la primera igualdad, el término <span class="math display">\[
+<p>Observar, en la primera igualdad de (2.5.6), el término <span class="math display">\[
 -\beta_0\sum_{i=1}^n\lambda_i y_i.
 \]</span></p>
-<p>Esto implica que <span class="math inline">\(\mathcal{G}(\boldsymbol{\lambda})=-\infty\)</span> si <span class="math inline">\(\sum_{i=1}^n\lambda_i y_i\neq 0\)</span>. Por lo tanto, para el problema dual solo tienen sentido los <span class="math inline">\(\boldsymbol{\lambda}\)</span> que cumplen justamente la restricción <span class="math display">\[
+<p>Esto implica que <span class="math inline">\(\mathcal{G}(\boldsymbol{\lambda})=-\infty\)</span> si <span class="math inline">\(\sum_{i=1}^n\lambda_i y_i\neq 0\)</span>. Por lo tanto, para el problema dual, que pretende maximizar (2.5.6), solo tienen sentido los <span class="math inline">\(\boldsymbol{\lambda}\)</span> que cumplen justamente la restricción <span class="math display">\[
 \sum_{i=1}^n\lambda_i y_i=0.
 \]</span></p>
-<p>Al incluir esta condición como restricción en el problema dual, se descartan automáticamente del conjunto factible los <span class="math inline">\(\boldsymbol{\lambda}\)</span> que no la cumplen, eliminando así el término en cuestión tal como lo hicimos.</p>
+<p>Incluir esta condición como restricción en el problema dual permite descartar automáticamente del conjunto factible los <span class="math inline">\(\boldsymbol{\lambda}\)</span> que no la cumplen. Además, favorece la simplificación de la función objetivo, tal como lo hicimos.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -527,22 +533,22 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq\mathbf{0}.
 \end{array}
-\tag{6}
+\tag{2.5.7}
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success">Hiperplano separador óptimo</span></p>
-<p>Para obtener el hiperplano separador óptimo de un conjunto de datos linealmente separable:</p>
+<p>Para obtener el hiperplano separador óptimo de un conjunto de datos linealmente separable, los pasos a seguir son los siguientes:</p>
 <ol type="1">
-<li><p>Se resuelve el problema dual (6) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
+<li><p>Se resuelve el problema dual (2.5.6) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
 \boldsymbol{\beta}^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_i{\bf x}_i.
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-(\boldsymbol{\beta}^\star)^\top{\bf x}_i\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}\)</span>. Los términos se obtienen al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}\)</span>. Aquí, cada término se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span>.</p></li>
 </ol>
 </div>
 <p>Luego, una vez obtenidos los puntos óptimos <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
@@ -575,34 +581,42 @@ Clasificador
 <div style="margin-top:2em;">
 
 </div>
-<section id="interpretación-de-kkt" class="level4">
-<h4 class="anchored" data-anchor-id="interpretación-de-kkt">Interpretación de KKT</h4>
-<p>Pongamos foco en la factibilidad primal y la holgura complementaria:</p>
-<p><span class="math display">\[
+<section id="interpretación-de-condiciones-kkt" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-de-condiciones-kkt">Interpretación de condiciones KKT</h4>
+<p>Pongamos foco en la factibilidad primal y en la holgura complementaria: <span class="math display">\[
 \begin{array}{cl}
 y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
 \lambda_i^\star\left[y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\right]=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
 \end{array}
 \]</span></p>
-<p>Si <span class="math inline">\(\lambda_i^\star&gt;0\)</span>, entonces <span class="math display">\[
-y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1,
-\]</span> lo cual significa que <span class="math inline">\({\bf x}_i\)</span> está sobre el <em>borde</em> del margen.</p>
-<div class="definicion">
-<p><strong>Definición 4.</strong> (Vector soporte) Un dato <span class="math inline">\({\bf x}_i\)</span> se denomina <em>vector soporte</em> si el multiplicador asociado <span class="math inline">\(\lambda_i\)</span> es estrictamente positivo.</p>
-</div>
 <div style="margin-top:2em;">
 
 </div>
-<div class="myhighlight">
-<p>Si <span class="math inline">\({\bf x}_i\)</span> no es un vector soporte, entonces <span class="math inline">\(\lambda_i^\star=0\)</span>.</p>
+<p>De la condición de holgura complementaria, podemos afirmar que <span class="math display">\[
+\lambda_i^\star&gt;0 \Rightarrow y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1,
+\tag{2.5.8}
+\]</span> lo cual significa que <span class="math inline">\({\bf x}_i\)</span> está sobre el <em>borde</em> del margen. Esto motiva la siguiente definición.</p>
+<div style="margin-top:1em;">
+
 </div>
+<div class="definicion">
+<p><strong>Definición 2.5.5.</strong> (Vector soporte) Un dato <span class="math inline">\({\bf x}_i\)</span> se denomina <em>vector soporte</em> si el multiplicador asociado <span class="math inline">\(\lambda_i\)</span> es estrictamente positivo.</p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>De la solución <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> obtenida previamente, queda claro que los vectores soportes son quienes caracterizan el hiperplano separador óptimo. Además:</p>
+<ul>
+<li><p>La recíproca de la implicación (2.5.8) no es cierta. Es decir, que un punto esté sobre el borde del margen no garantiza que su multiplicador sea positivo. Esto puede ocurrir cuando hay redundancia lineal entre las restricciones activas (más puntos sobre el margen que los estrictamente necesarios para determinar el hiperplano), en cuyo caso el problema dual admite múltiples soluciones óptimas. En la práctica, este fenómeno dificilmente ocurre.</p></li>
+<li><p>Combinando la factibilidad primal con la holgura complementaria, se sigue que los puntos que no están en el borde necesariamente tienen multiplicador nulo. Por lo tanto, no pueden ser vectores soporte y no contribuyen a la solución del problema.</p></li>
+</ul>
 <div style="margin-top:2em;">
 
 </div>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_vectores_soporte.svg" alt="…" width="550px" class="figure-img">
 <figcaption>
-<strong>Figura 3</strong>. Vectores soporte de un hiperplano separador óptimo.
+<strong>Figura 2.5.3</strong>. Vectores soporte de un hiperplano separador óptimo.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -612,59 +626,33 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1,
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.5.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
 <p>Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos el hiperplano separador óptimo e identificaremos los vectores soporte.</p>
-<div id="383752ec" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Mostrar código</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">100</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X_pos <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">3</span>, <span class="dv">5</span>]</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X_neg <span class="op">=</span> <span class="fl">1.5</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.vstack((X_pos, X_neg))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span> <span class="op">+</span> [<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Hiperplano separador óptimo:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>, C<span class="op">=</span><span class="fl">1e6</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>clf.fit(X, y)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros óptimos:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>alpha_values <span class="op">=</span> np.full(<span class="bu">len</span>(X), <span class="fl">0.2</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>alpha_values[clf.support_] <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[y<span class="op">==</span><span class="dv">1</span>,<span class="dv">0</span>], X[y<span class="op">==</span><span class="dv">1</span>,<span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, s<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span>alpha_values[y<span class="op">==</span><span class="dv">1</span>], label<span class="op">=</span><span class="st">'Clase +1'</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[y<span class="op">==-</span><span class="dv">1</span>,<span class="dv">0</span>], X[y<span class="op">==-</span><span class="dv">1</span>,<span class="dv">1</span>], c<span class="op">=</span><span class="st">'darkred'</span>, s<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span>alpha_values[y<span class="op">==-</span><span class="dv">1</span>], label<span class="op">=</span><span class="st">'Clase -1'</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Hiperplano y márgenes:</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>xx <span class="op">=</span> np.linspace(X[:,<span class="dv">0</span>].<span class="bu">min</span>()<span class="op">-</span><span class="dv">1</span>, X[:,<span class="dv">0</span>].<span class="bu">max</span>()<span class="op">+</span><span class="dv">1</span>, <span class="dv">100</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>yy <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b)<span class="op">/</span>w[<span class="dv">1</span>]</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>margin_up <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b <span class="op">-</span> <span class="dv">1</span>)<span class="op">/</span>w[<span class="dv">1</span>]</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>margin_down <span class="op">=</span> <span class="op">-</span>(w[<span class="dv">0</span>]<span class="op">*</span>xx <span class="op">+</span> b <span class="op">+</span> <span class="dv">1</span>)<span class="op">/</span>w[<span class="dv">1</span>]</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, yy, <span class="st">'k-'</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, margin_up, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(xx, margin_down, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x_1$'</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$x_2$'</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.yticks([])</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 📋:</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hiperplano óptimo: </span><span class="sc">{</span>w[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">*x1 + </span><span class="sc">{</span>w[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">*x2 + </span><span class="sc">{</span>b<span class="sc">:.3f}</span><span class="ss"> = 0"</span>)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Número de vectores soporte: </span><span class="sc">{</span><span class="bu">len</span>(clf.support_)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div id="bde458f7" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Datos:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>np.random.seed(<span class="dv">100</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>X_pos <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb1-8"><a href="#cb1-8"></a>X_neg <span class="op">=</span> <span class="fl">1.5</span><span class="op">*</span>np.random.randn(<span class="dv">50</span>, <span class="dv">2</span>) <span class="op">+</span> [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-9"><a href="#cb1-9"></a>X <span class="op">=</span> np.vstack((X_pos, X_neg))</span>
+<span id="cb1-10"><a href="#cb1-10"></a>y <span class="op">=</span> np.array([<span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span> <span class="op">+</span> [<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Hiperplano separador óptimo:</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>clf <span class="op">=</span> SVC(kernel<span class="op">=</span><span class="st">'linear'</span>, C<span class="op">=</span><span class="fl">1e6</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>clf.fit(X, y)</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Parámetros óptimos:</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
+<span id="cb1-18"><a href="#cb1-18"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="1d8f73c3" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="B5_svm_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="415"></p>
+<p><img src="B5_svm_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="415"></p>
 </figure>
 </div>
 </div>
@@ -680,46 +668,49 @@ Número de vectores soporte: 3</code></pre>
 </section>
 </section>
 </section>
-<section id="variables-de-holgura-y-margen-suave" class="level2">
-<h2 class="anchored" data-anchor-id="variables-de-holgura-y-margen-suave">Variables de holgura y margen suave</h2>
-<p>En la formulación del hiperplano separador óptimo, se asume que el conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> es linealmente separable. Sin embargo, en la práctica lo habitual es que exista solapamiento entre las clases. Para extender el análisis del apartado anterior, la estrategia consiste en introducir <em>variables de holgura</em>, simbolizadas con <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^n\)</span>, que permitan que algunos puntos violen el margen o incluso queden mal clasificados. Este enfoque, conocido como <em>margen suave</em> (<em>soft-margin</em>, en inglés), es lo que desarrollaremos a continuación.</p>
+<section id="ii-variables-de-holgura-y-margen-suave" class="level2">
+<h2 class="anchored" data-anchor-id="ii-variables-de-holgura-y-margen-suave">II <span style="color:#CCCCCC;">│</span> Variables de holgura y margen suave</h2>
+<p>En la formulación del hiperplano separador óptimo, se asume que el conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> es linealmente separable. Sin embargo, en la práctica lo habitual es que exista solapamiento entre las clases. Para extender el método, la estrategia consiste en introducir <em>variables de holgura</em>, simbolizadas con <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^n\)</span>, que permitan que algunos puntos violen el margen o incluso queden mal clasificados. Este enfoque, conocido como <em>margen suave</em> (<em>soft-margin</em>, en inglés), es lo que desarrollaremos a continuación.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_holgura.svg" alt="…" width="550px" class="figure-img">
 <figcaption>
-<strong>Figura 4</strong>. Variables de holgura.
+<strong>Figura 2.5.4</strong>. Variables de holgura.
 </figcaption>
 </figure>
-<p>La incorporación de las variables de holgura <span class="math inline">\(\boldsymbol{\xi}\)</span> al problema de optimización (5) conduce al siguiente problema de optimización: <span class="math display">\[
+<p>La incorporación de las variables de holgura <span class="math inline">\(\boldsymbol{\xi}\)</span> al problema de optimización (2.5.5) conduce al siguiente problema de optimización: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\|\boldsymbol{\beta}\|_2^2\\
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2\\
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   &amp; \boldsymbol{\xi}\succeq\mathbf{0},\;\sum_{i=1}^n\xi_i\leq\text{cte}.
 \end{array}
-\tag{7}
+\tag{2.5.8}
 \]</span></p>
-<p>Este nuevo problema de optimización tiene variables <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>, <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> y <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^{n}\)</span>. La restricción <span class="math inline">\(\sum_{i=1}^n=\xi_i\leq\text{cte}\)</span> permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, derivando en la siguiente forma alternativa de (7):</p>
+<p>Este nuevo problema de optimización tiene variables <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>, <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> y <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^{n}\)</span>. La restricción <span class="math inline">\(\sum_{i=1}^n=\xi_i\leq\text{cte}\)</span> permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, derivando en la siguiente forma alternativa de (2.5.8):</p>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   &amp; \boldsymbol{\xi}\succeq\mathbf{0}.
 \end{array}
-\tag{8}
+\tag{2.5.9}
 \]</span></p>
-<p>A <span class="math inline">\(C&gt;0\)</span> se lo conoce como <mark><em>hiperparámetro de costo</em></mark>. Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho.</p>
+<p>A <span class="math inline">\(C&gt;0\)</span> se lo conoce como <em>hiperparámetro de costo</em>. Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="myhighlight">
-<p>El problema (8) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
+<p>El problema (2.5.9) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos al método construido hasta aquí como <mark>Máquina de Vectores Soporte (SVM) lineal</mark>.</p>
-<section id="aplicación-de-condiciones-kkt-y-dualidad-1" class="level3">
-<h3 class="anchored" data-anchor-id="aplicación-de-condiciones-kkt-y-dualidad-1">Aplicación de condiciones KKT y dualidad</h3>
-<p>En (8) se distinguen <span class="math inline">\(2n\)</span> restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, <span class="math inline">\(\boldsymbol{\xi}\succeq 0\)</span>, distinguiremos sus multiplicadores con la notación <span class="math inline">\(\boldsymbol{\mu}=(\mu_1,\ldots,\mu_n)\)</span>. Las condiciones KKT son <span class="math display">\[
+<p>Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos a este nuevo método como <mark>Máquina de Vectores Soporte (SVM)</mark> lineal.</p>
+<div style="margin-top:2em;">
+
+</div>
+<section id="optimalidad-1" class="level3">
+<h3 class="anchored" data-anchor-id="optimalidad-1">Optimalidad</h3>
+<p>En el problema de optimización (2.5.9) se distinguen <span class="math inline">\(2n\)</span> restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, <span class="math inline">\(\boldsymbol{\xi}\succeq 0\)</span>, distinguiremos sus multiplicadores con la notación <span class="math inline">\(\boldsymbol{\mu}=(\mu_1,\ldots,\mu_n)\)</span>. Las condiciones KKT son <span class="math display">\[
 \begin{array}{cl}
 y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
 \lambda_i^\star\geq 0,\;\mu_i^\star\geq 0\qquad\forall i=1,\ldots,n\qquad &amp;\text{(Factibilidad dual)}\\[3pt]
@@ -733,42 +724,42 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 <p>Como antes, es conveniente formular el problema dual de Lagrange. En este caso, el Lagrangiano es <span class="math inline">\(\mathcal{L}:\mathbb{R}^{p+1}\times\mathbb{R}^n\times\mathbb{R}^n\to\mathbb{R}\)</span> definido por <span class="math display">\[
 \mathcal{L}(\boldsymbol{\beta},\beta_0,\boldsymbol{\lambda},\boldsymbol{\mu})=\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\sum_{i=1}^n\xi_i-\sum_{i=1}^n\lambda_i\left[y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)-(1-\xi_i)\right]-\sum_{i=1}^n\mu_i\xi_i.
 \]</span></p>
-<p>La función dual es <span class="math display">\[
+<p>La función dual resulta <span class="math display">\[
 \begin{align}
 \mathcal{G}(\boldsymbol{\lambda})&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i{\bf x}_i\right\|_2^2+C\sum_{i=1}^n\xi_i-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j{\bf x}_j\right)^\top{\bf x}_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i-\sum_{i=1}^n\underbrace{(\lambda_i+\mu_i)}_{=C}\xi_i\\
 &amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
 &amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i.
 \end{align}
 \]</span></p>
-<p>Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción <span class="math inline">\(\boldsymbol{\mu}\succeq \mathbf{0}\)</span>. Resulta: <span class="math display">\[
+<p>Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción <span class="math inline">\(\boldsymbol{\mu}\succeq \mathbf{0}\)</span>: <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq\mathbf{0},\;\boldsymbol{\mu}\succeq\mathbf{0}.
 \end{array}
-\tag{9}
+\tag{2.5.10}
 \]</span></p>
-<p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (9) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
+<p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (2.5.10) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
                   &amp; 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
 \end{array}
-\tag{10}
+\tag{2.5.11}
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success">SVM lineal</span></p>
-<p>Para obtener el hiperplano óptimo de un conjunto de datos:</p>
+<p>Para obtener el hiperplano óptimo de margen suave de un conjunto de datos, los pasos a seguir son los siguientes:</p>
 <ol type="1">
-<li><p>Se resuelve el problema dual (10) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
+<li><p>Se resuelve el problema dual (2.5.11) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
 \boldsymbol{\beta}^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_i{\bf x}_i.
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span>, mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} \left(y_i-(\boldsymbol{\beta}^\star)^\top{\bf x}_i\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Los términos se obtienen al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Aquí, cada término se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
 </ol>
 </div>
 <p>Luego, una vez obtenidos los puntos óptimos <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
@@ -801,8 +792,8 @@ Clasificador
 <div style="margin-top:2em;">
 
 </div>
-<section id="interpretación-de-kkt-1" class="level4">
-<h4 class="anchored" data-anchor-id="interpretación-de-kkt-1">Interpretación de KKT</h4>
+<section id="interpretación-de-condiciones-kkt-1" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-de-condiciones-kkt-1">Interpretación de condiciones KKT</h4>
 <p>Nuevamente pongamos foco en la factibilidad primal y la holgura complementaria:</p>
 <p><span class="math display">\[
 \begin{array}{cl}
@@ -810,10 +801,14 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i)\geq 0\qqua
 \lambda_i^\star\left[y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i)\right]=0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Holgura complementaria)}\\[3pt]
 \end{array}
 \]</span></p>
-<p>Si <span class="math inline">\(\lambda_i^\star&gt;0\)</span>, entonces <span class="math display">\[
-y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star.
+<div style="margin-top:2em;">
+
+</div>
+<p>En este caso, la holgura complementaria conduce a <span class="math display">\[
+\lambda_i^\star&gt;0 \Rightarrow
+y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star,
 \]</span></p>
-<p>Esto da dos opciones para los vectores soporte:</p>
+<p>lo cual implica dos opciones para los vectores soporte:</p>
 <ul>
 <li>Si <span class="math inline">\(\xi_i^\star=0\)</span>, <span class="math inline">\({\bf x}_i\)</span> está sobre el <em>borde</em> del margen.</li>
 <li>Si, por el contrario, <span class="math inline">\(\xi_i&gt;0\)</span>, entonces <span class="math inline">\({\bf x}_i\)</span> viola el margen.</li>
@@ -831,6 +826,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star.
 <div style="margin-top:2em;">
 
 </div>
+<p>En consecuencia, podemos afirmar que:</p>
 <div class="myhighlight">
 <p>Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen o fuera del margen pero mal clasificado.</p>
 </div>
@@ -840,20 +836,20 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star.
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_vectores_soporte_2.svg" alt="…" width="550px" class="figure-img">
 <figcaption>
-<strong>Figura 5</strong>. Vectores soporte de un hiperplano óptimo con margen suave.
+<strong>Figura 2.5.5</strong>. Vectores soporte de un hiperplano óptimo con margen suave.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
-<p>Por otro lado, si <span class="math inline">\(y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)&gt;1-\xi_i^\star\)</span>, la holgura complementaria indica que debe ocurrir <span class="math inline">\(\lambda_i^\star=0\)</span>. ¡Cuidado! En principio, el hecho de tener holgura positiva no garantiza automáticamente que el punto sea vector soporte. Necesitamos hacer un análisis adicional.</p>
+<p>En este caso, la lectura combinada de la factibilidad primal y la holgura complementaria es: si <span class="math inline">\(y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)&gt;1-\xi_i^\star\)</span>, entonces debe ser <span class="math inline">\(\lambda_i^\star=0\)</span>. En este momento la pregunta de interés es:</p>
 <div class="myhighlight3">
 <p>¿Qué característica tienen los puntos con holgura positiva?</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Si <span class="math inline">\(\xi_i^\star&gt;0\)</span>, la condición de holgura complementaria <span class="math inline">\(\mu_i^\star\xi_i^\star=0\)</span> junto a la condición de estacionariedad <span class="math inline">\(C=\lambda_i^\star+\mu_i^\star\)</span>, nos permiten deducir que se verifica <span class="math display">\[
+<p>Si <span class="math inline">\(\xi_i^\star&gt;0\)</span>, la condición de holgura complementaria <span class="math inline">\(\mu_i^\star\xi_i^\star=0\)</span> junto a la condición de estacionariedad <span class="math inline">\(C=\lambda_i^\star+\mu_i^\star\)</span> nos permiten deducir que <span class="math display">\[
 \lambda_i^\star=C.
 \]</span></p>
 <p>Dado que asumimos <span class="math inline">\(C&gt;0\)</span>, concluimos que:</p>
@@ -863,7 +859,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star.
 <div style="margin-top:2em;">
 
 </div>
-<p>A continuación, resumamos las posibilidades para un punto <span class="math inline">\({\bf x}_i\)</span> con multiplicador <span class="math inline">\(\lambda_i^\star\)</span>.</p>
+<p>A continuación, analicemos las posibilidades para un punto <span class="math inline">\({\bf x}_i\)</span> con multiplicador <span class="math inline">\(\lambda_i^\star\)</span>.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -964,7 +960,7 @@ Posición respecto al margen
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con solapamiento </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.5.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con solapamiento </span></p>
 <p>Modificaremos el ejemplo 1, generando datos de manera que las clases no sean linealmente separables, aunque la frontera de decisión lineal siga siendo una opción razonable. Luego, obtendremos el hiperplano óptimo e identificaremos los vectores soporte.</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
@@ -975,10 +971,10 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="822" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 821;"><span id="cb3-822"><a href="#cb3-822" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb3-823"><a href="#cb3-823" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb3-824"><a href="#cb3-824" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb3-825"><a href="#cb3-825" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="846" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 845;"><span id="cb3-846"><a href="#cb3-846" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb3-847"><a href="#cb3-847" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb3-848"><a href="#cb3-848" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb3-849"><a href="#cb3-849" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -992,11 +988,11 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </section>
 </section>
 </section>
-<section id="máquinas-de-vectores-soporte-no-lineal" class="level2">
-<h2 class="anchored" data-anchor-id="máquinas-de-vectores-soporte-no-lineal">Máquinas de vectores soporte no lineal</h2>
+<section id="iii-máquinas-de-vectores-soporte-no-lineal" class="level2">
+<h2 class="anchored" data-anchor-id="iii-máquinas-de-vectores-soporte-no-lineal">III <span style="color:#CCCCCC;">│</span> Máquinas de vectores soporte no lineal</h2>
 <p>El uso de hiperplanos separadores tiene la limitación de que determina una frontera de decisión lineal. En muchos problemas reales, esta hipótesis resulta demasiado restrictiva: los datos pueden estar distribuidos de manera tal que no exista un hiperplano capaz de separarlos correctamente, ni siquiera permitiendo un margen suave. Para graficar esto, veamos el siguiente ejemplo.</p>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Transformación de datos de <span class="math inline">\(\mathbb{R}^2\)</span> a <span class="math inline">\(\mathbb{R}^3\)</span> </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.5.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Transformación de datos de <span class="math inline">\(\mathbb{R}^2\)</span> a <span class="math inline">\(\mathbb{R}^3\)</span> </span></p>
 <p>En la siguiente figura se presenta un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_ej_motivador.png" alt="…" width="350px" class="figure-img">
@@ -1012,29 +1008,31 @@ Z = X_1^2+X_2^2.
 <div style="margin-top:2em;">
 
 </div>
-<p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Formalmente, definimos una transformación como <span class="math display">\[
+<p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma <span class="math display">\[
 \phi:\mathbb{R}^p\to\mathcal{H},
 \]</span></p>
-<p>donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido, de manera tal que podemos calcular <span class="math display">\[
+<p>donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido. La condición de que <span class="math inline">\(\mathcal{H}\)</span> sea un espacio de Hilbert nos posibilita hacer cálculos en el espacio transformado: <span class="math display">\[
 \langle \phi({\bf x}_1),\phi({\bf x}_2)\rangle_{\mathcal{H}}\qquad\forall{\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
-\tag{11}
+\tag{2.5.12}
 \]</span></p>
-<p>Observar que en el Ejemplo 3 la transformación se hace entre dos espacios de dimensión finita, ya que allí <span class="math inline">\(\mathcal{H}=\mathbb{R}^3\)</span>. No obstante, en general, será necesario transformar a un espacio de dimensión infinita.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>De ahora en adelante, consideraremos <span class="math inline">\(\mathcal{H}\)</span> un espacio de funciones de la forma <span class="math inline">\(h:\mathbb{R}^p\to\mathbb{R}\)</span>. Es decir, el mapeo será de la forma <span class="math display">\[
-{\bf x}\mapsto h
+<p>Observar que, en el Ejemplo 2.5.8, la transformación se hace entre dos espacios de dimensión finita, ya que allí <span class="math inline">\(\mathcal{H}=\mathbb{R}^3\)</span>. No obstante, en general, es conveniente trabajar con <span class="math inline">\(\mathcal{H}\)</span> de dimensión infinita. Más aún, de ahora en adelante consideraremos <span class="math inline">\(\mathcal{H}\)</span> un espacio de funciones de la forma <span class="math inline">\(h:\mathbb{R}^p\to\mathbb{R}\)</span>. Es decir, el mapeo será de la forma <span class="math display">\[
+{\bf x}\mapsto h.
 \]</span></p>
 <p>Veremos que esto no representa ninguna dificultad adicional; por el contrario, permite utilizar una herramienta muy poderosa que justifica el éxito de las máquinas de vectores soporte.</p>
 </div>
+<div style="margin-top:1em;">
+
+</div>
 <section id="núcleos-reproductores" class="level3">
 <h3 class="anchored" data-anchor-id="núcleos-reproductores">Núcleos reproductores</h3>
-<p>El cálculo de productos internos en (11) será fundamental para la generalización de SVM. Para un <span class="math inline">\(\mathcal{H}\)</span> arbitrario, esto significa que necesitamos conocer explícitamente su producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span>, lo cual resulta ser una limitación práctica. Una manera de sortear esto es utilizar un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS).</p>
+<p>El cálculo de productos internos (2.5.12) en <span class="math inline">\(\mathcal{H}\)</span> será fundamental para la generalización de SVM. Para un <span class="math inline">\(\mathcal{H}\)</span> arbitrario, conocer explícitamente su producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> resulta ser una limitación práctica. Una manera de sortear esto es utilizar un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS).</p>
 <div class="definicion">
-<p><strong>Definición 5.</strong> (RKHS) Un espacio de Hilbert <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> que verifica las siguientes propiedades:</p>
+<p><strong>Definición 2.5.9.</strong> (RKHS) Un espacio de Hilbert <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> que verifica las siguientes propiedades:</p>
 <ul>
 <li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span>, <span class="math inline">\(k({\bf x},\cdot)\in\mathcal{H}\)</span>.</p></li>
 <li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> y toda <span class="math inline">\(h\in\mathcal{H}\)</span>, <span class="math display">\[
@@ -1042,7 +1040,10 @@ h({\bf x})=\langle h,k({\bf x},\cdot)\rangle_{\mathcal{H}}.
 \]</span></p></li>
 </ul>
 </div>
-<p>Veamos el efecto de trabajar con RKHS para el cálculo de productos internos en (11). Las propiedades de la Definición 5 implican que</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (2.5.12). Las propiedades de la Definición 2.5.9 implican:</p>
 <div class="myhighlight">
 <p><span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\mathcal{H}}\qquad\forall {\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
@@ -1054,27 +1055,30 @@ k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\ma
 <figure style="text-align: center;" class="figure">
 <img src="figuras/rkhs.svg" alt="…" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 6</strong>. Mapeo característico <span class="math inline">\(\phi:\mathbb{R}^p\to\mathcal{H}\)</span> asociado a un RKHS.
+<strong>Figura 2.5.6</strong>. Mapeo característico <span class="math inline">\(\phi:\mathbb{R}^p\to\mathcal{H}\)</span> asociado a un RKHS.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
-<p>Este último resultado es crucial: afirma que, dado un <mark>mapeo característico</mark> <span class="math display">\[
+<p>Este último resultado es crucial: permite afirmar que, dado un <em>mapeo característico</em> de la forma <span class="math display">\[
 {\bf x}\mapsto k({\bf x},\cdot),
 \]</span></p>
 <p>lo único que necesitamos para poder calcular productos internos en <span class="math inline">\(\mathcal{H}\)</span> es conocer explícitamente el núcleo reproductor <span class="math inline">\(k\)</span>. Ahora bien:</p>
 <div class="myhighlight3">
 <p>¿Cómo se construye un núcleo <span class="math inline">\(k\)</span> válido?</p>
 </div>
-<div style="margin-top:2em;">
+<div style="margin-top:1em;">
 
 </div>
 <p>Para responder a esta pregunta, es necesario introducir la siguiente definición.</p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="definicion">
-<p><strong>Definición 6.</strong> Una función <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> se dice <em>definida positiva</em> si para todo <span class="math inline">\(n\in\mathbb{N}\)</span>, <span class="math inline">\(\alpha_1,\ldots,\alpha_n\in\mathbb{R}\)</span> y <span class="math inline">\({\bf x}_1,\ldots,{\bf x}_n\in\mathbb{R}^p\)</span> resulta <span class="math display">\[
+<p><strong>Definición 2.5.10.</strong> Una función <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> se dice <em>definida positiva</em> si para todo <span class="math inline">\(n\in\mathbb{N}\)</span>, <span class="math inline">\(\alpha_1,\ldots,\alpha_n\in\mathbb{R}\)</span> y <span class="math inline">\({\bf x}_1,\ldots,{\bf x}_n\in\mathbb{R}^p\)</span> resulta <span class="math display">\[
 \sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jk({\bf x}_i,{\bf x}_j)\geq 0.
-\tag{12}
+\tag{2.5.13}
 \]</span></p>
 <p>Por otra parte, <span class="math inline">\(k\)</span> es <em>simétrica</em> si <span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=k({\bf x}_2,{\bf x}_1)\qquad\forall{\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
@@ -1083,9 +1087,12 @@ k({\bf x}_1,{\bf x}_2)=k({\bf x}_2,{\bf x}_1)\qquad\forall{\bf x}_1,{\bf x}_2\in
 <div style="margin-top:2em;">
 
 </div>
-<p>Dado <span class="math inline">\({\bf x}_1,\ldots,{\bf x}_n\in\mathbb{R}^p\)</span>, la matriz <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> definida por <span class="math display">\[
-K_{ij}=k({\bf x}_i,{\bf x}_j)
-\]</span> se conoce como <mark>matriz de Gram</mark>. La expresión (12) es equivalente a <span class="math inline">\(K\succeq 0\)</span>.</p>
+<p>La expresión (2.5.13) se puede escribir matricialmente como <span class="math inline">\(K\succeq 0\)</span>, donde <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> es la <em>matriz de Gram</em> definida por <span class="math display">\[
+K_{ij}=k({\bf x}_i,{\bf x}_j).
+\]</span></p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
 <p>Algunos de los núcleos más habituales en aplicaciones de SVM son:</p>
@@ -1118,22 +1125,22 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\displaystyle\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j k({\bf x}_i,{\bf x}_j)\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq 0.
 \end{array}
-\tag{13}
+\tag{2.5.14}
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success">SVM no lineal</span></p>
-<p>Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS:</p>
+<p>Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS, los pasos a seguir son:</p>
 <ol type="1">
-<li><p>Se resuelve el problema dual (13) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
+<li><p>Se resuelve el problema dual (2.4.14) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
 \boldsymbol{\beta}^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik({\bf x}_i,\cdot).
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\langle \boldsymbol{\beta}^\star, k({\bf x}_i,\cdot)\rangle_{\mathcal{H}}\right)=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\sum_{\substack{j=1\\\lambda_j^\star\neq 0}}^n\lambda_j^\star y_j k({\bf x}_i,{\bf x}_j)\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Como antes, esto resulta de despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Como antes, esto último resulta de despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
 </ol>
 </div>
 <div style="margin-top:2em;">
@@ -1146,7 +1153,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 Función score
 </td>
 <td style="padding: 16px 8px;">
-<span class="math inline">\(\hat{f}({\bf x})=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik({\bf x}_i,{\bf x})+\beta_0^\star\)</span>
+<span class="math inline">\(\hat{f}({\bf x})=\displaystyle\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik({\bf x}_i,{\bf x})+\beta_0^\star\)</span>
 </td>
 </tr>
 <tr>
@@ -1162,7 +1169,7 @@ Clasificador
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con diferentes patrones </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.5.11</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con diferentes patrones </span></p>
 <p>Mostraremos diferentes estructuras de datos de clasificación binaria y veremos cómo se adaptan los diferentes núcleos. Además, veremos el efecto del valor de <span class="math inline">\(C\)</span>. Es importante remarcar que, en estos ejemplos, los distintos hiperparámetros de los modelos se utilizan con sus valores por defecto. Sin embargo, el rendimiento de un modelo puede mejorarse significativamente seleccionando cuidadosamente los hiperparámetros mediante algún proceso de validación.</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
@@ -1173,30 +1180,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1153" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1152;"><span id="cb4-1153"><a href="#cb4-1153" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1154"><a href="#cb4-1154" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb4-1155"><a href="#cb4-1155" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb4-1156"><a href="#cb4-1156" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1157"><a href="#cb4-1157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1158"><a href="#cb4-1158" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1159"><a href="#cb4-1159" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb4-1160"><a href="#cb4-1160" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb4-1161"><a href="#cb4-1161" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1162"><a href="#cb4-1162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1163"><a href="#cb4-1163" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1164"><a href="#cb4-1164" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb4-1165"><a href="#cb4-1165" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb4-1166"><a href="#cb4-1166" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1167"><a href="#cb4-1167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1168"><a href="#cb4-1168" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1169"><a href="#cb4-1169" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1170"><a href="#cb4-1170" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb4-1171"><a href="#cb4-1171" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1172"><a href="#cb4-1172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1173"><a href="#cb4-1173" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1174"><a href="#cb4-1174" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1175"><a href="#cb4-1175" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb4-1176"><a href="#cb4-1176" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1183" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1182;"><span id="cb4-1183"><a href="#cb4-1183" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1184"><a href="#cb4-1184" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb4-1185"><a href="#cb4-1185" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb4-1186"><a href="#cb4-1186" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1187"><a href="#cb4-1187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1188"><a href="#cb4-1188" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1189"><a href="#cb4-1189" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb4-1190"><a href="#cb4-1190" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb4-1191"><a href="#cb4-1191" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1192"><a href="#cb4-1192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1193"><a href="#cb4-1193" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1194"><a href="#cb4-1194" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb4-1195"><a href="#cb4-1195" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb4-1196"><a href="#cb4-1196" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1197"><a href="#cb4-1197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1198"><a href="#cb4-1198" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1199"><a href="#cb4-1199" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1200"><a href="#cb4-1200" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb4-1201"><a href="#cb4-1201" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1202"><a href="#cb4-1202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1203"><a href="#cb4-1203" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1204"><a href="#cb4-1204" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1205"><a href="#cb4-1205" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb4-1206"><a href="#cb4-1206" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -1245,30 +1252,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1258" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1257;"><span id="cb5-1258"><a href="#cb5-1258" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1259"><a href="#cb5-1259" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb5-1260"><a href="#cb5-1260" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb5-1261"><a href="#cb5-1261" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1262"><a href="#cb5-1262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1263"><a href="#cb5-1263" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1264"><a href="#cb5-1264" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb5-1265"><a href="#cb5-1265" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb5-1266"><a href="#cb5-1266" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1267"><a href="#cb5-1267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1268"><a href="#cb5-1268" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1269"><a href="#cb5-1269" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb5-1270"><a href="#cb5-1270" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb5-1271"><a href="#cb5-1271" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1272"><a href="#cb5-1272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1273"><a href="#cb5-1273" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1274"><a href="#cb5-1274" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1275"><a href="#cb5-1275" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb5-1276"><a href="#cb5-1276" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1277"><a href="#cb5-1277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1278"><a href="#cb5-1278" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1279"><a href="#cb5-1279" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1280"><a href="#cb5-1280" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb5-1281"><a href="#cb5-1281" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1288" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1287;"><span id="cb5-1288"><a href="#cb5-1288" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1289"><a href="#cb5-1289" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb5-1290"><a href="#cb5-1290" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb5-1291"><a href="#cb5-1291" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1292"><a href="#cb5-1292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1293"><a href="#cb5-1293" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1294"><a href="#cb5-1294" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb5-1295"><a href="#cb5-1295" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb5-1296"><a href="#cb5-1296" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb5-1306"><a href="#cb5-1306" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1307"><a href="#cb5-1307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1308"><a href="#cb5-1308" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1309"><a href="#cb5-1309" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1310"><a href="#cb5-1310" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb5-1311"><a href="#cb5-1311" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -1317,30 +1324,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1372" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1371;"><span id="cb6-1372"><a href="#cb6-1372" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1373"><a href="#cb6-1373" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb6-1374"><a href="#cb6-1374" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb6-1375"><a href="#cb6-1375" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1376"><a href="#cb6-1376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1377"><a href="#cb6-1377" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1378"><a href="#cb6-1378" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb6-1379"><a href="#cb6-1379" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb6-1380"><a href="#cb6-1380" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1381"><a href="#cb6-1381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1382"><a href="#cb6-1382" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1383"><a href="#cb6-1383" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb6-1384"><a href="#cb6-1384" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb6-1385"><a href="#cb6-1385" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1386"><a href="#cb6-1386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1387"><a href="#cb6-1387" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1388"><a href="#cb6-1388" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1389"><a href="#cb6-1389" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb6-1390"><a href="#cb6-1390" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1391"><a href="#cb6-1391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1392"><a href="#cb6-1392" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1393"><a href="#cb6-1393" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1394"><a href="#cb6-1394" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb6-1395"><a href="#cb6-1395" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1402" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1401;"><span id="cb6-1402"><a href="#cb6-1402" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1403"><a href="#cb6-1403" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb6-1404"><a href="#cb6-1404" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb6-1405"><a href="#cb6-1405" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1406"><a href="#cb6-1406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1407"><a href="#cb6-1407" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1408"><a href="#cb6-1408" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb6-1409"><a href="#cb6-1409" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb6-1410"><a href="#cb6-1410" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1411"><a href="#cb6-1411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1412"><a href="#cb6-1412" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1413"><a href="#cb6-1413" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb6-1414"><a href="#cb6-1414" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb6-1415"><a href="#cb6-1415" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1416"><a href="#cb6-1416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1417"><a href="#cb6-1417" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1418"><a href="#cb6-1418" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1419"><a href="#cb6-1419" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb6-1420"><a href="#cb6-1420" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1421"><a href="#cb6-1421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1422"><a href="#cb6-1422" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1423"><a href="#cb6-1423" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1424"><a href="#cb6-1424" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb6-1425"><a href="#cb6-1425" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -1379,83 +1386,10 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <p><br><br></p>
-</section>
-</section>
-<section id="actividades" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
-✏️ <strong>Conceptuales</strong><br>
-
-<hr class="linea-corta">
-<details>
-<summary>
-Mostrar
-</summary>
-<div style="margin-top:1em;">
-
-</div>
-<ol type="1">
-<li><p>Supongamos que usamos un clasificador SVM lineal para un problema de clasificación binaria con el conjunto de puntos que se muestra en la Figura. Los puntos positivos (muestras rojas) y negativos (muestras azules) están distribuidos según las coordenadas indicadas. La línea sólida representa el hiperplano separador y las líneas punteadas los márgenes del clasificador.</p>
-<figure style="text-align: center;" class="figure">
-<p><img src="figuras/ejercicio_A.png" alt="…" width="400px" class="figure-img"></p>
-</figure>
-<ol type="a">
-<li><p>Liste los vectores soporte.</p></li>
-<li><p>Seleccione dos observaciones y calcule sus distancias al hiperplano <span class="math inline">\(x_1 - x_2 = 0\)</span>.</p></li>
-<li><p>Si se elimina la observación <span class="math inline">\((0, 1)\)</span>, ¿cambiaría la frontera de decisión? ¿Qué sucede si en cambio se elimina la muestra <span class="math inline">\((-1, -2.5)\)</span>?</p></li>
-<li><p>Si se agrega una nueva observación <span class="math inline">\((2, 0.5)\)</span> con target positivo, ¿cambiaría la frontera de decisión? En caso afirmativo, ¿qué método usaría en este caso?</p></li>
-<li><p>En el método SVM de , <span class="math inline">\(C\)</span> es un hiperparámetro. ¿Qué ocurriría al usar un valor de <span class="math inline">\(C\)</span> muy grande? ¿Y qué pasaría si <span class="math inline">\(C\)</span> es muy pequeño?</p></li>
-</ol></li>
-</ol>
-<div style="margin-top:1em;">
-
-</div>
-<ol start="2" type="1">
-<li><p>A continuación se presentan los resultados de aplicar un SVM lineal con margen suave a un mismo conjunto de datos, variando el valor del hiperparámetro <span class="math inline">\(C\)</span>.</p>
-<figure style="text-align: center;" class="figure">
-<p><img src="figuras/ejercicio_B.png" alt="…" width="800px" class="figure-img"></p>
-</figure>
-<ol type="a">
-<li><p>Ordene las figuras según los valores de <span class="math inline">\(C\)</span> utilizados para obtener cada solución (de manera creciente), justificando brevemente su elección.</p></li>
-<li><p>Identifique en cada caso cuáles son los vectores soporte.</p></li>
-<li><p>Para los vectores soporte encontrados, analice los valores de <span class="math inline">\(\lambda_i\)</span>, <span class="math inline">\(\mu_i\)</span> y <span class="math inline">\(\xi_i\)</span>, indicando qué representan y qué relación existe entre ellos según las condiciones KKT.</p></li>
-</ol></li>
-</ol>
-<div style="margin-top:1em;">
-
-</div>
-<ol start="3" type="1">
-<li><p>Considere el siguiente conjunto de datos de la forma <span class="math inline">\((x_i,y_i)\)</span>: <span class="math display">\[
-D = \{(-1, 1), (0, -1), (1, -1)\}
-\]</span></p>
-<ol type="a">
-<li><p>Analice graficamente el problema.</p></li>
-<li><p>¿Son linealmente separables? En base a su respuesta plantee el SVM que considere apropiado y encuentre el hiperplano de separación óptimo.</p></li>
-</ol></li>
-<li><p>Considere el siguiente conjunto de datos de la forma <span class="math inline">\((x_i,y_i)\)</span>: <span class="math display">\[
-D = \{ (-1, 1),(0, -1),(1, 1) \}.
-\]</span></p>
-<ol type="a">
-<li><p>Analice graficamente el problema</p></li>
-<li><p>¿Son linealmente separables? En base a su respuesta plantee el SVM que considere apropiado y encuentre el hiperplano de separación óptimo.</p></li>
-</ol></li>
-</ol>
-</details>
-<div style="margin-top:2em;">
-
-</div>
-💻 <strong>Prácticas</strong><br>
-
-<hr class="linea-corta">
-<div style="text-align:left;">
-<p><a href="https://colab.research.google.com/drive/1Q2Bq4eA7sHCZp-kDIi0kQ257kU3nErwx?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
-</div>
-<div style="margin-top: 5em;">
-
-</div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
-<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em> (2nd ed.). Capítulo 4, Sección 5 y Capítulo 12. Springer.</p>
-<p>Steinwart, I., &amp; Christmann, A. (2008). <em>Support Vector Machines</em>. Springer.</p>
+<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed.&nbsp;Springer Series in Statistics. New York: Springer.</p>
+<p>Steinwart, I., &amp; Christmann, A. (2008). <em>Support Vector Machines</em>. Information Science and Statistics. New York: Springer.</p>
 </div>
 
 
@@ -1476,6 +1410,7 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
+</section>
 </section>
 
 </main> <!-- /main -->
