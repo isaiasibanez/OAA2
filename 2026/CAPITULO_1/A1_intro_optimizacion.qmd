@@ -217,21 +217,30 @@ $$
 \end{array}
 $$
 
-<div style="float: right; width: 23%; margin-left: 1em; margin-bottom: 1em;">
-  <img src="figuras/ej_funcion_cuadratica.svg" alt="Ejemplo" style="width: 100%;">
-</div>
+::: {.columns}
 
-
+::: {.column width="65%"}
 En este problema no se imponen restricciones sobre el valor de $x$, más allá de pedirle que pertenezca al dominio de la función. La función objetivo es una función cuadrática con coeficiente cuadrático positivo y, por lo tanto, el punto óptimo ocurre en su vértice. Es decir,
 $$
 x^\star=-\frac{-4}{2\cdot 1}=2.
 $$
 
-Luego, el valor óptimo es 
-$$
-p^\star=f(2)=2^2-4\cdot 2+5=1.
-$$
+Luego, el valor óptimo es  $p^\star=f(2)=1.$
+:::
 
+::: {.column width="5%"}
+:::
+
+::: {.column width="30%"}
+
+<figure style="text-align: center;">
+  <img src="figuras/ej_funcion_cuadratica.svg" alt="" width=90%>
+</figure>
+
+<div style="margin-top:-1.5em;"></div>
+
+:::
+:::
 :::
 
 <div style="margin-top:1em;"></div>
@@ -246,17 +255,32 @@ $$
 \end{array}
 $$
 
+::: {.columns}
 
-<div style="float: right; width: 28%; margin-left: 1em; margin-bottom: 1em;">
-  <img src="figuras/ej_funcion_cubica.png" alt="Ejemplo" style="width: 100%;">
-</div>
+::: {.column width="65%"}
 
+<div style="margin-top:1em;"></div>
 
 En este problema de optimización, al no haber restricciones, podemos obtener en primer lugar los *puntos críticos* que anulan el vector gradiente. Así, a partir de la ecuación vectorial 
 $$
 \nabla f(x,y)=(3x^2-3,2y)=(0,0)
 $$
-obtenemos los candidatos $(-1,0)$ y $(1,0)$. 
+obtenemos los candidatos $(-1,0)$ y $(1,0)$.
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="30%"}
+
+<figure style="text-align: center;">
+  <img src="figuras/ej_funcion_cubica.png" alt="" width=100%>
+</figure>
+
+:::
+
+:::
 
 Para determinar la condición de estos puntos,  una herramienta es el *criterio del Hessiano*, el cual inspecciona la matriz de derivadas de segundo orden
 $$
@@ -286,33 +310,44 @@ $$
 \text{minimizar } & x^2+y^2\\
 \text{sujeto a } & xy=1.
 \end{array}
+\tag{1.1.3}
 $$
 
+::: {.columns}
 
-<div style="float: right; width: 28%; margin-left: 1em; margin-bottom: 1em;">
-  <img src="figuras/ej_funcion_cuadratica_restringida.png" alt="Ejemplo" style="width: 100%;">
-</div>
+::: {.column width="65%"}
+
+<div style="margin-top:0.5em;"></div>
 
 En este caso, tenemos una restricción funcional de igualdad definida por $h(x,y)=xy-1$. Este problema se puede resolver aplicando el método de *multiplicadores de Lagrange*, el cual consiste en obtener los puntos críticos de la función $f+\lambda h$, con $\lambda\in\RR$. Al resolver el sistema de ecuaciones formado por
 $$
 \nabla f(x,y)-\lambda\nabla h(x,y)=(2x-\lambda y,2y-\lambda x)=(0,0)
 $$
+:::
 
-y la restricción, se obtienen los puntos críticos $(1,1)$ y $(-1,-1)$, ambos con $\lambda=2$. Además,
-$$
-f(1,1)=f(-1,-1)=2.
-$$
+::: {.column width="5%"}
+:::
 
-<div style="float: right; width: 23%; margin-left: 1em; margin-bottom: 1em;">
-  <img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="Ejemplo" style="width: 100%;">
-</div>
+::: {.column width="30%"}
 
-Este es el valor óptimo de la función objetivo en el conjunto factible. La justificación resulta de interpretar geométricamente el problema como *el punto de la hipérbola $xy=1$ más cercano al origen*. 
+<div style="margin-top:-0.5em;"></div>
 
-En consecuencia, los puntos óptimos son
+<figure style="text-align: center;">
+  <img src="figuras/ej_funcion_cuadratica_restringida.png" alt="" width=100%>
+</figure>
+
+:::
+:::
+
+y la restricción, se obtienen los puntos críticos $(1,1)$ y $(-1,-1)$, ambos con $\lambda=2$. El valor $f(1,1)=f(-1,-1)=2$ es óptimo de la función objetivo en el conjunto factible. Por lo tanto, hay dos puntos óptimos:
 $$
 \xx_1^\star=(1,1),\qquad \xx_2^\star=(-1,-1). 
 $$
+
+<figure style="text-align: center;">
+  <img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="" width=35%>
+  <figcaption>**Figura 1.1.1**. El problema (1.1.3) puede ser interpretado geométricamente como *hallar el punto de la hipérbola $xy=1$ más cercano al origen*. </figcaption>
+</figure>
  
 :::
 
