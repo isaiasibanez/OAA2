@@ -226,7 +226,7 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#optimización-matemática" id="toc-optimización-matemática" class="nav-link active" data-scroll-target="#optimización-matemática">Optimización matemática</a></li>
+  <li><a href="#i-optimización-matemática" id="toc-i-optimización-matemática" class="nav-link active" data-scroll-target="#i-optimización-matemática">I <span style="color:#CCCCCC;">│</span> Optimización matemática</a></li>
   </ul>
 </nav>
     </div>
@@ -264,19 +264,19 @@ window.Quarto = {
 <div style="margin-top:20px">
 
 </div>
-<p>La optimización es una herramienta fundamental en matemática aplicada, ciencia de datos y otras disciplinas. En términos generales, el objetivo de un problema de optimización es encontrar el valor de una <em>variable</em> (o conjunto de variables) que <em>minimice</em> o <em>maximice</em> una determinada función, posiblemente bajo ciertas <em>restricciones</em>.</p>
+<p>La optimización es una herramienta fundamental en matemática aplicada, ciencia de datos y otras disciplinas. En términos generales, el objetivo de un problema de optimización es encontrar el valor de una variable (o conjunto de variables) que <em>minimice</em> o <em>maximice</em> una determinada función, posiblemente bajo ciertas <em>restricciones</em>.</p>
 <div style="margin-top:2.5em;">
 
 </div>
-<section id="optimización-matemática" class="level2">
-<h2 class="anchored" data-anchor-id="optimización-matemática">Optimización matemática</h2>
+<section id="i-optimización-matemática" class="level2">
+<h2 class="anchored" data-anchor-id="i-optimización-matemática">I <span style="color:#CCCCCC;">│</span> Optimización matemática</h2>
 <div class="definicion">
-<p><strong>Definición 1.</strong> (Problema de optimización) Un <em>problema de optimización matemática</em> tiene la forma <span class="math display">\[
+<p><strong>Definición 1.1.1.</strong> (Problema de optimización) Un <em>problema de optimización matemática</em> tiene la forma <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; f({\bf x})\\
 \text{sujeto a } &amp; {\bf x}\in\Omega.
 \end{array}
-\tag{1}
+\tag{1.1.1}
 \]</span></p>
 <p>donde:</p>
 <ul>
@@ -287,33 +287,44 @@ window.Quarto = {
 <div style="margin-top:2em;">
 
 </div>
-<p>El <em>valor óptimo</em> del problema es <span class="math display">\[
+<p>El <em>valor óptimo</em> del problema (1.1.1) es <span class="math display">\[
 p^\star:=\inf\{f({\bf x}) \mid {\bf x}\in\mathop{\mathrm{dom}}f\;\land\;{\bf x}\in\Omega\}.
 \]</span></p>
 <p>Si <span class="math inline">\(\mathop{\mathrm{dom}}f\cap\Omega=\emptyset\)</span> (es decir, no hay <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> <em>factible</em>), se dice que el problema es <em>infactible</em> y se asume <span class="math inline">\(p^\star=\infty\)</span>. Por su parte, si el conjunto <span class="math inline">\(\{f({\bf x}) \mid {\bf x}\in\mathop{\mathrm{dom}}f\;\land\;{\bf x}\in\Omega\}\)</span> no tiene cota inferior, se considera <span class="math inline">\(p^\star=-\infty\)</span>.</p>
-<p>En el caso que <span class="math inline">\(p^\star\)</span> existe y es finito, un vector <span class="math inline">\({\bf x}^\star\in\Omega\)</span> se denomina <em>punto óptimo</em> si <span class="math inline">\(f({\bf x}^\star)=p^\star\)</span>.</p>
+<p>En el caso que <span class="math inline">\(p^\star\)</span> existe y es finito, un vector <span class="math inline">\({\bf x}^\star\in\Omega\)</span> se denomina <em>punto óptimo</em> del problema (1.1.1) si verifica <span class="math inline">\(f({\bf x}^\star)=p^\star\)</span>.</p>
 </div>
-<p><span style="display:block; height:0.25em;"></span></p>
+<div style="margin-top:1.5em;">
+
+</div>
+<p>Las preguntas que surgen al tratar con un problema de optimización son:</p>
+<div class="myhighlight4">
+<p>¿Existe una solución?</p>
+<p>En caso afirmativo: ¿Es única? ¿Podemos calcularla?</p>
+</div>
+<div style="margin-top:1.5em;">
+
+</div>
+<p>En primer lugar, diremos que:</p>
 <div class="myhighlight">
-<p>Un problema de optimización tiene solución si existe al menos un punto óptimo <span class="math inline">\(x^\star\)</span>. En tal caso, es válido escribir <span class="math display">\[
+<p>Un problema de optimización tiene solución si existe al menos un punto óptimo <span class="math inline">\({\bf x}^\star\)</span>. En tal caso, es válido escribir: <span class="math display">\[
 p^\star=\min\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega\},
 \]</span> <span class="math display">\[
-{\bf x}^\star\in\mathop{\mathrm{arg\,min\,}}\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega\}.
+{\bf x}^\star\in\arg\min\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega\}.
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>En general, se asume que la función objetivo <span class="math inline">\(f\)</span> es continua. Además, a menudo se suele imponer la condición de que también sea diferenciable, ya que facilita el análisis teórico y permite el diseño de métodos de optimización.</p>
+<p>La tarea de verificar que un problema tiene solución, determinar si es única y encontrarla puede ser compleja. Estas cuestiones dependen de las características del problema y motivan el desarrollo de resultados teóricos, como los teoremas de existencia y las condiciones de optimalidad, que estudiaremos en las siguientes secciones. En general, estos resultados requieren imponer ciertas hipótesis sobre la función objetivo. En este sentido, a lo largo del texto asumiremos que <span class="math inline">\(f\)</span> es continua y, cuando sea necesario, también diferenciable.</p>
 <p>Por otra parte, son de especial interés los problemas con <em>restricciones funcionales</em>, que son aquellos en los cuales el conjunto factible es de la forma</p>
 <p><span class="math display">\[
 \Omega=\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
 \; g_i({\bf x})\leq 0,&amp; i=1,\ldots,r\\
 \; h_j({\bf x})=0, &amp; j=1,\ldots,m
 \end{array}\right.\right\}.
-\tag{2}
+\tag{1.1.2}
 \]</span></p>
-<p>Es decir, <span class="math inline">\(\Omega\)</span> queda definido a partir de un conjunto de <em>funciones de restricción</em>, tanto de desigualdad, <span class="math inline">\(g_i:\mathbb{R}^p\to\mathbb{R}\)</span>, como de igualdad, <span class="math inline">\(h_j:\mathbb{R}^p\to\mathbb{R}\)</span>. En función de las características de estas funciones, el conjunto factible puede adquirir ciertas propiedades geométricas fundamentales.</p>
+<p>Es decir, <span class="math inline">\(\Omega\)</span> queda definido a partir de un conjunto de <em>funciones de restricción</em>, tanto de desigualdad, <span class="math inline">\(g_i:\mathbb{R}^p\to\mathbb{R}\)</span>, como de igualdad, <span class="math inline">\(h_j:\mathbb{R}^p\to\mathbb{R}\)</span>. Las propiedades de estas funciones determinan la estructura geométrica del conjunto factible, la cual desempeña un papel fundamental en el análisis y la resolución de los problemas de optimización.</p>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
 <p>Un problema de optimización cuyo conjunto factible es de la forma (2) tiene una <em>restricción implícita</em>, a saber: <span class="math display">\[
@@ -323,34 +334,30 @@ p^\star=\min\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega
 <ul>
 <li><p><span class="math inline">\(\mathcal{D}\)</span> es el <em>dominio</em> del problema.</p></li>
 <li><p>Las restricciones funcionales <span class="math inline">\(g_i({\bf x})\leq 0\)</span> y <span class="math inline">\(h_i({\bf x})=0\)</span> son <em>restricciones explícitas</em>.</p></li>
-<li><p>Un problema es <em>sin restricciones</em> si no tiene restricciones explícitas. Es decir, su dominio es <span class="math inline">\(\mathcal{D}:=\mathop{\mathrm{dom}}f\)</span>.</p></li>
+<li><p>Un problema <em>sin restricciones</em> es aquel que no tiene restricciones explícitas. Es decir, su dominio es <span class="math inline">\(\mathcal{D}:=\mathop{\mathrm{dom}}f\)</span>.</p></li>
 </ul>
-</div>
-<p>Las preguntas que surgen de un problema de optimización son:</p>
-<div style="margin-top:1.5em;">
-
-</div>
-<div class="myhighlight4">
-<p>¿Existe una solución?</p>
-<p>En caso afirmativo: ¿Es única? ¿Podemos calcularla?</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
+<p>Comenzaremos con algunos ejemplos elementales, muchos de ellos conocidos del cálculo diferencial. Aunque pueden resolverse mediante herramientas básicas, ilustran los conceptos fundamentales de la optimización. Posteriormente, mostraremos brevemente algunas aplicaciones representativas para destacar el amplio alcance de la optimización en distintas áreas del conocimiento.</p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1</span></p>
+<p><span class="badge bg-primary">Ejemplo 1.1.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Problemas de optimización de una variable sin restricciones </span></p>
 <p>Veamos algunos ejemplos sencillos de problemas de optimización sin restricciones con funciones objetivo de una variable. Es decir, de la forma <span class="math display">\[
 \text{minimizar } f(x).
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}:f(x)=\displaystyle\frac{1}{x}\)</span>. El valor óptimo es <span class="math inline">\(p^\star=0\)</span>, pero no existe un punto óptimo. En consecuencia, el problema no tiene solución.</p></li>
-<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}: f(x)=-\log x\)</span>. En este caso, <span class="math inline">\(p^\star=-\infty\)</span>, ya que el problema no está acotado inferiormente.</p></li>
-<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}: f(x)=x\log x\)</span>. El valor óptimo es <span class="math inline">\(p^\star=-e^{-1}\)</span> y ocurre en el único punto óptimo <span class="math inline">\(x^\star=e^{-1}\)</span>.</p></li>
-<li><p><span class="math inline">\(f:\mathbb{R}\to\mathbb{R}: f(x)=\sin x\)</span>. El valor óptimo es <span class="math inline">\(p^\star=-1\)</span> y ocurre en infinitos puntos óptimos, los cuales son de la forma <span class="math inline">\(x^\star=\pi+2k\pi\)</span>, con <span class="math inline">\(k\in\mathbb{Z}\)</span>.</p></li>
-<li><p><span class="math inline">\(f:\mathbb{R}\to\mathbb{R}: f(x)=x^3-3x\)</span>. Aquí <span class="math inline">\(p^\star=-\infty\)</span>, aunque exista un mínimo local en <span class="math inline">\(x=1\)</span>.</p></li>
+<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}\mid f(x)=1/x\)</span>. El valor óptimo es <span class="math inline">\(p^\star=0\)</span>, pero no existe un punto óptimo. En consecuencia, el problema no tiene solución.</p></li>
+<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}\mid f(x)=-\log x\)</span>. En este caso, <span class="math inline">\(p^\star=-\infty\)</span>, ya que el problema no está acotado inferiormente.</p></li>
+<li><p><span class="math inline">\(f:\mathbb{R}^+\to\mathbb{R}\mid f(x)=x\log x\)</span>. El valor óptimo es <span class="math inline">\(p^\star=-e^{-1}\)</span> y ocurre en el único punto óptimo <span class="math inline">\(x^\star=e^{-1}\)</span>.</p></li>
+<li><p><span class="math inline">\(f:\mathbb{R}\to\mathbb{R}\mid f(x)=\sin x\)</span>. El valor óptimo es <span class="math inline">\(p^\star=-1\)</span> y ocurre en infinitos puntos óptimos, los cuales son de la forma <span class="math inline">\(x^\star=\pi+2k\pi\)</span>, con <span class="math inline">\(k\in\mathbb{Z}\)</span>.</p></li>
+<li><p><span class="math inline">\(f:\mathbb{R}\to\mathbb{R}\mid f(x)=x^3-3x\)</span>. Aquí <span class="math inline">\(p^\star=-\infty\)</span>, aunque exista un mínimo local en <span class="math inline">\(x=1\)</span>.</p></li>
 </ul>
 </div>
-<div style="margin-top:-0.5em;">
+<div style="margin-top:1em;">
 
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
@@ -367,13 +374,13 @@ p^\star=\min\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega
 <div class="columns">
 <div class="column">
 <ul>
-<li><p><span class="math inline">\(f: \mathbb{R}^+ \to \mathbb{R},\quad f(x) = x^3\)</span></p></li>
-<li><p><span class="math inline">\(f: \mathbb{R} \to \mathbb{R},\quad f(x) = x e^x\)</span></p></li>
+<li><p><span class="math inline">\(f: \mathbb{R}^+ \to \mathbb{R} \mid f(x) = x^3\)</span></p></li>
+<li><p><span class="math inline">\(f: \mathbb{R} \to \mathbb{R} \mid f(x) = x e^x\)</span></p></li>
 </ul>
 </div><div class="column">
 <ul>
-<li><p><span class="math inline">\(f: \mathbb{R} \to \mathbb{R},\quad f(x) = |x^2-1|\)</span></p></li>
-<li><p><span class="math inline">\(f: (-1,1) \to \mathbb{R},\quad f(x) = \displaystyle\frac{1}{1-x^2}\)</span></p></li>
+<li><p><span class="math inline">\(f: \mathbb{R} \to \mathbb{R} \mid f(x) = |x^2-1|\)</span></p></li>
+<li><p><span class="math inline">\(f: (-1,1) \to \mathbb{R} \mid f(x) = \displaystyle\frac{1}{1-x^2}\)</span></p></li>
 </ul>
 </div>
 </div>
@@ -390,48 +397,54 @@ p^\star=\min\{f(x) \mid {\bf x}\in \mathop{\mathrm{dom}}f\;\land{\bf x}\in\Omega
 \]</span> para todo <span class="math inline">\({\bf x},{\bf y}\in\mathbb{R}^p\)</span> y para todo <span class="math inline">\(\alpha,\beta\in\mathbb{R}\)</span>.</p></li>
 <li><p><strong>Optimización convexa</strong>: Un problema de <em>optimización convexa</em> es aquel en el que tanto la función objetivo como las funciones de restricción son funciones convexas; esto es, son funciones <span class="math inline">\(\varphi:\mathbb{R}^p\to\mathbb{R}\)</span> que satisfacen la desigualdad <span class="math display">\[
 \varphi(\alpha {\bf x}+\beta {\bf y})\leq \alpha\,\varphi({\bf x})+\beta\,\varphi({\bf y}),
-\]</span> para todo <span class="math inline">\({\bf x},{\bf y}\in\mathbb{R}^p\)</span> y para todo <span class="math inline">\(\alpha,\beta\in[0,1]\)</span> con <span class="math inline">\(\alpha+\beta=1\)</span>.</p></li>
+\]</span> para todo <span class="math inline">\({\bf x},{\bf y}\in\mathbb{R}^p\)</span> y para todo <span class="math inline">\(\alpha,\beta\in[0,1]\)</span> tales que <span class="math inline">\(\alpha+\beta=1\)</span>.</p></li>
 </ul>
 <div style="margin-top:1em;">
 
 </div>
 <p>Comparando los dos ejemplos anteriores, vemos que la convexidad es más general que la linealidad: la desigualdad reemplaza la igualdad más restrictiva, y además la desigualdad debe cumplirse solo para ciertos valores de <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>. Por lo tanto, cualquier programa lineal es un problema de optimización convexa.</p>
-<p>El estudio de los problemas de optimización convexa lo realizaremos en <a href="A2_optimizacion_convexa.html">C1-S2</a>. Respecto a programación lineal, veremos un ejemplo básico en esta misma sección más adelante, y otros ejemplos de aplicación se presentarán en <a href="A3_resolucion_computacional.html">C1-S3</a> cuando exploremos un par de librerías de Python útiles para resolver problemas de optimización.</p>
+<p>Estudiaremos los problemas de optimización convexa en <a href="A2_optimizacion_convexa.html">C1-S2</a>. Respecto a los programas lineales, los presentaremos como caso particular de los denominados <em>programas cónicos</em>, que serán objeto de estudio en <a href="A3_resolucion_computacional.html">C1-S3</a>.</p>
 <p>Por lo pronto, veamos a continuación algunos ejemplos básicos de ejercicios de optimización, que seguramente les resultarán familiares de cursos previos.</p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2</span></p>
+<p><span class="badge bg-primary">Ejemplo 1.1.3</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; x^2-4x+5.
 \end{array}
 \]</span></p>
-<div style="float: right; width: 30%; margin-left: 1em; margin-bottom: 1em;">
-<p><img src="figuras/ej_basico_1.png" alt="Ejemplo" style="width: 100%;"></p>
+<div style="float: right; width: 35%; margin-left: 1em; margin-bottom: 1em;">
+<p><img src="figuras/ej_funcion_cuadratica.svg" alt="Ejemplo" style="width: 100%;"></p>
 </div>
-<p>En este problema no se imponen restricciones sobre el valor de <span class="math inline">\(x\)</span>, más allá de pedirle que pertenezca al dominio de la función. Por lo tanto, es un <em>problema sin restricciones</em>.</p>
-<p>La función objetivo es <span class="math inline">\(f(x)=x^2-4x+5\)</span>. Al ser una función cuadrática con coeficiente cuadrático positivo, sabemos que el punto óptimo ocurre en su vértice. Es decir, <span class="math display">\[
+<p>En este problema no se imponen restricciones sobre el valor de <span class="math inline">\(x\)</span>, más allá de pedirle que pertenezca al dominio de la función. La función objetivo es una función cuadrática con coeficiente cuadrático positivo y, por lo tanto, el punto óptimo ocurre en su vértice. Es decir, <span class="math display">\[
 x^\star=-\frac{-4}{2\cdot 1}=2.
 \]</span></p>
-<p>Luego, el valor óptimo es <span class="math inline">\(p^\star=f(2)=2^2-4\cdot 2+5=1\)</span>.</p>
+<p>Luego, el valor óptimo es <span class="math display">\[
+p^\star=f(2)=2^2-4\cdot 2+5=1.
+\]</span></p>
 </div>
-<p><span style="display:block; height:0.25em;"></span></p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3</span></p>
+<p><span class="badge bg-primary">Ejemplo 1.1.4</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; x^3-3x+y^2.
 \end{array}
 \]</span></p>
-<div style="float: right; width: 30%; margin-left: 1em; margin-bottom: 1em;">
-<p><img src="figuras/ej_basico_2.png" alt="Ejemplo" style="width: 100%;"></p>
+<div style="float: right; width: 35%; margin-left: 1em; margin-bottom: 1em;">
+<p><img src="figuras/ej_funcion_cubica.png" alt="Ejemplo" style="width: 100%;"></p>
 </div>
-<p>En este problema de optimización, la función objetivo es <span class="math inline">\(f(x,y)=x^3-3x+y^2\)</span>. Dado que no hay restricciones, podemos obtener en primer lugar los <em>puntos críticos</em> que anulan el vector gradiente. Así, a partir de <span class="math display">\[
+<p>En este problema de optimización, al no haber restricciones, podemos obtener en primer lugar los <em>puntos críticos</em> que anulan el vector gradiente. Así, a partir de la ecuación vectorial <span class="math display">\[
 \nabla f(x,y)=(3x^2-3,2y)=(0,0)
-\]</span> obtenemos los candidatos <span class="math inline">\((-1,0)\)</span> y <span class="math inline">\((1,0)\)</span>. Para determinar la condición de estos puntos, tenemos como herramienta el <em>criterio del Hessiano</em>, el cual inspecciona la matriz de derivadas de segundo orden <span class="math display">\[
+\]</span> obtenemos los candidatos <span class="math inline">\((-1,0)\)</span> y <span class="math inline">\((1,0)\)</span>.</p>
+<p>Para determinar la condición de estos puntos, una herramienta es el <em>criterio del Hessiano</em>, el cual inspecciona la matriz de derivadas de segundo orden <span class="math display">\[
 H(x,y)=\begin{pmatrix}6x&amp;0\\0&amp;2\end{pmatrix}.
 \]</span></p>
-<p>Al aplicar dicho criterio, resulta que en <span class="math inline">\((1,0)\)</span> hay un mínimo local, mientras que <span class="math inline">\((-1,0)\)</span> se descarta por ser punto silla. No obstante, esto no quiere decir que hallamos encontrado el punto óptimo, ya que nuestro problema de optimización requiere que el valor óptimo sea global.</p>
-<p>Es importante remarcar lo siguiente:</p>
+<p>Al aplicar dicho criterio, resulta que en <span class="math inline">\((1,0)\)</span> hay un mínimo local, mientras que <span class="math inline">\((-1,0)\)</span> se descarta por ser punto silla. No obstante, esto no quiere decir que hallamos encontrado el punto óptimo, ya que nuestro problema de optimización requiere que el valor óptimo sea global. En efecto, recordemos que:</p>
 <div class="myhighlight">
 <p>Ser mínimo local es una condición necesaria, pero no suficiente, para ser mínimo global.</p>
 </div>
@@ -440,48 +453,50 @@ H(x,y)=\begin{pmatrix}6x&amp;0\\0&amp;2\end{pmatrix}.
 </div>
 <p>De hecho, para este problema no hay un punto óptimo, puesto que la función no está acotada inferiormente, tal como se puede apreciar en su gráfica. Analíticamente, es suficiente ver que, para <span class="math inline">\(y=0\)</span>, ocurre que <span class="math inline">\(\displaystyle\lim_{x\to-\infty}(x^3-3x)=-\infty\)</span>.</p>
 </div>
-<p><span style="display:block; height:0.25em;"></span></p>
+<div style="margin-top:1em;">
+
+</div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 4</span></p>
+<p><span class="badge bg-primary">Ejemplo 1.1.5</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; x^2+y^2\\
 \text{sujeto a } &amp; xy=1.
 \end{array}
 \]</span></p>
-<div style="float: right; width: 25%; margin-left: 1em; margin-bottom: 1em;">
-<p><img src="figuras/ej_basico_3_2.png" alt="Ejemplo" style="width: 100%;"></p>
+<div style="float: right; width: 35%; margin-left: 1em; margin-bottom: 1em;">
+<p><img src="figuras/ej_funcion_cuadratica_restringida.png" alt="Ejemplo" style="width: 100%;"></p>
 </div>
-<div style="float: right; width: 25%; margin-left: 1em; margin-bottom: 1em;">
-<p><img src="figuras/ej_basico_3.png" alt="Ejemplo" style="width: 100%;"></p>
-</div>
-<p>En este caso, tenemos una restricción funcional de igualdad definida por <span class="math inline">\(h(x,y)=xy-1\)</span>. Este problema se puede resolver aplicando el método de <em>multiplicadores de Lagrange</em>, el cual consiste en analizar la igualdad <span class="math display">\[
-\begin{align*}
-\nabla f(x,y)-\lambda\nabla h(x,y)&amp;=(0,0)\\
-(2x-\lambda y,2y-\lambda x)&amp;=(0,0).
-\end{align*}
+<p>En este caso, tenemos una restricción funcional de igualdad definida por <span class="math inline">\(h(x,y)=xy-1\)</span>. Este problema se puede resolver aplicando el método de <em>multiplicadores de Lagrange</em>, el cual consiste en obtener los puntos críticos de la función <span class="math inline">\(f+\lambda h\)</span>, con <span class="math inline">\(\lambda\in\mathbb{R}\)</span>. Al resolver el sistema de ecuaciones formado por <span class="math display">\[
+\nabla f(x,y)-\lambda\nabla h(x,y)=(2x-\lambda y,2y-\lambda x)=(0,0)
 \]</span></p>
-<p>Al resolver el sistema de ecuaciones, se obtienen los puntos críticos <span class="math inline">\((1,1)\)</span> y <span class="math inline">\((-1,-1)\)</span>, ambos con <span class="math inline">\(\lambda=2\)</span>. Además, <span class="math display">\[
+<p>y la restricción, se obtienen los puntos críticos <span class="math inline">\((1,1)\)</span> y <span class="math inline">\((-1,-1)\)</span>, ambos con <span class="math inline">\(\lambda=2\)</span>. Además, <span class="math display">\[
 f(1,1)=f(-1,-1)=2.
 \]</span></p>
-<p>Este es el valor óptimo de la función objetivo en el conjunto factible. La justificación resulta de interpretar geométricamente el problema como <em>el punto de la hipérbola <span class="math inline">\(xy=1\)</span> más cercano al origen</em>. En consecuencia, tanto <span class="math inline">\((1,1)\)</span> como <span class="math inline">\((-1,-1)\)</span> son puntos óptimos.</p>
+<div style="float: right; width: 35%; margin-left: 1em; margin-bottom: 1em;">
+<p><img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="Ejemplo" style="width: 100%;"></p>
+</div>
+<p>Este es el valor óptimo de la función objetivo en el conjunto factible. La justificación resulta de interpretar geométricamente el problema como <em>el punto de la hipérbola <span class="math inline">\(xy=1\)</span> más cercano al origen</em>.</p>
+<p>En consecuencia, los puntos óptimos son <span class="math display">\[
+{\bf x}_1^\star=(1,1),\qquad {\bf x}_2^\star=(-1,-1).
+\]</span></p>
 </div>
 <p><span style="display:block; height:0.25em;"></span></p>
 <p>Los ejemplos anteriores buscan conectar la idea de los problemas de optimización con los ejercicios clásicos de Cálculo, en los que se busca el valor mínimo (o máximo) de una función. Sin embargo, estudiar optimización no se limita a resolver este tipo de ejercicios, sino que implica aprender a formular problemas, comprender sus componentes fundamentales y desarrollar herramientas teóricas y computacionales para abordarlos, incluso cuando no tienen solución analítica o presentan múltiples soluciones.</p>
 <p>La optimización matemática es una herramienta poderosa para tomar la mejor decisión posible al elegir un vector <span class="math inline">\({\bf x}\)</span> dentro de un conjunto de opciones, bajo ciertas restricciones que representan requisitos firmes, y buscando minimizar un costo o maximizar una utilidad. Algunas aplicaciones son:</p>
 <ul>
 <li><p><strong>Optimización de portafolios financieros</strong>: Se busca la mejor manera de invertir un determinado capital entre distintos activos. La variable <span class="math inline">\(x_i\)</span> representa la inversión en el <span class="math inline">\(i\)</span>-ésimo activo, y las restricciones pueden representar un límite en el presupuesto, el requisito de que las inversiones sean no negativas y/o un valor mínimo aceptable de rendimiento esperado. La función objetivo podría ser una medida del riesgo total de la cartera.</p></li>
-<li><p><strong>Ajuste de modelos a datos (<em>data fitting</em>)</strong>: La tarea es encontrar un modelo, dentro de una familia de modelos potenciales, que se ajuste mejor a un conjunto de datos observados. Aquí, las variables son los parámetros del modelo, y las restricciones pueden representar información previa o límites requeridos en los parámetros. La función objetivo puede ser una medida de error de predicción entre los datos observados y los valores predichos por el modelo.</p></li>
+<li><p><strong>Ajuste de modelos a datos</strong>: La tarea es encontrar un modelo, dentro de una familia de modelos potenciales, que se ajuste mejor a un conjunto de datos observados. Aquí, las variables son los parámetros del modelo, y las restricciones pueden representar información previa o límites requeridos en los parámetros. La función objetivo puede ser una medida de error de predicción entre los datos observados y los valores predichos por el modelo.</p></li>
 <li><p><strong>Optimización en logística</strong>: Se busca determinar la mejor forma de mover productos a través de una cadena de suministro o rutas de distribución. Las variables representan las cantidades transportadas entre diferentes puntos, y las restricciones pueden incluir la capacidad de los vehículos, los horarios de entrega y la demanda de los clientes. La función objetivo suele minimizar costos totales, tiempos de transporte o ambas cosas a la vez.</p></li>
 </ul>
-<p>Estas aplicaciones son solo una pequeña muestra de la enorme variedad de problemas prácticos que pueden plantearse como problemas de optimización, presentes en áreas como ingeniería, control automático, diseño, finanzas, logística, redes, entre otras.</p>
+<p>Las aplicaciones mencionadas son solo una pequeña muestra de la enorme variedad de problemas prácticos que pueden plantearse como problemas de optimización, presentes en áreas como ingeniería, control automático, diseño, finanzas, logística, redes, entre otras.</p>
 <div style="margin-top: 5em;">
 
 </div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Boyd, S., &amp; Vandenberghe, L. (2004). <em>Convex Optimization</em>. Cambridge University Press.</p>
-<p>Farina, G. <em>MIT 6.7220: Nonlinear Optimization</em>. 🔗 <a href="https://www.mit.edu/~gfarina/notes/">ir al sitio web</a>.</p>
+<p>Farina, G. (2024–2025) <em>MIT 6.7220: Nonlinear Optimization</em>. Course material and lecture notes. Massachusetts Institute of Tech nology. 🔗 <a href="https://www.mit.edu/~gfarina/notes/">ir al sitio web</a>.</p>
 </div>
 
 

@@ -51,7 +51,9 @@ En el caso que $p^\star$ existe y es finito, un vector $\xx^\star\in\Omega$ se d
 <span style="display:block; height:0.25em;"></span>
 
 ::: {.myhighlight}
-Un problema de optimización tiene solución si existe al menos un punto óptimo $x^\star$. En tal caso, es válido escribir
+Un problema de optimización tiene solución si existe al menos un punto óptimo $\xx^\star$. 
+
+En tal caso, es válido escribir:
 $$
 p^\star=\min\{f(x) \mid \xx\in \text{dom}\,f\;\land\xx\in\Omega\},
 $$
