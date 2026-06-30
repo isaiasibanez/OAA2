@@ -487,7 +487,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <p><span class="badge bg-primary">Ejemplo 2.4.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Ridge en datos de diabetes </span></p>
 <p>Utilizaremos el conjunto de datos de diabetes de <code>sklearn.datasets</code> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>, el cual consiste en 442 observaciones de 10 variables predictoras.</p>
 <p>Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
-<div id="5697d2d7" class="cell" data-execution_count="1">
+<div id="cb8590e3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -529,7 +529,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <span id="cb1-39"><a href="#cb1-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb1-40"><a href="#cb1-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a6dd398a" class="cell" data-execution_count="2">
+<div id="2d0dd82b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -988,7 +988,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.4.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
 <p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="04917182" class="cell" data-execution_count="3">
+<div id="d2247fc4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1030,7 +1030,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b05df6b2" class="cell" data-execution_count="4">
+<div id="20ab4f98" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -30,7 +30,7 @@ La optimización es una herramienta fundamental en matemática aplicada, ciencia
 
 
 ::: {.definicion}
-**Definición 1.1.1.** (Problema de optimización) Un *problema de optimización matemática* tiene la forma
+**Definición 1.1.1** (Problema de optimización). Un *problema de optimización matemática* tiene la forma
 $$
 \begin{array}{ll}
 \text{minimizar } & f(\xx)\\
@@ -135,6 +135,7 @@ Problemas de optimización de una variable sin restricciones
 Veamos algunos ejemplos sencillos de problemas de optimización sin restricciones con funciones objetivo de una variable. Es decir, de la forma
 $$
 \text{minimizar } f(x).
+\tag{1.1.3}
 $$
 
 - $f:\RR^+\to\RR \mid f(x)=1/x$. El valor óptimo es $p^\star=0$, pero no existe un punto óptimo. En consecuencia, el problema no tiene solución.
@@ -153,13 +154,7 @@ $$
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">📝</span><br>
-Analice el problema de optimización sin restricciones
-
-$$
-\text{minimizar } f(x)
-$$
-
-para cada una de las siguientes funciones:
+Analice el problema de optimización sin restricciones (1.1.3) para cada una de las siguientes funciones:
 
 ::: {.columns}
 
@@ -310,7 +305,7 @@ $$
 \text{minimizar } & x^2+y^2\\
 \text{sujeto a } & xy=1.
 \end{array}
-\tag{1.1.3}
+\tag{1.1.4}
 $$
 
 ::: {.columns}
@@ -346,7 +341,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="" width=35%>
-  <figcaption>**Figura 1.1.1**. El problema (1.1.3) puede ser interpretado geométricamente como *hallar el punto de la hipérbola $xy=1$ más cercano al origen*. </figcaption>
+  <figcaption>**Figura 1.1.1:** El problema (1.1.4) puede ser interpretado geométricamente como *hallar el punto de la hipérbola $xy=1$ más cercano al origen*. </figcaption>
 </figure>
  
 :::
@@ -383,7 +378,6 @@ Las aplicaciones mencionadas son solo una pequeña muestra de la enorme variedad
 
 Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press.
 
-Farina, G. (2024--2025) *MIT 6.7220: Nonlinear Optimization*. Course material and lecture notes. Massachusetts Institute of Tech
-nology. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
+Farina, G. (2024--2025) *MIT 6.7220: Nonlinear Optimization*. Course material and lecture notes. Massachusetts Institute of Technology. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
 
 :::

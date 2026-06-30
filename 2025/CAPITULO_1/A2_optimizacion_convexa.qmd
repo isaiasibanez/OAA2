@@ -807,7 +807,7 @@ Elipsoide
 
 Sea $\xx_0\in\RR^2$ y $P\in\SS_{++}^2$. El *elipsoide*
 $$
-E=\{\xx\in\RR^p\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
+E=\{\xx\in\RR^2\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
 $$
 es un conjunto convexo, ya que es la imagen del disco unitario $B(\bfzero,1):=\{\xx\in\RR^2\mid\|\xx\|_2\leq 1\}$ bajo la transformación afín $f:\RR^2\to\RR^2$ definida por
 $$
