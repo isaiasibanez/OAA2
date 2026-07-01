@@ -161,7 +161,7 @@ $$
 La expresión (1.2.1) se conoce como *combinación afín* de $\xx_1$ y $\xx_2$. En cambio, si restringimos el valor del parámetro a $0\leq \theta\leq 1$, obtenemos una *combinación convexa*, que describe el segmento de recta (cerrado) entre ambos puntos, con $\xx_2$ como punto inicial. Ambos conceptos pueden generalizarse a un número finito de puntos, como veremos más adelante.
 
 <figure style="text-align: center;">
-  <img src="figuras/combinacion_convexa.svg" alt="" width="40%">
+  <img src="figuras/combinacion_convexa.svg" alt="" width="250px">
   <figcaption>**Figura 1.2.2:** Combinación convexa entre dos puntos $\xx_1$ y $\xx_2$.</figcaption>
 </figure>
 
@@ -286,7 +286,7 @@ Por otro lado, observar que, a diferencia de una combinación afín, una combina
 
 
 <figure style="text-align: center;">
-  <img src="figuras/conjunto_convexo.svg" alt="" width="70%">
+  <img src="figuras/conjunto_convexo.svg" alt="" width="450px">
   <figcaption>**Figura 1.2.3:** Ejemplo de un conjunto convexo y otro no convexo. En este último, el segmento que une dos puntos del conjunto puede no estar contenido en él.</figcaption>
 </figure>
 
@@ -322,7 +322,7 @@ El resultado obtenido es $(7.39,21.18)$, que pertenece a la envolvente convexa d
 
 ::: {.column width="40%"}
 <figure style="text-align: center;">
-  <img src="figuras/ej_combinacion_convexa.svg" alt="" width=100%>
+  <img src="figuras/ej_combinacion_convexa.svg" alt="" width="300px">
 </figure>
 :::
 :::
@@ -366,7 +366,7 @@ $$
 :::
 
 <figure style="text-align: center;">
-  <img src="figuras/cono_dos_puntos.svg" alt="" width="30%">
+  <img src="figuras/cono_dos_puntos.svg" alt="" width="250px">
   <figcaption>**Figura 1.2.4:** Conjunto de puntos de la forma $\theta_1\xx_1+\theta_2\xx_2$ para $\xx_1,\xx_2\in\RR^2$.</figcaption>
 </figure>
 
@@ -451,7 +451,7 @@ $$
 <div style="margin-top:1em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/envolvente_convexa_conica.svg" alt="" width="70%">
+  <img src="figuras/envolvente_convexa_conica.svg" alt="" width="450px">
   <figcaption>**Figura 1.2.5:** Envolvente convexa y envolvente cónica de un mismo conjunto de puntos.</figcaption>
 </figure>
 </div>
@@ -703,20 +703,24 @@ $$
 \{\xx \mid \bfa^\top \xx=b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
 $$
 
-<details>
-<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
-::: {.panel-tabset}
+Algunas características son:
 
-### <span style="font-size: 1.25em;">&#x2460;</span>
+- El vector $\bfa$ es *normal* al hiperplano. Dado un punto $\xx_0$ del hiperplano, se verifica $\bfa^\top (\xx-\xx_0)=0$ para cualquier otro punto $\xx$ del hiperplano.
 
-El vector $\bfa$ es *normal* al hiperplano. Dado un punto $\xx_0$ del hiperplano, se verifica $\bfa^\top (\xx-\xx_0)=0$ para todo punto $\xx$ del hiperplano.
+- El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. De hecho, probaremos más adelante que la distancia del hiperplano al origen es $b/\|\bfa\|_2$.
 
-### <span style="font-size: 1.25em;">&#x2461;</span>
+- Un hiperplano divide a $\RR^p$ en dos *semiespacios*. Un semiespacio cerrado es un conjunto de la forma
+  $$
+  \{\xx \mid \bfa^\top \xx\leq b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
+  $$
 
-El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. En efecto, la distancia del hiperplano al origen es $b/\|\bfa\|_2$ (probaremos esto más adelante en este capítulo).
+<figure style="text-align: center;">
+  <img src="figuras/hiperplano.svg" alt="" width="300px">
+  <figcaption>**Figura 1.2.6:** Hiperplano con vector normal $\bfa$.</figcaption>
+</figure>
 
-### <span style="font-size: 1.25em;">✍️</span>
+<div style="margin-top:2em;"></div>
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
@@ -726,64 +730,30 @@ El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. E
 - Un hiperplano es un conjunto afín. ¿Por qué?
 
 :::
-
-:::
-</details>
+</div>
 
 
-<figure style="text-align: center;">
-  <img src="figuras/hiperplano.png" alt="" width="350px">
-  <figcaption>**Figura 1.2.6:** Hiperplano en $\RR^2$ con vector normal $\bfa$.</figcaption>
-</figure>
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-success text-light">Bolas</span>
 
-<div style="margin-top:2em;"></div>
-
-
-Un hiperplano divide a $\RR^p$ en dos <mark>*semiespacios*</mark>. Un semiespacio cerrado es un conjunto de la forma
+Una *bola cerrada* en $\RR^p$ es un conjunto de la forma
 $$
-\{\xx \mid \bfa^\top \xx\leq b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
+\bar{B}(\xx_0,r):=\{\xx \mid \|\xx-\xx_0\|_2\leq r\}.
 $$
 
-<figure style="text-align: center;">
-  <img src="figuras/semiespacio.png" alt="" width="350px">
-  <figcaption>**Figura 6**. Los dos semiespacios definidos por un hiperplano en $\RR^2$.</figcaption>
-</figure>
 
-
-<div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-¿Qué podemos afirmar sobre los semiespacios?
-
+<span style="font-size: 1.3em;">✍️</span><br>
+Verifique que una bola en $\RR^p$ es un conjunto convexo.
 :::
 
 </div>
 
 
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-success text-light">Poliedros</span>
 
-<div style="margin-top:2em;"></div>
-
-
-#### Bolas
-
-Un <mark>*bola*</mark> en $\RR^p$, de *centro* $\xx_0$ y *radio* $r$, es un conjunto de la forma
-$$
-B(\xx_0,r):=\{\xx \mid \|\xx-\xx_0\|_2\leq r\},\qquad \xx_0\in\RR^p,\;r\in\RR^+.
-$$
-
-
-::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-Muestre que una bola en $\RR^p$ es un conjunto convexo.
-
-:::
-
-<div style="margin-top:2em;"></div>
-
-
-#### Poliedros
-
-Un <mark>*poliedro*</mark> en $\RR^p$ es el conjunto solución de un número finito de igualdades y desigualdades lineales. Es decir, es de la forma
+Un *poliedro* en $\RR^p$ es el conjunto solución de un número finito de igualdades y desigualdades lineales. Es decir, es de la forma
 $$
 \mathcal{P}:=\{\xx \mid A\xx\preceq\bb,\; C\xx=\dd\},\qquad A\in\RR^{r\times p},\;C\in\RR^{m\times p},\; \bb\in\RR^r,\;\dd\in\RR^m.
 $$
@@ -806,22 +776,25 @@ Un poliedro es la intersección de un número finito de semiespacios e hiperplan
 <div style="margin-top:2em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/poliedro.png" alt="" width="350px">
-  <figcaption>**Figura 7**. Un poliedro generado por la intersección de 5 semiespacios.</figcaption>
+  <img src="figuras/poliedro.svg" alt="" width="250px">
+  <figcaption>**Figura 1.2.7:** Un poliedro generado por la intersección de 5 semiespacios.</figcaption>
 </figure>
 
+<div style="margin-top:2em;"></div>
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">📝</span><br>
 La definición de poliedro es lo suficientemente general como para incluir muchos tipos de conjuntos convexos que ya hemos visto. ¿Cuáles?
-
 :::
+
+</div>
+
 
 <div style="margin-top:2em;"></div>
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 8</span> 
+<span class="badge bg-primary">Ejemplo 1.2.9</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Símplex
 </span>
@@ -837,26 +810,33 @@ Es un poliedro, ya que puede expresarse como la intersección de:
 - Los $p$ semiespacios definidos por $x_i\geq 0$, con $i=1,\ldots,p$.
 
 <figure style="text-align: center;">
-  <img src="figuras/2_simplex.png" alt="" width="300px">
-  <figcaption>**Figura 8**. $\Delta^2$ es un triángulo en $\RR^3$ de vértices $(1,0,0)$, $(0,1,0)$ y $(0,0,1)$.</figcaption>
+  <img src="figuras/ej_simplex.svg" alt="" width="300px">
+  <figcaption>**Figura 1.2.8:** $\Delta^2$ es un triángulo en $\RR^3$ de vértices $(1,0,0)$, $(0,1,0)$ y $(0,0,1)$.</figcaption>
 </figure>
 
 :::
+
+<div style="margin-top:1em;"></div>
 
 
 
 ### Conos normales
 
-En muchos problemas de optimización, especialmente aquellos en los que las soluciones están restringidas a un conjunto convexo, es esencial entender cómo se comportan las direcciones "externas" al conjunto en torno a un punto dado.
+En muchos problemas de optimización, especialmente aquellos en los que las soluciones están restringidas a un conjunto convexo, es esencial entender cómo se comportan las direcciones &laquo;externas&raquo; al conjunto en torno a un punto dado.
 
 El cono normal es una herramienta geométrica fundamental para describir esas direcciones. Nos permitirá luego expresar condiciones que caracterizan soluciones óptimas a partir de información local del conjunto factible.
 
+<div style="margin-top:1em;"></div>
+
+
 ::: {.definicion}
-**Definición 7.** (Cono normal) Sean $\Omega\subset\RR^p$ un conjunto convexo y $\xx_0\in\Omega$. El *cono normal de $\Omega$ en $\xx$* se define como
+**Definición 1.2.10** (Cono normal). Sean $\Omega\subset\RR^p$ un conjunto convexo y $\xx_0\in\Omega$. El *cono normal de $\Omega$ en $\xx$* se define como
 $$
 N_{\Omega}(\xx_0) := \{\dd\in\RR^p \mid \langle\dd,\xx-\xx_0\rangle_2\leq 0,\;\forall\xx\in\Omega\}.
 $$
 :::
+
+<div style="margin-top:1em;"></div>
 
 
 Si bien la expresión $\langle \dd,\xx-\xx_0 \rangle_2$ puede escribirse como $\dd^\top(\xx-\xx_0)$, la notación con producto interno permite una rápida interpretación de este concepto. Si usamos la propiedad $\langle\uu,\vv\rangle_2 =\|\uu\|_2\|\vv\|_2\cos \alpha$, donde $\alpha$ es el ángulo entre $\uu$ y $\vv$, podemos decir que $\dd\in N_{\Omega}(\xx_0)$ si
@@ -868,8 +848,8 @@ con $\alpha$ el ángulo entre los vectores $\dd$ y $\xx-\xx_0$. Esto es cierto s
 <div style="margin-top:1.5em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/angulo_entre_direcciones_cono_normal.png" alt="" width="450px">
-  <figcaption> **Figura 9**. Interpretación geométrica de las direcciones $\dd$ y $\xx-\xx_0$. </figcaption>
+  <img src="figuras/interpretacion_direcciones.svg" alt="" width="500px">
+  <figcaption> **Figura 1.2.9:** Interpretación geométrica de las direcciones $\dd$ y $\xx-\xx_0$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -884,7 +864,7 @@ Para entender esta definición, vamos a ver algunos ejemplos.
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 9</span>
+<span class="badge bg-primary">Ejemplo 1.2.11</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Cono normal a un punto interior
 </span>
@@ -894,52 +874,45 @@ $$
 N_{\Omega}(\xx_0) = \{\mathbf{0}\}.
 $$
 
-:::{.columns}
-::: {.column width="70%"}
-
 Esto se debe a que $\xx-\xx_0$ puede ser *cualquier* dirección y, en consecuencia, no es posible que $\dd\neq\bfzero$ forme un ángulo obtuso o recto con todas las direcciones $\xx-\xx_0$. En efecto, si $\dd\neq\mathbf{0}$, podemos tomar un $\delta>0$ lo suficientemente pequeño para que $\xx=\xx_0+\delta\dd\in\Omega$, tal que
 $$
 \langle \dd,\xx-\xx_0\rangle_2=\langle\dd,\delta\dd\rangle_2=\delta\|\dd\|_2^2\geq 0.
 $$
-:::
 
-::: {.column width="30%"}
-<figure style="text-align: center;">
-  <img src="figuras/punto_interior.png" alt="" style="width: 75%">
-</figure>
-
-:::
-:::
 :::
 
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 10</span>
+<span class="badge bg-primary">Ejemplo 1.2.12</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Cono normal a un hiperplano
 </span>
 
+::: {.columns}
+
+::: {.column width="65%"}
 Sea $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el hiperplano
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx=b\}.
 $$
 
-:::{.columns}
-::: {.column width="70%"}
 El cono normal a un punto $\xx_0\in\Omega$ es la recta con dirección $\bfa$. Esto es,
 $$
 N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR\}.
 $$
 
-La verificación se deja como tarea (📝 Ejercicio 7).
+:::
+
+::: {.column width="5%"}
 :::
 
 ::: {.column width="30%"}
-<figure style="text-align: center;">
-  <img src="figuras/cono_normal_02.png" alt="" style="width: 75%">
-</figure>
+<div style="margin-top:-1em;"></div>
 
+<figure style="text-align: center;">
+  <img src="figuras/ej_cono_normal_hiperplano.svg" alt="" width=90%>
+</figure>
 :::
 :::
 :::
@@ -947,18 +920,19 @@ La verificación se deja como tarea (📝 Ejercicio 7).
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 11</span>
+<span class="badge bg-primary">Ejemplo 1.2.13</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Cono normal a un semiespacio
 </span>
 
-Sean $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Definimos el semiespacio
+::: {.columns}
+
+::: {.column width="65%"}
+Sean $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el semiespacio
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx\leq b\}.
 $$
 
-:::{.columns}
-::: {.column width="70%"}
 - Si $\xx_0$ está en el interior de $\Omega$, $\bfa^\top\xx_0<b$, el cono normal es $N_{\Omega}(\xx_0)=\{\mathbf{0}\}$. 
 
 - Si $\xx_0$ está en la frontera de $\Omega$, $\bfa^\top\xx_0=b$, resulta
@@ -966,50 +940,62 @@ $$
 N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR_0^+\}.
 $$
 
-La diferencia con el ejemplo anterior radica en que ahora el cono normal es una semirrecta.
+:::
 
+::: {.column width="5%"}
 :::
 
 ::: {.column width="30%"}
-<figure style="text-align: center;">
-  <img src="figuras/cono_normal_03.png" alt="" style="width: 75%">
-</figure>
 
+<div style="margin-top:-1em;"></div>
+
+<figure style="text-align: center;">
+  <img src="figuras/ej_cono_normal_semiespacio.svg" alt="" width=100%>
+</figure>
 :::
 :::
+
+<div style="margin-top:-1em;"></div>
+
+La diferencia con el ejemplo anterior radica en que ahora el cono normal es una semirrecta.
+
 :::
 
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 12</span>
+<span class="badge bg-primary">Ejemplo 1.2.14</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Cono normal a la intersección de dos semiespacios
 </span>
 
-Sean $\bfa_1,\bfa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Definimos la intersección de dos semiplanos como
+::: {.columns}
+
+::: {.column width="65%"}
+Sean $\bfa_1,\bfa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Consideramos la intersección de dos semiespacios
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa_1^\top\xx\leq b_1\quad\text{y}\quad\bfa_2^\top\xx\leq b_2\}.
 $$
 
-:::{.columns}
-::: {.column width="70%"}
 - Si $\xx_0$ está en el interior de $\Omega$ o en la frontera de solo uno de los semiespacios, el cono normal resulta del ejemplo anterior.
 
 - Si $\xx_0$ está en la intersección de ambas fronteras, $\bfa_1^\top\xx_0=b_1$ y $\bfa_2^\top\xx_0=b_2$, entonces el cono normal es la envolvente cónica de las direcciones $\bfa_1$ y $\bfa_2$. Esto es
 $$
 N_{\Omega}(\xx_0)=\{\lambda_1\bfa_1+\lambda_2\bfa_2 \mid \lambda_1,\lambda_2\in\RR_0^+\}.
 $$
+:::
 
+::: {.column width="5%"}
 :::
 
 ::: {.column width="30%"}
-<figure style="text-align: center;">
-  <img src="figuras/cono_normal_04.png" alt="" style="width: 75%">
-</figure>
 
+<figure style="text-align: center;">
+  <img src="figuras/ej_cono_normal_int_semiespacios.svg" alt="" width=100%>
+</figure>
 :::
 :::
+
 
 Probaremos este resultado, generalizado a $r$ semiespacios, en [C1-S4](A4_condiciones_optimalidad.html#condiciones-de-karush-kuhn-tucker-kkt).
 
@@ -1022,10 +1008,10 @@ Probaremos este resultado, generalizado a $r$ semiespacios, en [C1-S4](A4_condic
 ## Funciones convexas
 
 ::: {.definicion}
-**Definición 8.** (Función convexa) Una función $f:\RR^p\rightarrow\RR$ es *convexa* si $\dom f$ es un conjunto convexo y si verifica
+**Definición 1.2.15** (Función convexa). Una función $f:\RR^p\rightarrow\RR$ es *convexa* si $\dom f$ es un conjunto convexo y si verifica
 $$
 f(\theta \xx_1 + (1 - \theta)\xx_2) \leq \theta f(\xx_1) + (1 - \theta)f(\xx_2)\qquad\forall\xx_1,\xx_2\in\dom f,\; \forall\theta\in[0,1].
-\tag{2}
+\tag{1.2.2}
 $$
 
 Si la desigualdad es estricta para $\xx_1\neq \xx_2$ y $0<\theta<1$, se dice que $f$ es *estrictamente convexa*. Además, se dice que $f$ es *cóncava* (o *estrictamente cóncava*) si $-f$ es convexa (o estrictamente convexa).
@@ -1033,7 +1019,7 @@ Si la desigualdad es estricta para $\xx_1\neq \xx_2$ y $0<\theta<1$, se dice que
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -1043,7 +1029,7 @@ La desigualdad de la definición significa que el segmento de recta entre los pu
 
 <figure style="text-align: center;">
   <img src="figuras/funcion_convexa_01.png" alt="" width="400px">
-  <figcaption>**Figura 10**. Grafo de una función convexa.</figcaption>
+  <figcaption>**Figura 1.2.10:** Grafo de una función convexa.</figcaption>
 </figure>
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
@@ -1061,13 +1047,13 @@ Una función es convexa si y solo si, para todo $\xx\in\dom f$ y $\vv\in\RR^p$, 
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-La desigualdad de la Definición 8 se puede extender a combinaciones convexas. Es decir, si $f$ es convexa, se cumple
+La desigualdad de la Definición 1.2.15 se puede extender a combinaciones convexas. Es decir, si $f$ es convexa, se cumple
 $$
 f\Big(\sum_{i=1}^k\theta_i\xx_i\Big)\leq\sum_{i=1}^k\theta_i f(\xx_i),\qquad\sum_{i=1}^k\theta_i=1,\;\theta_i\geq 0.
-\tag{3}
+\tag{1.2.3}
 $$
 
-Esta es la versión discreta de la *desigualdad de Jensen* (ver Ejercicio 13).
+Esta es la versión discreta de la *desigualdad de Jensen* (✏16).
 
 </div>
 
@@ -1080,7 +1066,7 @@ Esta es la versión discreta de la *desigualdad de Jensen* (ver Ejercicio 13).
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 13</span>
+<span class="badge bg-primary">Ejemplo 1.2.16</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Función cuadrática de una variable
 </span>
@@ -1117,7 +1103,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/epigrafo_01.png" alt="" width="350px">
-  <figcaption>**Figura 11**. Epígrafo de una función $f$.</figcaption>
+  <figcaption>**Figura 1.2.11:** Epígrafo de una función $f$.</figcaption>
 </figure>
 
 
@@ -1179,7 +1165,7 @@ A continuación presentaremos, en primer lugar, un lema con propiedades de funci
 
 
 ::: {.teorema}
-**Lema 1.** (Convexidad en una variable) Sea $\varphi:[a,b]\to\RR$ una función convexa. Se verifican las siguientes propiedades:
+**Lema 1.2.17** (Convexidad en una variable). Sea $\varphi:[a,b]\to\RR$ una función convexa. Se verifican las siguientes propiedades:
 
 1. Para $a\leq t_1<t_2<t_3\leq b$, se cumple
     $$
@@ -1214,7 +1200,7 @@ A continuación presentaremos, en primer lugar, un lema con propiedades de funci
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -1294,17 +1280,17 @@ Pero $g(h)\to \varphi''(t_0)$ cuando $h\to 0$. Luego, $\varphi''(t_0)\ge 0$. $\q
 <div style="margin-top:2em;"></div>
 
 ::: {.teorema}
-**Teorema 1.** (Condición de primer orden para convexidad) 
+**Teorema 1.2.18** (Condición de primer orden para convexidad).
 Sea $f:\RR^p\to\RR$ una función diferenciable. $f$ es convexa si y solo si $\dom f$ es convexo y 
 $$
 f(\xx_2)\geq f(\xx_1)+\langle\nabla f(\xx_1),\xx_2-\xx_1\rangle_2\qquad\forall\xx_1,\xx_2\in\dom f.
-\tag{4}
+\tag{1.2.4}
 $$
 :::
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -1314,7 +1300,7 @@ La función afín de $\xx_2$, definida por $f(\xx_1) + \langle \nabla f(\xx_1), 
 
 <figure style="text-align: center;">
   <img src="figuras/condicion_convexidad_01.png" alt="" width="500px">
-  <figcaption>**Figura 12**. Grafo de una función convexa $f$ y su aproximación lineal.</figcaption>
+  <figcaption>**Figura 1.2.12:** Grafo de una función convexa $f$ y su aproximación lineal.</figcaption>
 </figure>
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
@@ -1345,7 +1331,7 @@ Probemos que $\varphi$ es convexa como función de una variable. Para $t_1,t_2\i
 $$
 \varphi(\theta t_1+(1-\theta)t_2) 
 = f\big(\xx_1 + (\theta t_1+(1-\theta)t_2)(\xx_2-\xx_1)\big).
-\tag{5}
+\tag{1.2.5}
 $$
 
 En el lado derecho, notemos que
@@ -1368,7 +1354,7 @@ $$
 \varphi'(t)=\langle\nabla f(\xx_1+t(\xx_2-\xx_1)), \xx_2-\xx_1\rangle_2.
 $$
 
-Podemos aplicar el Lema 1 con $t=1$ y $t_0=0$; resulta
+Podemos aplicar el Lema 1.2.17 con $t=1$ y $t_0=0$; resulta
 $$
 \begin{align}
 \varphi(1)&\geq\varphi(0)+\varphi'(0) \\
@@ -1416,7 +1402,7 @@ que es precisamente la definición de convexidad. $\qquad\blacksquare$.
 
 <div style="margin-top:2em;"></div>
 
-El siguiente gráfico muestra la interpretación geométrica tanto de la Definición 8 de convexidad como del Teorema 1 de condición de primer orden.
+El siguiente gráfico muestra la interpretación geométrica tanto de la Definición 1.2.15 de convexidad como del Teorema 1.2.18 de condición de primer orden.
 
 
 ```{pyodide-python}
@@ -1492,9 +1478,14 @@ plt.show()
 viewof theta3 = Inputs.range([0, 1], {step: 0.01, label: "θ:"})
 ```
 
+<p style="text-align:center; font-size:0.9em; color:#6c757d;">
+<b>Figura 1.2.13:</b> Comportamiento de un método iterativo en un problema de optimización.
+</p>
+
+
 <div style="margin-top:2em;"></div>
 
-Una consecuencia importante del Teorema 1 es la siguiente: si para algún $\xx_0\in\dom f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \dom f$. Es decir, podemos afirmar que:
+Una consecuencia importante del Teorema 1.2.18 es la siguiente: si para algún $\xx_0\in\dom f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \dom f$. Es decir, podemos afirmar que:
 
 :::{.myhighlight}
 Si $f$ es una función convexa, cuyo $\dom f$ es un conjunto abierto, y para algún $\xx$ se verifica $\nabla f(\xx)=\bfzero$, entonces $\xx$ es un mínimo global de $f$.
@@ -1504,7 +1495,7 @@ Si $f$ es una función convexa, cuyo $\dom f$ es un conjunto abierto, y para alg
 
 
 ::: {.teorema}
-**Teorema 2.** (Condición de segundo orden para convexidad) 
+**Teorema 1.2.19** (Condición de segundo orden para convexidad). 
 Sea $f:\RR^p\to\RR$ una función dos veces diferenciable. $f$ es convexa si y solo si $\dom f$ es convexo y 
 $$
 \nabla^2 f(\xx)\succeq 0\qquad\forall\xx\in\dom f.
@@ -1538,7 +1529,7 @@ $$
 \psi(t)=f(\xx+t\dd)
 $$
 
-Como $f$ es convexa y dos veces diferenciable, podemos afirmar que también $\psi$ es convexa y dos veces diferenciable en $t$. Por lo tanto, el Lema 1 nos asegura que $\psi''(t)\geq 0$ para todo $t$. Derivando, obtenemos
+Como $f$ es convexa y dos veces diferenciable, podemos afirmar que también $\psi$ es convexa y dos veces diferenciable en $t$. Por lo tanto, el Lema 1.2.17 nos asegura que $\psi''(t)\geq 0$ para todo $t$. Derivando, obtenemos
 $$
 \psi'(t)=\nabla f(\xx+t\,\dd)^\top\dd,
 $$
@@ -1558,13 +1549,13 @@ $$
 f(\xx+\dd)\geq f(\xx)+\nabla f(\xx)^\top\dd,
 $$
 
-lo cual es la condición de primer orden (Teorema 1) aplicada a $\xx_1=\xx$ y $\xx_2=\xx+\dd$. Luego, $f$ es convexa. $\qquad\blacksquare$
+lo cual es la condición de primer orden (Teorema 1.2.18) aplicada a $\xx_1=\xx$ y $\xx_2=\xx+\dd$. Luego, $f$ es convexa. $\qquad\blacksquare$
 :::
 </details>
 
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Analice la convexidad de las siguientes funciones:
 
 - $f:\RR\to\RR: f(x)=e^{ax}$, con $a\in\RR$.
@@ -1584,7 +1575,7 @@ Analice la convexidad de las siguientes funciones:
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 14</span> 
+<span class="badge bg-primary">Ejemplo 1.2.20</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Función cuadrática de varias variables
 </span>
@@ -1643,7 +1634,7 @@ plt.show()
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 15</span>
+<span class="badge bg-primary">Ejemplo 1.2.21</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Norma en $\RR^p$
 </span>
@@ -1717,7 +1708,7 @@ De manera similar, el ínfimo puntual de un conjunto de funciones cóncavas es u
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 16</span>
+<span class="badge bg-primary">Ejemplo 1.2.23</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Suma de las mayores componentes de un vector
 </span>
@@ -1744,7 +1735,7 @@ esto es, el máximo de todas las posibles sumas de $r$ diferentes componentes de
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Verifique que las siguientes funciones son convexas:
 
 - $f(\xx)=\alpha\,\|A\xx-\bb\|_2^2+\beta\,\|C\xx-\dd\|_1,\qquad \alpha,\beta\geq 0.$
@@ -1764,7 +1755,7 @@ Verifique que las siguientes funciones son convexas:
 ## Problemas de optimización convexa
 
 ::: {.definicion}
-**Definición 9.** (Problema de optimización convexa) Un *problema de optimización convexa* es de la forma
+**Definición 1.2.24** (Problema de optimización convexa). Un *problema de optimización convexa* es de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & f(\xx)\\ 
@@ -1820,7 +1811,7 @@ como un problema de optimización convexa, si la función objetivo es cóncava y
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 17</span>
+<span class="badge bg-primary">Ejemplo 1.2.25</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Minimización de norma con restricción lineal
 </span>
@@ -1844,8 +1835,7 @@ Los problemas de optimización convexa tienen una propiedad fundamental que los 
 
 
 ::: {.teorema}
-**Teorema 3.** (Optimalidad global de un mínimo local en problemas convexos) 
-Si $\xx\in\Omega$ es un mínimo local de un problema de optimización convexa, entonces $\xx$ es un punto óptimo (es decir, un mínimo global).
+**Teorema 1.2.26** (Optimalidad global de un mínimo local en problemas convexos). Si $\xx\in\Omega$ es un mínimo local de un problema de optimización convexa, entonces $\xx$ es un punto óptimo (es decir, un mínimo global).
 
 :::
 
@@ -1854,7 +1844,7 @@ Si $\xx\in\Omega$ es un mínimo local de un problema de optimización convexa, e
 
 ::: {.panel-tabset}
 
-### <span style="font-size: 1.25em;">&#x2460;</span>
+### <span style="font-size: 1.25em;">&#x2460; ✍️</span>
 
 Sobre **unicidad**:
 
@@ -1863,7 +1853,7 @@ Si la función objetivo es estrictamente convexa, entonces la solución óptima,
 :::
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Justifique el enunciado anterior.
 
 :::
@@ -1874,7 +1864,7 @@ Justifique el enunciado anterior.
 Sea $\xx\in\Omega$ un mínimo local de un problema de optimización convexa, entonces, para algún $R>0$, se tiene que
 $$
 f(\xx)=\inf\{f(\zz) \mid \zz\in\Omega,\; \|\zz-\xx\|_2\leq R\}.
-\tag{6}
+\tag{1.2.6}
 $$
 
 Si $\xx$ no es mínimo global, significa que existe $\yy\in\Omega$ tal que $f(\yy)<f(\xx)$. En consecuencia, $\|\yy-\xx\|_2>R$.  Elegimos

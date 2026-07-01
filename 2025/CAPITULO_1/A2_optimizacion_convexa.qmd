@@ -1015,7 +1015,7 @@ $$
 
 #### Bolas
 
-Un <mark>*bola*</mark> en $\RR^p$, de *centro* $\xx_0$ y *radio* $r$, es un conjunto de la forma
+Una <mark>*bola*</mark> en $\RR^p$, de *centro* $\xx_0$ y *radio* $r$, es un conjunto de la forma
 $$
 B(\xx_0,r):=\{\xx \mid \|\xx-\xx_0\|_2\leq r\},\qquad \xx_0\in\RR^p,\;r\in\RR^+.
 $$
@@ -1236,7 +1236,7 @@ La diferencia con el ejemplo anterior radica en que ahora el cono normal es una 
   Cono normal a la intersección de dos semiespacios
 </span>
 
-Sean $\aa_1,\aa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Definimos la intersección de dos semiplanos como
+Sean $\aa_1,\aa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Definimos la intersección de dos semiespacios como
 $$
 \Omega:=\{\xx\in\RR^p \mid \aa_1^\top\xx\leq b_1\quad\text{y}\quad\aa_2^\top\xx\leq b_2\}.
 $$
@@ -1254,7 +1254,7 @@ $$
 
 ::: {.column width="30%"}
 <figure style="text-align: center;">
-  <img src="figuras/cono_normal_04.png" alt="Cono normal a la intersección de dos semiplanos" style="width: 75%">
+  <img src="figuras/cono_normal_04.png" alt="Cono normal a la intersección de dos semiespacios" style="width: 75%">
 </figure>
 
 :::

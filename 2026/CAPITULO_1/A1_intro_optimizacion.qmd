@@ -340,7 +340,7 @@ $$
 $$
 
 <figure style="text-align: center;">
-  <img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="" width=35%>
+  <img src="figuras/ej_funcion_cuadratica_restringida_2.svg" alt="" width=30%>
   <figcaption>**Figura 1.1.1:** El problema (1.1.4) puede ser interpretado geométricamente como *hallar el punto de la hipérbola $xy=1$ más cercano al origen*. </figcaption>
 </figure>
  
