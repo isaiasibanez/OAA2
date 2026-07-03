@@ -9,6 +9,7 @@ $$
 \def\calH{\mathcal{H}}
 \def\calD{\mathcal{D}}
 \def\calN{\mathcal{N}}
+\def\calQ{\mathcal{Q}}
 \def\bfa{{\bf a}}
 \def\bb{{\bf b}}
 \def\cc{{\bf c}}
@@ -65,5 +66,6 @@ $$
 \def\plim{\mathop{\mathrm{plim\,}}}
 \DeclareMathOperator{\logit}{logit}
 \DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sign}{sign}
 $$ 
 :::

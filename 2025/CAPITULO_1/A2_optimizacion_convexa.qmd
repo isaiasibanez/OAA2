@@ -1404,7 +1404,7 @@ $$
 \displaystyle \frac{\partial^2 f}{\partial x_2 \partial x_1}(\xx) & \displaystyle \frac{\partial^2 f}{\partial x_2^2}(\xx) & \ldots & \displaystyle \frac{\partial^2 f}{\partial x_2 \partial x_p}(\xx) \\
 \vdots & \vdots & \ddots & \vdots \\
 \displaystyle \frac{\partial^2 f}{\partial x_p \partial x_1}(\xx) & \displaystyle \frac{\partial^2 f}{\partial x_p \partial x_2}(\xx) & \ldots & \displaystyle \frac{\partial^2 f}{\partial x_p^2}(\xx)
-\end{pmatrix}
+\end{pmatrix}.
 $$
 
 
@@ -1419,7 +1419,7 @@ Diremos que $f:\RR^p\to\RR$ es *diferenciable* si su gradiente $\nabla f$ existe
 Ahora bien, si una función $f:\RR^p\to\RR$ es dos veces diferenciable, la expansión de Taylor nos permite escribir, para $\dd\in\RR^p$, la aproximación
 
 $$
-f(\xx+\dd)\approx f(\xx)+\nabla f(\xx)^\top\dd+\frac{1}{2}\dd^\top \nabla^2 f(\xx)\,\dd
+f(\xx+\dd)\approx f(\xx)+\nabla f(\xx)^\top\dd+\frac{1}{2}\dd^\top \nabla^2 f(\xx)\,\dd.
 $$
 
 Esta expansión muestra cómo el valor de la función en un punto cercano puede aproximarse mediante el gradiente y la Hessiana, lo que proporciona la base para analizar propiedades locales de la función.
@@ -1768,7 +1768,7 @@ $$
 
 ### <span style="font-size: 1.25em;">&#x2460;</span>
 
-- Para funciones de una variable, la condición se reduce a $f''(x)\geq 0$, lo cual implica que la derivada $f'(x)$ es no decreciente.
+Para funciones de una variable, la condición se reduce a $f''(x)\geq 0$, lo cual implica que la derivada $f'(x)$ es no decreciente.
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 

@@ -524,7 +524,7 @@ $$
 \end{array}
 $$ 
 
-El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso $\xx_1=\xx2$. En cualquier otro caso, los puntos óptimos $\xx_1$ y $\xx_"$ son los puntos en $\mathcal{P}_1$ y $\mathcal{P}_2$, respectivamente, que están más cerca el uno del otro.
+El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso $\xx_1=\xx_2$. En cualquier otro caso, los puntos óptimos $\xx_1$ y $\xx_2$ son los puntos en $\mathcal{P}_1$ y $\mathcal{P}_2$, respectivamente, que están más cerca el uno del otro.
 
 
 ::: {.callout .question}
