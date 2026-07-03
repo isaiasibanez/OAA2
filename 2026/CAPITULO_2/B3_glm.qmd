@@ -39,7 +39,7 @@ En esta sección estudiaremos una familia más amplia de modelos, los <mark>*Mod
             padding:0.1em 0;
             margin-top:1.5em;">
 
-✏️ **Notación**
+📄 **Notación**
 
 Para el caso de un vector aleatorio $\bfZ\in\RR^q$ con distribución de probabilidad $\prob_{\bfZ}$, se definen el *vector de medias* $\media\left[\bfZ\right]\in\RR^q$ y la *matriz de covarianza* $\cov\left[\bfZ\right]\in\RR^{q\times q}$ como sigue:
 $$
@@ -152,7 +152,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1em;">📝</span><br>
+<span style="font-size: 1em;">✍️</span><br>
 
 Exprese la distribución normal univariada con varianza conocida como familia exponencial.
 
@@ -182,7 +182,7 @@ $$
 <div style="margin-top:2em;"></div>
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -218,7 +218,7 @@ De lo anterior resulta que $\nabla^2 A(\bfeta)\succeq 0$, lo cual significa que 
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 ¿Cuándo $A$ es estrictamente convexa?
 
@@ -328,7 +328,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1em;">📝</span><br>
+<span style="font-size: 1em;">✍️</span><br>
 
 Determine la función de enlace canónica para regresión lineal.
 
@@ -362,7 +362,7 @@ No obstante, en la mayoría de los casos el estadístico suficiente es $T(y)=y$,
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 
 Analice el GLM del ejemplo inicial de esta sección, en el que se modela el número de visitantes a una tienda. ¿Cuál es la función de enlace canónica? ¿Qué predice el modelo?
@@ -413,7 +413,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Justifique la convexidad de la función objetivo $J(\bftheta)$ en (2.3.4).
 
@@ -529,8 +529,8 @@ Así, en el algoritmo IRLS cada iteración consiste en resolver un problema de m
 <div style="margin-top:2em;"></div>
 
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo IRLS </span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo IRLS</span>
 
 ---
 
@@ -553,7 +553,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 </div>
 
 ---
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 

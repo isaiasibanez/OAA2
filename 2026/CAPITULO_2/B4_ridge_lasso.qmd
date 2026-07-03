@@ -69,7 +69,7 @@ donde MSE son las siglas de *mean squared error* (error cuadrático medio).
             padding:0.1em 0;
             margin-top:1.5em;">
 
-✏️ **Notación**
+📄 **Notación**
 
 Denotaremos $\hat{\bftheta}^{\text{OLS}}$ al estimador de <mark>mínimos cuadrados ordinarios (OLS)</mark>, solución del problema de regresión lineal sin regularización:
 $$
@@ -184,7 +184,7 @@ $$
 
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Verifique que $\frac{1}{n}X^\top X+2\lambda I$ es simétrica definida positiva. 
 
@@ -405,7 +405,7 @@ El problema Lasso o bien tiene solución única o bien tiene infinitas solucione
 
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Justifique la existencia de solución del problema Lasso.
 
 :::
@@ -436,7 +436,7 @@ Otras características importantes del problema Lasso se enuncian en el siguient
 :::
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -623,7 +623,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Justifique que el conjunto de equicorrelación es el mismo para cualquier solución del problema Lasso.
 
 :::
@@ -677,7 +677,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Justifique la expresión (2.4.10).
 
 :::
@@ -709,7 +709,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Justifique la expresión (2.4.12), partiendo de (2.4.11) y marcando como constante los términos que no dependen de $k$.
 
 :::
@@ -772,7 +772,7 @@ $$
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -897,8 +897,8 @@ Ya estamos en condiciones de definir el algoritmo iterativo de descenso por coor
 <div style="margin-top:2em;"></div>
 
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo de descenso por coordenadas</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo de descenso por coordenadas</span>
 
 ---
 
@@ -922,7 +922,7 @@ Dado un *párametro inicial* $\bftheta^{(0)}\in\RR^p$ (en general, $\bftheta^{(0
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 

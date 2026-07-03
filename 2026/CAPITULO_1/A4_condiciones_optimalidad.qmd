@@ -41,7 +41,7 @@ las condiciones de optimalidad definen los requisitos que deben cumplir los punt
 
 
 
-## Condiciones de optimalidad de primer orden
+## I <span style="color:#CCCCCC;">│</span> Condiciones de optimalidad de primer orden
 
 
 ### Optimización sin restricciones
@@ -53,7 +53,7 @@ $$
 $$
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -92,7 +92,8 @@ $$
 \langle \nabla f(\xx^\star), \dd \rangle_2 = 0.
 $$
 
-Finalmente, dado que $\dd$ es arbitrario, concluimos que $\nabla f(\xx^\star)=\mathbf{0}$. $\qquad\blacksquare$
+Finalmente, dado que $\dd$ es arbitrario, concluimos que $\nabla f(\xx^\star)=\mathbf{0}$. <div style="margin-top:-1em;"></div>
+<div style="text-align: right;">$\blacksquare$</div>
 
 :::
 </details>
@@ -119,7 +120,7 @@ De inmediato surgen dos preguntas claves:
 Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, relacionado con el Teorema 1.2.3 del [C1-S2](A2_optimizacion_convexa.html#problemas-de-optimización-convexa).
 
 ::: {.teorema}
-**Teorema 1.4.1.** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) 
+**Teorema 1.4.1** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas). 
 Sea $f:\RR^p\to\RR$ una función diferenciable y  convexa. Entonces $\xx^\star\in \dom f$ es un minimizador de $f$ si y solo si
 $$
 \nabla f(\xx^\star)=\bfzero.
@@ -171,7 +172,7 @@ Bajo esta suposición, tenemos el siguiente resultado, cuya demostración se obt
 
 
 ::: {.teorema}
-**Teorema 1.4.2.** (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo) 
+**Teorema .** (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo) 
 Sea $\Omega\subset\RR^p$ convexo y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces
 $$
 \langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2 \geq 0 \qquad \forall\yy\in\Omega.
@@ -184,7 +185,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="400px">
-  <figcaption> **Figura 1.4.1**. Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.   </figcaption>
+  <figcaption> **Figura 1.4.1:** Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.   </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -220,7 +221,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/condicion_optimalidad_gradiente_vs_cono_normal.svg" alt="…" width="450px">
-  <figcaption>**Figura 1.4.2**. Idea geométrica de la condición del gradiente para tres puntos críticos $\xx_1,\xx_2,\xx_3\in\Omega$ y un punto no crítico $\xx_4\in\Omega$. En el caso de $\xx_3$, se tiene $\nabla f(\xx_3)=\bfzero$.</figcaption>
+  <figcaption>**Figura 1.4.2:** Idea geométrica de la condición del gradiente para tres puntos críticos $\xx_1,\xx_2,\xx_3\in\Omega$ y un punto no crítico $\xx_4\in\Omega$. En el caso de $\xx_3$, se tiene $\nabla f(\xx_3)=\bfzero$.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -292,7 +293,7 @@ Para el notable caso de las <mark>funciones convexas</mark> ([Definición 8 de C
 
 
 ::: {.teorema}
-**Teorema 1.4.4.** (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función  objetivo convexa) 
+**Teorema 1.4.4** (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función  objetivo convexa) 
 Sea $\Omega \subseteq\RR^p$ convexo y sea $f:\RR^p\to\RR$ una función diferenciable convexa. Entonces $\xx^\star$ es un minimizador de $f$ en $\Omega$ si y solo si se verifica
 $$
 -\nabla f(\xx^\star)\in N_{\Omega}(\xx^\star).
@@ -302,7 +303,7 @@ $$
 :::
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -322,7 +323,8 @@ Por condición de primer orden para convexidad (Teorema 1.2.1 de [C1-S2](A2_opti
 $$
 f(\yy)\geq f(\xx)+\underbrace{\langle\nabla f(\xx),\yy-\xx\rangle_2}_{\geq 0}\geq f(\xx)
 $$
-para todo $\yy\in\Omega$, lo cual significa que $\xx$ es un minimizador de $f$ en $\Omega$. $\qquad\blacksquare$
+para todo $\yy\in\Omega$, lo cual significa que $\xx$ es un minimizador de $f$ en $\Omega$. <div style="margin-top:-1em;"></div>
+<div style="text-align: right;">$\blacksquare$</div>
 
 :::
 </details>
@@ -391,7 +393,7 @@ $$
 
 
 
-## Condiciones de Karush-Kuhn-Tucker (KKT)
+## II <span style="color:#CCCCCC;">│</span> Condiciones de Karush-Kuhn-Tucker (KKT)
 
 Hasta ahora hemos visto que, para $\Omega$ convexo (*primer supuesto*), una condición necesaria para que un punto $\xx$ sea óptimo es que el vector opuesto al gradiente de la función objetivo pertenezca al cono normal $N_{\Omega}(\xx)$. Además, si la función objetivo es convexa (*segundo supuesto*), dicha condición resulta también suficiente.
 
@@ -423,7 +425,7 @@ donde $A\in\RR^{r\times p}$, $C\in\RR^{m\times p}$, $\bb\in\RR^r$ y $\dd\in\RR^m
 
 
 ::: {.definicion}
-**Definición 1.4.6.** (Restricción activa) Una restricción de desigualdad $g(\xx)\leq 0$ se dice que está *activa* en un punto $\xx_0$ si allí se cumple con igualdad; es decir, si
+**Definición 1.4.6** (Restricción activa). Una restricción de desigualdad $g(\xx)\leq 0$ se dice que está *activa* en un punto $\xx_0$ si allí se cumple con igualdad; es decir, si
 $$
 g(\xx_0)= 0.
 $$
@@ -450,7 +452,7 @@ No obstante, en dichos ejemplos hemos considerado casos particulares de $\Omega$
 
 
 ::: {.teorema}
-**Teorema 1.4.7** (Cono normal a un punto de un poliedro)
+**Teorema 1.4.7** (Cono normal a un punto de un poliedro).
 Sea $\Omega$ el poliedro definido por (1.4.6). Para $\xx\in\Omega$, sea $I(\xx)$ el conjunto de índices de las restricciones activas; esto es
 $$
 I(\xx):=\left\{i\in\{1,\cdots,r\} \mid \bfa_i^\top\xx=b_i\right\}.
@@ -464,7 +466,7 @@ $$
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -501,7 +503,7 @@ donde $g_i(\xx)=\bfa_i^\top\xx-b_i$ y $h_j(\xx)=\cc_j^\top\xx-d_i$. ÑÑos coefi
 
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Verifique que el resultado del Teorema 1.4.7 contempla los ejemplos de conos normales vistos en [C1-S2](A2_optimizacion_convexa.html#conos-normales).
 
 :::
@@ -513,7 +515,8 @@ Ahora bien, dado que $\Omega$ es un poliedro (y, por lo tanto, un conjunto conve
 
 
 ::: {.teorema}
-**Corolario 1.4.8.** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda\in(\RR_0^+)^r$ y $\bfnu\in\RR^m$ tales que $\lambda_i(\bfa_i^\top\xx-b_i)=0$ para todo $i=1,\ldots,r$ y
+**Corolario 1.4.8.** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) 
+Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda\in(\RR_0^+)^r$ y $\bfnu\in\RR^m$ tales que $\lambda_i(\bfa_i^\top\xx-b_i)=0$ para todo $i=1,\ldots,r$ y
 $$
 -\nabla f(\xx^\star)=\sum_{i=1}^r\lambda_i\bfa_i+\sum_{j=1}^m \nu_j\cc_j.
 $$  
@@ -607,7 +610,7 @@ $$
 
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Proponga casos para el Ejemplo 1.4.9, con $\xx\in\RR^2$ y $m=2$.
 
 :::
@@ -718,7 +721,7 @@ El conjunto de direcciones que forma un ángulo obtuso (o recto) con todas las d
 
 <figure style="text-align: center;">
   <img src="figuras/conic_hull_generalization.png" alt="Conic Hull" width="400px">
-  <figcaption>**Figura 1.4.3**. Cono normal en puntos frontera de $\Omega$ definido por tres condiciones de desigualdad.</figcaption>
+  <figcaption>**Figura 1.4.3:** Cono normal en puntos frontera de $\Omega$ definido por tres condiciones de desigualdad.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -765,7 +768,7 @@ Estamos en condiciones de formalizar el concepto de las condiciones KKT. Sin emb
 
 
 ::: {.definicion}
-**Definición 1.4.11.** (Condiciones de Karush-Kuhn-Tucker (KKT))
+**Definición 1.4.11** (Condiciones de Karush-Kuhn-Tucker (KKT)).
 Sea un problema de optimización con función objetivo diferenciable y restricciones funcionales, de la forma
 $$ 
 \begin{array}{ll} 
@@ -909,7 +912,7 @@ entonces las condiciones KKT se cumplen para $\xx^\star$.
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Exprese la condición LICQ para el caso en que hay una única restricción. Luego, analice el problema
 
@@ -929,7 +932,7 @@ con $\XX\in\RR^{n\times p}$ y $\mathbf{w}\in\RR^p$. Este problema corresponde a 
 La condición de Slater es la cualificación de restricciones más común para garantizar que las condiciones KKT son necesarias para que un punto sea óptimo. Es importante remarcar que la condición de *factibilidad estricta* es fundamental y no puede relajarse.
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Analice las condiciones KKT en el punto óptimo del problema
 $$
@@ -951,7 +954,8 @@ Ahora bien, si a la condición de Slater le añadimos la hipótesis de que la fu
 
 
 ::: {.teorema}
-**Teorema 1.4.13.** (Caracterización de optimalidad mediante KKT) Sea un problema de optimización convexa de la forma
+**Teorema 1.4.13** (Caracterización de optimalidad mediante KKT). 
+Sea un problema de optimización convexa de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & f(\xx)\\ 
@@ -966,7 +970,7 @@ con $A\in\RR^{m\times p}$ y $\bb\in\RR^m$. Si la función objetivo $f$ y las fun
 
 
 <details>
-<summary>Mostrar detalles</summary>
+<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
 
 ::: {.panel-tabset}
 
@@ -987,11 +991,13 @@ Por condición de optimalidad de primer orden sin restricciones para funciones c
 $$
 f(\xx_0)=L(\xx_0)\leq L(\xx)\leq f(\xx)\qquad\forall\xx\text{ factible},
 $$
-donde la primera igualdad es cierta gracias a la condición de holgura complementaria $\lambda_i g_i(\xx_0)=0$ para todo $i=1,\ldots,r$. Luego, $\xx_0$ es punto óptimo del problema, tal como queríamos probar.$\qquad\blacksquare$
+donde la primera igualdad es cierta gracias a la condición de holgura complementaria $\lambda_i g_i(\xx_0)=0$ para todo $i=1,\ldots,r$. Luego, $\xx_0$ es punto óptimo del problema, tal como queríamos probar.
+<div style="margin-top:-1em;"></div>
+<div style="text-align: right;">$\blacksquare$</div>
 
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 En la demostración anterior, verifique que $L$ es una función convexa, $L(\xx)\leq f(\xx)$ para todo $\xx$ factible y $L(\xx_0)=f(\xx_0)$.
 
 :::
@@ -1041,14 +1047,15 @@ El único punto que cumple todas estas condiciones es $\xx^\star=\bfzero$, con $
 <div style="margin-top:2.5em;"></div>
 
 
-## Dualidad
+## III <span style="color:#CCCCCC;">│</span> Dualidad
 
 La teoría de la dualidad juega un papel fundamental en la optimización, permitiendo reformular problemas en términos de funciones duales que pueden proporcionar información valiosa sobre la solución óptima.
 
 ### Función dual de Lagrange
 
 ::: {.definicion}
-**Definición 3.** (Lagrangiano) Sea un problema de optimización de la forma
+**Definición 1.4.15** (Lagrangiano). 
+Sea un problema de optimización de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & f(\xx)\\ 
@@ -1075,7 +1082,8 @@ Nos referiremos al problema de optimización general como <mark>*problema primal
 
 
 ::: {.definicion}
-**Definición 4.** (Función dual) Sea $\calL$ el Lagrangiano de la Definición 3. Se denomina *función dual de Lagrange* a $\calG:\RR^r\times\RR^m\to\RR$ definida por
+**Definición 1.4.16** (Función dual). 
+Sea $\calL$ el Lagrangiano de la Definición 1.4.15. Se denomina *función dual de Lagrange* a $\calG:\RR^r\times\RR^m\to\RR$ definida por
 $$
 \calG(\bflambda,\bfnu):=\inf_{\xx}\calL(\xx,\bflambda,\bfnu).
 $$
@@ -1091,7 +1099,7 @@ $$
 
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 ¿Quiénes son $A$ y $\bb$ en la expresión anterior?
 
 :::
@@ -1111,7 +1119,7 @@ $$
 
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Verifique la propiedad anterior.
 
 :::
@@ -1123,7 +1131,7 @@ Verifique la propiedad anterior.
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 7</span> 
+<span class="badge bg-primary">Ejemplo 1.4.17</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   Solución por mínimos cuadrados de un sistema de ecuaciones lineales
 </span>
@@ -1170,8 +1178,8 @@ $$
 
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-Proponga casos para el Ejemplo 7, con $\xx\in\RR^2$ y $m=2$. En cada uno, de ser posible, obtenga y compare el valor máximo de la función dual con la solución del problema primal.
+<span style="font-size: 1.3em;">✍️</span><br>
+Proponga casos para el Ejemplo 1.4.17, con $\xx\in\RR^2$ y $m=2$. En cada uno, de ser posible, obtenga y compare el valor máximo de la función dual con la solución del problema primal.
 
 :::
 
@@ -1200,7 +1208,8 @@ El problema de optimización convexo mencionado lo definimos formalmente a conti
 
 
 ::: {.definicion}
-**Definición 5.** (Problema dual) Sea $\calG$ la función dual de Lagrange asociado al problema primal. El *problema dual de Lagrange* es
+**Definición 1.4.18** (Problema dual). 
+Sea $\calG$ la función dual de Lagrange asociado al problema primal. El *problema dual de Lagrange* es
 $$
 \begin{array}{ll}
 \text{maximizar } & \calG(\bflambda,\bfnu)\\
@@ -1261,7 +1270,8 @@ La cualificación de restricciones más común para asegurar la dualidad fuerte 
 
 
 ::: {.teorema}
-**Teorema 6.** (Teorema de Slater) Sea un problema de optimización convexa de la forma
+**Teorema 1.4.19** (Teorema de Slater). 
+Sea un problema de optimización convexa de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & f(\xx)\\ 
@@ -1289,9 +1299,9 @@ La aparición de $\relinterior\mathcal{D}$ sirve para sortear posibles casos deg
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 8</span> 
+<span class="badge bg-primary">Ejemplo 1.4.20</span> 
 
-Consideremos el problema del Ejemplo 7, con $m=1$:
+Consideremos el problema del Ejemplo 1.4.19, con $m=1$:
 $$
 \begin{array}{ll}
 \text{minimizar } & \xx^\top\xx\\
@@ -1325,8 +1335,8 @@ $$
 
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-Proponga casos para el Ejemplo 8, con $\xx\in\RR^2$, y deduzca geométricamente el punto óptimo $\xx^\star$.
+<span style="font-size: 1.3em;">✍️</span><br>
+Proponga casos para el Ejemplo 1.4.20, con $\xx\in\RR^2$, y deduzca geométricamente el punto óptimo $\xx^\star$.
 
 :::
 
@@ -1432,7 +1442,7 @@ Por supuesto, la factibilidad primal y la factibilidad dual son inmediatas del h
 
 
 ::: {.teorema}
-**Teorema 7.** (Dualidad y KKT) 
+**Teorema 1.4.21** (Dualidad y KKT). 
 Sea $\xx^\star$ un punto óptimo primal y $(\bflambda^\star,\bfnu^\star)$ un punto óptimo dual. Si $d^\star=p^\star$, entonces $(\xx^\star,\bflambda^\star,\bfnu^\star)$ satisface las condiciones de Karush-Kuhn-Tucker.
 :::
 
@@ -1440,7 +1450,7 @@ Sea $\xx^\star$ un punto óptimo primal y $(\bflambda^\star,\bfnu^\star)$ un pun
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 9</span> 
+<span class="badge bg-primary">Ejemplo 1.4.22</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Problema de *water-filling*
 </span>
@@ -1563,6 +1573,6 @@ Vamos a finalizar esta sección con un cuadro resumen con los principales result
 
 Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press.
 
-Farina, G. *MIT 6.7220: Nonlinear Optimization*. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
+Farina, G. (2024--2025) *MIT 6.7220: Nonlinear Optimization*. Course material and lecture notes. Massachusetts Institute of Technology. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
 
 :::

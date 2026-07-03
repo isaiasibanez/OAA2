@@ -32,7 +32,7 @@ En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisa
             padding:0.1em 0;
             margin-top:1em;">
 
-✏️ **Notación**
+📄 **Notación**
 
 Durante este capítulo, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y|\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
 
@@ -203,8 +203,8 @@ Esta regla de actualización tambien se conoce como *regla de aprendizaje Widrow
 
 <div style="margin-top:2em;"></div>
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo LMS</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo LMS</span>
 
 ---
 
@@ -222,7 +222,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 
@@ -240,8 +240,8 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo LMS estocástico</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo LMS estocástico</span>
 
 ---
 
@@ -261,7 +261,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 
@@ -333,7 +333,7 @@ for i, coef in enumerate(lr.coef_):
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Analice qué sucede al aplicar el método de Newton para resolver el problema de regresión lineal.
 
@@ -579,7 +579,7 @@ La función $J(\theta)$ en (2.2.3), conocida como *entropía cruzada*, es la for
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Verifique que se cumple $J(\bftheta)=-\ell(\bftheta)$.
 
@@ -601,7 +601,7 @@ $$
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 
 Muestre que la función objetivo $J(\bftheta)$ en (2.2.4) es convexa.
 
@@ -632,8 +632,8 @@ De los resultados anteriores, resultan de manera natural algoritmos iterativos p
 
 <div style="margin-top:2em;"></div>
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo de descenso por gradiente para regresión logística</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para regresión logística</span>
 
 ---
 
@@ -651,13 +651,13 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo de descenso por gradiente estocástico para regresión logística</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente estocástico para regresión logística</span>
 
 ---
 
@@ -677,7 +677,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 
@@ -712,8 +712,8 @@ $$
 <div style="margin-top:2em;"></div>
 
 
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo de Newton para regresión logística</span>
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo de Newton para regresión logística</span>
 
 ---
 
@@ -731,7 +731,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 ---
 
-:::
+</div>
 
 <div style="margin-top:2em;"></div>
 

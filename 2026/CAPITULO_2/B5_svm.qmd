@@ -54,7 +54,7 @@ El hiperplano $\bfbeta^\top\xx+\beta_0=0$ se denomina *hiperplano separador* y l
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Pruebe que $\bfbeta$ es el vector normal al hiperplano $\bfbeta^\top\xx+\beta_0=0$ y que la distancia entre un punto $\xx_0\in\RR^p$ y dicho hiperplano es igual a $|f(\xx_0)|/\|\bfbeta\|_2$.
 
 :::
@@ -637,7 +637,7 @@ lo cual implica dos opciones para los vectores soporte:
 
 ::: {.callout .question}
 
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 Analice en qué caso un punto soporte queda mal clasificado.
 
 :::
@@ -692,7 +692,7 @@ Todo punto con holgura positiva es un vector soporte.
 A continuación, analicemos las posibilidades para un punto $\xx_i$ con multiplicador $\lambda_i^\star$.
 
 ::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
+<span style="font-size: 1.3em;">✍️</span><br>
 <style>
   table {
     border-collapse: collapse;
