@@ -177,72 +177,8 @@ Analice el problema de optimización sin restricciones (1.1.3) para cada una de 
 <div style="margin-top:2em;"></div>
 
 
-Generalmente, consideramos familias o clases de problemas de optimización, caracterizadas por formas particulares de la función objetivo y de las funciones de restricción. Algunos ejemplos importantes son:
-
-- **Programa lineal**: Un problema de optimización es un *programa lineal* si tanto la función objetivo $f$ como las funciones de restricción $g_i$ y $h_j$ son funciones lineales; esto es, son funciones $\varphi:\RR^p\to\RR$ que satisfacen la igualdad
-$$
-\varphi(\alpha\xx+\beta\yy)=\alpha\,\varphi(\xx)+\beta\,\varphi(\yy),
-$$
-para todo $\xx,\yy\in\RR^p$ y para todo $\alpha,\beta\in\RR$.
-
-
-- **Optimización convexa**: Un problema de *optimización convexa* es aquel en el que tanto la función objetivo como las funciones de restricción son funciones convexas; esto es, son funciones $\varphi:\RR^p\to\RR$ que satisfacen la desigualdad
-$$
-\varphi(\alpha \xx+\beta \yy)\leq \alpha\,\varphi(\xx)+\beta\,\varphi(\yy),
-$$
-para todo $\xx,\yy\in\RR^p$ y para todo $\alpha,\beta\in[0,1]$ tales que $\alpha+\beta=1$.
-
-<div style="margin-top:1em;"></div>
-
-Comparando los dos ejemplos anteriores, vemos que la convexidad es más general que la linealidad: la desigualdad reemplaza la igualdad más restrictiva, y además la desigualdad debe cumplirse solo para ciertos valores de $\alpha$ y $\beta$. Por lo tanto, cualquier programa lineal es un problema de optimización convexa. 
-
-Estudiaremos los problemas de optimización convexa en [C1-S2](A2_optimizacion_convexa.html). Respecto a los programas lineales, los presentaremos como caso particular de los denominados *programas cónicos*, que serán objeto de estudio en [C1-S3](A3_resolucion_computacional.html).
-
-Por lo pronto, veamos a continuación algunos ejemplos básicos de ejercicios de optimización, que seguramente les resultarán familiares de cursos previos.
-
-<div style="margin-top:1em;"></div>
-
-
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 1.1.3</span> 
-
-$$
-\begin{array}{ll}
-\text{minimizar } & x^2-4x+5.
-\end{array}
-$$
-
-::: {.columns}
-
-::: {.column width="65%"}
-En este problema no se imponen restricciones sobre el valor de $x$, más allá de pedirle que pertenezca al dominio de la función. La función objetivo es una función cuadrática con coeficiente cuadrático positivo y, por lo tanto, el punto óptimo ocurre en su vértice. Es decir,
-$$
-x^\star=-\frac{-4}{2\cdot 1}=2.
-$$
-
-Luego, el valor óptimo es  $p^\star=f(2)=1.$
-:::
-
-::: {.column width="5%"}
-:::
-
-::: {.column width="30%"}
-
-<figure style="text-align: center;">
-  <img src="figuras/ej_funcion_cuadratica.svg" alt="" width=90%>
-</figure>
-
-<div style="margin-top:-1.5em;"></div>
-
-:::
-:::
-:::
-
-<div style="margin-top:1em;"></div>
-
-
-::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 1.1.4</span> 
 
 $$
 \begin{array}{ll}
@@ -298,7 +234,7 @@ De hecho, para este problema no hay un punto óptimo, puesto que la función no 
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 1.1.5</span> 
+<span class="badge bg-primary">Ejemplo 1.1.4</span> 
 
 $$
 \begin{array}{ll}
@@ -346,12 +282,32 @@ $$
  
 :::
 
-<span style="display:block; height:0.25em;"></span>
-
+<div style="margin-top:2em;"></div>
 
 Los ejemplos anteriores buscan conectar la idea de los problemas de optimización con los ejercicios clásicos de Cálculo, en los que se busca el valor mínimo (o máximo) de una función. Sin embargo, estudiar optimización no se limita a resolver este tipo de ejercicios, sino que implica aprender a formular problemas, comprender sus componentes fundamentales y desarrollar herramientas teóricas y computacionales para abordarlos, incluso cuando no tienen solución analítica o presentan múltiples soluciones.
 
-La optimización matemática es una herramienta poderosa para tomar la mejor decisión posible al elegir un vector $\xx$ dentro de un conjunto de opciones, bajo ciertas restricciones que representan requisitos firmes, y buscando minimizar un costo o maximizar una utilidad. Algunas aplicaciones son:
+Generalmente, consideramos familias o clases de problemas de optimización, caracterizadas por formas particulares de la función objetivo y de las funciones de restricción. Algunos ejemplos importantes son:
+
+- **Programa lineal**: Un problema de optimización es un *programa lineal* si tanto la función objetivo $f$ como las funciones de restricción $g_i$ y $h_j$ son funciones lineales; esto es, son funciones $\varphi:\RR^p\to\RR$ que satisfacen la igualdad
+$$
+\varphi(\alpha\xx+\beta\yy)=\alpha\,\varphi(\xx)+\beta\,\varphi(\yy),
+$$
+para todo $\xx,\yy\in\RR^p$ y para todo $\alpha,\beta\in\RR$.
+
+
+- **Optimización convexa**: Un problema de *optimización convexa* es aquel en el que tanto la función objetivo como las funciones de restricción son funciones convexas; esto es, son funciones $\varphi:\RR^p\to\RR$ que satisfacen la desigualdad
+$$
+\varphi(\alpha \xx+\beta \yy)\leq \alpha\,\varphi(\xx)+\beta\,\varphi(\yy),
+$$
+para todo $\xx,\yy\in\RR^p$ y para todo $\alpha,\beta\in[0,1]$ tales que $\alpha+\beta=1$.
+
+<div style="margin-top:1em;"></div>
+
+Comparando los dos ejemplos anteriores, vemos que la convexidad es más general que la linealidad: la desigualdad reemplaza la igualdad más restrictiva, y además la desigualdad debe cumplirse solo para ciertos valores de $\alpha$ y $\beta$. Por lo tanto, cualquier programa lineal es un problema de optimización convexa. Estudiaremos los problemas de optimización convexa en [C1-S2](A2_optimizacion_convexa.html). Respecto a los programas lineales, los presentaremos como caso particular de los denominados *programas cónicos*, que serán objeto de estudio en [C1-S3](A3_resolucion_computacional.html).
+
+<div style="margin-top:1em;"></div>
+
+Para finalizar, es importante destacar que la optimización matemática constituye una herramienta fundamental para la toma de decisiones, ya que permite determinar la mejor alternativa posible de acuerdo con un objetivo y bajo determinadas restricciones. Su alcance se extiende a numerosos campos de aplicación, entre los que se encuentran:
 
 - **Optimización de portafolios financieros**: Se busca la mejor manera de invertir un determinado capital entre distintos activos. La variable $x_i$ representa la inversión en el $i$-ésimo activo, y las restricciones pueden representar un límite en el presupuesto, el requisito de que las inversiones sean no negativas y/o un valor mínimo aceptable de rendimiento esperado. La función objetivo podría ser una medida del riesgo total de la cartera.
 
@@ -360,7 +316,7 @@ La optimización matemática es una herramienta poderosa para tomar la mejor dec
 - **Optimización en logística**: Se busca determinar la mejor forma de mover productos a través de una cadena de suministro o rutas de distribución. Las variables representan las cantidades transportadas entre diferentes puntos, y las restricciones pueden incluir la capacidad de los vehículos, los horarios de entrega y la demanda de los clientes. La función objetivo suele minimizar costos totales, tiempos de transporte o ambas cosas a la vez.
 
 
-Las aplicaciones mencionadas son solo una pequeña muestra de la enorme variedad de problemas prácticos que pueden plantearse como problemas de optimización, presentes en áreas como ingeniería, control automático, diseño, finanzas, logística, redes, entre otras.
+Por supuesto, las aplicaciones mencionadas son solo una pequeña muestra de la enorme variedad de problemas prácticos que pueden plantearse como problemas de optimización, presentes en áreas como ingeniería, control automático, diseño, finanzas, logística, redes, entre otras.
 
 
 
