@@ -1785,7 +1785,7 @@ Los problemas de optimización convexa tienen una propiedad fundamental que los 
 
 Sea $\xx\in\Omega$ un mínimo local de la función objetivo de un problema de optimización convexa. Entonces, para algún $R>0$, se tiene que
 $$
-f(\xx)=\inf\{f(\zz) \mid \zz\in\Omega,\; \|\zz-\xx\|_2\leq R\}.
+f(\xx)=\min\{f(\zz) \mid \zz\in\Omega,\; \|\zz-\xx\|_2\leq R\}.
 \tag{1.2.8}
 $$
 
