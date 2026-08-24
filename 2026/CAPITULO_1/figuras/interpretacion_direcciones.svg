@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
-   width="228.93539mm"
-   height="151.87083mm"
+   width="885.53906"
+   height="571.86615"
    id="svg52"
    sodipodi:docname="interpretacion_direcciones.svg"
    inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
@@ -20,19 +20,18 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.93728223"
-     inkscape:cx="547.86059"
-     inkscape:cy="319.54089"
+     inkscape:cx="462.50743"
+     inkscape:cy="320.60781"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg52"
-     inkscape:document-units="mm" />
+     inkscape:current-layer="svg52" />
   <defs
      id="defs1">
     <clipPath
-       id="osrrcEwDBEzo">
+       id="sEfaMBEzPdnK">
       <path
          fill="none"
          stroke="none"
@@ -45,16 +44,27 @@
       <rect
          style="fill:#000000"
          id="rect53"
-         width="865.26764"
-         height="574"
-         x="214.44981"
-         y="110.95911" />
+         width="866.33459"
+         height="566.53162"
+         x="213.3829"
+         y="116.29368" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath55">
+      <rect
+         style="fill:#000000"
+         id="rect55"
+         width="885.53906"
+         height="571.86615"
+         x="195.24535"
+         y="109.8922" />
     </clipPath>
   </defs>
   <g
-     clip-path="url(#osrrcEwDBEzo)"
+     clip-path="url(#clipPath55)"
      id="g52"
-     transform="translate(-214.44981,-110.95911)">
+     transform="translate(-195.24535,-109.8922)">
     <g
        id="g51">
       <rect
@@ -209,10 +219,10 @@
         </g>
       </g>
       <g
-         transform="scale(25)"
+         transform="scale(35)"
          id="g19">
         <g
-           transform="translate(19.12,9.174)"
+           transform="translate(13.685714,6.7511429)"
            id="g18">
           <path
              fill="#6600cc"

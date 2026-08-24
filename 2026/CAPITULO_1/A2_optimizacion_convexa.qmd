@@ -24,7 +24,7 @@ subtitle: "Capítulo 1 - Sección 2"
 
 
 
-En esta sección nos enfocaremos en los conceptos fundamentales que sustentan la optimización convexa, una rama central en la teoría y práctica de la optimización. A partir de las ideas presentadas en la [Introducción](A1_intro_optimizacion.html), donde destacamos el rol de la convexidad, ahora desarrollaremos con mayor profundidad las nociones teóricas que permiten formular y analizar este tipo de problemas.
+EEn esta sección nos enfocaremos en los conceptos fundamentales que sustentan la optimización convexa, una rama central en la teoría y práctica de la optimización. A partir de las ideas presentadas en el [C1-S1](A1_intro_optimizacion.html), donde destacamos el rol de la convexidad, ahora desarrollaremos con mayor profundidad las nociones teóricas que permiten formular y analizar este tipo de problemas.
 
 Antes, veamos el siguiente gráfico, donde se ilustra las ventajas de trabajar con problemas convexos. Allí, se puede visualizar el comportamiento de las iteraciones de un método de optimización que busca aproximarse al punto óptimo (en este caso, el mínimo global). ¿Qué se observa?
 
@@ -276,9 +276,7 @@ Por otro lado, observar que, a diferencia de una combinación afín, una combina
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
 <div style="margin-top:-0.1em;"></div>
-
-- ¿Cuáles son subconjuntos convexos de $\RR$?
-- Todo conjunto afín es convexo. ¿Por qué?
+Todo conjunto afín es convexo. ¿Por qué?
 
 :::
 :::
@@ -313,7 +311,7 @@ $$
 \frac{3}{5}\cdot (8.5,25)+\frac{1}{4}\cdot (6.75,17.5)+\frac{3}{20}\cdot (4,12).
 $$
 
-El resultado obtenido es $(7.39,21.18)$, que pertenece a la envolvente convexa de los tres puntos dados.
+El resultado obtenido es $(7.39,21.18)$.
 
 :::
 
@@ -351,9 +349,14 @@ $$
 \theta_1\xx_1+\cdots+\theta_k\xx_j,\qquad \theta_i\geq 0.
 $$
 
-### <span style="font-size: 1.25em;">&#x2461; ✍️</span>
-
 A diferencia de los conjuntos afines y convexos, la propiedad de ser cono por sí sola no garantiza estabilidad bajo combinaciones con varios términos. En particular, un cono solo es cerrado por multiplicación por escalares no negativos, pero no necesariamente por suma. Por ello, para asegurar la estabilidad bajo combinaciones cónicas es necesario considerar la noción de cono convexo.
+
+:::
+</details>
+
+<div style="margin-top:1em;"></div>
+
+Los conos convexos se definen mediante dos condiciones: ser un cono y ser un conjunto convexo. Sin embargo, ambas condiciones pueden reunirse en una única propiedad, tal como lo indica la siguiente actividad:
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br> 
@@ -366,16 +369,16 @@ $$
 :::
 
 <figure style="text-align: center;">
-  <img src="figuras/cono_dos_puntos.svg" alt="" width="250px">
-  <figcaption>**Figura 1.2.4:** Conjunto de puntos de la forma $\theta_1\xx_1+\theta_2\xx_2$ para $\xx_1,\xx_2\in\RR^2$.</figcaption>
+  <img src="figuras/cono_convexo.svg" alt="" width="250px">
+  <img src="figuras/cono_no_convexo.svg" alt="" width="250px">
+  <figcaption>**Figura 1.2.4:** Ejemplo de un cono convexo y otro no convexo. En el caso de cono convexo, toda combinación lineal entre pares de puntos queda contenida en el cono..</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
-Luego, esta caracterización le permitirá probar fácilmente que un conjunto $C$ es un cono convexo si y solo si contiene todas las combinaciones cónicas de sus puntos (✏1).
+Luego, esta caracterización permite probar fácilmente que un conjunto $C$ es un cono convexo si y solo si contiene todas las combinaciones cónicas de sus puntos (✏1).
 
-:::
-</details>
+
 
 <div style="margin-top:2em;"></div>
 
@@ -383,7 +386,7 @@ Luego, esta caracterización le permitirá probar fácilmente que un conjunto $C
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 1.2.6</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-  Cono no convexo y su envolvente convexa
+  De un cono no convexo a un cono convexo
 </span>
 
 ::: {.columns}
@@ -481,26 +484,26 @@ $$
 \conv C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\, \xx_{i} \in C,\; \theta_{i} \geq 0,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
 $$
 
-  Como su nombre lo indica, la envolvente convexa es siempre un conjunto convexo (✏3). Más aún, $\conv C$ es el conjunto convexo más pequeño que contiene a $C$; esto es, si $E$ es cualquier conjunto convexo que contiene a $C$, entonces $\conv C \subset E$. 
+  Como su nombre lo indica, la envolvente convexa es siempre un conjunto convexo (✏4). Más aún, $\conv C$ es el conjunto convexo más pequeño que contiene a $C$; esto es, si $E$ es cualquier conjunto convexo que contiene a $C$, entonces $\conv C \subset E$. 
 
 - La *envolvente cónica* es el conjunto de todas las combinaciones cónicas de puntos en $C$. Denotamos
 $$
 \cone C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\mid \xx_{i} \in C,\; \theta_{i} \geq 0\right\}.
 $$
 
-  La envolvente cónica es siempre un conjunto convexo (✏3). Más aún, $\cone C$ es el cono convexo más pequeño que contiene a $C$.
+  La envolvente cónica es siempre un conjunto convexo (✏4). Más aún, $\cone C$ es el cono convexo más pequeño que contiene a $C$.
 
 <div style="margin-top:1em;"></div>
 
 <figure style="text-align: center;">
   <img src="figuras/envolvente_convexa_conica.svg" alt="" width="500px">
-  <figcaption>**Figura 1.2.6:** Envolvente convexa y envolvente cónica de un mismo conjunto de puntos.</figcaption>
+  <figcaption>**Figura 1.2.6:** Envolvente convexa y envolvente cónica de un mismo conjunto finito de puntos.</figcaption>
 </figure>
 </div>
 
 <div style="margin-top:1em;"></div>
 
-Del concepto de *envolvente afín* se desprenden dos nociones que, si bien no son muy comunes, serán útiles más adelante:
+Del concepto de envolvente afín se desprenden dos nociones que, si bien no son muy comunes, serán útiles más adelante:
 
 - La *dimensión afín* de $C$ es la dimensión de su envolvente afín $\aff C$.
 
@@ -557,7 +560,7 @@ $$
 En esta sección describiremos algunas operaciones que preservan la convexidad de conjuntos y que nos permiten construir conjuntos convexos a partir de otros. Estas operaciones, junto con los ejemplos simples descritos anteriormente, forman un cálculo de conjuntos convexos que es útil para analizar convexidad. 
 
 
-- **Intersección**: La intersección de cualquier número de conjuntos convexos es convexo.
+- **Intersección**. La intersección de cualquier número de conjuntos convexos es convexo.
 
 - **Funciones afines**. Si $S\subset \RR^{p}$ es convexo y $f: \mathbf{R}^{p} \to \mathbf{R}^{m}$ es una función afín, entonces, la imagen de $S$ bajo $f$, $f(S) := \{f(\xx) \mid \xx \in S\}$, es convexa. De manera similar, si $f: \RR^{k} \to \RR^{p}$ es una función afín, la imagen inversa de $S$ bajo $f$, $f^{-1}(S) := \{\xx \mid f(\xx) \in S\}$, es convexa.
 
@@ -574,7 +577,7 @@ es un conjunto convexo.
 ::: {.callout .question}
 
 <span style="font-size: 1.3em;">✍️</span><br>
-Verifique que las operaciones indicadas efectivamente preservan la convexidad.
+Verifique que las operaciones indicadas preservan la convexidad.
 
 :::
 
@@ -586,11 +589,11 @@ Verifique que las operaciones indicadas efectivamente preservan la convexidad.
 Elipsoide
 </span>
 
-Sea $\xx_0\in\RR^2$ y $P\in\bfS_{++}^2$. El *elipsoide*
+Sea $\xx_0\in\RR^2$ y $P\in\bfS_{++}^2$. El *elipsoide* definido como
 $$
-E=\{\xx\in\RR^2\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
+E:=\{\xx\in\RR^2\mid (\xx-\xx_0)^\top P^{-1}(\xx-\xx_0)\leq 1\}
 $$
-es un conjunto convexo, ya que es la imagen del disco unitario $\bar{B}(\bfzero,1):=\{\xx\in\RR^2\mid\|\xx\|_2\leq 1\}$ bajo la transformación afín $f:\RR^2\to\RR^2$ definida por
+es la imagen del disco unitario $\bar{B}(\bfzero,1):=\{\xx\in\RR^2\mid\|\xx\|_2\leq 1\}$ bajo la transformación afín $f:\RR^2\to\RR^2$ definida por
 $$
 f(\xx)=P^{1/2}\xx+\xx_0.
 $$
@@ -599,6 +602,8 @@ En efecto, se verifica
 $$
 (f(\xx)-\xx_0)^\top P^{-1}(f(\xx)-\xx_0)=(P^{1/2}\xx)^\top P^{-1}(P^{1/2}\xx)=\|\xx\|_2^2\leq 1.
 $$
+
+En consecuencia, dado que $\bar{B}(\bfzero,1)$ es un conjunto convexo (la verificación es sencilla), podemos afirmar que $E$ también es un conjunto convexo.
 
 :::
 
@@ -710,17 +715,17 @@ Vamos a describir algunos conjuntos convexos importantes. Pero primero veamos al
       <td><input type="checkbox" name="cono6" /></td>
     </tr>
     <tr>
-      <td>Recta $\{\xx_0+\theta\vv\mid\vv\neq\bfzero,\;\theta\in\RR\}$</td>
+      <td>Recta $\{\xx_0+\theta\vv\mid\vv\neq\bfzero,\;\xx_0\neq\bfzero,\;\theta\in\RR\}$</td>
       <td><input type="checkbox" name="afin7" /></td>
       <td><input type="checkbox" name="cono7" /></td>
     </tr>
     <tr>
-      <td>Rayo $\{\theta\vv\mid\vv\neq\bfzero,\;\theta\geq 0\}$</td>
+      <td>Rayo $\{\theta\vv\mid\vv\neq\bfzero,\;\theta\in\RR_0^+\}$</td>
       <td><input type="checkbox" name="afin9" /></td>
       <td><input type="checkbox" name="cono9" /></td>
     </tr>
     <tr>
-      <td>Rayo $\{\xx_0+\theta\vv\mid\xx_0,\vv\neq\bfzero,\;\theta\geq 0\}$</td>
+      <td>Rayo $\{\xx_0+\theta\vv\mid\xx_0,\vv\neq\bfzero,\;\xx_0\neq\bfzero,\;\theta\in\RR_0^+\}$</td>
       <td><input type="checkbox" name="afin10" /></td>
       <td><input type="checkbox" name="cono10" /></td>
     </tr>
@@ -745,6 +750,12 @@ $$
 \{\xx \mid \bfa^\top \xx=b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
 $$
 
+<figure style="text-align: center;">
+  <img src="figuras/hiperplano.svg" alt="" width="350px">
+  <figcaption>**Figura 1.2.7:** Hiperplano con vector normal $\bfa$.</figcaption>
+</figure>
+
+<div style="margin-top:1em;"></div>
 
 Algunas características son:
 
@@ -757,10 +768,7 @@ Algunas características son:
   \{\xx \mid \bfa^\top \xx\leq b\},\qquad \bfa\in\RR^p,\;\bfa\neq\bfzero,\;b\in\RR.
   $$
 
-<figure style="text-align: center;">
-  <img src="figuras/hiperplano.svg" alt="" width="350px">
-  <figcaption>**Figura 1.2.7:** Hiperplano con vector normal $\bfa$.</figcaption>
-</figure>
+
 
 <div style="margin-top:2em;"></div>
 
@@ -783,10 +791,11 @@ $$
 \bar{B}(\xx_0,r):=\{\xx \mid \|\xx-\xx_0\|_2\leq r\}.
 $$
 
+Observar que, si la desigualdad es estricta, se obtiene la bola abierta $B(\xx_0,r)$.
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
-Verifique que una bola en $\RR^p$ es un conjunto convexo.
+Verifique que toda bola en $\RR^p$, abierta o cerrada, es un conjunto convexo.
 :::
 
 </div>
@@ -801,15 +810,7 @@ $$
 $$
 
 
-Las igualdades y desigualdades son:
-$$
-\bfa_i^\top\xx\leq b_i,\qquad i=1,\ldots,r,
-$$
-$$
-\cc_j^\top\xx= d_j,\qquad j=1,\ldots,m.
-$$
-
-Esto deriva en la razón por la cual un poliedro es un conjunto convexo:
+Las igualdades y desigualdades son de la forma $\bfa_i^\top\xx\leq b_i$ y $\cc_j^\top\xx=d_j$, respectivamente. La razón por la cual un poliedro es un conjunto convexo es la siguiente:
 
 :::{.myhighlight}
 Un poliedro es la intersección de un número finito de semiespacios e hiperplanos.
@@ -821,13 +822,6 @@ Un poliedro es la intersección de un número finito de semiespacios e hiperplan
   <img src="figuras/poliedro.svg" alt="" width="300px">
   <figcaption>**Figura 1.2.8:** Un poliedro generado por la intersección de 5 semiespacios.</figcaption>
 </figure>
-
-<div style="margin-top:2em;"></div>
-
-::: {.callout .question}
-<span style="font-size: 1.3em;">📝</span><br>
-La definición de poliedro es lo suficientemente general como para incluir muchos tipos de conjuntos convexos que ya hemos visto. ¿Cuáles?
-:::
 
 </div>
 
@@ -843,17 +837,15 @@ La definición de poliedro es lo suficientemente general como para incluir mucho
 
 El *$p$-símplex estándar* en $\RR^{p}$ es el conjunto
 $$
-\Delta^{p-1}=\left\{\xx\in\RR^p \left|\;\sum_{i=1}^p x_i=1,\; x_i\geq 0\, (\forall i=1,\ldots,p)\right.\right\}.
+\Delta^{p-1}:=\left\{\xx\in\RR^p \left|\;\sum_{i=1}^p x_i=1,\; x_i\geq 0\, (\forall i=1,\ldots,p)\right.\right\}.
 $$
 
-Es un poliedro, ya que puede expresarse como la intersección de:
-
-- El hiperplano definido por $\sum_{i=1}^p x_i=1$.
-- Los $p$ semiespacios definidos por $x_i\geq 0$, con $i=1,\ldots,p$.
+Es un poliedro, ya que puede expresarse como la intersección del hiperplano definido por 
+$\sum_{i=1}^p x_i=1$ y los $p$ semiespacios definidos por $x_i\geq 0$, con $i=1,\ldots,p$.
 
 <figure style="text-align: center;">
   <img src="figuras/ej_simplex.svg" alt="" width="350px">
-  <figcaption>**Figura 1.2.9:** $\Delta^2$ es un triángulo en $\RR^3$ de vértices $(1,0,0)$, $(0,1,0)$ y $(0,0,1)$.</figcaption>
+  <figcaption>**Figura 1.2.9:** $\Delta^2$ es el triángulo en $\RR^3$ de vértices $(1,0,0)$, $(0,1,0)$ y $(0,0,1)$.</figcaption>
 </figure>
 
 :::
@@ -864,15 +856,13 @@ Es un poliedro, ya que puede expresarse como la intersección de:
 
 ### Conos normales
 
-En muchos problemas de optimización, especialmente aquellos en los que las soluciones están restringidas a un conjunto convexo, es esencial entender cómo se comportan las direcciones &laquo;externas&raquo; al conjunto en torno a un punto dado.
-
-El cono normal es una herramienta geométrica fundamental para describir esas direcciones. Nos permitirá luego expresar condiciones que caracterizan soluciones óptimas a partir de información local del conjunto factible.
+En muchos problemas de optimización, especialmente aquellos en los que las soluciones están restringidas a un conjunto convexo, es esencial entender cómo se comportan las direcciones &laquo;externas&raquo; al conjunto en torno a un punto dado. El cono normal es una herramienta geométrica fundamental para describir esas direcciones. Nos permitirá luego expresar condiciones que caracterizan soluciones óptimas a partir de información local del conjunto factible.
 
 <div style="margin-top:1em;"></div>
 
 
 ::: {.definicion}
-**Definición 1.2.11** (Cono normal). Sean $\Omega\subset\RR^p$ un conjunto convexo y $\xx_0\in\Omega$. El *cono normal de $\Omega$ en $\xx$* se define como
+**Definición 1.2.11** (Cono normal). Sean $\Omega\subset\RR^p$ un conjunto convexo y $\xx_0\in\Omega$. El *cono normal de $\Omega$ en $\xx_0$* se define como
 $$
 N_{\Omega}(\xx_0) := \{\dd\in\RR^p \mid \langle\dd,\xx-\xx_0\rangle_2\leq 0,\;\forall\xx\in\Omega\}.
 $$
@@ -881,11 +871,11 @@ $$
 <div style="margin-top:1em;"></div>
 
 
-Si bien la expresión $\langle \dd,\xx-\xx_0 \rangle_2$ puede escribirse como $\dd^\top(\xx-\xx_0)$, la notación con producto interno permite una rápida interpretación de este concepto. Si usamos la propiedad $\langle\uu,\vv\rangle_2 =\|\uu\|_2\|\vv\|_2\cos \alpha$, donde $\alpha$ es el ángulo entre $\uu$ y $\vv$, podemos decir que $\dd\in N_{\Omega}(\xx_0)$ si
+Si bien la expresión $\langle \dd,\xx-\xx_0 \rangle_2$ puede escribirse como $\dd^\top(\xx-\xx_0)$, la notación con producto interno permite una rápida interpretación de este concepto. Si usamos la relación $\langle\uu,\vv\rangle_2 =\|\uu\|_2\|\vv\|_2\cos \alpha$, donde $\alpha$ es el ángulo entre $\uu$ y $\vv$, podemos decir que $\dd\in N_{\Omega}(\xx_0)$ si
 $$
 \|\dd\|_2\|\xx-\xx_0\|_2\cos \alpha \leq 0,
 $$
-con $\alpha$ el ángulo entre los vectores $\dd$ y $\xx-\xx_0$. Esto es cierto si $\frac{\pi}{2}\leq \alpha\leq\pi$ (ver Figura 9).
+con $\alpha$ el ángulo entre los vectores $\dd$ y $\xx-\xx_0$. Esto es cierto si $\frac{\pi}{2}\leq \alpha\leq\pi$ (ver Figura 1.2.10).
 
 <div style="margin-top:1.5em;"></div>
 
@@ -896,6 +886,8 @@ con $\alpha$ el ángulo entre los vectores $\dd$ y $\xx-\xx_0$. Esto es cierto s
 
 <div style="margin-top:2em;"></div>
 
+En base a lo descrito, podemos afirmar que:
+
 :::{.myhighlight}
 El cono normal consta de aquellas direcciones que forman un ángulo obtuso o recto con todas las direcciones $\xx-\xx_0$, junto con la dirección nula $\dd=\bfzero$.
 :::
@@ -904,11 +896,13 @@ El cono normal consta de aquellas direcciones que forman un ángulo obtuso o rec
 
 Para entender esta definición, vamos a ver algunos ejemplos.
 
+<div style="margin-top:1em;"></div>
+
 ::: {.callout-example}
 
 <span class="badge bg-primary">Ejemplo 1.2.12</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-  Cono normal a un punto interior
+  Cono normal en un punto interior
 </span>
 
 Si $\xx_0$ es un punto interior de $\Omega$, el cono normal contiene únicamente el vector cero:  
@@ -916,7 +910,7 @@ $$
 N_{\Omega}(\xx_0) = \{\mathbf{0}\}.
 $$
 
-Esto se debe a que $\xx-\xx_0$ puede ser *cualquier* dirección y, en consecuencia, no es posible que $\dd\neq\bfzero$ forme un ángulo obtuso o recto con todas las direcciones $\xx-\xx_0$. En efecto, si $\dd\neq\mathbf{0}$, podemos tomar un $\delta>0$ lo suficientemente pequeño para que $\xx=\xx_0+\delta\dd\in\Omega$, tal que
+Esto se debe a que $\xx-\xx_0$ puede ser cualquier dirección y, en consecuencia, no es posible que $\dd\neq\bfzero$ forme un ángulo obtuso o recto con todas las direcciones $\xx-\xx_0$. En efecto, si $\dd\neq\mathbf{0}$, podemos tomar un $\delta>0$ lo suficientemente pequeño para que $\xx=\xx_0+\delta\dd\in\Omega$, tal que
 $$
 \langle \dd,\xx-\xx_0\rangle_2=\langle\dd,\delta\dd\rangle_2=\delta\|\dd\|_2^2\geq 0.
 $$
@@ -928,18 +922,18 @@ $$
 
 <span class="badge bg-primary">Ejemplo 1.2.13</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-  Cono normal a un hiperplano
+  Cono normal en un punto de un hiperplano
 </span>
 
 ::: {.columns}
 
 ::: {.column width="65%"}
-Sea $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el hiperplano
+Sea $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx=b\}.
 $$
 
-El cono normal a un punto $\xx_0\in\Omega$ es la recta con dirección $\bfa$. Esto es,
+El cono normal en un punto $\xx_0\in\Omega$ es la recta con dirección $\bfa$. Esto es,
 $$
 N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR\}.
 $$
@@ -964,20 +958,20 @@ $$
 
 <span class="badge bg-primary">Ejemplo 1.2.14</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-  Cono normal a un semiespacio
+  Cono normal en un punto de un semiespacio
 </span>
 
 ::: {.columns}
 
 ::: {.column width="65%"}
-Sean $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos el semiespacio
+Sean $\bfa\in\RR^p$, $\bfa\neq\mathbf{0}$, y $b\in\RR$. Consideramos
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa^\top\xx\leq b\}.
 $$
 
-- Si $\xx_0$ está en el interior de $\Omega$, $\bfa^\top\xx_0<b$, el cono normal es $N_{\Omega}(\xx_0)=\{\mathbf{0}\}$. 
+- Si $\xx_0$ está en el interior de $\Omega$, el cono normal es $N_{\Omega}(\xx_0)=\{\mathbf{0}\}$. 
 
-- Si $\xx_0$ está en la frontera de $\Omega$, $\bfa^\top\xx_0=b$, resulta
+- Si $\xx_0$ está en la frontera de $\Omega$, resulta
 $$
 N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR_0^+\}.
 $$
@@ -1008,20 +1002,20 @@ La diferencia con el ejemplo anterior radica en que ahora el cono normal es una 
 
 <span class="badge bg-primary">Ejemplo 1.2.15</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-  Cono normal a la intersección de dos semiespacios
+  Cono normal en un punto de la intersección de dos semiespacios
 </span>
 
 ::: {.columns}
 
 ::: {.column width="65%"}
-Sean $\bfa_1,\bfa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Consideramos la intersección de dos semiespacios
+Sean $\bfa_1,\bfa_2\in\RR^p$ no nulos, y $b_1,b_2\in\RR$. Consideramos 
 $$
 \Omega:=\{\xx\in\RR^p \mid \bfa_1^\top\xx\leq b_1\quad\text{y}\quad\bfa_2^\top\xx\leq b_2\}.
 $$
 
 - Si $\xx_0$ está en el interior de $\Omega$ o en la frontera de solo uno de los semiespacios, el cono normal resulta del ejemplo anterior.
 
-- Si $\xx_0$ está en la intersección de ambas fronteras, $\bfa_1^\top\xx_0=b_1$ y $\bfa_2^\top\xx_0=b_2$, entonces el cono normal es la envolvente cónica de las direcciones $\bfa_1$ y $\bfa_2$. Esto es
+- Si $\xx_0$ está en la intersección de ambas fronteras, el cono normal es la envolvente cónica de las direcciones $\bfa_1$ y $\bfa_2$. Esto es
 $$
 N_{\Omega}(\xx_0)=\{\lambda_1\bfa_1+\lambda_2\bfa_2 \mid \lambda_1,\lambda_2\in\RR_0^+\}.
 $$
@@ -1093,11 +1087,6 @@ Esta es la versión discreta de la *desigualdad de Jensen* (✏16).
 <div style="margin-top:2em;"></div>
 
 
-
-
-
-
-
 ::: {.callout-example}
 
 <span class="badge bg-primary">Ejemplo 1.2.17</span>
@@ -1109,7 +1098,7 @@ Vamos a probar la convexidad de la función $f(x)=x^2$. Para $\theta\in[0,1]$ re
 $$
 \begin{align}
 f(\theta x_1+(1-\theta)x_2)&=(\theta x_1+(1-\theta)x_2)^2\\[1 pt]
-&=\theta^2x_1^2+2\theta(1-\theta)x_1x_2+(1-\theta)^2x_2^2
+&=\theta^2x_1^2+2\theta(1-\theta)x_1x_2+(1-\theta)^2x_2^2.
 \end{align}
 $$
 
@@ -1119,7 +1108,7 @@ $$
 f(\theta x_1+(1-\theta)x_2)-\left[\theta f(x_1)+(1-\theta) f(x_2)\right]&=(\theta^2-\theta)x_1^2+2\theta(1-\theta)x_1x_2+(\theta^2-\theta)x_2^2\\
 &=-\theta(1-\theta)(x_1^2-2x_1x_2+x_2^2)\\
 &=-\theta(1-\theta)(x_1-x_2)^2\\
-&\leq 0
+&\leq 0,
 \end{align}
 $$
 
@@ -1132,7 +1121,7 @@ lo cual concluye la prueba.
 
 La relación entre conjuntos convexos y funciones convexas es a través del epígrafo: el *epígrafo* de una función $f:\RR^p\to\RR$ se define como
 $$
-\epi f := \{(\xx, t) \mid \xx \in \dom f, f(\xx) \leq t\},
+\epi f := \{(\xx, t) \mid \xx \in \dom f, f(\xx) \leq t\}.
 $$
 
 <figure style="text-align: center;">
@@ -1141,7 +1130,7 @@ $$
 </figure>
 
 
-Es fácil probar (✏12) que
+Es fácil probar (✏12) que:
 
 :::{.myhighlight}
 Una función es convexa si y solo si su epígrafo es un conjunto convexo.
@@ -1149,7 +1138,7 @@ Una función es convexa si y solo si su epígrafo es un conjunto convexo.
 
 <div style="margin-top:2em;"></div>
 
-De manera análoga, una función es cóncava si y solo si su *hipógrafo*, definido como
+De manera análoga, una función es cóncava si y solo si su *hipógrafo* es un conjunto convexo, el cual se define como
 $$
 \hypo f := \{(\xx, t) \mid t \leq f(\xx)\},
 $$
@@ -1163,7 +1152,7 @@ es un conjunto convexo.
 
 Probar que una función es convexa utilizando la Definición 1.2.16 puede ser tedioso. Afortunadamente, existen criterios basados en sus derivadas. Estos permiten caracterizar la convexidad en términos del comportamiento local de la función, ya sea a través del gradiente (primera derivada) o de la matriz Hessiana (segunda derivada). Primero, recordemos que:
 
-- El *gradiente* $\nabla f:\RR^p\to\RR^p$ se define como
+- El *vector gradiente* $\nabla f:\RR^p\to\RR^p$ se define como
 $$
 \nabla f(\xx):=\left(\frac{\partial f}{\partial x_1}(\xx),\ldots,\frac{\partial f}{\partial x_p}(\xx_0\right).
 $$
@@ -1215,7 +1204,7 @@ Esta expansión muestra cómo el valor de la función en un punto cercano puede 
 
 2. El límite
     $$
-    \varphi'_+(t_0)=\lim_{h\downarrow 0}\frac{\varphi(t_0+h)-\varphi(t_0)}{h}
+    \varphi'_+(t_0)=\lim_{h\to 0^+}\frac{\varphi(t_0+h)-\varphi(t_0)}{h}
     $$
     existe (posiblemente $-\infty$) en todo $t_0$. Además,
     $$
@@ -1242,17 +1231,17 @@ Esta expansión muestra cómo el valor de la función en un punto cercano puede 
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración de 1*</span>
 
-Fijemos $a\leq t_1<t_2<t_3\leq b$. Como $\varphi$ es convexa, utilizaremos (2) para $t_1$ y $t_3$ con
+Fijemos $a\leq t_1<t_2<t_3\leq b$. Como $\varphi$ es convexa, utilizaremos (1.2.3) para $t_1$ y $t_3$ con
 $$
 \theta=\frac{t_3-t_2}{t_3-t_1}\in[0,1].
 $$
 
 Dado que 
 $$
-\frac{t_3-t_2}{t_3-t_1}t_1+\frac{t_2-t_1}{t_3-t_1}t_3=\frac{t_2(t_3-t_1)}{t_3-t_1}=t_2.
+\frac{t_3-t_2}{t_3-t_1}t_1+\frac{t_2-t_1}{t_3-t_1}t_3=\frac{t_2(t_3-t_1)}{t_3-t_1}=t_2,
 $$
 
-obtenemos el siguiente resultado:
+resulta
 $$
 \varphi(t_2)\le \frac{t_3-t_2}{t_3-t_1}\,\varphi(t_1)+\frac{t_2-t_1}{t_3-t_1}\,\varphi(t_3).
 $$
@@ -1275,15 +1264,15 @@ De manera simétrica se obtiene la otra desigualdad.
 
 Dado que $\varphi_+'(t_0)$ es un límite de pendientes de rectas secantes y que, de 1, dichas pendientes son monótononas, podemos afirmar que dicho límite o bien existe o bien es $-\infty$. De hecho, podemos escribir
 $$
-\frac{\varphi(t)-\varphi(t_0)}{t-t_0}\ \ge\ \varphi'_+(t_0)\qquad\forall t>t_0.
+\frac{\varphi(t)-\varphi(t_0)}{t-t_0}\ \ge\ \varphi'_+(t_0)\qquad\forall t>t_0,
 $$
 
-Esto último es equivalente a
+lo cual es equivalente a
 $$
 \varphi(t)\ge \varphi(t_0)+(t-t_0)\varphi'_+(t_0)\qquad\forall t\geq t_0.
 $$
 
-En caso de ser $\varphi$ diferenciable en $t_0$, $\varphi'(t_0)=\varphi_+'(t_0)$ y la desigualdad anterior resulta en
+En caso de ser $\varphi$ diferenciable en $t_0$, $\varphi'(t_0)=\varphi_+'(t_0)$, de manera que la desigualdad anterior resulta en
 
 $$
 \varphi(t)\ge \varphi(t_0)+(t-t_0)\varphi'(t_0)\qquad\forall t\geq t_0.
@@ -1298,12 +1287,12 @@ $$
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración de 4*</span>
 
-Sea $\varphi$ es dos veces diferenciable en $(a,b)$. Para $t_0$ fijo consideremos
+Sea $\varphi$ es dos veces diferenciable en $(a,b)$. Para $t_0$ fijo, consideremos la función $g:\RR\to\RR$ definida por
 $$
-g(h)=\frac{\varphi(t_0-h)-2\varphi(t_0)+\varphi(t_0+h)}{h^2}.
+g(h):=\frac{\varphi(t_0-h)-2\varphi(t_0)+\varphi(t_0+h)}{h^2}.
 $$
 
-La convexidad implica $g(h)\ge 0$ para todo $h>0$. En efecto, la no negatividad del numerador resulta de aplicar la desigualdad de Jensen (3) a $\xx_1=t_0-h$, $\xx_2=t_0$ y $\xx_3=t_0+h$ con $\theta_1=\theta_2=\theta_3=\frac{1}{3}$:
+La convexidad de $\varphi$ implica $g(h)\ge 0$ para todo $h>0$. En efecto, la no negatividad del numerador resulta de aplicar la desigualdad de Jensen a $\xx_1=t_0-h$, $\xx_2=t_0$ y $\xx_3=t_0+h$ con $\theta_1=\theta_2=\theta_3=1/3$:
 $$
 \begin{align}
 \varphi(t_0)&\leq\frac{1}{3}\left(\varphi(t_0-h)+\varphi(t_0)+\varphi(t_0+h)\right)\\
@@ -1312,7 +1301,8 @@ $$
 \end{align}
 $$
 
-Pero $g(h)\to \varphi''(t_0)$ cuando $h\to 0$. Luego, $\varphi''(t_0)\ge 0$.
+Utilizando el desarrollo de Taylor de $\varphi$ alrededor de $t_0$, es fácil ver que
+	$g(h)\to \varphi''(t_0)$ cuando $h\to 0$. Luego, debe ser $\varphi''(t_0)\ge 0$.
 
 <div style="margin-top:-1em;"></div>
 <div style="text-align: right;">$\blacksquare$</div>
@@ -1344,27 +1334,24 @@ $$
 
 La convexidad estricta también puede caracterizarse por una condición de primer orden: $f$ es estrictamente convexa si y solo si $\dom f$ es convexo y
 $$
-f(\xx_2) > f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2
+f(\xx_2) > f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2\qquad\forall\xx_1,\xx_2\in\dom f,\;\xx_1\neq\xx_2.
 $$
-para todo $\xx_1, \xx_2 \in \dom f$, con $\xx_1 \neq \xx_2$.
 
 ### <span style="font-size: 1.25em;">&#x2461;</span>
 
 Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es cóncava si y solo si $\dom f$ es convexo y
 $$
-f(\xx_2) \leq f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2
+f(\xx_2) \leq f(\xx_1) + \langle \nabla f(\xx_1), \xx_2 - \xx_1 \rangle_2\qquad\forall\xx_1,\xx_2\in\dom f.
 $$
-para todo $\xx_1, \xx_2 \in \dom f$.
-
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
-($\Rightarrow$) Supongamos que $f$ es convexa. Fijemos $\xx_1,\xx_2 \in \dom f$ y definamos
+($\Rightarrow$) Supongamos que $f$ es convexa, fijemos $\xx_1,\xx_2 \in \dom f$ y definamos $\varphi:\RR\to\RR$ como
 $$
-\varphi(t) = f(\xx_1 + t(\xx_2-\xx_1)), \qquad t\in[0,1].
+\varphi(t) := f(\xx_1 + t(\xx_2-\xx_1)), \qquad t\in[0,1].
 $$
 
-Probemos que $\varphi$ es convexa como función de una variable. Para $t_1,t_2\in[0,1]$ y $\theta\in[0,1]$, tenemos que
+Para $t_1,t_2\in[0,1]$ y $\theta\in[0,1]$, tenemos que
 $$
 \varphi(\theta t_1+(1-\theta)t_2) 
 = f\big(\xx_1 + (\theta t_1+(1-\theta)t_2)(\xx_2-\xx_1)\big).
@@ -1401,38 +1388,29 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-($\Leftarrow$) Supogamos que es cierta la desigualdad (1.2.4) del enunciado y probemos que $f$ es convexa. Sean $\xx_1,\xx_2\in\dom f$ y $\theta\in[0,1]$, definamos
+($\Leftarrow$) Supongamos que es cierta la desigualdad (1.2.4) del enunciado y probemos que $f$ es convexa. Sean $\xx_1,\xx_2\in\dom f$ y $\theta\in[0,1]$, definamos
 $$
-\xx_\theta = (1-\theta)\xx_1+\theta \xx_2.
+\xx_\theta := \theta\xx_1+(1-\theta)\xx_2.
 $$
-
-Aplicamos la desigualdad dos veces: para $(\xx_{\theta},\xx_1)$ y para $(\xx_{\theta},\xx_2)$. Resulta
+	
+Podemos escribir
 $$
-f(\xx_1)\geq f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_1-\xx_\theta\rangle_2,
-$$
-$$
-f(\xx_2)\geq f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_2-\xx_\theta\rangle_2.
+f(\xx_i)\geq f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_i-\xx_\theta\rangle_2,\qquad i=1,2.
 $$
 
-Multiplicando la primera desigualdad por $(1-\theta)$ y la segunda por $\theta$, al sumarlas obtenemos
+Por lo tanto,
 $$
 \begin{align}
-(1-\theta)f(\xx_1)+\theta f(\xx_2)&\geq 
-(1-\theta)\Big(f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_1-\xx_\theta\rangle_2\Big)
-+\theta\Big(f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_2-\xx_\theta\rangle_2\Big) \\
-&= f(\xx_\theta)+\langle\nabla f(\xx_\theta),(1-\theta)(\xx_1-\xx_\theta)+\theta (\xx_2-\xx_\theta)\rangle_2\\[2pt]
-&=f(\xx_\theta)+\langle\nabla f(\xx_\theta),\underbrace{(1-\theta)\xx_1+\theta\xx_2}_{\xx_\theta}-\xx_\theta\rangle_2\\
-&=f(\xx_\theta)+\langle\nabla f(\xx_\theta),\bfzero\rangle_2\\[2pt]
-&=f(\xx_\theta).
+\theta f(\xx_1)+(1-\theta) f(\xx_2)&\geq 
+		\theta\Big(f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_1-\xx_\theta\rangle_2\Big)
+		+(1-\theta)\Big(f(\xx_\theta)+\langle\nabla f(\xx_\theta),\,\xx_2-\xx_\theta\rangle_2\Big) \\
+		&= f(\xx_\theta)+\langle\nabla f(\xx_\theta),\theta(\xx_1-\xx_\theta)+(1-\theta) (\xx_2-\xx_\theta)\rangle_2\\[2pt]
+		&=f(\xx_\theta)+\langle\nabla f(\xx_\theta),\underbrace{\theta\xx_1+(1-\theta)\xx_2}_{\xx_\theta}-\xx_\theta\rangle_2\\[-10pt]
+		&=f(\xx_\theta).
 \end{align}
 $$
 
-Al reemplazar $\xx_\theta$ por su expresión, se obtiene finalmente
-$$
-(1-\theta)f(\xx_1)+\theta f(\xx_2)\geq f((1-\theta)\xx_1+\theta \xx_2),
-$$
-
-que es precisamente la definición de convexidad.
+Al reemplazar $\xx_\theta$ por su expresión, obtenemos finalmente la desigualdad (1.2.3) y concluimos que $f$ es convexa.
 
 <div style="margin-top:-1em;"></div>
 <div style="text-align: right;">$\blacksquare$</div>
@@ -1453,13 +1431,13 @@ La función afín de $\xx_2$, definida por $f(\xx_1) + \langle \nabla f(\xx_1), 
 
 <div style="margin-top:2em;"></div>
 
-Una consecuencia importante del Teorema 1.2.19 es la siguiente: si para algún $\xx_0\in\dom f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \dom f$. De inmediato podemos afirmar que:
+Una consecuencia importante del Teorema 1.2.19 es la siguiente: si $f$ es convexa y para algún $\xx_0\in\dom f$ se verifica $\nabla f(\xx_0) =\bfzero$, entonces $f(\xx) \geq f(\xx_0)$ para todo $\xx \in \dom f$. De inmediato podemos afirmar que:
 
 :::{.myhighlight}
 Si $f$ es una función convexa, cuyo $\dom f$ es un conjunto abierto, entonces:
 
 <div style="text-align:center;">
-$\xx^\star$ es minímo global de $f$ si y solo si $\nabla f(\xx^\star)=\bfzero$
+$\xx^\star$ es minímo global de $f$ si y solo si $\nabla f(\xx^\star)=\bfzero$.
 </div>
 
 :::
@@ -1499,30 +1477,32 @@ Para funciones cóncavas, tenemos la caracterización correspondiente: $f$ es c�
 
 ($\Rightarrow$) Para $\xx$ y $\dd$ arbitrarios, definimos $\psi:\RR\to\RR$ como
 $$
-\psi(t)=f(\xx+t\dd)
+\psi(t):=f(\xx+t\dd),
 $$
 
-Como $f$ es convexa y dos veces diferenciable, podemos afirmar que también $\psi$ es convexa y dos veces diferenciable en $t$. Por lo tanto, el Lema 1.2.18 nos asegura que $\psi''(t)\geq 0$ para todo $t$. Derivando, obtenemos
+con $\dom\psi=\{t\in\RR \mid \xx+t\dd\in\dom f\}$. Como $f$ es convexa y dos veces diferenciable, podemos afirmar que $\psi$ también lo es. Por lo tanto, el Lema 1.2.18 nos asegura que $\psi''(t)\geq 0$ para todo $t\in\dom\psi$. Derivando, obtenemos
 $$
-\psi'(t)=\nabla f(\xx+t\,\dd)^\top\dd,
-$$
-$$
-\psi''(t)=\dd^\top\nabla^2f(\xx+t\,\dd)\,\dd.
+\psi'(t)=\nabla f(\xx+t\dd)^\top\dd,\qquad \psi''(t)=\dd^\top\nabla^2f(\xx+t\dd)\,\dd.
 $$
 
-En particular, para $t=0$ resulta $\dd^\top\nabla^2f(\xx)\,\dd\geq 0$. Como $\dd$ es arbitrario, esto implica $\nabla^2f(\xx)\succeq 0$ para todo $\xx\in\dom f$.
+En particular, para $t=0$, resulta $\dd^\top\nabla^2f(\xx)\,\dd\geq 0$. Como $\dd$ es arbitrario, esto implica $\nabla^2f(\xx)\succeq 0$ para todo $\xx\in\dom f$.
 
-($\Leftarrow$) Partimos de la fórmula de Taylor con resto integral:
+($\Leftarrow$) Sean $\xx_1,\xx_2\in\dom f$, consideremos $\xx=\xx_1$ y $\dd=\xx_2-\xx_1$. La fórmula de Taylor con resto integral para $\psi$ es
 $$
-f(\xx+\dd)=f(\xx)+\nabla f(\xx)^\top\dd+\int_0^1 (1-t)\, \dd^\top \nabla^2 f(\xx+t\,\dd)\,\dd\,dt.
+\psi(t)=\psi(t_0)+\psi'(t_0)(t-t_0)+\int_{t_0}^t\psi''(t)(t-u)\,du.
+$$
+
+Aplicada a $t_0=0$ y $t=1$, resulta en
+$$
+f(\xx_2)=f(\xx_1)+\nabla f(\xx)^\top(\xx_2-\xx_1)+\int_0^1 (1-u)\, (\xx_2-\xx_1)^\top \nabla^2 f(\xx_1+t(\xx_2-\xx_1)) (\xx_2-\xx_1)\,du.
 $$
 
 Como, por hipótesis, la Hessiana $\nabla^2f$ es semidefinida positiva, el integrando es no negativo. En consecuencia,
 $$
-f(\xx+\dd)\geq f(\xx)+\nabla f(\xx)^\top\dd,
+f(\xx_2)\geq f(\xx_1)+\nabla f(\xx_1)^\top(\xx_2-\xx_1),
 $$
-
-lo cual es la condición de primer orden (Teorema 1.2.19) aplicada a $\xx_1=\xx$ y $\xx_2=\xx+\dd$. Luego, $f$ es convexa.
+	
+lo cual es la condición de primer orden del Teorema 1.2.19. Luego, concluimos que $f$ es convexa.
 
 <div style="margin-top:-1em;"></div>
 <div style="text-align: right;">$\blacksquare$</div>
@@ -1557,14 +1537,13 @@ Analice la convexidad de las siguientes funciones:
   Función cuadrática de varias variables
 </span>
 
-
 Consideremos la función cuadrática $f:\RR^p\to\RR$ definida por
 
 $$
 f(\xx)=\frac{1}{2}\xx^\top A\xx+\bb^\top\xx+c,
 $$
 
-donde $A\in\bfS^p:=\{X\in\RR^{p\times p} \mid X=X^\top\}$, $\bb\in\RR^p$ y $c\in\RR$. Dado que $\nabla^2 f(\xx)=A$ para todo $\xx$, podemos afirmar que $f$ es convexa si y sólo si $A\succeq 0$. 
+donde $A\in\bfS^p$, $\bb\in\RR^p$ y $c\in\RR$. Dado que $\nabla^2 f(\xx)=A$ para todo $\xx$, podemos afirmar que $f$ es convexa si y sólo si $A\succeq 0$. 
 
 ::: {.columns}
 
@@ -1575,11 +1554,10 @@ $$
 f(x,y)=\frac{1}{2}\begin{pmatrix}x&y\end{pmatrix}\begin{pmatrix}2&1\\1&3\end{pmatrix}\begin{pmatrix}x\\ y\end{pmatrix}=\frac{1}{2}(2x^2+2xy+3y^2)
 $$
 
-es convexa, ya que para todo $\xx=(x,y)\in\RR^2$ se verifica
+es convexa, ya que $A\succeq 0$. En efecto, para todo $\xx=(x,y)\in\RR^2$ se verifica
 $$
-\xx^\top A\xx=2x^2+2xy+3y^2=x^2+(x+y)^2+2y^2\geq 0,
+\xx^\top A\xx=2x^2+2xy+3y^2=x^2+(x+y)^2+2y^2\geq 0.
 $$
-lo cual significa que $A\succeq 0$.
 :::
 
 ::: {.column width="5%"}
@@ -1602,25 +1580,26 @@ lo cual significa que $A\succeq 0$.
 Norma en $\RR^p$
 </span>
 
-Toda norma $\|\cdot\|$ en $\RR^p$ es una función convexa. En efecto, si $f(\xx)=\|\xx\|$, la desigualdad (1.2.3) de la definición de convexidad es inmediata de la desigualdad triangular:
+Toda norma $\|\cdot\|$ en $\RR^p$ es una función convexa. En efecto, si $f(\xx)=\|\xx\|$, la desigualdad (1.2.3) de la definición de función convexa es inmediata de la desigualdad triangular:
 $$
 f(\theta\xx_1+(1-\theta)\xx_2)=\|\theta\xx_1+(1-\theta)\xx_2\|\leq\theta\|\xx_1\|+(1-\theta)\|\xx_2\|.
 $$
 
-Analicemos las condiciones de convexidad para el caso particular de la norma euclídea $f(\xx)=\|\xx\|_2=(\xx^\top\xx)^{1/2}$. Resultan
+A modo de ejemplo, veamos que efectivamente se cumplen las condiciones de convexidad para el caso particular de la norma euclídea $f(\xx)=\|\xx\|_2=(\xx^\top\xx)^{1/2}$. Resultan
 $$
 \nabla f(\xx)=\frac{\xx}{\|\xx\|_2}\qquad\mbox{y}\qquad\nabla^2 f(\xx)=\frac{I_p}{\|\xx\|_2}-\frac{\xx\xx^\top}{\|\xx\|_2^3}.
 $$
 
-- *Condición de primer orden*:
+- *Condición de primer orden*: Dados $\xx_1,\xx_2\in\dom f$, partimos de la desigualdad de Cauchy Schwarz $\langle \xx_1,\xx_2\rangle_2\leq \|\xx_1\|_2\|\xx_2\|_2$ para obtener
     $$
     \begin{align}
-    f(\xx_2)&\geq f(\xx_1)+\frac{1}{\|\xx_1\|_2}\langle \xx_1,\xx_2-\xx_1\rangle_2\\
-    \|\xx_2\|_2 & \geq \|\xx_1\|_2+\frac{\langle \xx_1,\xx_2\rangle_2}{\|\xx_1\|_2}-\|\xx_1\|_2\\[2pt]
-    \langle \xx_1,\xx_2\rangle_2&\leq \|\xx_1\|_2\|\xx_2\|_2.
+    \|\xx_2\|_2&\geq \frac{\langle\xx_1,\xx_2\rangle_2}{\|\xx_1\|_2} \\
+			&=\|\xx_1\|_2+\frac{\langle\xx_1,\xx_2\rangle_2}{\|\xx_1\|_2}-\|\xx_1\|_2 \\
+			&=\|\xx_1\|_2+\frac{\langle\xx_1,\xx_2\rangle_2-\langle\xx_1,\xx_1\rangle_2}{\|\xx_1\|_2}	\\
+			&=\|\xx_1\|_2+\langle\frac{\xx_1}{\|\xx_1\|_2},\xx_2-\xx_1\rangle_2,
     \end{align}
     $$
-    La última expresión es cierta (desigualdad de Cauchy Schwarz).
+    lo cual es justamente la condición de primer orden dada por la desigualdad (1.2.4).
 
 - *Condición de segundo orden*: para todo $\xx\in\RR^p$ y $\vv\in\RR^p$ se tiene
     $$
@@ -1641,11 +1620,11 @@ $$
 
 A continuación presentamos algunas operaciones que preservan la convexidad o concavidad de funciones y que, por lo tanto, permiten construir nuevas funciones convexas y cóncavas. Las pruebas se proponen en las actividades conceptuales (✏17).
 
-- **Sumas ponderadas no negativas**. Si $f$ es una función convexa y $\alpha \geq 0$, entonces la función $\alpha f$ es convexa. Si $f_1$ y $f_2$ son ambas funciones convexas, entonces su suma $f_1 + f_2$ también lo es. Combinando estas dos propiedades, se obtiene que el conjunto de funciones convexas es en sí mismo un cono convexo: una suma ponderada no negativa de funciones convexas,
+- **Sumas ponderadas no negativas**. Si $f$ es una función convexa y $\alpha \geq 0$, entonces la función $\alpha f$ es convexa. Si $f_1$ y $f_2$ son ambas funciones convexas, entonces $f_1 + f_2$ también lo es. Combinando estas dos propiedades, se deduce que el conjunto de funciones convexas es en sí mismo un cono convexo: una suma ponderada no negativa de funciones convexas,
 $$
 f = w_1 f_1 + \cdots + w_m f_m,\qquad w_i\geq 0,
 $$
-es convexa. De manera similar, una suma ponderada no negativa de funciones cóncavas es cóncava. 
+es convexa. De manera similar, una suma ponderada no negativa conserva la concavidad. 
 
 - **Composición con una aplicación afín**. Sean $f:\RR^p\to\RR$, $A\in\RR^{p\times m}$ y $\bb\in\RR^p$. La función $g:\RR^m\to\RR$ definida por
 $$
@@ -1653,21 +1632,17 @@ g(\xx)=f(A\xx+\bb),
 $$
 con $\dom g = \{\xx \mid A\xx + \bb \in\dom f\}$, conserva la convexidad o concavidad de $f$.
 
-- **Máximo puntual**. Si $f_1$ y $f_2$ son funciones convexas, entonces su *máximo puntual* $f$, definido por
+- **Máximo puntual**. Si $f_1$ y $f_2$ son funciones convexas, entonces su *máximo puntual*, definido por
 $$
 f(\xx) = \max\{f_1(\xx), f_2(\xx)\},
 $$
-con $\dom f = \dom f_1 \cap \dom f_2$, también es convexa. Además, este resultado se puede extender a un conjunto $\{f_1,\ldots,f_m\}$ de funciones convexas.
+con $\dom f = \dom f_1 \cap \dom f_2$, también es convexa. Este resultado se puede extender a un conjunto $\{f_1,\ldots,f_m\}$ de funciones convexas. De manera similar, el mínimo puntual de un conjunto de funciones cóncavas es una función concava.
 
-- **Supremo puntual**. La propiedad del máximo puntual se extiende al supremo puntual sobre un conjunto infinito de funciones convexas. Si para $i\in\mathcal{A}$, donde $\mathcal{A}$ es un conjunto de índices, se tiene que $f_i(\xx)$ es convexa, entonces la función $f$ definida por
+- **Supremo puntual**. La propiedad del máximo puntual se extiende al *supremo puntual* sobre un conjunto infinito de funciones convexas. Si para $i\in\mathcal{A}$, donde $\mathcal{A}$ es un conjunto de índices, se tiene que $f_i(\xx)$ es convexa, entonces la función $f$ definida por
 $$
-f(\xx) = \sup_{i \in \mathcal{A}} f_i(\xx)
+f(\xx) = \sup_{i \in \mathcal{A}} f_i(\xx),
 $$
-también es convexa en $\xx$. Aquí, el dominio de $f$ es
-$$
-\dom f = \{\xx \mid \xx \in \dom f_i (\forall i \in \mathcal{A}),\; \sup_{i \in \mathcal{A}} f_i(\xx) < \infty\}.
-$$
-De manera similar, el ínfimo puntual de un conjunto de funciones cóncavas es una función cóncava. 
+con $\dom f = \{\xx \mid \xx \in \dom f_i\,(\forall i \in \mathcal{A}),\; \sup_{i \in \mathcal{A}} f_i(\xx) < \infty\}$, también es convexa. De manera similar, el ínfimo puntual de un conjunto de funciones cóncavas es una función cóncava. 
 
 <div style="margin-top:2em;"></div>
 
@@ -1680,12 +1655,12 @@ De manera similar, el ínfimo puntual de un conjunto de funciones cóncavas es u
 Suma de las mayores componentes de un vector
 </span>
 
-Para $\xx\in\RR^p$, se denota con $x_{[i]}$ la $i$-ésima componente de mayor valor de $\xx$. Es decir, podemos escribir
+Para $\xx\in\RR^p$, se denota con $x_{[i]}$ su $i$-ésima componente de mayor valor. Es decir, podemos escribir
 $$
 x_{[1]}\geq x_{[2]}\geq\ldots\geq x_{[p]}.
 $$
 
-Para $r\leq n$ se define $f:\RR^p\to\RR$ como
+Para $r\leq n$, se define $f:\RR^p\to\RR$ como
 $$
 f(\xx)=\sum_{i=1}^rx_{[i]}.
 $$
@@ -1732,33 +1707,22 @@ g_i(\xx)\leq 0,& i=1,\ldots,r\\
 \tag{1.2.6}
 $$ 
 
-donde tanto la función objetivo $f$ como las funciones de restricción de desigualdad $g_1, \dots, g_r$ son funciones convexas. 
+donde la función objetivo $f$ y las funciones de restricción de desigualdad $g_1, \dots, g_r$ son convexas. 
 :::
 
-<div style="margin-top:1em;"></div>
-
-
-Comparando con el problema en forma estándar general, podemos ver que las restricciones de igualdad, $h_i(\xx)=\bfa_j^\top \xx-b_i=0$, son funciones afines. Esto permite asegurar inmediatamente que:
+<div style="margin-top:2em;"></div>
 
 
 :::{.myhighlight}
 El conjunto factible $\Omega$ de un problema de optimización convexa es convexo.
 :::
 
-<div style="margin-top:1em;"></div>
+::: {.callout .question}
 
-<details>
-<summary><span style="color:#0056b3;">ℹ️ ¿Por qué?</span></summary>
-<hr>
+<span style="font-size: 1.3em;">✍️</span><br>
+Justifique la afirmación anterior.
 
-En efecto, es la intersección de los siguientes conjuntos convexos:
-
-- $\bigcap_{i=0}^r\dom f_i$.
-- $r$ conjunto de subnivel $\{\xx \mid g_i(\xx)\leq 0\}$.
-- $m$ hiperplanos $\{\xx \mid \bfa_i^\top\xx-b_i=0\}$.
-
-<hr>
-</details>
+:::
 
 <div style="margin-top:2em;"></div>
 
@@ -1770,11 +1734,11 @@ $$
 \text{sujeto a } & \xx\in\left\{\xx\in\RR^p\left|\;\begin{array}{ll}
 g_i(\xx)\leq 0,& i=1,\ldots,r\\
 \bfa_j^\top \xx-b_i=0, & j=1,\ldots,m
-\end{array}\right.\right\},
+\end{array}\right.\right\}
 \end{array}
 \tag{1.2.7}
 $$ 
-como un problema de optimización convexa cuando la función objetivo sea cóncava y las funciones de restricción de desigualdad $g_i$ convexas. De hecho, claramente el problema de maximización cóncava se resuelve minimizando la función convexa $-f$, razón por la cual todos los resultados y conclusiones que describiremos para el problema de minimización (1.2.6) se extienden al caso de maximización (1.2.7).
+como un problema de optimización convexa, cuando la función objetivo sea cóncava y las funciones de restricción de desigualdad $g_i$ sean convexas. De hecho, claramente el problema de maximización cóncava se resuelve minimizando la función convexa $-f$, razón por la cual todos los resultados y conclusiones que describiremos para el problema de minimización (1.2.6) se extienden al caso de maximización (1.2.7).
 
 <div style="margin-top:2em;"></div>
 
@@ -1789,11 +1753,15 @@ El problema
 $$
 \begin{array}{ll}
 \text{minimizar } & \|\xx\|_2^2\\
-\text{sujeto a }  & \bfone^\top\xx\geq 1, 
+\text{sujeto a }  & \bfone^\top\xx\geq 1
 \end{array}
 $$
 
-es de optimización convexa. La función objetivo es una función convexa (ver Ejemplo 1.2.21) y la única restricción está definida a partir de $g(\xx)=-\bfone^\top\xx=-(x_1+\cdots+x_n)$, la cual es una función lineal (y, por lo tanto, convexa).
+es de optimización convexa. La función objetivo es una función convexa, como hemos visto en el Ejemplo 1.2.22, y la única función de restricción de desigualdad es 
+$$
+g(\xx)=-\bfone^\top\xx=-(x_1+\cdots+x_n),
+$$
+la cual es una función lineal y, por lo tanto, convexa.
 
 :::
 
@@ -1804,7 +1772,7 @@ Los problemas de optimización convexa tienen una propiedad fundamental que los 
 
 
 ::: {.teorema}
-**Teorema 1.2.26** (Optimalidad global de un mínimo local en problemas convexos). Si $\xx\in\Omega$ es un mínimo local de un problema de optimización convexa, entonces $\xx$ es un punto óptimo (es decir, un mínimo global).
+**Teorema 1.2.26** (Optimalidad global de un mínimo local en problemas convexos). Si $\xx\in\Omega$ es un mínimo local de la función objetivo de un problema de optimización convexa, entonces $\xx$ es un punto óptimo (es decir, un mínimo global).
 
 :::
 
@@ -1815,13 +1783,13 @@ Los problemas de optimización convexa tienen una propiedad fundamental que los 
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
-Sea $\xx\in\Omega$ un mínimo local de un problema de optimización convexa, entonces, para algún $R>0$, se tiene que
+Sea $\xx\in\Omega$ un mínimo local de la función objetivo de un problema de optimización convexa. Entonces, para algún $R>0$, se tiene que
 $$
 f(\xx)=\inf\{f(\zz) \mid \zz\in\Omega,\; \|\zz-\xx\|_2\leq R\}.
 \tag{1.2.8}
 $$
 
-Si $\xx$ no es mínimo global, significa que existe $\yy\in\Omega$ tal que $f(\yy)<f(\xx)$. En consecuencia, $\|\yy-\xx\|_2>R$.  Elegimos
+Supongamos que $\xx$ no es punto óptimo, lo cual significa que existe $\yy\in\Omega$ tal que $f(\yy)<f(\xx)$. En consecuencia, $\|\yy-\xx\|_2>R$.  Elegimos
 $$
 \zz=(1-\theta)\xx+\theta y,\qquad \theta=\frac{R}{2\|\yy-\xx\|_2}.
 $$
@@ -1831,7 +1799,7 @@ $$
 \|\zz-\xx\|_2=\|\theta(\yy-\xx)\|_2=\frac{R}{2}<R.
 $$
 
-Es suficiente mostrar que $f(\zz)<f(\xx)$ para contradecir (1.2.8) y concluir la prueba. Para ello, basta usar el hecho de que $f$ es una función convexa:
+Es suficiente mostrar que $f(\zz)<f(\xx)$ para contradecir (1.2.8) y concluir la prueba. Por convexidad de $f$, resulta
 $$
 f(\zz)\leq (1-\theta)f(\xx)+\theta f(\yy)<(1-\theta)f(\xx)+\theta f(\xx)=f(\xx). 
 $$
@@ -1844,17 +1812,12 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-Sobre **unicidad**:
+Vamos a concluir esta sección haciendo un breve análisis sobre la existencia y unicidad de la solución. En primer lugar, la convexidad estricta garantiza que, si existe solución óptima, es \textit{única}. En efecto, si hubiesen dos puntos óptimos distintos $\xx_1^\star$ y $\xx_2^\star$, el absurdo es inmediato: 
+$$
+f(\theta\xx_1^\star+(1-\theta)\xx_2^\star)<\theta f(\xx_1^\star)+(1-\theta) f(\xx_2^\star)=p^\star,\qquad\forall\theta\in(0,1).
+$$
 
-:::{.myhighlight}
-Si la función objetivo es estrictamente convexa, entonces la solución óptima, en caso de existir, es única.
-:::
-
-::: {.callout .question}
-<span style="font-size: 1.3em;">✍️</span><br>
-Justifique el enunciado anterior.
-
-:::
+No obstante, la existencia de una solución óptima requiere hipótesis adicionales, que dependen de la estructura particular del problema. Por ejemplo, en problemas sin restricciones, ciertas condiciones de crecimiento de la función objetivo pueden garantizarla. Por otra parte, en problemas con restricciones, si el conjunto factible es cerrado y acotado y la función objetivo es continua, el teorema de Weierstrass garantiza que existe una solución óptima.
 
 
 
