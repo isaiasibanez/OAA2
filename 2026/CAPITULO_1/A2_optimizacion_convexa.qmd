@@ -24,7 +24,7 @@ subtitle: "Capítulo 1 - Sección 2"
 
 
 
-EEn esta sección nos enfocaremos en los conceptos fundamentales que sustentan la optimización convexa, una rama central en la teoría y práctica de la optimización. A partir de las ideas presentadas en el [C1-S1](A1_intro_optimizacion.html), donde destacamos el rol de la convexidad, ahora desarrollaremos con mayor profundidad las nociones teóricas que permiten formular y analizar este tipo de problemas.
+En esta sección nos enfocaremos en los conceptos fundamentales que sustentan la optimización convexa, una rama central en la teoría y práctica de la optimización. A partir de las ideas presentadas en el [C1-S1](A1_intro_optimizacion.html), donde destacamos el rol de la convexidad, ahora desarrollaremos con mayor profundidad las nociones teóricas que permiten formular y analizar este tipo de problemas.
 
 Antes, veamos el siguiente gráfico, donde se ilustra las ventajas de trabajar con problemas convexos. Allí, se puede visualizar el comportamiento de las iteraciones de un método de optimización que busca aproximarse al punto óptimo (en este caso, el mínimo global). ¿Qué se observa?
 
@@ -1812,12 +1812,14 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-Vamos a concluir esta sección haciendo un breve análisis sobre la existencia y unicidad de la solución. En primer lugar, la convexidad estricta garantiza que, si existe solución óptima, es \textit{única}. En efecto, si hubiesen dos puntos óptimos distintos $\xx_1^\star$ y $\xx_2^\star$, el absurdo es inmediato: 
+Vamos a concluir esta sección haciendo un breve análisis sobre la existencia y unicidad de la solución. En primer lugar, un resultado importante es que, si la función objetivo $f$ es estrictamente convexa, entonces el problema admite, a lo sumo, una solución óptima (esto es, si hay punto óptimo, es *único*). En efecto, si hubiesen dos puntos óptimos distintos $\xx_1^\star$ y $\xx_2^\star$, el absurdo es inmediato: la convexidad estricta asegura que
 $$
-f(\theta\xx_1^\star+(1-\theta)\xx_2^\star)<\theta f(\xx_1^\star)+(1-\theta) f(\xx_2^\star)=p^\star,\qquad\forall\theta\in(0,1).
+f(\theta\xx_1^\star+(1-\theta)\xx_2^\star)<\theta f(\xx_1^\star)+(1-\theta) f(\xx_2^\star)=p^\star,\qquad\forall\theta\in(0,1),
 $$
 
-No obstante, la existencia de una solución óptima requiere hipótesis adicionales, que dependen de la estructura particular del problema. Por ejemplo, en problemas sin restricciones, ciertas condiciones de crecimiento de la función objetivo pueden garantizarla. Por otra parte, en problemas con restricciones, si el conjunto factible es cerrado y acotado y la función objetivo es continua, el teorema de Weierstrass garantiza que existe una solución óptima.
+lo cual contradice el hecho de que $p^*$ es el valor óptimo.
+
+Ahora bien, la *existencia* de una solución óptima requiere hipótesis adicionales, que dependen de la estructura particular del problema. Por ejemplo, en problemas sin restricciones, ciertas condiciones de crecimiento de la función objetivo pueden garantizarla. Por otra parte, en problemas con restricciones, si el conjunto factible es cerrado y acotado y la función objetivo es continua, el teorema de Weierstrass garantiza que existe una solución óptima.
 
 
 
