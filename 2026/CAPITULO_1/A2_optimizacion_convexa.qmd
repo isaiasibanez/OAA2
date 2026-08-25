@@ -1154,7 +1154,7 @@ Probar que una función es convexa utilizando la Definición 1.2.16 puede ser te
 
 - El *vector gradiente* $\nabla f:\RR^p\to\RR^p$ se define como
 $$
-\nabla f(\xx):=\left(\frac{\partial f}{\partial x_1}(\xx),\ldots,\frac{\partial f}{\partial x_p}(\xx_0\right).
+\nabla f(\xx):=\left(\frac{\partial f}{\partial x_1}(\xx),\ldots,\frac{\partial f}{\partial x_p}(\xx)\right).
 $$
 
 - La *matriz Hessiana* $\nabla^2 f:\RR^p\to\RR^{p\times p}$ se define como
@@ -1660,17 +1660,17 @@ $$
 x_{[1]}\geq x_{[2]}\geq\ldots\geq x_{[p]}.
 $$
 
-Para $r\leq n$, se define $f:\RR^p\to\RR$ como
+Para $r\leq p$, se define $f:\RR^p\to\RR$ como
 $$
-f(\xx)=\sum_{i=1}^rx_{[i]}.
-$$
-
-Esta función puede ser reescrita como
-$$
-f(\xx)=\max\left\{x_{i_1}+\cdots+x_{i_n} \mid 1\leq i_1 \leq \ldots\leq i_r\leq n \right\};
+f(\xx)=\sum_{i=1}^rx_{[i]};
 $$
 
-esto es, el máximo de todas las posibles sumas de $r$ diferentes componentes de $\xx$. Dado que tales sumas son funciones lineales (y, por lo tanto, convexas), concluimos que $f$ es convexa.
+esto es, a cada vector $\xx\in\RR^p$ le asigna la suma de sus $r$ componentes de mayor valor. Esta función puede ser reescrita como
+$$
+f(\xx)=\max\left\{x_{i_1}+\cdots+x_{i_r} \mid 1\leq i_1 \leq \ldots\leq i_r\leq n \right\};
+$$
+
+esto es, el máximo de todas las posibles sumas de $r$ diferentes componentes de $\xx$. Cada una de esas sumas es una función lineal (y, por lo tanto, convexa). En consecuencia, dado que el máximo puntual conserva la convexidad, concluimos que $f$ es convexa.
 
 :::
 
