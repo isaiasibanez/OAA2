@@ -8,13 +8,17 @@ subtitle: "Capítulo 1 - Sección 1"
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex align-items-center gap-2 w-100">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c1s1.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c1s1.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<span class="text-muted small ms-auto">
+  </div>
+
+  <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
     Última actualización: 17/08/2026
   </span>
