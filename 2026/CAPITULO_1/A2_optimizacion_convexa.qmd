@@ -1812,7 +1812,7 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-Vamos a concluir esta sección haciendo un breve análisis sobre la existencia y unicidad de la solución. En primer lugar, un resultado importante es que, si la función objetivo $f$ es estrictamente convexa, entonces el problema admite, a lo sumo, una solución óptima (esto es, si hay punto óptimo, es *único*). En efecto, si hubiesen dos puntos óptimos distintos $\xx_1^\star$ y $\xx_2^\star$, el absurdo es inmediato: la convexidad estricta asegura que
+Vamos a concluir esta sección haciendo un breve análisis sobre la existencia y unicidad de la solución. En primer lugar, un resultado importante es que, si la función objetivo $f$ es *estrictamente convexa*, entonces el problema admite, a lo sumo, una solución óptima (esto es, si hay punto óptimo, es *único*). En efecto, si hubiesen dos puntos óptimos distintos $\xx_1^\star$ y $\xx_2^\star$, el absurdo es inmediato: la convexidad estricta asegura que
 $$
 f(\theta\xx_1^\star+(1-\theta)\xx_2^\star)<\theta f(\xx_1^\star)+(1-\theta) f(\xx_2^\star)=p^\star,\qquad\forall\theta\in(0,1),
 $$
