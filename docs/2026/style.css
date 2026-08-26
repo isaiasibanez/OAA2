@@ -265,3 +265,13 @@ figure {
 
   border-radius: 0 !important;  /* Quitar esquinas redondeadas */
 }
+
+
+.quarto-title-block .quarto-title {
+  margin-bottom: 0.2rem;
+}
+
+.quarto-title-block .subtitle {
+  margin-top: 0 !important;
+  margin-bottom: 0.8rem !important;
+}
