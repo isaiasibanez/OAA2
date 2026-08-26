@@ -3,7 +3,7 @@ title: "Introducción a la optimización"
 subtitle: "Capítulo 1 - Sección 1"
 ---
 
-<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+<hr style="border: 1px solid rgba(50, 0, 0, 1); margin-top: 0.5rem; margin-bottom: 1rem;">
 
 {{< include ../macros.qmd >}}
 
