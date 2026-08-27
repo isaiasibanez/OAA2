@@ -2,7 +2,7 @@
 title: "Programas cónicos"
 subtitle: "Capítulo 1 - Sección 3"
 ---
-<hr style="border: 1px solid rgba(50, 0, 0, 1); margin: 0;">
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
@@ -58,7 +58,7 @@ En la Definición 1.3.1, las restricciones de desigualdad se expresan de manera 
 
 Por ejemplo, una forma clásica de las restricciones de desigualdad se obtiene al considerar $Y=\RR^r$, $h=\bfzero$, $K=\RR_+^r$ y la aplicación lineal de la forma
 $$
-G(\xx)=-\begin{pmatrix}
+G(\xx)=\begin{pmatrix}
 	g_1(\xx) \\ \vdots \\ g_r(\xx)
 \end{pmatrix}.
 $$
