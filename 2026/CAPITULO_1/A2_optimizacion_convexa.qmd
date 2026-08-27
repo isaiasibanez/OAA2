@@ -2,7 +2,7 @@
 title: "Optimización convexa"
 subtitle: "Capítulo 1 - Sección 2"
 ---
-<hr style="border: 1px solid rgba(50, 0, 0, 1); margin: 0;">
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
