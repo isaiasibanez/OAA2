@@ -69,7 +69,7 @@ Diferentes elecciones de $Y$, $K$ y $G$ dan lugar a subconjuntos particulares de
 <div style="height:0.25em;"></div>
 
 ::: {.myhighlight}
-$$\text{LPs}\subset\text{QPs}\subset\text{SOCPs}\subset\text{SDPs}\subset\text{Programas cónicos}$$
+$$\text{LPs}\subset\text{QPs convexos}\subset\text{SOCPs}\subset\text{SDPs}\subset\text{Programas cónicos}$$
 
 :::
 
