@@ -63,7 +63,7 @@ G(\xx)=\begin{pmatrix}
 \end{pmatrix}.
 $$
 
-Diferentes elecciones de $Y$, $K$ y $G$ dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección cuatro de los más importantes: los *programas lineales* (LP), los *programas cuadráticos* (QP), los *programas semidefinidos* (SDP) y los *programas cónicos de segundo orden* (SOCP). En particular, éste último lo definiremos en la guía de actividades (✏2) Asimismo, veremos que entre estas clases de problemas existe la siguiente relación:
+Diferentes elecciones de $Y$, $K$ y $G$ dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección cuatro de los más importantes: los *programas lineales* (LPs), los *programas cuadráticos convexos* (QPs convexos), los *programas semidefinidos* (SDPs) y los *programas cónicos de segundo orden* (SOCPs). En particular, el SOCP será definido en la guía de actividades (✏2) Asimismo, veremos que entre estas clases de problemas existe la siguiente relación:
 
 
 <div style="height:0.25em;"></div>
@@ -104,7 +104,7 @@ Justifique por qué (1.3.2) define un orden parcial sobre $Y$.
 
 <div style="margin-top:1em;"></div>
 
-Veamos los siguientes ejemplos:
+Veamos un par de ejemplos que serán fundamentales para definir los problemas de interés. En ambos casos, es fácil verificar que $K$ efectivamente es un cono convexo, sólido y puntiagudo.
 
 - Si $K=\RR_+^p$. El orden parcial inducido es la comparación elemento a elemento determinada por el orden usual en $\RR$:
     $$
@@ -113,12 +113,12 @@ Veamos los siguientes ejemplos:
 
 - $K=\bfS_+^p$. El orden parcial inducido es
     $$
-    X\preceq_K Y \iff Y-X\in\bfS_+^p.
+    A\preceq_K B \iff B-A\in\bfS_+^p.
     $$
 
-    En particular, tomando $X=0$, se recupera la noción de matriz semidefinida positiva.
+    En particular, tomando $A=0$, se recupera la noción de matriz semidefinida positiva.
 
-En ambos ejemplos, el subíndice puede ser omitido para escribir simplemente $\xx\preceq\yy$ o $X\preceq Y$, según corresponda. 
+En ambos ejemplos, el subíndice puede ser omitido para escribir simplemente $\xx\preceq\yy$ o $A\preceq B$, según corresponda. 
 
 </div>
 
@@ -168,6 +168,17 @@ En consecuencia, el punto óptimo $\xx^{\star}$ es aquel punto de $\calP$ lo má
   <img src="figuras/problema_lineal.svg" alt="" width="350px">
   <figcaption>**Figura 1.3.1:** Interpretación geométrica de un LP.</figcaption>
 </figure>
+
+<div style="height:1em;"></div>
+
+Si bien un LP puede presentarse bajo distintas formas equivalentes, resulta conveniente utilizar una representación común, denominada \textit{forma estándar}. Esta representación permite unificar su estudio y facilita el desarrollo y la aplicación de algoritmos para su resolución. 
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Cabe destacar que, al pasar de una formulación a otra en un problema de optimización, la variable de optimización puede cambiar, en caso que la transformación requiera la introducción de nuevas variables. Por simplicidad, se utilizará nuevamente $\xx$ para denotar la variable de optimización en la nueva formulación.
+
+</div>
 
 <div style="height:1em;"></div>
 
@@ -241,11 +252,11 @@ $$
 \sup\{\bfa_i^\top\uu \mid \|\uu\|_2\leq r\}=r\|\bfa_i\|_2\qquad\text{¿Porqué?}
 $$
 
-En consecuencia, el requisito de que $B(\xx,r)$ pertenezca a cada subespacio $\bfa_i^\top \xx\leq b_i$ puede escribirse como
+Así, el requisito de que $B(\xx,r)$ pertenezca a cada subespacio $\bfa_i^\top \xx\leq b_i$ puede escribirse como
 $$
 \bfa_i^\top(\xx+\uu)=\bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,
 $$
-lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es equivalente a resolver el siguiente LP:
+lo cual es una desigualdad lineal. En conclusión, el LP resultante es
 
 $$ 
 \begin{array}{ll} 
@@ -262,7 +273,7 @@ $$
 
 ## II <span style="color:#CCCCCC;">│</span> Programa cuadrático
 
-Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP). Aunque la formulación básica de un QP no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes (✏2).
+Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP). Aunque, en general, la matriz que define el término cuadrático puede ser indefinida, nos interesan particularmente los *QPs convexos*, que definimos a continuación, ya que estos pueden reformularse como un programa cónico equivalente (✏2).
 
 <div class="alert alert-light text-dark" role="alert">
 <span class="badge bg-success text-light">QP convexo</span>
@@ -316,7 +327,7 @@ $$
 \dist(\calP_1, \calP_2) := \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \calP_1, \xx_2 \in \calP_2 \}.
 $$
 
-Para encontrar la distancia entre $\calP_1$ y $\calP_2$, podemos resolver el QP con variables $\xx_1$ y $\xx_2$ definido como
+Para hallarla, podemos resolver el QP con variable $\xx=(\xx_1,\xx_2)$ definido como
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & \|\xx_1-\xx_2\|_2^2\\ 
@@ -325,7 +336,7 @@ $$
 \end{array}
 $$ 
 
-El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso $\xx_1=\xx_2$. En cualquier otro caso, los puntos óptimos $\xx_1$ y $\xx_2$ son los puntos en $\calP_1$ y $\calP_2$, respectivamente, que están más cerca el uno del otro.
+El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso $\xx_1=\xx_2$.
 :::
 
 
