@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Programas cónicos – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,15 +35,16 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <link href="../CAPITULO_1/A4_condiciones_optimalidad.html" rel="next">
 <link href="../CAPITULO_1/A2_optimizacion_convexa.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +61,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -75,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -88,7 +92,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -107,7 +111,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../style.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -222,19 +226,11 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">En esta página</h2>
-   
-  <ul>
-  <li><a href="#i-programa-lineal" id="toc-i-programa-lineal" class="nav-link active" data-scroll-target="#i-programa-lineal">I <span style="color:#CCCCCC;">│</span> Programa lineal</a></li>
-  <li><a href="#ii-programa-cuadrático" id="toc-ii-programa-cuadrático" class="nav-link" data-scroll-target="#ii-programa-cuadrático">II <span style="color:#CCCCCC;">│</span> Programa cuadrático</a></li>
-  <li><a href="#iii-programa-semidefinido" id="toc-iii-programa-semidefinido" class="nav-link" data-scroll-target="#iii-programa-semidefinido">III <span style="color:#CCCCCC;">│</span> Programa semidefinido</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_1/A1_intro_optimizacion.html">1. OPTIMIZACIÓN MATEMÁTICA</a></li><li class="breadcrumb-item"><a href="../CAPITULO_1/A3_programas_conicos.html">1.3 Programas cónicos</a></li></ol></nav>
 <div class="quarto-title">
@@ -256,54 +252,68 @@ window.Quarto = {
 </header>
 
 
-<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+<hr style="border: 1px solid rgba(50, 0, 0, 1); margin: 0;">
 <div class="hidden">
 <p>$$ </p>
 <p>$$</p>
 </div>
+<div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
 <p><a href="../material/apunte_c1s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c1s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 27/08/2026 </span></p>
+</div>
 <div style="margin-top:20px">
 
 </div>
-<p>Muchos problemas de optimización convexa pueden escribirse en una forma estándar, a la cual nos referiremos como <em>forma canónica</em>. Una subclase importante de problemas lo suficientemente general es la que definimos a continuación.</p>
+<p>Dentro de la amplia clase de problemas de optimización convexa, existe una subclase de especial importancia: los programas cónicos, cuya definición presentamos a continuación.</p>
 <div class="definicion">
 <p><strong>Definición 1.3.1</strong> (Programa cónico). Un <em>programa cónico</em> es de la forma <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf c}^\top{\bf x}\\
 \text{sujeto a }  &amp; A{\bf x}={\bf b},\\
-                  &amp; G({\bf x})-h\in K,
+                  &amp; h-G({\bf x})\in K,
 \end{array}
 \tag{1.3.1}
 \]</span></p>
-<p>donde <span class="math inline">\({\bf c},{\bf x}\in\mathbb{R}^p\)</span>, <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span>, <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>, <span class="math inline">\(G:\mathbb{R}^p\to Y\)</span>, <span class="math inline">\(h\in Y\)</span>, con <span class="math inline">\(Y\)</span> un espacio euclídeo y <span class="math inline">\(K\subset Y\)</span> un cono convexo cerrado.</p>
+<p>donde <span class="math inline">\({\bf c}\in\mathbb{R}^p\)</span>, <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span>, <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>, <span class="math inline">\(G:\mathbb{R}^p\to Y\)</span>, <span class="math inline">\(h\in Y\)</span>, con <span class="math inline">\(Y\)</span> un espacio euclídeo y <span class="math inline">\(K\subset Y\)</span> un cono convexo cerrado. La variable de optimización es <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span>.</p>
 </div>
-<div style="margin-top:2em;">
+<aside>
+Un <em>espacio euclídeo</em> es un espacio vectorial real de dimensión finita provisto de un producto interno. Ejemplos: <span class="math inline">\(\mathbb{R}^p\)</span> con el producto interno usual; <span class="math inline">\({\bf S}^p\)</span> con el producto interno de Frobenius <span class="math inline">\(\langle A,B\rangle_F:=\operatorname{tr}(A^\top B)\)</span>.
+</aside>
+<div style="margin-top:1em;">
 
 </div>
-<p>Algunas elecciones de <span class="math inline">\(Y\)</span>, <span class="math inline">\(K\)</span> y <span class="math inline">\(G\)</span> dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección tres de ellos: los <em>programas lineales</em>, los <em>programas cuadráticos</em> (QP) y los <em>programas semidefinidos</em> (SDP).</p>
+<p>En la Definición 1.3.1, las restricciones de desigualdad se expresan de manera generalizada mediante la condición <span class="math inline">\(G({\bf x})-h\in K\)</span>. Esto no modifica la noción de problema de optimización convexa dada en la Definición 1.2.24, sino que extiende la forma de expresar las desigualdades a partir de conos convexos, permitiendo trabajar con elementos de diferente naturaleza. La convexidad del conjunto restricción <span class="math inline">\(\Omega\)</span> sigue garantizada, ya que el conjunto <span class="math inline">\(\left\{{\bf x}\in\mathbb{R}^p \mid G({\bf x})-h\in K\right\}\)</span> es la imagen inversa del conjunto convexo <span class="math inline">\(K\)</span> bajo una aplicación afín.</p>
+<p>Por ejemplo, una forma clásica de las restricciones de desigualdad se obtiene al considerar <span class="math inline">\(Y=\mathbb{R}^r\)</span>, <span class="math inline">\(h=\mathbf{0}\)</span>, <span class="math inline">\(K=\mathbb{R}_+^r\)</span> y la aplicación lineal de la forma <span class="math display">\[
+G({\bf x})=-\begin{pmatrix}
+    g_1({\bf x}) \\ \vdots \\ g_r({\bf x})
+\end{pmatrix}.
+\]</span></p>
+<p>Diferentes elecciones de <span class="math inline">\(Y\)</span>, <span class="math inline">\(K\)</span> y <span class="math inline">\(G\)</span> dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección cuatro de los más importantes: los <em>programas lineales</em> (LP), los <em>programas cuadráticos</em> (QP), los <em>programas semidefinidos</em> (SDP) y los <em>programas cónicos de segundo orden</em> (SOCP). En particular, éste último lo definiremos en la guía de actividades (✏2) Asimismo, veremos que entre estas clases de problemas existe la siguiente relación:</p>
 <div style="height:0.25em;">
 
 </div>
 <div class="myhighlight">
-<p>La relación entre las clases de problemas es la siguiente:</p>
-<p><span class="math display">\[\text{LP}\subset\text{QP}\subset\text{SDP}\subset\text{Programas cónicos}\]</span></p>
+<p><span class="math display">\[\text{LPs}\subset\text{QPs}\subset\text{SOCPs}\subset\text{SDPs}\subset\text{Programas cónicos}\]</span></p>
 </div>
 <div style="height:2em;">
 
 </div>
+<p>En estos problemas de interés, tiene especial relevancia el siguiente concepto.</p>
 <div class="alert alert-light text-dark" role="important">
-<p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>Un cono <span class="math inline">\(K\subset \mathbb{R}^p\)</span> se denomina <em>cono propio</em> si satisface lo siguiente:</p>
+<p><span class="badge bg-success text-light">Cono propio</span></p>
+<p>Un cono convexo cerrado <span class="math inline">\(K\subset Y\)</span> se denomina <em>cono propio</em> si satisface lo siguiente:</p>
 <ul>
-<li><span class="math inline">\(K\)</span> es convexo.</li>
-<li><span class="math inline">\(K\)</span> es cerrado.</li>
-<li><span class="math inline">\(K\)</span> es <em>sólido</em> (tiene interior no vacío).</li>
-<li><span class="math inline">\(K\)</span> no contiene rectas (si <span class="math inline">\({\bf x}\in K\)</span> y <span class="math inline">\(-{\bf x}\in K\)</span>, entonces <span class="math inline">\({\bf x}=\mathbf{0}\)</span>).</li>
+<li><p><span class="math inline">\(K\)</span> es <em>sólido</em>; esto es, tiene interior no vacío.</p></li>
+<li><p><span class="math inline">\(K\)</span> es <em>puntiagudo</em>; esto es, no contiene rectas. Matemáticamente: <span class="math display">\[{\bf x}\in K \land -{\bf x}\in K \Rightarrow {\bf x}=\mathbf{0}.\]</span></p></li>
 </ul>
-<p>Un cono propio <span class="math inline">\(K\subset\mathbb{R}^p\)</span> induce un orden parcial sobre <span class="math inline">\(\mathbb{R}^p\)</span> definido por <span class="math display">\[
+<hr>
+<div style="height:1em;">
+
+</div>
+<p>Un cono propio <span class="math inline">\(K\subset Y\)</span> induce un orden parcial sobre <span class="math inline">\(Y\)</span> definido por <span class="math display">\[
 x\preceq_K y \iff y-x\in K
 \tag{1.3.2}
 \]</span></p>
@@ -313,40 +323,37 @@ x\preceq_K y \iff y-x\in K
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Justifique por qué (1.3.2) define un orden parcial sobre <span class="math inline">\(\mathbb{R}^p\)</span>.</p>
+<p><span style="font-size: 1.3em;">✍️</span><br> Justifique por qué (1.3.2) define un orden parcial sobre <span class="math inline">\(Y\)</span>.</p>
 </div>
 </div>
 </div>
 <div style="margin-top:1em;">
 
 </div>
-<p>En particular:</p>
+<p>Veamos los siguientes ejemplos:</p>
 <ul>
-<li><p>Si <span class="math inline">\(K=\mathbb{R}_+^p\)</span>, entonces <span class="math display">\[
-{\bf x}\preceq_K{\bf y}\iff \forall i: x_i\leq y_i,
-\]</span> lo cual es la comparación elemento a elemento determinada por el orden usual.</p></li>
-<li><p>Si <span class="math inline">\(K={\bf S}_+^p\)</span>, entonces <span class="math display">\[
+<li><p>Si <span class="math inline">\(K=\mathbb{R}_+^p\)</span>. El orden parcial inducido es la comparación elemento a elemento determinada por el orden usual en <span class="math inline">\(\mathbb{R}\)</span>: <span class="math display">\[
+  {\bf x}\preceq_K{\bf y}\iff \forall i: x_i\leq y_i,
+  \]</span></p></li>
+<li><p><span class="math inline">\(K={\bf S}_+^p\)</span>. El orden parcial inducido es <span class="math display">\[
   X\preceq_K Y \iff Y-X\in{\bf S}_+^p.
-  \tag{1.3.3}
   \]</span></p>
-<p>Observar que (1.3.3) es compatible con la notación de matriz semidefinida positiva.</p></li>
+<p>En particular, tomando <span class="math inline">\(X=0\)</span>, se recupera la noción de matriz semidefinida positiva.</p></li>
 </ul>
-<p>En los dos casos mencionados, el subíndice puede ser omitido para escribir simplemente <span class="math inline">\({\bf x}\preceq{\bf y}\)</span> o <span class="math inline">\(X\preceq Y\)</span>, según corresponda.</p>
-<p>La definición de orden parcial inducido por un cono propio <span class="math inline">\(K\)</span> permite interpretar la restricción <span class="math inline">\(D({\bf x})+d\in K\)</span> en (1.3.1) como una restricción de desigualdad: <span class="math display">\[
-G(x)\preceq_K h.
-\]</span></p>
+<p>En ambos ejemplos, el subíndice puede ser omitido para escribir simplemente <span class="math inline">\({\bf x}\preceq{\bf y}\)</span> o <span class="math inline">\(X\preceq Y\)</span>, según corresponda.</p>
 </div>
-<div style="margin-top:2.5em;">
+<div style="margin-top:1em;">
 
 </div>
+<p>Observar que, para un programa cónico con <span class="math inline">\(K\)</span> un cono propio, la restricción <span class="math inline">\(G({\bf x})-h\in K\)</span> en (1.3.1) puede ser reescrita como <span class="math inline">\(G({\bf x}) \preceq_K h\)</span>.</p>
 <section id="i-programa-lineal" class="level2">
 <h2 class="anchored" data-anchor-id="i-programa-lineal">I <span style="color:#CCCCCC;">│</span> Programa lineal</h2>
 <div class="myhighlight2">
-<p><span class="math inline">\(Y=\mathbb{R}^r\qquad D({\bf x})=G{\bf x}\qquad K=\mathbb{R}_{+}^p\)</span></p>
+<p><span class="math inline">\(Y=\mathbb{R}^r\qquad K=\mathbb{R}_{+}^r\qquad G({\bf x})=G{\bf x},\,\text{con } G\in\mathbb{R}^{r\times p}\)</span></p>
 </div>
 <p>Esta elección conduce a problemas de optimización donde tanto la función objetivo como cada una de las restricciones son funciones afines.</p>
 <div class="alert alert-light text-dark" role="alert">
-<p><span class="badge bg-success text-light">Forma básica de un LP</span></p>
+<p><span class="badge bg-success text-light">LP</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf c}^\top{\bf x}\\
@@ -365,7 +372,7 @@ G(x)\preceq_K h.
 <li><p>Los conjuntos de nivel de la función objetivo son hiperplanos ortogonales a la dirección <span class="math inline">\({\bf c}\)</span>.</p></li>
 <li><p>Al avanzar en dirección de <span class="math inline">\(-{\bf c}\)</span>, se disminuye la función objetivo. En efecto, para <span class="math inline">\(t&gt;0\)</span> ocurre que <span class="math inline">\({\bf c}^\top({\bf x}-t{\bf c})={\bf c}^\top{\bf x}-t\|{\bf c}\|_2^2&lt;{\bf c}^\top{\bf x}\)</span>.</p></li>
 </ul>
-<p>En consecuencia, el punto óptimo <span class="math inline">\({\bf x}^{\star}\)</span> es aquel punto de <span class="math inline">\(\mathcal{P}\)</span> lo más alejado posible en la dirección de <span class="math inline">\(-{\bf c}\)</span>. Si el hiperplano de nivel óptimo no es paralelo a ninguna cara de <span class="math inline">\(\mathcal{P}\)</span>, entonces el punto de contacto corresponde a un único vértice del poliedro. En cambio, si dicho hiperplano es paralelo a una cara, todos los puntos de esa cara son soluciones óptimas.</p>
+<p>En consecuencia, el punto óptimo <span class="math inline">\({\bf x}^{\star}\)</span> es aquel punto de <span class="math inline">\(\mathcal{P}\)</span> lo más alejado posible en la dirección de <span class="math inline">\(-{\bf c}\)</span>. Si el hiperplano de nivel óptimo no es paralelo a ninguna cara de <span class="math inline">\(\mathcal{P}\)</span>, entonces el punto de contacto corresponde a un único vértice del poliedro. En cambio, si dicho hiperplano es paralelo a una cara, todos los puntos de esa cara son óptimos.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/problema_lineal.svg" alt="" width="350px" class="figure-img">
 <figcaption>
@@ -376,7 +383,7 @@ G(x)\preceq_K h.
 
 </div>
 <div class="myhighlight">
-<p>La <em>forma estándar</em> de un LP es</p>
+<p>La forma estándar de un LP es</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf c}^\top{\bf x}\\
@@ -399,7 +406,7 @@ G(x)\preceq_K h.
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> La dieta </span></p>
+<p><span class="badge bg-primary">Ejemplo 1.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> La dieta </span></p>
 <p>Una dieta saludable contiene <span class="math inline">\(m\)</span> nutrientes diferentes en cantidades al menos iguales a <span class="math inline">\(b_1, \ldots, b_m\)</span>. Podemos componer tal dieta eligiendo cantidades no negativas <span class="math inline">\(x_1, \ldots, x_n\)</span> de <span class="math inline">\(n\)</span> alimentos diferentes. Una unidad de cantidad del alimento <span class="math inline">\(j\)</span> contiene una cantidad <span class="math inline">\(a_{ij}\)</span> del nutriente <span class="math inline">\(i\)</span> y tiene un costo de <span class="math inline">\(c_j\)</span>. Queremos determinar la dieta más barata que satisfaga los requisitos nutricionales. Esto conduce al siguiente LP: <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf c}^\top{\bf x}\\
@@ -407,13 +414,13 @@ G(x)\preceq_K h.
                   &amp; A{\bf x}\succeq {\bf b}.
 \end{array}
 \]</span></p>
-<p>Varias variaciones de este problema también se pueden formular como LPs. Por ejemplo, podemos insistir en una cantidad exacta de un nutriente en la dieta (lo que da una restricción de igualdad lineal), o podemos imponer un límite superior en la cantidad de un nutriente, además del límite inferior como se indicó anteriormente.</p>
+<p>Otras variantes de este problema también se pueden formular como LPs. Por ejemplo, podemos insistir en una cantidad exacta de un nutriente en la dieta (lo que da una restricción de igualdad lineal), o podemos imponer un límite superior en la cantidad de un nutriente, además del límite inferior como se indicó anteriormente.</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> El centro de Chebyshev </span></p>
+<p><span class="badge bg-primary">Ejemplo 1.3.3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> El centro de Chebyshev </span></p>
 <p>Consideremos el problema de encontrar la bola euclídea más grande que se encuentra contenida en un poliedro descrito por desigualdades lineales: <span class="math display">\[
 \mathcal{P}= \{{\bf x}\in \mathbb{R}^p \mid {\bf a}_i^\top{\bf x}\leq b_i,\quad i = 1, \ldots, m\}.
 \]</span></p>
@@ -426,11 +433,11 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 \]</span></p>
 <p>En consecuencia, el requisito de que <span class="math inline">\(B({\bf x},r)\)</span> pertenezca a cada subespacio <span class="math inline">\({\bf a}_i^\top {\bf x}\leq b_i\)</span> puede escribirse como <span class="math display">\[
 {\bf a}_i^\top({\bf x}+{\bf u})={\bf a}_i^\top{\bf x}+r\|{\bf a}_i\|_2\leq b_i,
-\]</span> lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es el siguiente LP en forma de desigualdad:</p>
+\]</span> lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es equivalente a resolver el siguiente LP:</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; r\\
-\text{sujeto a }  &amp; {\bf a}_i^\top{\bf x}+r\|{\bf a}_i\|_2\leq b_i,\quad i=1,\cdots, m
+\text{sujeto a }  &amp; {\bf a}_i^\top{\bf x}+r\|{\bf a}_i\|_2\leq b_i,\quad i=1,\cdots, m.
 \end{array}
 \]</span></p>
 </div>
@@ -440,9 +447,9 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 </section>
 <section id="ii-programa-cuadrático" class="level2">
 <h2 class="anchored" data-anchor-id="ii-programa-cuadrático">II <span style="color:#CCCCCC;">│</span> Programa cuadrático</h2>
-<p>Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama <em>programa cuadrático</em> (QP). tanque la formulación no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes (✏2).</p>
+<p>Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama <em>programa cuadrático</em> (QP). Aunque la formulación básica de un QP no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes (✏2).</p>
 <div class="alert alert-light text-dark" role="alert">
-<p><span class="badge bg-success text-light">Forma básica de un QP</span></p>
+<p><span class="badge bg-success text-light">QP convexo</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \frac{1}{2}{\bf x}^\top P {\bf x}+{\bf q}^\top{\bf x}\\
@@ -471,7 +478,7 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Investigue el procedimiento para reescribir un LP en forma estándar.</p>
+<p><span style="font-size: 1.3em;">✍️</span><br> Investigue el procedimiento para reescribir un QP en forma estándar.</p>
 </div>
 </div>
 </div>
@@ -479,23 +486,22 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distancia entre poliedros </span></p>
+<p><span class="badge bg-primary">Ejemplo 1.3.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distancia entre poliedros </span></p>
 <p>La distancia euclídea entre los poliedros <span class="math inline">\(\mathcal{P}_1 = \{{\bf x}\mid A_1 {\bf x}\preceq {\bf b}_1\}\)</span> y <span class="math inline">\(\mathcal{P}_2 = \{{\bf x}\mid A_2 {\bf x}\preceq {\bf b}_2\}\)</span> en <span class="math inline">\(\mathbb{R}^p\)</span> se define como <span class="math display">\[
-\mathop{\mathrm{dist}}(\mathcal{P}_1, \mathcal{P}_2) = \inf \{ \|{\bf x}_1 - {\bf x}_2\|_2 \mid {\bf x}_1 \in \mathcal{P}_1, {\bf x}_2 \in \mathcal{P}_2 \}.
+\mathop{\mathrm{dist}}(\mathcal{P}_1, \mathcal{P}_2) := \inf \{ \|{\bf x}_1 - {\bf x}_2\|_2 \mid {\bf x}_1 \in \mathcal{P}_1, {\bf x}_2 \in \mathcal{P}_2 \}.
 \]</span></p>
-<p>Si los poliedros se intersecan, la distancia es cero.</p>
 <p>Para encontrar la distancia entre <span class="math inline">\(\mathcal{P}_1\)</span> y <span class="math inline">\(\mathcal{P}_2\)</span>, podemos resolver el QP con variables <span class="math inline">\({\bf x}_1\)</span> y <span class="math inline">\({\bf x}_2\)</span> definido como <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \|{\bf x}_1-{\bf x}_2\|_2^2\\
-\text{sujeto a }  &amp; A_1{\bf x}_1\preceq {\bf b}_1\\
-                  &amp; A_2{\bf x}_2\preceq {\bf b}_2
+\text{sujeto a }  &amp; A_1{\bf x}_1\preceq {\bf b}_1,\\
+                  &amp; A_2{\bf x}_2\preceq {\bf b}_2.
 \end{array}
 \]</span></p>
 <p>El único caso en que este problema no tiene solución es si uno de los poliedros está vacío. Por otro lado, el valor óptimo es cero si y solo si los poliedros se intersecan, en cuyo caso <span class="math inline">\({\bf x}_1={\bf x}_2\)</span>. En cualquier otro caso, los puntos óptimos <span class="math inline">\({\bf x}_1\)</span> y <span class="math inline">\({\bf x}_2\)</span> son los puntos en <span class="math inline">\(\mathcal{P}_1\)</span> y <span class="math inline">\(\mathcal{P}_2\)</span>, respectivamente, que están más cerca el uno del otro.</p>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Mínimos cuadrados </span></p>
-<p>Un problema de mínimos cuadrados es de la forma <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 1.3.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Mínimos cuadrados </span></p>
+<p>Un problema de <em>mínimos cuadrados</em> es de la forma <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \|A{\bf x}-{\bf b}\|_2^2,
 \end{array}
@@ -512,22 +518,22 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 <div style="margin-top:1.5em;">
 
 </div>
-<p>Para aumentar su flexibilidad en las aplicaciones, se utilizan varias técnicas estándar. Por ejemplo, un <em>problema de mínimos cuadrados ponderados</em> es de la forma <span class="math display">\[
+<p>Para aumentar su flexibilidad en las aplicaciones, se utilizan varias técnicas estándar. Por ejemplo, un problema de <em>mínimos cuadrados ponderados</em> es de la forma <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \|W^{1/2}(A{\bf x}-{\bf b})\|_2^2,
 \end{array}
 \]</span> donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(w_1,\ldots,w_k)\in\mathbb{R}^{k\times k}\)</span>, con <span class="math inline">\(w_i&gt;0\)</span>, es una matriz de pesos que asocia a cada ecuación una importancia relativa. Por supuesto, <span class="math inline">\(W=I\)</span> recupera el problema de mínimos cuadrados clásico.</p>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Máquina de vectores soporte (SVM) </span></p>
+<p><span class="badge bg-primary">Ejemplo 1.3.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Máquina de vectores soporte (SVM) </span></p>
 <p>Dado un conjunto de datos etiquetados, el objetivo de una <em>máquina de vectores de soporte</em> (SVM) es encontrar un hiperplano que separe las dos clases con el mayor margen posible. Cuando los datos no son perfectamente separables, se introducen variables de holgura que permiten ciertas violaciones de las restricciones de clasificación, penalizándolas en la función objetivo. Esto conduce al siguiente QP con variable de optimización es <span class="math inline">\((\boldsymbol{\beta},\beta_0,\boldsymbol{\xi})\in\mathbb{R}^{p+1+n}\)</span>: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
+\text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\[3pt]
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   &amp; \boldsymbol{\xi}\succeq\mathbf{0}.
 \end{array}
 \]</span></p>
-<p>Aunque este problema puede resolverse directamente mediante un <em>solver</em> de programación cuadrática, en la práctica suele utilizarse su formulación dual, especialmente cuando se emplean funciones kernel, ya que estas se incorporan de manera natural en el problema dual. Veremos este método con más detalle en <a href="B5_svm.html">C2-S5</a>.</p>
+<p>Aunque este problema puede resolverse directamente mediante un <em>solver</em> de programación cuadrática, en la práctica suelen utilizarse métodos especializados que aprovechan la estructura particular del problema y permiten resolverlo de forma más eficiente. Veremos este método con más detalle en <a href="B5_svm.html">C2-S5</a>.</p>
 </div>
 <div style="margin-top:2.5em;">
 
@@ -536,11 +542,11 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 <section id="iii-programa-semidefinido" class="level2">
 <h2 class="anchored" data-anchor-id="iii-programa-semidefinido">III <span style="color:#CCCCCC;">│</span> Programa semidefinido</h2>
 <div class="myhighlight2">
-<p><span class="math inline">\(Y={\bf S}^r\qquad D({\bf x})=\displaystyle\sum_{i=1}^p x_iF_i\qquad K={\bf S}_{+}^p\)</span></p>
+<p><span class="math inline">\(Y={\bf S}^r\qquad K={\bf S}_{+}^r\qquad G({\bf x})=\displaystyle\sum_{i=1}^p x_iF_i,\,\text{con } F_i\in{\bf S}^r\)</span></p>
 </div>
 <p>Esta elección conduce a problemas de optimización donde la función objetivo es afín y la restricción impone que una función matricial afín pertenezca al cono de matrices semidefinidas positivas.</p>
 <div class="alert alert-light text-dark" role="alert">
-<p><span class="badge bg-success text-light">Forma básica de un SDP</span></p>
+<p><span class="badge bg-success text-light">SDP</span></p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf c}^\top{\bf x}\\
@@ -548,14 +554,24 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
                   &amp; A{\bf x}={\bf b},
 \end{array}
 \]</span></p>
-<p>donde <span class="math inline">\({\bf c}\in\mathbb{R}^p\)</span>, <span class="math inline">\(F_i\in {\bf S}^p\)</span>, H^p$, <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>.</p>
+<p>donde <span class="math inline">\({\bf c}\in\mathbb{R}^p\)</span>, <span class="math inline">\(F_i\in {\bf S}^p\)</span>, <span class="math inline">\(H\in{\bf S}^p\)</span>, <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>.</p>
+</div>
+<div class="myhighlight">
+<p>La forma estándar de un SDP es</p>
+<p><span class="math display">\[
+    \begin{array}{ll}
+        \text{minimizar } &amp; \operatorname{tr}(CX)\\
+        \text{sujeto a }  &amp; X\succeq 0,\\
+        &amp; \operatorname{tr}(A_iX)=b_i,\qquad i=1,\ldots, m.
+    \end{array}
+    \]</span></p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Relajación semidefinida del problema Max-Cut </span></p>
-<p>Dado un grafo no dirigido <span class="math inline">\(G=(V,E)\)</span>, el problema Max-Cut consiste en particionar el conjunto de vértices en dos grupos de modo de maximizar el número de aristas que cruzan la partición. Si asociamos variables <span class="math inline">\(s_i \in \{-1,1\}\)</span> a cada vértice, el problema puede escribirse como: <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 1.3.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Relajación semidefinida del problema <em>Max-Cut</em> </span></p>
+<p>Dado un grafo no dirigido <span class="math inline">\(G=(V,E)\)</span>, el problema <em>Max-Cut</em> consiste en particionar el conjunto de vértices en dos grupos de modo de maximizar el número de aristas que cruzan la partición. Si asociamos variables <span class="math inline">\(s_i \in \{-1,1\}\)</span> a cada vértice, el problema puede escribirse como: <span class="math display">\[
 \max \sum_{(i,j)\in E} \frac{1 - s_i s_j}{2}.
 \]</span></p>
 <p>Este problema es combinatorio y NP-<em>hard</em>. Una relajación convexa se obtiene reemplazando los escalares <span class="math inline">\(s_i\)</span> por vectores unitarios <span class="math inline">\(v_i \in \mathbb{R}^n\)</span> con <span class="math inline">\(\|v_i\|_2=1\)</span>, y definiendo la matriz <span class="math inline">\(X\)</span> mediante <span class="math inline">\(X_{ij}=v_i^\top v_j\)</span>. Esto conduce al siguiente programa semidefinido:</p>
@@ -566,23 +582,21 @@ B({\bf x},r) = \{{\bf x}+ {\bf u}\mid \|{\bf u}\|_2 \leq r\}.
 &amp; X_{ii} = 1, \quad i=1,\ldots,n,
 \end{array}
 \]</span></p>
-<p>donde <span class="math inline">\(L\)</span> es la matriz asociada al grafo.</p>
-<p>Este es un programa semidefinido en forma estándar, ya que la función objetivo es lineal en <span class="math inline">\(X\)</span> y la restricción principal impone que <span class="math inline">\(X\)</span> pertenezca al cono de matrices semidefinidas positivas.</p>
+<p>donde <span class="math inline">\(L\)</span> es la matriz asociada al grafo. Dicho SDP está en forma estándar, ya que la función objetivo es lineal en <span class="math inline">\(X\)</span> y la restricción principal impone que <span class="math inline">\(X\)</span> pertenezca al cono de matrices semidefinidas positivas.</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.2.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Matriz de correlación más cercana </span></p>
-<p>En aplicaciones de estadística, finanzas y aprendizaje automático, es frecuente estimar una matriz de correlación a partir de datos experimentales. Debido al ruido o a errores numéricos, la matriz obtenida puede dejar de ser una matriz de correlación válida, ya que podría no ser semidefinida positiva. En este caso, se busca la matriz de correlación válida más cercana a la matriz observada. Una formulación habitual es <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 1.3.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Matriz de correlación más cercana </span></p>
+<p>En aplicaciones de estadística, finanzas y aprendizaje automático, es frecuente estimar una matriz de correlación a partir de datos experimentales. Debido al ruido o a errores numéricos, la matriz obtenida puede dejar de ser una matriz de correlación válida, ya que podría no ser semidefinida positiva. En este caso, se busca la matriz de correlación válida más cercana a la matriz observada. El SDP asociado es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \|X-C\|_F^2\\
 \text{sujeto a }  &amp; X\succeq 0,\\
                   &amp; \mathop{\mathrm{diag}}X=\mathbf{1},
 \end{array}
 \]</span></p>
-<p>donde <span class="math inline">\(C\)</span> es la matriz observada y <span class="math inline">\(X\)</span> es la matriz de correlación buscada.</p>
-<p>Esta formulación no corresponde a un programa semidefinido en forma estándar, ya que la función objetivo es cuadrática. No obstante, puede reformularse de manera equivalente como un SDP estándar, aunque dicha reformulación queda fuera del alcance de este curso.</p>
+<p>donde <span class="math inline">\(C\)</span> es la matriz observada y <span class="math inline">\(X\)</span> es la matriz de correlación buscada. Esta formulación no corresponde a un SDP en forma estándar, ya que la función objetivo es cuadrática. No obstante, puede reformularse de manera equivalente como un SDP estándar, pero tal procedimiento queda fuera del alcance de este curso.</p>
 </div>
 <p><br><br></p>
 <div class="refs">
@@ -593,10 +607,12 @@ Diamond, S., & Boyd, S. (s.f.). CVXPY: A Python-embedded modeling language for c
 
 SciPy Developers. (s.f.). SciPy optimize tutorial. SciPy. https://docs.scipy.org/doc/scipy/tutorial/optimize.html
 -->
-<p>Tibshirani, R. (2018) <em>CMU Machine Learning 10-725: Convex Optimization</em>. 🔗 <a href="https://www.stat.cmu.edu/~ryantibs/convexopt-F18/">ir al sitio web</a>.</p>
+<p>Tibshirani, R. (2018) <em>CMU Machine Learning 10-725: Convex Optimization</em>. Course material and lecture notes. Carnegie Mellon University. 🔗 <a href="https://www.stat.cmu.edu/~ryantibs/convexopt-F18/">ir al sitio web</a>.</p>
 </div>
 
 
+</section>
+</main></div>
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -611,9 +627,8 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 W10=
 </script>
-</section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -626,236 +641,243 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copiado");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copiado");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -863,185 +885,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../CAPITULO_1/A2_optimizacion_convexa.html" class="pagination-link" aria-label="1.2 Optimización convexa">
@@ -1054,7 +1052,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 

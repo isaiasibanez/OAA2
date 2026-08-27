@@ -2,21 +2,29 @@
 title: "Programas cónicos"
 subtitle: "Capítulo 1 - Sección 3"
 ---
-
-<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+<hr style="border: 1px solid rgba(50, 0, 0, 1); margin: 0;">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c1s3.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c1s3.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c1s3.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c1s3.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 27/08/2026
+  </span>
 
 </div>
 
@@ -24,7 +32,7 @@ subtitle: "Capítulo 1 - Sección 3"
 
 
 
-Muchos problemas de optimización convexa pueden escribirse en una forma estándar, a la cual nos referiremos como *forma canónica*. Una subclase importante de problemas lo suficientemente general es la que definimos a continuación.
+Dentro de la amplia clase de problemas de optimización convexa, existe una subclase de especial importancia: los programas cónicos, cuya definición presentamos a continuación.
 
 ::: {.definicion}
 **Definición 1.3.1** (Programa cónico). Un *programa cónico* es de la forma
@@ -32,44 +40,58 @@ $$
 \begin{array}{ll} 
 \text{minimizar } & \cc^\top\xx\\ 
 \text{sujeto a }  & A\xx=\bb,\\
-                  & G(\xx)-h\in K,
+                  & h-G(\xx)\in K,
 \end{array} 
 \tag{1.3.1} 
 $$ 
 
-donde $\cc,\xx\in\RR^p$, $A\in\RR^{m\times p}$, $\bb\in\RR^m$, $G:\RR^p\to Y$, $h\in Y$, con $Y$ un espacio euclídeo y $K\subset Y$  un cono convexo cerrado.
+donde $\cc\in\RR^p$, $A\in\RR^{m\times p}$, $\bb\in\RR^m$, $G:\RR^p\to Y$, $h\in Y$, con $Y$ un espacio euclídeo y $K\subset Y$  un cono convexo cerrado. La variable de optimización es $\xx\in\RR^p$.
 
 :::
 
-<div style="margin-top:2em;"></div>
+<aside>Un *espacio euclídeo* es un espacio vectorial real de dimensión finita provisto de un producto interno. Ejemplos: $\RR^p$ con el producto interno usual; $\bfS^p$ con el producto interno de Frobenius $\langle A,B\rangle_F:=\operatorname{tr}(A^\top B)$.</aside>
+
+<div style="margin-top:1em;"></div>
 
 
-Algunas elecciones de $Y$, $K$ y $G$ dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección tres de ellos: los *programas lineales*, los *programas cuadráticos* (QP) y los *programas semidefinidos* (SDP). 
+En la Definición 1.3.1, las restricciones de desigualdad se expresan de manera generalizada mediante la condición $G(\xx)-h\in K$. Esto no modifica la noción de problema de optimización convexa dada en la Definición 1.2.24, sino que extiende la forma de expresar las desigualdades a partir de conos convexos, permitiendo trabajar con elementos de diferente naturaleza. La convexidad del conjunto restricción $\Omega$ sigue garantizada, ya que el conjunto $\left\{\xx\in\RR^p \mid G(\xx)-h\in K\right\}$ es la imagen inversa del conjunto convexo $K$ bajo una aplicación afín.
+
+Por ejemplo, una forma clásica de las restricciones de desigualdad se obtiene al considerar $Y=\RR^r$, $h=\bfzero$, $K=\RR_+^r$ y la aplicación lineal de la forma
+$$
+G(\xx)=-\begin{pmatrix}
+	g_1(\xx) \\ \vdots \\ g_r(\xx)
+\end{pmatrix}.
+$$
+
+Diferentes elecciones de $Y$, $K$ y $G$ dan lugar a subconjuntos particulares de programas cónicos de especial interés. Estudiaremos en esta sección cuatro de los más importantes: los *programas lineales* (LP), los *programas cuadráticos* (QP), los *programas semidefinidos* (SDP) y los *programas cónicos de segundo orden* (SOCP). En particular, éste último lo definiremos en la guía de actividades (✏2) Asimismo, veremos que entre estas clases de problemas existe la siguiente relación:
 
 
 <div style="height:0.25em;"></div>
 
 ::: {.myhighlight}
-La relación entre las clases de problemas es la siguiente:
-
-$$\text{LP}\subset\text{QP}\subset\text{SDP}\subset\text{Programas cónicos}$$
+$$\text{LPs}\subset\text{QPs}\subset\text{SOCPs}\subset\text{SDPs}\subset\text{Programas cónicos}$$
 
 :::
 
 <div style="height:2em;"></div>
 
+En estos problemas de interés, tiene especial relevancia el siguiente concepto.
 
 <div class="alert alert-light text-dark" role="important">
-<span class="badge bg-warning text-dark">Importante</span>
+<span class="badge bg-success text-light">Cono propio</span>
 
-Un cono $K\subset \RR^p$ se denomina *cono propio* si satisface lo siguiente:
+Un cono convexo cerrado $K\subset Y$ se denomina *cono propio* si satisface lo siguiente:
 
-- $K$ es convexo.
-- $K$ es cerrado.
-- $K$ es *sólido* (tiene interior no vacío).
-- $K$ no contiene rectas (si $\xx\in K$ y $-\xx\in K$, entonces $\xx=\bfzero$).
+- $K$ es *sólido*; esto es, tiene interior no vacío.
 
-Un cono propio $K\subset\RR^p$ induce un orden parcial sobre $\RR^p$ definido por
+- $K$ es *puntiagudo*; esto es, no contiene rectas. Matemáticamente:
+    $$\xx\in K \land -\xx\in K \Rightarrow \xx=\bfzero.$$
+
+<hr>
+
+<div style="height:1em;"></div>
+
+Un cono propio $K\subset Y$ induce un orden parcial sobre $Y$ definido por
 $$
 x\preceq_K y \iff y-x\in K
 \tag{1.3.2}
@@ -77,51 +99,46 @@ $$
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
-Justifique por qué (1.3.2) define un orden parcial sobre $\RR^p$.
+Justifique por qué (1.3.2) define un orden parcial sobre $Y$.
 :::
 
 <div style="margin-top:1em;"></div>
 
-En particular:
+Veamos los siguientes ejemplos:
 
-- Si $K=\RR_+^p$, entonces
-  $$
-  \xx\preceq_K\yy\iff \forall i: x_i\leq y_i,
-  $$
-  lo cual es la comparación elemento a elemento determinada por el orden usual.
+- Si $K=\RR_+^p$. El orden parcial inducido es la comparación elemento a elemento determinada por el orden usual en $\RR$:
+    $$
+    \xx\preceq_K\yy\iff \forall i: x_i\leq y_i,
+    $$
 
-- Si $K=\bfS_+^p$, entonces
+- $K=\bfS_+^p$. El orden parcial inducido es
     $$
     X\preceq_K Y \iff Y-X\in\bfS_+^p.
-    \tag{1.3.3}
     $$
 
-    Observar que (1.3.3) es compatible con la notación de matriz semidefinida positiva.
+    En particular, tomando $X=0$, se recupera la noción de matriz semidefinida positiva.
 
-
-En los dos casos mencionados, el subíndice puede ser omitido para escribir simplemente $\xx\preceq\yy$ o $X\preceq Y$, según corresponda. 
-
-La definición de orden parcial inducido por un cono propio $K$ permite interpretar la restricción $D(\xx)+d\in K$ en (1.3.1) como una restricción de desigualdad:
-$$
-G(x)\preceq_K h.
-$$
+En ambos ejemplos, el subíndice puede ser omitido para escribir simplemente $\xx\preceq\yy$ o $X\preceq Y$, según corresponda. 
 
 </div>
 
-<div style="margin-top:2.5em;"></div>
+<div style="margin-top:1em;"></div>
+
+
+Observar que, para un programa cónico con $K$ un cono propio, la restricción $G(\xx)-h\in K$ en (1.3.1) puede ser reescrita como $G(\xx) \preceq_K h$.
 
 
 
 ## I <span style="color:#CCCCCC;">│</span> Programa lineal
 
 :::{.myhighlight2}
-$Y=\RR^r\qquad D(\xx)=G\xx\qquad K=\RR_{+}^p$
+$Y=\RR^r\qquad K=\RR_{+}^r\qquad G(\xx)=G\xx,\,\text{con } G\in\RR^{r\times p}$
 :::
 
 Esta elección conduce a problemas de optimización donde tanto la función objetivo como cada una de las restricciones son funciones afines. 
 
 <div class="alert alert-light text-dark" role="alert">
-<span class="badge bg-success text-light">Forma básica de un LP</span>
+<span class="badge bg-success text-light">LP</span>
 
 $$ 
 \begin{array}{ll} 
@@ -145,7 +162,7 @@ Observar que:
 
 - Al avanzar en dirección de $-\cc$, se disminuye la función objetivo. En efecto, para $t>0$ ocurre que $\cc^\top(\xx-t\cc)=\cc^\top\xx-t\|\cc\|_2^2<\cc^\top\xx$.
 
-En consecuencia, el punto óptimo $\xx^{\star}$ es aquel punto de $\calP$ lo más alejado posible en la dirección de $-\cc$. Si el hiperplano de nivel óptimo no es paralelo a ninguna cara de $\calP$, entonces el punto de contacto corresponde a un único vértice del poliedro. En cambio, si dicho hiperplano es paralelo a una cara, todos los puntos de esa cara son soluciones óptimas.
+En consecuencia, el punto óptimo $\xx^{\star}$ es aquel punto de $\calP$ lo más alejado posible en la dirección de $-\cc$. Si el hiperplano de nivel óptimo no es paralelo a ninguna cara de $\calP$, entonces el punto de contacto corresponde a un único vértice del poliedro. En cambio, si dicho hiperplano es paralelo a una cara, todos los puntos de esa cara son óptimos.
 
 <figure style="text-align: center;">
   <img src="figuras/problema_lineal.svg" alt="" width="350px">
@@ -156,7 +173,7 @@ En consecuencia, el punto óptimo $\xx^{\star}$ es aquel punto de $\calP$ lo má
 
 
 ::: {.myhighlight}
-La *forma estándar* de un LP es
+La forma estándar de un LP es
 
 $$ 
 \begin{array}{ll} 
@@ -180,7 +197,7 @@ Investigue el procedimiento para reescribir un LP en forma estándar.
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.2</span>
+<span class="badge bg-primary">Ejemplo 1.3.2</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
   La dieta
 </span>
@@ -194,7 +211,7 @@ $$
 \end{array}
 $$ 
 
-Varias variaciones de este problema también se pueden formular como LPs. Por ejemplo, podemos insistir en una cantidad exacta de un nutriente en la dieta (lo que da una restricción de igualdad lineal), o podemos imponer un límite superior en la cantidad de un nutriente, además del límite inferior como se indicó anteriormente.
+Otras variantes de este problema también se pueden formular como LPs. Por ejemplo, podemos insistir en una cantidad exacta de un nutriente en la dieta (lo que da una restricción de igualdad lineal), o podemos imponer un límite superior en la cantidad de un nutriente, además del límite inferior como se indicó anteriormente.
 :::
 
 <div style="margin-top:1em;"></div>
@@ -202,7 +219,7 @@ Varias variaciones de este problema también se pueden formular como LPs. Por ej
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.3</span>
+<span class="badge bg-primary">Ejemplo 1.3.3</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 El centro de Chebyshev
 </span>
@@ -228,12 +245,12 @@ En consecuencia, el requisito de que $B(\xx,r)$ pertenezca a cada subespacio $\b
 $$
 \bfa_i^\top(\xx+\uu)=\bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,
 $$
-lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es el siguiente LP en forma de desigualdad:
+lo cual es una desigualdad lineal. En conclusión, hallar el centro de Chebyshev es equivalente a resolver el siguiente LP:
 
 $$ 
 \begin{array}{ll} 
 \text{maximizar } & r\\ 
-\text{sujeto a }  & \bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,\quad i=1,\cdots, m
+\text{sujeto a }  & \bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,\quad i=1,\cdots, m.
 \end{array}
 $$ 
 
@@ -245,10 +262,10 @@ $$
 
 ## II <span style="color:#CCCCCC;">│</span> Programa cuadrático
 
-Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP). tanque la formulación no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes (✏2).
+Cuando la función objetivo es cuadrática y las restricciones son afines, el problema de optimización se llama *programa cuadrático* (QP). Aunque la formulación básica de un QP no sugiere directamente un programa cónico, los programas cuadráticos convexos pueden reformularse como programas cónicos equivalentes (✏2).
 
 <div class="alert alert-light text-dark" role="alert">
-<span class="badge bg-success text-light">Forma básica de un QP</span>
+<span class="badge bg-success text-light">QP convexo</span>
 
 $$ 
 \begin{array}{ll} 
@@ -280,7 +297,7 @@ $$
 
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
-Investigue el procedimiento para reescribir un LP en forma estándar.
+Investigue el procedimiento para reescribir un QP en forma estándar.
 
 :::
 
@@ -289,24 +306,22 @@ Investigue el procedimiento para reescribir un LP en forma estándar.
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.4</span>
+<span class="badge bg-primary">Ejemplo 1.3.4</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Distancia entre poliedros
 </span>
 
 La distancia euclídea entre los poliedros $\calP_1 = \{\xx \mid A_1 \xx \preceq \bb_1\}$ y $\calP_2 = \{\xx \mid A_2 \xx \preceq \bb_2\}$ en $\RR^p$ se define como
 $$
-\dist(\calP_1, \calP_2) = \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \calP_1, \xx_2 \in \calP_2 \}.
+\dist(\calP_1, \calP_2) := \inf \{ \|\xx_1 - \xx_2\|_2 \mid \xx_1 \in \calP_1, \xx_2 \in \calP_2 \}.
 $$
-
-Si los poliedros se intersecan, la distancia es cero.
 
 Para encontrar la distancia entre $\calP_1$ y $\calP_2$, podemos resolver el QP con variables $\xx_1$ y $\xx_2$ definido como
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & \|\xx_1-\xx_2\|_2^2\\ 
-\text{sujeto a }  & A_1\xx_1\preceq \bb_1\\
-                  & A_2\xx_2\preceq \bb_2
+\text{sujeto a }  & A_1\xx_1\preceq \bb_1,\\
+                  & A_2\xx_2\preceq \bb_2.
 \end{array}
 $$ 
 
@@ -316,12 +331,12 @@ El único caso en que este problema no tiene solución es si uno de los poliedro
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.5</span>
+<span class="badge bg-primary">Ejemplo 1.3.5</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Mínimos cuadrados
 </span>
 
-Un problema de mínimos cuadrados es de la forma
+Un problema de *mínimos cuadrados* es de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & \|A\xx-\bb\|_2^2,
@@ -343,7 +358,7 @@ de manera que:
 
 <div style="margin-top:1.5em;"></div>
 
-Para aumentar su flexibilidad en las aplicaciones, se utilizan varias técnicas estándar. Por ejemplo, un *problema de mínimos cuadrados ponderados* es de la forma
+Para aumentar su flexibilidad en las aplicaciones, se utilizan varias técnicas estándar. Por ejemplo, un problema de *mínimos cuadrados ponderados* es de la forma
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & \|W^{1/2}(A\xx-\bb)\|_2^2,
@@ -356,7 +371,7 @@ donde $W=\diag(w_1,\ldots,w_k)\in\RR^{k\times k}$, con $w_i>0$, es una matriz de
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.6</span>
+<span class="badge bg-primary">Ejemplo 1.3.6</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Máquina de vectores soporte (SVM)
 </span>
@@ -364,13 +379,13 @@ Máquina de vectores soporte (SVM)
 Dado un conjunto de datos etiquetados, el objetivo de una *máquina de vectores de soporte* (SVM) es encontrar un hiperplano que separe las dos clases con el mayor margen posible. Cuando los datos no son perfectamente separables, se introducen variables de holgura que permiten ciertas violaciones de las restricciones de clasificación, penalizándolas en la función objetivo.  Esto conduce al siguiente QP con variable de optimización es $(\bfbeta,\beta_0,\bfxi)\in\RR^{p+1+n}$:
 $$
 \begin{array}{ll}
-\text{minimizar } & \displaystyle\frac{1}{2}\|\bfbeta\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
+\text{minimizar } & \displaystyle\frac{1}{2}\|\bfbeta\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\[3pt]
 \text{sujeto a }  & y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   & \bfxi\succeq\bfzero.
 \end{array}
 $$
 
-Aunque este problema puede resolverse directamente mediante un *solver* de programación cuadrática, en la práctica suele utilizarse su formulación dual, especialmente cuando se emplean funciones kernel, ya que estas se incorporan de manera natural en el problema dual. Veremos este método con más detalle en [C2-S5](B5_svm.html).
+Aunque este problema puede resolverse directamente mediante un *solver* de programación cuadrática, en la práctica suelen utilizarse métodos especializados que aprovechan la estructura particular del problema y permiten resolverlo de forma más eficiente. Veremos este método con más detalle en [C2-S5](B5_svm.html).
 :::
 
 <div style="margin-top:2.5em;"></div>
@@ -380,13 +395,13 @@ Aunque este problema puede resolverse directamente mediante un *solver* de progr
 ## III <span style="color:#CCCCCC;">│</span> Programa semidefinido
 
 :::{.myhighlight2}
-$Y=\bfS^r\qquad D(\xx)=\displaystyle\sum_{i=1}^p x_iF_i\qquad K=\bfS_{+}^p$
+$Y=\bfS^r\qquad K=\bfS_{+}^r\qquad G(\xx)=\displaystyle\sum_{i=1}^p x_iF_i,\,\text{con } F_i\in\bfS^r$
 :::
 
 Esta elección conduce a problemas de optimización donde la función objetivo es afín y la restricción impone que una función matricial afín pertenezca al cono de matrices semidefinidas positivas.
 
 <div class="alert alert-light text-dark" role="alert">
-<span class="badge bg-success text-light">Forma básica de un SDP</span>
+<span class="badge bg-success text-light">SDP</span>
 
 $$ 
 \begin{array}{ll} 
@@ -396,21 +411,34 @@ $$
 \end{array}
 $$ 
 
-donde $\cc\in\RR^p$, $F_i\in \bfS^p$, H\in\bfS^p$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
+donde $\cc\in\RR^p$, $F_i\in \bfS^p$, $H\in\bfS^p$, $A\in\RR^{m\times p}$ y $\bb\in\RR^m$.
 
 </div>
+
+::: {.myhighlight}
+La forma estándar de un SDP es
+
+$$ 
+	\begin{array}{ll} 
+		\text{minimizar } & \operatorname{tr}(CX)\\ 
+		\text{sujeto a }  & X\succeq 0,\\
+		& \operatorname{tr}(A_iX)=b_i,\qquad i=1,\ldots, m.
+	\end{array}
+	$$ 
+
+:::
 
 <div style="margin-top:2em;"></div>
 
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.7</span>
+<span class="badge bg-primary">Ejemplo 1.3.7</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-Relajación semidefinida del problema Max-Cut
+Relajación semidefinida del problema *Max-Cut*
 </span>
 
-Dado un grafo no dirigido $G=(V,E)$, el problema Max-Cut consiste en particionar el conjunto de vértices en dos grupos de modo de maximizar el número de aristas que cruzan la partición. Si asociamos variables $s_i \in \{-1,1\}$ a cada vértice, el problema puede escribirse como:
+Dado un grafo no dirigido $G=(V,E)$, el problema *Max-Cut* consiste en particionar el conjunto de vértices en dos grupos de modo de maximizar el número de aristas que cruzan la partición. Si asociamos variables $s_i \in \{-1,1\}$ a cada vértice, el problema puede escribirse como:
 $$
 \max \sum_{(i,j)\in E} \frac{1 - s_i s_j}{2}.
 $$
@@ -425,9 +453,7 @@ $$
 \end{array}
 $$
 
-donde $L$ es la matriz asociada al grafo.
-
-Este es un programa semidefinido en forma estándar, ya que la función objetivo es lineal en $X$ y la restricción principal impone que $X$ pertenezca al cono de matrices semidefinidas positivas.
+donde $L$ es la matriz asociada al grafo. Dicho SDP está en forma estándar, ya que la función objetivo es lineal en $X$ y la restricción principal impone que $X$ pertenezca al cono de matrices semidefinidas positivas.
 :::
 
 <div style="margin-top:1em;"></div>
@@ -435,12 +461,12 @@ Este es un programa semidefinido en forma estándar, ya que la función objetivo
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.2.8</span>
+<span class="badge bg-primary">Ejemplo 1.3.8</span>
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Matriz de correlación más cercana
 </span>
 
-En aplicaciones de estadística, finanzas y aprendizaje automático, es frecuente estimar una matriz de correlación a partir de datos experimentales. Debido al ruido o a errores numéricos, la matriz obtenida puede dejar de ser una matriz de correlación válida, ya que podría no ser semidefinida positiva. En este caso, se busca la matriz de correlación válida más cercana a la matriz observada. Una formulación habitual es
+En aplicaciones de estadística, finanzas y aprendizaje automático, es frecuente estimar una matriz de correlación a partir de datos experimentales. Debido al ruido o a errores numéricos, la matriz obtenida puede dejar de ser una matriz de correlación válida, ya que podría no ser semidefinida positiva. En este caso, se busca la matriz de correlación válida más cercana a la matriz observada. El SDP asociado es
 $$ 
 \begin{array}{ll} 
 \text{minimizar } & \|X-C\|_F^2\\ 
@@ -449,9 +475,7 @@ $$
 \end{array}
 $$ 
 
-donde $C$ es la matriz observada y $X$ es la matriz de correlación buscada.
-
-Esta formulación no corresponde a un programa semidefinido en forma estándar, ya que la función objetivo es cuadrática. No obstante, puede reformularse de manera equivalente como un SDP estándar, aunque dicha reformulación queda fuera del alcance de este curso.
+donde $C$ es la matriz observada y $X$ es la matriz de correlación buscada. Esta formulación no corresponde a un SDP en forma estándar, ya que la función objetivo es cuadrática. No obstante, puede reformularse de manera equivalente como un SDP estándar, pero tal procedimiento queda fuera del alcance de este curso.
 :::
 
 
@@ -475,6 +499,6 @@ Diamond, S., & Boyd, S. (s.f.). CVXPY: A Python-embedded modeling language for c
 SciPy Developers. (s.f.). SciPy optimize tutorial. SciPy. https://docs.scipy.org/doc/scipy/tutorial/optimize.html
 -->
 
-Tibshirani, R. (2018) *CMU Machine Learning 10-725: Convex Optimization*. 🔗 [ir al sitio web](https://www.stat.cmu.edu/~ryantibs/convexopt-F18/).
+Tibshirani, R. (2018) *CMU Machine Learning 10-725: Convex Optimization*.  Course material and lecture notes. Carnegie Mellon University. 🔗 [ir al sitio web](https://www.stat.cmu.edu/~ryantibs/convexopt-F18/).
 
 ::: 
