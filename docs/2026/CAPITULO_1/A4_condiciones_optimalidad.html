@@ -279,9 +279,12 @@ window.Quarto = {
 <p>$$ </p>
 <p>$$</p>
 </div>
+<div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
 <p><a href="../material/apunte_c1s4.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c1s4.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+</div>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 03/09/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -295,7 +298,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 \end{array}\right.\right\},
 \end{array}
 \]</span></p>
-<p>las condiciones de optimalidad definen los requisitos que deben cumplir los puntos óptimos. En lo que sigue, <mark>asumiremos siempre que trabajamos con funciones diferenciables</mark>.</p>
+<p>las condiciones de optimalidad definen los requisitos que deben cumplir los puntos óptimos. En lo que sigue, asumiremos siempre que trabajamos con funciones diferenciables.</p>
 <div style="margin-top:2.5em;">
 
 </div>
@@ -303,7 +306,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <h2 class="anchored" data-anchor-id="i-condiciones-de-optimalidad-de-primer-orden">I <span style="color:#CCCCCC;">│</span> Condiciones de optimalidad de primer orden</h2>
 <section id="optimización-sin-restricciones" class="level3">
 <h3 class="anchored" data-anchor-id="optimización-sin-restricciones">Optimización sin restricciones</h3>
-<p>De cursos anteriores recordemos que, cuando se pretende optimizar una función <span class="math inline">\(f\)</span> en su dominio, una condición necesaria (siempre que <span class="math inline">\(\mathop{\mathrm{dom}}f\)</span> sea un conjunto abierto) para que un punto sea óptimo es que verifique <span class="math display">\[
+<p>De cursos anteriores recordemos que, cuando se pretende optimizar una función <span class="math inline">\(f\)</span> en un dominio abierto, una condición necesaria para que un punto sea óptimo es que verifique <span class="math display">\[
 \nabla f({\bf x})=\mathbf{0}.
 \tag{1.4.1}
 \]</span></p>
@@ -312,11 +315,11 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <span style="color:#0056b3;">ℹ Ver más información</span>
 </summary>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Prueba</em></span></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>La condición <span class="math inline">\(\nabla f({\bf x})=\mathbf{0}\)</span> no caracteriza únicamente puntos óptimos en un sentido global, sino también a aquellos donde <span class="math inline">\(f\)</span> alcanza un extremo local. De hecho, la prueba puede adaptarse a tal caso escribiendo <span class="math display">\[
-f({\bf x}+ t{\bf d}) \geq f({\bf x}) \qquad \text{para todo } 0\leq t&lt;\varepsilon,
+f({\bf x}+ t{\bf d}) \geq f({\bf x}) \qquad \forall t\in\mathbb{R}: |t|&lt;\varepsilon,
 \]</span> donde <span class="math inline">\({\bf x}\)</span> es un punto de extremo local, <span class="math inline">\({\bf d}\)</span> es una dirección arbitraria y <span class="math inline">\(\varepsilon&gt;0\)</span> es lo suficientemente pequeño como para que <span class="math inline">\({\bf x}+t{\bf d}\)</span> permanezca en un entorno donde se verifica la definición de mínimo local.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -359,7 +362,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <div style="margin-top:2em;">
 
 </div>
-<p>Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, relacionado con el Teorema 1.2.3 del <a href="A2_optimizacion_convexa.html#problemas-de-optimización-convexa">C1-S2</a>.</p>
+<p>Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, consecuencia directa del Teorema 1.2.19.</p>
 <div class="teorema">
 <p><strong>Teorema 1.4.1</strong> (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas). Sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable y convexa. Entonces <span class="math inline">\({\bf x}^\star\in \mathop{\mathrm{dom}}f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
 \nabla f({\bf x}^\star)=\mathbf{0}.
@@ -371,20 +374,20 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 </section>
 <section id="optimización-con-restricciones" class="level3">
 <h3 class="anchored" data-anchor-id="optimización-con-restricciones">Optimización con restricciones</h3>
-<p>Para generalizar la condición necesaria <span class="math inline">\(\nabla f({\bf x})=\mathbf{0}\)</span> al caso de optimización con restricciones, es importante respetar el sentido de una dirección <span class="math inline">\({\bf d}\in\mathbb{R}^p\)</span>, razón por la cual vamos a restringir el movimiento <span class="math inline">\({\bf x}+t{\bf d}\)</span> a valores no negativos del parámetro; esto es, <span class="math inline">\(t\geq 0\)</span>. De esta manera, la posibilidad de aproximarnos a un punto factible <span class="math inline">\({\bf x}\)</span> sin salirnos del conjunto factible <span class="math inline">\(\Omega\)</span> va a depender exclusivamente de la dirección <span class="math inline">\({\bf d}\)</span> considerada. Esto conduce a una generalización natural de la condición de optimalidad provista por la prueba anterior, a saber:</p>
-<p><span class="math display">\[
+<p>Para generalizar la condición necesaria <span class="math inline">\(\nabla f({\bf x})=\mathbf{0}\)</span> al caso de optimización con restricciones, es fundamental tener en cuenta que, en un punto dado, podemos estar limitados en la elección de las direcciones de movimiento <span class="math inline">\({\bf d}\in\mathbb{R}^p\)</span>. Para que la posibilidad de aproximarnos a un punto factible <span class="math inline">\({\bf x}\)</span> sin salirnos del conjunto factible <span class="math inline">\(\Omega\)</span> dependa de la dirección <span class="math inline">\({\bf d}\)</span> considerada, consideraremos únicamente desplazamientos de la forma <span class="math inline">\({\bf x}+t{\bf d}\)</span>, con <span class="math inline">\(t\geq 0\)</span>. Es fácil ver que esta limitación modifica el análisis realizado en la prueba anterior, conduciendo a la siguiente generalización natural: <span class="math display">\[
 \langle\nabla f({\bf x}^\star),{\bf d}\rangle_2\geq 0\qquad \forall{\bf d}\in\mathbb{R}^p: {\bf x}^\star+t{\bf d}\in\Omega,
 \tag{1.4.2}
 \]</span></p>
-<p>para cualquier <span class="math inline">\(t&gt;0\)</span> lo suficientemente pequeño. A partir de esto, nos preguntamos:</p>
+<p>para cualquier <span class="math inline">\(t\geq 0\)</span> lo suficientemente pequeño.</p>
+<p>A partir de esto, nos preguntamos:</p>
 <div class="myhighlight3">
-<p>¿Cuáles son las direcciones <span class="math inline">\({\bf d}\)</span> que nos permiten permanecer en <span class="math inline">\(\Omega\)</span> desde el punto <span class="math inline">\({\bf x}\)</span>?</p>
+<p>¿Cuáles son las direcciones <span class="math inline">\({\bf d}\)</span> que nos permiten permanecer en <span class="math inline">\(\Omega\)</span> desde un punto <span class="math inline">\({\bf x}\)</span>?</p>
 <p>¿Qué implicancias tiene (1.4.2) para el vector gradiente <span class="math inline">\(\nabla f({\bf x})\)</span>?</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto <span class="math inline">\({\bf y}\in\Omega\)</span> y observar qué sucede con la dirección desde <span class="math inline">\({\bf x}\)</span> hacia <span class="math inline">\({\bf y}\)</span>. Esta dirección, <span class="math inline">\({\bf d}={\bf y}-{\bf x}\)</span>, será válida siempre que <span class="math inline">\(\Omega\)</span> sea convexo (ver Definición 3 de <a href="A2_optimizacion_convexa.html#definiciones-básicas">C1-S2</a>). Claramente, en tal caso, (1.4.2) se verifica trivialmente tomando <span class="math inline">\(t\leq 1\)</span>. Por ese motivo, podemos hacer la primera suposición con el objetivo de formalizar una condición necesaria de optimalidad:</p>
+<p>Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto <span class="math inline">\({\bf y}\in\Omega\)</span> y observar qué sucede con la dirección desde <span class="math inline">\({\bf x}\)</span> hacia <span class="math inline">\({\bf y}\)</span>. Esta dirección, <span class="math inline">\({\bf d}={\bf y}-{\bf x}\)</span>, será válida siempre que <span class="math inline">\(\Omega\)</span> sea convexo. En efecto, en tal caso, nos aseguramos <span class="math inline">\({\bf x}+t{\bf d}\in\Omega\)</span> para <span class="math inline">\(0\leq t\leq 1\)</span>. Así, podemos hacer una primera suposición con el objetivo de formalizar una condición necesaria de optimalidad:</p>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Primer supuesto</em></span>
 <div style="margin-top:-0.1em;">
@@ -395,7 +398,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <div style="margin-top:0.5em;">
 
 </div>
-<p>Bajo esta suposición, tenemos el siguiente resultado, cuya demostración se obtiene directamente de ajustar la prueba vista para (1.4.1).</p>
+<p>Inmediatamente tenemos el siguiente resultado, cuya demostración se obtiene directamente de ajustar la prueba vista para el caso de optimización sin restricciones.</p>
 <div class="teorema">
 <p><strong>Teorema .</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo) Sea <span class="math inline">\(\Omega\subset\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces <span class="math display">\[
 \langle \nabla f({\bf x}^\star), {\bf y}- {\bf x}^\star\rangle_2 \geq 0 \qquad \forall{\bf y}\in\Omega.
@@ -408,21 +411,20 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <figure style="text-align: center;" class="figure">
 <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 1.4.1:</strong> Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.
+<strong>Figura 1.4.1:</strong> Interpretación geométrica de la condición necesaria (1.4.3) cuando <span class="math inline">\(\nabla f({\bf x}^\star)\neq 0\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
 
 </div>
-<p>Como se puede apreciar en la Figura 1.4.1, para un punto óptimo <span class="math inline">\({\bf x}^\star\)</span> el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma <span class="math inline">\({\bf y}-{\bf x}^\star\)</span>. Esto se deduce del hecho que <span class="math display">\[
-\langle \nabla f({\bf x}^\star), {\bf y}- {\bf x}^\star\rangle_2=\underbrace{\|\nabla f({\bf x}^\star)\|_2}_{\geq 0}\underbrace{\|{\bf y}-{\bf x}^\star\|_2}_{\geq 0}\cos \alpha\geq 0
+<p>En un punto óptimo <span class="math inline">\({\bf x}^\star\)</span>, el vector gradiente o bien es nulo o bien forma un ángulo nulo, agudo o recto con todas las direcciones de la forma <span class="math inline">\({\bf y}-{\bf x}^\star\)</span> (ver Figura 1.4.1). En efecto, si <span class="math inline">\(\nabla f({\bf x}^\star)\neq\mathbf{0}\)</span>, se verifica <span class="math display">\[
+\langle \nabla f({\bf x}^\star), {\bf y}- {\bf x}^\star\rangle_2=\|\nabla f({\bf x}^\star)\|_2\|{\bf y}-{\bf x}^\star\|_2\cos \alpha\geq 0\iff \cos\alpha\geq 0.
 \]</span></p>
-<p>si y solo si <span class="math inline">\(\cos\alpha\geq 0\)</span> (o equivalentemente, <span class="math inline">\(0\leq\alpha\leq\pi/2\)</span>).</p>
-<p>Ahora bien, nosotros estamos interesados en hallar <span class="math inline">\({\bf x}^\star\)</span>. En este sentido, la condición (1.4.3) nos sirve para identificar aquellos puntos <span class="math inline">\({\bf x}\in\Omega\)</span> candidatos a ser óptimos (siguiendo la terminología habitual, los llamaremos <mark><em>puntos críticos</em></mark>). En consecuencia, si consideramos el vector opuesto al gradiente, los puntos críticos serán aquellos que verifiquen <span class="math display">\[
+<p>Ahora bien, nosotros estamos interesados en hallar <span class="math inline">\({\bf x}^\star\)</span>. En este sentido, la condición (1.4.3) nos sirve para identificar aquellos puntos <span class="math inline">\({\bf x}\in\Omega\)</span> candidatos a ser óptimos (siguiendo la terminología habitual, los llamaremos <em>puntos críticos</em>). En consecuencia, si consideramos el vector opuesto al gradiente, los puntos críticos serán aquellos que verifiquen <span class="math display">\[
 \langle -\nabla f({\bf x}),{\bf y}-{\bf x}\rangle_2\leq 0\qquad \forall{\bf y}\in\Omega.
 \tag{1.4.4}
 \]</span></p>
-<p>Esto vincula nuestro análisis con la definición de cono normal (Definición 7 de <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>): la expresión (1.4.4) es equivalente a escribir <span class="math inline">\(-\nabla f({\bf x})\in N_{\Omega}({\bf x})\)</span>. Así, el Teorema 1.4.2 puede ser interpretado en términos de conos normales como sigue:</p>
+<p>Esto vincula nuestro análisis con la Definición 1.2.11 de cono normal: la expresión (1.4.4) es equivalente a escribir <span class="math inline">\(-\nabla f({\bf x})\in N_{\Omega}({\bf x})\)</span>. En consecuencia, podemos afirmar que:</p>
 <div class="myhighlight">
 <p>Bajo las condiciones del Teorema 1.4.2, si <span class="math inline">\({\bf x}^\star\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces <span class="math display">\[
 -\nabla f({\bf x}^\star)\in N_{\Omega}({\bf x}^\star).
@@ -441,14 +443,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 
 </div>
 <p>En la Figura 1.4.2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que <span class="math inline">\(\Omega\)</span> es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>. En particular, para puntos interiores de <span class="math inline">\(\Omega\)</span>, la condición se reduce a la ecuación <span class="math inline">\(\nabla f({\bf x})=\mathbf{0}\)</span>, típica de los problemas sin restricciones.</p>
-<p>Todos los casos están caracterizados por el siguiente hecho:</p>
-<div class="myhighlight">
-<p>Los puntos críticos son aquellos en los cuales el opuesto del gradiente forma ángulos no agudos con todas las direcciones factibles.</p>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Esta es, sin dudas, la idea principal de nuestro análisis, que procuraremos extender a formas más generales de <span class="math inline">\(\Omega\)</span>. Observar que la condición provista por el Teorema 1.4.2 es necesaria pero no suficiente. Podemos pensar rápidamente en ejemplos de mínimos locales en el interior de <span class="math inline">\(\Omega\)</span>, tales como el Ejemplo 3 de <a href="A1_intro_optimizacion.html">C1-S1</a>. A continuación, veremos un ejemplo para cuando el punto crítico ocurre en la frontera de <span class="math inline">\(\Omega\)</span>, pero no es cierto que sea un punto óptimo.</p>
+<p>El comportamiento de <span class="math inline">\(-\nabla f({\bf x})\)</span> en términos de conos normales constituye, sin dudas, la idea principal de nuestro análisis, que procuraremos extender a formas más generales de <span class="math inline">\(\Omega\)</span>. Observar que la condición provista por el Teorema 1.4.2 es necesaria pero no suficiente. Podemos pensar rápidamente en ejemplos de mínimos locales en el interior de <span class="math inline">\(\Omega\)</span>, tales como el Ejemplo 1.1.3. A continuación, veremos un ejemplo en el cual un punto crítico ocurre en la frontera de <span class="math inline">\(\Omega\)</span>, pero no es cierto que sea un punto óptimo.</p>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 1.4.3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Punto crítico pero no óptimo en un poliedro </span></p>
 <p>Consideremos el problema</p>
@@ -463,11 +458,10 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <p>El conjunto factible <span class="math inline">\(\Omega\)</span> es el triángulo de vértices <span class="math inline">\((-\frac{1}{2},0)\)</span>, <span class="math inline">\((\frac{1}{2},0)\)</span> y <span class="math inline">\((0,1)\)</span>. En <span class="math inline">\({\bf x}=(0,0)\)</span> se tiene <span class="math inline">\(\nabla f(0,0)=(0,1)\)</span>. La condición del Teorema 1.4.2 para este punto se expresa como <span class="math display">\[
 \langle (0,1),{\bf y}-(0,0)\rangle_2=y_2\geq 0\qquad\forall {\bf y}\in\Omega.
 \]</span></p>
-<p>Esto es cierto, de acuerdo a la definición de <span class="math inline">\(\Omega\)</span>. De hecho, en la siguiente figura se puede ver que, efectivamente, <span class="math inline">\(-\nabla f(0,0)\in N_{\Omega}(0,0)\)</span>.</p>
+<p>Esto es cierto, de acuerdo a la definición de <span class="math inline">\(\Omega\)</span>. Sin embargo, el punto <span class="math inline">\((0,0)\)</span> no es óptimo: <span class="math inline">\(f(0,0)=0\)</span>, mientras que el valor óptimo es <span class="math inline">\(-\frac{1}{4}\)</span> y ocurre en los vértices <span class="math inline">\((\pm\frac{1}{2},0)\)</span>.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/ej_grad_cono_fail.svg" alt="…" width="300px" class="figure-img">
 </figure>
-<p>Pese a verificar la condición necesaria (1.4.3), el punto <span class="math inline">\((0,0)\)</span> no es óptimo. De hecho, <span class="math inline">\(f(0,0)=0\)</span>, mientras que el valor óptimo es <span class="math inline">\(-\frac{1}{4}\)</span> y ocurre en los vértices <span class="math inline">\((\pm\frac{1}{2},0)\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -482,7 +476,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <div style="margin-top:0.5em;">
 
 </div>
-<p>Para el notable caso de las <mark>funciones convexas</mark> (<a href="A2_optimizacion_convexa.html#funciones-convexas">Definición 8 de C1-S2</a>), la condición establecida en el Teorema 1.4.2 sí es suficiente.</p>
+<p>Para el notable caso de las funciones convexas, la condición del Teorema 1.4.2 sí es suficiente.</p>
 <div class="teorema">
 <p><strong>Teorema 1.4.4</strong> (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función objetivo convexa) Sea <span class="math inline">\(\Omega \subseteq\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable convexa. Entonces <span class="math inline">\({\bf x}^\star\)</span> es un minimizador de <span class="math inline">\(f\)</span> en <span class="math inline">\(\Omega\)</span> si y solo si se verifica <span class="math display">\[
 -\nabla f({\bf x}^\star)\in N_{\Omega}({\bf x}^\star).
@@ -503,7 +497,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 <p>En virtud del Teorema 1.4.2, debemos probar únicamente la suficiencia. Sea <span class="math inline">\({\bf x}\in\Omega\)</span> tal que <span class="math inline">\(-\nabla f({\bf x})\in N_{\Omega}({\bf x})\)</span>, entonces <span class="math display">\[
 \langle\nabla f({\bf x}),{\bf y}-{\bf x}\rangle_2\geq 0\qquad\forall{\bf y}\in\Omega.
 \]</span></p>
-Por condición de primer orden para convexidad (Teorema 1.2.1 de <a href="A2_optimizacion_convexa.html#condiciones-de-convexidad">C1-S2</a>), resulta <span class="math display">\[
+Por condición de primer orden para convexidad (Teorema 1.2.19), resulta <span class="math display">\[
 f({\bf y})\geq f({\bf x})+\underbrace{\langle\nabla f({\bf x}),{\bf y}-{\bf x}\rangle_2}_{\geq 0}\geq f({\bf x})
 \]</span> para todo <span class="math inline">\({\bf y}\in\Omega\)</span>, lo cual significa que <span class="math inline">\({\bf x}\)</span> es un minimizador de <span class="math inline">\(f\)</span> en <span class="math inline">\(\Omega\)</span>.
 <div style="margin-top:-1em;">
@@ -539,7 +533,7 @@ A=\begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\qquad\mbox{y}\qquad{\bf b}=\begin
 <p><span class="math display">\[
 \nabla f^2({\bf x})=A^\top A = \begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}=\begin{pmatrix}1&amp;0\\0&amp;4\end{pmatrix}
 \]</span></p>
-<p>Claramente <span class="math inline">\(\nabla^2 f({\bf x})\succeq 0\)</span>, lo cual significa que <span class="math inline">\(f\)</span> es convexa. Así, por Teorema 1.4.4, la condición (1.5.5) es suficiente y necesaria para que <span class="math inline">\({\bf x}\)</span> sea un punto óptimo. Esto nos permite hacer el siguiente análisis:</p>
+<p>Claramente <span class="math inline">\(\nabla^2 f({\bf x})\succeq 0\)</span>, lo cual significa que <span class="math inline">\(f\)</span> es convexa. En consecuencia, estamos en condiciones de aplicar el Teorema 1.4.4. Para ello, hagamos el siguiente análisis:</p>
 <ul>
 <li><p><span class="math inline">\(\nabla f({\bf x})\neq \mathbf{0}\)</span> para todo punto interior de <span class="math inline">\(\Omega\)</span>, lo cual implica que no hay puntos óptimos en el interior.</p></li>
 <li><p>En el lado <span class="math inline">\(\{(0,t) \mid 0&lt;t&lt;1.5\}\)</span>, <span class="math inline">\(-\nabla f({\bf x})=(1,2-4t)\)</span>. Pero el cono normal está determinado por la dirección normal <span class="math inline">\((-1,0)\)</span>, lo cual significa que <span class="math inline">\(-\nabla f({\bf x})\in N_{\Omega}({\bf x})\)</span> si y solo si es de la forma <span class="math inline">\((-a,0)\)</span> con <span class="math inline">\(a&gt;0\)</span>, lo cual no puede ocurrir. Por lo tanto, no hay puntos óptimos en esta porción de frontera.</p></li>
@@ -550,7 +544,7 @@ A=\begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\qquad\mbox{y}\qquad{\bf b}=\begin
 <figure style="text-align: center;" class="figure">
 <img src="figuras/ej_vertices_no_optimos.svg" alt="…" width="400px" class="figure-img">
 </figure>
-<p>En conclusión, el problema tiene solución única <span class="math display">\[
+<p>En conclusión, el problema tiene solución única: <span class="math display">\[
 {\bf x}^\star=(1,0.5)\qquad\text{y}\qquad p^\star=f(1,0.5)=0.
 \]</span></p>
 </div>
@@ -563,7 +557,10 @@ A=\begin{pmatrix}1&amp;0\\0&amp;2\end{pmatrix}\qquad\mbox{y}\qquad{\bf b}=\begin
 <h2 class="anchored" data-anchor-id="ii-condiciones-de-karush-kuhn-tucker-kkt">II <span style="color:#CCCCCC;">│</span> Condiciones de Karush-Kuhn-Tucker (KKT)</h2>
 <p>Hasta ahora hemos visto que, para <span class="math inline">\(\Omega\)</span> convexo (<em>primer supuesto</em>), una condición necesaria para que un punto <span class="math inline">\({\bf x}\)</span> sea óptimo es que el vector opuesto al gradiente de la función objetivo pertenezca al cono normal <span class="math inline">\(N_{\Omega}({\bf x})\)</span>. Además, si la función objetivo es convexa (<em>segundo supuesto</em>), dicha condición resulta también suficiente.</p>
 <p>Aunque el Teorema 1.4.4 es general, y contempla los problemas de optimización convexa, su aplicación práctica puede resultar poco directa. Afortunadamente, cuando el conjunto factible <span class="math inline">\(\Omega\)</span> está definido por restricciones funcionales diferenciables, es posible expresar estas condiciones de manera más estructurada a partir de la caracterización de los conos normales, lo cual conduce a las que se conocen como <em>condiciones de Karush-Kuhn-Tucker</em> (o, simplemente, condiciones KKT).</p>
-<p>Nuestro objetivo es formular dichas condiciones. Comenzaremos analizando el caso particular de restricciones afines, para lograr intuición, y luego generalizaremos al caso de restricciones no lineales.</p>
+<p>Para formular las condiciones KKT, comenzaremos analizando el caso particular de restricciones afines, para lograr intuición, y luego generalizaremos al caso de restricciones no lineales.</p>
+<div style="margin-top:1em;">
+
+</div>
 <section id="el-caso-particular-de-restricciones-afines" class="level3">
 <h3 class="anchored" data-anchor-id="el-caso-particular-de-restricciones-afines">El caso particular de restricciones afines</h3>
 <div class="myhighlight2">
@@ -590,16 +587,12 @@ g({\bf x}_0)= 0.
 <div style="margin-top:2em;">
 
 </div>
-<p>En los ejemplos de conos normales en <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>, analizamos su definición según la posición del punto de interés: si <span class="math inline">\({\bf x}\)</span> es interior a <span class="math inline">\(\Omega\)</span>, resulta simplemente <span class="math inline">\(N_{\Omega}({\bf x})=\{\mathbf{0}\}\)</span>, mientras que si <span class="math inline">\({\bf x}\)</span> pertenece a la frontera de <span class="math inline">\(\Omega\)</span>, el cono normal queda determinado por las direcciones que definen los semiespacios e hiperplanos. Para este último caso, podemos resumirlo de la siguiente manera:</p>
-<div class="myhighlight">
-<p>El cono normal en un punto en la frontera es la envolvente cónica de las direcciones ortogonales a las restricciones activas.</p>
-</div>
+<p>En los ejemplos de conos normales vistos en <a href="A2_optimizacion_convexa.html#conos-normales">C1-S2</a>, analizamos su definición según la posición del punto de interés: si <span class="math inline">\({\bf x}\)</span> es interior a <span class="math inline">\(\Omega\)</span>, resulta simplemente <span class="math inline">\(N_{\Omega}({\bf x})=\{\mathbf{0}\}\)</span>, mientras que si <span class="math inline">\({\bf x}\)</span> pertenece a la frontera de <span class="math inline">\(\Omega\)</span>, el cono normal queda determinado por las direcciones que definen los semiespacios e hiperplanos. No obstante, en dichos ejemplos hemos considerado casos particulares de <span class="math inline">\(\Omega\)</span>: un hiperplano, un semiespacio y la intersección de dos semiespacios. Necesitamos extender ese análisis a cualquier poliedro <span class="math inline">\(\Omega\)</span> y caracterizar el cono normal en cualquier punto de <span class="math inline">\(\Omega\)</span>. El siguiente resultado nos proporciona dicha caracterización.</p>
 <div style="margin-top:2em;">
 
 </div>
-<p>No obstante, en dichos ejemplos hemos considerado casos particulares de <span class="math inline">\(\Omega\)</span>: un hiperplano, un semiespacio y la intersección de dos semiespacios. Necesitamos extender ese análisis a cualquier poliedro <span class="math inline">\(\Omega\)</span> y caracterizar el cono normal en cualquier punto de <span class="math inline">\(\Omega\)</span>. El siguiente resultado nos proporciona dicha caracterización.</p>
 <div class="teorema">
-<p><strong>Teorema 1.4.7</strong> (Cono normal a un punto de un poliedro). Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6). Para <span class="math inline">\({\bf x}\in\Omega\)</span>, sea <span class="math inline">\(I({\bf x})\)</span> el conjunto de índices de las restricciones activas; esto es <span class="math display">\[
+<p><strong>Teorema 1.4.7</strong> (Cono normal en un punto de un poliedro). Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6). Para <span class="math inline">\({\bf x}\in\Omega\)</span>, sea <span class="math inline">\(I({\bf x})\)</span> el conjunto de índices de las restricciones activas; esto es <span class="math display">\[
 I({\bf x}):=\left\{i\in\{1,\cdots,r\} \mid {\bf a}_i^\top{\bf x}=b_i\right\}.
 \]</span> Entonces, el cono normal en <span class="math inline">\({\bf x}\)</span> está dado por</p>
 <p><span class="math display">\[
@@ -611,7 +604,7 @@ N_{\Omega}({\bf x})=\left\{\left.\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{
 <span style="color:#0056b3;">ℹ Ver más información</span>
 </summary>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href=""><span style="font-size: 1.25em;">②</span></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href=""><span style="font-size: 1.25em;">②</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>La suma en la expresión del cono normal puede ser reescrita sin restringir <span class="math inline">\(i\in I({\bf x})\)</span>, imponiendo <span class="math inline">\(\lambda_i=0\)</span> para todo <span class="math inline">\(i\notin I({\bf x})\)</span>. Esta imposición queda ímplicita de forma inmediata si se escribe</p>
@@ -631,6 +624,42 @@ N_{\Omega}({\bf x})=\left\{A^\top\boldsymbol{\lambda}+C^\top\boldsymbol{\nu}\mid
 -\nabla f({\bf x})=\sum_{i\in I({\bf x})}\lambda_i \nabla g_i({\bf x})+\sum_{j=1}^m\nu_j\nabla h_j({\bf x}),\qquad\lambda_i\in\mathbb{R}^+,\;\nu_j\in\mathbb{R}.
 \]</span> donde <span class="math inline">\(g_i({\bf x})={\bf a}_i^\top{\bf x}-b_i\)</span> y <span class="math inline">\(h_j({\bf x})={\bf c}_j^\top{\bf x}-d_i\)</span>. ÑÑos coeficientes <span class="math inline">\(\lambda_i\)</span> y <span class="math inline">\(\nu_j\)</span> son precisamente los <mark><em>multiplicadores de Lagrange</em></mark> asociados a las funciones de restricción.</p>
 </div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>En primer lugar, fijemos <span class="math inline">\(\lambda_i\in\mathbb{R}_0^+\)</span>, <span class="math inline">\(\nu_j\in\mathbb{R}\)</span>, y probemos que la dirección <span class="math display">\[
+{\bf d}=\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{j=1}^m\nu_j{\bf c}_j    
+\]</span></p>
+<p>pertenece a <span class="math inline">\(N_{\Omega}({\bf x})\)</span>: para <span class="math inline">\({\bf y}\in\Omega\)</span> arbitrario, resulta <span class="math display">\[
+\begin{align*}
+    \langle {\bf d},{\bf y}-{\bf x}\rangle_2 &amp;= \big\langle \sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{j=1}^m\nu_j{\bf c}_j,{\bf y}-{\bf x}\big\rangle_2 \\
+    %&amp;=\sum_{i\in I(\xx)}\lambda_i\langle\bfa_i,\yy-\xx\rangle_2+\sum_{j=1}^m\nu_j\langle \cc_j,\yy-\xx\rangle_2 \\
+    &amp;= \sum_{i\in I({\bf x})}\lambda_i\left(\langle{\bf a}_i,{\bf y}\rangle_2-\langle{\bf a}_i,{\bf x}\rangle_2\right)+\sum_{j=1}^m\nu_j\left(\langle {\bf c}_j,{\bf y}\rangle_2-\langle{\bf c}_j,{\bf x}\rangle_2\right) \\
+    &amp;\leq 0,
+\end{align*}
+\]</span></p>
+<p>donde en el último paso se usó el hecho que <span class="math inline">\(\langle{\bf a}_i,{\bf y}\rangle_2\leq b_i\)</span>, <span class="math inline">\(\langle{\bf a}_i,{\bf x}\rangle_2=b_i\)</span>, <span class="math inline">\(\langle{\bf c}_j,{\bf y}\rangle_2=\langle{\bf c}_j,{\bf x}\rangle_2=d_j\)</span>.</p>
+<p>En segundo lugar, probamos que toda dirección <span class="math inline">\({\bf d}\in N_{\Omega}({\bf x})\)</span> pertenece al conjunto <span class="math display">\[
+C:=\left\{\left.\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{j=1}^m\nu_j{\bf c}_j\,\right| \lambda_i\in\mathbb{R}_0^+,\;\nu_j\in\mathbb{R}\right\}
+\]</span></p>
+<p>Por reducción al absurdo, supongamos <span class="math inline">\({\bf d}\notin C\)</span>. Dado que <span class="math inline">\(C\)</span> es un cono convexo cerrado no vacío (esto es fácil de verificar y queda como ejercicio), podemos separar <span class="math inline">\(C\)</span> y <span class="math inline">\({\bf d}\)</span> mediante un hiperplano; esto es, existe <span class="math inline">\({\bf u}\in\mathbb{R}^n\)</span> tal que <span class="math display">\[
+\langle {\bf u},{\bf d}\rangle_2&lt;0\qquad\text{y}\qquad \langle{\bf u},\mathbf{p}\rangle_2\geq 0\;\;\forall\mathbf{p}\in C.
+\]</span></p>
+<p>En particular, tenemos <span class="math inline">\(\langle{\bf u},{\bf a}_i\rangle\geq 0\)</span> para las restricciones activas y <span class="math inline">\(\langle{\bf u},{\bf c}_j\rangle_2=0\)</span>; esto último por el hecho de que <span class="math inline">\(\pm{\bf c}_j\in C\)</span>. Como consecuencia, podemos afirmar que para un <span class="math inline">\(\delta&gt;0\)</span> lo suficientemente pequeño, el punto <span class="math inline">\({\bf y}:={\bf x}-\delta{\bf u}\)</span> pertenece a <span class="math inline">\(\Omega\)</span>. En efecto, se verifica <span class="math display">\[
+\langle {\bf a}_i,{\bf x}-\delta{\bf u}\rangle_2=\langle{\bf a}_i,{\bf x}\rangle_2-\delta\langle{\bf a}_i,{\bf u}\rangle_2\leq b_i\qquad\forall i\in I({\bf x}),
+\]</span> <span class="math display">\[
+\langle{\bf c}_j,{\bf x}-\delta{\bf u}\rangle_2=\langle{\bf c}_j,{\bf x})=d_j\qquad\forall j=1,\ldots,m,
+\]</span></p>
+<p>mientras que para las restricciones no activas se usa el hecho de que <span class="math inline">\(\delta\)</span> es suficientemente pequeño.</p>
+<p>Finalmente, esto nos conduce a contradecir <span class="math inline">\({\bf d}\in N_{\Omega}({\bf x})\)</span>, ya que <span class="math display">\[
+\langle {\bf d},{\bf x}-({\bf x}-\delta{\bf u})\rangle_2=-\delta\langle{\bf d},{\bf u}\rangle_2&gt;0.
+\]</span></p>
+Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concluye la prueba.
+<div style="margin-top:-1em;">
+
+</div>
+<div style="text-align: right;">
+<span class="math inline">\(\blacksquare\)</span>
+</div>
+</div>
 </div>
 </div>
 </details>
@@ -649,7 +678,7 @@ N_{\Omega}({\bf x})=\left\{A^\top\boldsymbol{\lambda}+C^\top\boldsymbol{\nu}\mid
 </div>
 <p>Ahora bien, dado que <span class="math inline">\(\Omega\)</span> es un poliedro (y, por lo tanto, un conjunto convexo), los Teoremas 1.4.2 y 1.4.4 pueden ser aplicados en este contexto. Obtenemos así el siguiente resultado.</p>
 <div class="teorema">
-<p><strong>Corolario 1.4.8.</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6), y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces existen <span class="math inline">\(\boldsymbol{\lambda}\in(\mathbb{R}_0^+)^r\)</span> y <span class="math inline">\(\boldsymbol{\nu}\in\mathbb{R}^m\)</span> tales que <span class="math inline">\(\lambda_i({\bf a}_i^\top{\bf x}-b_i)=0\)</span> para todo <span class="math inline">\(i=1,\ldots,r\)</span> y <span class="math display">\[
+<p><strong>Corolario 1.4.8.</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6), y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces existen <span class="math inline">\(\boldsymbol{\lambda}\in(\mathbb{R}_0^+)^r\)</span> y <span class="math inline">\(\boldsymbol{\nu}\in\mathbb{R}^m\)</span> tales que <span class="math inline">\(\lambda_i({\bf a}_i^\top{\bf x}^\star-b_i)=0\)</span> para todo <span class="math inline">\(i=1,\ldots,r\)</span> y <span class="math display">\[
 -\nabla f({\bf x}^\star)=\sum_{i=1}^r\lambda_i{\bf a}_i+\sum_{j=1}^m \nu_j{\bf c}_j.
 \]</span></p>
 <p>Además, si <span class="math inline">\(f\)</span> es convexa, esta condición es también suficiente.</p>
@@ -679,7 +708,7 @@ N_{\Omega}({\bf x})=\left\{A^\top\boldsymbol{\lambda}+C^\top\boldsymbol{\nu}\mid
 \nabla f({\bf x})=\mathbf{0}.
 \]</span></p>
 </div>
-<p>Por supuesto, el resultado presentado en el Corolario 1 representa un criterio para obtener puntos críticos si <span class="math inline">\(\Omega\)</span> es un poliedro. En resumen:</p>
+<p>Por supuesto, el resultado presentado en el Corolario 1.4.8 representa un criterio para obtener puntos críticos si <span class="math inline">\(\Omega\)</span> es un poliedro. En resumen:</p>
 <div class="myhighlight">
 <p>Si <span class="math inline">\(\Omega\)</span> es un poliedro, entonces las condiciones KKT son necesarias para que un punto sea óptimo. Si, además, <span class="math inline">\(f\)</span> es convexa, las condiciones KKT son también suficientes.</p>
 </div>
@@ -695,7 +724,7 @@ N_{\Omega}({\bf x})=\left\{A^\top\boldsymbol{\lambda}+C^\top\boldsymbol{\nu}\mid
 \text{sujeto a }  &amp; A{\bf x}={\bf b}.
 \end{array}
 \]</span></p>
-<p>Dado que la función objetivo es convexa, las condiciones KKT son suficientes y necesarias. Además, teniendo en cuenta que solo hay restricciones de igualdad, a saber, <span class="math inline">\(h_j({\bf x})={\bf a}_j^\top{\bf x}-b_j\)</span>, únicamente debemos analizar las condiciones de factibilidad primal y estacionariedad. La condición de estacionariedad es:</p>
+<p>Dado que la función objetivo es convexa, el Corolario 1.4.8 nos asegura que las condiciones KKT son suficientes y necesarias. Además, teniendo en cuenta que solo hay restricciones de igualdad, a saber, <span class="math inline">\(h_j({\bf x})={\bf a}_j^\top{\bf x}-b_j\)</span>, únicamente debemos analizar las condiciones de factibilidad primal y estacionariedad. La condición de estacionariedad es:</p>
 <p><span class="math display">\[
 \begin{align*}
 -\nabla f({\bf x}^\star)&amp;=\sum_{j=1}^m\nu_j^\star\nabla h_j({\bf x}^\star)\\
@@ -779,6 +808,9 @@ x_2^\star\\
 <p>La solución del sistema nos da el único punto óptimo del problema: <span class="math display">\[
 {\bf x}^\star=(1.2,0.3)\qquad\text{con}\;\lambda_1^\star=0.8.
 \]</span></p>
+</div>
+<div style="margin-top:2em;">
+
 </div>
 </section>
 <section id="generalización" class="level3">

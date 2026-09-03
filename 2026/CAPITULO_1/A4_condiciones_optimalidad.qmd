@@ -2,21 +2,29 @@
 title: "Condiciones de optimalidad"
 subtitle: "Capítulo 1 - Sección 4"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c1s4.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c1s4.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c1s4.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c1s4.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 03/09/2026
+  </span>
 
 </div>
 
@@ -35,7 +43,7 @@ h_j(\xx)=0, & j=1,\cdots,m
 \end{array}
 $$ 
 
-las condiciones de optimalidad definen los requisitos que deben cumplir los puntos óptimos. En lo que sigue, <mark>asumiremos siempre que trabajamos con funciones diferenciables</mark>.
+las condiciones de optimalidad definen los requisitos que deben cumplir los puntos óptimos. En lo que sigue, asumiremos siempre que trabajamos con funciones diferenciables.
 
 <div style="margin-top:2.5em;"></div>
 
@@ -46,7 +54,7 @@ las condiciones de optimalidad definen los requisitos que deben cumplir los punt
 
 ### Optimización sin restricciones
 
-De cursos anteriores recordemos que, cuando se pretende optimizar una función $f$ en su dominio, una condición necesaria (siempre que $\dom f$ sea un  conjunto abierto) para que un punto sea óptimo es que verifique 
+De cursos anteriores recordemos que, cuando se pretende optimizar una función $f$ en un dominio abierto, una condición necesaria para que un punto sea óptimo es que verifique 
 $$
 \nabla f(\xx)=\mathbf{0}.
 \tag{1.4.1}
@@ -61,12 +69,12 @@ $$
 
 La condición $\nabla f(\xx)=\bfzero$ no caracteriza únicamente puntos óptimos en un sentido global, sino también a aquellos donde $f$ alcanza un extremo local. De hecho, la prueba puede adaptarse a tal caso escribiendo 
 $$
-f(\xx + t\dd) \geq f(\xx) \qquad \text{para todo } 0\leq t<\varepsilon,
+f(\xx + t\dd) \geq f(\xx) \qquad \forall t\in\RR: |t|<\varepsilon,
 $$
 donde $\xx$ es un punto de extremo local, $\dd$ es una dirección arbitraria y $\varepsilon>0$ es lo suficientemente pequeño como para que $\xx+t\dd$ permanezca en un entorno donde se verifica la definición de mínimo local.
 
 
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Prueba*</span>
+### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
 Sea $\xx^\star\in\RR^p$ un minimizador de la función $f: \RR^p \to \RR$ y sea $\dd\in\RR^p$ una dirección arbitraria. Entonces se cumple
 
@@ -117,7 +125,7 @@ De inmediato surgen dos preguntas claves:
 <div style="margin-top:2em;"></div>
 
 
-Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, relacionado con el Teorema 1.2.3 del [C1-S2](A2_optimizacion_convexa.html#problemas-de-optimización-convexa).
+Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante en optimización convexa, consecuencia directa del Teorema 1.2.19.
 
 ::: {.teorema}
 **Teorema 1.4.1** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas). 
@@ -134,18 +142,19 @@ $$
 
 ### Optimización con restricciones
 
-Para generalizar la condición necesaria $\nabla f(\xx)=\bfzero$ al caso de optimización con restricciones, es importante respetar el sentido de una dirección $\dd\in\RR^p$, razón por la cual vamos a restringir el movimiento $\xx+t\dd$ a valores no negativos del parámetro; esto es, $t\geq 0$. De esta manera, la posibilidad de aproximarnos a un punto factible $\xx$ sin salirnos del conjunto factible $\Omega$ va a depender exclusivamente de la dirección $\dd$ considerada. Esto conduce a una generalización natural de la condición de optimalidad provista por la prueba anterior, a saber:
-
+Para generalizar la condición necesaria $\nabla f(\xx)=\bfzero$ al caso de optimización con restricciones, es fundamental tener en cuenta que, en un punto dado, podemos estar limitados en la elección de las direcciones de movimiento $\dd\in\RR^p$. Para que la posibilidad de aproximarnos a un punto factible $\xx$ sin salirnos del conjunto factible $\Omega$ dependa de la dirección $\dd$ considerada, consideraremos únicamente desplazamientos de la forma $\xx+t\dd$, con $t\geq 0$. Es fácil ver que esta limitación modifica el análisis realizado en la prueba anterior, conduciendo a la siguiente generalización natural:
 $$
 \langle\nabla f(\xx^\star),\dd\rangle_2\geq 0\qquad \forall\dd\in\RR^p: \xx^\star+t\dd\in\Omega,
 \tag{1.4.2}
 $$
 
-para cualquier $t>0$ lo suficientemente pequeño. A partir de esto, nos preguntamos:
+para cualquier $t\geq 0$ lo suficientemente pequeño. 
+
+A partir de esto, nos preguntamos:
 
 :::{.myhighlight3}
 
-¿Cuáles son las direcciones $\dd$ que nos permiten permanecer en $\Omega$ desde el punto $\xx$?
+¿Cuáles son las direcciones $\dd$ que nos permiten permanecer en $\Omega$ desde un punto $\xx$?
 
 ¿Qué implicancias tiene (1.4.2) para el vector gradiente $\nabla f(\xx)$?
 
@@ -154,7 +163,7 @@ para cualquier $t>0$ lo suficientemente pequeño. A partir de esto, nos pregunta
 <div style="margin-top:2em;"></div>
 
 
-Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto $\yy\in\Omega$ y observar qué sucede con la dirección desde $\xx$ hacia $\yy$. Esta dirección, $\dd=\yy-\xx$, será válida siempre que $\Omega$ sea convexo (ver Definición 3 de [C1-S2](A2_optimizacion_convexa.html#definiciones-básicas)). Claramente, en tal caso, (1.4.2) se verifica trivialmente tomando $t\leq 1$. Por ese motivo, podemos hacer la primera suposición con el objetivo de formalizar una condición necesaria de optimalidad:
+Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto $\yy\in\Omega$ y observar qué sucede con la dirección desde $\xx$ hacia $\yy$. Esta dirección, $\dd=\yy-\xx$, será válida siempre que $\Omega$ sea convexo. En efecto, en tal caso, nos aseguramos $\xx+t\dd\in\Omega$ para $0\leq t\leq 1$. Así, podemos hacer una primera suposición con el objetivo de formalizar una condición necesaria de optimalidad:
 
 
 :::{.myhighlight2}
@@ -168,7 +177,7 @@ Una idea inicial para caracterizar el conjunto de direcciones permitidas es toma
 <div style="margin-top:0.5em;"></div>
 
 
-Bajo esta suposición, tenemos el siguiente resultado, cuya demostración se obtiene directamente de ajustar la prueba vista para (1.4.1).
+Inmediatamente tenemos el siguiente resultado, cuya demostración se obtiene directamente de ajustar la prueba vista para el caso de optimización sin restricciones.
 
 
 ::: {.teorema}
@@ -185,26 +194,25 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/angulo_entre_gradiente_xy.svg" alt="…" width="400px">
-  <figcaption> **Figura 1.4.1:** Interpretación geométrica de la condición necesaria (1.4.3) del Teorema 1.4.2.   </figcaption>
+  <figcaption> **Figura 1.4.1:** Interpretación geométrica de la condición necesaria (1.4.3) cuando $\nabla f(\xx^\star)\neq 0$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
 
-Como se puede apreciar en la Figura 1.4.1, para un punto óptimo $\xx^\star$ el vector gradiente forma un ángulo agudo (o recto) con todas las direcciones de la forma $\yy-\xx^\star$. Esto se deduce del hecho que
+En un punto óptimo $\xx^\star$, el vector gradiente o bien es nulo o bien  forma un ángulo nulo, agudo o recto con todas las direcciones de la forma $\yy-\xx^\star$ (ver Figura 1.4.1). En efecto, si $\nabla f(\xx^\star)\neq\bfzero$, se verifica
 $$
-\langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2=\underbrace{\|\nabla f(\xx^\star)\|_2}_{\geq 0}\underbrace{\|\yy-\xx^\star\|_2}_{\geq 0}\cos \alpha\geq 0
+\langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2=\|\nabla f(\xx^\star)\|_2\|\yy-\xx^\star\|_2\cos \alpha\geq 0\iff \cos\alpha\geq 0.
 $$
 
-si y solo si $\cos\alpha\geq 0$ (o equivalentemente,  $0\leq\alpha\leq\pi/2$).
 
-Ahora bien, nosotros estamos interesados en hallar $\xx^\star$. En este sentido, la condición (1.4.3) nos sirve para identificar aquellos puntos $\xx\in\Omega$ candidatos a ser óptimos (siguiendo la terminología habitual, los llamaremos <mark>*puntos críticos*</mark>). En consecuencia, si consideramos el vector opuesto al gradiente, los puntos críticos serán aquellos que verifiquen 
+Ahora bien, nosotros estamos interesados en hallar $\xx^\star$. En este sentido, la condición (1.4.3) nos sirve para identificar aquellos puntos $\xx\in\Omega$ candidatos a ser óptimos (siguiendo la terminología habitual, los llamaremos *puntos críticos*). En consecuencia, si consideramos el vector opuesto al gradiente, los puntos críticos serán aquellos que verifiquen 
 $$
 \langle -\nabla f(\xx),\yy-\xx\rangle_2\leq 0\qquad \forall\yy\in\Omega.
 \tag{1.4.4}
 $$
 
-Esto vincula nuestro análisis con la definición de cono normal (Definición 7 de [C1-S2](A2_optimizacion_convexa.html#conos-normales)): la expresión (1.4.4) es equivalente a  escribir $-\nabla f(\xx)\in N_{\Omega}(\xx)$. Así, el Teorema 1.4.2 puede ser interpretado en términos de conos normales como sigue:
+Esto vincula nuestro análisis con la Definición 1.2.11 de cono normal: la expresión (1.4.4) es equivalente a  escribir $-\nabla f(\xx)\in N_{\Omega}(\xx)$. En consecuencia, podemos afirmar que:
 
 
 :::{.myhighlight}
@@ -229,18 +237,7 @@ $$
 
 En la Figura 1.4.2 se presenta la geometría derivada de la condición necesaria establecida, para el caso en que $\Omega$ es un poliedro. Las posiciones de los puntos críticos corresponden a los ejemplos de conos normales vistos en el [C1-S2](A2_optimizacion_convexa.html#conos-normales). En particular, para puntos interiores de $\Omega$, la condición se reduce a la ecuación $\nabla f(\xx)=\bfzero$, típica de los problemas sin restricciones.
 
-Todos los casos están caracterizados por el siguiente hecho: 
-
-::: {.myhighlight}
-
-Los puntos críticos son aquellos en los cuales el opuesto del gradiente forma ángulos no agudos con todas las direcciones factibles.
-
-:::
-
-<div style="margin-top:2em;"></div>
-
-
-Esta es, sin dudas, la idea principal de nuestro análisis, que procuraremos extender a formas más generales de $\Omega$. Observar que la condición provista por el Teorema 1.4.2 es necesaria pero no suficiente. Podemos pensar rápidamente en ejemplos de mínimos locales en el interior de $\Omega$, tales como el Ejemplo 3 de [C1-S1](A1_intro_optimizacion.html). A continuación, veremos un ejemplo para cuando el punto crítico ocurre en la frontera de $\Omega$, pero no es cierto que sea un punto óptimo.
+El comportamiento de $-\nabla f(\xx)$ en términos de conos normales constituye, sin dudas, la idea principal de nuestro análisis, que procuraremos extender a formas más generales de $\Omega$. Observar que la condición provista por el Teorema 1.4.2 es necesaria pero no suficiente. Podemos pensar rápidamente en ejemplos de mínimos locales en el interior de $\Omega$, tales como el Ejemplo 1.1.3. A continuación, veremos un ejemplo en el cual un punto crítico ocurre en la frontera de $\Omega$, pero no es cierto que sea un punto óptimo.
 
 
 ::: {.callout-example}
@@ -266,13 +263,11 @@ $$
 \langle (0,1),\yy-(0,0)\rangle_2=y_2\geq 0\qquad\forall \yy\in\Omega.
 $$
 
-Esto es cierto, de acuerdo a la definición de $\Omega$. De hecho, en la siguiente figura se puede ver que, efectivamente, $-\nabla f(0,0)\in N_{\Omega}(0,0)$. 
+Esto es cierto, de acuerdo a la definición de $\Omega$. Sin embargo, el punto $(0,0)$ no es óptimo: $f(0,0)=0$, mientras que el valor óptimo es $-\frac{1}{4}$ y ocurre en los vértices $(\pm\frac{1}{2},0)$.
 
 <figure style="text-align: center;">
   <img src="figuras/ej_grad_cono_fail.svg" alt="…" width="300px">
 </figure>
-
-Pese a verificar la condición necesaria (1.4.3), el punto $(0,0)$ no es óptimo. De hecho, $f(0,0)=0$, mientras que el valor óptimo es $-\frac{1}{4}$ y ocurre en los vértices $(\pm\frac{1}{2},0)$.
 
 :::
 
@@ -289,7 +284,7 @@ Pese a verificar la condición necesaria (1.4.3), el punto $(0,0)$ no es óptimo
 <div style="margin-top:0.5em;"></div>
 
 
-Para el notable caso de las <mark>funciones convexas</mark> ([Definición 8 de C1-S2](A2_optimizacion_convexa.html#funciones-convexas)), la condición establecida en el Teorema 1.4.2 sí es suficiente.
+Para el notable caso de las funciones convexas, la condición del Teorema 1.4.2 sí es suficiente.
 
 
 ::: {.teorema}
@@ -319,7 +314,7 @@ $$
 \langle\nabla f(\xx),\yy-\xx\rangle_2\geq 0\qquad\forall\yy\in\Omega.
 $$
 
-Por condición de primer orden para convexidad (Teorema 1.2.1 de [C1-S2](A2_optimizacion_convexa.html#condiciones-de-convexidad)), resulta
+Por condición de primer orden para convexidad (Teorema 1.2.19), resulta
 $$
 f(\yy)\geq f(\xx)+\underbrace{\langle\nabla f(\xx),\yy-\xx\rangle_2}_{\geq 0}\geq f(\xx)
 $$
@@ -366,7 +361,7 @@ $$
 \nabla f^2(\xx)=A^\top A = \begin{pmatrix}1&0\\0&2\end{pmatrix}\begin{pmatrix}1&0\\0&2\end{pmatrix}=\begin{pmatrix}1&0\\0&4\end{pmatrix}
 $$
 
-Claramente $\nabla^2 f(\xx)\succeq 0$, lo cual significa que $f$ es convexa. Así, por Teorema 1.4.4, la condición (1.5.5) es suficiente y necesaria para que $\xx$ sea un punto óptimo. Esto nos permite hacer el siguiente análisis:
+Claramente $\nabla^2 f(\xx)\succeq 0$, lo cual significa que $f$ es convexa. En consecuencia, estamos en condiciones de aplicar el Teorema 1.4.4. Para ello, hagamos el siguiente análisis:
 
 - $\nabla f(\xx)\neq \bfzero$ para todo punto interior de $\Omega$, lo cual implica que no hay puntos óptimos en el interior.
 
@@ -382,7 +377,7 @@ Claramente $\nabla^2 f(\xx)\succeq 0$, lo cual significa que $f$ es convexa. As�
   <img src="figuras/ej_vertices_no_optimos.svg" alt="…" width="400px">
 </figure>
 
-En conclusión, el problema tiene solución única 
+En conclusión, el problema tiene solución única:
 $$
 \xx^\star=(1,0.5)\qquad\text{y}\qquad p^\star=f(1,0.5)=0.
 $$
@@ -397,9 +392,11 @@ $$
 
 Hasta ahora hemos visto que, para $\Omega$ convexo (*primer supuesto*), una condición necesaria para que un punto $\xx$ sea óptimo es que el vector opuesto al gradiente de la función objetivo pertenezca al cono normal $N_{\Omega}(\xx)$. Además, si la función objetivo es convexa (*segundo supuesto*), dicha condición resulta también suficiente.
 
-Aunque el Teorema 1.4.4 es general, y contempla los problemas de optimización convexa, su aplicación práctica puede resultar poco directa. Afortunadamente, cuando el conjunto factible $\Omega$ está definido por restricciones funcionales diferenciables, es posible expresar estas condiciones de manera más estructurada a partir de la caracterización de los conos normales, lo cual conduce a las que se conocen como *condiciones de Karush-Kuhn-Tucker* (o, simplemente, condiciones KKT).
+Aunque el Teorema 1.4.4 es general, y contempla los problemas de optimización convexa, su aplicación práctica puede resultar poco directa. Afortunadamente, cuando el conjunto factible $\Omega$ está definido por restricciones funcionales diferenciables, es posible expresar estas condiciones de manera más estructurada a partir de la caracterización de los conos normales, lo cual conduce a las que se conocen como *condiciones de Karush-Kuhn-Tucker* (o, simplemente, condiciones KKT). 
 
-Nuestro objetivo es formular dichas condiciones. Comenzaremos analizando el caso particular de restricciones afines, para lograr intuición, y luego generalizaremos al caso de restricciones no lineales.
+Para formular las condiciones KKT, comenzaremos analizando el caso particular de restricciones afines, para lograr intuición, y luego generalizaremos al caso de restricciones no lineales.
+
+<div style="margin-top:1em;"></div>
 
 
 ### El caso particular de restricciones afines
@@ -437,22 +434,13 @@ Esto significa que $\xx_0$ pertenece a la frontera del conjunto $\{\xx\in\RR^p \
 <div style="margin-top:2em;"></div>
 
 
-En los ejemplos de conos normales en [C1-S2](A2_optimizacion_convexa.html#conos-normales), analizamos su definición según la posición del punto de interés: si $\xx$ es interior a $\Omega$, resulta simplemente $N_{\Omega}(\xx)=\{\bfzero\}$, mientras que si $\xx$ pertenece a la frontera de $\Omega$, el cono normal queda determinado por las direcciones que definen los semiespacios e hiperplanos. Para este último caso, podemos resumirlo de la siguiente manera:
-
-:::{.myhighlight}
-
-El cono normal en un punto en la frontera es la envolvente cónica de las direcciones ortogonales a las restricciones activas.
-
-:::
+En los ejemplos de conos normales vistos en [C1-S2](A2_optimizacion_convexa.html#conos-normales), analizamos su definición según la posición del punto de interés: si $\xx$ es interior a $\Omega$, resulta simplemente $N_{\Omega}(\xx)=\{\bfzero\}$, mientras que si $\xx$ pertenece a la frontera de $\Omega$, el cono normal queda determinado por las direcciones que definen los semiespacios e hiperplanos. No obstante, en dichos ejemplos hemos considerado casos particulares de $\Omega$:  un hiperplano, un semiespacio y la intersección de dos semiespacios. Necesitamos extender ese análisis a cualquier poliedro $\Omega$ y caracterizar el cono normal en cualquier punto de $\Omega$. El siguiente resultado nos proporciona dicha caracterización.
 
 <div style="margin-top:2em;"></div>
 
 
-No obstante, en dichos ejemplos hemos considerado casos particulares de $\Omega$:  un hiperplano, un semiespacio y la intersección de dos semiespacios. Necesitamos extender ese análisis a cualquier poliedro $\Omega$ y caracterizar el cono normal en cualquier punto de $\Omega$. El siguiente resultado nos proporciona dicha caracterización.
-
-
 ::: {.teorema}
-**Teorema 1.4.7** (Cono normal a un punto de un poliedro).
+**Teorema 1.4.7** (Cono normal en un punto de un poliedro).
 Sea $\Omega$ el poliedro definido por (1.4.6). Para $\xx\in\Omega$, sea $I(\xx)$ el conjunto de índices de las restricciones activas; esto es
 $$
 I(\xx):=\left\{i\in\{1,\cdots,r\} \mid \bfa_i^\top\xx=b_i\right\}.
@@ -498,6 +486,55 @@ $$
 -\nabla f(\xx)=\sum_{i\in I(\xx)}\lambda_i \nabla g_i(\xx)+\sum_{j=1}^m\nu_j\nabla h_j(\xx),\qquad\lambda_i\in\RR^+,\;\nu_j\in\RR.
 $$
 donde $g_i(\xx)=\bfa_i^\top\xx-b_i$ y $h_j(\xx)=\cc_j^\top\xx-d_i$. ÑÑos coeficientes $\lambda_i$ y $\nu_j$ son precisamente los <mark>*multiplicadores de Lagrange*</mark> asociados a las funciones de restricción.
+
+### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
+
+En primer lugar, fijemos $\lambda_i\in\RR_0^+$, $\nu_j\in\RR$, y probemos que la dirección
+$$
+\dd=\sum_{i\in I(\xx)}\lambda_i\bfa_i+\sum_{j=1}^m\nu_j\cc_j	
+$$
+
+pertenece a $N_{\Omega}(\xx)$: para $\yy\in\Omega$ arbitrario, resulta
+$$
+\begin{align*}
+	\langle \dd,\yy-\xx\rangle_2 &= \big\langle \sum_{i\in I(\xx)}\lambda_i\bfa_i+\sum_{j=1}^m\nu_j\cc_j,\yy-\xx \big\rangle_2 \\
+	%&=\sum_{i\in I(\xx)}\lambda_i\langle\bfa_i,\yy-\xx\rangle_2+\sum_{j=1}^m\nu_j\langle \cc_j,\yy-\xx\rangle_2 \\
+	&= \sum_{i\in I(\xx)}\lambda_i\left(\langle\bfa_i,\yy\rangle_2-\langle\bfa_i,\xx\rangle_2\right)+\sum_{j=1}^m\nu_j\left(\langle \cc_j,\yy\rangle_2-\langle\cc_j,\xx\rangle_2\right) \\
+	&\leq 0,
+\end{align*}
+$$
+
+donde en el último paso se usó el hecho que $\langle\bfa_i,\yy\rangle_2\leq b_i$, $\langle\bfa_i,\xx\rangle_2=b_i$, $\langle\cc_j,\yy\rangle_2=\langle\cc_j,\xx\rangle_2=d_j$.
+	
+En segundo lugar, probamos que toda dirección $\dd\in N_{\Omega}(\xx)$ pertenece al conjunto
+$$
+C:=\left\{\left.\sum_{i\in I(\xx)}\lambda_i\bfa_i+\sum_{j=1}^m\nu_j\cc_j\,\right| \lambda_i\in\RR_0^+,\;\nu_j\in\RR\right\}
+$$
+
+Por reducción al absurdo, supongamos $\dd\notin C$. Dado que $C$ es un cono convexo cerrado no vacío (esto es fácil de verificar y queda como ejercicio), podemos separar $C$ y $\dd$ mediante un hiperplano; esto es, existe $\uu\in\RR^n$ tal que
+$$
+\langle \uu,\dd\rangle_2<0\qquad\text{y}\qquad \langle\uu,\mathbf{p}\rangle_2\geq 0\;\;\forall\mathbf{p}\in C.
+$$
+	
+En particular, tenemos $\langle\uu,\bfa_i\rangle\geq 0$ para las restricciones activas y $\langle\uu,\cc_j\rangle_2=0$; esto último por el hecho de que $\pm\cc_j\in C$. Como consecuencia, podemos afirmar que para un $\delta>0$ lo suficientemente pequeño, el punto $\yy:=\xx-\delta\uu$ pertenece a $\Omega$. En efecto, se verifica
+$$
+\langle \bfa_i,\xx-\delta\uu\rangle_2=\langle\bfa_i,\xx\rangle_2-\delta\langle\bfa_i,\uu\rangle_2\leq b_i\qquad\forall i\in I(\xx),
+$$
+$$
+\langle\cc_j,\xx-\delta\uu\rangle_2=\langle\cc_j,\xx)=d_j\qquad\forall j=1,\ldots,m,
+$$
+
+mientras que para las restricciones no activas se usa el hecho de que $\delta$ es suficientemente pequeño. 
+	
+Finalmente, esto nos conduce a contradecir $\dd\in N_{\Omega}(\xx)$, ya que
+$$
+\langle \dd,\xx-(\xx-\delta\uu)\rangle_2=-\delta\langle\dd,\uu\rangle_2>0.
+$$
+	
+Luego, debe ser $\dd\in C$, lo cual concluye la prueba.
+<div style="margin-top:-1em;"></div>
+<div style="text-align: right;">$\blacksquare$</div>
+
 :::
 </details>
 
@@ -516,7 +553,7 @@ Ahora bien, dado que $\Omega$ es un poliedro (y, por lo tanto, un conjunto conve
 
 ::: {.teorema}
 **Corolario 1.4.8.** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) 
-Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda\in(\RR_0^+)^r$ y $\bfnu\in\RR^m$ tales que $\lambda_i(\bfa_i^\top\xx-b_i)=0$ para todo $i=1,\ldots,r$ y
+Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda\in(\RR_0^+)^r$ y $\bfnu\in\RR^m$ tales que $\lambda_i(\bfa_i^\top\xx^\star-b_i)=0$ para todo $i=1,\ldots,r$ y
 $$
 -\nabla f(\xx^\star)=\sum_{i=1}^r\lambda_i\bfa_i+\sum_{j=1}^m \nu_j\cc_j.
 $$  
@@ -563,7 +600,7 @@ $$
 </div>
 
 
-Por supuesto, el resultado presentado en el Corolario 1 representa un criterio para obtener puntos críticos si $\Omega$ es un poliedro. En resumen:
+Por supuesto, el resultado presentado en el Corolario 1.4.8 representa un criterio para obtener puntos críticos si $\Omega$ es un poliedro. En resumen:
 
 :::{.myhighlight}
 
@@ -590,7 +627,7 @@ $$
 $$
 
 
-Dado que la función objetivo es convexa, las condiciones KKT son suficientes y necesarias. Además, teniendo en cuenta que solo hay restricciones de igualdad, a saber, $h_j(\xx)=\bfa_j^\top\xx-b_j$, únicamente debemos analizar las condiciones de factibilidad primal y estacionariedad. La condición de estacionariedad es:
+Dado que la función objetivo es convexa, el Corolario 1.4.8 nos asegura que las condiciones KKT son suficientes y necesarias. Además, teniendo en cuenta que solo hay restricciones de igualdad, a saber, $h_j(\xx)=\bfa_j^\top\xx-b_j$, únicamente debemos analizar las condiciones de factibilidad primal y estacionariedad. La condición de estacionariedad es:
 
 $$
 \begin{align*}
@@ -696,6 +733,8 @@ $$
 $$
 
 :::
+
+<div style="margin-top:2em;"></div>
 
 
 ### Generalización

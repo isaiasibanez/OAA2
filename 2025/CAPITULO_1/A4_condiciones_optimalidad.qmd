@@ -101,7 +101,7 @@ De inmediato surgen dos preguntas claves:
 <div style="margin-top:2em;"></div>
 
 
-Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante dentro de la optimización convexa, relacionado con el Teorema 3 del [C1-S2](A2_optimizacion_convexa.html#problemas-de-optimización-convexa).
+Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante dentro de la optimización convexa, relacionado con el Teorema 1 del [C1-S2](A2_optimizacion_convexa.html#problemas-de-optimización-convexa).
 
 ::: {.teorema}
 **Teorema 1.** (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) 
@@ -135,7 +135,7 @@ para cualquier $t>0$ lo suficientemente pequeño. A partir de esto:
 
 :::{.myhighlight3}
 
-¿Cuáles son las direcciones $\dd$ que nos permiten permanecer en $\Omega$ desde el punto $\xx$?
+¿Cuáles son las direcciones $\dd$ que nos permiten permanecer en $\Omega$ desde un punto $\xx$?
 
 ¿Qué implicancias tiene (3) para el vector gradiente $\nabla f(\xx)$?
 
@@ -144,7 +144,7 @@ para cualquier $t>0$ lo suficientemente pequeño. A partir de esto:
 <div style="margin-top:2em;"></div>
 
 
-Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto $\yy\in\Omega$ y observar qué sucede con la dirección desde $\xx$ hacia $\yy$. Esta dirección, $\dd=\yy-\xx$, será válida siempre que $\Omega$ sea convexo (ver Definición 3 de [C1-S2](A2_optimizacion_convexa.html#definiciones-básicas)). Claramente, en tal caso, (3) se verifica trivialmente tomando $t=1$. Por ese motivo, podemos hacer la primera suposición para formalizar una condición necesaria de optimalidad:
+Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto $\yy\in\Omega$ y observar qué sucede con la dirección desde $\xx$ hacia $\yy$. Esta dirección, $\dd=\yy-\xx$, será válida siempre que $\Omega$ sea convexo (ver Definición 3 de [C1-S2](A2_optimizacion_convexa.html#definiciones-básicas)). Por ese motivo, podemos hacer la primera suposición para formalizar una condición necesaria de optimalidad:
 
 
 :::{.myhighlight2}

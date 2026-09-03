@@ -414,7 +414,7 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 <div style="margin-top:2em;">
 
 </div>
-<p>Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante dentro de la optimización convexa, relacionado con el Teorema 3 del <a href="A2_optimizacion_convexa.html#problemas-de-optimización-convexa">C1-S2</a>.</p>
+<p>Para el caso de optimización sin restricciones, podemos responder a la segunda pregunta con un resultado muy importante dentro de la optimización convexa, relacionado con el Teorema 1 del <a href="A2_optimizacion_convexa.html#problemas-de-optimización-convexa">C1-S2</a>.</p>
 <div class="teorema">
 <p><strong>Teorema 1.</strong> (Condición suficiente y necesaria de optimalidad de primer orden sin restricciones para funciones convexas) Sea <span class="math inline">\(f:\RR^p\to\RR\)</span> una función diferenciable y convexa. Entonces <span class="math inline">\(\xx^\star\in \text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
 \nabla f(\xx^\star)=\bfzero.
@@ -437,13 +437,13 @@ f(\xx^\star + t \dd) \geq f(\xx^\star) \qquad\forall t\in\RR:\xx^\star+t\dd\in\t
 \]</span></p>
 <p>para cualquier <span class="math inline">\(t&gt;0\)</span> lo suficientemente pequeño. A partir de esto:</p>
 <div class="myhighlight3">
-<p>¿Cuáles son las direcciones <span class="math inline">\(\dd\)</span> que nos permiten permanecer en <span class="math inline">\(\Omega\)</span> desde el punto <span class="math inline">\(\xx\)</span>?</p>
+<p>¿Cuáles son las direcciones <span class="math inline">\(\dd\)</span> que nos permiten permanecer en <span class="math inline">\(\Omega\)</span> desde un punto <span class="math inline">\(\xx\)</span>?</p>
 <p>¿Qué implicancias tiene (3) para el vector gradiente <span class="math inline">\(\nabla f(\xx)\)</span>?</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto <span class="math inline">\(\yy\in\Omega\)</span> y observar qué sucede con la dirección desde <span class="math inline">\(\xx\)</span> hacia <span class="math inline">\(\yy\)</span>. Esta dirección, <span class="math inline">\(\dd=\yy-\xx\)</span>, será válida siempre que <span class="math inline">\(\Omega\)</span> sea convexo (ver Definición 3 de <a href="A2_optimizacion_convexa.html#definiciones-básicas">C1-S2</a>). Claramente, en tal caso, (3) se verifica trivialmente tomando <span class="math inline">\(t=1\)</span>. Por ese motivo, podemos hacer la primera suposición para formalizar una condición necesaria de optimalidad:</p>
+<p>Una idea inicial para caracterizar el conjunto de direcciones permitidas es tomar cualquier otro punto <span class="math inline">\(\yy\in\Omega\)</span> y observar qué sucede con la dirección desde <span class="math inline">\(\xx\)</span> hacia <span class="math inline">\(\yy\)</span>. Esta dirección, <span class="math inline">\(\dd=\yy-\xx\)</span>, será válida siempre que <span class="math inline">\(\Omega\)</span> sea convexo (ver Definición 3 de <a href="A2_optimizacion_convexa.html#definiciones-básicas">C1-S2</a>). Por ese motivo, podemos hacer la primera suposición para formalizar una condición necesaria de optimalidad:</p>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Primer supuesto</em></span>
 <div style="margin-top:-0.1em;">

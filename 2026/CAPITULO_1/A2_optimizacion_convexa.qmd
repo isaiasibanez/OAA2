@@ -946,6 +946,8 @@ $$
 N_{\Omega}(\xx_0)=\{\lambda\bfa \mid \lambda\in\RR\}.
 $$
 
+La prueba queda como ejercicio (✏8).
+
 :::
 
 ::: {.column width="5%"}
