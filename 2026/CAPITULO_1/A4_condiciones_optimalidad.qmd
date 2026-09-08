@@ -23,7 +23,7 @@ subtitle: "Capítulo 1 - Sección 4"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 03/09/2026
+    Última actualización: 07/09/2026
   </span>
 
 </div>
@@ -794,8 +794,8 @@ El conjunto de direcciones que forma un ángulo obtuso (o recto) con todas las d
 <div style="margin-top:2em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/conic_hull_generalization.png" alt="Conic Hull" width="400px">
-  <figcaption>**Figura 1.4.3:** Cono normal en puntos frontera de $\Omega$ definido por tres condiciones de desigualdad.</figcaption>
+  <img src="figuras/conic_hull_generalization.svg" alt="" width="400px">
+  <figcaption>**Figura 1.4.3:** Linearización de restricciones activas en un punto $\xx_0\in\Omega$.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
