@@ -261,7 +261,7 @@ lo cual es una desigualdad lineal. En conclusión, el LP resultante es
 $$ 
 \begin{array}{ll} 
 \text{maximizar } & r\\ 
-\text{sujeto a }  & \bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,\quad i=1,\cdots, m.
+\text{sujeto a }  & \bfa_i^\top\xx+r\|\bfa_i\|_2\leq b_i,\qquad i=1,\cdots, m.
 \end{array}
 $$ 
 

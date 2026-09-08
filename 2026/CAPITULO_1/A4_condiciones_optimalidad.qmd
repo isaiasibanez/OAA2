@@ -801,9 +801,10 @@ g_i(\xx)\leq 0,& i=1,\cdots,r\\
 h_j(\xx)=0, & j=1,\cdots,m
 \end{array}\right.\right\},
 \end{array}
+\tag{1.4.12}
 $$ 
 
-donde $\Omega$ está definido como una intersección de restricciones funcionales diferenciables. La generalización del análisis previo surge del siguiente hecho:
+donde el conjunto factible $\Omega$ está definido como una intersección de restricciones funcionales diferenciables. La generalización del análisis previo surge del siguiente hecho:
 
 :::{.myhighlight}
 El conjunto de direcciones que forma un ángulo obtuso (o recto) con todas las direcciones desde $\xx^\star$ que permanecen en $\Omega$ coincide con el cono normal de la linearización de las restricciones activas en $\xx^\star$.
@@ -812,8 +813,8 @@ El conjunto de direcciones que forma un ángulo obtuso (o recto) con todas las d
 <div style="margin-top:2em;"></div>
 
 <figure style="text-align: center;">
-  <img src="figuras/conic_hull_generalization.svg" alt="" width="400px">
-  <figcaption>**Figura 1.4.3:** Linearización de restricciones activas en un punto $\xx_0\in\Omega$.</figcaption>
+  <img src="figuras/cono_normal_generalization.svg" alt="" width="400px">
+  <figcaption>**Figura 1.4.3:** Cono normal de la linearización de restricciones activas en un punto $\xx_0\in\Omega$.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -865,18 +866,7 @@ Estamos en condiciones de formalizar el concepto de las condiciones KKT. Sin emb
 
 ::: {.definicion}
 **Definición 1.4.12** (Condiciones de Karush-Kuhn-Tucker (KKT)).
-Sea un problema de optimización con función objetivo diferenciable y restricciones funcionales, de la forma
-$$ 
-\begin{array}{ll} 
-\text{minimizar } & f(\xx)\\ 
-\text{sujeto a } & \xx\in\left\{\xx\in\RR^p\left|\;\begin{array}{ll}
-g_i(\xx)\leq 0,& i=1,\cdots,r\\
-h_j(\xx)=0, & j=1,\cdots,m
-\end{array}\right.\right\},
-\end{array}
-$$ 
-
-Las *condiciones KKT* en $\xx$ están dadas por:
+Sea un problema de optimización con función objetivo diferenciable y restricciones funcionales, de la forma general (1.4.12). Las *condiciones KKT* en un punto $\xx\in\RR^p$ están dadas por:
 
 - **Factibilidad primal**:
 $$
@@ -997,14 +987,7 @@ $$
 $$
 es linealmente independiente, entonces las condiciones KKT se cumplen para $\xx^\star$.
 
-- **Condición de Slater**: Si las restricciones de desigualdad $\{g_i \mid i=1,\ldots,r\}$ son funciones diferenciables convexas, las restricciones de igualdad $\{h_j \mid j=1,\ldots, m\}$ son funciones afines y, además, existe un punto *estrictamente factible*; esto es 
-$$
-\exists\xx_0:g_i(\xx_0)<0\;\land\; h_j(\xx_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
-$$
-entonces las condiciones KKT se cumplen para $\xx^\star$.
-
-
-<div style="margin-top:2em;"></div>
+<div style="margin-top:1em;"></div>
 
 ::: {.callout .question}
 
@@ -1021,6 +1004,17 @@ $$
 con $\XX\in\RR^{n\times p}$ y $\mathbf{w}\in\RR^p$. Este problema corresponde a la formulación de PCA para hallar la primer componente principal de $\XX$.
 
 :::
+
+<div style="margin-top:2em;"></div>
+
+- **Condición de Slater**: Si las restricciones de desigualdad $\{g_i \mid i=1,\ldots,r\}$ son funciones diferenciables convexas, las restricciones de igualdad $\{h_j \mid j=1,\ldots, m\}$ son funciones afines y, además, existe un punto *estrictamente factible*; esto es 
+$$
+\exists\xx_0:g_i(\xx_0)<0\;\land\; h_j(\xx_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
+$$
+entonces las condiciones KKT se cumplen para $\xx^\star$.
+
+
+
 
 <div style="margin-top:2em;"></div>
 
@@ -1045,6 +1039,25 @@ Además, la condición de convexidad tampoco puede relajarse, como se ve en el E
 
 <div style="margin-top:2em;"></div>
 
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Si no hay restricciones de desigualdad y las restricciones de igualdad son afines, la cualificación de LICQ se satisface si y solo si el conjunto de vectores normales es linealmente independiente. Esta situación es habitual ya que, en caso de que los vectores normales sean linealmente dependientes, o bien alguna de las restricciones es redundante o bien el sistema de igualdades es incompatible. 
+	
+En consecuencia, en problemas de la forma
+$$
+\begin{array}{ll} 
+	\text{minimizar } & f(\xx)\\ 
+	\text{sujeto a } & A\xx=\bb,
+\end{array}
+$$
+
+la existencia de un punto factible es suficiente para garantizar que las condiciones KKT se satisfacen en todo punto óptimo.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
 
 Ahora bien, si a la condición de Slater le añadimos la hipótesis de que la función objetivo $f$ es convexa, entonces las condiciones KKT no solo son necesarias, sino que también resultan suficientes para garantizar la optimalidad. Este escenario corresponde a los problemas de optimización convexa con funciones diferenciables, en los cuales el punto óptimo queda completamente caracterizado por las condiciones KKT.
 
@@ -1053,15 +1066,13 @@ Ahora bien, si a la condición de Slater le añadimos la hipótesis de que la fu
 **Teorema 1.4.14** (Caracterización de optimalidad mediante KKT). 
 Sea un problema de optimización convexa de la forma
 $$ 
-\begin{array}{ll} 
-\text{minimizar } & f(\xx)\\ 
-\text{sujeto a } & \xx\in\left\{\xx\in\RR^p\left|\;\begin{array}{ll}
-g_i(\xx)\leq 0,& i=1,\cdots,r\\
-A\xx=\bb
-\end{array}\right.\right\},
-\end{array}
+	\begin{array}{ll} 
+		\text{minimizar } & f(\xx)\\ 
+		\text{sujeto a }  & g_i(\xx)\leq 0,\qquad i=1,\cdots,r,\\
+			 			  & A\xx=\bb,
+	\end{array}
 $$ 
-con $A\in\RR^{m\times p}$ y $\bb\in\RR^m$. Si la función objetivo $f$ y las funciones de restricción $g_i$ ($i=1,\ldots,r$) son diferenciables, y además las restricciones verifican la condición de Slater, entonces las condiciones KKT son suficientes y necesarias para que un punto sea óptimo.
+con $A\in\RR^{m\times p}$ y $\bb\in\RR^m$. Si la función objetivo $f$ y las funciones de restricción $g_1,\ldots, g_r$ son diferenciables, y además las restricciones verifican la condición de Slater, entonces las condiciones KKT son suficientes y necesarias para que un punto sea óptimo.
 :::
 
 
@@ -1075,7 +1086,7 @@ con $A\in\RR^{m\times p}$ y $\bb\in\RR^m$. Si la función objetivo $f$ y las fun
 Probaremos únicamente la suficiencia. Sea $\xx_0$ un punto factible que verifica las condiciones KKT. Entonces, la condición de estacionariedad nos permite afirmar que existen $\bflambda\in\RR^r$, con $\bflambda\succeq\bfzero$, y $\bfnu\in\RR^m$ tales que
 $$
 \nabla f(\xx_0)+\sum_{i=1}^r\lambda_i\nabla g_i(\xx_0)+A^\top\bfnu=\bfzero.
-\tag{1.4.10}
+\tag{1.4.13}
 $$
 
 Dado que $f$ y $g_i$ son funciones convexas, también es convexa la función $L:\RR^p\to\RR$ definida por
@@ -1083,7 +1094,7 @@ $$
 L(\xx):=f(\xx)+\sum_{i=1}^r\lambda_i g_i(\xx)+\bfnu^\top(A\xx-\bb).
 $$
 
-Por condición de optimalidad de primer orden sin restricciones para funciones convexas (Teorema 1.4.1), la expresión (12) implica que $\xx_0$ es el minimizador de $L(\xx_0)$. Además, es fácil ver que $L(\xx)\leq f(\xx)$ para todo $\xx$ factible. En consecuencia, se deduce
+Por condición de optimalidad de primer orden sin restricciones para funciones convexas (Teorema 1.4.1), la expresión (1.4.13) implica que $\xx_0$ es el minimizador de $L(\xx_0)$. Además, es fácil ver que $L(\xx)\leq f(\xx)$ para todo $\xx$ factible. En consecuencia, se deduce
 $$
 f(\xx_0)=L(\xx_0)\leq L(\xx)\leq f(\xx)\qquad\forall\xx\text{ factible},
 $$
@@ -1092,7 +1103,7 @@ $$
 \lambda_i g_i(\xx_0)=0\qquad\forall i=1,\ldots,r.
 $$
 
-Luego, $\xx_0$ es punto óptimo del problema, tal como queríamos probar. Luego, $\xx_0$ es punto óptimo del problema, tal como queríamos probar.
+Luego, $\xx_0$ es punto óptimo del problema, tal como queríamos probar.
 <div style="margin-top:-1em;"></div>
 <div style="text-align: right;">$\blacksquare$</div>
 
@@ -1126,7 +1137,7 @@ $$
 \end{array}
 $$
 
-Claramente el único punto óptimo es $\xx^\star=\bfzero$. Además, se cumple la condición de Slater para KKT: en primer lugar, las restricciones de desigualdad están definidas por funciones afines (y, por lo tanto, convexas); en segundo lugar, el punto $(0.2,0.2)$ es estrictamente factible para las restricciones activas en $\bfzero$. Por lo tanto, podemos afirmar que las condiciones KKT son suficientes y necesarias para la optimalidad.
+Claramente, el único punto óptimo es $\xx^\star=\bfzero$. Además, se cumple la condición de Slater para KKT: en primer lugar, las restricciones de desigualdad están definidas por funciones afines (y, por lo tanto, convexas); en segundo lugar, el punto $(0.2,0.2)$ es estrictamente factible para las restricciones activas en $\bfzero$. Por lo tanto, podemos afirmar que las condiciones KKT son suficientes y necesarias para la optimalidad.
 
 Vamos a verificar la conclusión anterior. Las condiciones KKT son:
 $$
@@ -1140,8 +1151,8 @@ $$
 
 El único punto que cumple todas estas condiciones es $\xx^\star=\bfzero$, con $\bflambda^\star=\bfzero$. Para justificar esto, veamos que suponer $x_1^\star> 0$ (análogamente para $x_2^\star>0$) conduce a un absurdo:
 
-1. Por holgura complementaria, debe ser $\lambda_2^\star=0$.
-2. La primera condición de estacionariedad implica $\lambda_1^\star<0$. Esto contradice la factiibilidad dual $\lambda_1^\star\geq 0$.
+- Por holgura complementaria, debe ser $\lambda_2^\star=0$.
+- La primera condición de estacionariedad implica $\lambda_1^\star<0$. Esto contradice la factiibilidad dual $\lambda_1^\star\geq 0$.
 
 :::
 

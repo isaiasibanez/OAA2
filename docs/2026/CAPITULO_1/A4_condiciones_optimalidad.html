@@ -863,8 +863,9 @@ g_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
 h_j({\bf x})=0, &amp; j=1,\cdots,m
 \end{array}\right.\right\},
 \end{array}
+\tag{1.4.12}
 \]</span></p>
-<p>donde <span class="math inline">\(\Omega\)</span> está definido como una intersección de restricciones funcionales diferenciables. La generalización del análisis previo surge del siguiente hecho:</p>
+<p>donde el conjunto factible <span class="math inline">\(\Omega\)</span> está definido como una intersección de restricciones funcionales diferenciables. La generalización del análisis previo surge del siguiente hecho:</p>
 <div class="myhighlight">
 <p>El conjunto de direcciones que forma un ángulo obtuso (o recto) con todas las direcciones desde <span class="math inline">\({\bf x}^\star\)</span> que permanecen en <span class="math inline">\(\Omega\)</span> coincide con el cono normal de la linearización de las restricciones activas en <span class="math inline">\({\bf x}^\star\)</span>.</p>
 </div>
@@ -872,9 +873,9 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/conic_hull_generalization.svg" alt="" width="400px" class="figure-img">
+<img src="figuras/cono_normal_generalization.svg" alt="" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 1.4.3:</strong> Linearización de restricciones activas en un punto <span class="math inline">\({\bf x}_0\in\Omega\)</span>.
+<strong>Figura 1.4.3:</strong> Cono normal de la linearización de restricciones activas en un punto <span class="math inline">\({\bf x}_0\in\Omega\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -912,16 +913,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 
 </div>
 <div class="definicion">
-<p><strong>Definición 1.4.12</strong> (Condiciones de Karush-Kuhn-Tucker (KKT)). Sea un problema de optimización con función objetivo diferenciable y restricciones funcionales, de la forma <span class="math display">\[
-\begin{array}{ll}
-\text{minimizar } &amp; f({\bf x})\\
-\text{sujeto a } &amp; {\bf x}\in\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
-g_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
-h_j({\bf x})=0, &amp; j=1,\cdots,m
-\end{array}\right.\right\},
-\end{array}
-\]</span></p>
-<p>Las <em>condiciones KKT</em> en <span class="math inline">\({\bf x}\)</span> están dadas por:</p>
+<p><strong>Definición 1.4.12</strong> (Condiciones de Karush-Kuhn-Tucker (KKT)). Sea un problema de optimización con función objetivo diferenciable y restricciones funcionales, de la forma general (1.4.12). Las <em>condiciones KKT</em> en un punto <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> están dadas por:</p>
 <ul>
 <li><p><strong>Factibilidad primal</strong>: <span class="math display">\[
 g_i({\bf x})\leq 0\qquad\forall i=1,\ldots,r,
@@ -1004,11 +996,8 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 <li><p><strong>Independencia lineal de los gradientes (LICQ)</strong>: Si todas las funciones de restricción son continuamente diferenciables y el conjunto <span class="math display">\[
 \{\nabla g_i({\bf x}^\star) \mid i\in I({\bf x}^\star)\}\cup\{\nabla h_j({\bf x}^\star) \mid j=1,\ldots,m\}
 \]</span> es linealmente independiente, entonces las condiciones KKT se cumplen para <span class="math inline">\({\bf x}^\star\)</span>.</p></li>
-<li><p><strong>Condición de Slater</strong>: Si las restricciones de desigualdad <span class="math inline">\(\{g_i \mid i=1,\ldots,r\}\)</span> son funciones diferenciables convexas, las restricciones de igualdad <span class="math inline">\(\{h_j \mid j=1,\ldots, m\}\)</span> son funciones afines y, además, existe un punto <em>estrictamente factible</em>; esto es <span class="math display">\[
-\exists{\bf x}_0:g_i({\bf x}_0)&lt;0\;\land\; h_j({\bf x}_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
-\]</span> entonces las condiciones KKT se cumplen para <span class="math inline">\({\bf x}^\star\)</span>.</p></li>
 </ul>
-<div style="margin-top:2em;">
+<div style="margin-top:1em;">
 
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
@@ -1028,6 +1017,14 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 </div>
 </div>
 </div>
+<div style="margin-top:2em;">
+
+</div>
+<ul>
+<li><strong>Condición de Slater</strong>: Si las restricciones de desigualdad <span class="math inline">\(\{g_i \mid i=1,\ldots,r\}\)</span> son funciones diferenciables convexas, las restricciones de igualdad <span class="math inline">\(\{h_j \mid j=1,\ldots, m\}\)</span> son funciones afines y, además, existe un punto <em>estrictamente factible</em>; esto es <span class="math display">\[
+\exists{\bf x}_0:g_i({\bf x}_0)&lt;0\;\land\; h_j({\bf x}_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
+\]</span> entonces las condiciones KKT se cumplen para <span class="math inline">\({\bf x}^\star\)</span>.</li>
+</ul>
 <div style="margin-top:2em;">
 
 </div>
@@ -1052,17 +1049,29 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 <div style="margin-top:2em;">
 
 </div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Si no hay restricciones de desigualdad y las restricciones de igualdad son afines, la cualificación de LICQ se satisface si y solo si el conjunto de vectores normales es linealmente independiente. Esta situación es habitual ya que, en caso de que los vectores normales sean linealmente dependientes, o bien alguna de las restricciones es redundante o bien el sistema de igualdades es incompatible.</p>
+<p>En consecuencia, en problemas de la forma <span class="math display">\[
+\begin{array}{ll}
+    \text{minimizar } &amp; f({\bf x})\\
+    \text{sujeto a } &amp; A{\bf x}={\bf b},
+\end{array}
+\]</span></p>
+<p>la existencia de un punto factible es suficiente para garantizar que las condiciones KKT se satisfacen en todo punto óptimo.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
 <p>Ahora bien, si a la condición de Slater le añadimos la hipótesis de que la función objetivo <span class="math inline">\(f\)</span> es convexa, entonces las condiciones KKT no solo son necesarias, sino que también resultan suficientes para garantizar la optimalidad. Este escenario corresponde a los problemas de optimización convexa con funciones diferenciables, en los cuales el punto óptimo queda completamente caracterizado por las condiciones KKT.</p>
 <div class="teorema">
 <p><strong>Teorema 1.4.14</strong> (Caracterización de optimalidad mediante KKT). Sea un problema de optimización convexa de la forma <span class="math display">\[
-\begin{array}{ll}
-\text{minimizar } &amp; f({\bf x})\\
-\text{sujeto a } &amp; {\bf x}\in\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
-g_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
-A{\bf x}={\bf b}
-\end{array}\right.\right\},
-\end{array}
-\]</span> con <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>. Si la función objetivo <span class="math inline">\(f\)</span> y las funciones de restricción <span class="math inline">\(g_i\)</span> (<span class="math inline">\(i=1,\ldots,r\)</span>) son diferenciables, y además las restricciones verifican la condición de Slater, entonces las condiciones KKT son suficientes y necesarias para que un punto sea óptimo.</p>
+    \begin{array}{ll}
+        \text{minimizar } &amp; f({\bf x})\\
+        \text{sujeto a }  &amp; g_i({\bf x})\leq 0,\qquad i=1,\cdots,r,\\
+                          &amp; A{\bf x}={\bf b},
+    \end{array}
+\]</span> con <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>. Si la función objetivo <span class="math inline">\(f\)</span> y las funciones de restricción <span class="math inline">\(g_1,\ldots, g_r\)</span> son diferenciables, y además las restricciones verifican la condición de Slater, entonces las condiciones KKT son suficientes y necesarias para que un punto sea óptimo.</p>
 </div>
 <details>
 <summary>
@@ -1074,17 +1083,17 @@ A{\bf x}={\bf b}
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Probaremos únicamente la suficiencia. Sea <span class="math inline">\({\bf x}_0\)</span> un punto factible que verifica las condiciones KKT. Entonces, la condición de estacionariedad nos permite afirmar que existen <span class="math inline">\(\boldsymbol{\lambda}\in\mathbb{R}^r\)</span>, con <span class="math inline">\(\boldsymbol{\lambda}\succeq\mathbf{0}\)</span>, y <span class="math inline">\(\boldsymbol{\nu}\in\mathbb{R}^m\)</span> tales que <span class="math display">\[
 \nabla f({\bf x}_0)+\sum_{i=1}^r\lambda_i\nabla g_i({\bf x}_0)+A^\top\boldsymbol{\nu}=\mathbf{0}.
-\tag{1.4.10}
+\tag{1.4.13}
 \]</span></p>
 <p>Dado que <span class="math inline">\(f\)</span> y <span class="math inline">\(g_i\)</span> son funciones convexas, también es convexa la función <span class="math inline">\(L:\mathbb{R}^p\to\mathbb{R}\)</span> definida por <span class="math display">\[
 L({\bf x}):=f({\bf x})+\sum_{i=1}^r\lambda_i g_i({\bf x})+\boldsymbol{\nu}^\top(A{\bf x}-{\bf b}).
 \]</span></p>
-<p>Por condición de optimalidad de primer orden sin restricciones para funciones convexas (Teorema 1.4.1), la expresión (12) implica que <span class="math inline">\({\bf x}_0\)</span> es el minimizador de <span class="math inline">\(L({\bf x}_0)\)</span>. Además, es fácil ver que <span class="math inline">\(L({\bf x})\leq f({\bf x})\)</span> para todo <span class="math inline">\({\bf x}\)</span> factible. En consecuencia, se deduce <span class="math display">\[
+<p>Por condición de optimalidad de primer orden sin restricciones para funciones convexas (Teorema 1.4.1), la expresión (1.4.13) implica que <span class="math inline">\({\bf x}_0\)</span> es el minimizador de <span class="math inline">\(L({\bf x}_0)\)</span>. Además, es fácil ver que <span class="math inline">\(L({\bf x})\leq f({\bf x})\)</span> para todo <span class="math inline">\({\bf x}\)</span> factible. En consecuencia, se deduce <span class="math display">\[
 f({\bf x}_0)=L({\bf x}_0)\leq L({\bf x})\leq f({\bf x})\qquad\forall{\bf x}\text{ factible},
 \]</span> donde la primera igualdad es cierta gracias a la condición de holgura complementaria <span class="math display">\[
 \lambda_i g_i({\bf x}_0)=0\qquad\forall i=1,\ldots,r.
 \]</span></p>
-Luego, <span class="math inline">\({\bf x}_0\)</span> es punto óptimo del problema, tal como queríamos probar. Luego, <span class="math inline">\({\bf x}_0\)</span> es punto óptimo del problema, tal como queríamos probar.
+Luego, <span class="math inline">\({\bf x}_0\)</span> es punto óptimo del problema, tal como queríamos probar.
 <div style="margin-top:-1em;">
 
 </div>
@@ -1118,7 +1127,7 @@ Luego, <span class="math inline">\({\bf x}_0\)</span> es punto óptimo del probl
                   &amp; x_1\geq 0,\; x_2\geq 0.
 \end{array}
 \]</span></p>
-<p>Claramente el único punto óptimo es <span class="math inline">\({\bf x}^\star=\mathbf{0}\)</span>. Además, se cumple la condición de Slater para KKT: en primer lugar, las restricciones de desigualdad están definidas por funciones afines (y, por lo tanto, convexas); en segundo lugar, el punto <span class="math inline">\((0.2,0.2)\)</span> es estrictamente factible para las restricciones activas en <span class="math inline">\(\mathbf{0}\)</span>. Por lo tanto, podemos afirmar que las condiciones KKT son suficientes y necesarias para la optimalidad.</p>
+<p>Claramente, el único punto óptimo es <span class="math inline">\({\bf x}^\star=\mathbf{0}\)</span>. Además, se cumple la condición de Slater para KKT: en primer lugar, las restricciones de desigualdad están definidas por funciones afines (y, por lo tanto, convexas); en segundo lugar, el punto <span class="math inline">\((0.2,0.2)\)</span> es estrictamente factible para las restricciones activas en <span class="math inline">\(\mathbf{0}\)</span>. Por lo tanto, podemos afirmar que las condiciones KKT son suficientes y necesarias para la optimalidad.</p>
 <p>Vamos a verificar la conclusión anterior. Las condiciones KKT son: <span class="math display">\[
 \begin{array}{cl}
 x_1^\star+x_2^\star-1\leq 0,\; x_1^\star\geq 0,\; x_2^\star\geq 0\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
@@ -1128,10 +1137,10 @@ x_1^\star+x_2^\star-1\leq 0,\; x_1^\star\geq 0,\; x_2^\star\geq 0\qquad&amp;\tex
 \end{array}
 \]</span></p>
 <p>El único punto que cumple todas estas condiciones es <span class="math inline">\({\bf x}^\star=\mathbf{0}\)</span>, con <span class="math inline">\(\boldsymbol{\lambda}^\star=\mathbf{0}\)</span>. Para justificar esto, veamos que suponer <span class="math inline">\(x_1^\star&gt; 0\)</span> (análogamente para <span class="math inline">\(x_2^\star&gt;0\)</span>) conduce a un absurdo:</p>
-<ol type="1">
+<ul>
 <li>Por holgura complementaria, debe ser <span class="math inline">\(\lambda_2^\star=0\)</span>.</li>
 <li>La primera condición de estacionariedad implica <span class="math inline">\(\lambda_1^\star&lt;0\)</span>. Esto contradice la factiibilidad dual <span class="math inline">\(\lambda_1^\star\geq 0\)</span>.</li>
-</ol>
+</ul>
 </div>
 <div style="margin-top:2.5em;">
 

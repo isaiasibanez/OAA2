@@ -379,7 +379,7 @@ $$
 <figure style="text-align: center;">
   <img src="figuras/cono_convexo.svg" alt="" width="250px">
   <img src="figuras/cono_no_convexo.svg" alt="" width="250px">
-  <figcaption>**Figura 1.2.4:** Ejemplo de un cono convexo y otro no convexo. En el caso de cono convexo, toda combinación lineal entre pares de puntos queda contenida en el cono..</figcaption>
+  <figcaption>**Figura 1.2.4:** Ejemplo de un cono convexo y otro no convexo. En el caso de cono convexo, toda combinación lineal entre pares de puntos queda contenida en el cono.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -1769,9 +1769,9 @@ $$
 
 es de optimización convexa. La función objetivo es una función convexa, como hemos visto en el Ejemplo 1.2.22, y la única función de restricción de desigualdad es 
 $$
-g(\xx)=-\bfone^\top\xx=-(x_1+\cdots+x_n),
+g(\xx)=1-\bfone^\top\xx=1-(x_1+\cdots+x_n),
 $$
-la cual es una función lineal y, por lo tanto, convexa.
+la cual es una función afín y, por lo tanto, convexa.
 
 :::
 
