@@ -1209,7 +1209,7 @@ h_j(\xx)=0, &amp; j=1,\cdots,m
 <p>Al no haber restricciones de desigualdad, el Lagrangiano es <span class="math display">\[
 \calL(\xx,\bfnu)=\xx^\top\xx+\bfnu^\top (A\xx-\bb).
 \]</span></p>
-<p>Teniendo en cuenta el Ejemplo 12 de <a href="A2_optimizacion_convexa.html">C1-S2</a>, podemos afirmar que <span class="math inline">\(\calL\)</span> es una función convexa. Por lo tanto, podemos minimizar respecto de <span class="math inline">\(\xx\)</span> usando la condición de optimalidad <span class="math inline">\(\nabla_{\xx}\calL(\xx,\bfnu)=\bfzero\)</span>: <span class="math display">\[
+<p>Teniendo en cuenta el Ejemplo 15 de <a href="A2_optimizacion_convexa.html">C1-S2</a>, podemos afirmar que <span class="math inline">\(\calL\)</span> es una función convexa. Por lo tanto, podemos minimizar respecto de <span class="math inline">\(\xx\)</span> usando la condición de optimalidad <span class="math inline">\(\nabla_{\xx}\calL(\xx,\bfnu)=\bfzero\)</span>: <span class="math display">\[
 \begin{align*}
 \nabla_{\xx}L(\xx,\bfnu)=2\xx+A^\top\bfnu&amp;=\bfzero\\
 \xx&amp;=-\frac{1}{2}A^\top\bfnu.
@@ -1284,7 +1284,7 @@ d^\star\leq p^\star
 <li>Si el problema primal no tiene cota inferior (<span class="math inline">\(p^\star=-\infty\)</span>), entonces el problema dual es es infactible (<span class="math inline">\(d^\star=-\infty\)</span>).</li>
 <li>Si el problema dual no tiene cota superior (<span class="math inline">\(d^\star=\infty\)</span>), entonces el problema primal es infactible (<span class="math inline">\(p^\star=\infty\)</span>).</li>
 </ul>
-<p>Nos referiremos a la diferencia <span class="math inline">\(p^\star-d^\star\)</span> como <mark><em>brecha de dualidad óptima</em></mark> del problema primal. Es importante remarcar que la ventaja de trabajar con la dualidad débil (12) radica en que aún cuando el problema primal es difícil de resolver, el problema dual, al ser siempre convexo, la mayoría de las veces puede ser resuelto eficientemente.</p>
+<p>Nos referiremos a la diferencia <span class="math inline">\(p^\star-d^\star\)</span> como <mark><em>brecha de dualidad óptima</em></mark> del problema primal. Es importante remarcar que la ventaja de trabajar con la dualidad débil (13) radica en que aún cuando el problema primal es difícil de resolver, el problema dual, al ser siempre convexo, la mayoría de las veces puede ser resuelto eficientemente.</p>
 </section>
 <section id="dualidad-fuerte" class="level4">
 <h4 class="anchored" data-anchor-id="dualidad-fuerte">Dualidad fuerte</h4>
@@ -1334,7 +1334,7 @@ A\xx=\bb
 <p>Este es un problema fácil de resolver, porque <span class="math inline">\(\calG(\nu)\)</span> es una función de una variable; más precisamente, una función cuadrática, por lo cual la solución está dado por su vértice. Resulta <span class="math display">\[
 \nu^\star=\frac{2b}{\|\aa\|_2^2},\qquad d^\star=\calG(\nu^\star)=-\frac{3b^2}{\|\aa\|_2^2}.
 \]</span></p>
-<p>Dado que se cumplen las condiciones del Teorema 5 (problema de optimización convexa + condición de Slater), podemos concluir que hay dualidad fuerte. Luego, el valor óptimo del problema primal es <span class="math display">\[
+<p>Dado que se cumplen las condiciones del Teorema 6 (problema de optimización convexa + condición de Slater), podemos concluir que hay dualidad fuerte. Luego, el valor óptimo del problema primal es <span class="math display">\[
 p^\star=-\frac{3b^2}{\|\aa\|_2^2}.
 \]</span></p>
 </div>
