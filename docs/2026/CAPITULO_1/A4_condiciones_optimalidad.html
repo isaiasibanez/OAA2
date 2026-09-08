@@ -400,7 +400,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 </div>
 <p>Inmediatamente tenemos el siguiente resultado, cuya demostración se obtiene directamente de ajustar la prueba vista para el caso de optimización sin restricciones.</p>
 <div class="teorema">
-<p><strong>Teorema .</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo) Sea <span class="math inline">\(\Omega\subset\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces <span class="math display">\[
+<p><strong>Teorema 1.4.2</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo). Sea <span class="math inline">\(\Omega\subset\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces <span class="math display">\[
 \langle \nabla f({\bf x}^\star), {\bf y}- {\bf x}^\star\rangle_2 \geq 0 \qquad \forall{\bf y}\in\Omega.
 \tag{1.4.3}
 \]</span></p>
@@ -478,7 +478,7 @@ Finalmente, dado que <span class="math inline">\({\bf d}\)</span> es arbitrario,
 </div>
 <p>Para el notable caso de las funciones convexas, la condición del Teorema 1.4.2 sí es suficiente.</p>
 <div class="teorema">
-<p><strong>Teorema 1.4.4</strong> (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función objetivo convexa) Sea <span class="math inline">\(\Omega \subseteq\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable convexa. Entonces <span class="math inline">\({\bf x}^\star\)</span> es un minimizador de <span class="math inline">\(f\)</span> en <span class="math inline">\(\Omega\)</span> si y solo si se verifica <span class="math display">\[
+<p><strong>Teorema 1.4.4</strong> (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función objetivo convexa). Sea <span class="math inline">\(\Omega \subseteq\mathbb{R}^p\)</span> convexo y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable convexa. Entonces <span class="math inline">\({\bf x}^\star\)</span> es un minimizador de <span class="math inline">\(f\)</span> en <span class="math inline">\(\Omega\)</span> si y solo si se verifica <span class="math display">\[
 -\nabla f({\bf x}^\star)\in N_{\Omega}({\bf x}^\star).
 \tag{1.4.5}
 \]</span></p>
@@ -604,7 +604,7 @@ N_{\Omega}({\bf x})=\left\{\left.\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{
 <span style="color:#0056b3;">ℹ Ver más información</span>
 </summary>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href=""><span style="font-size: 1.25em;">②</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href=""><span style="font-size: 1.25em;">①</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>La suma en la expresión del cono normal puede ser reescrita sin restringir <span class="math inline">\(i\in I({\bf x})\)</span>, imponiendo <span class="math inline">\(\lambda_i=0\)</span> para todo <span class="math inline">\(i\notin I({\bf x})\)</span>. Esta imposición queda ímplicita de forma inmediata si se escribe</p>
@@ -617,14 +617,6 @@ N_{\Omega}({\bf x})=\left\{A^\top\boldsymbol{\lambda}+C^\top\boldsymbol{\nu}\mid
 \]</span></p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>La condición de optimalidad <span class="math inline">\(-\nabla f({\bf x})\in N_{\Omega}({\bf x})\)</span> se traduce como <span class="math display">\[
--\nabla f({\bf x})=\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{j=1}^m\nu_j{\bf c}_j,\qquad\lambda_i\in\mathbb{R}^+,\;\nu_j\in\mathbb{R}.
-\]</span></p>
-<p>O, equivalentemente, <span class="math display">\[
--\nabla f({\bf x})=\sum_{i\in I({\bf x})}\lambda_i \nabla g_i({\bf x})+\sum_{j=1}^m\nu_j\nabla h_j({\bf x}),\qquad\lambda_i\in\mathbb{R}^+,\;\nu_j\in\mathbb{R}.
-\]</span> donde <span class="math inline">\(g_i({\bf x})={\bf a}_i^\top{\bf x}-b_i\)</span> y <span class="math inline">\(h_j({\bf x})={\bf c}_j^\top{\bf x}-d_i\)</span>. ÑÑos coeficientes <span class="math inline">\(\lambda_i\)</span> y <span class="math inline">\(\nu_j\)</span> son precisamente los <em>multiplicadores de Lagrange</em> asociados a las funciones de restricción.</p>
-</div>
-<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <p>En primer lugar, fijemos <span class="math inline">\(\lambda_i\in\mathbb{R}_0^+\)</span>, <span class="math inline">\(\nu_j\in\mathbb{R}\)</span>, y probemos que la dirección <span class="math display">\[
 {\bf d}=\sum_{i\in I({\bf x})}\lambda_i{\bf a}_i+\sum_{j=1}^m\nu_j{\bf c}_j    
 \]</span></p>
@@ -676,9 +668,15 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 <div style="margin-top:2em;">
 
 </div>
+<p>La condición de optimalidad <span class="math inline">\(-\nabla f({\bf x}^\star)\in N_{\Omega}({\bf x}^\star)\)</span> del Teorema 1.4.4 se traduce como <span class="math display">\[
+-\nabla f({\bf x}^\star)=\sum_{i\in I({\bf x})}\lambda_i^\star{\bf a}_i+\sum_{j=1}^m\nu_j^\star{\bf c}_j,\qquad\lambda_i^\star\in\mathbb{R}^+,\;\nu_j^\star\in\mathbb{R}.
+\]</span></p>
+<p>O, equivalentemente, <span class="math display">\[
+-\nabla f({\bf x}^\star)=\sum_{i\in I({\bf x})}\lambda_i^\star \nabla g_i({\bf x})+\sum_{j=1}^m\nu_j^\star\nabla h_j({\bf x}),\qquad\lambda_i^\star\in\mathbb{R}^+,\;\nu_j^\star\in\mathbb{R}.
+\]</span> donde <span class="math inline">\(g_i({\bf x})={\bf a}_i^\top{\bf x}-b_i\)</span> y <span class="math inline">\(h_j({\bf x})={\bf c}_j^\top{\bf x}-d_i\)</span> son las funciones de restricción que definen <span class="math inline">\(\Omega\)</span>. Los coeficientes <span class="math inline">\(\lambda_i\)</span> y <span class="math inline">\(\nu_j\)</span> son precisamente los <em>multiplicadores de Lagrange</em> asociados a las restricciones.</p>
 <p>Ahora bien, dado que <span class="math inline">\(\Omega\)</span> es un poliedro (y, por lo tanto, un conjunto convexo), los Teoremas 1.4.2 y 1.4.4 pueden ser aplicados en este contexto. Obtenemos así el siguiente resultado.</p>
 <div class="teorema">
-<p><strong>Corolario 1.4.8.</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6), y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces existen <span class="math inline">\(\boldsymbol{\lambda}\in(\mathbb{R}_0^+)^r\)</span> y <span class="math inline">\(\boldsymbol{\nu}\in\mathbb{R}^m\)</span> tales que <span class="math inline">\(\lambda_i({\bf a}_i^\top{\bf x}^\star-b_i)=0\)</span> para todo <span class="math inline">\(i=1,\ldots,r\)</span> y <span class="math display">\[
+<p><strong>Corolario 1.4.8.</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6), y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces existen <span class="math inline">\(\boldsymbol{\lambda}^\star\in(\mathbb{R}_0^+)^r\)</span> y <span class="math inline">\(\boldsymbol{\nu}^\star\in\mathbb{R}^m\)</span> tales que <span class="math inline">\(\lambda_i^\star({\bf a}_i^\top{\bf x}^\star-b_i)=0\)</span> para todo <span class="math inline">\(i=1,\ldots,r\)</span> y <span class="math display">\[
 -\nabla f({\bf x}^\star)=\sum_{i=1}^r\lambda_i{\bf a}_i+\sum_{j=1}^m \nu_j{\bf c}_j.
 \tag{1.4.8}
 \]</span></p>
@@ -702,7 +700,7 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 \end{array}\right.
 \]</span></p>
 <p>cuya solución es <span class="math inline">\(\lambda_1=\tfrac{1}{2}\)</span> y <span class="math inline">\(\lambda_3=-\tfrac{3}{2}\)</span>. Por lo tanto, se verifica la condición de optimalidad: <span class="math display">\[
-\nabla f(\tfrac{1}{2},0)=\frac{1}{2}(2,1)+\frac{3}{2}(0,-1).
+-\nabla f(\tfrac{1}{2},0)=\frac{1}{2}(2,1)+\frac{3}{2}(0,-1).
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -710,7 +708,7 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>Las condiciones del Corolario 1.4.8, conocidas como <em>condiciones de Karush-Kuhn-Tucker</em> (KKT), permiten definir un criterio para obtener puntos críticos. Se formulan a partir de diferentes componentes:</p>
+<p>Las condiciones del Corolario 1.4.8, conocidas como <em>condiciones de Karush-Kuhn-Tucker</em> (KKT), se formulan a partir de diferentes componentes:</p>
 <ul>
 <li><p><strong>Factibilidad primal</strong>: El punto <span class="math inline">\({\bf x}\)</span> debe ser un punto factible.</p></li>
 <li><p><strong>Factibilidad dual</strong>: Los multiplicadores de Lagrange asociados a las restricciones de desigualdad deben ser no negativos. <span class="math display">\[
@@ -733,7 +731,10 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 \nabla f({\bf x})=\mathbf{0}.
 \]</span></p>
 </div>
-<p>Por supuesto, el resultado presentado en el Corolario 1.4.8 representa un criterio para obtener puntos críticos si <span class="math inline">\(\Omega\)</span> es un poliedro. En resumen:</p>
+<div style="margin-top:2em;">
+
+</div>
+<p>Por supuesto, el Corolario 1.4.8 representa un criterio para obtener puntos críticos si <span class="math inline">\(\Omega\)</span> es un poliedro. Más aún, si <span class="math inline">\(f\)</span> es convexa, dicho criterio caracteriza los puntos óptimos. En resumen, hasta aquí tenemos que:</p>
 <div class="myhighlight">
 <p>Si <span class="math inline">\(\Omega\)</span> es un poliedro, entonces las condiciones KKT son necesarias para que un punto sea óptimo. Si, además, <span class="math inline">\(f\)</span> es convexa, las condiciones KKT son también suficientes.</p>
 </div>
@@ -770,7 +771,7 @@ P{\bf x}^\star+{\bf q}+A^\top\boldsymbol{\nu}^\star &amp;=\mathbf{0}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Proponga casos para el Ejemplo 1.4.9, con <span class="math inline">\({\bf x}\in\mathbb{R}^2\)</span> y <span class="math inline">\(m=2\)</span>.</p>
+<p><span style="font-size: 1.3em;">✍️</span><br> Proponga casos para el Ejemplo 1.4.10, con <span class="math inline">\({\bf x}\in\mathbb{R}^2\)</span> y <span class="math inline">\(m=2\)</span>.</p>
 </div>
 </div>
 </div>
@@ -789,7 +790,10 @@ P=\begin{pmatrix}1&amp;0\\0&amp;4\end{pmatrix},\qquad {\bf q}=\begin{pmatrix}-2\
                   &amp; x_1\geq 0,\; x_2\geq 0.
 \end{array}
 \]</span></p>
-<p>Dado que <span class="math inline">\(P\succeq 0\)</span>, la función objetivo es convexa. Además, el conjunto factible <span class="math inline">\(\Omega\)</span> es un poliedro. Por lo tanto, por Corolario 1.4.8, las condiciones KKT son suficientes y necesarias para la optimalidad. Las definimos a continuación:</p>
+<p>Dado que <span class="math inline">\(P\succeq 0\)</span>, la función objetivo es convexa. Su expresión es <span class="math display">\[
+    f(x_1,x_2)=\frac{1}{2}x_1^2+2x_2^2-2x_1-2x_2.
+\]</span></p>
+<p>Además, el conjunto factible <span class="math inline">\(\Omega\)</span> es un poliedro. Por lo tanto, por Corolario 1.4.8, las condiciones KKT son suficientes y necesarias para la optimalidad. Las definimos a continuación:</p>
 <p><span class="math display">\[
 \begin{array}{cl}
 x_1^\star+x_2^\star-1.5\leq 0,\; x_1^\star\geq 0,\; x_2^\star\geq 0\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
@@ -809,10 +813,17 @@ x_1^\star -2 + \lambda_1^\star-\lambda_2^\star  \\
 <p>Si <span class="math inline">\(\lambda_1^\star=0\)</span>, se deduce <span class="math inline">\(\lambda_2^\star=x_1^\star-2\)</span> y <span class="math inline">\(\lambda_3^\star=4x_2^\star-2\)</span>. Luego, por holgura complementaria, resultan <span class="math inline">\((x_1^\star-2)x_1^\star=0\)</span> y <span class="math inline">\((4x_2^\star-2)x_2^\star=0\)</span>, con soluciones factibles <span class="math inline">\((0,0)\)</span> y <span class="math inline">\((0,0.5)\)</span>. Ambas deben ser descartadas, pues violan la factibilidad dual.</p>
 <p>En consecuencia, debe ser <span class="math inline">\(\lambda_1^\star\neq 0\)</span>. Esto significa que la restricción <span class="math inline">\(x_1+x_2\leq 1.5\)</span> está activa, tal que <span class="math display">\[
 x_1^\star+x_2^\star-1.5=0.
+\tag{1.4.10}
 \]</span></p>
-<p>Ahora, veamos que <span class="math inline">\(x_1^\star\neq 0\)</span> y <span class="math inline">\(x_2^\star\neq 0\)</span>. Si <span class="math inline">\(x_1^\star=0\)</span> (análogamente para <span class="math inline">\(x_2^\star\)</span>), de la primera ecuación en (1.4.9) se deduce <span class="math inline">\(\lambda_2^\star=\lambda_1^\star-2\)</span>, tal que <span class="math inline">\(\lambda_1^\star\geq 2\)</span>. La holgura complementaria resulta en <span class="math inline">\(x_2^\star=1.5\)</span>, lo cual nos lleva una contradicción entre la segunda ecuación de (1.4.9), que resulta en <span class="math inline">\(\lambda_3^\star=4\)</span>, y la holgura complementaria, que exige <span class="math inline">\(\lambda_3^\star=0\)</span>.</p>
-<p>En limpio, sabemos que debe ser <span class="math inline">\(\lambda_1^\star\neq 0\)</span>, <span class="math inline">\(x_1^\star\neq 0\)</span>, <span class="math inline">\(x_2^\star\neq 0\)</span>. Además, por holgura complementaria, <span class="math inline">\(\lambda_2^\star=0\)</span> y <span class="math inline">\(\lambda_3^\star=0\)</span>.</p>
-<p>Luego, las condiciones KKT se reducen al siguiente sistema, que resulta de agregar a (1.4.9) la restricción activa: <span class="math display">\[
+<p>Ahora, veamos que <span class="math inline">\(x_1^\star\neq 0\)</span> y <span class="math inline">\(x_2^\star\neq 0\)</span>. Si <span class="math inline">\(x_1^\star=0\)</span> (análogamente para <span class="math inline">\(x_2^\star\)</span>), de la primera ecuación en (<span class="math inline">\(\ref{eq:sist_ecua_ej_11}\)</span>) se deduce <span class="math inline">\(\lambda_2^\star=\lambda_1^\star-2\)</span>, tal que <span class="math inline">\(\lambda_1^\star\geq 2\)</span>. Además, (<span class="math inline">\(\ref{eq:holg_compl_ej_11}\)</span>) resulta en <span class="math inline">\(x_2^\star=1.5\)</span>. Así, de la segunda ecuación de (<span class="math inline">\(\ref{eq:sist_ecua_ej_11}\)</span>) se deduce <span class="math display">\[
+\lambda_3^\star=4+\lambda_1^\star\geq 6,
+\]</span></p>
+<p>lo cual contradice la holgura complementaria <span class="math inline">\(\lambda_3^\star x_2^\star=0\)</span> que en este caso exige sea <span class="math inline">\(\lambda_3^\star=0\)</span>.</p>
+<p>En limpio, sabemos que debe ser <span class="math inline">\(\lambda_1^\star\neq 0\)</span>, <span class="math inline">\(x_1^\star\neq 0\)</span>, <span class="math inline">\(x_2^\star\neq 0\)</span>. Esto implica que <span class="math inline">\(\lambda_2^\star=0\)</span>, <span class="math inline">\(\lambda_3^\star=0\)</span> y la única restricción activa es <span class="math inline">\(g_1\)</span>, tal que <span class="math display">\[
+g_1({\bf x}^\star)=x_1^\star+x_2^\star-1.5=0.
+\tag{1.4.11}
+\]</span></p>
+<p>Luego, las condiciones KKT se reducen al siguiente sistema, que resulta de (1.4.9) y (1.4.10): <span class="math display">\[
 \begin{pmatrix}
 1&amp;0&amp;1\\
 0&amp;4&amp;1\\
@@ -833,6 +844,10 @@ x_2^\star\\
 <p>La solución del sistema nos da el único punto óptimo del problema: <span class="math display">\[
 {\bf x}^\star=(1.2,0.3)\qquad\text{con}\;\lambda_1^\star=0.8.
 \]</span></p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Es importante remarcar que la unicidad de la solución es consistente con el hecho de que hemos resuelto un problema de optimización convexa cuya función objetivo es estrictamente convexa.</p>
 </div>
 <div style="margin-top:2em;">
 

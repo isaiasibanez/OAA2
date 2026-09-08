@@ -181,7 +181,7 @@ Inmediatamente tenemos el siguiente resultado, cuya demostración se obtiene dir
 
 
 ::: {.teorema}
-**Teorema .** (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo) 
+**Teorema 1.4.2** (Condición necesaria de optimalidad de primer orden para un conjunto factible convexo). 
 Sea $\Omega\subset\RR^p$ convexo y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces
 $$
 \langle \nabla f(\xx^\star), \yy - \xx^\star\rangle_2 \geq 0 \qquad \forall\yy\in\Omega.
@@ -288,7 +288,7 @@ Para el notable caso de las funciones convexas, la condición del Teorema 1.4.2 
 
 
 ::: {.teorema}
-**Teorema 1.4.4** (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función  objetivo convexa) 
+**Teorema 1.4.4** (Condición suficiente y necesaria de optimalidad de primer orden para un conjunto factible convexo y una función  objetivo convexa). 
 Sea $\Omega \subseteq\RR^p$ convexo y sea $f:\RR^p\to\RR$ una función diferenciable convexa. Entonces $\xx^\star$ es un minimizador de $f$ en $\Omega$ si y solo si se verifica
 $$
 -\nabla f(\xx^\star)\in N_{\Omega}(\xx^\star).
@@ -474,19 +474,6 @@ N_{\Omega}(\xx)=\left\{A^\top\bflambda+C^\top\bfnu \mid \bflambda^\top(A\xx-\bb)
 $$
 
 
-### <span style="font-size: 1.25em;">&#x2461;</span>
-
-La condición de optimalidad $-\nabla f(\xx)\in N_{\Omega}(\xx)$ se traduce como
-$$
--\nabla f(\xx)=\sum_{i\in I(\xx)}\lambda_i\bfa_i+\sum_{j=1}^m\nu_j\cc_j,\qquad\lambda_i\in\RR^+,\;\nu_j\in\RR.
-$$
-
-O, equivalentemente,
-$$
--\nabla f(\xx)=\sum_{i\in I(\xx)}\lambda_i \nabla g_i(\xx)+\sum_{j=1}^m\nu_j\nabla h_j(\xx),\qquad\lambda_i\in\RR^+,\;\nu_j\in\RR.
-$$
-donde $g_i(\xx)=\bfa_i^\top\xx-b_i$ y $h_j(\xx)=\cc_j^\top\xx-d_i$. ÑÑos coeficientes $\lambda_i$ y $\nu_j$ son precisamente los *multiplicadores de Lagrange* asociados a las funciones de restricción.
-
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
 En primer lugar, fijemos $\lambda_i\in\RR_0^+$, $\nu_j\in\RR$, y probemos que la dirección
@@ -547,13 +534,23 @@ Verifique que el resultado del Teorema 1.4.7 contempla los ejemplos de conos nor
 
 <div style="margin-top:2em;"></div>
 
+La condición de optimalidad $-\nabla f(\xx^\star)\in N_{\Omega}(\xx^\star)$ del Teorema 1.4.4 se traduce como
+$$
+-\nabla f(\xx^\star)=\sum_{i\in I(\xx)}\lambda_i^\star\bfa_i+\sum_{j=1}^m\nu_j^\star\cc_j,\qquad\lambda_i^\star\in\RR^+,\;\nu_j^\star\in\RR.
+$$
+
+O, equivalentemente,
+$$
+-\nabla f(\xx^\star)=\sum_{i\in I(\xx)}\lambda_i^\star \nabla g_i(\xx)+\sum_{j=1}^m\nu_j^\star\nabla h_j(\xx),\qquad\lambda_i^\star\in\RR^+,\;\nu_j^\star\in\RR.
+$$
+donde $g_i(\xx)=\bfa_i^\top\xx-b_i$ y $h_j(\xx)=\cc_j^\top\xx-d_i$ son las funciones de restricción que definen $\Omega$. Los coeficientes $\lambda_i$ y $\nu_j$ son precisamente los *multiplicadores de Lagrange* asociados a las restricciones.
 
 Ahora bien, dado que $\Omega$ es un poliedro (y, por lo tanto, un conjunto convexo), los Teoremas 1.4.2 y 1.4.4 pueden ser aplicados en este contexto. Obtenemos así el siguiente resultado.
 
 
 ::: {.teorema}
 **Corolario 1.4.8.** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) 
-Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda\in(\RR_0^+)^r$ y $\bfnu\in\RR^m$ tales que $\lambda_i(\bfa_i^\top\xx^\star-b_i)=0$ para todo $i=1,\ldots,r$ y
+Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda^\star\in(\RR_0^+)^r$ y $\bfnu^\star\in\RR^m$ tales que $\lambda_i^\star(\bfa_i^\top\xx^\star-b_i)=0$ para todo $i=1,\ldots,r$ y
 $$
 -\nabla f(\xx^\star)=\sum_{i=1}^r\lambda_i\bfa_i+\sum_{j=1}^m \nu_j\cc_j.
 \tag{1.4.8}
@@ -591,7 +588,7 @@ $$
 
 cuya solución es $\lambda_1=\tfrac{1}{2}$ y $\lambda_3=-\tfrac{3}{2}$. Por lo tanto, se verifica la condición de optimalidad:
 $$
-\nabla f(\tfrac{1}{2},0)=\frac{1}{2}(2,1)+\frac{3}{2}(0,-1).
+-\nabla f(\tfrac{1}{2},0)=\frac{1}{2}(2,1)+\frac{3}{2}(0,-1).
 $$
 
 :::
@@ -601,7 +598,7 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Las condiciones del Corolario 1.4.8, conocidas como *condiciones de Karush-Kuhn-Tucker* (KKT), permiten definir un criterio para obtener puntos críticos. Se formulan a partir de diferentes componentes:
+Las condiciones del Corolario 1.4.8, conocidas como *condiciones de Karush-Kuhn-Tucker* (KKT), se formulan a partir de diferentes componentes:
 
 - **Factibilidad primal**: El punto $\xx$ debe ser un punto factible.
 
@@ -634,8 +631,10 @@ $$
 
 </div>
 
+<div style="margin-top:2em;"></div>
 
-Por supuesto, el resultado presentado en el Corolario 1.4.8 representa un criterio para obtener puntos críticos si $\Omega$ es un poliedro. En resumen:
+
+Por supuesto, el Corolario 1.4.8 representa un criterio para obtener puntos críticos si $\Omega$ es un poliedro. Más aún, si $f$ es convexa, dicho criterio caracteriza los puntos óptimos. En resumen, hasta aquí tenemos que:
 
 :::{.myhighlight}
 
@@ -683,7 +682,7 @@ $$
 <div style="margin-top:-0.5em;"></div>
 ::: {.callout .question}
 <span style="font-size: 1.3em;">✍️</span><br>
-Proponga casos para el Ejemplo 1.4.9, con $\xx\in\RR^2$ y $m=2$.
+Proponga casos para el Ejemplo 1.4.10, con $\xx\in\RR^2$ y $m=2$.
 
 :::
 
@@ -710,7 +709,12 @@ $$
 \end{array}
 $$
 
-Dado que $P\succeq 0$, la función objetivo es convexa. Además, el conjunto factible $\Omega$ es un poliedro. Por lo tanto, por Corolario 1.4.8, las condiciones KKT son suficientes y necesarias para la optimalidad. Las definimos a continuación:
+Dado que $P\succeq 0$, la función objetivo es convexa. Su expresión es
+$$
+	f(x_1,x_2)=\frac{1}{2}x_1^2+2x_2^2-2x_1-2x_2.
+$$
+  
+Además, el conjunto factible $\Omega$ es un poliedro. Por lo tanto, por Corolario 1.4.8, las condiciones KKT son suficientes y necesarias para la optimalidad. Las definimos a continuación:
 
 $$
 \begin{array}{cl}
@@ -736,13 +740,23 @@ Si $\lambda_1^\star=0$, se deduce $\lambda_2^\star=x_1^\star-2$ y $\lambda_3^\st
 En consecuencia, debe ser $\lambda_1^\star\neq 0$. Esto significa que la restricción $x_1+x_2\leq 1.5$ está activa, tal que 
 $$
 x_1^\star+x_2^\star-1.5=0.
+\tag{1.4.10}
 $$
 
-Ahora, veamos que $x_1^\star\neq 0$ y $x_2^\star\neq 0$. Si $x_1^\star=0$ (análogamente para $x_2^\star$), de la primera ecuación en (1.4.9) se deduce $\lambda_2^\star=\lambda_1^\star-2$, tal que $\lambda_1^\star\geq 2$. La holgura complementaria resulta en $x_2^\star=1.5$, lo cual nos lleva una contradicción entre la segunda ecuación de (1.4.9), que resulta en $\lambda_3^\star=4$, y la holgura complementaria, que exige $\lambda_3^\star=0$.
+Ahora, veamos que $x_1^\star\neq 0$ y $x_2^\star\neq 0$. Si $x_1^\star=0$ (análogamente para $x_2^\star$), de la primera ecuación en (\ref{eq:sist_ecua_ej_11}) se deduce $\lambda_2^\star=\lambda_1^\star-2$, tal que $\lambda_1^\star\geq 2$. Además, (\ref{eq:holg_compl_ej_11}) resulta en $x_2^\star=1.5$. Así, de la segunda ecuación de (\ref{eq:sist_ecua_ej_11}) se deduce
+$$
+\lambda_3^\star=4+\lambda_1^\star\geq 6, 
+$$
 
-En limpio, sabemos que debe ser $\lambda_1^\star\neq 0$, $x_1^\star\neq 0$, $x_2^\star\neq 0$. Además, por holgura complementaria, $\lambda_2^\star=0$ y $\lambda_3^\star=0$.
+lo cual contradice la holgura complementaria $\lambda_3^\star x_2^\star=0$ que en este caso exige sea $\lambda_3^\star=0$.
 
-Luego, las condiciones KKT se reducen al siguiente sistema, que resulta de agregar a (1.4.9) la restricción activa:
+En limpio, sabemos que debe ser $\lambda_1^\star\neq 0$, $x_1^\star\neq 0$, $x_2^\star\neq 0$. Esto implica que $\lambda_2^\star=0$, $\lambda_3^\star=0$ y la única restricción activa es $g_1$, tal que
+$$
+g_1(\xx^\star)=x_1^\star+x_2^\star-1.5=0.
+\tag{1.4.11}
+$$
+
+Luego, las condiciones KKT se reducen al siguiente sistema, que resulta de (1.4.9) y (1.4.10):
 $$
 \begin{pmatrix}
 1&0&1\\
@@ -766,6 +780,10 @@ La solución del sistema nos da el único punto óptimo del problema:
 $$
 \xx^\star=(1.2,0.3)\qquad\text{con}\;\lambda_1^\star=0.8.
 $$
+
+<div style="margin-top:1em;"></div>
+
+Es importante remarcar que la unicidad de la solución es consistente con el hecho de que hemos resuelto un problema de optimización convexa cuya función objetivo es estrictamente convexa.
 
 :::
 
