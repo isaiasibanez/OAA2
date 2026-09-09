@@ -284,7 +284,7 @@ window.Quarto = {
 <p><a href="../material/apunte_c1s4.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c1s4.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 07/09/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 08/09/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -873,7 +873,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/cono_normal_generalization.svg" alt="" width="400px" class="figure-img">
+<img src="figuras/cono_normal_generalization.svg" alt="" width="350px" class="figure-img">
 <figcaption>
 <strong>Figura 1.4.3:</strong> Cono normal de la linearización de restricciones activas en un punto <span class="math inline">\({\bf x}_0\in\Omega\)</span>.
 </figcaption>
@@ -881,27 +881,26 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <div style="margin-top:2em;">
 
 </div>
-<p>Esta idea es más bien intuitiva, por lo cual no estamos en condiciones de extender el Teorema 1.4.7 ni el Corolario 1.4.8 de manera rigurosa. Sin embargo, lo que sí haremos es extender el concepto de las condiciones KKT, dejando para más adelante el análisis de su aplicabilidad. Para ello, utilizaremos los resultados de la sección anterior en <span class="math inline">\(\tilde{\Omega}\)</span>, la <em>linearización</em> de <span class="math inline">\(\Omega\)</span> en un punto dado.</p>
-<p>En un punto óptimo <span class="math inline">\({\bf x}^\star\)</span>, la linearización de las restricciones queda determinada por:</p>
-<p><span class="math display">\[
-\tilde{g}_i({\bf x}):=g_i({\bf x}^\star)+\nabla g_i({\bf x}^\star)^\top ({\bf x}-{\bf x}^\star)
-\qquad\mbox{y}\qquad
-\tilde{h}_i({\bf x}):=h_i({\bf x}^\star)+\nabla h_i({\bf x}^\star)^\top({\bf x}-{\bf x}^\star).
+<p>Esta idea es más bien intuitiva, por lo cual no estamos en condiciones de extender el Teorema 1.4.7 ni el Corolario 1.4.8 de manera rigurosa. Sin embargo, lo que sí haremos es extender el concepto de las condiciones KKT, dejando para más adelante el análisis de su aplicabilidad. Para ello, utilizaremos los resultados de la sección anterior en <span class="math inline">\(\tilde{\Omega}\)</span>, la <em>linearización</em> de <span class="math inline">\(\Omega\)</span> en un punto dado. Pero, ¿qué conjunto es <span class="math inline">\(\tilde{\Omega}\)</span>?</p>
+<p>Sea <span class="math inline">\({\bf x}^\star\in\Omega\)</span> un punto óptimo y sea <span class="math inline">\(I({\bf x}^\star)\)</span> el conjunto de índices de las restricciones activas. Para modelar el comportamiento local de <span class="math inline">\(\Omega\)</span> en <span class="math inline">\({\bf x}^\star\)</span>, consideramos las siguientes linearizaciones: <span class="math display">\[
+\tilde{g}_i({\bf x}):=g_i({\bf x}^\star)+\nabla g_i({\bf x}^\star)^\top({\bf x}-{\bf x}^\star)\qquad \forall i\in I({\bf x}^\star),
+\]</span> <span class="math display">\[
+\tilde{h}_i({\bf x}):=h_i({\bf x}^\star)+\nabla h_i({\bf x}^\star)^\top({\bf x}-{\bf x}^\star)\qquad\forall j=1,\ldots,m.
 \]</span></p>
-<p>Es decir, resulta <span class="math display">\[
-\tilde{\Omega}:=\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
-\tilde{g}_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
-\tilde{h}_j({\bf x})=0, &amp; j=1,\cdots,m
+<p>De este modo, la linearización de <span class="math inline">\(\Omega\)</span> queda definida como <span class="math display">\[
+\tilde{\Omega}=\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
+\; \tilde{g}_i({\bf x})\leq 0,&amp; i\in I({\bf x}^\star)\\
+\; \tilde{h}_j({\bf x})=0, &amp; j=1,\ldots,m
 \end{array}\right.\right\}.
 \]</span></p>
-<p>Claramente, <span class="math inline">\(\tilde{\Omega}\)</span> es un poliedro, y los vectores normales a los hiperplanos y a las fronteras de los semiespacios que lo definen están determinados por <span class="math inline">\(\nabla\tilde{g}_i({\bf x})\)</span> y <span class="math inline">\(\nabla\tilde{h}_j({\bf x})\)</span>. Más aún, se verifican <span class="math display">\[
+<p>Como puede observarse en la Figura 1.4.3, <span class="math inline">\(\tilde{\Omega}\)</span> es un poliedro que aproxima a <span class="math inline">\(\Omega\)</span> cerca de <span class="math inline">\({\bf x}^\star\)</span>. Los vectores normales a los hiperplanos y a las fronteras de los semiespacios que definen a <span class="math inline">\(\tilde{\Omega}\)</span> están determinados por <span class="math inline">\(\nabla\tilde{g}_i({\bf x})\)</span> y <span class="math inline">\(\nabla\tilde{h}_j({\bf x})\)</span>, los cuales verifican <span class="math display">\[
 \nabla \tilde{g}_i({\bf x})=\nabla g_i({\bf x}^\star)\qquad\text{y}\qquad\nabla \tilde{h}_i({\bf x})=\nabla h_i({\bf x}^\star).
 \]</span></p>
-<p>En consecuencia, la aplicación del Teorema 1.4.7 a <span class="math inline">\(\tilde{\Omega}\)</span> resulta en el siguiente cono normal:</p>
-<p><span class="math display">\[
+<p>La construcción de <span class="math inline">\(\tilde{\Omega}\)</span> nos permite aplicar el Teorema 1.4.7 para caracterizar el cono normal en <span class="math inline">\({\bf x}^\star\)</span> como sigue: <span class="math display">\[
 \left.N_{\tilde{\Omega}}({\bf x}^\star)=\left\{\sum_{i\in I({\bf x}^\star)}\lambda_i\nabla g_i({\bf x}^\star)+\sum_{j=1}^m\nu_j\nabla h_j({\bf x}^\star)\;\right|\; \lambda_i\in\mathbb{R}_0^+, \nu_j\in\mathbb{R}\right\},
 \]</span></p>
-<p>donde <span class="math inline">\(I({\bf x}^\star):=\left\{i\in\{1,\cdots,r\} \mid g_i({\bf x}^\star)=0\right\}\)</span> es el conjunto de restricciones activas. Por supuesto, el uso del conjunto índice <span class="math inline">\(I\)</span> puede evitarse utilizando holgura complementaria, tal como antes.</p>
+<p>Si bien los teoremas de optimalidad para <span class="math inline">\(\tilde{\Omega}\)</span> no pueden extenderse de forma directa a <span class="math inline">\(\Omega\)</span>, la forma en que fue construida esta linearización y la caracterización de su cono normal sugieren que es posible obtener condiciones de optimalidad para <span class="math inline">\(\Omega\)</span> a partir de las condiciones de optimalidad correspondientes a <span class="math inline">\(\tilde{\Omega}\)</span>. No obstante, para establecer rigurosamente esta relación necesitamos imponer hipótesis adicionales que garanticen un comportamiento adecuado de las restricciones en <span class="math inline">\({\bf x}^\star\)</span>.</p>
+<p>En principio, formalizaremos el concepto de las condiciones KKT y luego analizaremos bajo qué condiciones estas permiten caracterizar la optimalidad de <span class="math inline">\({\bf x}^\star\)</span>.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -934,20 +933,7 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 <div style="margin-top:2em;">
 
 </div>
-<div class="alert alert-light text-dark" role="important">
-<p><span class="badge bg-warning text-dark">Importante</span></p>
-<ul>
-<li><p>Las condiciones KKT indican que <span class="math inline">\(-\nabla f({\bf x})\)</span> debe estar en el cono normal a la linearización <span class="math inline">\(\tilde{\Omega}\)</span> del conjunto de restricciones <span class="math inline">\(\Omega\)</span>.</p></li>
-<li><p>La condición de holgura complementaria se resume en:</p></li>
-</ul>
-<div class="myhighlight">
-<p>Si la restricción <span class="math inline">\(g_i({\bf x})\leq 0\)</span> no está activa, entonces <span class="math inline">\(\lambda_i=0\)</span>.</p>
-</div>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Hasta ahora tenemos claro que, si el conjunto factible es un poliedro, las condiciones KKT se cumplen en los puntos óptimos. Sin embargo, esto no siempre es cierto en condiciones generales; es decir, existen situaciones en las que un punto óptimo no satisface las condiciones KKT. En otras palabras:</p>
+<p>Hasta ahora tenemos claro que, si el conjunto factible es un poliedro, las condiciones KKT se cumplen en los puntos óptimos. Sin embargo, esto no siempre es cierto en condiciones generales; hay situaciones en las que un punto óptimo no satisface las condiciones KKT. En otras palabras:</p>
 <div class="myhighlight">
 <p>Las condiciones KKT a menudo son necesarias para la optimalidad, pero no siempre.</p>
 </div>
@@ -1114,7 +1100,7 @@ Luego, <span class="math inline">\({\bf x}_0\)</span> es punto óptimo del probl
 </div>
 </div>
 </details>
-<div style="margin-top:1em;">
+<div style="margin-top:2em;">
 
 </div>
 <div class="callout-example">
@@ -1139,7 +1125,7 @@ x_1^\star+x_2^\star-1\leq 0,\; x_1^\star\geq 0,\; x_2^\star\geq 0\qquad&amp;\tex
 <p>El único punto que cumple todas estas condiciones es <span class="math inline">\({\bf x}^\star=\mathbf{0}\)</span>, con <span class="math inline">\(\boldsymbol{\lambda}^\star=\mathbf{0}\)</span>. Para justificar esto, veamos que suponer <span class="math inline">\(x_1^\star&gt; 0\)</span> (análogamente para <span class="math inline">\(x_2^\star&gt;0\)</span>) conduce a un absurdo:</p>
 <ul>
 <li>Por holgura complementaria, debe ser <span class="math inline">\(\lambda_2^\star=0\)</span>.</li>
-<li>La primera condición de estacionariedad implica <span class="math inline">\(\lambda_1^\star&lt;0\)</span>. Esto contradice la factiibilidad dual <span class="math inline">\(\lambda_1^\star\geq 0\)</span>.</li>
+<li>Por condición de estacionariedad, <span class="math inline">\(\lambda_1^\star&lt;0\)</span>, lo cual contradice la factibilidad dual.</li>
 </ul>
 </div>
 <div style="margin-top:2.5em;">
