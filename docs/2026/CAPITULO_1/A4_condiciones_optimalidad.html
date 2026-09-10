@@ -592,7 +592,7 @@ g({\bf x}_0)= 0.
 
 </div>
 <div class="teorema">
-<p><strong>Teorema 1.4.7</strong> (Cono normal en un punto de un poliedro). Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6). Para <span class="math inline">\({\bf x}\in\Omega\)</span>, sea <span class="math inline">\(I({\bf x})\)</span> el conjunto de índices de las restricciones activas; esto es <span class="math display">\[
+<p><strong>Teorema 1.4.7</strong> (Cono normal en un punto de un poliedro). Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6). Para <span class="math inline">\({\bf x}\in\Omega\)</span>, sea <span class="math inline">\(I({\bf x})\)</span> el conjunto de índices de las restricciones activas; esto es, <span class="math display">\[
 I({\bf x}):=\left\{i\in\{1,\cdots,r\} \mid {\bf a}_i^\top{\bf x}=b_i\right\}.
 \]</span> Entonces, el cono normal en <span class="math inline">\({\bf x}\)</span> está dado por</p>
 <p><span class="math display">\[
@@ -673,7 +673,7 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 \]</span></p>
 <p>O, equivalentemente, <span class="math display">\[
 -\nabla f({\bf x}^\star)=\sum_{i\in I({\bf x})}\lambda_i^\star \nabla g_i({\bf x})+\sum_{j=1}^m\nu_j^\star\nabla h_j({\bf x}),\qquad\lambda_i^\star\in\mathbb{R}^+,\;\nu_j^\star\in\mathbb{R}.
-\]</span> donde <span class="math inline">\(g_i({\bf x})={\bf a}_i^\top{\bf x}-b_i\)</span> y <span class="math inline">\(h_j({\bf x})={\bf c}_j^\top{\bf x}-d_i\)</span> son las funciones de restricción que definen <span class="math inline">\(\Omega\)</span>. Los coeficientes <span class="math inline">\(\lambda_i\)</span> y <span class="math inline">\(\nu_j\)</span> son precisamente los <em>multiplicadores de Lagrange</em> asociados a las restricciones.</p>
+\]</span> donde <span class="math inline">\(g_i({\bf x})={\bf a}_i^\top{\bf x}-b_i\)</span> y <span class="math inline">\(h_j({\bf x})={\bf c}_j^\top{\bf x}-d_i\)</span> son las funciones de restricción que definen <span class="math inline">\(\Omega\)</span>. Los coeficientes <span class="math inline">\(\lambda_i\)</span> y <span class="math inline">\(\nu_j\)</span> son <em>multiplicadores</em> asociados a las restricciones.</p>
 <p>Ahora bien, dado que <span class="math inline">\(\Omega\)</span> es un poliedro (y, por lo tanto, un conjunto convexo), los Teoremas 1.4.2 y 1.4.4 pueden ser aplicados en este contexto. Obtenemos así el siguiente resultado.</p>
 <div class="teorema">
 <p><strong>Corolario 1.4.8.</strong> (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) Sea <span class="math inline">\(\Omega\)</span> el poliedro definido por (1.4.6), y sea <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span> una función diferenciable. Si <span class="math inline">\({\bf x}^\star\in \Omega\)</span> es un minimizador de <span class="math inline">\(f\)</span> sobre <span class="math inline">\(\Omega\)</span>, entonces existen <span class="math inline">\(\boldsymbol{\lambda}^\star\in(\mathbb{R}_0^+)^r\)</span> y <span class="math inline">\(\boldsymbol{\nu}^\star\in\mathbb{R}^m\)</span> tales que <span class="math inline">\(\lambda_i^\star({\bf a}_i^\top{\bf x}^\star-b_i)=0\)</span> para todo <span class="math inline">\(i=1,\ldots,r\)</span> y <span class="math display">\[
@@ -711,10 +711,10 @@ Luego, debe ser <span class="math inline">\({\bf d}\in C\)</span>, lo cual concl
 <p>Las condiciones del Corolario 1.4.8, conocidas como <em>condiciones de Karush-Kuhn-Tucker</em> (KKT), se formulan a partir de diferentes componentes:</p>
 <ul>
 <li><p><strong>Factibilidad primal</strong>: El punto <span class="math inline">\({\bf x}\)</span> debe ser un punto factible.</p></li>
-<li><p><strong>Factibilidad dual</strong>: Los multiplicadores de Lagrange asociados a las restricciones de desigualdad deben ser no negativos. <span class="math display">\[
+<li><p><strong>Factibilidad dual</strong>: Los multiplicadores asociados a las restricciones de desigualdad deben ser no negativos. <span class="math display">\[
 \lambda_i\geq 0 \qquad \forall i=1,\cdots,r.
 \]</span></p></li>
-<li><p><strong>Holgura complementaria</strong>: Los multiplicadores de Lagrange asociados a las restricciones de desigualdad solo pueden ser positivos si la restricción está activa. <span class="math display">\[
+<li><p><strong>Holgura complementaria</strong>: Los multiplicadores asociados a las restricciones de desigualdad solo pueden ser positivos si la restricción está activa. <span class="math display">\[
 \lambda_i\left({\bf a}_i^\top{\bf x}-b_i\right)=0 \qquad \forall i=1,\cdots,r.
 \]</span></p></li>
 <li><p><strong>Estacionariedad</strong>: El opuesto del vector gradiente debe ser una combinación lineal de los gradientes de las restricciones. <span class="math display">\[
@@ -963,7 +963,7 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 \]</span> <span class="math display">\[
 \nabla g_1(x^\star,y^\star)=(0,1),\qquad\nabla g_3(x^\star,y^\star)=(0,-1).
 \]</span></p>
-<p>Claramente, no hay manera de encontrar multiplicadores de Lagrange <span class="math inline">\(\lambda_1\)</span> y <span class="math inline">\(\lambda_3\)</span> que verifiquen la condición de estacionariedad <span class="math display">\[
+<p>Claramente, no hay manera de encontrar multiplicadores <span class="math inline">\(\lambda_1\)</span> y <span class="math inline">\(\lambda_3\)</span> que verifiquen la condición de estacionariedad <span class="math display">\[
 \underbrace{-\nabla f(x^\star,y^\star)}_{(1,0)}=\lambda_1\underbrace{\nabla g_1(x^\star,y^\star)}_{(0,1)}+\lambda_3\underbrace{\nabla g_3(x^\star,y^\star)}_{(0,-1)}.
 \]</span></p>
 <p>En consecuencia, las condiciones KKT fallan en este caso.</p>
@@ -1007,9 +1007,12 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 
 </div>
 <ul>
-<li><strong>Condición de Slater</strong>: Si las restricciones de desigualdad <span class="math inline">\(\{g_i \mid i=1,\ldots,r\}\)</span> son funciones diferenciables convexas, las restricciones de igualdad <span class="math inline">\(\{h_j \mid j=1,\ldots, m\}\)</span> son funciones afines y, además, existe un punto <em>estrictamente factible</em>; esto es <span class="math display">\[
-\exists{\bf x}_0:g_i({\bf x}_0)&lt;0\;\land\; h_j({\bf x}_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
-\]</span> entonces las condiciones KKT se cumplen para <span class="math inline">\({\bf x}^\star\)</span>.</li>
+<li><p><strong>Condición de Slater</strong>: Si las restricciones de desigualdad <span class="math inline">\(\{g_i \mid i=1,\ldots,r\}\)</span> son funciones diferenciables convexas, las restricciones de igualdad <span class="math inline">\(\{h_j \mid j=1,\ldots, m\}\)</span> son funciones afines y, además, existe un punto <em>estrictamente factible</em>; esto es, <span class="math display">\[
+\exists{\bf x}_0\in\mathop{\mathrm{relint}}\mathcal{D}:g_i({\bf x}_0)&lt;0\;\land\; h_j({\bf x}_0)=0\qquad\forall i=1,\ldots,r,\;\forall j=1,\ldots,m,
+\]</span> entonces las condiciones KKT se cumplen para <span class="math inline">\({\bf x}^\star\)</span>.</p>
+<div class="alert alert-light text-dark" role="important">
+<p>La aparición de <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}\)</span> permite que el punto estrictamente factible no se encuentre en el borde relativo del dominio y, por tanto, que sea posible realizar pequeñas perturbaciones en cualquier dirección. Esto resulta particularmente importante cuando <span class="math inline">\(\mathcal{D}\)</span> está contenido en un subespacio afín de <span class="math inline">\(\mathbb{R}^p\)</span> y, por lo tanto, tiene interior vacío. Cuando <span class="math inline">\(\mathcal{D}\)</span> tiene interior no vacío, se tiene <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}=\mathop{\mathrm{int}}\mathcal{D}\)</span>.</p>
+</div></li>
 </ul>
 <div style="margin-top:2em;">
 
@@ -1037,14 +1040,13 @@ h_j({\bf x})=0\qquad\forall j=1,\ldots,m.
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>Si no hay restricciones de desigualdad y las restricciones de igualdad son afines, la cualificación de LICQ se satisface si y solo si el conjunto de vectores normales es linealmente independiente. Esta situación es habitual ya que, en caso de que los vectores normales sean linealmente dependientes, o bien alguna de las restricciones es redundante o bien el sistema de igualdades es incompatible.</p>
-<p>En consecuencia, en problemas de la forma <span class="math display">\[
+<p>Si no hay restricciones de desigualdad y las restricciones de igualdad son afines, la condición de Slater se reduce a la existencia de un punto factible en <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}\)</span>. En consecuencia, en problemas de la forma <span class="math display">\[
 \begin{array}{ll}
     \text{minimizar } &amp; f({\bf x})\\
     \text{sujeto a } &amp; A{\bf x}={\bf b},
 \end{array}
 \]</span></p>
-<p>la existencia de un punto factible es suficiente para garantizar que las condiciones KKT se satisfacen en todo punto óptimo.</p>
+<p>con <span class="math inline">\(\mathop{\mathrm{dom}}f=\mathbb{R}^p\)</span>, la existencia de un punto factible es suficiente para garantizar que las condiciones KKT se satisfacen en todo punto óptimo.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -1135,54 +1137,32 @@ x_1^\star+x_2^\star-1\leq 0,\; x_1^\star\geq 0,\; x_2^\star\geq 0\qquad&amp;\tex
 </section>
 <section id="iii-dualidad" class="level2">
 <h2 class="anchored" data-anchor-id="iii-dualidad">III <span style="color:#CCCCCC;">│</span> Dualidad</h2>
-<p>La teoría de la dualidad juega un papel fundamental en la optimización, permitiendo reformular problemas en términos de funciones duales que pueden proporcionar información valiosa sobre la solución óptima.</p>
+<p>La teoría de la dualidad es fundamental en optimización, pues permite reformular problemas mediante funciones duales que pueden proporcionar información valiosa sobre la solución óptima.</p>
 <section id="función-dual-de-lagrange" class="level3">
 <h3 class="anchored" data-anchor-id="función-dual-de-lagrange">Función dual de Lagrange</h3>
 <div class="definicion">
-<p><strong>Definición 1.4.16</strong> (Lagrangiano). Sea un problema de optimización de la forma <span class="math display">\[
-\begin{array}{ll}
-\text{minimizar } &amp; f({\bf x})\\
-\text{sujeto a } &amp; {\bf x}\in\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
-g_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
-h_j({\bf x})=0, &amp; j=1,\cdots,m
-\end{array}\right.\right\}.
-\end{array}
-\]</span></p>
-<p>Se denomina <em>Lagrangiano</em> a la función <span class="math inline">\(\mathcal{L}:\mathbb{R}^p\times\mathbb{R}^r\times\mathbb{R}^m\to\mathbb{R}\)</span> definida por <span class="math display">\[
+<p><strong>Definición 1.4.16</strong> (Lagrangiano). Sea un problema de optimización de la forma general (1.4.12). Se denomina <em>Lagrangiano</em> a la función <span class="math inline">\(\mathcal{L}:\mathbb{R}^p\times\mathbb{R}^r\times\mathbb{R}^m\to\mathbb{R}\)</span> definida por <span class="math display">\[
 \mathcal{L}({\bf x},\boldsymbol{\lambda},\boldsymbol{\nu}):=f({\bf x})+\sum_{i=1}^r\lambda_i g_i({\bf x})+\sum_{j=1}^m\nu_j h_j({\bf x}),
 \]</span></p>
-<p>con <span class="math inline">\(\mathop{\mathrm{dom}}\mathcal{L}:=\mathcal{D}\times\mathbb{R}^r\times\mathbb{R}^m\)</span>. Las componentes de los vectores <span class="math inline">\(\boldsymbol{\lambda}\)</span> y <span class="math inline">\(\boldsymbol{\nu}\)</span> se denominan <em>multiplicadores de Lagrange</em>.</p>
+<p>con <span class="math inline">\(\mathop{\mathrm{dom}}\mathcal{L}:=\mathcal{D}\times\mathbb{R}^r\times\mathbb{R}^m\)</span>. Las componentes de <span class="math inline">\(\boldsymbol{\lambda}\)</span> y <span class="math inline">\(\boldsymbol{\nu}\)</span> se denominan <em>multiplicadores de Lagrange</em>.</p>
 </div>
-<div style="margin-top:1em;">
+<div style="margin-top:1.5em;">
 
 </div>
-<p>Nos referiremos al problema de optimización general como <mark><em>problema primal</em></mark>. A partir del Lagrangiano, construimos a continuación una función que luego nos permitirá derivar una cota inferior para el valor óptimo <span class="math inline">\(p^\star\)</span> del problema primal.</p>
+<p>En adelante, nos referiremos al problema de optimización general como <em>problema primal</em>. A partir del Lagrangiano, construimos a continuación una función que luego nos permitirá derivar una cota inferior para el valor óptimo <span class="math inline">\(p^\star\)</span> del problema primal.</p>
 <div style="margin-top:1em;">
 
 </div>
 <div class="definicion">
-<p><strong>Definición 1.4.17</strong> (Función dual). Sea <span class="math inline">\(\mathcal{L}\)</span> el Lagrangiano de la Definición 1.4.16. Se denomina <em>función dual de Lagrange</em> a <span class="math inline">\(\mathcal{G}:\mathbb{R}^r\times\mathbb{R}^m\to\mathbb{R}\)</span> definida por <span class="math display">\[
+<p><strong>Definición 1.4.17</strong> (Función dual de Lagrange). Sea <span class="math inline">\(\mathcal{L}\)</span> el Lagrangiano de la Definición 1.4.16. Se denomina <em>función dual de Lagrange</em> a <span class="math inline">\(\mathcal{G}:\mathbb{R}^r\times\mathbb{R}^m\to\mathbb{R}\)</span> definida por <span class="math display">\[
 \mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu}):=\inf_{{\bf x}}\mathcal{L}({\bf x},\boldsymbol{\lambda},\boldsymbol{\nu}).
 \]</span></p>
 <p>Cuando el Lagrangiano no está acotado inferiormente en <span class="math inline">\({\bf x}\)</span>, se asume el valor <span class="math inline">\(-\infty\)</span>.</p>
 </div>
-<p>Observar que, para un <span class="math inline">\({\bf x}\)</span> fijo, el Lagrangiano es una función afín de <span class="math inline">\((\boldsymbol{\lambda},\boldsymbol{\nu})\)</span>. Es decir, puede ser escrito de la forma <span class="math display">\[
-\mathcal{L}({\bf x},\boldsymbol{\lambda},\boldsymbol{\nu})=A\begin{pmatrix}\boldsymbol{\lambda}\\\boldsymbol{\nu}\end{pmatrix}+{\bf b}
-\]</span></p>
-<div style="margin-top:-0.5em;">
+<div style="margin-top:1em;">
 
 </div>
-<div class="question callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> ¿Quiénes son <span class="math inline">\(A\)</span> y <span class="math inline">\({\bf b}\)</span> en la expresión anterior?</p>
-</div>
-</div>
-</div>
-<p>Por lo tanto, la función dual <span class="math inline">\(\mathcal{G}\)</span> es el ínfimo puntual de una familia de funciones afines de <span class="math inline">\((\boldsymbol{\lambda},\boldsymbol{\nu})\)</span>. Esto significa que <span class="math inline">\(\mathcal{G}\)</span> es siempre una función cóncava (ver operaciones que preservan convexidad en <a href="A2_optimizacion_convexa.html#operaciones-que-preservan-convexidad-1">C1-S2</a>), lo cual será fundamental más adelante.</p>
+<p>Observar que, para un <span class="math inline">\({\bf x}\)</span> fijo, el Lagrangiano es una función afín de <span class="math inline">\((\boldsymbol{\lambda},\boldsymbol{\nu})\)</span>. Por lo tanto, la función dual <span class="math inline">\(\mathcal{G}\)</span> es el ínfimo puntual de una familia de funciones afines. Como consecuencia, de acuerdo con las operaciones que preservan convexidad vistas en [C1-S2], podemos afirmar que <span class="math inline">\(\mathcal{G}\)</span> <em>es siempre una función cóncava</em>, lo cual será fundamental más adelante.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1191,6 +1171,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <p>La función dual <span class="math inline">\(\mathcal{G}\)</span> es una cota inferior del valor óptimo <span class="math inline">\(p^\star\)</span> del problema primal, en el siguiente sentido: para todo <span class="math inline">\(\boldsymbol{\lambda}\succeq \mathbf{0}\)</span> y para todo <span class="math inline">\(\boldsymbol{\nu}\)</span>, resulta <span class="math display">\[
 \mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu})\leq p^\star.
 \]</span></p>
+</div>
 <div style="margin-top:-0.5em;">
 
 </div>
@@ -1200,8 +1181,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Verifique la propiedad anterior.</p>
-</div>
+<p><span style="font-size: 1.3em;">✍️</span><br> Justifique la propiedad anterior.</p>
 </div>
 </div>
 </div>
@@ -1209,8 +1189,8 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.4.18</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Solución por mínimos cuadrados de un sistema de ecuaciones lineales </span></p>
-<p>Sean <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span> y consideremos el problema</p>
+<p><span class="badge bg-primary">Ejemplo 1.4.18</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Solución de mínima norma de un sistema de ecuaciones lineales (parte 1) </span></p>
+<p>Sean <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>. Consideremos el problema</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf x}^\top{\bf x}\\
@@ -1221,10 +1201,7 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 \mathcal{L}({\bf x},\boldsymbol{\nu})={\bf x}^\top{\bf x}+\boldsymbol{\nu}^\top (A{\bf x}-{\bf b}).
 \]</span></p>
 <p>Dado que <span class="math inline">\(\mathcal{L}\)</span> es una función convexa, podemos minimizar respecto de <span class="math inline">\({\bf x}\)</span> usando la condición de optimalidad <span class="math inline">\(\nabla_{{\bf x}}\mathcal{L}({\bf x},\boldsymbol{\nu})=\mathbf{0}\)</span>. Resulta <span class="math display">\[
-\begin{align*}
-\nabla_{{\bf x}}L({\bf x},\boldsymbol{\nu})=2{\bf x}+A^\top\boldsymbol{\nu}&amp;=\mathbf{0}\\
-{\bf x}&amp;=-\frac{1}{2}A^\top\boldsymbol{\nu}.
-\end{align*}
+\nabla_{{\bf x}}L({\bf x},\boldsymbol{\nu})=2{\bf x}+A^\top\boldsymbol{\nu}=\mathbf{0}\quad\rightarrow\quad {\bf x}=-\frac{1}{2}A^\top\boldsymbol{\nu}.
 \]</span></p>
 <p>La función dual es <span class="math display">\[
 \begin{align*}
@@ -1237,8 +1214,75 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 -\frac{1}{4}\boldsymbol{\nu}^\top A A^\top \boldsymbol{\nu}-\boldsymbol{\nu}^\top{\bf b}\leq p^{\star}\qquad\forall\boldsymbol{\nu}\in\mathbb{R}^m.
 \]</span></p>
 </div>
-<div style="margin-top:-0.5em;">
+<div style="margin-top:2em;">
 
+</div>
+</section>
+<section id="el-problema-dual-de-lagrange" class="level3">
+<h3 class="anchored" data-anchor-id="el-problema-dual-de-lagrange">El problema dual de Lagrange</h3>
+<p>Una pregunta de interés es:</p>
+<div class="myhighlight3">
+<p>¿Cuál es el valor máximo <span class="math inline">\(d^\star\)</span> de <span class="math inline">\(\mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu})\)</span> si asumimos <span class="math inline">\(\boldsymbol{\lambda}\succeq \mathbf{0}\)</span>?</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Dado que <span class="math inline">\(\mathcal{G}\)</span> es una función cóncava, maximizarla para <span class="math inline">\(\boldsymbol{\lambda}\succeq\mathbf{0}\)</span> conduce a un problema de optimización convexo, independientemente de si el problema primal lo es o no.</p>
+<div class="definicion">
+<p><strong>Definición 1.4.19</strong> (Problema dual de Lagrange). Sea <span class="math inline">\(\mathcal{G}\)</span> la función dual de Lagrange asociado al problema primal. El <em>problema dual de Lagrange</em> es <span class="math display">\[
+\begin{array}{ll}
+\text{maximizar } &amp; \mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu})\\
+\text{sujeto a }  &amp; \boldsymbol{\lambda}\succeq \mathbf{0}.
+\end{array}
+\]</span></p>
+<p>El valor óptimo del problema dual se denota con <span class="math inline">\(d^\star\)</span>. Además, se dice que <span class="math inline">\((\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> son los <em>multiplicadores de Lagrange óptimos</em> si verifican <span class="math inline">\(\mathcal{G}(\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=d^\star\)</span>.</p>
+</div>
+<p>Dado que <span class="math inline">\(\mathcal{G}\)</span> es una función cóncava, podemos afirmar que:</p>
+<div class="myhighlight">
+<p>El problema dual es siempre un problema de optimización convexo.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="alert">
+<p><span class="badge bg-success text-light">Dualidad débil</span></p>
+<p>El valor óptimo <span class="math inline">\(d^\star\)</span> del problema dual es la mejor cota inferior de <span class="math inline">\(p^\star\)</span> que podemos obtener mediante la función dual de Lagrange. La desigualdad <span class="math display">\[
+d^\star\leq p^\star
+\tag{1.4.14}
+\]</span> se conoce como <em>dualidad débil</em>, y es cierta incluso si el problema primal no es convexo. También podemos afirmar que:</p>
+<ul>
+<li>Si el problema primal no tiene cota inferior (<span class="math inline">\(p^\star=-\infty\)</span>), entonces el problema dual es es infactible (<span class="math inline">\(d^\star=-\infty\)</span>).</li>
+<li>Si el problema dual no tiene cota superior (<span class="math inline">\(d^\star=\infty\)</span>), entonces el problema primal es infactible (<span class="math inline">\(p^\star=\infty\)</span>).</li>
+</ul>
+<p>Nos referiremos a la diferencia <span class="math inline">\(p^\star-d^\star\)</span> como <em>brecha de dualidad óptima</em> del problema primal. Es importante remarcar que la ventaja de trabajar con la dualidad débil radica en que, en ocasiones, permite obtener eficientemente cotas inferiores del valor óptimo primal.</p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<div class="alert alert-light text-dark" role="alert">
+<p><span class="badge bg-success text-light">Dualidad fuerte</span></p>
+<p>La <em>dualidad fuerte</em> se cumple si ocurre <span class="math display">\[
+d^\star=p^\star.
+\tag{1.4.15}
+\]</span></p>
+<p>Hay dos hechos importantes a tener en cuenta:</p>
+<ul>
+<li>La dualidad fuerte, en general, no se cumple.</li>
+<li>Si el problema primal es convexo, la dualidad fuerte usualmente se cumple.</li>
+</ul>
+</div>
+<p>La cualificación de restricciones más común para asegurar la dualidad fuerte es la <em>condición de Slater</em> definida anteriormente. Formalizaremos esto en el siguiente teorema.</p>
+<div class="teorema">
+<p><strong>Teorema 1.4.20</strong> (Teorema de Slater). Sea un problema de optimización convexa de la forma <span class="math display">\[
+\begin{array}{ll}
+    \text{minimizar } &amp; f({\bf x})\\
+    \text{sujeto a }  &amp; g_i({\bf x})\leq 0,\qquad i=1,\cdots,r,\\
+    &amp; A{\bf x}={\bf b},
+\end{array}
+\]</span></p>
+<p>con <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>. Si se satisface la <em>condición de Slater</em> de que existe un punto <em>estrictamente factible</em>; esto es, <span class="math display">\[
+\exists{\bf x}_0\in\mathop{\mathrm{relint}}\mathcal{D}:g_i({\bf x}_0)&lt;0\;\forall i=1,\ldots,r\;\land\; A{\bf x}_0={\bf b},
+\]</span> entonces se cumple la dualidad fuerte.</p>
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -1246,88 +1290,21 @@ h_j({\bf x})=0, &amp; j=1,\cdots,m
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Proponga casos para el Ejemplo 1.4.18, con <span class="math inline">\({\bf x}\in\mathbb{R}^2\)</span> y <span class="math inline">\(m=2\)</span>. En cada uno, de ser posible, obtenga y compare el valor máximo de la función dual con la solución del problema primal.</p>
-</div>
-</div>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-</section>
-<section id="el-problema-dual-de-lagrange" class="level3">
-<h3 class="anchored" data-anchor-id="el-problema-dual-de-lagrange">El problema dual de Lagrange</h3>
-<p>Inmediatamente nos podemos preguntar:</p>
-<div class="myhighlight3">
-<p>¿Cuál es el valor máximo <span class="math inline">\(d^\star\)</span> de <span class="math inline">\(\mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu})\)</span> si asumimos <span class="math inline">\(\boldsymbol{\lambda}\succeq \mathbf{0}\)</span>?</p>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Esta pregunta cobra interés de las propiedades de la función dual <span class="math inline">\(\mathcal{G}\)</span>: es una función cóncava y constituye una cota inferior de <span class="math inline">\(p^\star\)</span> para <span class="math inline">\(\lambda\succeq \mathbf{0}\)</span>. Por lo tanto, maximizarla conduce a un problema de optimización convexo, independientemente de si el problema primal lo es o no. Además, se verifica <span class="math display">\[
-d^\star\leq p^\star.
-\]</span></p>
-<p>El problema de optimización convexo mencionado lo definimos formalmente a continuación.</p>
-<div class="definicion">
-<p><strong>Definición 1.4.19</strong> (Problema dual). Sea <span class="math inline">\(\mathcal{G}\)</span> la función dual de Lagrange asociado al problema primal. El <em>problema dual de Lagrange</em> es <span class="math display">\[
+<p><span style="font-size: 1.3em;">✍️</span><br> Utilice el siguiente ejemplo para mostrar que Slater no es una condición necesaria para la dualidad fuerte.</p>
+<p><span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \mathcal{G}(\boldsymbol{\lambda},\boldsymbol{\nu})\\
-\text{sujeto a }  &amp; \boldsymbol{\lambda}\succeq \mathbf{0}.
+    \text{minimizar } &amp; x^2 \\
+    \text{sujeto a } &amp; x^2\leq 0.
 \end{array}
 \]</span></p>
-<p>El valor óptimo del problema dual se denota con <span class="math inline">\(d^\star\)</span>. Además, se dice que <span class="math inline">\((\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> son los <em>multiplicadores de Lagrange óptimos</em> si verifican <span class="math display">\[
-\mathcal{G}(\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=d^\star.
-\]</span></p>
 </div>
-<p>Resaltamos:</p>
-<div class="myhighlight">
-<p>El problema dual es siempre un problema de optimización convexo.</p>
 </div>
-<div style="margin-top:2em;">
+</div>
+<div style="margin-top:1.5em;">
 
 </div>
-<section id="dualidad-débil" class="level4">
-<h4 class="anchored" data-anchor-id="dualidad-débil">Dualidad débil</h4>
-<p>El valor óptimo del problema dual, <span class="math inline">\(d^\star\)</span>, es, por definición, la mejor cota inferior de <span class="math inline">\(p^\star\)</span> que podemos obtener mediante la función dual de Lagrange. La desigualdad <span class="math display">\[
-d^\star\leq p^\star
-\tag{1.4.11}
-\]</span> se conoce como <mark><em>dualidad débil</em></mark>, y es cierta incluso si el problema primal no es convexo. La dualidad débil es cierta incluso para valores infinitos:</p>
-<ul>
-<li>Si el problema primal no tiene cota inferior (<span class="math inline">\(p^\star=-\infty\)</span>), entonces el problema dual es es infactible (<span class="math inline">\(d^\star=-\infty\)</span>).</li>
-<li>Si el problema dual no tiene cota superior (<span class="math inline">\(d^\star=\infty\)</span>), entonces el problema primal es infactible (<span class="math inline">\(p^\star=\infty\)</span>).</li>
-</ul>
-<p>Nos referiremos a la diferencia <span class="math inline">\(p^\star-d^\star\)</span> como <mark><em>brecha de dualidad óptima</em></mark> del problema primal. Es importante remarcar que la ventaja de trabajar con la dualidad débil (1.4.11) radica en que aún cuando el problema primal es difícil de resolver, el problema dual, al ser siempre convexo, la mayoría de las veces puede ser resuelto eficientemente.</p>
-</section>
-<section id="dualidad-fuerte" class="level4">
-<h4 class="anchored" data-anchor-id="dualidad-fuerte">Dualidad fuerte</h4>
-<p>La <mark><em>dualidad fuerte</em></mark> se cumple si ocurre <span class="math display">\[
-d^\star=p^\star.
-\tag{1.4.12}
-\]</span></p>
-<p>Hay dos hechos importantes a tener en cuenta:</p>
-<ul>
-<li>La dualidad fuerte, en general, no se cumple.</li>
-<li>Si el problema primal es convexo, la dualidad fuerte usualmente se cumple.</li>
-</ul>
-<p>La cualificación de restricciones más común para asegurar la dualidad fuerte es la <em>condición de Slater</em> definida anteriormente. Formalizaremos esto en el siguiente teorema.</p>
-<div class="teorema">
-<p><strong>Teorema 1.4.20</strong> (Teorema de Slater). Sea un problema de optimización convexa de la forma <span class="math display">\[
-\begin{array}{ll}
-\text{minimizar } &amp; f({\bf x})\\
-\text{sujeto a } &amp; {\bf x}\in\left\{{\bf x}\in\mathbb{R}^p\left|\;\begin{array}{ll}
-g_i({\bf x})\leq 0,&amp; i=1,\cdots,r\\
-A{\bf x}={\bf b}
-\end{array}\right.\right\},
-\end{array}
-\]</span> con <span class="math inline">\(A\in\mathbb{R}^{m\times p}\)</span> y <span class="math inline">\({\bf b}\in\mathbb{R}^m\)</span>. Si se satisface la <em>condición de Slater</em> de que existe un punto <em>estrictamente factible</em>; esto es <span class="math display">\[
-\exists{\bf x}_0\in\mathop{\mathrm{relint}}\mathcal{D}:g_i({\bf x}_0)&lt;0\;\forall i=1,\ldots,r\;\land\; A{\bf x}_0={\bf b},
-\]</span> entonces se cumple la dualidad fuerte.</p>
-</div>
-<p>Recordemos, del <a href="A2_optimizacion_convexa.html">C1-S2</a>, que <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}\)</span> es el interior relativo de <span class="math inline">\(\mathcal{D}\)</span> definido por <span class="math display">\[
-\mathop{\mathrm{relint}}\mathcal{D}:=\left\{{\bf x}\in \mathcal{D}\,\left|\exists r&gt;0: B({\bf x},r)\cap \mathop{\mathrm{aff}}\mathcal{D}\subset \mathcal{D}\right.\right\},
-\]</span></p>
-<p>La aparición de <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}\)</span> sirve para sortear posibles casos degenerados, en los que <span class="math inline">\(\mathcal{D}\)</span> esté contenido en un subespacio afín de <span class="math inline">\(\mathbb{R}^p\)</span> y, por lo tanto, tenga interior vacío. Sin embargo, lo común es que <span class="math inline">\(\mathop{\mathrm{relint}}\mathcal{D}=\mathop{\mathrm{int}}\mathcal{D}\)</span>, tal como sucede para problemas donde <span class="math inline">\(\mathop{\mathrm{dom}}f=\mathbb{R}^p\)</span> y <span class="math inline">\(\mathop{\mathrm{dom}}g_i=\mathbb{R}^p\)</span> . Además, si solo hay restricciones de igualdad, la condición de Slater se reduce simplemente a verificar que <span class="math inline">\(\Omega\)</span> sea no vacío.</p>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 1.4.21</span></p>
+<p><span class="badge bg-primary">Ejemplo 1.4.21</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Solución de mínima norma de un sistema de ecuaciones lineales (parte 2) </span></p>
 <p>Consideremos el problema del Ejemplo 1.4.18, con <span class="math inline">\(m=1\)</span>: <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; {\bf x}^\top{\bf x}\\
@@ -1342,30 +1319,17 @@ A{\bf x}={\bf b}
 \text{sujeto a }  &amp; \nu&gt;0.
 \end{array}
 \]</span></p>
-<p>Este es un problema fácil de resolver, porque <span class="math inline">\(\mathcal{G}(\nu)\)</span> es una función de una variable; más precisamente, una función cuadrática, por lo cual la solución está dado por su vértice. Resulta <span class="math display">\[
-\nu^\star=\frac{2b}{\|{\bf a}\|_2^2},\qquad d^\star=\mathcal{G}(\nu^\star)=-\frac{3b^2}{\|{\bf a}\|_2^2}.
+<p>Este es un problema fácil de resolver, porque <span class="math inline">\(\mathcal{G}(\nu)\)</span> es una función cuadrática de una variable, de manera que la solución está dada por su vértice. Resulta <span class="math display">\[
+\nu^\star=-\frac{2b}{\|{\bf a}\|_2^2}\qquad\text{tal que}\qquad d^\star=\mathcal{G}(\nu^\star)=\frac{b^2}{\|{\bf a}\|_2^2}.
 \]</span></p>
-<p>Dado que se cumplen las condiciones del Teorema 1.4.20 (problema de optimización convexa + condición de Slater), podemos concluir que hay dualidad fuerte. Luego, el valor óptimo del problema primal es <span class="math display">\[
-p^\star=-\frac{3b^2}{\|{\bf a}\|_2^2}.
+<p>Dado que se cumplen las condiciones del Teorema 1.4.20 (problema de optimización convexa + condición de Slater), podemos concluir que hay dualidad fuerte. Luego, <span class="math display">\[
+p^\star=\frac{b^2}{\|{\bf a}\|_2^2}.
 \]</span></p>
-</div>
-<div style="margin-top:-0.5em;">
-
-</div>
-<div class="question callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Proponga casos para el Ejemplo 1.4.20, con <span class="math inline">\({\bf x}\in\mathbb{R}^2\)</span>, y deduzca geométricamente el punto óptimo <span class="math inline">\({\bf x}^\star\)</span>.</p>
-</div>
-</div>
+<p>Observar que esto muestra que la distancia del hiperplano <span class="math inline">\({\bf a}^\top{\bf x}=b\)</span> al origen es <span class="math inline">\(b/\|{\bf a}\|_2\)</span>, tal como lo mencionamos en <a href="A2_optimizacion_convexa.html">C1-S2</a>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-</section>
 </section>
 <section id="relación-entre-dualidad-y-kkt" class="level3">
 <h3 class="anchored" data-anchor-id="relación-entre-dualidad-y-kkt">Relación entre dualidad y KKT</h3>
@@ -1379,63 +1343,54 @@ p^\star=-\frac{3b^2}{\|{\bf a}\|_2^2}.
 <p>Para ello, vamos a suponer que los puntos óptimos existen, tanto para el problema primal (<span class="math inline">\({\bf x}^\star\)</span>) como para el problema dual (<span class="math inline">\(\boldsymbol{\lambda}^\star\)</span> y <span class="math inline">\(\boldsymbol{\nu}^\star\)</span>). Además, es importante recordar que en el problema dual se impone la restricción <span class="math inline">\(\boldsymbol{\lambda}\succeq\mathbf{0}\)</span>.</p>
 <p>La dualidad fuerte significa que <span class="math display">\[
 \underbrace{f({\bf x}^\star)}_{p^\star}=\underbrace{\mathcal{G}(\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)}_{d^\star}=\inf_{{\bf x}}\mathcal{L}({\bf x},\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star).
-\tag{1.4.13}
+\tag{1.4.16}
 \]</span></p>
-<p>Hay que tener cuidado al interpretar la expresión (1.4.13): si bien garantiza que <span class="math inline">\(f({\bf x}^\star)\)</span> es el valor ínfimo del Lagrangiano, no nos dice nada acerca de cuál es el valor de <span class="math inline">\({\bf x}\)</span> donde dicho ínfimo se alcanza. No obstante, la naturaleza de los multiplicadores de Lagrange y las restricciones funcionales nos permiten deducir, a partir de (1.4.13), lo siguiente: <span class="math display">\[
-\begin{align*}
-f({\bf x}^\star)&amp;\leq \mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\\
-&amp;=f({\bf x}^\star)+\underbrace{\sum_{i=1}^r\lambda_ig_i({\bf x}^\star)}_{\leq\, 0}+\underbrace{\sum_{j=1}^m\nu_j h_j({\bf x}^\star)}_{=\,0}\\
-&amp;\leq f({\bf x}^\star)
-\end{align*}
+<p>Hay que tener cuidado al interpretar la expresión (1.4.16): si bien garantiza que <span class="math inline">\(f({\bf x}^\star)\)</span> es el valor ínfimo del Lagrangiano, no nos dice nada acerca de cuál es el valor de <span class="math inline">\({\bf x}\)</span> donde dicho ínfimo se alcanza, y en principio solo podemos escribir <span class="math display">\[
+f({\bf x}^\star)\leq\mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)
+\]</span></p>
+<p>No obstante, la naturaleza de los multiplicadores de Lagrange y las restricciones funcionales nos permiten agregar <span class="math display">\[
+f({\bf x}^\star)\leq \mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\\
+=f({\bf x}^\star)+\underbrace{\sum_{i=1}^r\lambda_ig_i({\bf x}^\star)}_{\leq\, 0}+\underbrace{\sum_{j=1}^m\nu_j h_j({\bf x}^\star)}_{=\,0}\\
+\leq f({\bf x}^\star).
 \]</span></p>
 <p>Luego, por antisimetría, debe ser <span class="math display">\[
-f({\bf x}^\star)=\underbrace{f({\bf x}^\star)+\sum_{i=1}^r\lambda_ig_i({\bf x}^\star)}_{\mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)}.
-\tag{1.4.14}
+f({\bf x}^\star)=\mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=f({\bf x}^\star)+\sum_{i=1}^r\lambda_ig_i({\bf x}^\star).
+\tag{1.4.17}
 \]</span></p>
-<p>A partir de (1.4.13) y (1.4.14) podemos concluir que, bajo dualidad fuerte, la terna <span class="math inline">\(({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> verifica dos condiciones KKT de la Definición 1.4.12: holgura complementaria y estacionariedad.</p>
-<div style="margin-top:2em;">
-
-</div>
-<hr>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Holgura complementaria</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Estacionariedad</a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<p>Para que la igualdad en (1.4.14) sea cierta, debe ser <span class="math display">\[
+<p>En consecuencia, a partir de (1.4.16) y (1.4.17) podemos concluir que, bajo dualidad fuerte, la terna <span class="math inline">\(({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> verifica dos condiciones KKT de la Definición 1.4.12: holgura complementaria y estacionariedad. En efecto:</p>
+<ul>
+<li><p><em>Holgura complementaria</em>: para que la igualdad en (1.4.17) sea cierta, debe ser <span class="math display">\[
 \sum_{i=1}^r\lambda_ig_i({\bf x}^\star)=0.
 \]</span></p>
 <p>Pero los términos son no positivos, por lo cual esto es equivalente a pedir <span class="math display">\[
 \lambda_i g_i({\bf x}^\star)=0\qquad\forall i = 1,\ldots, r.
-\]</span></p>
+\]</span></p></li>
+</ul>
+<div style="margin-top:1.5em;">
+
 </div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<p>El ínfimo de <span class="math inline">\(\mathcal{L}({\bf x},\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> sí ocurre en <span class="math inline">\({\bf x}^\star\)</span>: <span class="math display">\[
+<ul>
+<li><p><em>Estacionariedad</em>: el ínfimo de <span class="math inline">\(\mathcal{L}({\bf x},\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> sí ocurre en <span class="math inline">\({\bf x}^\star\)</span>: <span class="math display">\[
 \mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=\inf_{{\bf x}}\mathcal{L}({\bf x},\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star).
 \]</span></p>
-<p>Esto es:</p>
-<div class="myhighlight">
-<p>Bajo dualidad fuerte, <span class="math inline">\({\bf x}^\star\)</span> es un minimizador de <span class="math inline">\(\mathcal{L}({\bf x},\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span>.</p>
-</div>
-<div style="margin-top:2em;">
+<div style="margin-top:1em;">
 
 </div>
 <p>La suposición de que la función objetivo y las funciones de restricción son diferenciables garantiza que el Lagrangiano también lo es. Además, si las funciones involucradas están definidas en conjuntos abiertos, podemos asegurar que <span class="math inline">\(\mathop{\mathrm{dom}}\mathcal{L}:=\mathcal{D}\times\mathbb{R}^r\times\mathbb{R}^m\)</span> es un conjunto abierto de <span class="math inline">\(\mathbb{R}^{p+r+m}\)</span>. Así, <span class="math inline">\({\bf x}^\star\)</span> es un punto interior de <span class="math inline">\(\mathop{\mathrm{dom}}\mathcal{L}\)</span> y, por lo tanto, la condición de optimalidad de primer orden asegura que <span class="math display">\[
 \nabla \mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=\mathbf{0}.
 \]</span></p>
-<p>Reemplazando <span class="math display">\[
+<p>Reemplazando por <span class="math display">\[
 \nabla \mathcal{L}({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)=\nabla f({\bf x}^\star)+\sum_{i=1}^r\lambda_i^\star\nabla g_i({\bf x}^\star)+\sum_{j=1}^m\nu_j^\star\nabla h_j({\bf x}^\star),
 \]</span> obtenemos <span class="math display">\[
 -\nabla f({\bf x}^\star)=\sum_{i=1}^r\lambda_i^\star\nabla g_i({\bf x}^\star)+\sum_{j=1}^m\nu_j^\star\nabla h_j({\bf x}^\star).
-\]</span></p>
-</div>
-</div>
-</div>
+\]</span></p></li>
+</ul>
 <div style="margin-top:1em;">
 
 </div>
 <p>Por supuesto, la factibilidad primal y la factibilidad dual son inmediatas del hecho de asumir que <span class="math inline">\({\bf x}^\star\)</span> es óptimo para el problema primal y <span class="math inline">\((\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> son óptimos para el problema dual, respectivamente. Así, estamos en condiciones de afirmar que las condiciones KKT son necesarias para la dualidad fuerte, tal y como lo establece el siguiente teorema.</p>
 <div class="teorema">
-<p><strong>Teorema 1.4.22</strong> (Dualidad y KKT). Sea <span class="math inline">\({\bf x}^\star\)</span> un punto óptimo primal y <span class="math inline">\((\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> un punto óptimo dual. Si <span class="math inline">\(d^\star=p^\star\)</span>, entonces <span class="math inline">\(({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> satisface las condiciones de Karush-Kuhn-Tucker.</p>
+<p><strong>Teorema 1.4.22</strong> (Dualidad y KKT). Sea <span class="math inline">\({\bf x}^\star\)</span> un punto óptimo primal y <span class="math inline">\((\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> un punto óptimo dual. Si <span class="math inline">\(d^\star=p^\star\)</span>, entonces la terna <span class="math inline">\(({\bf x}^\star,\boldsymbol{\lambda}^\star,\boldsymbol{\nu}^\star)\)</span> satisface las condiciones de Karush-Kuhn-Tucker.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -1443,19 +1398,18 @@ f({\bf x}^\star)=\underbrace{f({\bf x}^\star)+\sum_{i=1}^r\lambda_ig_i({\bf x}^\
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 1.4.23</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Problema de <em>water-filling</em> </span></p>
 <p>Veamos un ejemplo clásico de <em>teoría de la información</em>. Consideremos un sistema de comunicación con <span class="math inline">\(p\)</span> canales para transmisión de información y supongamos que la potencia total disponible para transmitir es limitada. El objetivo es distribuir la potencia total, que para facilitar el análisis se normaliza al valor 1. Así, si denotamos <span class="math inline">\(x_i\)</span> la potencia asignada al <span class="math inline">\(i\)</span>-ésimo canal, tenemos que <span class="math display">\[
-\sum_{i=1}^p x_i=1,
-\]</span> con <span class="math inline">\(x_i\geq 0\)</span> para todo <span class="math inline">\(i=1,\ldots,p\)</span>.</p>
+\sum_{i=1}^p x_i=\mathbf{1}^\top{\bf x}=1,\qquad x_i\geq 0.
+\]</span></p>
 <p>Un modelo típico para la capacidad máxima de transmisión es <span class="math display">\[
 \sum_{i=1}^p\log(x_i+\alpha_i),
 \]</span> donde <span class="math inline">\(\alpha_i&gt;0\)</span> representa el ruido del <span class="math inline">\(i\)</span>-ésimo canal. Esto deriva en el siguiente problema de optimización convexa: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; -\sum_{i=1}^p\log(x_i+\alpha_i)\\
+\text{minimizar } &amp; -\displaystyle\sum_{i=1}^p\log(x_i+\alpha_i)\\[3pt]
 \text{sujeto a }  &amp; \mathbf{1}^\top{\bf x}=1,\\
                   &amp; {\bf x}\succeq \mathbf{0}.
 \end{array}
 \]</span></p>
-<p>Observar que hay <span class="math inline">\(p\)</span> restricciones de desigualdad, con <span class="math inline">\(g_i({\bf x})=x_i\)</span>, y una única restricción de igualdad, con <span class="math inline">\(h({\bf x})=\mathbf{1}^\top{\bf x}\)</span>.</p>
-<p>Claramente la condición de Slater se cumple: podemos tomar, por ejemplo, el punto estrictamente factible <span class="math inline">\(x_i=1/p\)</span> (para todo <span class="math inline">\(i=1,\ldots,p\)</span>). Por lo tanto, podemos asegurar que se cumple la dualidad fuerte y que las condiciones KKT son suficientes y necesarias para la optimalidad.</p>
+<p>Observar que hay <span class="math inline">\(p\)</span> restricciones de desigualdad, con <span class="math inline">\(g_i({\bf x})=x_i\)</span>, y una única restricción de igualdad, con <span class="math inline">\(h({\bf x})=\mathbf{1}^\top{\bf x}\)</span>. Claramente la condición de Slater se cumple: podemos tomar, por ejemplo, el punto estrictamente factible <span class="math inline">\(x_i=1/p\)</span> (para todo <span class="math inline">\(i=1,\ldots,p\)</span>). Por lo tanto, podemos asegurar que se cumple la dualidad fuerte y que las condiciones KKT son suficientes y necesarias para la optimalidad.</p>
 <p>Las condiciones KKT son: <span class="math display">\[
 \begin{array}{cl}
 {\bf x}^\star\succeq \mathbf{0},\; \mathbf{1}^\top{\bf x}^\star=1\qquad&amp;\text{(Factibilidad primal)}\\[2pt]
@@ -1473,47 +1427,42 @@ f({\bf x}^\star)=\underbrace{f({\bf x}^\star)+\sum_{i=1}^r\lambda_ig_i({\bf x}^\
 \]</span> <span class="math display">\[
 \nu^\star-\frac{1}{x_i^\star+\alpha_i}\geq 0\qquad\forall i=1,\ldots,p.
 \]</span></p>
-<p>El análisis de las últimas dos expresiones permite deducir que <span class="math display">\[
+<p>El análisis de las últimas dos, junto con <span class="math inline">\({\bf x}^\star\succeq\mathbf{0}\)</span>, permiten deducir que <span class="math display">\[
 x_i^\star=\left\{\begin{array}{cl}
 1/\nu^\star-\alpha_i&amp;\mbox{si }\nu^\star&lt;\frac{1}{\alpha_i},\\
 0&amp;\mbox{si }\nu^\star\geq\frac{1}{\alpha_i}.
-\end{array}\right.,
-\]</span> o, equivalentemente, <span class="math inline">\(x_i^\star=\max\{0,1/\nu^\star-\alpha_i\}\)</span>. Finalmente, el uso de la condición <span class="math inline">\(\mathbf{1}^\top{\bf x}^\star=1\)</span> resulta en <span class="math display">\[
-\sum_{i=1}^p\max\{0,1/\nu^\star-\alpha_i\}=1.
-\tag{1.4.15}
+\end{array}\right. = \max\{0,1/\nu^\star-\alpha_i\}.
 \]</span></p>
-<p>El lado izquierdo de (1.4.15) corresponde a una función de <span class="math inline">\(1/\nu^\star\)</span> que es continua, creciente por tramos y con puntos de quiebre en los valores <span class="math inline">\(\alpha_i\)</span>, tal y como lo ejemplifica la siguiente figura:</p>
+<p>Finalmente, el uso de la condición <span class="math inline">\(\mathbf{1}^\top{\bf x}^\star=1\)</span> resulta en <span class="math display">\[
+\sum_{i=1}^p\max\{0,1/\nu^\star-\alpha_i\}=1.
+\tag{1.4.18}
+\]</span></p>
+<p>El lado izquierdo de (1.4.18) corresponde a una función de <span class="math inline">\(1/\nu^\star\)</span> que es continua, creciente por tramos y con puntos de quiebre en los valores <span class="math inline">\(\alpha_i\)</span>, tal y como lo ejemplifica la siguiente figura:</p>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/ej_water_filling_1.png" alt="Texto" width="500px" class="figure-img">
-<figcaption>
-Gráfica de <span class="math inline">\(f(1/\nu^\star)\)</span>. Los valores <span class="math inline">\(a_i\)</span> corresponden a los <span class="math inline">\(\alpha_i\)</span> ordenados de menor a mayor.
-</figcaption>
+<img src="figuras/ej_water_filling_1.svg" alt="Texto" width="470px" class="figure-img">
 </figure>
 <p>Por lo tanto, existe solución y puede ser fácilmente determinada.</p>
 <p>Este método de solución se conoce como <em>water-filling</em> por la siguiente interpretación: si <span class="math inline">\(\alpha_i\)</span> es el nivel del suelo en el punto <span class="math inline">\(i\)</span> e inundamos la región con agua hasta la altura <span class="math inline">\(1/\nu^\star\)</span>, entonces la cantidad total de agua es justamente <span class="math display">\[
 \sum_{i=1}^p\max\{0,1/\nu^\star-\alpha_i\}.
 \]</span></p>
+<p>El problema de optimización, con esta interpretación, consiste en aumentar el nivel de inundación hasta haber usado una cantidad total de agua igual a 1, de manera tal que la profundidad de agua sobre el punto <span class="math inline">\(i\)</span>-ésimo es justamente el valor óptimo <span class="math inline">\(x_i^\star\)</span>.</p>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/ej_water_filling_2.png" alt="Texto" width="350px" class="figure-img">
+<img src="figuras/ej_water_filling_2.svg" alt="Texto" width="400px" class="figure-img">
 <figcaption>
-Método de <em>water-filling</em>. La región se inunda hasta un nivel <span class="math inline">\(1/\nu^\star\)</span>, utilizando una cantidad total de agua igual a 1.
+<strong>Figura 1.4.4:</strong> Método de <em>water-filling</em>: la región se inunda hasta un nivel <span class="math inline">\(1/\nu^\star\)</span>, utilizando una cantidad total de agua igual a 1.
 </figcaption>
 </figure>
-<p>El problema de optimización, con esta interpretación, consiste en aumentar el nivel de inundación hasta haber usado una cantidad total de agua igual a 1, de manera tal que la profundidad de agua sobre el punto <span class="math inline">\(i\)</span>-ésimo es justamente el valor óptimo <span class="math inline">\(x_i^\star\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Vamos a finalizar esta sección con un cuadro resumen con los principales resultados.</p>
+<p>Finalizamos esta sección con un cuadro resumen con los principales resultados.</p>
 <div style="margin-top:2em;">
 
 </div>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/cuadro_resumen_A4.png" alt="Texto" width="600px" class="figure-img">
+<img src="figuras/cuadro_resumen_A4.svg" alt="Texto" width="600px" class="figure-img">
 </figure>
-<div class="highlight">
-<p>⚠️ Recordemos que la condición de Slater es la más común y utilizada para garantizar dualidad fuerte y la validez de las condiciones KKT en problemas convexos. Sin embargo, no es la única condición de cualificación de restricciones existente. Para profundizar en otras condiciones de cualificación, especialmente en el contexto de problemas no convexos, se recomienda consultar textos especializados, aunque estos temas escapan al alcance de este curso.</p>
-</div>
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
