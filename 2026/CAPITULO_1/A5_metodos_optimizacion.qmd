@@ -2,27 +2,19 @@
 title: "Métodos de optimización"
 subtitle: "Capítulo 1 - Sección 5"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
-
-<div class="d-flex gap-2">
-
-<a href="../material/apunte_c1s5.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
-
-<a href="../material/tp_c1s5.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
-
-</div>
-
 <div style="margin-top:20px"></div>
 
 
+
+::: {.highlight}
+⚠️ Este material corresponde al cursado 2025 y en esta edición es solo de lectura. Los conocimientos requeridos sobre el tema son los desarrollados en la cátedra **XXX**.
+:::
+
+<div style="margin-top:2em;"></div>
 
 En general, los problemas de optimización que surgen en el área de estadística y *machine learning* involucran funciones complejas, no lineales y/o de alta dimensión. Como consecuencia, obtener una solución exacta suele ser inalcanzable o innecesario. Esto último sucede, por ejemplo, cuando la solución exacta es costosa computacionalmente.
 
@@ -34,7 +26,7 @@ Los métodos de optimización se definen a partir de las propiedades analíticas
 
 
 
-## Métodos de primer orden
+## I <span style="color:#CCCCCC;">│</span> Métodos de primer orden
 
 En principio, consideraremos el caso sin restricciones
 $$
@@ -51,6 +43,7 @@ $$
 f(\xx) \approx f(\xx_{t}) + \nabla f(\xx_{t})^\top(\xx - \xx_{t}).
 $$
 
+<div style="margin-top:2em;"></div>
 
 
 ### Método de descenso por gradiente 
@@ -89,7 +82,7 @@ Dado un *punto inicial* $\xx_0\in\dom f$ y una *tasa de aprendizaje* $\eta>0$:
 
 <figure style="text-align: center;">
   <img src="figuras/gradiente_descendente.svg" alt="…" width="450px">
-  <figcaption> **Figura 1**. Interpretación geométrica del método de descenso por gradiente: la dirección de búsqueda es $-\nabla f(\xx_t)$. </figcaption>
+  <figcaption> **Figura 1.5.1:** Interpretación geométrica del método de descenso por gradiente: la dirección de búsqueda es $-\nabla f(\xx_t)$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -112,7 +105,7 @@ A continuación mostraremos una función en Python que implementa el algoritmo b
 - `f`: función objetivo.
 - `grad_f`: función gradiente de $f$.
 - `x_inicial`: punto inicial.
-- `lr`: (*learning rate*) tasa de aprendizaje $\eta$.
+- `lr`(*learning rate*): tasa de aprendizaje $\eta$.
 - `max_iter`: cantidad máxima de iteraciones. 
 - `tol_grad`: tolerancia para norma del gradiente (opcional).
 - `tol_x`: tolerancia para norma de diferencia entre iteraciones (opcional).
@@ -167,12 +160,13 @@ def gradient_descent(f, grad_f, x_inicial, lr=0.1, max_iter=100,
     return x_iter, f_iter
 ```
 
-
-<br>
+<div style="margin-top:1.5em;"></div>
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.5.1</span> Vamos a utilizar el método de descenso por gradiente para aproximarnos al valor mínimo de 
+<span class="badge bg-primary">Ejemplo 1.5.1</span> 
+
+Vamos a utilizar el método de descenso por gradiente para aproximarnos al valor mínimo de 
 
 $$
 f(x,y)=2(x-2)^2+5(y-3)^2,
@@ -184,13 +178,15 @@ $$
 $$
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
-
+#| echo: false
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+```
+```{python}
+#| code-fold: true
+#| code-summary: "Mostrar código"
+#| fig-align: "center"
 
 # Función y gradiente:
 def f(x):
@@ -213,9 +209,7 @@ x_iter, f_iter = gradient_descent(f, grad_f, x_inicial, lr, max_iter, tol_grad, 
 La secuencia de valores obtenidas es:
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 x_arr = np.array(x_iter)
 x_vals = x_arr[:, 0]
@@ -224,12 +218,9 @@ tabla = pd.DataFrame({'x': x_vals, 'y': y_vals})
 print(tabla)
 ```
 
-Por último, vamos a realizar la gráfica en el dominio $\RR^2$ de la función.
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 # Grilla para graficar:
 x = np.linspace(-0.5, 7, 100)
@@ -274,6 +265,7 @@ Así, una estrategia estándar consiste en imponer una cota sobre qué tan rápi
 
 Específicamente, requeriremos que el gradiente $\nabla f(x)$ sea $L$-Lipschitz continuo para alguna constante $L \geq 0$. Esta condición a menudo se llama $L$_-suavidad_ en la literatura. 
 
+<div style="margin-top:1em;"></div>
 
 ::: {.definicion}
 **Definición 1.5.2** ($L$-suavidad). 
@@ -283,7 +275,7 @@ $$
 $$
 :::
 
-<div style="margin-top:2em;"></div>
+<div style="margin-top:1.5em;"></div>
 
 
 Una consecuencia inmediata de la $L$-suavidad es que la función admite una _cota superior cuadrática_. Posteriormente, esta propiedad será extremadamente útil para cuantificar la mejora de un paso del algoritmo de descenso por gradiente, lo cual a menudo se denomina *lema del descenso del gradiente*.
@@ -411,6 +403,8 @@ Cuando $\eta\leq\frac{1}{L}$, el paréntesis es $1-\frac{L}{2}\eta\geq\frac{1}{2
 </details>
 
 
+<div style="margin-top:1.5em;"></div>
+
 
 #### Convergencia para funciones objetivos convexas
 
@@ -533,6 +527,7 @@ $$
 :::
 </details>
 
+<div style="margin-top:1.5em;"></div>
 
 
 ### Método de descenso por gradiente proyectado
@@ -600,7 +595,7 @@ Dado un *punto inicial* $\xx_0\in\Omega$ y una *tasa de aprendizaje* $\eta > 0$:
 
 <figure style="text-align: center;">
   <img src="figuras/gradiente_descendente_proy.svg" alt="…" width="450px">
-  <figcaption> **Figura 2**. Interpretación geométrica del método de descenso por gradiente proyectado. </figcaption>
+  <figcaption> **Figura 1.5.2:** Interpretación geométrica del método de descenso por gradiente proyectado. </figcaption>
 </figure>
 
 
@@ -665,10 +660,13 @@ def projected_gradient_descent(f, grad_f, x_inicial, proy,
     return x_iter, f_iter
 ```
 
+<div style="margin-top:2em;"></div>
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.5.7</span> Vamos a utilizar el método de descenso por gradiente proyectado para resolver el problema
+<span class="badge bg-primary">Ejemplo 1.5.7</span> 
+
+Vamos a utilizar el método de descenso por gradiente proyectado para resolver el problema
 $$
 \begin{array}{ll}
 \text{minimizar } & 2(x-2)^2+5(y-3)^2\\
@@ -686,16 +684,18 @@ $$
 
 Esto se calcula rápidamente con la función `np.clip` de NumPy.
 
+```{python}
+#| echo: false
 
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+```
 
 ```{python}
 #| code-fold: true
 #| code-summary: "Mostrar código"
 #| fig-align: "center"
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
 
 # Función y gradiente:
 def f(x):
@@ -722,9 +722,7 @@ x_iter, f_iter = projected_gradient_descent(f, grad_f, x_inicial, proy, lr, max_
 La secuencia de valores obtenidas es:
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 x_arr = np.array(x_iter)
 x_vals = x_arr[:, 0]
@@ -733,12 +731,8 @@ tabla = pd.DataFrame({'x': x_vals, 'y': y_vals})
 print(tabla)
 ```
 
-Por último, vamos a realizar la gráfica en el dominio $\RR^2$ de la función.
-
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 # Grilla para graficar:
 x = np.linspace(-0.5, 1.5, 100)
@@ -823,9 +817,10 @@ $$
 <div style="margin-top:-1em;"></div>
 <div style="text-align: right;">$\blacksquare$</div>
 
-
 :::
 </details>
+
+<div style="margin-top:1.5em;"></div>
 
 
 A pesar de que en este Teorema, en relación con el lema del descenso por gradiente (Teorema 1.5.4), aparece el término adicional $\frac{1}{2\eta}\|\yy_{t+1}-\xx_{t+1}\|_2^2$, este puede ser cancelado  utilizando las propiedades de proyección ortogonal en $\Omega$ cerrado y convexo. En consecuencia, se obtiene para el método de descenso por gradiente proyectado el mismo resultado de convergencia del Teorema 1.5.6 para el método de descenso por gradiente. 
@@ -841,10 +836,8 @@ $$
 :::
 
 ::: {.callout .question}
-
-<span style="font-size: 1.3em;">📝</span><br>
-
-Escriba la demostración del Teorema 1.5.9, siguiendo el razonamiento usado para el Teorema 3.
+<span style="font-size: 1.3em;">✍️</span><br>
+Escriba la demostración del Teorema 1.5.9, siguiendo el razonamiento usado para el Teorema 1.5.6.
 
 :::
 
@@ -913,7 +906,7 @@ Esto permite un equilibrio entre la alta varianza del método estocástico y el 
 
 
 
-## Métodos de segundo orden
+## II <span style="color:#CCCCCC;">│</span> Métodos de segundo orden
 
 Vamos a iniciar el estudio de los métodos de *segundo orden*, que además del gradiente utilizan también la *Hessiana* (la segunda derivada) de la función objetivo. 
 
@@ -953,7 +946,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/metodo_newton.svg" alt="…" width="400px">
-  <figcaption> **Figura 3**. Interpretación geométrica del método de Newton-Raphson para aproximar una solución de $f'(x)=0$. </figcaption>
+  <figcaption> **Figura 1.5.3:** Interpretación geométrica del método de Newton-Raphson para aproximar una solución de $f'(x)=0$. </figcaption>
 </figure>
 
 :::{.myhighlight2}
@@ -1071,10 +1064,13 @@ def newton_method(f, grad_f, hess_f, x_inicial, lr=0.1,
     return x_iter, f_iter
 ```
 
+<div style="margin-top:1.5em;"></div>
 
 ::: {.callout-example}
 
-<span class="badge bg-primary">Ejemplo 1.5.10</span> Vamos a utilizar el método de Newton para aproximarnos al valor mínimo de 
+<span class="badge bg-primary">Ejemplo 1.5.10</span> 
+
+Vamos a utilizar el método de Newton para aproximarnos al valor mínimo de 
 
 $$
 f(x,y)=2(x-2)^2+5(y-3)^2,
@@ -1088,16 +1084,19 @@ $$
 
 En primer lugar, utilizaremos la variante con paso reducido, con $\eta=0.05$.
 
+```{python}
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+```
 
 
 ```{python}
 #| code-fold: true
 #| code-summary: "Mostrar código"
 #| fig-align: "center"
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
 
 # Función y gradiente:
 def f(x):
@@ -1123,9 +1122,7 @@ x_iter, f_iter = newton_method(f, grad_f, hess_f, x_inicial, lr, max_iter, tol_g
 La secuencia de valores obtenidas es:
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 x_arr = np.array(x_iter)
 x_vals = x_arr[:, 0]
@@ -1134,12 +1131,8 @@ tabla = pd.DataFrame({'x': x_vals, 'y': y_vals})
 print(tabla)
 ```
 
-Por último, vamos a realizar la gráfica en el dominio $\RR^2$ de la función.
-
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 # Grilla para graficar:
 x = np.linspace(-0.5, 7, 100)
@@ -1171,12 +1164,12 @@ plt.show()
 
 ```
 
+<div style="margin-top:1.5em;"></div>
+
 Observar que los puntos iterados son colineales. Esto ocurre en problemas cuadráticos, debido a que la matriz Hessiana es constante. Veamos qué pasa si aplicamos directamente el método de Newton clásico ($\eta=1$).
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1204,9 +1197,7 @@ x_iter, f_iter = newton_method(f, grad_f, hess_f, x_inicial, lr, max_iter, tol_g
 ```
 
 ```{python}
-#| code-fold: true
-#| code-summary: "Mostrar código"
-#| fig-align: "center"
+#| echo: false
 
 x_arr = np.array(x_iter)
 x_vals = x_arr[:, 0]
@@ -1260,7 +1251,7 @@ $$
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:1.5em;"></div>
 
 Para concluir la idea de la rapidez de convergencia, el siguiente resultado establece la condición de cercanía de $\xx_0$ respecto al punto crítico $\xx_\star$. Por supuesto, como caso particular, también aplica a nuestro real interés de hallar $\xx^\star$, siempre que se cumplan las condiciones.
 
@@ -1317,7 +1308,7 @@ Una alternativa natural surge a partir del *método de la secante* de una variab
 
 <figure style="text-align: center;">
   <img src="figuras/metodo_secante.svg" alt="…" width="400px">
-  <figcaption> **Figura 4**. Interpretación geométrica del método de la secante de una variable para aproximar una solución de $f'(x)=0$. </figcaption>
+  <figcaption> **Figura 1.5.4:** Interpretación geométrica del método de la secante de una variable para aproximar una solución de $f'(x)=0$. </figcaption>
 </figure>
 
 :::{.myhighlight2}
@@ -1370,6 +1361,7 @@ Podemos entonces esperar que $H_t\approx\nabla^2f(\xx_t)$, lo cual significa que
 
 </div>
 
+<div style="margin-top:1.5em;"></div>
 
 A diferencia de $p=1$, donde $H_t$ es único, para $p>1$ la condición de la secante (1.5.4) tiene infinitas soluciones simétricas, puesto que determina un sistema de $p$ ecuaciones con $p(p+1)/2>p$ incógnitas (esto último, por ser $H_t$ simétrica). En consecuencia:
 
@@ -1392,17 +1384,17 @@ Los métodos de Quasi-Newton logran un compromiso: mantienen la buena tasa de co
 
 
 
-## Breve reseña de otros métodos
+## I <span style="color:#CCCCCC;">│</span> Breve reseña de otros métodos
 
 Más allá de los métodos analizados en esta sección, existen varias familias de algoritmos importantes que conviene mencionar:
 
-- **Métodos de segundo orden para problemas con restricciones**: extensiones de Newton que incorporan restricciones sobre el dominio, como el Newton proyectado o los métodos de barrera. Permiten manejar problemas restringidos de manera directa, aunque requieren un análisis más sofisticado.
+- **Métodos de segundo orden para problemas con restricciones**. Son extensiones de Newton que incorporan restricciones sobre el dominio, como el Newton proyectado o los métodos de barrera. Permiten manejar problemas restringidos de manera directa, aunque requieren un análisis más sofisticado.
 
-- **Métodos de región de confianza**: en lugar de aplicar un paso fijo, construyen un modelo cuadrático local de la función y limitan la actualización a una vecindad donde el modelo es fiable. Esto los hace más robustos que Newton clásico, incluso cuando la Hessiana no es definida positiva.
+- **Métodos de región de confianza**. En lugar de aplicar un paso fijo, construyen un modelo cuadrático local de la función y limitan la actualización a una vecindad donde el modelo es fiable. Esto los hace más robustos que Newton clásico, incluso cuando la Hessiana no es definida positiva.
 
-- **Métodos de punto interior**: se usan sobre todo para problemas con restricciones de desigualdad. Transforman el problema en una sucesión de problemas suavizados mediante funciones de barrera, permitiendo aproximarse al óptimo de forma estable.
+- **Métodos de punto interior**. Se usan sobre todo para problemas con restricciones de desigualdad. Transforman el problema en una sucesión de problemas suavizados mediante funciones de barrera, permitiendo aproximarse al óptimo de forma estable.
 
-- **Otros enfoques modernos**: incluyen el descenso por coordenadas, el método de Frank-Wolfe, algoritmos acelerados, y métodos adaptativos o sin gradiente, que son útiles para problemas de alta dimensión o funciones no diferenciables.
+- **Otros enfoques modernos**. Incluyen el descenso por coordenadas, el método de Frank-Wolfe, algoritmos acelerados, y métodos adaptativos o sin gradiente, que son útiles para problemas de alta dimensión o funciones no diferenciables.
 
 
 
@@ -1420,6 +1412,6 @@ Más allá de los métodos analizados en esta sección, existen varias familias 
 
 Farina, G. (2024--2025) *MIT 6.7220: Nonlinear Optimization*. Course material and lecture notes. Massachusetts Institute of Technology. 🔗 [ir al sitio web](https://www.mit.edu/~gfarina/notes/).
 
-Flammarion, N. *EPFL CS-439: Optimization for machine learning*. 🔗 [ir al sitio web](https://github.com/epfml/OptML_course).
+Flammarion, N. *EPFL CS-439: Optimization for machine learning*. Lecture slides. École Polytechnique Fédérale de Lausanne. 🔗 [ir al sitio web](https://github.com/epfml/OptML_course).
 
 :::
