@@ -11,7 +11,7 @@ subtitle: "Capítulo 1 - Sección 5"
 
 
 ::: {.highlight}
-⚠️ Este material corresponde al cursado 2025 y en esta edición es solo de lectura. Los conocimientos requeridos sobre el tema son los desarrollados en la cátedra **XXX**.
+⚠️ Este material corresponde al cursado 2025 y en esta edición es solo de lectura. Los conocimientos requeridos sobre el tema son los desarrollados en la cátedra **Optimización y Aprendizaje Automático I**.
 :::
 
 <div style="margin-top:2em;"></div>
