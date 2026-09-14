@@ -1229,7 +1229,7 @@ $$
 
 Dado que $\calL$ es una función convexa, podemos minimizar respecto de $\xx$ usando la condición de optimalidad $\nabla_{\xx}\calL(\xx,\bfnu)=\bfzero$. Resulta
 $$
-\nabla_{\xx}L(\xx,\bfnu)=2\xx+A^\top\bfnu=\bfzero\quad\rightarrow\quad \xx=-\frac{1}{2}A^\top\bfnu.
+\nabla_{\xx}\calL(\xx,\bfnu)=2\xx+A^\top\bfnu=\bfzero\quad\rightarrow\quad \xx=-\frac{1}{2}A^\top\bfnu.
 $$
 
 La función dual es

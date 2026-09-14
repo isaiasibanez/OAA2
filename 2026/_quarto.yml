@@ -23,6 +23,8 @@ website:
             text: "1.5 Métodos de optimización"
       - section: "2. MODELOS DISCRIMINATIVOS"
         contents:
+          - href: CAPITULO_2/B1_maxima_verosimilitud.qmd
+            text: "2.1 Principio de máxima verosimilitud"
           - href: CAPITULO_2/B2_regresion_lineal_logistica.qmd
             text: "2.2 Regresión lineal y regresión logística"
           - href: CAPITULO_2/B3_glm.qmd

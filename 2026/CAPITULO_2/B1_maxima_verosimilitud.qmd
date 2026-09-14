@@ -1,0 +1,227 @@
+---
+title: "Principio de máxima verosimilitud"
+subtitle: "Capítulo 2 - Sección 1"
+---
+
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+
+{{< include ../macros.qmd >}}
+
+
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c2s1.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c2s1.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
+
+En esta sección introducimos el *principio de máxima verosimilitud* (MLE, *maximum likelihood estimation*), uno de los métodos de estimación de parámetros más utilizados en estadística y aprendizaje automático. 
+
+<div style="margin-top:1em;"></div>
+
+
+<div style="border-top:1px solid #b7cdf5;
+            background-color: #fafbff;
+            padding:0.1em 1em;
+            margin-top:1em;">
+
+📄 **Notación**
+
+Durante esta sección consideramos una muestra i.i.d. $\{y_1, \ldots, y_n\}$ de una variable aleatoria $Y$ cuya distribución depende de un vector de parámetros $\bftheta \in \RR^q$. Denotamos con
+$p(y \mid \bftheta)$ la función de densidad (o masa de probabilidad) de $Y$.
+
+</div>
+
+<div style="margin-top:2.5em;"></div>
+
+
+
+## I <span style="color:#CCCCCC;">│</span>  Maximización de la verosimilitud
+
+::: {.definicion}
+**Definición 2.1.1** (Función de verosimilitud). Sea $\{y_1, \ldots, y_n\}$ una muestra i.i.d. de una variable aleatoria $Y$. Se denomina *función de verosimilitud* a $L:\RR^q\to\RR$ definida por
+$$
+L(\bftheta) := \prod_{i=1}^{n} p(y_i \mid \bftheta).
+$$
+
+:::
+
+<div style="margin-top:2.5em;"></div>
+
+Observar que $L(\bftheta)$ es la probabilidad conjunta de los datos vista como función del parámetro. La intuición es directa: 
+
+:::{.myhighlight}
+$L(\bftheta)$ mide cuán *verosímil* (plausible) es el
+valor $\bftheta$ dado lo que observamos.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+
+::: {.definicion}
+**Definición 2.1.2** (Estimador de máxima verosimilitud). Sea $\{y_1, \ldots, y_n\}$ una muestra i.i.d. de una variable aleatoria $Y$. Se denomina *estimador de máxima verosimilitud* (MLE) a
+$$
+\hat{\bftheta}_{\text{MLE}} := \arg\max_{\bftheta} \; L(\bftheta).
+$$
+
+Cuando no haya ambigüedad escribiremos simplemente $\hat{\bftheta}$.
+:::
+
+
+<div style="margin-top:2em;"></div>
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-success text-light">Función de log-verosimilitud</span>
+
+En la práctica, trabajar con el producto $\prod_{i=1}^n p(y_i \mid \theta)$ es numéricamente inconveniente: para muestras grandes los valores son extremadamente pequeños y propensos a desbordamiento numérico. Dado que el logaritmo es una función estrictamente creciente, maximizar $L(\bftheta)$ es equivalente a maximizar la función $\ell:\RR^q\to\RR$ definida como
+$$
+\ell(\bftheta) := \log L(\bftheta) = \sum_{i=1}^{n} \log p(y_i \mid \bftheta).
+$$
+
+Esta transformación convierte el producto en una suma, lo que simplifica tanto el análisis matemático como la implementación computacional.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+El estimador de máxima verosimilitud goza de propiedades asintóticas notables
+que lo convierten en el método de referencia para estimación paramétrica.
+
+**Consistencia.** Bajo condiciones de regularidad,
+$\hat{\bftheta} \xrightarrow{p} \bftheta_0$ cuando $n \to \infty$, donde $\bftheta_0$ es el verdadero valor del parámetro. Es decir, con suficientes datos el MLE se acerca al valor que generó la muestra.
+
+**Normalidad asintótica.** Para $n$ grande,
+$$
+\sqrt{n}\,(\hat{\bftheta} - \bftheta_0)
+\xrightarrow{d} \mathcal{N}\!\left(\mathbf{0},\; \mathcal{I}(\bftheta_0)^{-1}\right),
+$$
+donde $\mathcal{I}(\bftheta) := -\mathbb{E}\!\left[\nabla^2_{\bftheta} \log p(Y \mid \bftheta)\right]$
+es la *información de Fisher* de una observación, que mide la curvatura esperada de la log-verosimilitud en torno al óptimo. Esto permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
+
+**Eficiencia.** Bajo condiciones de regularidad, el MLE es asintóticamente
+eficiente: su varianza asintótica alcanza la cota de Cramér-Rao
+$\mathcal{I}_1(\bftheta_0)^{-1}$, la mínima alcanzable por un estimador insesgado. Ningún otro estimador razonable hace mejor uso de los datos.
+
+**Invarianza.** Si $\hat{\bftheta}$ es el MLE de $\bftheta$ y $g$ es una función biyectiva, entonces $g(\hat{\bftheta})$ es el MLE de $g(\bftheta)$.
+
+<div style="margin-top:2em;"></div>
+
+
+
+### Condiciones de optimalidad
+
+Supongamos que $\ell$ es diferenciable para $\bftheta\in\bfTheta\subset\RR^q$, con $\bfTheta$ un conjunto abierto. Entonces $\hat{\bftheta}$ verifica la condición de optimalidad
+$$
+\nabla\ell(\hat{\bftheta}) = \bfzero.
+\tag{2.1.1}
+$$
+
+La *ecuación de verosimilitud* (2.1.1), en general, no admite solución analítica cerrada y debe resolverse mediante métodos
+numéricos tales como descenso por gradiente y método de Newton. 
+
+<div style="margin-top:2em;"></div>
+
+
+::: {.callout-example}
+
+<span class="badge bg-primary">Ejemplo 1.4.13</span> 
+<span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
+MLE para la distribución de Poisson
+</span>
+
+Sea $\{y_1, \ldots, y_n\}$ una muestra i.i.d. de
+$Y \sim \text{Poisson}(\lambda)$, con $\lambda > 0$. La función de masa de
+probabilidad es:
+
+$$
+p(y \mid \lambda) = \frac{e^{-\lambda}\lambda^y}{y!}, \qquad y \in \{0,1,2,\ldots\}.
+$$
+
+La función de log-verosimilitud resulta
+
+$$
+\ell(\lambda) = \sum_{i=1}^n \left(-\lambda + y_i \log\lambda - \log(y_i!)\right)
+= -n\lambda + \left(\sum_{i=1}^n y_i\right)\log\lambda + \text{cte}
+\tag{2.1.2}
+$$
+
+La ecuación de verosimitud resulta de derivar (2.1.2) e igualar a cero:
+
+$$
+\frac{d\ell}{d\lambda} = -n + \frac{\sum_{i=1}^n y_i}{\lambda} = 0
+$$
+
+Resulta
+$$
+\hat\lambda_{\text{MLE}} = \frac{1}{n}\sum_{i=1}^n y_i = \bar{y}.
+$$
+
+
+```{python}
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import poisson
+from scipy.optimize import minimize_scalar
+
+# Datos simulados
+rng = np.random.default_rng(42)
+lambda_true = 3.5
+n = 200
+y = rng.poisson(lambda_true, size=n)
+
+# MLE analítico
+lambda_mle = y.mean()
+print(f"λ verdadero : {lambda_true}")
+print(f"λ̂ MLE       : {lambda_mle:.4f}")
+
+# Log-verosimilitud en función de λ
+lambdas = np.linspace(1.5, 6.0, 300)
+log_lik = np.array([
+    np.sum(poisson.logpmf(y, lam)) for lam in lambdas
+])
+
+# Gráfico
+fig, ax = plt.subplots(figsize=(7, 3.5))
+ax.plot(lambdas, log_lik, color="#4472C4", linewidth=2)
+ax.axvline(lambda_mle, color="#C00000", linestyle="--",
+           label=rf"$\hat\lambda_{{MLE}} = {lambda_mle:.2f}$")
+ax.axvline(lambda_true, color="#70AD47", linestyle=":",
+           label=rf"$\lambda_0 = {lambda_true}$")
+ax.set_xlabel(r"$\lambda$")
+ax.set_ylabel(r"$\ell(\lambda)$")
+ax.set_title("Log-verosimilitud — Poisson")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+:::
+
+
+El procedimiento es el mismo cuando $\bftheta$ tiene varias componentes: la ecuación de verosimilitud se convierte en un sistema de $q$ ecuaciones, una por cada derivada parcial $\partial \ell / \partial \theta_j = 0$. 
+
+
+
+
+
+
+<br><br>
+
+::: {.refs}
+<span style="color: #444;"><strong>Referencias</strong></span>
+
+...
+
+:::

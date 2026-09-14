@@ -34,7 +34,7 @@ En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisa
 
 📄 **Notación**
 
-Durante este capítulo, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y|\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
+De ahora en adelante, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y|\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
 
 Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\bfone & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
 

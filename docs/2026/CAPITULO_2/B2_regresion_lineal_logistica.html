@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../CAPITULO_2/B3_glm.html" rel="next">
-<link href="../CAPITULO_1/A5_metodos_optimizacion.html" rel="prev">
+<link href="../CAPITULO_2/B1_maxima_verosimilitud.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -150,7 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2.2 Regresión lineal y regresión logística</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B1_maxima_verosimilitud.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2.2 Regresión lineal y regresión logística</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -227,6 +227,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B1_maxima_verosimilitud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.1 Principio de máxima verosimilitud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../CAPITULO_2/B2_regresion_lineal_logistica.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">2.2 Regresión lineal y regresión logística</span></a>
   </div>
@@ -285,7 +291,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2.2 Regresión lineal y regresión logística</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_2/B1_maxima_verosimilitud.html">2. MODELOS DISCRIMINATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">2.2 Regresión lineal y regresión logística</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Regresión lineal y regresión logística</h1>
 <p class="subtitle lead">Capítulo 2 - Sección 2</p>
@@ -323,7 +329,7 @@ window.Quarto = {
             padding:0.1em 0;
             margin-top:1em;">
 <p>📄 <strong>Notación</strong></p>
-<p>Durante este capítulo, consideraremos <span class="math inline">\({\bf X}=(X_1,\ldots,X_p)\in\mathbb{R}^p\)</span> un conjunto de variables predictoras y <span class="math inline">\(Y\in\mathbb{R}\)</span> una variable respuesta. Además, vamos a suponer que la distribución condicional de <span class="math inline">\(Y|{\bf X}\)</span> depende de un vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^q\)</span>.</p>
+<p>De ahora en adelante, consideraremos <span class="math inline">\({\bf X}=(X_1,\ldots,X_p)\in\mathbb{R}^p\)</span> un conjunto de variables predictoras y <span class="math inline">\(Y\in\mathbb{R}\)</span> una variable respuesta. Además, vamos a suponer que la distribución condicional de <span class="math inline">\(Y|{\bf X}\)</span> depende de un vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^q\)</span>.</p>
 <p>Para un conjunto de datos <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, denotamos <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> el vector de respuestas, <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span> la matriz de predictoras y <span class="math inline">\(\tilde{X}:=\begin{pmatrix}\mathbf{1}&amp; X\end{pmatrix}\in\mathbb{R}^{n\times (p+1)}\)</span> la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma <span class="math inline">\(\boldsymbol{\theta}^\top{\bf X}\)</span> al caso con intercepto <span class="math inline">\(\theta_0+\boldsymbol{\theta}^\top{\bf X}\)</span>.</p>
 <p>Además:</p>
 <ul>
@@ -509,7 +515,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}\\
 </div>
 </div>
 </div>
-<div id="71edf22b" class="cell" data-execution_count="1">
+<div id="54f87736" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -532,7 +538,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}\\
 <span id="cb1-20"><a href="#cb1-20"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-21"><a href="#cb1-21"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="071f653f" class="cell" data-execution_count="2">
+<div id="4b5334f0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -621,7 +627,7 @@ Coeficientes estimados:
 <p>Para <span class="math inline">\(z\in\mathbb{R}\)</span>, se define la <em>función logística</em> o <em>función sigmoide</em> <span class="math inline">\(\sigma:\mathbb{R}\to\mathbb{R}\)</span> mediante <span class="math display">\[
 \sigma(z) := \frac{1}{1 + e^{-z}} = \frac{e^z}{1+e^z}.
 \]</span></p>
-<div id="377292d3" class="cell" data-execution_count="3">
+<div id="287a40ba" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -871,7 +877,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="2568acae" class="cell" data-execution_count="4">
+<div id="13a5b4ad" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -894,7 +900,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <span id="cb3-20"><a href="#cb3-20"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
 <span id="cb3-21"><a href="#cb3-21"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cfd76128" class="cell" data-execution_count="5">
+<div id="50d8c18c" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):
@@ -1417,8 +1423,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../CAPITULO_1/A5_metodos_optimizacion.html" class="pagination-link" aria-label="1.5 Métodos de optimización">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1.5 Métodos de optimización</span>
+      <a href="../CAPITULO_2/B1_maxima_verosimilitud.html" class="pagination-link" aria-label="2.1 Principio de máxima verosimilitud">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.1 Principio de máxima verosimilitud</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
