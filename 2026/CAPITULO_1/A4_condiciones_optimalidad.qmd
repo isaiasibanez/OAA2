@@ -1522,7 +1522,7 @@ $$
 \end{array}
 $$
 
-Observar que hay $p$ restricciones de desigualdad, con $g_i(\xx)=x_i$, y una única restricción de igualdad, con $h(\xx)=\mathbf{1}^\top\xx$. Claramente la condición de Slater se cumple: podemos tomar, por ejemplo, el punto estrictamente factible $x_i=1/p$ (para todo $i=1,\ldots,p$). Por lo tanto, podemos asegurar que se cumple la dualidad fuerte y que las condiciones KKT son suficientes y necesarias para la optimalidad.
+Observar que hay $p$ restricciones de desigualdad, con $g_i(\xx)=-x_i$, y una única restricción de igualdad, con $h(\xx)=\mathbf{1}^\top\xx-1$. Claramente la condición de Slater se cumple: podemos tomar, por ejemplo, el punto estrictamente factible $x_i=1/p$ (para todo $i=1,\ldots,p$). Por lo tanto, podemos asegurar que se cumple la dualidad fuerte y que las condiciones KKT son suficientes y necesarias para la optimalidad.
 
 Las condiciones KKT son:
 $$
