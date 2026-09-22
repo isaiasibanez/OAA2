@@ -242,7 +242,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
   $$
    
   donde $\mathcal{I}(\bftheta) := -\mathbb{E}\left[\nabla^2_{\bftheta} \log p(Y \mid \bftheta)\right]$
-  es la *información de Fisher* de una observación, que cuantifica cuánta información sobre \(\bftheta\) se espera obtener de ella si el parámetro toma dicho valor. La normalidad asintótica permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
+  es la *información de Fisher* de una observación, que cuantifica cuánta información sobre $\bftheta$ se espera obtener de ella si el parámetro toma dicho valor. La normalidad asintótica permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
 
 - **Eficiencia**. Bajo condiciones de regularidad, el MLE es asintóticamente eficiente: entre todos los estimadores que cumplen ciertas condiciones de regularidad, el MLE tiene la menor varianza, al menos para muestras grandes. En efecto, la varianza asintótica de $\hat{\bftheta}_n$ es
 	$$
