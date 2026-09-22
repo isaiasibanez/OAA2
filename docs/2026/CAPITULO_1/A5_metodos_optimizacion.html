@@ -396,7 +396,7 @@ f({\bf x}) \approx f({\bf x}_{t}) + \nabla f({\bf x}_{t})^\top({\bf x}- {\bf x}_
 <li><code>tol_x</code>: tolerancia para norma de diferencia entre iteraciones (opcional).</li>
 </ul>
 <p>La salida es una lista con los puntos obtenidos en las iteraciones (<code>x_iter</code>), y los valores de la función (<code>f_iter</code>).</p>
-<div id="adfdd116" class="cell" data-execution_count="1">
+<div id="5deb2605" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(f, grad_f, x_inicial, lr<span class="op">=</span><span class="fl">0.1</span>, max_iter<span class="op">=</span><span class="dv">100</span>,</span>
@@ -451,7 +451,7 @@ f(x,y)=2(x-2)^2+5(y-3)^2,
 <p>el cual sabemos que ocurre en <span class="math inline">\((2,3)\)</span> (vértice del paraboloide elíptico). Necesitamos proporcionar el gradiente de <span class="math inline">\(f\)</span>, el cual es <span class="math display">\[
 \nabla f(x,y)=\left(4(x-2), 10(y-3)\right).
 \]</span></p>
-<div id="b9a4d63f" class="cell" data-execution_count="3">
+<div id="1330d969" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función y gradiente:</span></span>
@@ -479,7 +479,7 @@ Valor de f: 2.9931553533161224e-05</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="4532d3c0" class="cell" data-execution_count="4">
+<div id="87982454" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>           x         y
 0   0.000000  0.000000
@@ -513,7 +513,7 @@ Valor de f: 2.9931553533161224e-05</code></pre>
 28  1.996131  3.000000</code></pre>
 </div>
 </div>
-<div id="ec1a20ba" class="cell" data-execution_count="5">
+<div id="02cdd95a" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -802,7 +802,7 @@ f({\bf x}_T)-f({\bf x}^{\star})&amp;\leq \frac{1}{2T\eta}\|{\bf x}^{\star}-{\bf 
 <ul>
 <li><code>proy</code>: función de proyección sobre el conjunto factible.</li>
 </ul>
-<div id="1c8579b4" class="cell" data-execution_count="6">
+<div id="1ca26c8d" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> projected_gradient_descent(f, grad_f, x_inicial, proy,</span>
@@ -866,7 +866,7 @@ f({\bf x}_T)-f({\bf x}^{\star})&amp;\leq \frac{1}{2T\eta}\|{\bf x}^{\star}-{\bf 
 \end{pmatrix}.
 \]</span></p>
 <p>Esto se calcula rápidamente con la función <code>np.clip</code> de NumPy.</p>
-<div id="5b155ae6" class="cell" data-execution_count="8">
+<div id="94971377" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función y gradiente:</span></span>
@@ -898,7 +898,7 @@ Valor de f: 22.0</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="6a07127f" class="cell" data-execution_count="9">
+<div id="bcc7592b" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>           x      y
 0   0.000000  0.000
@@ -922,11 +922,11 @@ Valor de f: 22.0</code></pre>
 18  1.000000  1.000</code></pre>
 </div>
 </div>
-<div id="038bbb1e" class="cell" data-execution_count="10">
+<div id="1d2710e6" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stderr">
 <pre><code>&lt;&gt;:21: SyntaxWarning: invalid escape sequence '\O'
 &lt;&gt;:21: SyntaxWarning: invalid escape sequence '\O'
-C:\Users\isaia\AppData\Local\Temp\ipykernel_5764\4178567754.py:21: SyntaxWarning: invalid escape sequence '\O'
+C:\Users\isaia\AppData\Local\Temp\ipykernel_11404\4178567754.py:21: SyntaxWarning: invalid escape sequence '\O'
   plt.plot(caja_x, caja_y, color='blue', linewidth=2, linestyle='-', label='$\Omega = [0,1]^2$')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1129,7 +1129,7 @@ x_{t+1}:=x_t-\frac{f'(x_t)}{f''(x_t)}.
 <ul>
 <li><code>hess_f</code>: función Hessiana de <span class="math inline">\(f\)</span>.</li>
 </ul>
-<div id="63a01035" class="cell" data-execution_count="11">
+<div id="e7945741" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> newton_method(f, grad_f, hess_f, x_inicial, lr<span class="op">=</span><span class="fl">0.1</span>,         </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                  max_iter<span class="op">=</span><span class="dv">100</span>, tol_grad<span class="op">=</span><span class="va">None</span>, tol_x<span class="op">=</span><span class="va">None</span>, verbose<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1191,7 +1191,7 @@ f(x,y)=2(x-2)^2+5(y-3)^2,
 \nabla^2 f(x,y) = \begin{pmatrix} 4&amp;0\\0&amp;10 \end{pmatrix}.
 \]</span></p>
 <p>En primer lugar, utilizaremos la variante con paso reducido, con <span class="math inline">\(\eta=0.05\)</span>.</p>
-<div id="8e9d4bb7" class="cell" data-execution_count="13">
+<div id="ce004214" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función y gradiente:</span></span>
@@ -1221,7 +1221,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 </div>
 </div>
 <p>La secuencia de valores obtenidas es:</p>
-<div id="967d5639" class="cell" data-execution_count="14">
+<div id="36c6a0f9" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>            x         y
 0    0.000000  0.000000
@@ -1239,7 +1239,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 [101 rows x 2 columns]</code></pre>
 </div>
 </div>
-<div id="baaebec4" class="cell" data-execution_count="15">
+<div id="db177c81" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1252,7 +1252,7 @@ Valor de f: 0.0018577913111879544</code></pre>
 
 </div>
 <p>Observar que los puntos iterados son colineales. Esto ocurre en problemas cuadráticos, debido a que la matriz Hessiana es constante. Veamos qué pasa si aplicamos directamente el método de Newton clásico (<span class="math inline">\(\eta=1\)</span>).</p>
-<div id="bea0d305" class="cell" data-execution_count="16">
+<div id="93a34076" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-stdout">
 <pre><code>Parada en iteración 2: |grad_f| &lt; 0.001
 Iteración final: 1
@@ -1260,7 +1260,7 @@ Iteración final: 1
 Valor de f: 0.0</code></pre>
 </div>
 </div>
-<div id="51997123" class="cell" data-execution_count="17">
+<div id="53a7ade3" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>     x    y
 0  0.0  0.0

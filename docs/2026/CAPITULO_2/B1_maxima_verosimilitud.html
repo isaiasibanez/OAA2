@@ -278,7 +278,7 @@ window.Quarto = {
 <p><a href="../material/apunte_c2s1.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c2s1.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 21/09/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 22/09/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -328,12 +328,16 @@ L(\boldsymbol{\theta}) := \prod_{i=1}^{n} p(y_i \mid \boldsymbol{\theta}).
 
 </div>
 <div class="definicion">
-<p><strong>Definición 2.1.2</strong> (Estimador de máxima verosimilitud). Sea <span class="math inline">\(\{y_1,\ldots,y_n\}\)</span> una muestra i.i.d. de una variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span>, y sea <span class="math inline">\(p(\cdot\mid\boldsymbol{\theta})\)</span> un modelo parametrizado por <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^q\)</span>. Al punto óptimo del problema (2.1.2), denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}_{\text{MLE}}\)</span>, se lo denomina . Esto es: <span class="math display">\[
-\hat{\boldsymbol{\theta}}_{\text{MLE}}:=\arg\max_{\boldsymbol{\theta}\in\Theta}\;L(\boldsymbol{\theta}).
+<p><strong>Definición 2.1.2</strong> (Estimador de máxima verosimilitud). Sea <span class="math inline">\(\{y_1,\ldots,y_n\}\)</span> una muestra i.i.d. de una variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span>, y sea <span class="math inline">\(p(\cdot\mid\boldsymbol{\theta})\)</span> un modelo parametrizado por <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^q\)</span>. Se denomina <em>estimador de máxima verosimilitud</em> (MLE) a cualquier punto óptimo del problema (2.1.2), a saber: <span class="math display">\[
+\hat{\boldsymbol{\theta}}_{\text{MLE}}\in\arg\max_{\boldsymbol{\theta}\in\Theta}\;L(\boldsymbol{\theta}).
 \]</span></p>
 <p>Cuando no haya ambigüedad, escribiremos simplemente <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.</p>
 </div>
-<div style="margin-top:2em;">
+<div style="margin-top:1.5em;">
+
+</div>
+<p>Si el modelo está correctamente especificado, el MLE <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> constituye una estimación muestral del <em>parámetro poblacional</em>, que denotaremos por <span class="math inline">\(\boldsymbol{\theta}_\star\)</span>.</p>
+<div style="margin-top:1.5em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
@@ -343,6 +347,12 @@ L(\boldsymbol{\theta}) := \prod_{i=1}^{n} p(y_i \mid \boldsymbol{\theta}).
 \tag{2.1.3}
 \]</span></p>
 <p>Esta transformación convierte el producto en una suma, lo que simplifica tanto el análisis matemático como la implementación computacional.</p>
+<p>Así, el problema (2.1.2) es equivalente a <span class="math display">\[
+\begin{array}{ll}
+    \text{minimizar } &amp; -\ell(\boldsymbol{\theta})\\
+    \text{sujeto a }  &amp; \boldsymbol{\theta}\in\Theta.
+\end{array}
+\]</span></p>
 </div>
 <div style="margin-top:2em;">
 
@@ -362,7 +372,8 @@ L(\boldsymbol{\theta}) := \prod_{i=1}^{n} p(y_i \mid \boldsymbol{\theta}).
 \nabla\ell(\hat{\boldsymbol{\theta}}) = \mathbf{0}.
 \tag{2.1.4}
 \]</span></p>
-<p>La <em>ecuación de verosimilitud</em> (2.1.4), en general, no admite solución analítica cerrada y debe resolverse mediante métodos numéricos tales como descenso por gradiente y método de Newton.</p>
+<p>Más aún, si <span class="math inline">\(\ell\)</span> es una función cóncava, entonces (2.1.4) también es una condición suficiente de optimalidad y, en consecuencia, podemos usarla para obtener el estimador.</p>
+<p>La <em>ecuación de verosimilitud</em> (2.1.4) puede no admitir una solución analítica cerrada o esta puede resultar demasiado compleja para obtenerla de manera práctica. En estos casos, la solución debe aproximarse mediante métodos numéricos de optimización, tales como el descenso por gradiente y el método de Newton.</p>
 <div style="margin-top:1.5em;">
 
 </div>
@@ -374,10 +385,13 @@ p(y \mid \phi) = \phi^y(1-\phi)^{1-y}, \qquad y \in \{0,1\}.
 <p>Entonces <span class="math display">\[
 L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\bar{y})},
 \]</span> donde <span class="math inline">\(\bar{y}:=\left(\sum_{i=1}^n y_i\right)/n\)</span> es la media muestral. La función de log-verosimilitud resulta <span class="math display">\[
-\ell(\phi) = n\bar{y} \log \phi +n(1-\bar{y})\log (1-\phi),
+\ell(\phi) = n\bar{y} \log \phi +n(1-\bar{y})\log (1-\phi).
 \tag{2.1.5}
 \]</span></p>
-<p>Derivando (2.1.5) respecto de <span class="math inline">\(\phi\)</span> e igualando a cero, obtenemos finalmente la ecuación de verosimilitud: <span class="math display">\[
+<p>Dado que <span class="math inline">\(\ell\)</span> es estrictamente cóncava, ya que <span class="math display">\[
+\ell''(\phi)=-\frac{n\bar{y}}{\phi^2}-\frac{n(1-\bar{y})}{(1-\phi)^2}&lt;0\qquad\forall\, 0&lt;\phi&lt;1,
+\]</span></p>
+<p>la ecuación de verosimilitud (2.1.4) es suficiente y necesaria para la optimalidad. Para (2.1.5), resolvemos <span class="math inline">\(\ell'(\phi)=0\)</span>: <span class="math display">\[
 \begin{align*}
 \frac{n\bar{y}}{\hat{\phi}}-\frac{n(1-\bar{y})}{1-\hat{\phi}}&amp;=0 \\[3 pt]
 (1-\hat{\phi})\bar{y}-\hat{\phi}(1-\bar{y}) &amp;=0 \\
@@ -398,7 +412,7 @@ L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\
 </section>
 <section id="propiedades-del-mle" class="level3">
 <h3 class="anchored" data-anchor-id="propiedades-del-mle">Propiedades del MLE</h3>
-<p>Dado que <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> es un estimador del valor verdadero del parámetro, al cual denotaremos <span class="math inline">\(\boldsymbol{\theta}_\star\)</span>, resulta relevante estudiar sus propiedades estadísticas, tales como consistencia, sesgo y varianza.</p>
+<p>Dado que <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> es un estimador de <span class="math inline">\(\boldsymbol{\theta}_\star\)</span>, resulta relevante estudiar sus propiedades estadísticas, tales como consistencia, sesgo y varianza. Recordemos que la <em>consistencia</em> mide su convergencia a <span class="math inline">\(\boldsymbol{\theta}_\star\)</span>, el <em>sesgo</em> su error sistemático y la <em>varianza</em> su variabilidad entre muestras.</p>
 <div style="margin-top:1.5em;">
 
 </div>
@@ -421,11 +435,11 @@ L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\
 <p>El estimador de máxima verosimilitud goza de propiedades asintóticas notables que lo convierten en el método de referencia para estimación paramétrica.</p>
 <ul>
 <li><p><strong>Consistencia</strong>. Bajo condiciones de regularidad, <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\overset{p}{\longrightarrow}\boldsymbol{\theta}_\star\)</span>.</p></li>
-<li><p><strong>Invarianza</strong>. Si <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> es el MLE de <span class="math inline">\(\boldsymbol{\theta}\)</span> y <span class="math inline">\(g\)</span> es una función biyectiva, entonces <span class="math inline">\(g(\hat{\boldsymbol{\theta}})\)</span> es el MLE de <span class="math inline">\(g(\boldsymbol{\theta})\)</span>.</p></li>
+<li><p><strong>Invarianza</strong>. Si <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> es el MLE de <span class="math inline">\(\boldsymbol{\theta}\)</span> y <span class="math inline">\(g\)</span> es una función de <span class="math inline">\(\boldsymbol{\theta}\)</span>, entonces <span class="math inline">\(g(\hat{\boldsymbol{\theta}})\)</span> es el MLE de <span class="math inline">\(g(\boldsymbol{\theta})\)</span>.</p></li>
 <li><p><strong>Normalidad asintótica</strong>. Bajo condiciones de regularidad, <span class="math display">\[
 \sqrt{n}\,(\hat{\boldsymbol{\theta}}-\boldsymbol{\theta}_\star)\overset{d}{\longrightarrow}\mathcal{N}\left(\mathbf{0},\;\mathcal{I}(\boldsymbol{\theta}_\star)^{-1}\right),
 \]</span></p>
-<p>donde <span class="math inline">\(\mathcal{I}(\boldsymbol{\theta}) := -\mathbb{E}\left[\nabla^2_{\boldsymbol{\theta}} \log p(Y \mid \boldsymbol{\theta})\right]\)</span> es la <em>información de Fisher</em> de una observación. Esto permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.</p></li>
+<p>donde <span class="math inline">\(\mathcal{I}(\boldsymbol{\theta}) := -\mathbb{E}\left[\nabla^2_{\boldsymbol{\theta}} \log p(Y \mid \boldsymbol{\theta})\right]\)</span> es la <em>información de Fisher</em> de una observación, que cuantifica cuánta información sobre () se espera obtener de ella si el parámetro toma dicho valor. La normalidad asintótica permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.</p></li>
 <li><p><strong>Eficiencia</strong>. Bajo condiciones de regularidad, el MLE es asintóticamente eficiente: entre todos los estimadores que cumplen ciertas condiciones de regularidad, el MLE tiene la menor varianza, al menos para muestras grandes. En efecto, la varianza asintótica de <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\)</span> es <span class="math display">\[
   \frac{1}{n}\mathcal I(\boldsymbol{\theta}_{\star})^{-1},
   \]</span></p>
@@ -434,13 +448,13 @@ L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\
 <div style="margin-top:2em;">
 
 </div>
-<p>En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre <span class="math inline">\(p(y\mid \boldsymbol{\theta})\)</span> que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.</p>
+<p>En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las <em>condiciones de regularidad</em> a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre <span class="math inline">\(p(y\mid \boldsymbol{\theta})\)</span> que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.</p>
 <div style="margin-top:1.5em;">
 
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.1.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Eficiencia del MLE para la distribución de Bernoulli </span></p>
-<p>Sea <span class="math inline">\(\{y_1,\ldots,y_n\}\)</span> una muestra i.i.d. de <span class="math inline">\(Y\sim\text{Bernoulli}(\varphi)\)</span>, con <span class="math inline">\(0&lt;\phi&lt;1\)</span>. Del Ejemplo 2.1.3, tenemos que <span class="math display">\[
+<p>Sea <span class="math inline">\(\{y_1,\ldots,y_n\}\)</span> una muestra i.i.d. de <span class="math inline">\(Y\sim\text{Bernoulli}(\varphi)\)</span>, con <span class="math inline">\(0&lt;\phi&lt;1\)</span>. Supongamos que el modelo está correctamente especificado, siendo <span class="math inline">\(\phi_\star\)</span> es el parámetro poblacional. Del Ejemplo 2.1.3, tenemos que <span class="math display">\[
 \log p(y\mid \phi)=y\log \phi+(1-y)\log(1-\phi).
 \]</span></p>
 <p>Resulta <span class="math display">\[
@@ -449,13 +463,13 @@ L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\
 <p>de manera que <span class="math display">\[
 I(\phi)=\mathbb{E}\left[\frac{Y}{\phi^2}+\frac{1-Y}{(1-\phi)^2}\right]=\frac{\phi}{\phi^2}+\frac{1-\phi}{(1-\phi)^2}=\frac{1}{\phi(1-\phi)}.
 \]</span></p>
-<p>Por lo tanto, la cota de Cramér-Rao establece que, para cualquier estimador insesgado <span class="math inline">\(\tilde{\phi}\)</span> de <span class="math inline">\(\phi\)</span>, se verifica <span class="math display">\[
-\operatorname{Var}(\tilde{\phi})\geq \frac{\phi(1-\phi)}{n}
+<p>Por lo tanto, la cota de Cramér-Rao establece que, para cualquier estimador insesgado <span class="math inline">\(\tilde{\phi}\)</span> de <span class="math inline">\(\phi_\star\)</span>, se verifica <span class="math display">\[
+\operatorname{Var}(\tilde{\phi})\geq \frac{\phi_\star(1-\phi_\star)}{n}
 \]</span></p>
-<p>En particular, el MLE de <span class="math inline">\(\phi\)</span> alcanza esta cota para cualquier tamaño muestral <span class="math inline">\(n\)</span>, ya que <span class="math display">\[
-\mathop{\mathrm{Var}}(\hat{p})=\mathop{\mathrm{Var}}\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)=\frac{1}{n^2}\sum_{i=1}^n\mathop{\mathrm{Var}}(Y_i)=\frac{\phi(1-\phi)}{n},
+<p>En particular, el MLE <span class="math inline">\(\hat{\phi}\)</span> alcanza esta cota para cualquier tamaño muestral <span class="math inline">\(n\)</span>, ya que <span class="math display">\[
+\mathop{\mathrm{Var}}(\hat{p})=\mathop{\mathrm{Var}}\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)=\frac{1}{n^2}\sum_{i=1}^n\mathop{\mathrm{Var}}(Y_i)=\frac{\phi_{\star}(1-\phi_{\star})}{n},
 \]</span></p>
-<p>donde hemos usado el hecho que <span class="math inline">\(\{Y_1,\ldots,Y_n\}\)</span> son i.i.d. con <span class="math inline">\(\mathop{\mathrm{Var}}(Y_i)=\phi(1-\phi)\)</span>.</p>
+<p>donde hemos usado el hecho que <span class="math inline">\(\{Y_1,\ldots,Y_n\}\)</span> son i.i.d. y que, bajo el modelo especificado, <span class="math inline">\(\mathop{\mathrm{Var}}(Y_i)=\phi_{\star}(1-\phi_{\star})\)</span>.</p>
 </div>
 <p><br><br></p>
 <div class="refs">

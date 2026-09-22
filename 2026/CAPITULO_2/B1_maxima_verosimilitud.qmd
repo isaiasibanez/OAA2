@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 1"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 21/09/2026
+    Última actualización: 22/09/2026
   </span>
 
 </div>
@@ -91,15 +91,19 @@ donde $\Theta\subseteq\RR^q$ es el conjunto de valores admisibles para el parám
 <div style="margin-top:1.5em;"></div>
 
 ::: {.definicion}
-**Definición 2.1.2** (Estimador de máxima verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot\mid\bftheta)$ un modelo parametrizado por $\bftheta\in\RR^q$. Al punto óptimo del problema (2.1.2), denotado por $\hat{\bftheta}_{\text{MLE}}$, se lo denomina \textit{estimador de máxima verosimilitud}. Esto es:
+**Definición 2.1.2** (Estimador de máxima verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot\mid\bftheta)$ un modelo parametrizado por $\bftheta\in\RR^q$. Se denomina *estimador de máxima verosimilitud* (MLE) a cualquier punto óptimo del problema (2.1.2), a saber:
 $$
-\hat{\bftheta}_{\text{MLE}}:=\arg\max_{\bftheta\in\Theta}\;L(\bftheta).
+\hat{\bftheta}_{\text{MLE}}\in\arg\max_{\bftheta\in\Theta}\;L(\bftheta).
 $$
 
 Cuando no haya ambigüedad, escribiremos simplemente $\hat{\bftheta}$.
 :::
 
-<div style="margin-top:2em;"></div>
+<div style="margin-top:1.5em;"></div>
+
+Si el modelo está correctamente especificado, el MLE $\hat{\bftheta}$ constituye una estimación muestral del *parámetro poblacional*, que denotaremos por $\bftheta_\star$.
+
+<div style="margin-top:1.5em;"></div>
 
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-success text-light">Función de log-verosimilitud</span>
@@ -111,6 +115,14 @@ $$
 $$
 
 Esta transformación convierte el producto en una suma, lo que simplifica tanto el análisis matemático como la implementación computacional.
+
+Así, el problema (2.1.2) es equivalente a
+$$
+\begin{array}{ll}
+	\text{minimizar } & -\ell(\bftheta)\\
+	\text{sujeto a }  & \bftheta\in\Theta.
+\end{array}
+$$
 
 </div>
 
@@ -134,7 +146,9 @@ $$
 \tag{2.1.4}
 $$
 
-La *ecuación de verosimilitud* (2.1.4), en general, no admite solución analítica cerrada y debe resolverse mediante métodos numéricos tales como descenso por gradiente y método de Newton. 
+Más aún, si $\ell$ es una función cóncava, entonces (2.1.4) también es una condición suficiente de optimalidad y, en consecuencia, podemos usarla para obtener el estimador. 
+
+La *ecuación de verosimilitud* (2.1.4) puede no admitir una solución analítica cerrada o esta puede resultar demasiado compleja para obtenerla de manera práctica. En estos casos, la solución debe aproximarse mediante métodos numéricos de optimización, tales como el descenso por gradiente y el método de Newton.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -158,11 +172,16 @@ L(\phi)=\prod_{i=1}^n \phi^{y_i}(1-\phi)^{1-y_i}=\phi^{n \bar{y}}(1-\phi)^{n(1-\
 $$
 donde $\bar{y}:=\left(\sum_{i=1}^n y_i\right)/n$ es la media muestral. La función de log-verosimilitud resulta
 $$
-\ell(\phi) = n\bar{y} \log \phi +n(1-\bar{y})\log (1-\phi),
+\ell(\phi) = n\bar{y} \log \phi +n(1-\bar{y})\log (1-\phi).
 \tag{2.1.5}
 $$
 
-Derivando (2.1.5) respecto de $\phi$ e igualando a cero, obtenemos finalmente la ecuación de verosimilitud:
+Dado que $\ell$ es estrictamente cóncava, ya que
+$$
+\ell''(\phi)=-\frac{n\bar{y}}{\phi^2}-\frac{n(1-\bar{y})}{(1-\phi)^2}<0\qquad\forall\, 0<\phi<1,
+$$
+
+la ecuación de verosimilitud (2.1.4) es suficiente y necesaria para la optimalidad. Para (2.1.5), resolvemos $\ell'(\phi)=0$:
 $$
 \begin{align*}
 \frac{n\bar{y}}{\hat{\phi}}-\frac{n(1-\bar{y})}{1-\hat{\phi}}&=0 \\[3 pt]
@@ -186,7 +205,7 @@ Luego, el MLE para el parámetro $\phi$ de la distribución de Bernoulli es la m
 
 ### Propiedades del MLE
 
-Dado que $\hat{\bftheta}$ es un estimador del valor verdadero del parámetro, al cual denotaremos $\bftheta_\star$, resulta relevante estudiar sus propiedades estadísticas, tales como consistencia, sesgo y varianza. 
+Dado que $\hat{\bftheta}$ es un estimador de $\bftheta_\star$, resulta relevante estudiar sus propiedades estadísticas, tales como consistencia, sesgo y varianza. Recordemos que la *consistencia* mide su convergencia a $\bftheta_\star$, el *sesgo* su error sistemático y la *varianza* su variabilidad entre muestras.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -215,7 +234,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
 
 - **Consistencia**. Bajo condiciones de regularidad, $\hat{\bftheta}_n\overset{p}{\longrightarrow}\bftheta_\star$.
 
-- **Invarianza**. Si $\hat{\bftheta}$ es el MLE de $\bftheta$ y $g$ es una función biyectiva, entonces $g(\hat{\bftheta})$ es el MLE de $g(\bftheta)$.
+- **Invarianza**. Si $\hat{\bftheta}$ es el MLE de $\bftheta$ y $g$ es una función de $\bftheta$, entonces $g(\hat{\bftheta})$ es el MLE de $g(\bftheta)$.
 
 - **Normalidad asintótica**. Bajo condiciones de regularidad,
   $$
@@ -223,7 +242,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
   $$
    
   donde $\mathcal{I}(\bftheta) := -\mathbb{E}\left[\nabla^2_{\bftheta} \log p(Y \mid \bftheta)\right]$
-  es la *información de Fisher* de una observación. Esto permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
+  es la *información de Fisher* de una observación, que cuantifica cuánta información sobre \(\bftheta\) se espera obtener de ella si el parámetro toma dicho valor. La normalidad asintótica permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
 
 - **Eficiencia**. Bajo condiciones de regularidad, el MLE es asintóticamente eficiente: entre todos los estimadores que cumplen ciertas condiciones de regularidad, el MLE tiene la menor varianza, al menos para muestras grandes. En efecto, la varianza asintótica de $\hat{\bftheta}_n$ es
 	$$
@@ -234,7 +253,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
 
 <div style="margin-top:2em;"></div>
 
-En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las \textit{condiciones de regularidad} a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre $p(y\mid \bftheta)$ que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.
+En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las *condiciones de regularidad* a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre $p(y\mid \bftheta)$ que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.
 
 
 <div style="margin-top:1.5em;"></div>
@@ -246,7 +265,7 @@ En problemas suficientemente complejos, estas propiedades pueden dejar de cumpli
 Eficiencia del MLE para la distribución de Bernoulli
 </span>
 
-Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de $Y\sim\text{Bernoulli}(\varphi)$, con $0<\phi<1$. Del Ejemplo 2.1.3, tenemos que
+Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de $Y\sim\text{Bernoulli}(\varphi)$, con $0<\phi<1$. Supongamos que el modelo está correctamente especificado, siendo $\phi_\star$ es el parámetro poblacional. Del Ejemplo 2.1.3, tenemos que
 $$
 \log p(y\mid \phi)=y\log \phi+(1-y)\log(1-\phi).
 $$
@@ -261,17 +280,17 @@ $$
 I(\phi)=\media\left[\frac{Y}{\phi^2}+\frac{1-Y}{(1-\phi)^2}\right]=\frac{\phi}{\phi^2}+\frac{1-\phi}{(1-\phi)^2}=\frac{1}{\phi(1-\phi)}.
 $$
 	
-Por lo tanto, la cota de Cramér-Rao establece que, para cualquier estimador insesgado $\tilde{\phi}$ de $\phi$, se verifica
+Por lo tanto, la cota de Cramér-Rao establece que, para cualquier estimador insesgado $\tilde{\phi}$ de $\phi_\star$, se verifica
 $$
-\operatorname{Var}(\tilde{\phi})\geq \frac{\phi(1-\phi)}{n}
-$$
-	
-En particular, el MLE de $\phi$ alcanza esta cota para cualquier tamaño muestral $n$, ya que
-$$
-\var(\hat{p})=\var\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)=\frac{1}{n^2}\sum_{i=1}^n\var(Y_i)=\frac{\phi(1-\phi)}{n},
+\operatorname{Var}(\tilde{\phi})\geq \frac{\phi_\star(1-\phi_\star)}{n}
 $$
 	
-donde hemos usado el hecho que $\{Y_1,\ldots,Y_n\}$ son i.i.d. con $\var(Y_i)=\phi(1-\phi)$.
+En particular, el MLE $\hat{\phi}$ alcanza esta cota para cualquier tamaño muestral $n$, ya que
+$$
+\var(\hat{p})=\var\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)=\frac{1}{n^2}\sum_{i=1}^n\var(Y_i)=\frac{\phi_{\star}(1-\phi_{\star})}{n},
+$$
+	
+donde hemos usado el hecho que $\{Y_1,\ldots,Y_n\}$ son i.i.d. y que, bajo el modelo especificado, $\var(Y_i)=\phi_{\star}(1-\phi_{\star})$.
 
 :::
 
