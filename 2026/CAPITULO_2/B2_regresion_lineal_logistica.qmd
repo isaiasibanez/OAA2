@@ -439,7 +439,7 @@ $$
 $$
 \begin{array}{c}
 Y\in\{0,1\} \\[2pt]
-\prob(y=1\mid\xx;\bftheta)=h_{\bftheta}(\xx)
+\prob(Y=1\mid\xx;\bftheta)=h_{\bftheta}(\xx)
 \end{array}
 $$
 
