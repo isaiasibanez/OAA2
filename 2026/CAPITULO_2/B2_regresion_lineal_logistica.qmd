@@ -431,9 +431,9 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
-<span style="font-size:0.8em;">*Supuesto del modelo*</span>
+<span style="font-size:0.8em;">*Supuestos del modelo*</span>
 <div style="margin-top:-0.1em;"></div>
 
 $$
