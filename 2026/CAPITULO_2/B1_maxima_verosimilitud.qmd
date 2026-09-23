@@ -44,8 +44,9 @@ En esta sección introducimos el *principio de máxima verosimilitud* (MLE, *max
 
 📄 **Notación**
 
-Durante esta sección consideramos una muestra i.i.d. $\{y_1, \ldots, y_n\}$ de una variable aleatoria $Y\in\RR$ cuya distribución depende de un vector de parámetros $\bftheta \in \RR^q$. Denotamos con
-$p(y \mid \bftheta)$ la función de densidad (o masa de probabilidad) de $Y$.
+Durante esta sección consideramos una muestra i.i.d. $\{y_1, \ldots, y_n\}$ de una variable aleatoria $Y\in\RR$ cuya distribución depende de un vector de parámetros $\bftheta \in \RR^q$. Denotamos con $p(y \mid \bftheta)$ la función de densidad (o masa de probabilidad) de $Y$.
+
+Además, de ahora en adelante, denotamos $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$ y, para una variable aleatoria $Z$, se denota $\media\left[Z\right]$ su valor esperado y $\var\left[Z\right]$ su varianza.
 
 </div>
 
@@ -282,15 +283,15 @@ $$
 	
 Por lo tanto, la cota de Cramér-Rao establece que, para cualquier estimador insesgado $\tilde{\phi}$ de $\phi_\star$, se verifica
 $$
-\operatorname{Var}(\tilde{\phi})\geq \frac{\phi_\star(1-\phi_\star)}{n}
+\var\left[\tilde{\phi}\right]\geq \frac{\phi_\star(1-\phi_\star)}{n}
 $$
 	
 En particular, el MLE $\hat{\phi}$ alcanza esta cota para cualquier tamaño muestral $n$, ya que
 $$
-\var(\hat{p})=\var\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)=\frac{1}{n^2}\sum_{i=1}^n\var(Y_i)=\frac{\phi_{\star}(1-\phi_{\star})}{n},
+\var\left[\hat{p}\right]=\var\left[\frac{1}{n}\sum_{i=1}^n Y_i\right]=\frac{1}{n^2}\sum_{i=1}^n\var\left[Y_i\right]=\frac{\phi_{\star}(1-\phi_{\star})}{n},
 $$
 	
-donde hemos usado el hecho que $\{Y_1,\ldots,Y_n\}$ son i.i.d. y que, bajo el modelo especificado, $\var(Y_i)=\phi_{\star}(1-\phi_{\star})$.
+donde hemos usado el hecho que $\{Y_1,\ldots,Y_n\}$ son i.i.d. y que, bajo el modelo especificado, $\var\left[Y_i\right]=\phi_{\star}(1-\phi_{\star})$.
 
 :::
 

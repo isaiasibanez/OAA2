@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 2"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 21/09/2026
+    Última actualización: 22/09/2026
   </span>
 
 </div>
@@ -32,7 +32,7 @@ subtitle: "Capítulo 2 - Sección 2"
 
 
 
-En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisado: la regresión lineal, utilizada para variables de respuesta cuantitativas, y la regresión logística, empleada cuando la respuesta es categórica. Ambos modelos pueden ser formulados como problemas de optimización, lo que permite aplicar los conceptos vistos en el capítulo anterior. Para ambos modelos, analizaremos su formulación probabilística, las características del problema y los métodos de resolución más utilizados.
+En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisado: la regresión lineal, utilizada para una variable de respuesta continua, y la regresión logística, empleada cuando la respuesta es categórica. Ambos modelos pueden ser formulados como problemas de optimización, lo que permite aplicar los conceptos vistos en el capítulo anterior. Para ambos modelos, analizaremos su formulación probabilística, las características del problema y los métodos de resolución más utilizados.
 
 
 <div style="border-top:1px solid #b7cdf5;
@@ -46,13 +46,28 @@ De ahora en adelante, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto 
 
 Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\bfone & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
 
-Además:
-
-- $\prob(A)$ la probabilidad de que ocurra un suceso $A$.
-- Para una variable aleatoria $Z\in\RR$, se denota $\media\left[Z\right]$ su valor esperado y $\var\left[Z\right]$ su varianza. 
-- La covarianza entre dos variables $Z_1$ y $Z_2$ se denota $\cov\left[Z_1,Z_2\right]$. Por supuesto, se cumple $\var\left[Z\right]=\cov\left[Z,Z\right]$.
-
 </div>
+
+<div style="margin-top:1.5em;"></div>
+
+En modelos probabilisticos, la tarea de obtener un estimador $\hat{\bftheta}$ puede ser formulada a través de un problema de optimización de la forma
+$$
+\begin{array}{ll}
+	\text{minimizar } & J(\bftheta),
+\end{array}
+$$
+en principio sin restricciones. Aquí, la función objetivo $J:\RR^q\to\RR$, conocida como \textit{función de costo}, mide que tan bien se ajusta $\bftheta$ a los datos observados. De acuerdo con lo visto en [C2-S1](../CAPITULO_2/B1_maxima_verosimilitud.html), bajo la suposición que los datos son i.i.d. (independientes e idénticamente distribuidos) con distribución condicional $p(y\mid\xx;\bftheta)$, una estrategia para formular $J$ es el principio de máxima verosimilitud (MLE); es decir, $J$ se deriva de la función de verosimilitud
+$$
+L(\bftheta):=\prod_{i=1}^n p(y_i\mid\xx_i;\bftheta).
+$$
+Si bien $J$ depende del problema específico, en general es de la forma
+$$
+J(\bftheta)=\sum_{i=1}^n\loss(y_i,f(\xx_i,\bftheta)),
+$$
+donde $\loss:\RR\times\RR\to\RR_0^+$ mide, para cada observación, el error entre el valor observado de la variable respuesta y el valor estimado por el modelo.
+
+
+
 
 <div style="margin-top:2.5em;"></div>
 
@@ -62,7 +77,7 @@ Además:
 
 <div style="margin-top:-1em;"></div>
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
 <span style="font-size:0.8em;">*Supuestos del modelo*</span>
 <div style="margin-top:-0.1em;"></div>
@@ -88,21 +103,11 @@ $$
 p(\varepsilon) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{\varepsilon^2}{2 \sigma^2}\right).
 $$
 
-<figure style="text-align: center;">
-  <img src="figuras/linear_regression_hastie.png" alt="…" width="350px">
-  <figcaption> **Figura 2.2.1**. Interpretación geométrica del modelo de regresión lineal en $\RR^2$. El objetivo es hallar la función lineal de $X$ que minimice la suma de los residuos al cuadrado respecto de $Y$. (*Figura 3.1 de (Hastie, Tibshirani y Friedman 2009)*). </figcaption>
-</figure>
-
 
 
 ### Distribución condicional
 
-Dado $\XX=\xx$, tenemos que
-$$
-Y=\underbrace{\bftheta^\top\xx}_{\text{cte}}+\varepsilon.
-$$
-
-Por lo tanto, el supuesto $\varepsilon\sim\calN(0,\sigma^2)$ implica que
+Dado $\XX=\xx$, tenemos que $Y=\underbrace{\bftheta^\top\xx}_{\text{cte}}+\varepsilon$. Por lo tanto, el supuesto $\varepsilon\sim\calN(0,\sigma^2)$ implica que
 $$
 Y|\XX=\xx\sim \calN(\bftheta^\top\xx,\sigma^2).
 $$
@@ -134,11 +139,7 @@ $$
 
 Para un conjunto de datos $\{\xx_i, y_i\}_{i=1}^n$ i.i.d., la función de log-verosimilitud es
 $$
-\begin{align*}
-	\ell(\bftheta) &= \log \prod_{i=1}^{n} \frac{1}{\sqrt{2 \pi}\sigma} \exp\left(-\frac{(y_i - \bftheta^\top \xx_i)^2}{2 \sigma^2}\right) \\
-	&= \sum_{i=1}^{n} \left[\log\frac{1}{\sqrt{2 \pi}\sigma} - \frac{1}{2 \sigma^2}  (y_i - \bftheta^\top \xx_i)^2\right]\\
-	&= n  \log \frac{1}{\sqrt{2 \pi}\sigma} - \frac{1}{2 \sigma^2} \sum_{i=1}^{n} (y_i - \bftheta^\top \xx_i)^2.
-\end{align*}
+\ell(\bftheta) = \log \prod_{i=1}^{n} \frac{1}{\sqrt{2 \pi}\sigma} \exp\left(-\frac{(y_i - \bftheta^\top \xx_i)^2}{2 \sigma^2}\right) = n  \log \frac{1}{\sqrt{2 \pi}\sigma} - \frac{1}{2 \sigma^2} \sum_{i=1}^{n} (y_i - \bftheta^\top \xx_i)^2.
 $$
 
 <div style="margin-top:2em;"></div>
@@ -147,7 +148,7 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Observar, en esta última expresión, que maximizar $\ell(\bftheta)$ es equivalente a minimizar
+Observar que maximizar $\ell(\bftheta)$ es equivalente a minimizar la función de costo asociada a mínimos cuadrados, dada por
 
 $$
 J(\bftheta)=\frac{1}{2} \sum_{i=1}^{n} (y_i - \bftheta^\top \xx_i)^2=\frac{1}{2}\|X\bftheta-\yy\|_2^2,
@@ -156,6 +157,13 @@ $$
 lo cual es la función de costo asociada a mínimos cuadrados.
 
 </div>
+
+<div style="margin-top:1.5em;"></div>
+
+<figure style="text-align: center;">
+  <img src="figuras/linear_regression_hastie.png" alt="…" width="350px">
+  <figcaption> **Figura 2.2.1**. Interpretación geométrica del modelo de regresión lineal en $\RR^2$. El objetivo es hallar la función lineal de $X$ que minimice la suma de los residuos al cuadrado respecto de $Y$. (*Figura 3.1 de (Hastie, Tibshirani y Friedman 2009)*). </figcaption>
+</figure>
 
 
 
@@ -168,21 +176,19 @@ $$
 \end{array}
 $$
 
-es convexo y no tiene restricciones. Por lo tanto, en virtud del Teorema 1.4.1, la condición de optimalidad $\nabla J(\bftheta)=\bfzero$ es suficiente y necesaria. Desarrollamos: 
+es convexo y no tiene restricciones. Por lo tanto, en virtud del Teorema 1.4.1, la condición de optimalidad $\nabla J(\bftheta)=\bfzero$ es suficiente y necesaria. Resolvemos:
 $$
 \begin{align*}
-\nabla J(\hat{\bftheta})&=\bfzero\\
 X^\top X\hat{\bftheta}-X^\top\yy&=\bfzero\\
-X^\top X\hat{\bftheta} &=X^\top\yy\\
-\hat{\bftheta}&=X^{+}\yy.
+X^\top X\hat{\bftheta} &=X^\top\yy.
 \end{align*}
 $$
 
-En particular:
+La solución está caracterizada por $\hat{\bftheta}=X^{+}\yy$, donde $X^{+}$ es la *pseudoinversa de Moore--Penrose* de $X$. En particular:
 
 ::: {.myhighlight}
 
-Si $X$ es de rango completo, entonces
+Si $X$ es de rango completo, entonces $X^\top X$ es invertible y
 $$
 \hat{\bftheta}=(X^\top X)^{-1}X^\top\yy
 $$
@@ -235,9 +241,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 <div style="margin-top:2em;"></div>
 
 
-El algoritmo anterior trabaja con todas las observaciones a la vez en cada paso de actualización, por lo que se trata de un *descenso de gradiente por lotes*. Esta estrategia asegura una actualización estable del parámetro $\bftheta$, aunque puede ser costosa si el número de observaciones es muy grande.
-
-Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch*. Observar que, para una observación $(\xx_i,y_i)$, la función de pérdida resulta
+El algoritmo anterior trabaja con todas las observaciones a la vez en cada paso de actualización, por lo que se trata de un *descenso de gradiente por lotes*. Esta estrategia asegura una actualización estable del parámetro $\bftheta$, aunque puede ser costosa si el número de observaciones es muy grande. Como alternativas, podemos utilizar descenso de gradiente estocástico o *mini-batch*. Observar que, para una observación $(\xx_i,y_i)$, la función de costo resulta
 $$
 \loss(y_i,f(\xx_i;\bftheta))=\frac{1}{2}(y_i-\bftheta^\top\xx_i)^2,
 $$
@@ -275,6 +279,16 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 
 Observar que la magnitud de la actualización del algoritmo LMS estocástico es proporcional al término de error $(y_i - \bftheta_t^\top\xx_i)$. Si elegimos un ejemplo para el cual $\bftheta_t^\top\xx_i\approx y_i$, entonces el cambio en el parámetro será mínimo. Esto puede activar prematuramente el criterio de parada basado en la magnitud del gradiente, por lo cual para para evitar detener el algoritmo demasiado pronto, suele ser recomendable basar el criterio de parada en el promedio del error sobre un conjunto de observaciones. También se puede imponer un número mínimo de iteraciones para asegurar que el algoritmo recorra suficientes ejemplos y aprenda de manera estable.
+
+<div style="margin-top:1.5em;"></div>
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">✍️</span><br>
+
+Suponga que $X^\top X$ es invertible. Analice qué sucede al aplicar el método de Newton para resolver el problema de regresión lineal.
+
+:::
 
 
 <div style="margin-top:2em;"></div>
@@ -337,67 +351,29 @@ for i, coef in enumerate(lr.coef_):
 
 
 
-### Resolución por método de Newton
-
-::: {.callout .question}
-
-<span style="font-size: 1.3em;">✍️</span><br>
-
-Analice qué sucede al aplicar el método de Newton para resolver el problema de regresión lineal.
-
-:::
-
-
-
 ### Propiedades del estimador
 
-Hemos visto que el algoritmo LMS permite aproximar el estimador de mínimos cuadrados $\hat{\bftheta}$ para el modelo de regresión lineal. Por supuesto, los resultados de convergencia vistos en [C1-S5](../CAPITULO_1/A5_metodos_optimizacion.html#método-de-descenso-por-gradiente) para el método de descenso por gradiente son válidos.
+Hemos visto que el algoritmo LMS permite aproximar el estimador de mínimos cuadrados $\hat{\bftheta}$ para el modelo de regresión lineal. Por supuesto, los resultados de convergencia para el método de descenso por gradiente son válidos. No obstante, recordemos que también es importante considerar las propiedades estadísticas del MLE $\hat{\bftheta}$.
 
-No obstante, $\hat{\bftheta}$ es un estimador del valor verdadero $\bftheta^\star$, por lo que resulta relevante estudiar sus propiedades estadísticas, tales como consistencia, sesgo y varianza, para entender qué tan buena es la estimación $\hat{\bftheta}$, incluso después de la convergencia del algoritmo LMS.
-
-<div class="alert alert-light text-dark" role="important">
-<span class="badge bg-warning text-dark">Importante</span>
-
-En base a lo descrito, es fundamental distinguir dos niveles de convergencia:
-
-- **Convergencia estadística del estimador**: se refiere al hecho de que el estimador $\hat{\bftheta}_n$ converge en probabilidad al valor verdadero $\bftheta^\star$. Simbólicamente:
-$$
-\plim_{n\to\infty}\hat{\bftheta}_n=\bftheta^\star\qquad (\hat{\bftheta}_n\xrightarrow{p}\bftheta^\star).
-$$
-
-    Observar que escribimos $\hat{\bftheta}_n$ para explicitar la dependencia del estimador respecto al tamaño muestral $n$.
-
-- **Convergencia computacional del algoritmo**: se refiere a que la sucesión producida por un algoritmo iterativo (por ejemplo, descenso por gradiente) converge a $\hat{\bftheta}$ (aquí no escribimos el subíndice porque $n$ es fijo). Esto es:
-$$
-\lim_{t\to\infty}\bftheta_t=\hat{\bftheta}\qquad(\bftheta_t\to\hat{\bftheta}).
-$$
-</div>
-
-<div style="margin-top:2em;"></div>
-
-Ahora sí estamos en condiciones de revisar algunos resultados conocidos para el modelo de regresión lineal.
+Algunos resultados conocidos para el modelo de regresión lineal son:
 
 
-- *Convergencia estadística*:
-
-    Para $n>p$ y bajo los supuestos clásicos de
+- **Convergencia estadística**: Para $n>p$ y bajo los supuestos clásicos de
     $$
     \begin{array}{cl}
     \{(\xx_i,y_i)\}_{i=1}^n\text{ i.i.d.},\; \media\left[\varepsilon_i\mid\xx_i\right]=0 & \text{(Exogeneidad)} \\[2pt]
     \media\left[\varepsilon_i^2\mid \xx_i\right]=\sigma^2<\infty,\;\media\left[\varepsilon_i^4\right] & \text{(Momentos)} \\
-    \frac{1}{n}X^\top X\xrightarrow{p}\Sigma_{X}\succ 0 & \text{(Diseño bien condicionado)}
+    \frac{1}{n}X^\top X\overset{p}{\longrightarrow}\Sigma_{X}\succ 0 & \text{(Diseño bien condicionado)}
     \end{array}
     $$
-        se verifica
+    se verifica
     $$
-    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\calN(0,\sigma^2\Sigma_X^{-1}).
+    \hat{\bftheta}_n\overset{p}{\longrightarrow}\bftheta_\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta_\star)\overset{d}{\longrightarrow}\calN(0,\sigma^2\Sigma_X^{-1}).
     $$
 
 <div style="margin-top:2em;"></div>
 
-- *Convergencia computacional*: 
-
-    Sean $\lambda_{\text{min}},\lambda_{\text{max}}>0$ autovalores de $X^\top X$. Si $0<\eta<2/\lambda_{\text{max}}$, entonces
+- **Convergencia computacional**. Sean $\lambda_{\text{min}},\lambda_{\text{max}}>0$ autovalores de $X^\top X$, y sea $\rho=\max\left\{|1-\eta\lambda_{\text{min}}|,|1-\eta\lambda_{\text{max}}|\right\}$. Si $0<\eta<2/\lambda_{\text{max}}$, entonces
     $$
     \bftheta_t\to\hat{\bftheta}\qquad\text{y}\qquad\|\bftheta_t-\hat{\bftheta}\|_2\leq\rho^t\|\bftheta_0-\hat{\bftheta}\|_2,
     $$
@@ -410,9 +386,7 @@ Ahora sí estamos en condiciones de revisar algunos resultados conocidos para el
 
 ## II <span style="color:#CCCCCC;">│</span>  Regresión logística
 
-Consideremos ahora un problema de clasificación binaria, con variable respuesta $Y\in\{0,1\}$. Por ejemplo, si estamos tratando de construir un clasificador de spam para correos electrónicos, entonces una observación $\xx$ contendrá características de un correo electrónico, mientras que su etiqueta $y$ será 1 si es spam o 0 en caso contrario. 
-
-Podríamos abordar el problema de clasificación ignorando el hecho de que $y$ toma valores discretos y usar el método de regresión lineal. Sin embargo, no tendría sentido que la predicción para un valor de $\xx$ sea un valor fuera del rango de 0 y 1. Para resolver este problema, es conveniente utilizar la *función logística*.
+Consideremos ahora un problema de clasificación binaria, con $Y\in\{0,1\}$. Por ejemplo, si estamos tratando de construir un clasificador de spam para correos electrónicos, una observación $\xx$ contendrá características de un correo electrónico, y su etiqueta $y$ será 1 si es spam o 0 en caso contrario. Podríamos aplicar regresión lineal ignorando que $Y$ es discreta, pero sus predicciones no estarían restringidas al intervalo $[0,1]$. Para evitar esto, utilizaremos la *función logística*.
 
 <div style="margin-top:2em;"></div>
 
@@ -425,30 +399,9 @@ $$
 \sigma(z) := \frac{1}{1 + e^{-z}} = \frac{e^z}{1+e^z}.
 $$
 
-```{python}
-#| echo: false
-#| fig-align: "center"
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Definir la función sigmoide
-def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-# Crear valores de z para graficar
-z = np.linspace(-10, 10, 500)
-g_z = sigmoid(z)
-
-# Graficar la función sigmoide
-plt.figure(figsize=(6,4))
-plt.plot(z, g_z, linewidth=1.5, label="$g(z) = \\frac{1}{1 + e^{-z}}$")
-plt.axhline(1, color="gray", linestyle="--", linewidth=0.7)
-plt.axhline(0, color="gray", linestyle="--", linewidth=0.7)
-plt.axvline(0, color="gray", linestyle="--", linewidth=0.7)
-plt.xlabel("$z$", fontsize=12)
-plt.ylabel(r"$\sigma(z)$", fontsize=12)
-plt.show()
-```
+<figure style="text-align: center;">
+  <img src="figuras/funcion_logistica.svg" alt="…" width="400px">
+</figure>
 
 <div style="margin-top:-1em;"></div>
 
@@ -515,7 +468,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-Definimos el *parámetro natural* $\eta\in\RR$ como
+Para simplificar la escritura, definamos el *parámetro natural* $\eta\in\RR$ como
 $$
 \eta(\xx;\bftheta):=\logit(h_{\bftheta}(\xx))=\bftheta^\top\xx.
 $$
@@ -549,11 +502,12 @@ $$
 <div style="margin-top:2em;"></div>
 
 <div class="alert alert-light text-dark" role="important">
-<span class="badge bg-warning text-dark">Importante</span>
 
-La forma (2.2.1) no es casual: corresponde a un caso particular de la representación de las denominadas *familias exponenciales*, que estudiaremos más adelante y que constituyen el marco teórico general de los modelos lineales generalizados.
+ℹ La forma (2.2.1) no es casual: corresponde a un caso particular de la representación de las denominadas *familias exponenciales*, que estudiaremos en [C2-S3](../CAPITULO_2/B3_GLM.html) y que constituyen el marco teórico general de los modelos lineales generalizados.
 
 </div>
+
+<div style="margin-top:1.5em;"></div>
 
 
 
@@ -581,7 +535,7 @@ $$
 \hat{y}_i:=h_{\bftheta}(\xx_i)=\frac{1}{1+e^{-\bftheta^\top\xx_i}},\qquad i=1,\ldots,n.
 $$
 
-La función $J(\theta)$ en (2.2.3), conocida como *entropía cruzada*, es la forma habitual de expresar la función de pérdida en problemas de clasificación binaria. Mide la disimilaridad entre las etiquetas reales $y_i$ y las probabilidades $\hat{y}_i$ predichas por el modelo. 
+La función $J$ en (2.2.3), conocida como *entropía cruzada*, es la forma habitual de expresar la función de pérdida en problemas de clasificación binaria. Mide la disimilaridad entre las etiquetas reales $y_i$ y las probabilidades $\hat{y}_i$ predichas por el modelo. 
 
 </div>
 
@@ -604,19 +558,19 @@ $$
 \begin{array}{ll} 
 \text{minimizar} & \displaystyle\sum_{i=1}^n\left[\log(1+e^{\bftheta^\top\xx_i})-\bftheta^\top\xx_i y_i\right].
 \end{array}
-\tag{4}
+\tag{2.2.4}
 $$
 
 ::: {.callout .question}
 
 <span style="font-size: 1.3em;">✍️</span><br>
 
-Muestre que la función objetivo $J(\bftheta)$ en (2.2.4) es convexa.
+Justifique que la función objetivo $J$ en (2.2.4) es convexa.
 
 :::
 
 
-Como antes, la condición de optimalidad $\nabla J(\bftheta)=\bfzero$ es suficiente y necesaria. Se tiene que
+La condición de optimalidad $\nabla J(\hat{\bftheta})=\bfzero$ es suficiente y necesaria, pero $\nabla J(\bftheta)$ depende de $\bftheta$ de forma no lineal. En efecto,
 $$
 \begin{align}
 	\nonumber\nabla J(\bftheta)&=\sum_{i=1}^n\left[\frac{e^{\bftheta^\top\xx_i}}{1+e^{\bftheta^\top\xx_i}}\xx_i-\xx_i y_i\right]\\
@@ -626,9 +580,9 @@ $$
 \end{align}
 $$
 
-donde $\hat{\yy}=\left(h_{\bftheta}(\xx_1),\ldots,h_{\bftheta}(\xx_n)\right)\in\RR^n$ es el vector de probabilidades predichas. 
+donde $\hat{\yy}=\left(h_{\bftheta}(\xx_1),\ldots,h_{\bftheta}(\xx_n)\right)\in\RR^n$ es el vector de probabilidades predichas mediante $\bftheta$. 
 
-La expresión (2.2.5) muestra que $\nabla J(\bftheta)$ depende de $\bftheta$ de forma no lineal. Por lo tanto, no es posible obtener una solución explícita de $\nabla J(\hat{\bftheta})=\bfzero$ y la única opción es recurrir a métodos iterativos para aproximar $\hat{\bftheta}$.
+En consecuencia, no es posible obtener una solución explícita de $\nabla J(\hat{\bftheta})=\bfzero$ y la única opción es recurrir a métodos iterativos para aproximar $\hat{\bftheta}$.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -636,7 +590,7 @@ La expresión (2.2.5) muestra que $\nabla J(\bftheta)$ depende de $\bftheta$ de 
 
 ### Resolución por descenso por gradiente
 
-De los resultados anteriores, resultan de manera natural algoritmos iterativos para la estimación del parámetro $\bftheta^\star$ basados en métodos de gradiente.
+De los resultados anteriores, resultan de manera natural los algoritmos iterativos para aproximar el MLE $\hat{\bftheta}$ del parámetro poblacional $\bftheta_\star$, basados en métodos de gradiente.
 
 <div style="margin-top:2em;"></div>
 
@@ -705,11 +659,7 @@ $$
 
 Por lo tanto,
 $$
-\begin{align*}
-	\nabla^2 J(\bftheta)&=\sum_{i=1}^n-\xx_i A''(\eta_i)\,\frac{\partial \eta_i}{\partial\bftheta} \\
-	&=\sum_{i=1}^n A''(\eta_i)\xx_i\xx_i^\top \\
-	&=X^\top W X,
-\end{align*}
+\nabla^2 J(\bftheta)=\sum_{i=1}^n-\xx_i A''(\eta_i)\,\frac{\partial \eta_i}{\partial\bftheta} =\sum_{i=1}^n A''(\eta_i)\xx_i\xx_i^\top =X^\top W X,
 $$
 
 donde
@@ -808,32 +758,29 @@ for i, coef in enumerate(logreg.coef_[0]):
 
 Para el caso de regresión logística, algunos resultados importantes son:
 
-- *Convergencia estadística*: 
-
-    Bajo supuestos clásicos, tales como
+- **Convergencia estadística**. Bajo supuestos clásicos, tales como
     $$
     \begin{array}{cl}
     \{(\xx_i,y_i)\}_{i=1}^n \text{ i.i.d.} & (\text{Independencia e idéntica distribución}) \\[1ex]
     0<\prob(Y_i=1\mid \xx_i)<1 & \text{(No separabilidad)}\\[1ex]
     \media\left[\|\xx_i\|^2\right]<\infty & \text{(Momentos finitos)}\\[1ex]
-    \mathcal{I}(\bftheta^\star) := \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
+    \mathcal{I}(\bftheta_\star) := \media\left[h_{\bftheta}(\XX)(1-h_{\bftheta}(\XX))\,\XX\XX^\top\right] \succ 0 & \text{(Información de Fisher definida positiva)}
     \end{array}
     $$
 
     se verifica
     $$
-    \hat{\bftheta}_n\xrightarrow{p}\bftheta^\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta^\star)\xrightarrow{d}\calN(0,\mathcal{I}(\bftheta^\star)^{-1}).
+    \hat{\bftheta}_n\overset{p}{\longrightarrow}\bftheta_\star\qquad\text{y}\qquad\sqrt{n}\, (\hat{\bftheta}_n-\bftheta_\star)\overset{d}{\longrightarrow}\calN(0,\mathcal{I}(\bftheta_\star)^{-1}).
     $$
 
 <div style="margin-top:2em;"></div>
 
-- *Convergencia computacional*: 
-
-    Como $J$ es convexa y $L$-suave con 
+- **Convergencia computacional**. Como $J$ es convexa y $L$-suave con 
     $$
     L\leq\frac{\lambda_{\text{max}(X^\top X)}}{4n},
     $$
     el método de descenso por gradiente con paso fijo $0<\eta<1/L$ converge al minimizador $\hat{\bftheta}$.
+
 
 
 
@@ -850,6 +797,6 @@ Para el caso de regresión logística, algunos resultados importantes son:
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 
-Ng, A. (2022). *Stanford CS229: Machine Learning - Lecture Notes*. Standford University. 🔗 [ir al sitio web](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
+Ng, A. (2022). *Stanford CS229: Machine Learning*. Lecture notes. Standford University. 🔗 [ir al sitio web](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
 
 :::
