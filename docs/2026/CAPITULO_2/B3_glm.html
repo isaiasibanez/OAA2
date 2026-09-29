@@ -673,7 +673,7 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \tag{2.3.7}
 \]</span></p>
 <p>Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (<em>Iterative Reweighted Least Squares</em>), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, <em>weighted least squares</em>). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de <span class="math inline">\(J\)</span>; resulta <span class="math display">\[
-\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W X)^{-1}X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}})\right]
+\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}}_t)\right]
 \tag{2.3.8}
 \]</span></p>
 <div style="margin-top:2em;">
@@ -880,7 +880,7 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="9f8281c3" class="cell" data-execution_count="1">
+<div id="3a82af4d" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
@@ -904,7 +904,7 @@ T = \begin{pmatrix}
 <span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="ca95cb9d" class="cell" data-execution_count="2">
+<div id="4841f9a6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -508,7 +508,7 @@ $$
 
 Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (*Iterative Reweighted Least Squares*), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, *weighted least squares*). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de $J$; resulta
 $$
-\bftheta_{t+1}:=\bftheta_t+(X^\top W X)^{-1}X^\top\left[T(\yy)-A'(\tilde{\bfeta})\right]
+\bftheta_{t+1}:=\bftheta_t+(X^\top W_t X)^{-1}X^\top\left[T(\yy)-A'(\tilde{\bfeta}_t)\right]
 \tag{2.3.8}
 $$
 
