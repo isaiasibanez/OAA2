@@ -127,6 +127,8 @@ En ambos ejemplos, el subíndice puede ser omitido para escribir simplemente $\x
 
 Observar que, para un programa cónico con $K$ un cono propio, la restricción $G(\xx)-h\in K$ en (1.3.1) puede ser reescrita como $G(\xx) \preceq_K h$.
 
+<div style="margin-top:2.5em;"></div>
+
 
 
 ## I <span style="color:#CCCCCC;">│</span> Programa lineal

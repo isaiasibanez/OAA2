@@ -2,21 +2,29 @@
 title: "Modelos lineales generalizados"
 subtitle: "Capítulo 2 - Sección 3"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 28/09/2026
+  </span>
 
 </div>
 
@@ -24,14 +32,38 @@ subtitle: "Capítulo 2 - Sección 3"
 
 
 
-Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para $Y|\XX$ que depende de un vector de parámetros $\bftheta\in\RR^p$.
+Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para $Y\mid\XX$ que depende de un vector de parámetros $\bftheta\in\RR^p$.
 
-- En regresión lineal, suponemos $Y|\XX=\xx\sim\calN(\bftheta^\top\xx,\sigma^2)$.
+- En regresión lineal, $Y\mid\XX=\xx\sim\calN(\bftheta^\top\xx,\sigma^2)$.
 
-- En regresión logística, suponemos $Y|\XX=\xx\sim\text{Binom}(1,h_{\bftheta}(\xx))$, con $h_{\bftheta}(\xx)=\sigma(\bftheta^\top\xx)$ y $\sigma:\RR\to\RR$ la función logística.
+- En regresión logística, $Y\mid\XX=\xx\sim\text{Bernoulli}(\sigma(\bftheta^\top\xx))$, con $\sigma:\RR\to\RR$ la función logística.
+
+Además, vimos que en regresión logística, la incorporación del parámetro natural $\eta=\bftheta^\top \xx$ y de la función $A(\eta)=\log(1+e^\eta)$ permiten escribir la función de probabilidad condicional como
+$$
+p(y\mid\eta)=\exp\left\{\eta y-A(\eta)\right\}.
+$$
+
+Algo similar ocurre en regresión lineal si consideramos $\sigma^2=1$, $\eta=\bftheta^\top\xx$ y $A(\eta)=\eta^2/2$:
+$$
+p(y\mid\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
+$$
+
+La elección $\sigma^2=1$ es sin pérdida de generalidad ya que, como vimos, el estimador de máxima verosimilitud de $\bftheta$ no depende de $\sigma^2$. De hecho, es fácil ver que para $\sigma^2$ arbitrario se mantiene la estructura lineal tomando $\eta=\tilde{\bftheta}^\top\xx$, con $\tilde{\bftheta}=\bftheta/\sigma^2$.
+
+Por último, es importante remarcar que en ambos modelos se cumple 
+$$
+A'(\eta)=\media\left[Y\mid\XX=\xx\right]\qquad\text{y}\qquad A''(\eta)=\var\left[Y\mid\XX=\xx\right],$$
+
+y que la predicción es
+$$
+\hat{y}=h_{\hat{\bftheta}}(\xx):=\media\left[Y\mid\XX=\xx; \hat{\bftheta}\right],
+$$
+que resulta en $\hat{y}=\hat{\bftheta}^\top\xx$ en regresión lineal y $\hat{y}=\sigma\big(\hat{\bftheta}^\top\xx\big)$ en regresión logística.
+
+<div style="margin-top:1.5em;"></div>
 
 
-En esta sección estudiaremos una familia más amplia de modelos, los <mark>*Modelos Lineales Generalizados (GLM)*</mark>, que contienen a la regresión lineal y a la regresión logística como casos particulares, permitiendo modelar una gran variedad de problemas de regresión y clasificación. Para ello, en primer lugar introduciremos la familia exponencial de distribuciones, que incluye muchas de las distribuciones comúnmente utilizadas en estadística.
+La estructura común de ambos modelos sugiere una generalización natural: elegir otras distribuciones con la misma forma para $Y\mid\XX$, manteniendo $\eta=\bftheta^\top\xx$. Esto conduce a los \textit{Modelos Lineales Generalizados} (GLM), una amplia familia de modelos que incluye a ambos como casos particulares y permite abordar una gran variedad de problemas de regresión y clasificación. Para estudiarlos, en primer lugar introduciremos formalmente la \textit{familia exponencial}, que agrupa a todas las distribuciones con esta forma e incluye muchas de las comúnmente utilizadas en estadística.
 
 
 <div style="border-top:1px solid #b7cdf5;
@@ -74,13 +106,13 @@ con $h:\RR\to\RR$, $\bfeta\in\RR^q$, $T:\RR\to\RR^q$ y $A:\RR^q\to\RR$.
 
 En la expresión (1) se distinguen los siguientes elementos:
 
-- $\bfeta\in\RR^q$ es el <mark>*parámetro natural*</mark>.
+- $\bfeta\in\RR^q$ es el *parámetro natural*.
 
-- $T:\RR\to\RR^q$ es el <mark>*estadístico suficiente*</mark>.
+- $T:\RR\to\RR^q$ es el *estadístico suficiente*.
 
 - $h:\RR\to\RR$ es la *función base* que depende únicamente de $y$.
 
-- $A:\RR^q\to\RR$ es la *función de partición* que normaliza la expresión, garantizando que la distribución integre a 1.
+- $A:\RR^q\to\RR$ es la *función de log-partición* que normaliza la expresión, garantizando que la distribución integre a 1.
 
 
 Para un mismo $h$ y $T$, la familia exponencial consiste en todas las distribuciones que se obtienen al variar el parámetro natural $\bfeta$. Observar que (2.3.1) puede expresarse también como
@@ -100,7 +132,7 @@ lo cual resulta del hecho que $\int p(y\mid\bfeta)\,dy=1$.
 Distribución Bernoulli
 </span>
 
-Sea $Y\in\{0,1\}$ tal que $Y\sim\text{Binom}(1,\phi)$, con $\phi:=\prob[Y=1]$. Entonces
+Sea $Y\in\{0,1\}$ tal que $Y\sim\text{Binom}(1,\phi)$, con $\phi:=\prob(Y=1)$. Entonces
 $$
 p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
 $$
@@ -111,7 +143,7 @@ p(y\mid\phi) = \exp\left\{\eta y-A(\eta)\right\}.
 $$
 con parámetro natural
 $$
-\eta=\log\left(\frac{\phi}{1-\phi}\right)\in\RR,
+\eta=\logit\phi=\log\left(\frac{\phi}{1-\phi}\right)\in\RR,
 $$
 
 y estadístico suficiente $T:\RR\to\RR$ definido por $T(y)=y$. Por lo tanto, la distribución Bernoulli es un miembro de la familia exponencial. El resto de los elementos son:
@@ -186,7 +218,7 @@ $$
 
 ::: {.panel-tabset}
 
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Verificación*</span>
+### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
 Derivando respecto de $\bfeta$, resulta
 $$
@@ -201,14 +233,16 @@ $$
 Ahora bien, aplicando regla del cociente, resulta
 $$
 \begin{align*}
-\nabla^2 A(\bfeta) &= \displaystyle\int T(y)T(y)^\top p(y\mid\bfeta)\,dy - \displaystyle\int T(y) p(y\mid\bfeta)\,dy \int T(y)^\top p(y\mid\bfeta)\,dy \\[3pt]
-&=\media\left[T(y) T(y)^\top\right]-\media\left[T(y)\right]\media\left[T(y)\right]^\top \\[3pt]
+\nabla^2 A(\bfeta) &= \displaystyle\int T(y)T(y)^\top p(y\mid\bfeta)\,dy - \displaystyle\int T(y)\,p(y\mid\bfeta)\,dy \int T(y)^\top p(y\mid\bfeta)\,dy \\[3pt]
+&=\media\left[T(Y) T(Y)^\top\right]-\media\left[T(Y)\right]\media\left[T(Y)\right]^\top \\[5pt]
 &=\cov\left[T(Y)\right].
 \end{align*}
 $$
 
 :::
 </details>
+
+<div style="margin-top:1.5em;"></div>
 
 ::: {.myhighlight}
 De lo anterior resulta que $\nabla^2 A(\bfeta)\succeq 0$, lo cual significa que $A$ es una función convexa.
@@ -235,7 +269,7 @@ Gradiente y Hessiana de $A(\bfeta)$ para las distribuciones Bernoulli y Normal u
 
 Vamos a verificar la expresión de $\nabla A(\bfeta)$ y $\nabla^2 A(\bfeta)$ para los casos de las distribuciones Bernoulli y Normal univariada, utilizando las expresiones obtenidas en los ejemplos 2.3.2 y 2.3.3.
 
-- Si $Y\sim\text{Binom}(1,\phi)$, entonces
+- Si $Y\sim\text{Bernoulli}(\phi)$, entonces
     $$
     A'(\eta)=\frac{e^{\eta}}{1+e^{\eta}}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{1-\phi}}=\phi=\media\left[Y\right],
     $$
@@ -279,14 +313,14 @@ Vamos a verificar la expresión de $\nabla A(\bfeta)$ y $\nabla^2 A(\bfeta)$ par
 
 Supongamos que deseas construir un modelo para estimar el número $y$ de clientes que llegan a tu tienda (o el número de visitas a páginas web en tu sitio) en una hora determinada, basándote en ciertas características como promociones en la tienda, publicidad reciente, clima, día de la semana, etc. Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Sabiendo esto, ¿cómo podemos proponer un modelo para nuestro problema? Afortunadamente, la Poisson es una distribución de la familia exponencial, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM). En esta sección, describiremos un método para construir modelos GLM para problemas como este.
 
-En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria $Y\in\RR$ a partir de un conjunto de predictoras $\XX\in\RR^p$. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales $Y|\XX$. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:
+En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria $Y\in\RR$ a partir de un conjunto de predictoras $\XX\in\RR^p$. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales $Y\mid\XX$. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:
 
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
 <span style="font-size:0.8em;">*Supuesto del modelo*</span>
 
-$Y|\XX=\xx$ se distribuye según una  distribución de la familia exponencial con parámetro natural de la forma
+$Y\mid\XX=\xx$ sigue una distribución perteneciente a la familia exponencial, con parámetro natural de la forma
 
 <div style="margin-top:-0.5em;"></div>
 
@@ -298,7 +332,10 @@ $$
 
 <div style="margin-top:1em;"></div>
 
-El parámetro natural $\bfeta\in\RR^q$ queda conectado a la función de regresión $\media\left[T(Y)\mid \xx;\bfTheta\right]$ a partir de una *función de enlace canónica* $g:\RR^q\to\RR^q$.
+El parámetro natural $\bfeta\in\RR^q$ queda conectado a la función de regresión $\media\left[T(Y)\mid \xx;\bfTheta\right]$ a partir de una *función de enlace canónica* $g:\RR^q\to\RR^q$ que verifica
+$$
+\bfeta=g\left(\media\left[T(Y)\mid\xx;\bfTheta\right]\right).
+$$
 
 <div style="margin-top:2em;"></div>
 
@@ -337,27 +374,23 @@ Determine la función de enlace canónica para regresión lineal.
 <div style="margin-top:2em;"></div>
 
 
-Ahora bien, tanto en regresión lineal como en regresión logística el objetivo es predecir $\media\left[Y\mid \xx; \bftheta\right]$. De hecho, denotamos
+En un GLM la estructura del modelo hace que, una vez estimado $\bftheta$, todo lo demás se
+obtiene por composición. El estimador $\hat{\bftheta}$ conduce a un estimador del parámetro
+natural, $\hat{\bfeta}(\xx)=\hat{\bftheta}^\top \xx$, y este, a su vez, determina la función de regresión:
 $$
-\hat{y}:=\media\left[Y\mid \xx;\hat{\bftheta}\right].
+\media\left[T(Y)\mid \xx;\hat{\bftheta}\right]= \nabla A\!\left(\hat{\bfeta}(\xx)\right).
 $$
 
-
-En GLM la cosa es similar:
+En conclusión:
 
 ::: {.myhighlight}
-
 El modelo GLM nos permite predecir
 $$
-h_{\bfTheta}(\xx):=\media\left[T(Y)\mid\xx;\bfTheta\right]
+\hat{y}=h_{\hat{\bfTheta}}(\xx):=\media\left[T(Y)\mid\xx;\hat{\bfTheta}\right].
 $$
-
 :::
 
 <div style="margin-top:1.5em;"></div>
-
-
-No obstante, en la mayoría de los casos el estadístico suficiente es $T(y)=y$, de manera que el modelo obtenido predice exactamente $\hat{y}$, que en definitiva es lo que uno pretende a la hora de aplicar regresión.
 
 
 ::: {.callout .question}
@@ -372,12 +405,24 @@ Analice el GLM del ejemplo inicial de esta sección, en el que se modela el núm
 <div style="margin-top:2.5em;"></div>
 
 
-A continuación, vamos a abordar el problema de estimación de los parámetros en un GLM de la manera habitual: definiendo el problema de optimización a partir del principio de máxima verosimilitud y luego, de ser posible, aplicando una condición de optimalidad. Por razones de simplicidad, supondremos
+A continuación, vamos a abordar el problema de estimación de los parámetros en un GLM de la
+manera habitual: definiendo el problema de optimización a partir del principio de máxima
+verosimilitud y luego, de ser posible, aplicando una condición de optimalidad. Por razones de
+simplicidad, supondremos
 $$
 \eta=\bftheta^\top\xx\in\RR,\qquad \bftheta\in\RR^p.
 $$
 
-<div style="margin-top:1.5em;"></div>
+Además, para una muestra $\{(\xx_i,y_i)\}_{i=1}^n$ i.i.d., denotamos
+$$
+\eta_i:=\bftheta^\top\xx_i,$$
+$$
+\mu_i:=\media\left[T(Y)\mid \XX=\xx_i;\bftheta\right]=\nabla A(\eta_i).
+$$
+
+
+
+<div style="margin-top:2em;"></div>
 
 
 
@@ -388,9 +433,9 @@ $$
 \log p(y_i\mid\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
 $$
 
-Por lo tanto, para un conjunto de datos $\{\xx_i,y_i\}_{i=1}^n$  i.i.d., la función de log-verosimilitud es
+Por lo tanto, la función de log-verosimilitud es
 $$
-\ell(\bftheta)=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte},\qquad \eta_i=\bftheta^\top\xx_i.
+\ell(\bftheta)=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte}.
 \tag{2.3.3}
 $$
 
@@ -403,12 +448,28 @@ $$
 De (2.3.3), el problema de optimización resultante es
 $$
 \begin{array}{ll}
-\text{minimizar } & \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\bftheta)}
+	\text{minimizar } & \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\bftheta)}
 \end{array}
 \tag{2.3.4}
 $$
 
-¡Cuidado! La variable de optimización es $\bftheta$, que determina cada valor del parámetro natural a partir de la expresión $\eta_i=\bftheta^\top\xx_i$.
+El vector gradiente de la función de costo $J$ es
+$$
+\nabla J(\bftheta)=\sum_{i=1}^n\left[A'(\eta_i)-T(y_i)\right]\xx_i=X^\top\left[A'(\tilde{\bfeta})-T(\yy)\right],
+\tag{2.3.5}
+$$
+
+donde $A'(\tilde{\bfeta})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\RR^n$ y $T(\yy)=(T(y_1),\ldots,T(y_n))\in\RR^n$, mientras que la matriz Hessiana resulta
+$$
+\nabla^2 J(\bftheta)=\sum_{i=1}^n A''(\eta_i)\xx_i\xx_i^\top = X^\top W X,
+\tag{2.3.6}
+$$
+
+donde $W=\diag(A''(\eta_1),\ldots,A''(\eta_n))\in\RR^{n\times n}$. Observar que la matriz $W$ actúa como una matriz de pesos: el peso de la $i$-ésima observación es
+$A''(\eta_i)=\cov\left[T(Y)\mid\xx_i;\bftheta\right]$, que en general depende
+de $\bftheta$ y de $\xx_i$. En el caso de la regresión lineal (varianza constante) estos pesos
+son todos iguales y se recupera $X^\top X$ salvo una constante; en cambio, en un GLM general
+los pesos varían entre observaciones y con $\bftheta$.
 
 
 ::: {.callout .question}
@@ -422,32 +483,15 @@ Justifique la convexidad de la función objetivo $J(\bftheta)$ en (2.3.4).
 <div style="margin-top:2em;"></div>
 
 
-Dado que tenemos convexidad, podemos plantear $\nabla J(\bftheta)=0$. Como es $\eta_i$ quien depende de $\bftheta$, al derivar respecto de $\theta_k$ resulta
-$$
-\frac{\partial J}{\partial \theta_k}=\sum_{i=1}^n \left[A'(\eta_i)-T(y_i)\right]x_{ik},\qquad k=1,\ldots,p.
-$$
-
-Matricialmente, la condición de optimalidad queda expresada como
-$$
-X^\top(A'(\tilde{\bfeta})-T(\yy))=\bfzero,
-\tag{2.3.5}
-$$
-donde hemos denotado
-$$
-\tilde{\bfeta}=(\eta_1,\ldots,\eta_n)^\top,\qquad 
-A'(\tilde{\bfeta})=(A'(\eta_1),\ldots,A'(\eta_n))^\top.
-$$
-
-<div style="margin-top:1.5em;"></div>
-
-Por propiedad de la derivada de la función de partición $A$, podemos reescribir la condición (2.3.5) como
+Dado que tenemos convexidad, podemos plantear $\nabla J(\bftheta)=\bfzero$. De (2.3.5) y por propiedad de la derivada de la función de log-partición $A$, podemos escribir
 $$
 \sum_{i=1}^n\left(\media\left[T(Y)\mid\XX=\xx_i\right]-T(y_i)\right)\,\xx_i=\bfzero.
 $$
 
-Observar que lo del paréntesis es el *residuo* entre el valor observado de $T(y_i)$ y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, los residuos son ortogonales a los predictores $\xx_i$, es decir, ya no queda información lineal en los predictores que permita mejorar el ajuste del modelo.
+Observar que lo del paréntesis es el *residuo* entre el valor observado de $T(y_i)$ y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de $X$: los
+residuos no están correlacionados (en sentido muestral) con ninguno de los predictores del modelo. En particular, si estamos trabajando con la matriz ampliada $\tilde{X}$, los residuos suman cero.
 
-En general, no existe una solución explícita para el punto óptimo $\hat{\bftheta}$ y, en consecuencia, solo queda recurrir a métodos iterativos para aproximarlo. Afortunadamente, el método de Newton da lugar a un algoritmo eficiente para resolver un GLM.
+En general, no existe una solución explícita para el punto óptimo $\hat{\bftheta}$, y ni siquiera está garantizado que exista: la convexidad asegura que todo punto con $\nabla J(\bftheta)=\bfzero$ es un mínimo global, pero la existencia depende de la familia y de los datos observados. Cuando existe, se aproxima mediante métodos iterativos; como conocemos el gradiente y la Hessiana de $J$, el método de Newton resulta una opción natural y da lugar a un algoritmo muy eficiente.
 
 <div style="margin-top:2em;"></div>
 
@@ -459,72 +503,57 @@ En general, no existe una solución explícita para el punto óptimo $\hat{\bfth
 Recordemos que el método de Newton actualiza los parámetros mediante
 $$
 \bftheta_{t+1}:=\bftheta_t-\left[\nabla^2 J(\bftheta_t)\right]^{-1}\nabla J(\bftheta_t).
-\tag{2.3.6}
-$$
-
-Su aplicación al problema (2.3.4) deriva en un algoritmo denominado <mark>IRLS (*Iterative Reweighted Least Squares*)</mark>, que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS). Para entender cómo se llega a este algoritmo, es necesario analizar la estructura del gradiente y del Hessiano de la función objetivo $J(\bftheta)$.
-
-Hasta ahora hemos visto que
-$$
-\nabla J(\bftheta)=\sum_{i=1}^n(T(y_i)-\media\left[T(Y)\mid\XX=\xx_i\right])\,\xx_i,
-$$
-
-Para la Hessiana, por su parte, la propiedad de la función de partición $A$ nos permite escribir
-$$
-\nabla^2 J(\bftheta)=-\sum_{i=1}^n\cov\left[T(Y)\mid\XX=\xx_i\right]\,\xx_i\xx_i^\top=-X^\top W X,
-$$
-donde 
-$$
-W:=\diag(w_1,\ldots,w_n),\qquad w_i:=\cov\left[T(Y)\mid \XX=\xx_i\right].
-$$
-
-<div style="margin-top:2em;"></div>
-
-Por lo tanto, la iteración del método de Newton resulta
-$$
-\bftheta_{t+1}:=\bftheta_t+(X^\top W X)^{-1}\left(\sum_{i=1}^n(T(y_i)-\media\left[T(Y)\mid\XX=\xx_i\right])\,\xx_i\right)
 \tag{2.3.7}
+$$
+
+Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (*Iterative Reweighted Least Squares*), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, *weighted least squares*). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de $J$; resulta
+$$
+\bftheta_{t+1}:=\bftheta_t+(X^\top W X)^{-1}X^\top\left[T(\yy)-A'(\tilde{\bfeta})\right]
+\tag{2.3.8}
 $$
 
 <div style="margin-top:2em;"></div>
 
 
 <div class="alert alert-light text-dark" role="important">
-<span class="badge bg-success text-light">Formulación de IRLS</span>
+<span class="badge bg-success text-light">Reinterpretación de Newton como WLS</span>
 
-La idea central que deriva en el algoritmo IRLS consiste en construir una pseudo-respuesta $\zz\in\RR^n$ tal que la actualización en (2.3.7) pueda interpretarse como la solución de un problema de mínimos cuadrados ponderados (WLS) con pesos $W$ y *pseudo-respuesta* $\zz$. Es decir, se busca $\zz$ tal que
-$$
-\bftheta_{t+1}:=(X^\top W X)^{-1}X^\top W\zz,
-\tag{2.3.8}
-$$
-
-ya que el lado derecho es solución cerrada del problema de optimización
+El paso de Newton (\ref{eq:newton_glm_explicito}) puede leerse como la solución de un problema de mínimos cuadrados ponderados (WLS). En efecto, dados $W_t=\operatorname{diag}(A''(\eta_{t,1}),\ldots,A''(\eta_{t,n}))$ y $\zz_t\in\RR^n$, la solución de
 $$
 \begin{array}{ll}
-\text{minimizar } & \displaystyle\frac{1}{2}\|W^{1/2}(\zz-X\bftheta)\|_2^2.
+	\text{minimizar } & \displaystyle\frac{1}{2}\|W_t^{1/2}(\zz_t-X\bftheta)\|_2^2
 \end{array}
 $$
 
-Es importante remarcar que tanto $W$ como $\zz$ dependerán del valor anterior $\bftheta_t$. 
-
-Definimos la pseudo-respuesta $\zz$ a partir de la siguiente expresión:
+es $(X^\top W_t X)^{-1}X^\top W_t\zz_t$. Se busca entonces una \textit{pseudo-respuesta} $\zz_t$ tal que
 $$
-z_i:=\eta_i+\frac{T(y_i)-\media\left[T(Y)\mid\XX=\xx_i\right]}{w_i},\qquad i=1,\ldots,n.
-$$
-
-Se verifica
-$$
-X^\top W \zz=X^\top W\tilde{\bfeta}+\sum_{i=1}^n(T(y_i)-\media\left[T(Y)\mid\XX=\xx_i\right])\,\xx_i.
+\bftheta_{t+1}=(X^\top W_t X)^{-1}X^\top W_t\zz_t.
+\tag{2.3.9}
 $$
 
-Para el paso actual de Newton, se tiene que $\tilde{\bfeta}=X\bftheta_t$. Por lo tanto, resulta $\bftheta_t=(X^\top W X)^{-1}X^\top W\tilde{\bfeta}$, lo cual implica que (2.3.7) y (2.3.8) son efectivamente equivalentes.
+Definimos
+$$
+z_{t,i}:=\eta_{t,i}+\frac{T(y_i)-\mu_{t,i}}{w_{t,i}},\qquad i=1,\ldots,n,
+$$
+
+con $\eta_{t,i}=\xx_i^\top\bftheta_t$, $\mu_{t,i}=A'(\eta_{t,i})$ y $w_{t,i}=A''(\eta_{t,i})$. Como $W_t$ cancela el denominador $w_{t,i}$,
+$$
+X^\top W_t\zz_t=X^\top W_t X\bftheta_t+\sum_{i=1}^n\big(T(y_i)-\mu_{t,i}\big)\xx_i .
+$$
+
+Multiplicando por $(X^\top W_t X)^{-1}$ resulta
+$$
+(X^\top W_t X)^{-1}X^\top W_t\zz_t=\bftheta_t+(X^\top W_t X)^{-1}X^\top\big[T(\yy)-A'(\tilde{\bfeta}_t)\big],
+$$
+
+que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.
 
 </div>
 
 <div style="margin-top:2em;"></div>
 
 
-Así, en el algoritmo IRLS cada iteración consiste en resolver un problema de mínimos cuadrados ponderados con pesos $W$ y pseudo-respuesta $\zz$, para recién actualizar el vector de parámetros $\bftheta$. Repitiendo este procedimiento se aproxima el estimador de máxima verosimilitud del GLM, aprovechando la estructura del Hessiano para generar pasos más precisos que un simple descenso por gradiente. 
+Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos $W_t$ y pseudo-respuesta $\zz_t$, ambos recalculados en cada paso. No se trata de un algoritmo distinto, sino de otra forma de leer el mismo paso, y esa lectura tiene varias ventajas. Por un lado, permite interpretar el ajuste de un GLM como una sucesión de regresiones lineales ponderadas. Por otro, permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre $W_t^{1/2}X$) sin formar explícitamente $X^\top W_t X$. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de $J$ para dar pasos más precisos que un simple descenso por gradiente.
 
 <div style="margin-top:2em;"></div>
 
@@ -538,15 +567,19 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
 
-> **1°** Calcular $\tilde{\bfeta} = X \bftheta_t$ y $\bfmu\in\RR^n$ tal que $\mu_i=\media\left[T(Y)\mid\XX=\xx_i\right]$.
+**repetir**:
+
+> **1°** Calcular $\tilde{\bfeta}_t=X\bftheta_t$ y $\bfmu_t\in\RR^n$ tal que $\mu_{t,i}=A'(\eta_{t,i})=\media\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$.
 >  
-> **2°** Construir la matriz diagonal de pesos $W\in\RR^{n\times n}$ tal que $w_{i} = \cov\left[T(Y)\mid X=\xx_i\right]$.  
+> **2°** Construir la matriz diagonal de pesos $W_t\in\RR^{n\times n}$ tal que $w_{t,i}=A''(\eta_{t,i})=\var\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$..  
 >
-> **3°** Definir la pseudo-respuesta: $\zz = \tilde{\bfeta} + W^{-1}(T(\yy) - \bfmu)$.
+> **3°** Definir la pseudo-respuesta $\zz_t=\tilde{\bfeta}_t+W_t^{-1}\left(T(\yy)-\bfmu_t\right)$.
 >
-> **4°** Actualizar $\bftheta_{t+1}:=(X^\top W X)^{-1}X^\top W\zz$.
+> **4°** Actualizar $\bftheta_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t\zz_t$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -566,21 +599,21 @@ Algoritmo IRLS para regresión logística
 
 En regresión logística, dada la matriz de predictoras $X\in\RR^{n\times p}$ y el vector de respuestas $\yy\in\RR^n$, el algoritmo IRLS se implementa de la siguiente manera. A partir del valor actual $\bftheta_t$, en la siguiente iteración se calculan:
 
-- El vector $\tilde{\bfeta}=X\bftheta_t\in\RR^n$.
+- El vector $\tilde{\bfeta}_t=X\bftheta_t\in\RR^n$.
 
-- El vector de medias $\bfmu=\sigma(\tilde{\bfeta})\in\RR^n$.
+- El vector de medias $\bfmu_t=\sigma(\tilde{\bfeta}_t)\in\RR^n$ tal que $\mu_{t,i}=\sigma(\bftheta_t^\top\xx_i)$.
 
-- La matriz de pesos $W\in\RR^{n\times n}$ tal que
+- La matriz de pesos $W_t\in\RR^{n\times n}$ tal que
     $$
-    w_i = \sigma(\eta_i)(1-\sigma(\eta_i)), \qquad i=1,\ldots,n.
+    w_{t,i} = \sigma(\eta_{t,i})(1-\sigma(\eta_{t,i}), \qquad i=1,\ldots,n.
     $$
 
 - La pseudo-respuesta
     $$
-    \zz=\tilde{\bfeta}+W^{-1}(\yy-\bfmu)\in\RR^n.
+    \zz_t=\tilde{\bfeta}_t+W_t^{-1}(\yy-\bfmu_t)\in\RR^n.
     $$
 
-Finalmente, se actualiza el vector de parámetros $\bftheta$ a partir de la solución del problema de mínimos cuadrados ponderados con pesos $W$ y pseudo-respuesta $\zz$, determinada por la expresión (2.3.8).
+Finalmente, se actualiza el vector de parámetros a $\bftheta_{t+1}$ a partir de la solución del problema de mínimos cuadrados ponderados con pesos $W$ y pseudo-respuesta $\zz$, determinada por la expresión (2.3.9).
 
 :::
 
@@ -628,7 +661,7 @@ Por lo tanto, el parámetro natural es
 
 $$
 \bfeta=\left(\log\left(\frac{\phi_1}{\phi_k}\right), \log\left(\frac{\phi_2}{\phi_k}\right),\ldots, \log\left(\frac{\phi_{k-1}}{\phi_k}\right)\right)^\top\in\RR^{k-1}.
-\tag{2.3.9}
+\tag{2.3.10}
 $$
 
 <div style="margin-top:1em;"></div>
@@ -636,7 +669,6 @@ $$
 El resto de los elementos son:
 $$
 h(y)=1,\qquad A(\bfeta)=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi_i\right).
-\tag{2.3.19}
 $$
 
 :::
@@ -650,7 +682,7 @@ $$
 
 
 
-La expresión (2.3.10) es la función de enlace, conocida como *logit generalizado*. Su inversa es la <mark>*función softmax*</mark> determinada por
+La expresión (2.3.10) es la función de enlace, conocida como *logit generalizado*. Su inversa es la *función softmax* determinada por
 $$
 \phi_i=\frac{\exp\{\eta_i\}}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}},\qquad i=1,\ldots,k-1.
 $$
@@ -675,7 +707,7 @@ $$
 <div style="margin-top:1em;"></div>
 
 
-Así, la distribución condicional de $Y|\XX$ está dada por
+Así, la distribución condicional de $Y\mid\XX$ está dada por
 $$
 p(Y=i\mid\xx;\bfTheta):=\phi_i=\frac{\exp\{\bftheta_i^\top\xx\}}{1+\sum_{j=1}^{k-1}\exp\{\bftheta_j^\top\xx\}},\qquad i=1,\ldots,k-1,
 $$
@@ -692,7 +724,7 @@ $$
 
 El modelo de regresión softmax predice
 $$
-h_{\bfTheta}(\xx):=\media\left[T(Y)\mid\xx;\bfTheta\right]=(\phi_1,\phi_2,\ldots,\phi_{k-1})^\top.
+\hat{y}=(\hat{\phi}_1,\hat{\phi}_2,\ldots,\hat{\phi}_{k-1})^\top.
 $$
 
 :::
@@ -746,6 +778,8 @@ $$
 <div style="margin-top:2em;"></div>
 
 Este vector gradiente de la función objetivo puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Sin embargo, de acuerdo a lo visto anteriormente, es más adecuado el algoritmo IRLS, para aprovechar la información del Hessiano y generar pasos más precisos y acelerar la convergencia.
+
+<div style="margin-top:1.5em;"></div>
 
 
 ::: {.callout-example}

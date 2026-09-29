@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Modelos lineales generalizados – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +70,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../CAPITULO_2/B4_ridge_lasso.html" rel="next">
 <link href="../CAPITULO_2/B2_regresion_lineal_logistica.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -91,7 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -109,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -122,7 +127,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -141,7 +146,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../style.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -310,19 +315,37 @@ window.Quarto = {
 <p>$$ </p>
 <p>$$</p>
 </div>
+<div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
 <p><a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 28/09/2026 </span></p>
+</div>
 <div style="margin-top:20px">
 
 </div>
-<p>Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para <span class="math inline">\(Y|{\bf X}\)</span> que depende de un vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span>.</p>
+<p>Tanto en el modelo de regresión lineal como en el de regresión logística, asumimos una cierta distribución condicional para <span class="math inline">\(Y\mid{\bf X}\)</span> que depende de un vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span>.</p>
 <ul>
-<li><p>En regresión lineal, suponemos <span class="math inline">\(Y|{\bf X}={\bf x}\sim\mathcal{N}(\boldsymbol{\theta}^\top{\bf x},\sigma^2)\)</span>.</p></li>
-<li><p>En regresión logística, suponemos <span class="math inline">\(Y|{\bf X}={\bf x}\sim\text{Binom}(1,h_{\boldsymbol{\theta}}({\bf x}))\)</span>, con <span class="math inline">\(h_{\boldsymbol{\theta}}({\bf x})=\sigma(\boldsymbol{\theta}^\top{\bf x})\)</span> y <span class="math inline">\(\sigma:\mathbb{R}\to\mathbb{R}\)</span> la función logística.</p></li>
+<li><p>En regresión lineal, <span class="math inline">\(Y\mid{\bf X}={\bf x}\sim\mathcal{N}(\boldsymbol{\theta}^\top{\bf x},\sigma^2)\)</span>.</p></li>
+<li><p>En regresión logística, <span class="math inline">\(Y\mid{\bf X}={\bf x}\sim\text{Bernoulli}(\sigma(\boldsymbol{\theta}^\top{\bf x}))\)</span>, con <span class="math inline">\(\sigma:\mathbb{R}\to\mathbb{R}\)</span> la función logística.</p></li>
 </ul>
-<p>En esta sección estudiaremos una familia más amplia de modelos, los <mark><em>Modelos Lineales Generalizados (GLM)</em></mark>, que contienen a la regresión lineal y a la regresión logística como casos particulares, permitiendo modelar una gran variedad de problemas de regresión y clasificación. Para ello, en primer lugar introduciremos la familia exponencial de distribuciones, que incluye muchas de las distribuciones comúnmente utilizadas en estadística.</p>
+<p>Además, vimos que en regresión logística, la incorporación del parámetro natural <span class="math inline">\(\eta=\boldsymbol{\theta}^\top {\bf x}\)</span> y de la función <span class="math inline">\(A(\eta)=\log(1+e^\eta)\)</span> permiten escribir la función de probabilidad condicional como <span class="math display">\[
+p(y\mid\eta)=\exp\left\{\eta y-A(\eta)\right\}.
+\]</span></p>
+<p>Algo similar ocurre en regresión lineal si consideramos <span class="math inline">\(\sigma^2=1\)</span>, <span class="math inline">\(\eta=\boldsymbol{\theta}^\top{\bf x}\)</span> y <span class="math inline">\(A(\eta)=\eta^2/2\)</span>: <span class="math display">\[
+p(y\mid\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
+\]</span></p>
+<p>La elección <span class="math inline">\(\sigma^2=1\)</span> es sin pérdida de generalidad ya que, como vimos, el estimador de máxima verosimilitud de <span class="math inline">\(\boldsymbol{\theta}\)</span> no depende de <span class="math inline">\(\sigma^2\)</span>. De hecho, es fácil ver que para <span class="math inline">\(\sigma^2\)</span> arbitrario se mantiene la estructura lineal tomando <span class="math inline">\(\eta=\tilde{\boldsymbol{\theta}}^\top{\bf x}\)</span>, con <span class="math inline">\(\tilde{\boldsymbol{\theta}}=\boldsymbol{\theta}/\sigma^2\)</span>.</p>
+<p>Por último, es importante remarcar que en ambos modelos se cumple <span class="math display">\[
+A'(\eta)=\mathbb{E}\left[Y\mid{\bf X}={\bf x}\right]\qquad\text{y}\qquad A''(\eta)=\mathop{\mathrm{Var}}\left[Y\mid{\bf X}={\bf x}\right],\]</span></p>
+<p>y que la predicción es <span class="math display">\[
+\hat{y}=h_{\hat{\boldsymbol{\theta}}}({\bf x}):=\mathbb{E}\left[Y\mid{\bf X}={\bf x}; \hat{\boldsymbol{\theta}}\right],
+\]</span> que resulta en <span class="math inline">\(\hat{y}=\hat{\boldsymbol{\theta}}^\top{\bf x}\)</span> en regresión lineal y <span class="math inline">\(\hat{y}=\sigma\big(\hat{\boldsymbol{\theta}}^\top{\bf x}\big)\)</span> en regresión logística.</p>
+<div style="margin-top:1.5em;">
+
+</div>
+<p>La estructura común de ambos modelos sugiere una generalización natural: elegir otras distribuciones con la misma forma para <span class="math inline">\(Y\mid{\bf X}\)</span>, manteniendo <span class="math inline">\(\eta=\boldsymbol{\theta}^\top{\bf x}\)</span>. Esto conduce a los (GLM), una amplia familia de modelos que incluye a ambos como casos particulares y permite abordar una gran variedad de problemas de regresión y clasificación. Para estudiarlos, en primer lugar introduciremos formalmente la , que agrupa a todas las distribuciones con esta forma e incluye muchas de las comúnmente utilizadas en estadística.</p>
 <div style="border-top:1px solid #b7cdf5;
             background-color: #fafbff;
             padding:0.1em 0;
@@ -352,10 +375,10 @@ p(y \mid \boldsymbol{\eta}) := h(y) \exp\left\{\boldsymbol{\eta}^\top T(y) - A(\
 </div>
 <p>En la expresión (1) se distinguen los siguientes elementos:</p>
 <ul>
-<li><p><span class="math inline">\(\boldsymbol{\eta}\in\mathbb{R}^q\)</span> es el <mark><em>parámetro natural</em></mark>.</p></li>
-<li><p><span class="math inline">\(T:\mathbb{R}\to\mathbb{R}^q\)</span> es el <mark><em>estadístico suficiente</em></mark>.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\eta}\in\mathbb{R}^q\)</span> es el <em>parámetro natural</em>.</p></li>
+<li><p><span class="math inline">\(T:\mathbb{R}\to\mathbb{R}^q\)</span> es el <em>estadístico suficiente</em>.</p></li>
 <li><p><span class="math inline">\(h:\mathbb{R}\to\mathbb{R}\)</span> es la <em>función base</em> que depende únicamente de <span class="math inline">\(y\)</span>.</p></li>
-<li><p><span class="math inline">\(A:\mathbb{R}^q\to\mathbb{R}\)</span> es la <em>función de partición</em> que normaliza la expresión, garantizando que la distribución integre a 1.</p></li>
+<li><p><span class="math inline">\(A:\mathbb{R}^q\to\mathbb{R}\)</span> es la <em>función de log-partición</em> que normaliza la expresión, garantizando que la distribución integre a 1.</p></li>
 </ul>
 <p>Para un mismo <span class="math inline">\(h\)</span> y <span class="math inline">\(T\)</span>, la familia exponencial consiste en todas las distribuciones que se obtienen al variar el parámetro natural <span class="math inline">\(\boldsymbol{\eta}\)</span>. Observar que (2.3.1) puede expresarse también como <span class="math display">\[
 p(y\mid\boldsymbol{\eta})=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\exp\left\{A(\boldsymbol{\eta})\right\}}=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy}.
@@ -367,13 +390,13 @@ p(y\mid\boldsymbol{\eta})=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distribución Bernoulli </span></p>
-<p>Sea <span class="math inline">\(Y\in\{0,1\}\)</span> tal que <span class="math inline">\(Y\sim\text{Binom}(1,\phi)\)</span>, con <span class="math inline">\(\phi:=\mathbb{P}[Y=1]\)</span>. Entonces <span class="math display">\[
+<p>Sea <span class="math inline">\(Y\in\{0,1\}\)</span> tal que <span class="math inline">\(Y\sim\text{Binom}(1,\phi)\)</span>, con <span class="math inline">\(\phi:=\mathbb{P}(Y=1)\)</span>. Entonces <span class="math display">\[
 p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
 \]</span></p>
 <p>De acuerdo a lo visto en regresión logística, la distribución de <span class="math inline">\(Y\)</span> se puede escribir como <span class="math display">\[
 p(y\mid\phi) = \exp\left\{\eta y-A(\eta)\right\}.
 \]</span> con parámetro natural <span class="math display">\[
-\eta=\log\left(\frac{\phi}{1-\phi}\right)\in\mathbb{R},
+\eta=\mathop{\mathrm{logit}}\phi=\log\left(\frac{\phi}{1-\phi}\right)\in\mathbb{R},
 \]</span></p>
 <p>y estadístico suficiente <span class="math inline">\(T:\mathbb{R}\to\mathbb{R}\)</span> definido por <span class="math inline">\(T(y)=y\)</span>. Por lo tanto, la distribución Bernoulli es un miembro de la familia exponencial. El resto de los elementos son: <span class="math display">\[
 h(y)=1,\qquad A(\eta)=-\log(1-\phi)=\log(1+e^\eta).
@@ -431,7 +454,7 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <span style="color:#0056b3;">ℹ Ver más información</span>
 </summary>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Verificación</em></span></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Derivando respecto de <span class="math inline">\(\boldsymbol{\eta}\)</span>, resulta <span class="math display">\[
@@ -442,8 +465,8 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \]</span></p>
 <p>Ahora bien, aplicando regla del cociente, resulta <span class="math display">\[
 \begin{align*}
-\nabla^2 A(\boldsymbol{\eta}) &amp;= \displaystyle\int T(y)T(y)^\top p(y\mid\boldsymbol{\eta})\,dy - \displaystyle\int T(y) p(y\mid\boldsymbol{\eta})\,dy \int T(y)^\top p(y\mid\boldsymbol{\eta})\,dy \\[3pt]
-&amp;=\mathbb{E}\left[T(y) T(y)^\top\right]-\mathbb{E}\left[T(y)\right]\mathbb{E}\left[T(y)\right]^\top \\[3pt]
+\nabla^2 A(\boldsymbol{\eta}) &amp;= \displaystyle\int T(y)T(y)^\top p(y\mid\boldsymbol{\eta})\,dy - \displaystyle\int T(y)\,p(y\mid\boldsymbol{\eta})\,dy \int T(y)^\top p(y\mid\boldsymbol{\eta})\,dy \\[3pt]
+&amp;=\mathbb{E}\left[T(Y) T(Y)^\top\right]-\mathbb{E}\left[T(Y)\right]\mathbb{E}\left[T(Y)\right]^\top \\[5pt]
 &amp;=\mathop{\mathrm{Cov}}\left[T(Y)\right].
 \end{align*}
 \]</span></p>
@@ -451,6 +474,9 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </div>
 </div>
 </details>
+<div style="margin-top:1.5em;">
+
+</div>
 <div class="myhighlight">
 <p>De lo anterior resulta que <span class="math inline">\(\nabla^2 A(\boldsymbol{\eta})\succeq 0\)</span>, lo cual significa que <span class="math inline">\(A\)</span> es una función convexa.</p>
 </div>
@@ -473,7 +499,7 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <p><span class="badge bg-primary">Ejemplo 2.3.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Gradiente y Hessiana de <span class="math inline">\(A(\boldsymbol{\eta})\)</span> para las distribuciones Bernoulli y Normal univariada </span></p>
 <p>Vamos a verificar la expresión de <span class="math inline">\(\nabla A(\boldsymbol{\eta})\)</span> y <span class="math inline">\(\nabla^2 A(\boldsymbol{\eta})\)</span> para los casos de las distribuciones Bernoulli y Normal univariada, utilizando las expresiones obtenidas en los ejemplos 2.3.2 y 2.3.3.</p>
 <ul>
-<li><p>Si <span class="math inline">\(Y\sim\text{Binom}(1,\phi)\)</span>, entonces <span class="math display">\[
+<li><p>Si <span class="math inline">\(Y\sim\text{Bernoulli}(\phi)\)</span>, entonces <span class="math display">\[
   A'(\eta)=\frac{e^{\eta}}{1+e^{\eta}}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{1-\phi}}=\phi=\mathbb{E}\left[Y\right],
   \]</span> <span class="math display">\[
   A''(\eta)=\frac{e^{\eta}}{(1+e^{\eta})^2}=\frac{\frac{\phi}{1-\phi}}{\frac{1}{(1-\phi)^2}}=\phi(1-\phi)=\mathop{\mathrm{Cov}}\left[Y\right].
@@ -505,10 +531,10 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <section id="ii-modelo-lineal-generalizado" class="level2">
 <h2 class="anchored" data-anchor-id="ii-modelo-lineal-generalizado">II <span style="color:#CCCCCC;">│</span> Modelo lineal generalizado</h2>
 <p>Supongamos que deseas construir un modelo para estimar el número <span class="math inline">\(y\)</span> de clientes que llegan a tu tienda (o el número de visitas a páginas web en tu sitio) en una hora determinada, basándote en ciertas características como promociones en la tienda, publicidad reciente, clima, día de la semana, etc. Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Sabiendo esto, ¿cómo podemos proponer un modelo para nuestro problema? Afortunadamente, la Poisson es una distribución de la familia exponencial, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM). En esta sección, describiremos un método para construir modelos GLM para problemas como este.</p>
-<p>En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span> a partir de un conjunto de predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales <span class="math inline">\(Y|{\bf X}\)</span>. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:</p>
-<div class="myhighlight2">
+<p>En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span> a partir de un conjunto de predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales <span class="math inline">\(Y\mid{\bf X}\)</span>. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:</p>
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <p><span style="font-size:0.8em;"><em>Supuesto del modelo</em></span></p>
-<p><span class="math inline">\(Y|{\bf X}={\bf x}\)</span> se distribuye según una distribución de la familia exponencial con parámetro natural de la forma</p>
+<p><span class="math inline">\(Y\mid{\bf X}={\bf x}\)</span> sigue una distribución perteneciente a la familia exponencial, con parámetro natural de la forma</p>
 <div style="margin-top:-0.5em;">
 
 </div>
@@ -519,7 +545,9 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <div style="margin-top:1em;">
 
 </div>
-<p>El parámetro natural <span class="math inline">\(\boldsymbol{\eta}\in\mathbb{R}^q\)</span> queda conectado a la función de regresión <span class="math inline">\(\mathbb{E}\left[T(Y)\mid {\bf x};\boldsymbol{\Theta}\right]\)</span> a partir de una <em>función de enlace canónica</em> <span class="math inline">\(g:\mathbb{R}^q\to\mathbb{R}^q\)</span>.</p>
+<p>El parámetro natural <span class="math inline">\(\boldsymbol{\eta}\in\mathbb{R}^q\)</span> queda conectado a la función de regresión <span class="math inline">\(\mathbb{E}\left[T(Y)\mid {\bf x};\boldsymbol{\Theta}\right]\)</span> a partir de una <em>función de enlace canónica</em> <span class="math inline">\(g:\mathbb{R}^q\to\mathbb{R}^q\)</span> que verifica <span class="math display">\[
+\boldsymbol{\eta}=g\left(\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\Theta}\right]\right).
+\]</span></p>
 <div style="margin-top:2em;">
 
 </div>
@@ -549,19 +577,18 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <div style="margin-top:2em;">
 
 </div>
-<p>Ahora bien, tanto en regresión lineal como en regresión logística el objetivo es predecir <span class="math inline">\(\mathbb{E}\left[Y\mid {\bf x}; \boldsymbol{\theta}\right]\)</span>. De hecho, denotamos <span class="math display">\[
-\hat{y}:=\mathbb{E}\left[Y\mid {\bf x};\hat{\boldsymbol{\theta}}\right].
+<p>En un GLM la estructura del modelo hace que, una vez estimado <span class="math inline">\(\boldsymbol{\theta}\)</span>, todo lo demás se obtiene por composición. El estimador <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> conduce a un estimador del parámetro natural, <span class="math inline">\(\hat{\boldsymbol{\eta}}({\bf x})=\hat{\boldsymbol{\theta}}^\top {\bf x}\)</span>, y este, a su vez, determina la función de regresión: <span class="math display">\[
+\mathbb{E}\left[T(Y)\mid {\bf x};\hat{\boldsymbol{\theta}}\right]= \nabla A\!\left(\hat{\boldsymbol{\eta}}({\bf x})\right).
 \]</span></p>
-<p>En GLM la cosa es similar:</p>
+<p>En conclusión:</p>
 <div class="myhighlight">
 <p>El modelo GLM nos permite predecir <span class="math display">\[
-h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\Theta}\right]
+\hat{y}=h_{\hat{\boldsymbol{\Theta}}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\hat{\boldsymbol{\Theta}}\right].
 \]</span></p>
 </div>
 <div style="margin-top:1.5em;">
 
 </div>
-<p>No obstante, en la mayoría de los casos el estadístico suficiente es <span class="math inline">\(T(y)=y\)</span>, de manera que el modelo obtenido predice exactamente <span class="math inline">\(\hat{y}\)</span>, que en definitiva es lo que uno pretende a la hora de aplicar regresión.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -579,7 +606,11 @@ h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\T
 <p>A continuación, vamos a abordar el problema de estimación de los parámetros en un GLM de la manera habitual: definiendo el problema de optimización a partir del principio de máxima verosimilitud y luego, de ser posible, aplicando una condición de optimalidad. Por razones de simplicidad, supondremos <span class="math display">\[
 \eta=\boldsymbol{\theta}^\top{\bf x}\in\mathbb{R},\qquad \boldsymbol{\theta}\in\mathbb{R}^p.
 \]</span></p>
-<div style="margin-top:1.5em;">
+<p>Además, para una muestra <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> i.i.d., denotamos <span class="math display">\[
+\eta_i:=\boldsymbol{\theta}^\top{\bf x}_i,\]</span> <span class="math display">\[
+\mu_i:=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i;\boldsymbol{\theta}\right]=\nabla A(\eta_i).
+\]</span></p>
+<div style="margin-top:2em;">
 
 </div>
 <section id="función-de-verosimilitud" class="level3">
@@ -587,8 +618,8 @@ h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\T
 <p>De (2.3.1) resulta <span class="math display">\[
 \log p(y_i\mid\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
 \]</span></p>
-<p>Por lo tanto, para un conjunto de datos <span class="math inline">\(\{{\bf x}_i,y_i\}_{i=1}^n\)</span> i.i.d., la función de log-verosimilitud es <span class="math display">\[
-\ell(\boldsymbol{\theta})=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte},\qquad \eta_i=\boldsymbol{\theta}^\top{\bf x}_i.
+<p>Por lo tanto, la función de log-verosimilitud es <span class="math display">\[
+\ell(\boldsymbol{\theta})=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte}.
 \tag{2.3.3}
 \]</span></p>
 <div style="margin-top:1.5em;">
@@ -599,11 +630,19 @@ h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\T
 <h3 class="anchored" data-anchor-id="optimalidad">Optimalidad</h3>
 <p>De (2.3.3), el problema de optimización resultante es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\boldsymbol{\theta})}
+    \text{minimizar } &amp; \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\boldsymbol{\theta})}
 \end{array}
 \tag{2.3.4}
 \]</span></p>
-<p>¡Cuidado! La variable de optimización es <span class="math inline">\(\boldsymbol{\theta}\)</span>, que determina cada valor del parámetro natural a partir de la expresión <span class="math inline">\(\eta_i=\boldsymbol{\theta}^\top{\bf x}_i\)</span>.</p>
+<p>El vector gradiente de la función de costo <span class="math inline">\(J\)</span> es <span class="math display">\[
+\nabla J(\boldsymbol{\theta})=\sum_{i=1}^n\left[A'(\eta_i)-T(y_i)\right]{\bf x}_i=X^\top\left[A'(\tilde{\boldsymbol{\eta}})-T({\bf y})\right],
+\tag{2.3.5}
+\]</span></p>
+<p>donde <span class="math inline">\(A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\mathbb{R}^n\)</span> y <span class="math inline">\(T({\bf y})=(T(y_1),\ldots,T(y_n))\in\mathbb{R}^n\)</span>, mientras que la matriz Hessiana resulta <span class="math display">\[
+\nabla^2 J(\boldsymbol{\theta})=\sum_{i=1}^n A''(\eta_i){\bf x}_i{\bf x}_i^\top = X^\top W X,
+\tag{2.3.6}
+\]</span></p>
+<p>donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(A''(\eta_1),\ldots,A''(\eta_n))\in\mathbb{R}^{n\times n}\)</span>. Observar que la matriz <span class="math inline">\(W\)</span> actúa como una matriz de pesos: el peso de la <span class="math inline">\(i\)</span>-ésima observación es <span class="math inline">\(A''(\eta_i)=\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}\right]\)</span>, que en general depende de <span class="math inline">\(\boldsymbol{\theta}\)</span> y de <span class="math inline">\({\bf x}_i\)</span>. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera <span class="math inline">\(X^\top X\)</span> salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -618,24 +657,11 @@ h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\T
 <div style="margin-top:2em;">
 
 </div>
-<p>Dado que tenemos convexidad, podemos plantear <span class="math inline">\(\nabla J(\boldsymbol{\theta})=0\)</span>. Como es <span class="math inline">\(\eta_i\)</span> quien depende de <span class="math inline">\(\boldsymbol{\theta}\)</span>, al derivar respecto de <span class="math inline">\(\theta_k\)</span> resulta <span class="math display">\[
-\frac{\partial J}{\partial \theta_k}=\sum_{i=1}^n \left[A'(\eta_i)-T(y_i)\right]x_{ik},\qquad k=1,\ldots,p.
-\]</span></p>
-<p>Matricialmente, la condición de optimalidad queda expresada como <span class="math display">\[
-X^\top(A'(\tilde{\boldsymbol{\eta}})-T({\bf y}))=\mathbf{0},
-\tag{2.3.5}
-\]</span> donde hemos denotado <span class="math display">\[
-\tilde{\boldsymbol{\eta}}=(\eta_1,\ldots,\eta_n)^\top,\qquad
-A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top.
-\]</span></p>
-<div style="margin-top:1.5em;">
-
-</div>
-<p>Por propiedad de la derivada de la función de partición <span class="math inline">\(A\)</span>, podemos reescribir la condición (2.3.5) como <span class="math display">\[
+<p>Dado que tenemos convexidad, podemos plantear <span class="math inline">\(\nabla J(\boldsymbol{\theta})=\mathbf{0}\)</span>. De (2.3.5) y por propiedad de la derivada de la función de log-partición <span class="math inline">\(A\)</span>, podemos escribir <span class="math display">\[
 \sum_{i=1}^n\left(\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right]-T(y_i)\right)\,{\bf x}_i=\mathbf{0}.
 \]</span></p>
-<p>Observar que lo del paréntesis es el <em>residuo</em> entre el valor observado de <span class="math inline">\(T(y_i)\)</span> y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, los residuos son ortogonales a los predictores <span class="math inline">\({\bf x}_i\)</span>, es decir, ya no queda información lineal en los predictores que permita mejorar el ajuste del modelo.</p>
-<p>En general, no existe una solución explícita para el punto óptimo <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> y, en consecuencia, solo queda recurrir a métodos iterativos para aproximarlo. Afortunadamente, el método de Newton da lugar a un algoritmo eficiente para resolver un GLM.</p>
+<p>Observar que lo del paréntesis es el <em>residuo</em> entre el valor observado de <span class="math inline">\(T(y_i)\)</span> y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de <span class="math inline">\(X\)</span>: los residuos no están correlacionados (en sentido muestral) con ninguno de los predictores del modelo. En particular, si estamos trabajando con la matriz ampliada <span class="math inline">\(\tilde{X}\)</span>, los residuos suman cero.</p>
+<p>En general, no existe una solución explícita para el punto óptimo <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>, y ni siquiera está garantizado que exista: la convexidad asegura que todo punto con <span class="math inline">\(\nabla J(\boldsymbol{\theta})=\mathbf{0}\)</span> es un mínimo global, pero la existencia depende de la familia y de los datos observados. Cuando existe, se aproxima mediante métodos iterativos; como conocemos el gradiente y la Hessiana de <span class="math inline">\(J\)</span>, el método de Newton resulta una opción natural y da lugar a un algoritmo muy eficiente.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -644,51 +670,41 @@ A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top.
 <h3 class="anchored" data-anchor-id="resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</h3>
 <p>Recordemos que el método de Newton actualiza los parámetros mediante <span class="math display">\[
 \boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\left[\nabla^2 J(\boldsymbol{\theta}_t)\right]^{-1}\nabla J(\boldsymbol{\theta}_t).
-\tag{2.3.6}
-\]</span></p>
-<p>Su aplicación al problema (2.3.4) deriva en un algoritmo denominado <mark>IRLS (<em>Iterative Reweighted Least Squares</em>)</mark>, que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS). Para entender cómo se llega a este algoritmo, es necesario analizar la estructura del gradiente y del Hessiano de la función objetivo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
-<p>Hasta ahora hemos visto que <span class="math display">\[
-\nabla J(\boldsymbol{\theta})=\sum_{i=1}^n(T(y_i)-\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right])\,{\bf x}_i,
-\]</span></p>
-<p>Para la Hessiana, por su parte, la propiedad de la función de partición <span class="math inline">\(A\)</span> nos permite escribir <span class="math display">\[
-\nabla^2 J(\boldsymbol{\theta})=-\sum_{i=1}^n\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf X}={\bf x}_i\right]\,{\bf x}_i{\bf x}_i^\top=-X^\top W X,
-\]</span> donde <span class="math display">\[
-W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=\mathop{\mathrm{Cov}}\left[T(Y)\mid {\bf X}={\bf x}_i\right].
-\]</span></p>
-<div style="margin-top:2em;">
-
-</div>
-<p>Por lo tanto, la iteración del método de Newton resulta <span class="math display">\[
-\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W X)^{-1}\left(\sum_{i=1}^n(T(y_i)-\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right])\,{\bf x}_i\right)
 \tag{2.3.7}
+\]</span></p>
+<p>Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (<em>Iterative Reweighted Least Squares</em>), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, <em>weighted least squares</em>). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de <span class="math inline">\(J\)</span>; resulta <span class="math display">\[
+\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W X)^{-1}X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}})\right]
+\tag{2.3.8}
 \]</span></p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="alert alert-light text-dark" role="important">
-<p><span class="badge bg-success text-light">Formulación de IRLS</span></p>
-<p>La idea central que deriva en el algoritmo IRLS consiste en construir una pseudo-respuesta <span class="math inline">\({\bf z}\in\mathbb{R}^n\)</span> tal que la actualización en (2.3.7) pueda interpretarse como la solución de un problema de mínimos cuadrados ponderados (WLS) con pesos <span class="math inline">\(W\)</span> y <em>pseudo-respuesta</em> <span class="math inline">\({\bf z}\)</span>. Es decir, se busca <span class="math inline">\({\bf z}\)</span> tal que <span class="math display">\[
-\boldsymbol{\theta}_{t+1}:=(X^\top W X)^{-1}X^\top W{\bf z},
-\tag{2.3.8}
-\]</span></p>
-<p>ya que el lado derecho es solución cerrada del problema de optimización <span class="math display">\[
+<p><span class="badge bg-success text-light">Reinterpretación de Newton como WLS</span></p>
+<p>El paso de Newton (<span class="math inline">\(\ref{eq:newton_glm_explicito}\)</span>) puede leerse como la solución de un problema de mínimos cuadrados ponderados (WLS). En efecto, dados <span class="math inline">\(W_t=\operatorname{diag}(A''(\eta_{t,1}),\ldots,A''(\eta_{t,n}))\)</span> y <span class="math inline">\({\bf z}_t\in\mathbb{R}^n\)</span>, la solución de <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \displaystyle\frac{1}{2}\|W^{1/2}({\bf z}-X\boldsymbol{\theta})\|_2^2.
+    \text{minimizar } &amp; \displaystyle\frac{1}{2}\|W_t^{1/2}({\bf z}_t-X\boldsymbol{\theta})\|_2^2
 \end{array}
 \]</span></p>
-<p>Es importante remarcar que tanto <span class="math inline">\(W\)</span> como <span class="math inline">\({\bf z}\)</span> dependerán del valor anterior <span class="math inline">\(\boldsymbol{\theta}_t\)</span>.</p>
-<p>Definimos la pseudo-respuesta <span class="math inline">\({\bf z}\)</span> a partir de la siguiente expresión: <span class="math display">\[
-z_i:=\eta_i+\frac{T(y_i)-\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right]}{w_i},\qquad i=1,\ldots,n.
+<p>es <span class="math inline">\((X^\top W_t X)^{-1}X^\top W_t{\bf z}_t\)</span>. Se busca entonces una <span class="math inline">\({\bf z}_t\)</span> tal que <span class="math display">\[
+\boldsymbol{\theta}_{t+1}=(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t.
+\tag{2.3.9}
 \]</span></p>
-<p>Se verifica <span class="math display">\[
-X^\top W {\bf z}=X^\top W\tilde{\boldsymbol{\eta}}+\sum_{i=1}^n(T(y_i)-\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right])\,{\bf x}_i.
+<p>Definimos <span class="math display">\[
+z_{t,i}:=\eta_{t,i}+\frac{T(y_i)-\mu_{t,i}}{w_{t,i}},\qquad i=1,\ldots,n,
 \]</span></p>
-<p>Para el paso actual de Newton, se tiene que <span class="math inline">\(\tilde{\boldsymbol{\eta}}=X\boldsymbol{\theta}_t\)</span>. Por lo tanto, resulta <span class="math inline">\(\boldsymbol{\theta}_t=(X^\top W X)^{-1}X^\top W\tilde{\boldsymbol{\eta}}\)</span>, lo cual implica que (2.3.7) y (2.3.8) son efectivamente equivalentes.</p>
+<p>con <span class="math inline">\(\eta_{t,i}={\bf x}_i^\top\boldsymbol{\theta}_t\)</span>, <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})\)</span> y <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})\)</span>. Como <span class="math inline">\(W_t\)</span> cancela el denominador <span class="math inline">\(w_{t,i}\)</span>, <span class="math display">\[
+X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\mu_{t,i}\big){\bf x}_i .
+\]</span></p>
+<p>Multiplicando por <span class="math inline">\((X^\top W_t X)^{-1}\)</span> resulta <span class="math display">\[
+(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\big[T({\bf y})-A'(\tilde{\boldsymbol{\eta}}_t)\big],
+\]</span></p>
+<p>que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Así, en el algoritmo IRLS cada iteración consiste en resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}\)</span>, para recién actualizar el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span>. Repitiendo este procedimiento se aproxima el estimador de máxima verosimilitud del GLM, aprovechando la estructura del Hessiano para generar pasos más precisos que un simple descenso por gradiente.</p>
+<p>Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W_t\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}_t\)</span>, ambos recalculados en cada paso. No se trata de un algoritmo distinto, sino de otra forma de leer el mismo paso, y esa lectura tiene varias ventajas. Por un lado, permite interpretar el ajuste de un GLM como una sucesión de regresiones lineales ponderadas. Por otro, permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre <span class="math inline">\(W_t^{1/2}X\)</span>) sin formar explícitamente <span class="math inline">\(X^\top W_t X\)</span>. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de <span class="math inline">\(J\)</span> para dar pasos más precisos que un simple descenso por gradiente.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -697,12 +713,14 @@ X^\top W {\bf z}=X^\top W\tilde{\boldsymbol{\eta}}+\sum_{i=1}^n(T(y_i)-\mathbb{E
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Calcular <span class="math inline">\(\tilde{\boldsymbol{\eta}} = X \boldsymbol{\theta}_t\)</span> y <span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_i=\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right]\)</span>.</p>
-<p><strong>2°</strong> Construir la matriz diagonal de pesos <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{i} = \mathop{\mathrm{Cov}}\left[T(Y)\mid X={\bf x}_i\right]\)</span>.</p>
-<p><strong>3°</strong> Definir la pseudo-respuesta: <span class="math inline">\({\bf z}= \tilde{\boldsymbol{\eta}} + W^{-1}(T({\bf y}) - \boldsymbol{\mu})\)</span>.</p>
-<p><strong>4°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=(X^\top W X)^{-1}X^\top W{\bf z}\)</span>.</p>
+<p><strong>1°</strong> Calcular <span class="math inline">\(\tilde{\boldsymbol{\eta}}_t=X\boldsymbol{\theta}_t\)</span> y <span class="math inline">\(\boldsymbol{\mu}_t\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})=\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>.</p>
+<p><strong>2°</strong> Construir la matriz diagonal de pesos <span class="math inline">\(W_t\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})=\mathop{\mathrm{Var}}\left[T(Y)\mid{\bf X}={\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>..</p>
+<p><strong>3°</strong> Definir la pseudo-respuesta <span class="math inline">\({\bf z}_t=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}\left(T({\bf y})-\boldsymbol{\mu}_t\right)\)</span>.</p>
+<p><strong>4°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -715,16 +733,16 @@ X^\top W {\bf z}=X^\top W\tilde{\boldsymbol{\eta}}+\sum_{i=1}^n(T(y_i)-\mathbb{E
 <p><span class="badge bg-primary">Ejemplo 2.3.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Algoritmo IRLS para regresión logística </span></p>
 <p>En regresión logística, dada la matriz de predictoras <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span> y el vector de respuestas <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span>, el algoritmo IRLS se implementa de la siguiente manera. A partir del valor actual <span class="math inline">\(\boldsymbol{\theta}_t\)</span>, en la siguiente iteración se calculan:</p>
 <ul>
-<li><p>El vector <span class="math inline">\(\tilde{\boldsymbol{\eta}}=X\boldsymbol{\theta}_t\in\mathbb{R}^n\)</span>.</p></li>
-<li><p>El vector de medias <span class="math inline">\(\boldsymbol{\mu}=\sigma(\tilde{\boldsymbol{\eta}})\in\mathbb{R}^n\)</span>.</p></li>
-<li><p>La matriz de pesos <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math display">\[
-  w_i = \sigma(\eta_i)(1-\sigma(\eta_i)), \qquad i=1,\ldots,n.
+<li><p>El vector <span class="math inline">\(\tilde{\boldsymbol{\eta}}_t=X\boldsymbol{\theta}_t\in\mathbb{R}^n\)</span>.</p></li>
+<li><p>El vector de medias <span class="math inline">\(\boldsymbol{\mu}_t=\sigma(\tilde{\boldsymbol{\eta}}_t)\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_{t,i}=\sigma(\boldsymbol{\theta}_t^\top{\bf x}_i)\)</span>.</p></li>
+<li><p>La matriz de pesos <span class="math inline">\(W_t\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math display">\[
+  w_{t,i} = \sigma(\eta_{t,i})(1-\sigma(\eta_{t,i}), \qquad i=1,\ldots,n.
   \]</span></p></li>
 <li><p>La pseudo-respuesta <span class="math display">\[
-  {\bf z}=\tilde{\boldsymbol{\eta}}+W^{-1}({\bf y}-\boldsymbol{\mu})\in\mathbb{R}^n.
+  {\bf z}_t=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}({\bf y}-\boldsymbol{\mu}_t)\in\mathbb{R}^n.
   \]</span></p></li>
 </ul>
-<p>Finalmente, se actualiza el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> a partir de la solución del problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}\)</span>, determinada por la expresión (2.3.8).</p>
+<p>Finalmente, se actualiza el vector de parámetros a <span class="math inline">\(\boldsymbol{\theta}_{t+1}\)</span> a partir de la solución del problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}\)</span>, determinada por la expresión (2.3.9).</p>
 </div>
 <div style="margin-top:2.5em;">
 
@@ -759,14 +777,13 @@ p(y\mid\boldsymbol{\phi}) &amp;= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k
 <p>Por lo tanto, el parámetro natural es</p>
 <p><span class="math display">\[
 \boldsymbol{\eta}=\left(\log\left(\frac{\phi_1}{\phi_k}\right), \log\left(\frac{\phi_2}{\phi_k}\right),\ldots, \log\left(\frac{\phi_{k-1}}{\phi_k}\right)\right)^\top\in\mathbb{R}^{k-1}.
-\tag{2.3.9}
+\tag{2.3.10}
 \]</span></p>
 <div style="margin-top:1em;">
 
 </div>
 <p>El resto de los elementos son: <span class="math display">\[
 h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi_i\right).
-\tag{2.3.19}
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -775,7 +792,7 @@ h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi
 <p>Para este modelo GLM, se tiene <span class="math display">\[
 \mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\phi}\right]=\left(\phi_1,\phi_2,\ldots,\phi_{k-1}\right)^\top.
 \]</span></p>
-<p>La expresión (2.3.10) es la función de enlace, conocida como <em>logit generalizado</em>. Su inversa es la <mark><em>función softmax</em></mark> determinada por <span class="math display">\[
+<p>La expresión (2.3.10) es la función de enlace, conocida como <em>logit generalizado</em>. Su inversa es la <em>función softmax</em> determinada por <span class="math display">\[
 \phi_i=\frac{\exp\{\eta_i\}}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}},\qquad i=1,\ldots,k-1.
 \]</span></p>
 <p>El elemento restante de <span class="math inline">\(\boldsymbol{\phi}\)</span> se obtiene a partir de la restricción <span class="math inline">\(\sum_{i=1}^k\phi_i=1\)</span>, lo cual implica</p>
@@ -793,7 +810,7 @@ h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi
 <div style="margin-top:1em;">
 
 </div>
-<p>Así, la distribución condicional de <span class="math inline">\(Y|{\bf X}\)</span> está dada por <span class="math display">\[
+<p>Así, la distribución condicional de <span class="math inline">\(Y\mid{\bf X}\)</span> está dada por <span class="math display">\[
 p(Y=i\mid{\bf x};\boldsymbol{\Theta}):=\phi_i=\frac{\exp\{\boldsymbol{\theta}_i^\top{\bf x}\}}{1+\sum_{j=1}^{k-1}\exp\{\boldsymbol{\theta}_j^\top{\bf x}\}},\qquad i=1,\ldots,k-1,
 \]</span> <span class="math display">\[
 p(Y=k\mid{\bf x};\boldsymbol{\Theta}):=\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\boldsymbol{\theta}_j^\top{\bf x}\}}.
@@ -804,7 +821,7 @@ p(Y=k\mid{\bf x};\boldsymbol{\Theta}):=\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\
 </div>
 <div class="myhighlight">
 <p>El modelo de regresión softmax predice <span class="math display">\[
-h_{\boldsymbol{\Theta}}({\bf x}):=\mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\Theta}\right]=(\phi_1,\phi_2,\ldots,\phi_{k-1})^\top.
+\hat{y}=(\hat{\phi}_1,\hat{\phi}_2,\ldots,\hat{\phi}_{k-1})^\top.
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -847,6 +864,9 @@ T = \begin{pmatrix}
 
 </div>
 <p>Este vector gradiente de la función objetivo puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Sin embargo, de acuerdo a lo visto anteriormente, es más adecuado el algoritmo IRLS, para aprovechar la información del Hessiano y generar pasos más precisos y acelerar la convergencia.</p>
+<div style="margin-top:1.5em;">
+
+</div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.3.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión softmax en datos simulados </span></p>
 <p>Utilizaremos un conjunto de datos simulados para un problema de clasificación con 3 clases, para el cual ajustaremos un modelo de regresión softmax.</p>
@@ -860,8 +880,8 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="036b7a99" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="9f8281c3" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -882,9 +902,9 @@ T = \begin{pmatrix}
 <span id="cb1-19"><a href="#cb1-19"></a></span>
 <span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Predicción:</span></span>
 <span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5bcd980e" class="cell" data-execution_count="2">
+<div id="ca95cb9d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -942,236 +962,243 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copiado");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copiado");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1179,185 +1206,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../CAPITULO_2/B2_regresion_lineal_logistica.html" class="pagination-link" aria-label="2.2 Regresión lineal y regresión logística">

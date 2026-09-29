@@ -42,7 +42,7 @@ En esta sección estudiaremos dos modelos fundamentales de aprendizaje supervisa
 
 📄 **Notación**
 
-De ahora en adelante, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y|\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
+De ahora en adelante, consideraremos $\XX=(X_1,\ldots,X_p)\in\RR^p$ un conjunto de variables predictoras y $Y\in\RR$ una variable respuesta. Además, vamos a suponer que la distribución condicional de $Y\mid\XX$ depende de un vector de parámetros $\bftheta\in\RR^q$.
 
 Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el vector de respuestas, $X\in\RR^{n\times p}$ la matriz de predictoras y $\tilde{X}:=\begin{pmatrix}\bfone & X\end{pmatrix}\in\RR^{n\times (p+1)}$ la matriz ampliada, la cual permite extender resultados formulados para relaciones lineales de la forma $\bftheta^\top\XX$ al caso con intercepto $\theta_0+\bftheta^\top\XX$.
 
@@ -109,7 +109,7 @@ $$
 
 Dado $\XX=\xx$, tenemos que $Y=\underbrace{\bftheta^\top\xx}_{\text{cte}}+\varepsilon$. Por lo tanto, el supuesto $\varepsilon\sim\calN(0,\sigma^2)$ implica que
 $$
-Y|\XX=\xx\sim \calN(\bftheta^\top\xx,\sigma^2).
+Y\mid\XX=\xx\sim \calN(\bftheta^\top\xx,\sigma^2).
 $$
 
 
@@ -124,7 +124,7 @@ En consecuencia:
 
 :::{.myhighlight}
 
-La función de densidad condicional de $Y|\XX$ en el modelo de regresión lineal es
+La función de densidad condicional de $Y\mid\XX$ en el modelo de regresión lineal es
 $$
 p(y \mid \xx; \bftheta) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(y-\bftheta^\top \xx)^2}{2 \sigma^2}\right).
 $$
@@ -453,7 +453,7 @@ $$
 
 Bajo el modelo de regresión logística, resulta
 $$
-Y|\XX=\xx\sim\text{Binom}(1,h_{\bftheta}(\xx)),
+Y\mid\XX=\xx\sim\text{Bernoulli}(h_{\bftheta}(\xx)),
 $$
 
 de manera tal que
@@ -480,7 +480,7 @@ y la función $A:\RR\to\RR$ mediante $A(\eta)=\log(1+e^{\eta})$. Resulta:
 
 :::{.myhighlight}
 
-La función de probabilidad condicional de $Y|\XX$ en el modelo de regresión logística es
+La función de probabilidad condicional de $Y\mid\XX$ en el modelo de regresión logística es
 $$
 p(y \mid \eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\bftheta^\top\xx.
 \tag{2.2.1}
