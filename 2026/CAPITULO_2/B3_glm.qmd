@@ -518,7 +518,7 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-success text-light">Reinterpretación de Newton como WLS</span>
 
-El paso de Newton (\ref{eq:newton_glm_explicito}) puede leerse como la solución de un problema de mínimos cuadrados ponderados (WLS). En efecto, dados $W_t=\operatorname{diag}(A''(\eta_{t,1}),\ldots,A''(\eta_{t,n}))$ y $\zz_t\in\RR^n$, la solución de
+El paso de Newton (2.3.8) puede leerse como la solución de un problema de mínimos cuadrados ponderados (WLS). En efecto, dados $W_t=\operatorname{diag}(A''(\eta_{t,1}),\ldots,A''(\eta_{t,n}))$ y $\zz_t\in\RR^n$, la solución de
 $$
 \begin{array}{ll}
 	\text{minimizar } & \displaystyle\frac{1}{2}\|W_t^{1/2}(\zz_t-X\bftheta)\|_2^2
