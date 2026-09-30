@@ -280,11 +280,6 @@ window.Quarto = {
   <li><a href="#resolución-por-descenso-por-gradiente" id="toc-resolución-por-descenso-por-gradiente" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</a></li>
   <li><a href="#resolución-por-método-de-newton-algoritmo-irls" id="toc-resolución-por-método-de-newton-algoritmo-irls" class="nav-link" data-scroll-target="#resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</a></li>
   </ul></li>
-  <li><a href="#iii-regresión-softmax" id="toc-iii-regresión-softmax" class="nav-link" data-scroll-target="#iii-regresión-softmax">III <span style="color:#CCCCCC;">│</span> Regresión softmax</a>
-  <ul class="collapse">
-  <li><a href="#modelo" id="toc-modelo" class="nav-link" data-scroll-target="#modelo">Modelo</a></li>
-  <li><a href="#optimalidad-1" id="toc-optimalidad-1" class="nav-link" data-scroll-target="#optimalidad-1">Optimalidad</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -707,7 +702,7 @@ A'(\eta_i)=\mathbb{E}\left[T(Y)\mid {\bf x}_i,\boldsymbol{\theta}\right]
 <p>Por supuesto, también puede emplearse descenso por gradiente estocástico o <em>mini-batch</em>.</p>
 </section>
 <section id="resolución-por-método-de-newton-algoritmo-irls" class="level3">
-<h3 class="anchored" data-anchor-id="resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</h3>
+<h3 class="anchored">Resolución por método de Newton: algoritmo IRLS</h3>
 <p>Recordemos que el método de Newton actualiza los parámetros mediante <span class="math display">\[
 \boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\left[\nabla^2 J(\boldsymbol{\theta}_t)\right]^{-1}\nabla J(\boldsymbol{\theta}_t).
 \tag{2.3.7}
@@ -750,6 +745,7 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p>⚙ <span class="badge bg-custom">Algoritmo IRLS</span></p>
+<hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
 <div style="margin-left: 1em">
 <p><span class="math inline">\(t\leftarrow 0.\)</span></p>
@@ -763,6 +759,7 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
+<hr>
 </div>
 <div style="margin-top:2em;">
 
@@ -785,8 +782,6 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
 <div style="margin-top:2.5em;">
 
 </div>
-</section>
-</section>
 <section id="iii-regresión-softmax" class="level2">
 <h2 class="anchored" data-anchor-id="iii-regresión-softmax">III <span style="color:#CCCCCC;">│</span> Regresión softmax</h2>
 <p>Consideremos un problema de clasificación en el que <span class="math inline">\(Y \in \{1, 2, \ldots, k\}\)</span>. Por ejemplo, en lugar de clasificar correos electrónicos en dos clases (spam o no spam), podríamos clasificarlos en tres clases: spam, correo personal y correo relacionado con el trabajo. Para modelar esta situación, usaremos la <em>distribución multinomial</em> con un único ensayo (también llamada <em>distribución categórica</em>) como un elemento de la familia exponencial. De esta manera, podremos construir un modelo GLM para clasificación multiclase, conocido como <em>regresión softmax</em> o <em>regresión logística multinomial</em>, que generaliza la regresión logística binaria a problemas con más de dos clases.</p>
@@ -923,7 +918,7 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="f96206ac" class="cell" data-execution_count="1">
+<div id="df2fc24d" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
@@ -947,7 +942,7 @@ T = \begin{pmatrix}
 <span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cbb7a015" class="cell" data-execution_count="2">
+<div id="8147362c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -975,6 +970,9 @@ Matriz de Confusión:
 </div>
 
 
+</section>
+</section>
+</section></section></main></div>
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -989,10 +987,10 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 W10=
 </script>
-</section>
-</section>
 
-</main> <!-- /main -->
+
+
+ <!-- /main -->
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -1416,7 +1414,7 @@ window._ojs.runtime.interpretFromScriptTags();
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 
