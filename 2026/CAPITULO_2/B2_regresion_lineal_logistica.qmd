@@ -226,9 +226,13 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
+
+**repetir**:
 
 > Actualizar $\bftheta_{t+1}:=\bftheta_t-\eta \left(X^\top X\bftheta_t-X^\top\yy\right)$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -261,11 +265,15 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\dots$:
+$t\leftarrow 0.$
 
-> **1°** Elegir un índice $i$ al azar de $\{1,\dots,n\}$.  
+**repetir**:
+
+> Elegir un índice $i$ al azar de $\{1,\dots,n\}$.  
 >
-> **2°** Actualizar $\bftheta_{t+1}:=\bftheta_t+\eta\,(y_i-\bftheta_t^\top\xx_i)\,\xx_i$.
+> Actualizar $\bftheta_{t+1}:=\bftheta_t+\eta\,(y_i-\bftheta_t^\top\xx_i)\,\xx_i$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -278,7 +286,7 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 <div style="margin-top:2em;"></div>
 
 
-Observar que la magnitud de la actualización del algoritmo LMS estocástico es proporcional al término de error $(y_i - \bftheta_t^\top\xx_i)$. Si elegimos un ejemplo para el cual $\bftheta_t^\top\xx_i\approx y_i$, entonces el cambio en el parámetro será mínimo. Esto puede activar prematuramente el criterio de parada basado en la magnitud del gradiente, por lo cual para para evitar detener el algoritmo demasiado pronto, suele ser recomendable basar el criterio de parada en el promedio del error sobre un conjunto de observaciones. También se puede imponer un número mínimo de iteraciones para asegurar que el algoritmo recorra suficientes ejemplos y aprenda de manera estable.
+Observar que la magnitud de la actualización del algoritmo LMS estocástico es proporcional al término de error $(y_i - \bftheta_t^\top\xx_i)$. Si elegimos un ejemplo para el cual $\bftheta_t^\top\xx_i\approx y_i$, entonces el cambio en el parámetro será mínimo. Esto puede activar prematuramente el criterio de parada basado en la magnitud del gradiente; para evitarlo, suele ser recomendable basar el criterio de parada en el promedio del error sobre un conjunto de observaciones. También se puede imponer un número mínimo de iteraciones.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -603,9 +611,13 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
+
+**repetir**:
 
 > Actualizar $\bftheta_{t+1}:=\bftheta_t-\eta\, X^\top(\hat{\yy}_t-\yy)$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -627,11 +639,15 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* 
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
 
-> **1°** Elegir un índice $i$ al azar de $\{1,\dots,n\}$.  
+**repetir**:
+
+> Elegir un índice $i$ al azar de $\{1,\dots,n\}$.  
 >
-> **2°** Actualizar $\bftheta_{t+1}:=\bftheta_t+\eta\,(y_i-h_{\bftheta_t}(\xx_i))\,\xx_i$.
+> Actualizar $\bftheta_{t+1}:=\bftheta_t+\eta\,(y_i-h_{\bftheta_t}(\xx_i))\,\xx_i$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -679,9 +695,13 @@ Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
 
-> **1°** Actualizar $\bftheta_{t+1}:=\bftheta_t+(X^\top W_t X)^{-1} X^\top (\yy-\hat{\yy}_t)$.
+**repetir**:
+
+> Actualizar $\bftheta_{t+1}:=\bftheta_t+(X^\top W_t X)^{-1} X^\top (\yy-\hat{\yy}_t)$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 

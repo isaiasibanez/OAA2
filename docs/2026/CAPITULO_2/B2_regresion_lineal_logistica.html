@@ -468,9 +468,11 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span> y una <em>tasa de aprendizaje</em> <span class="math inline">\(\eta&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
 <p>Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\eta \left(X^\top X\boldsymbol{\theta}_t-X^\top{\bf y}\right)\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -492,10 +494,12 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span> y una <em>tasa de aprendizaje</em> <span class="math inline">\(\eta&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\dots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Elegir un índice <span class="math inline">\(i\)</span> al azar de <span class="math inline">\(\{1,\dots,n\}\)</span>.</p>
-<p><strong>2°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+\eta\,(y_i-\boldsymbol{\theta}_t^\top{\bf x}_i)\,{\bf x}_i\)</span>.</p>
+<p>Elegir un índice <span class="math inline">\(i\)</span> al azar de <span class="math inline">\(\{1,\dots,n\}\)</span>.</p>
+<p>Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+\eta\,(y_i-\boldsymbol{\theta}_t^\top{\bf x}_i)\,{\bf x}_i\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -504,7 +508,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <div style="margin-top:2em;">
 
 </div>
-<p>Observar que la magnitud de la actualización del algoritmo LMS estocástico es proporcional al término de error <span class="math inline">\((y_i - \boldsymbol{\theta}_t^\top{\bf x}_i)\)</span>. Si elegimos un ejemplo para el cual <span class="math inline">\(\boldsymbol{\theta}_t^\top{\bf x}_i\approx y_i\)</span>, entonces el cambio en el parámetro será mínimo. Esto puede activar prematuramente el criterio de parada basado en la magnitud del gradiente, por lo cual para para evitar detener el algoritmo demasiado pronto, suele ser recomendable basar el criterio de parada en el promedio del error sobre un conjunto de observaciones. También se puede imponer un número mínimo de iteraciones para asegurar que el algoritmo recorra suficientes ejemplos y aprenda de manera estable.</p>
+<p>Observar que la magnitud de la actualización del algoritmo LMS estocástico es proporcional al término de error <span class="math inline">\((y_i - \boldsymbol{\theta}_t^\top{\bf x}_i)\)</span>. Si elegimos un ejemplo para el cual <span class="math inline">\(\boldsymbol{\theta}_t^\top{\bf x}_i\approx y_i\)</span>, entonces el cambio en el parámetro será mínimo. Esto puede activar prematuramente el criterio de parada basado en la magnitud del gradiente; para evitarlo, suele ser recomendable basar el criterio de parada en el promedio del error sobre un conjunto de observaciones. También se puede imponer un número mínimo de iteraciones.</p>
 <div style="margin-top:1.5em;">
 
 </div>
@@ -535,7 +539,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 </div>
 </div>
 </div>
-<div id="756fabf7" class="cell" data-execution_count="1">
+<div id="a314e8df" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -558,7 +562,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <span id="cb1-20"><a href="#cb1-20"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-21"><a href="#cb1-21"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3c7d38d1" class="cell" data-execution_count="2">
+<div id="d5c58f6d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -780,9 +784,11 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span> y una <em>tasa de aprendizaje</em> <span class="math inline">\(\eta&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
 <p>Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\eta\, X^\top(\hat{{\bf y}}_t-{\bf y})\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -796,10 +802,12 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span> y una <em>tasa de aprendizaje</em> <span class="math inline">\(\eta&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Elegir un índice <span class="math inline">\(i\)</span> al azar de <span class="math inline">\(\{1,\dots,n\}\)</span>.</p>
-<p><strong>2°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+\eta\,(y_i-h_{\boldsymbol{\theta}_t}({\bf x}_i))\,{\bf x}_i\)</span>.</p>
+<p>Elegir un índice <span class="math inline">\(i\)</span> al azar de <span class="math inline">\(\{1,\dots,n\}\)</span>.</p>
+<p>Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+\eta\,(y_i-h_{\boldsymbol{\theta}_t}({\bf x}_i))\,{\bf x}_i\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -831,9 +839,11 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1} X^\top ({\bf y}-\hat{{\bf y}}_t)\)</span>.</p>
+<p>Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1} X^\top ({\bf y}-\hat{{\bf y}}_t)\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -855,7 +865,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="0ffa9b1e" class="cell" data-execution_count="3">
+<div id="ec399fed" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -878,7 +888,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <span id="cb3-20"><a href="#cb3-20"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
 <span id="cb3-21"><a href="#cb3-21"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="b700543d" class="cell" data-execution_count="4">
+<div id="a7c9813f" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):

@@ -277,6 +277,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#función-de-verosimilitud" id="toc-función-de-verosimilitud" class="nav-link" data-scroll-target="#función-de-verosimilitud">Función de verosimilitud</a></li>
   <li><a href="#optimalidad" id="toc-optimalidad" class="nav-link" data-scroll-target="#optimalidad">Optimalidad</a></li>
+  <li><a href="#resolución-por-descenso-por-gradiente" id="toc-resolución-por-descenso-por-gradiente" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</a></li>
   <li><a href="#resolución-por-método-de-newton-algoritmo-irls" id="toc-resolución-por-método-de-newton-algoritmo-irls" class="nav-link" data-scroll-target="#resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</a></li>
   </ul></li>
   <li><a href="#iii-regresión-softmax" id="toc-iii-regresión-softmax" class="nav-link" data-scroll-target="#iii-regresión-softmax">III <span style="color:#CCCCCC;">│</span> Regresión softmax</a>
@@ -320,7 +321,7 @@ window.Quarto = {
 <p><a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 28/09/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 29/09/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -338,10 +339,12 @@ p(y\mid\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta
 \]</span></p>
 <p>La elección <span class="math inline">\(\sigma^2=1\)</span> es sin pérdida de generalidad ya que, como vimos, el estimador de máxima verosimilitud de <span class="math inline">\(\boldsymbol{\theta}\)</span> no depende de <span class="math inline">\(\sigma^2\)</span>. De hecho, es fácil ver que para <span class="math inline">\(\sigma^2\)</span> arbitrario se mantiene la estructura lineal tomando <span class="math inline">\(\eta=\tilde{\boldsymbol{\theta}}^\top{\bf x}\)</span>, con <span class="math inline">\(\tilde{\boldsymbol{\theta}}=\boldsymbol{\theta}/\sigma^2\)</span>.</p>
 <p>Por último, es importante remarcar que en ambos modelos se cumple <span class="math display">\[
-A'(\eta)=\mathbb{E}\left[Y\mid{\bf X}={\bf x}\right]\qquad\text{y}\qquad A''(\eta)=\mathop{\mathrm{Var}}\left[Y\mid{\bf X}={\bf x}\right],\]</span></p>
+A'(\eta)=\mathbb{E}\left[Y\mid{\bf X}={\bf x}\right]\qquad\text{y}\qquad A''(\eta)=\mathop{\mathrm{Var}}\left[Y\mid{\bf X}={\bf x}\right],
+\]</span></p>
 <p>y que la predicción es <span class="math display">\[
 \hat{y}=h_{\hat{\boldsymbol{\theta}}}({\bf x}):=\mathbb{E}\left[Y\mid{\bf X}={\bf x}; \hat{\boldsymbol{\theta}}\right],
-\]</span> que resulta en <span class="math inline">\(\hat{y}=\hat{\boldsymbol{\theta}}^\top{\bf x}\)</span> en regresión lineal y <span class="math inline">\(\hat{y}=\sigma\big(\hat{\boldsymbol{\theta}}^\top{\bf x}\big)\)</span> en regresión logística.</p>
+\]</span></p>
+<p>que resulta en <span class="math inline">\(\hat{y}=\hat{\boldsymbol{\theta}}^\top{\bf x}\)</span> en regresión lineal y <span class="math inline">\(\hat{y}=\sigma\big(\hat{\boldsymbol{\theta}}^\top{\bf x}\big)\)</span> en regresión logística.</p>
 <div style="margin-top:1.5em;">
 
 </div>
@@ -390,7 +393,7 @@ p(y\mid\boldsymbol{\eta})=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distribución Bernoulli </span></p>
-<p>Sea <span class="math inline">\(Y\in\{0,1\}\)</span> tal que <span class="math inline">\(Y\sim\text{Binom}(1,\phi)\)</span>, con <span class="math inline">\(\phi:=\mathbb{P}(Y=1)\)</span>. Entonces <span class="math display">\[
+<p>Sea <span class="math inline">\(Y\in\{0,1\}\)</span> tal que <span class="math inline">\(Y\sim\text{Bernoulli}(\phi)\)</span>, con <span class="math inline">\(\phi:=\mathbb{P}(Y=1)\)</span>. Entonces <span class="math display">\[
 p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
 \]</span></p>
 <p>De acuerdo a lo visto en regresión logística, la distribución de <span class="math inline">\(Y\)</span> se puede escribir como <span class="math display">\[
@@ -530,8 +533,14 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </section>
 <section id="ii-modelo-lineal-generalizado" class="level2">
 <h2 class="anchored" data-anchor-id="ii-modelo-lineal-generalizado">II <span style="color:#CCCCCC;">│</span> Modelo lineal generalizado</h2>
-<p>Supongamos que deseas construir un modelo para estimar el número <span class="math inline">\(y\)</span> de clientes que llegan a tu tienda (o el número de visitas a páginas web en tu sitio) en una hora determinada, basándote en ciertas características como promociones en la tienda, publicidad reciente, clima, día de la semana, etc. Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Sabiendo esto, ¿cómo podemos proponer un modelo para nuestro problema? Afortunadamente, la Poisson es una distribución de la familia exponencial, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM). En esta sección, describiremos un método para construir modelos GLM para problemas como este.</p>
-<p>En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span> a partir de un conjunto de predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales <span class="math inline">\(Y\mid{\bf X}\)</span>. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:</p>
+<p>Supongamos que deseamos construir un modelo para estimar el número <span class="math inline">\(y\)</span> de clientes que llegan a una tienda (o el número de visitas a páginas web en un sitio) en una hora determinada, basándonos en ciertas características <span class="math inline">\({\bf x}\)</span> como promociones en la tienda, publicidad reciente, clima, día de la semana, etc.</p>
+<p>¿Nos sirven los modelos que ya conocemos? La regresión lineal supone que <span class="math inline">\(Y\mid{\bf X}\)</span> es Normal: puede predecir valores negativos, algo absurdo para un conteo, y asume varianza constante, mientras que en conteos es natural que la variabilidad crezca con el promedio. La regresión logística, por su parte, está pensada para respuestas binarias, y aquí <span class="math inline">\(Y\in\{0,1,2,\ldots\}\)</span>. Por lo tanto, ninguno de los dos modelos se ajusta a la naturaleza de los datos.</p>
+<p>Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Afortunadamente, la Poisson pertenece a la familia exponencial, al igual que la Normal y la Bernoulli que dan lugar a los modelos anteriores, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM): una misma construcción que nos permite adaptar el modelo a la distribución de la respuesta. En esta sección describiremos un método para construir modelos GLM para problemas como este.</p>
+<div style="margin-top:1.5em;">
+
+</div>
+<p>En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria <span class="math inline">\(Y\in\mathbb{R}\)</span> a partir de un conjunto de predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales <span class="math inline">\(Y\mid{\bf X}\)</span>. La parte <em>lineal</em> del nombre proviene de suponer que el parámetro natural de esa distribución depende linealmente de las predictoras: <span class="math inline">\(\boldsymbol{\eta}=\boldsymbol{\Theta}^\top{\bf x}\)</span> (en la mayoría de las aplicaciones, el parámetro natural es escalar: <span class="math inline">\(\eta=\boldsymbol{\theta}^\top{\bf x}\)</span>).</p>
+<p>Formalmente un GLM queda definido a partir del siguiente supuesto:</p>
 <div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <p><span style="font-size:0.8em;"><em>Supuesto del modelo</em></span></p>
 <p><span class="math inline">\(Y\mid{\bf X}={\bf x}\)</span> sigue una distribución perteneciente a la familia exponencial, con parámetro natural de la forma</p>
@@ -559,7 +568,7 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <p>Es decir, <span class="math inline">\(\mathbb{E}\left[Y\mid{\bf x};\boldsymbol{\theta}\right]=\sigma(\eta)\)</span>. Por lo tanto, <span class="math display">\[
 \eta=\sigma^{-1}\left(\mathbb{E}\left[Y\mid{\bf x};\boldsymbol{\theta}\right]\right).
 \]</span></p>
-<p>Así, la función de enlace canónica para regresión logística es la función inversa de la función logística, a saber <span class="math inline">\(\mathop{\mathrm{logit}}: (0,1)\to\mathbb{R}\)</span>, definida por <span class="math display">\[
+<p>Así, la función de enlace canónica para regresión logística es <span class="math inline">\(\mathop{\mathrm{logit}}: (0,1)\to\mathbb{R}\)</span> definida por <span class="math display">\[
 \mathop{\mathrm{logit}}p:=\log\frac{p}{1-p}.
 \]</span></p>
 </div>
@@ -577,8 +586,8 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <div style="margin-top:2em;">
 
 </div>
-<p>En un GLM la estructura del modelo hace que, una vez estimado <span class="math inline">\(\boldsymbol{\theta}\)</span>, todo lo demás se obtiene por composición. El estimador <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> conduce a un estimador del parámetro natural, <span class="math inline">\(\hat{\boldsymbol{\eta}}({\bf x})=\hat{\boldsymbol{\theta}}^\top {\bf x}\)</span>, y este, a su vez, determina la función de regresión: <span class="math display">\[
-\mathbb{E}\left[T(Y)\mid {\bf x};\hat{\boldsymbol{\theta}}\right]= \nabla A\!\left(\hat{\boldsymbol{\eta}}({\bf x})\right).
+<p>En un GLM la estructura del modelo hace que, una vez estimado <span class="math inline">\(\boldsymbol{\Theta}\)</span>, todo lo demás se obtiene por composición. El estimador <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> conduce a un estimador del parámetro natural para un <span class="math inline">\({\bf x}\)</span> dado: <span class="math inline">\(\hat{\boldsymbol{\eta}}=\hat{\boldsymbol{\Theta}}^\top {\bf x}\)</span>; y este último, a su vez, determina la función de regresión: <span class="math display">\[
+\mathbb{E}\left[T(Y)\mid {\bf x};\hat{\boldsymbol{\theta}}\right]= \nabla A\!\left(\hat{\boldsymbol{\eta}}\right).
 \]</span></p>
 <p>En conclusión:</p>
 <div class="myhighlight">
@@ -596,7 +605,8 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </div>
 <div class="callout-body-container">
 <p><span style="font-size: 1.3em;">✍️</span><br></p>
-<p>Analice el GLM del ejemplo inicial de esta sección, en el que se modela el número de visitantes a una tienda. ¿Cuál es la función de enlace canónica? ¿Qué predice el modelo?</p>
+<p>A partir de lo visto, justifique que la regresión lineal y la regresión logística son casos particulares de GLM.</p>
+<p>El caso particular de la distribución Poisson del ejemplo inicial de esta subsección se analizará en las actividades conceptuales (✏4).</p>
 </div>
 </div>
 </div>
@@ -607,7 +617,8 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \eta=\boldsymbol{\theta}^\top{\bf x}\in\mathbb{R},\qquad \boldsymbol{\theta}\in\mathbb{R}^p.
 \]</span></p>
 <p>Además, para una muestra <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> i.i.d., denotamos <span class="math display">\[
-\eta_i:=\boldsymbol{\theta}^\top{\bf x}_i,\]</span> <span class="math display">\[
+\eta_i:=\boldsymbol{\theta}^\top{\bf x}_i,
+\]</span> <span class="math display">\[
 \mu_i:=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i;\boldsymbol{\theta}\right]=\nabla A(\eta_i).
 \]</span></p>
 <div style="margin-top:2em;">
@@ -622,7 +633,25 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \ell(\boldsymbol{\theta})=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte}.
 \tag{2.3.3}
 \]</span></p>
-<div style="margin-top:1.5em;">
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Observar que <span class="math inline">\(\ell\)</span> depende del modelo particular únicamente a través de <span class="math inline">\(T\)</span> y de la función de log-partición <span class="math inline">\(A\)</span>. Por eso, el gradiente y la Hessiana de <span class="math inline">\(\ell\)</span> pueden calcularse una sola vez, de forma general, para toda la familia exponencial, en términos de <span class="math inline">\(A'\)</span> y <span class="math inline">\(A''\)</span>. Teniendo en cuenta que <span class="math inline">\(\partial\eta_i/\partial\boldsymbol{\theta}={\bf x}_i\)</span>, resulta <span class="math display">\[
+\nabla \ell(\boldsymbol{\theta})= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]{\bf x}_i=X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}})\right],
+\tag{2.3.4}
+\]</span></p>
+<p>donde <span class="math inline">\(A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\mathbb{R}^n\)</span>, con <span class="math display">\[
+A'(\eta_i)=\mathbb{E}\left[T(Y)\mid {\bf x}_i,\boldsymbol{\theta}\right]
+\]</span></p>
+<p>Derivando nuevamente, se obtiene <span class="math display">\[
+\nabla^2\ell(\boldsymbol{\theta})=-\sum_{i=1}^nA''(\eta_i)\,{\bf x}_i\,{\bf x}_i^\top=-X^\top W X,
+\tag{2.3.5}
+\]</span></p>
+<p>donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(A''(\eta_1),\ldots,A''(\eta_n))\in\mathbb{R}^{n\times n}\)</span>. Observar que la matriz <span class="math inline">\(W\)</span> actúa como una matriz de pesos: el peso de la <span class="math inline">\(i\)</span>-ésima observación es <span class="math inline">\(A''(\eta_i)=\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}\right]\)</span>, que en general depende de <span class="math inline">\(\boldsymbol{\theta}\)</span> y de <span class="math inline">\({\bf x}_i\)</span>. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera <span class="math inline">\(X^\top X\)</span> salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
+</div>
+<div style="margin-top:2em;">
 
 </div>
 </section>
@@ -632,17 +661,8 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \begin{array}{ll}
     \text{minimizar } &amp; \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\boldsymbol{\theta})}
 \end{array}
-\tag{2.3.4}
-\]</span></p>
-<p>El vector gradiente de la función de costo <span class="math inline">\(J\)</span> es <span class="math display">\[
-\nabla J(\boldsymbol{\theta})=\sum_{i=1}^n\left[A'(\eta_i)-T(y_i)\right]{\bf x}_i=X^\top\left[A'(\tilde{\boldsymbol{\eta}})-T({\bf y})\right],
-\tag{2.3.5}
-\]</span></p>
-<p>donde <span class="math inline">\(A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\mathbb{R}^n\)</span> y <span class="math inline">\(T({\bf y})=(T(y_1),\ldots,T(y_n))\in\mathbb{R}^n\)</span>, mientras que la matriz Hessiana resulta <span class="math display">\[
-\nabla^2 J(\boldsymbol{\theta})=\sum_{i=1}^n A''(\eta_i){\bf x}_i{\bf x}_i^\top = X^\top W X,
 \tag{2.3.6}
 \]</span></p>
-<p>donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(A''(\eta_1),\ldots,A''(\eta_n))\in\mathbb{R}^{n\times n}\)</span>. Observar que la matriz <span class="math inline">\(W\)</span> actúa como una matriz de pesos: el peso de la <span class="math inline">\(i\)</span>-ésima observación es <span class="math inline">\(A''(\eta_i)=\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}\right]\)</span>, que en general depende de <span class="math inline">\(\boldsymbol{\theta}\)</span> y de <span class="math inline">\({\bf x}_i\)</span>. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera <span class="math inline">\(X^\top X\)</span> salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -650,21 +670,41 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </div>
 <div class="callout-body-container">
 <p><span style="font-size: 1.3em;">✍️</span><br></p>
-<p>Justifique la convexidad de la función objetivo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> en (2.3.4).</p>
+<p>Justifique la convexidad de la función objetivo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> en (2.3.6).</p>
 </div>
 </div>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Dado que tenemos convexidad, podemos plantear <span class="math inline">\(\nabla J(\boldsymbol{\theta})=\mathbf{0}\)</span>. De (2.3.5) y por propiedad de la derivada de la función de log-partición <span class="math inline">\(A\)</span>, podemos escribir <span class="math display">\[
+<p>La convexidad de la función objetivo <span class="math inline">\(J\)</span> asegura que la condición de optimalidad <span class="math inline">\(\nabla J(\boldsymbol{\theta})=\mathbf{0}\)</span> es suficiente y necesaria. De (2.3.4) y por propiedad de la derivada de la función de log-partición <span class="math inline">\(A\)</span>, podemos escribir <span class="math display">\[
 \sum_{i=1}^n\left(\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i\right]-T(y_i)\right)\,{\bf x}_i=\mathbf{0}.
 \]</span></p>
-<p>Observar que lo del paréntesis es el <em>residuo</em> entre el valor observado de <span class="math inline">\(T(y_i)\)</span> y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de <span class="math inline">\(X\)</span>: los residuos no están correlacionados (en sentido muestral) con ninguno de los predictores del modelo. En particular, si estamos trabajando con la matriz ampliada <span class="math inline">\(\tilde{X}\)</span>, los residuos suman cero.</p>
+<p>La expresión en el paréntesis es el <em>residuo</em> entre el valor observado de <span class="math inline">\(T(y_i)\)</span> y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de <span class="math inline">\(X\)</span>: los residuos no están correlacionados (en sentido muestral) con ninguno de los predictores del modelo. En particular, si estamos trabajando con la matriz ampliada <span class="math inline">\(\tilde{X}\)</span>, los residuos suman cero.</p>
 <p>En general, no existe una solución explícita para el punto óptimo <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>, y ni siquiera está garantizado que exista: la convexidad asegura que todo punto con <span class="math inline">\(\nabla J(\boldsymbol{\theta})=\mathbf{0}\)</span> es un mínimo global, pero la existencia depende de la familia y de los datos observados. Cuando existe, se aproxima mediante métodos iterativos; como conocemos el gradiente y la Hessiana de <span class="math inline">\(J\)</span>, el método de Newton resulta una opción natural y da lugar a un algoritmo muy eficiente.</p>
 <div style="margin-top:2em;">
 
 </div>
+</section>
+<section id="resolución-por-descenso-por-gradiente" class="level3">
+<h3 class="anchored" data-anchor-id="resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</h3>
+<div class="alert alert-light text-dark" role="important">
+<p>⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para GLM</span></p>
+<hr>
+<p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
+<div style="margin-left: 1em">
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
+<blockquote class="blockquote">
+<p>Calcular <span class="math inline">\(\boldsymbol{\mu}_t\)</span> tal que <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})=\mathbb{E}\left[T(Y)\mid {\bf x}_i; \boldsymbol{\theta}_t\right]\)</span>.</p>
+<p>Actualizar <span class="math display">\[\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+\gamma X^\top\left(T({\bf y})-\boldsymbol{\mu}_t\right).\]</span></p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
+</blockquote>
+<p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
+</div>
+<hr>
+</div>
+<p>Por supuesto, también puede emplearse descenso por gradiente estocástico o <em>mini-batch</em>.</p>
 </section>
 <section id="resolución-por-método-de-newton-algoritmo-irls" class="level3">
 <h3 class="anchored" data-anchor-id="resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</h3>
@@ -704,27 +744,9 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
 <div style="margin-top:2em;">
 
 </div>
-<p>Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W_t\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}_t\)</span>, ambos recalculados en cada paso. No se trata de un algoritmo distinto, sino de otra forma de leer el mismo paso, y esa lectura tiene varias ventajas. Por un lado, permite interpretar el ajuste de un GLM como una sucesión de regresiones lineales ponderadas. Por otro, permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre <span class="math inline">\(W_t^{1/2}X\)</span>) sin formar explícitamente <span class="math inline">\(X^\top W_t X\)</span>. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de <span class="math inline">\(J\)</span> para dar pasos más precisos que un simple descenso por gradiente.</p>
+<p>Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W_t\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}_t\)</span>, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre <span class="math inline">\(W_t^{1/2}X\)</span>) sin formar explícitamente <span class="math inline">\(X^\top W_t X\)</span>. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de <span class="math inline">\(J\)</span> para dar pasos más precisos que un simple descenso por gradiente.</p>
 <div style="margin-top:2em;">
 
-</div>
-<div class="alert alert-light text-dark" role="important">
-<p>⚙ <span class="badge bg-custom">Algoritmo IRLS</span></p>
-<hr>
-<p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
-<div style="margin-left: 1em">
-<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
-<p><strong>repetir</strong>:</p>
-<blockquote class="blockquote">
-<p><strong>1°</strong> Calcular <span class="math inline">\(\tilde{\boldsymbol{\eta}}_t=X\boldsymbol{\theta}_t\)</span> y <span class="math inline">\(\boldsymbol{\mu}_t\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})=\mathbb{E}\left[T(Y)\mid{\bf X}={\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>.</p>
-<p><strong>2°</strong> Construir la matriz diagonal de pesos <span class="math inline">\(W_t\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})=\mathop{\mathrm{Var}}\left[T(Y)\mid{\bf X}={\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>..</p>
-<p><strong>3°</strong> Definir la pseudo-respuesta <span class="math inline">\({\bf z}_t=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}\left(T({\bf y})-\boldsymbol{\mu}_t\right)\)</span>.</p>
-<p><strong>4°</strong> Actualizar <span class="math inline">\(\boldsymbol{\theta}_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t\)</span>.</p>
-<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
-</blockquote>
-<p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
-</div>
-<hr>
 </div>
 <div style="margin-top:2em;">
 
@@ -742,7 +764,7 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
   {\bf z}_t=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}({\bf y}-\boldsymbol{\mu}_t)\in\mathbb{R}^n.
   \]</span></p></li>
 </ul>
-<p>Finalmente, se actualiza el vector de parámetros a <span class="math inline">\(\boldsymbol{\theta}_{t+1}\)</span> a partir de la solución del problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}\)</span>, determinada por la expresión (2.3.9).</p>
+<p>Finalmente, se actualiza el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> mediante la expresión (2.3.9).</p>
 </div>
 <div style="margin-top:2.5em;">
 
@@ -785,6 +807,10 @@ p(y\mid\boldsymbol{\phi}) &amp;= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k
 <p>El resto de los elementos son: <span class="math display">\[
 h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi_i\right).
 \]</span></p>
+<p>donde para hallar <span class="math inline">\(A(\boldsymbol{\eta})\)</span> se usó que <span class="math inline">\(\phi_i=\phi_ke^{\eta_i}\)</span> y <span class="math inline">\(\sum_{i=1}^k\phi_i=1\)</span>; en efecto, <span class="math display">\[
+\phi_k\left(1+\sum_{i=1}^{k-1}e^{\eta_i}\right)=1\qquad\text{tal que}\qquad\frac{1}{\phi_k}= 1+\sum_{i=1}^{k-1}e^{\eta_i}.
+\tag{2.3.11}
+\]</span></p>
 </div>
 <div style="margin-top:2em;">
 
@@ -792,13 +818,14 @@ h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi
 <p>Para este modelo GLM, se tiene <span class="math display">\[
 \mathbb{E}\left[T(Y)\mid{\bf x};\boldsymbol{\phi}\right]=\left(\phi_1,\phi_2,\ldots,\phi_{k-1}\right)^\top.
 \]</span></p>
-<p>La expresión (2.3.10) es la función de enlace, conocida como <em>logit generalizado</em>. Su inversa es la <em>función softmax</em> determinada por <span class="math display">\[
-\phi_i=\frac{\exp\{\eta_i\}}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}},\qquad i=1,\ldots,k-1.
+<p>De hecho, <span class="math display">\[
+\frac{\partial A}{\partial\eta_j}=\frac{e^{\eta_j}}{1+\sum_{i=1}^{k-1}e^{\eta_i}}=\phi_j.
+\label{eq:funcion_softmax}
 \]</span></p>
-<p>El elemento restante de <span class="math inline">\(\boldsymbol{\phi}\)</span> se obtiene a partir de la restricción <span class="math inline">\(\sum_{i=1}^k\phi_i=1\)</span>, lo cual implica</p>
-<p><span class="math display">\[
-\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}}.
+<p>La expresión (2.3.10) es la función de enlace, conocida como <em>logit generalizado</em>. Su inversa es la <em>función softmax</em>, <span class="math inline">\(\operatorname{softmax}:\mathbb{R}^{k-1}\to\mathbb{R}^{k-1}\)</span>, definida por <span class="math display">\[
+\operatorname{softmax}({\bf z})_i=\frac{e^{z_i}}{1+\sum_{i=1}^{k-1}e^{z_i}},
 \]</span></p>
+<p>la cual permite obtener <span class="math inline">\(\phi_j\)</span> a partir de <span class="math inline">\(\boldsymbol{\eta}\)</span> mediante (2.3.12) para <span class="math inline">\(j=1,\ldots,k-1\)</span>. El elemento restante <span class="math inline">\(\phi_k\)</span> se obtiene de despejarlo en (2.3.11). Observar que, si <span class="math inline">\(k=2\)</span>, la función softmax es la función logística vista en <a href="B2_regresion_lineal_logistica.html">C1-S2</a>.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -880,7 +907,7 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="a6f59fbb" class="cell" data-execution_count="1">
+<div id="18f495bc" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
@@ -904,7 +931,7 @@ T = \begin{pmatrix}
 <span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9300fd32" class="cell" data-execution_count="2">
+<div id="cc5e2f75" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

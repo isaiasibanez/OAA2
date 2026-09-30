@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 3"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 28/09/2026
+    Última actualización: 29/09/2026
   </span>
 
 </div>
@@ -52,12 +52,14 @@ La elección $\sigma^2=1$ es sin pérdida de generalidad ya que, como vimos, el 
 
 Por último, es importante remarcar que en ambos modelos se cumple 
 $$
-A'(\eta)=\media\left[Y\mid\XX=\xx\right]\qquad\text{y}\qquad A''(\eta)=\var\left[Y\mid\XX=\xx\right],$$
+A'(\eta)=\media\left[Y\mid\XX=\xx\right]\qquad\text{y}\qquad A''(\eta)=\var\left[Y\mid\XX=\xx\right],
+$$
 
 y que la predicción es
 $$
 \hat{y}=h_{\hat{\bftheta}}(\xx):=\media\left[Y\mid\XX=\xx; \hat{\bftheta}\right],
 $$
+
 que resulta en $\hat{y}=\hat{\bftheta}^\top\xx$ en regresión lineal y $\hat{y}=\sigma\big(\hat{\bftheta}^\top\xx\big)$ en regresión logística.
 
 <div style="margin-top:1.5em;"></div>
@@ -132,7 +134,7 @@ lo cual resulta del hecho que $\int p(y\mid\bfeta)\,dy=1$.
 Distribución Bernoulli
 </span>
 
-Sea $Y\in\{0,1\}$ tal que $Y\sim\text{Binom}(1,\phi)$, con $\phi:=\prob(Y=1)$. Entonces
+Sea $Y\in\{0,1\}$ tal que $Y\sim\text{Bernoulli}(\phi)$, con $\phi:=\prob(Y=1)$. Entonces
 $$
 p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
 $$
@@ -311,9 +313,17 @@ Vamos a verificar la expresión de $\nabla A(\bfeta)$ y $\nabla^2 A(\bfeta)$ par
 
 ## II <span style="color:#CCCCCC;">│</span> Modelo lineal generalizado
 
-Supongamos que deseas construir un modelo para estimar el número $y$ de clientes que llegan a tu tienda (o el número de visitas a páginas web en tu sitio) en una hora determinada, basándote en ciertas características como promociones en la tienda, publicidad reciente, clima, día de la semana, etc. Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Sabiendo esto, ¿cómo podemos proponer un modelo para nuestro problema? Afortunadamente, la Poisson es una distribución de la familia exponencial, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM). En esta sección, describiremos un método para construir modelos GLM para problemas como este.
+Supongamos que deseamos construir un modelo para estimar el número $y$ de clientes que llegan a una tienda (o el número de visitas a páginas web en un sitio) en una hora determinada, basándonos en ciertas características $\xx$ como promociones en la tienda, publicidad reciente, clima, día de la semana, etc. 
 
-En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria $Y\in\RR$ a partir de un conjunto de predictoras $\XX\in\RR^p$. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales $Y\mid\XX$. De hecho, formalmente un GLM queda definido a partir del siguiente supuesto:
+¿Nos sirven los modelos que ya conocemos? La regresión lineal supone que $Y\mid\XX$ es Normal: puede predecir valores negativos, algo absurdo para un conteo, y asume varianza constante, mientras que en conteos es natural que la variabilidad crezca con el promedio. La regresión logística, por su parte, está pensada para respuestas binarias, y aquí $Y\in\{0,1,2,\ldots\}$. Por lo tanto, ninguno de los dos modelos se ajusta a la naturaleza de los datos.
+
+Sabemos que la distribución Poisson usualmente proporciona un buen modelo para el número de visitantes. Afortunadamente, la Poisson pertenece a la familia exponencial, al igual que la Normal y la Bernoulli que dan lugar a los modelos anteriores, por lo que podemos aplicar un Modelo Lineal Generalizado (GLM): una misma construcción que nos permite adaptar el modelo a la distribución de la respuesta. En esta sección describiremos un método para construir modelos GLM para problemas como este.
+
+<div style="margin-top:1.5em;"></div>
+
+En forma general, consideremos un problema de regresión o clasificación donde queremos predecir el valor de alguna variable aleatoria $Y\in\RR$ a partir de un conjunto de predictoras $\XX\in\RR^p$. La familia exponencial será nuestra herramienta para modelar las distribuciones condicionales $Y\mid\XX$. La parte *lineal* del nombre proviene de suponer que el parámetro natural de esa distribución depende linealmente de las predictoras: $\bfeta=\bfTheta^\top\xx$ (en la mayoría de las aplicaciones, el parámetro natural es escalar: $\eta=\bftheta^\top\xx$). 
+
+Formalmente un GLM queda definido a partir del siguiente supuesto:
 
 
 ::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
@@ -356,7 +366,7 @@ $$
 \eta=\sigma^{-1}\left(\media\left[Y\mid\xx;\bftheta\right]\right).
 $$
 
-Así, la función de enlace canónica para regresión logística es la función inversa de la función logística, a saber $\logit: (0,1)\to\RR$, definida por
+Así, la función de enlace canónica para regresión logística es $\logit: (0,1)\to\RR$ definida por
 $$
 \logit p:=\log\frac{p}{1-p}.
 $$
@@ -374,12 +384,13 @@ Determine la función de enlace canónica para regresión lineal.
 <div style="margin-top:2em;"></div>
 
 
-En un GLM la estructura del modelo hace que, una vez estimado $\bftheta$, todo lo demás se
-obtiene por composición. El estimador $\hat{\bftheta}$ conduce a un estimador del parámetro
-natural, $\hat{\bfeta}(\xx)=\hat{\bftheta}^\top \xx$, y este, a su vez, determina la función de regresión:
+En un GLM la estructura del modelo hace que, una vez estimado $\bfTheta$, todo lo demás se
+obtiene por composición. El estimador $\hat{\bfTheta}$ conduce a un estimador del parámetro
+natural para un $\xx$ dado: $\hat{\bfeta}=\hat{\bfTheta}^\top \xx$; y este último, a su vez, determina la función de regresión:
 $$
-\media\left[T(Y)\mid \xx;\hat{\bftheta}\right]= \nabla A\!\left(\hat{\bfeta}(\xx)\right).
+\media\left[T(Y)\mid \xx;\hat{\bftheta}\right]= \nabla A\!\left(\hat{\bfeta}\right).
 $$
+
 
 En conclusión:
 
@@ -397,8 +408,9 @@ $$
 
 <span style="font-size: 1.3em;">✍️</span><br>
 
-
-Analice el GLM del ejemplo inicial de esta sección, en el que se modela el número de visitantes a una tienda. ¿Cuál es la función de enlace canónica? ¿Qué predice el modelo?
+A partir de lo visto, justifique que la regresión lineal y la regresión logística son casos particulares de GLM.
+	
+El caso particular de la distribución Poisson del ejemplo inicial de esta subsección se analizará en las actividades conceptuales (✏4).
 
 :::
 
@@ -415,7 +427,8 @@ $$
 
 Además, para una muestra $\{(\xx_i,y_i)\}_{i=1}^n$ i.i.d., denotamos
 $$
-\eta_i:=\bftheta^\top\xx_i,$$
+\eta_i:=\bftheta^\top\xx_i,
+$$
 $$
 \mu_i:=\media\left[T(Y)\mid \XX=\xx_i;\bftheta\right]=\nabla A(\eta_i).
 $$
@@ -439,7 +452,34 @@ $$
 \tag{2.3.3}
 $$
 
-<div style="margin-top:1.5em;"></div>
+<div style="margin-top:2em;"></div>
+
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Observar que $\ell$ depende del modelo particular únicamente a través de $T$ y de la función de log-partición $A$. Por eso, el gradiente y la Hessiana de $\ell$ pueden calcularse una sola vez, de forma general, para toda la familia exponencial, en términos de $A'$ y $A''$. Teniendo en cuenta que $\partial\eta_i/\partial\bftheta=\xx_i$, resulta
+$$
+\nabla \ell(\bftheta)= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]\xx_i=X^\top\left[T(\yy)-A'(\tilde{\bfeta})\right],
+\tag{2.3.4}
+$$
+
+donde $A'(\tilde{\bfeta})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\RR^n$, con
+$$
+A'(\eta_i)=\media\left[T(Y)\mid \xx_i,\bftheta\right]
+$$
+	
+Derivando nuevamente, se obtiene
+$$
+\nabla^2\ell(\bftheta)=-\sum_{i=1}^nA''(\eta_i)\,\xx_i\,\xx_i^\top=-X^\top W X,
+\tag{2.3.5}
+$$
+
+donde $W=\diag(A''(\eta_1),\ldots,A''(\eta_n))\in\RR^{n\times n}$. Observar que la matriz $W$ actúa como una matriz de pesos: el peso de la $i$-ésima observación es $A''(\eta_i)=\cov\left[T(Y)\mid\xx_i;\bftheta\right]$, que en general depende de $\bftheta$ y de $\xx_i$. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera $X^\top X$ salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con $\bftheta$.
+
+</div>
+
+<div style="margin-top:2em;"></div>
 
 
 
@@ -450,51 +490,63 @@ $$
 \begin{array}{ll}
 	\text{minimizar } & \underbrace{\displaystyle\sum_{i=1}^n\left[A(\eta_i)-\eta_i\, T(y_i)\right]}_{J(\bftheta)}
 \end{array}
-\tag{2.3.4}
-$$
-
-El vector gradiente de la función de costo $J$ es
-$$
-\nabla J(\bftheta)=\sum_{i=1}^n\left[A'(\eta_i)-T(y_i)\right]\xx_i=X^\top\left[A'(\tilde{\bfeta})-T(\yy)\right],
-\tag{2.3.5}
-$$
-
-donde $A'(\tilde{\bfeta})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\RR^n$ y $T(\yy)=(T(y_1),\ldots,T(y_n))\in\RR^n$, mientras que la matriz Hessiana resulta
-$$
-\nabla^2 J(\bftheta)=\sum_{i=1}^n A''(\eta_i)\xx_i\xx_i^\top = X^\top W X,
 \tag{2.3.6}
 $$
-
-donde $W=\diag(A''(\eta_1),\ldots,A''(\eta_n))\in\RR^{n\times n}$. Observar que la matriz $W$ actúa como una matriz de pesos: el peso de la $i$-ésima observación es
-$A''(\eta_i)=\cov\left[T(Y)\mid\xx_i;\bftheta\right]$, que en general depende
-de $\bftheta$ y de $\xx_i$. En el caso de la regresión lineal (varianza constante) estos pesos
-son todos iguales y se recupera $X^\top X$ salvo una constante; en cambio, en un GLM general
-los pesos varían entre observaciones y con $\bftheta$.
-
 
 ::: {.callout .question}
 
 <span style="font-size: 1.3em;">✍️</span><br>
 
-Justifique la convexidad de la función objetivo $J(\bftheta)$ en (2.3.4).
+Justifique la convexidad de la función objetivo $J(\bftheta)$ en (2.3.6).
 
 :::
 
 <div style="margin-top:2em;"></div>
 
 
-Dado que tenemos convexidad, podemos plantear $\nabla J(\bftheta)=\bfzero$. De (2.3.5) y por propiedad de la derivada de la función de log-partición $A$, podemos escribir
+La convexidad de la función objetivo $J$ asegura que la condición de optimalidad $\nabla J(\bftheta)=\bfzero$ es suficiente y necesaria. De (2.3.4) y por propiedad de la derivada de la función de log-partición $A$, podemos escribir
 $$
 \sum_{i=1}^n\left(\media\left[T(Y)\mid\XX=\xx_i\right]-T(y_i)\right)\,\xx_i=\bfzero.
 $$
 
-Observar que lo del paréntesis es el *residuo* entre el valor observado de $T(y_i)$ y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de $X$: los
+La expresión en el paréntesis es el *residuo* entre el valor observado de $T(y_i)$ y su valor esperado según el modelo. La condición de optimalidad establece que, en el óptimo, el vector de residuos es ortogonal a cada una de las columnas de $X$: los
 residuos no están correlacionados (en sentido muestral) con ninguno de los predictores del modelo. En particular, si estamos trabajando con la matriz ampliada $\tilde{X}$, los residuos suman cero.
 
 En general, no existe una solución explícita para el punto óptimo $\hat{\bftheta}$, y ni siquiera está garantizado que exista: la convexidad asegura que todo punto con $\nabla J(\bftheta)=\bfzero$ es un mínimo global, pero la existencia depende de la familia y de los datos observados. Cuando existe, se aproxima mediante métodos iterativos; como conocemos el gradiente y la Hessiana de $J$, el método de Newton resulta una opción natural y da lugar a un algoritmo muy eficiente.
 
 <div style="margin-top:2em;"></div>
 
+
+
+### Resolución por descenso por gradiente
+
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para GLM</span>
+
+---
+
+Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
+
+<div style="margin-left: 1em">
+
+$t\leftarrow 0.$
+
+**repetir**:
+
+> Calcular $\bfmu_t$ tal que $\mu_{t,i}=A'(\eta_{t,i})=\media\left[T(Y)\mid \xx_i; \bftheta_t\right]$. 
+>
+> Actualizar $$\bftheta_{t+1}:=\bftheta_t+\gamma X^\top\left(T(\yy)-\bfmu_t\right).$$
+>
+> $t\leftarrow t+1$.
+
+**hasta** que el criterio de parada se satisfaga.
+
+</div>
+
+---
+</div>
+
+Por supuesto, también puede emplearse descenso por gradiente estocástico o *mini-batch*.
 
 
 ### Resolución por método de Newton: algoritmo IRLS
@@ -553,7 +605,7 @@ que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.
 <div style="margin-top:2em;"></div>
 
 
-Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos $W_t$ y pseudo-respuesta $\zz_t$, ambos recalculados en cada paso. No se trata de un algoritmo distinto, sino de otra forma de leer el mismo paso, y esa lectura tiene varias ventajas. Por un lado, permite interpretar el ajuste de un GLM como una sucesión de regresiones lineales ponderadas. Por otro, permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre $W_t^{1/2}X$) sin formar explícitamente $X^\top W_t X$. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de $J$ para dar pasos más precisos que un simple descenso por gradiente.
+Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos $W_t$ y pseudo-respuesta $\zz_t$, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre $W_t^{1/2}X$) sin formar explícitamente $X^\top W_t X$. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de $J$ para dar pasos más precisos que un simple descenso por gradiente.
 
 <div style="margin-top:2em;"></div>
 
@@ -571,13 +623,13 @@ $t\leftarrow 0.$
 
 **repetir**:
 
-> **1°** Calcular $\tilde{\bfeta}_t=X\bftheta_t$ y $\bfmu_t\in\RR^n$ tal que $\mu_{t,i}=A'(\eta_{t,i})=\media\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$.
+> Calcular $\tilde{\bfeta}_t=X\bftheta_t$ y $\bfmu_t\in\RR^n$ tal que $\mu_{t,i}=A'(\eta_{t,i})=\media\left[T(Y)\mid\xx_i;\bftheta_t\right]$.
 >  
-> **2°** Construir la matriz diagonal de pesos $W_t\in\RR^{n\times n}$ tal que $w_{t,i}=A''(\eta_{t,i})=\var\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$..  
+> Construir la matriz diagonal de pesos $W_t\in\RR^{n\times n}$ tal que $w_{t,i}=A''(\eta_{t,i})=\var\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$.
 >
-> **3°** Definir la pseudo-respuesta $\zz_t=\tilde{\bfeta}_t+W_t^{-1}\left(T(\yy)-\bfmu_t\right)$.
+> Definir la pseudo-respuesta $\zz_t=\tilde{\bfeta}_t+W_t^{-1}\left(T(\yy)-\bfmu_t\right)$.
 >
-> **4°** Actualizar $\bftheta_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t\zz_t$.
+> Actualizar $$\bftheta_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t\zz_t.$$
 >
 > $t\leftarrow t+1$.
 
@@ -613,7 +665,7 @@ En regresión logística, dada la matriz de predictoras $X\in\RR^{n\times p}$ y 
     \zz_t=\tilde{\bfeta}_t+W_t^{-1}(\yy-\bfmu_t)\in\RR^n.
     $$
 
-Finalmente, se actualiza el vector de parámetros a $\bftheta_{t+1}$ a partir de la solución del problema de mínimos cuadrados ponderados con pesos $W$ y pseudo-respuesta $\zz$, determinada por la expresión (2.3.9).
+Finalmente, se actualiza el vector de parámetros $\bftheta$ mediante la expresión (2.3.9).
 
 :::
 
@@ -671,6 +723,12 @@ $$
 h(y)=1,\qquad A(\bfeta)=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi_i\right).
 $$
 
+donde para hallar $A(\bfeta)$ se usó que $\phi_i=\phi_ke^{\eta_i}$ y $\sum_{i=1}^k\phi_i=1$; en efecto,
+$$
+\phi_k\left(1+\sum_{i=1}^{k-1}e^{\eta_i}\right)=1\qquad\text{tal que}\qquad\frac{1}{\phi_k}= 1+\sum_{i=1}^{k-1}e^{\eta_i}.
+\tag{2.3.11}
+$$
+
 :::
 
 <div style="margin-top:2em;"></div>
@@ -680,18 +738,19 @@ $$
 \media\left[T(Y)\mid\xx;\bfphi\right]=\left(\phi_1,\phi_2,\ldots,\phi_{k-1}\right)^\top.
 $$
 
+De hecho,
+$$
+\frac{\partial A}{\partial\eta_j}=\frac{e^{\eta_j}}{1+\sum_{i=1}^{k-1}e^{\eta_i}}=\phi_j.
+\label{eq:funcion_softmax}
+$$
 
 
-La expresión (2.3.10) es la función de enlace, conocida como *logit generalizado*. Su inversa es la *función softmax* determinada por
+La expresión (2.3.10) es la función de enlace, conocida como *logit generalizado*. Su inversa es la *función softmax*, $\operatorname{softmax}:\RR^{k-1}\to\RR^{k-1}$, definida por
 $$
-\phi_i=\frac{\exp\{\eta_i\}}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}},\qquad i=1,\ldots,k-1.
+\operatorname{softmax}(\zz)_i=\frac{e^{z_i}}{1+\sum_{i=1}^{k-1}e^{z_i}},
 $$
 
-El elemento restante de $\bfphi$ se obtiene a partir de la restricción $\sum_{i=1}^k\phi_i=1$, lo cual implica
-
-$$
-\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\eta_j\}}.
-$$
+la cual permite obtener $\phi_j$ a partir de $\bfeta$ mediante (2.3.12) para $j=1,\ldots,k-1$. El elemento restante $\phi_k$ se obtiene de despejarlo en (2.3.11). Observar que, si $k=2$, la función softmax es la función logística vista en [C1-S2](B2_regresion_lineal_logistica.html).
 
 <div style="margin-top:1em;"></div>
 
