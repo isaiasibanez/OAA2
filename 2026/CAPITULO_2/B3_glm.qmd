@@ -613,8 +613,6 @@ Así, cada iteración de Newton equivale a resolver un problema de mínimos cuad
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo IRLS</span>
 
----
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
@@ -637,7 +635,6 @@ $t\leftarrow 0.$
 
 </div>
 
----
 </div>
 
 <div style="margin-top:2em;"></div>
