@@ -278,16 +278,6 @@ window.Quarto = {
   <li><a href="#función-de-verosimilitud" id="toc-función-de-verosimilitud" class="nav-link" data-scroll-target="#función-de-verosimilitud">Función de verosimilitud</a></li>
   <li><a href="#optimalidad" id="toc-optimalidad" class="nav-link" data-scroll-target="#optimalidad">Optimalidad</a></li>
   <li><a href="#resolución-por-descenso-por-gradiente" id="toc-resolución-por-descenso-por-gradiente" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</a></li>
-  <li><a href="#propiedades-del-estimador" id="toc-propiedades-del-estimador" class="nav-link" data-scroll-target="#propiedades-del-estimador">Propiedades del estimador</a></li>
-  </ul></li>
-  <li><a href="#ii-regresión-logística" id="toc-ii-regresión-logística" class="nav-link" data-scroll-target="#ii-regresión-logística">II <span style="color:#CCCCCC;">│</span> Regresión logística</a>
-  <ul class="collapse">
-  <li><a href="#distribución-condicional-1" id="toc-distribución-condicional-1" class="nav-link" data-scroll-target="#distribución-condicional-1">Distribución condicional</a></li>
-  <li><a href="#función-de-verosimilitud-1" id="toc-función-de-verosimilitud-1" class="nav-link" data-scroll-target="#función-de-verosimilitud-1">Función de verosimilitud</a></li>
-  <li><a href="#optimalidad-1" id="toc-optimalidad-1" class="nav-link" data-scroll-target="#optimalidad-1">Optimalidad</a></li>
-  <li><a href="#resolución-por-descenso-por-gradiente-1" id="toc-resolución-por-descenso-por-gradiente-1" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente-1">Resolución por descenso por gradiente</a></li>
-  <li><a href="#resolución-por-método-de-newton" id="toc-resolución-por-método-de-newton" class="nav-link" data-scroll-target="#resolución-por-método-de-newton">Resolución por método de Newton</a></li>
-  <li><a href="#propiedades-del-estimador-1" id="toc-propiedades-del-estimador-1" class="nav-link" data-scroll-target="#propiedades-del-estimador-1">Propiedades del estimador</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -455,7 +445,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <p>Observar que, si <span class="math inline">\(X\)</span> es de rango completo, entonces <span class="math inline">\(\hat{{\bf y}}=X(X^\top X)^{-1}X^\top{\bf y}\)</span>. Esto significa que <span class="math inline">\(\hat{{\bf y}}\)</span> es la proyección de <span class="math inline">\({\bf y}\)</span> sobre el espacio columna de <span class="math inline">\(X\)</span>.</p>
 </section>
 <section id="resolución-por-descenso-por-gradiente" class="level3">
-<h3 class="anchored" data-anchor-id="resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</h3>
+<h3 class="anchored">Resolución por descenso por gradiente</h3>
 <p>La aplicación del método de descenso por gradiente al problema de optimización en regresión lineal da lugar a lo que se denomina . Resulta de sustituir <span class="math inline">\(\nabla J(\boldsymbol{\theta}_t) = X^\top X\boldsymbol{\theta}_t-X^\top{\bf y}\)</span> en la regla de actualización <span class="math display">\[
 \boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\eta \nabla J(\boldsymbol{\theta}_t),\qquad\eta&gt;0.
 \]</span></p>
@@ -539,7 +529,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 </div>
 </div>
 </div>
-<div id="a314e8df" class="cell" data-execution_count="1">
+<div id="2d9c5e8a" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -562,7 +552,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <span id="cb1-20"><a href="#cb1-20"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-21"><a href="#cb1-21"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="d5c58f6d" class="cell" data-execution_count="2">
+<div id="f7ceebc0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -577,7 +567,6 @@ Coeficientes estimados:
 </div>
 </div>
 </div>
-</section>
 <section id="propiedades-del-estimador" class="level3">
 <h3 class="anchored" data-anchor-id="propiedades-del-estimador">Propiedades del estimador</h3>
 <p>Hemos visto que el algoritmo LMS permite aproximar el estimador de mínimos cuadrados <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> para el modelo de regresión lineal. Por supuesto, los resultados de convergencia para el método de descenso por gradiente son válidos. No obstante, recordemos que también es importante considerar las propiedades estadísticas del MLE <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.</p>
@@ -604,7 +593,6 @@ Coeficientes estimados:
 <div style="margin-top:2.5em;">
 
 </div>
-</section>
 </section>
 <section id="ii-regresión-logística" class="level2">
 <h2 class="anchored" data-anchor-id="ii-regresión-logística">II <span style="color:#CCCCCC;">│</span> Regresión logística</h2>
@@ -816,7 +804,6 @@ J(\boldsymbol{\theta})=-\sum_{i=1}^{n}\left[y_i\log(\hat{y}_i)+(1-y_i)\log(1-\ha
 <div style="margin-top:2em;">
 
 </div>
-</section>
 <section id="resolución-por-método-de-newton" class="level3">
 <h3 class="anchored" data-anchor-id="resolución-por-método-de-newton">Resolución por método de Newton</h3>
 <p>Recordemos que el método de Newton actualiza los parámetros mediante <span class="math display">\[
@@ -865,7 +852,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="ec399fed" class="cell" data-execution_count="3">
+<div id="3c6c098f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -888,7 +875,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <span id="cb3-20"><a href="#cb3-20"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
 <span id="cb3-21"><a href="#cb3-21"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a7c9813f" class="cell" data-execution_count="4">
+<div id="bce7ab90" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):
@@ -928,7 +915,6 @@ Coeficientes estimados (θ̂):
 <div style="margin-top:2em;">
 
 </div>
-</section>
 <section id="propiedades-del-estimador-1" class="level3">
 <h3 class="anchored" data-anchor-id="propiedades-del-estimador-1">Propiedades del estimador</h3>
 <p>Para el caso de regresión logística, algunos resultados importantes son:</p>
@@ -961,6 +947,15 @@ Coeficientes estimados (θ̂):
 </div>
 
 
+</section>
+</section></section></section></section></section></main></div>
+
+
+
+
+
+
+
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -975,10 +970,10 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 W10=
 </script>
-</section>
-</section>
 
-</main> <!-- /main -->
+
+
+ <!-- /main -->
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -1402,7 +1397,7 @@ window._ojs.runtime.interpretFromScriptTags();
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 

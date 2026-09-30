@@ -523,7 +523,7 @@ En general, no existe una solución explícita para el punto óptimo $\hat{\bfth
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para GLM</span>
 
----
+<hr>
 
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
@@ -543,7 +543,8 @@ $t\leftarrow 0.$
 
 </div>
 
----
+<hr>
+
 </div>
 
 Por supuesto, también puede emplearse descenso por gradiente estocástico o *mini-batch*.
