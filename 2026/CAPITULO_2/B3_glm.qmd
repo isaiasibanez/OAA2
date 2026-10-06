@@ -427,10 +427,15 @@ $$
 
 Además, para una muestra $\{(\xx_i,y_i)\}_{i=1}^n$ i.i.d., denotamos
 $$
-\eta_i:=\bftheta^\top\xx_i,
+\begin{matrix}
+	\eta_i:=\bftheta^\top\xx_i, \\[3pt]
+	\mu_i:=\media\left[T(Y)\mid \xx_i;\bftheta\right]=A'(\eta_i),
+\end{matrix}\qquad\forall i=1,\ldots,n.
 $$
+
+Matricialmente, esto es
 $$
-\mu_i:=\media\left[T(Y)\mid \XX=\xx_i;\bftheta\right]=\nabla A(\eta_i).
+\tilde{\bfeta}=X\bftheta,\qquad \bfmu=A'(\tilde{\bfeta}).
 $$
 
 
@@ -460,22 +465,17 @@ $$
 
 Observar que $\ell$ depende del modelo particular únicamente a través de $T$ y de la función de log-partición $A$. Por eso, el gradiente y la Hessiana de $\ell$ pueden calcularse una sola vez, de forma general, para toda la familia exponencial, en términos de $A'$ y $A''$. Teniendo en cuenta que $\partial\eta_i/\partial\bftheta=\xx_i$, resulta
 $$
-\nabla \ell(\bftheta)= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]\xx_i=X^\top\left[T(\yy)-A'(\tilde{\bfeta})\right],
+\nabla \ell(\bftheta)= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]\xx_i=X^\top\left(T(\yy)-\bfmu\right).
 \tag{2.3.4}
 $$
 
-donde $A'(\tilde{\bfeta})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\RR^n$, con
-$$
-A'(\eta_i)=\media\left[T(Y)\mid \xx_i,\bftheta\right]
-$$
-	
 Derivando nuevamente, se obtiene
 $$
 \nabla^2\ell(\bftheta)=-\sum_{i=1}^nA''(\eta_i)\,\xx_i\,\xx_i^\top=-X^\top W X,
 \tag{2.3.5}
 $$
 
-donde $W=\diag(A''(\eta_1),\ldots,A''(\eta_n))\in\RR^{n\times n}$. Observar que la matriz $W$ actúa como una matriz de pesos: el peso de la $i$-ésima observación es $A''(\eta_i)=\cov\left[T(Y)\mid\xx_i;\bftheta\right]$, que en general depende de $\bftheta$ y de $\xx_i$. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera $X^\top X$ salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con $\bftheta$.
+donde $W=\diag(A''(\eta_1),\ldots,A''(\eta_n))\in\RR^{n\times n}$. Observar que la matriz $W$ actúa como una matriz de pesos: el peso de la $i$-ésima observación es $A''(\eta_i)=\var\left[T(Y)\mid\xx_i;\bftheta\right]$. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera $X^\top X$ salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con $\bftheta$.
 
 </div>
 
@@ -561,7 +561,7 @@ $$
 
 Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (*Iterative Reweighted Least Squares*), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, *weighted least squares*). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de $J$; resulta
 $$
-\bftheta_{t+1}:=\bftheta_t+(X^\top W_t X)^{-1}X^\top\left[T(\yy)-A'(\tilde{\bfeta}_t)\right]
+\bftheta_{t+1}:=\bftheta_t+(X^\top W_t X)^{-1}X^\top\left(T(\yy)-\bfmu_t\right).
 \tag{2.3.8}
 $$
 
@@ -586,17 +586,22 @@ $$
 
 Definimos
 $$
+\zz_t:=\tilde{\bfeta}_t+W_t^{-1}\left(T(\yy)-\bfmu_t\right).
+$$
+	
+Observar que cada coordenada de $\zz_t$ es de la forma
+$$
 z_{t,i}:=\eta_{t,i}+\frac{T(y_i)-\mu_{t,i}}{w_{t,i}},\qquad i=1,\ldots,n,
 $$
 
-con $\eta_{t,i}=\xx_i^\top\bftheta_t$, $\mu_{t,i}=A'(\eta_{t,i})$ y $w_{t,i}=A''(\eta_{t,i})$. Como $W_t$ cancela el denominador $w_{t,i}$,
+con $\eta_{t,i}=\xx_i^\top\bftheta_t$, $\mu_{t,i}=A'(\eta_{t,i})$ y $w_{t,i}=A''(\eta_{t,i})$. Resulta
 $$
-X^\top W_t\zz_t=X^\top W_t X\bftheta_t+\sum_{i=1}^n\big(T(y_i)-\mu_{t,i}\big)\xx_i .
+X^\top W_t\zz_t=X^\top W_t X\bftheta_t+X^\top\left(T(\yy)-\bfmu_t\right).
 $$
 
-Multiplicando por $(X^\top W_t X)^{-1}$ resulta
+Finalmente, multiplicando por $(X^\top W_t X)^{-1}$, obtenemos
 $$
-(X^\top W_t X)^{-1}X^\top W_t\zz_t=\bftheta_t+(X^\top W_t X)^{-1}X^\top\big[T(\yy)-A'(\tilde{\bfeta}_t)\big],
+(X^\top W_t X)^{-1}X^\top W_t\zz_t=\bftheta_t+(X^\top W_t X)^{-1}X^\top\left(T(\yy)-\bfmu_t\right),
 $$
 
 que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.
@@ -606,7 +611,7 @@ que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.
 <div style="margin-top:2em;"></div>
 
 
-Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos $W_t$ y pseudo-respuesta $\zz_t$, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre $W_t^{1/2}X$) sin formar explícitamente $X^\top W_t X$. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de $J$ para dar pasos más precisos que un simple descenso por gradiente.
+Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos $W_t$ y pseudo-respuesta $\zz_t$, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre $W_t^{1/2}X$) sin formar explícitamente $X^\top W_t X$. 
 
 <div style="margin-top:2em;"></div>
 
@@ -626,7 +631,7 @@ $t\leftarrow 0.$
 
 > Calcular $\tilde{\bfeta}_t=X\bftheta_t$ y $\bfmu_t\in\RR^n$ tal que $\mu_{t,i}=A'(\eta_{t,i})=\media\left[T(Y)\mid\xx_i;\bftheta_t\right]$.
 >  
-> Construir la matriz diagonal de pesos $W_t\in\RR^{n\times n}$ tal que $w_{t,i}=A''(\eta_{t,i})=\var\left[T(Y)\mid\XX=\xx_i;\bftheta_t\right]$.
+> Construir la matriz diagonal de pesos $W_t\in\RR^{n\times n}$ tal que $w_{t,i}=A''(\eta_{t,i})=\var\left[T(Y)\mid\xx_i;\bftheta_t\right]$.
 >
 > Definir la pseudo-respuesta $\zz_t=\tilde{\bfeta}_t+W_t^{-1}\left(T(\yy)-\bfmu_t\right)$.
 >
@@ -743,7 +748,7 @@ $$
 De hecho,
 $$
 \frac{\partial A}{\partial\eta_j}=\frac{e^{\eta_j}}{1+\sum_{i=1}^{k-1}e^{\eta_i}}=\phi_j.
-\label{eq:funcion_softmax}
+\tag{2.3.12}
 $$
 
 
@@ -774,7 +779,7 @@ p(Y=i\mid\xx;\bfTheta):=\phi_i=\frac{\exp\{\bftheta_i^\top\xx\}}{1+\sum_{j=1}^{k
 $$
 $$
 p(Y=k\mid\xx;\bfTheta):=\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\bftheta_j^\top\xx\}}.
-\tag{2.3.11}
+\tag{2.3.13}
 $$
 
 
@@ -799,13 +804,13 @@ $$
 El problema de optimización asociado es
 $$
 \begin{array}{ll}
-\text{minimizar } & \displaystyle\sum_{i=1}^n\left[A(\bfeta_i)-\bfeta_i^\top T(y_i)\right].
+\text{minimizar } & \displaystyle\sum_{i=1}^n\left[A(\bfeta_i)-\bfeta_i^\top T(y_i)\right],
 \end{array}
 $$
 
-De (2.3.10) y (2.3.11), podemos escribir la función objetivo como 
+que, de (2.3.10) y (2.3.13), se escribe
 $$
-J(\bfTheta)=\sum_{i=1}^n\left[\log\left(1+\sum_{j=1}^{k-1}\exp\{\bftheta_j^\top\xx_i\}\right)-\xx_i^\top\bfTheta\, T(y_i)\right].
+J(\bfTheta)=\sum_{i=1}^n\left[\log\left(1+\sum_{\ell=1}^{k-1}\exp\{\bftheta_\ell^\top\xx_i\}\right)-\xx_i^\top\bfTheta\, T(y_i)\right].
 $$
 
 Derivando respecto a un vector $\bftheta_j$, $j=1,\ldots,k-1$, obtenemos
@@ -838,7 +843,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-Este vector gradiente de la función objetivo puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Sin embargo, de acuerdo a lo visto anteriormente, es más adecuado el algoritmo IRLS, para aprovechar la información del Hessiano y generar pasos más precisos y acelerar la convergencia.
+El vector gradiente obtenido puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Para derivar el algoritmo IRLS, hay que tener en cuenta que, en este caso, el parámetro natural $\bfeta_i$ es vectorial. En consecuencia, la matriz Hessiana se estructura en bloques asociados a las distintas componentes de $\bfeta_i$, lo que hace que su expresión resulte considerablemente más engorrosa que en el caso escalar. Por este motivo, omitimos aquí su desarrollo explícito.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -852,7 +857,7 @@ Regresión softmax en datos simulados
 Utilizaremos un conjunto de datos simulados para un problema de clasificación con 3 clases, para el cual ajustaremos un modelo de regresión softmax.
 
 ::: {.callout-warning appearance="simple"}
-En este ejemplo utilizamos la implementación `LogisticRegression` de `scikit-learn`, la cual emplea por defecto el algoritmo LBFGS, un método cuasi-Newton ampliamente utilizado en problemas de optimización convexa. La implementación del algoritmo IRLS se abordará en las actividades prácticas.
+En este ejemplo utilizamos la implementación `LogisticRegression` de `scikit-learn`, la cual emplea por defecto el algoritmo LBFGS, un método cuasi-Newton ampliamente utilizado en problemas de optimización convexa.
 :::
 
 

@@ -611,9 +611,13 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \eta=\boldsymbol{\theta}^\top{\bf x}\in\mathbb{R},\qquad \boldsymbol{\theta}\in\mathbb{R}^p.
 \]</span></p>
 <p>Además, para una muestra <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span> i.i.d., denotamos <span class="math display">\[
-\eta_i:=\boldsymbol{\theta}^\top{\bf x}_i,
-\]</span> <span class="math display">\[
-\mu_i:=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i;\boldsymbol{\theta}\right]=\nabla A(\eta_i).
+\begin{matrix}
+    \eta_i:=\boldsymbol{\theta}^\top{\bf x}_i, \\[3pt]
+    \mu_i:=\mathbb{E}\left[T(Y)\mid {\bf x}_i;\boldsymbol{\theta}\right]=A'(\eta_i),
+\end{matrix}\qquad\forall i=1,\ldots,n.
+\]</span></p>
+<p>Matricialmente, esto es <span class="math display">\[
+\tilde{\boldsymbol{\eta}}=X\boldsymbol{\theta},\qquad \boldsymbol{\mu}=A'(\tilde{\boldsymbol{\eta}}).
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -633,17 +637,14 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
 <p>Observar que <span class="math inline">\(\ell\)</span> depende del modelo particular únicamente a través de <span class="math inline">\(T\)</span> y de la función de log-partición <span class="math inline">\(A\)</span>. Por eso, el gradiente y la Hessiana de <span class="math inline">\(\ell\)</span> pueden calcularse una sola vez, de forma general, para toda la familia exponencial, en términos de <span class="math inline">\(A'\)</span> y <span class="math inline">\(A''\)</span>. Teniendo en cuenta que <span class="math inline">\(\partial\eta_i/\partial\boldsymbol{\theta}={\bf x}_i\)</span>, resulta <span class="math display">\[
-\nabla \ell(\boldsymbol{\theta})= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]{\bf x}_i=X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}})\right],
+\nabla \ell(\boldsymbol{\theta})= \sum_{i=1}^n\left[T(y_i)-A'(\eta_i)\right]{\bf x}_i=X^\top\left(T({\bf y})-\boldsymbol{\mu}\right).
 \tag{2.3.4}
-\]</span></p>
-<p>donde <span class="math inline">\(A'(\tilde{\boldsymbol{\eta}})=(A'(\eta_1),\ldots,A'(\eta_n))^\top\in\mathbb{R}^n\)</span>, con <span class="math display">\[
-A'(\eta_i)=\mathbb{E}\left[T(Y)\mid {\bf x}_i,\boldsymbol{\theta}\right]
 \]</span></p>
 <p>Derivando nuevamente, se obtiene <span class="math display">\[
 \nabla^2\ell(\boldsymbol{\theta})=-\sum_{i=1}^nA''(\eta_i)\,{\bf x}_i\,{\bf x}_i^\top=-X^\top W X,
 \tag{2.3.5}
 \]</span></p>
-<p>donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(A''(\eta_1),\ldots,A''(\eta_n))\in\mathbb{R}^{n\times n}\)</span>. Observar que la matriz <span class="math inline">\(W\)</span> actúa como una matriz de pesos: el peso de la <span class="math inline">\(i\)</span>-ésima observación es <span class="math inline">\(A''(\eta_i)=\mathop{\mathrm{Cov}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}\right]\)</span>, que en general depende de <span class="math inline">\(\boldsymbol{\theta}\)</span> y de <span class="math inline">\({\bf x}_i\)</span>. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera <span class="math inline">\(X^\top X\)</span> salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
+<p>donde <span class="math inline">\(W=\mathop{\mathrm{diag}}(A''(\eta_1),\ldots,A''(\eta_n))\in\mathbb{R}^{n\times n}\)</span>. Observar que la matriz <span class="math inline">\(W\)</span> actúa como una matriz de pesos: el peso de la <span class="math inline">\(i\)</span>-ésima observación es <span class="math inline">\(A''(\eta_i)=\mathop{\mathrm{Var}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}\right]\)</span>. En el caso de la regresión lineal (varianza constante) estos pesos son todos iguales y se recupera <span class="math inline">\(X^\top X\)</span> salvo una constante; en cambio, en un GLM general los pesos varían entre observaciones y con <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -706,7 +707,7 @@ A'(\eta_i)=\mathbb{E}\left[T(Y)\mid {\bf x}_i,\boldsymbol{\theta}\right]
 \tag{2.3.7}
 \]</span></p>
 <p>Su aplicación al problema (2.3.4) deriva en un algoritmo denominado IRLS (<em>Iterative Reweighted Least Squares</em>), que se basa en resolver iterativamente problemas de mínimos cuadrados ponderados (WLS, <em>weighted least squares</em>). Para obtenerlo, reemplacemos en (2.3.7) las expresiones (2.3.5) y (2.3.6) obtenidas para el gradiente y la Hessiana de <span class="math inline">\(J\)</span>; resulta <span class="math display">\[
-\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\left[T({\bf y})-A'(\tilde{\boldsymbol{\eta}}_t)\right]
+\boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\left(T({\bf y})-\boldsymbol{\mu}_t\right).
 \tag{2.3.8}
 \]</span></p>
 <div style="margin-top:2em;">
@@ -724,20 +725,23 @@ A'(\eta_i)=\mathbb{E}\left[T(Y)\mid {\bf x}_i,\boldsymbol{\theta}\right]
 \tag{2.3.9}
 \]</span></p>
 <p>Definimos <span class="math display">\[
+{\bf z}_t:=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}\left(T({\bf y})-\boldsymbol{\mu}_t\right).
+\]</span></p>
+<p>Observar que cada coordenada de <span class="math inline">\({\bf z}_t\)</span> es de la forma <span class="math display">\[
 z_{t,i}:=\eta_{t,i}+\frac{T(y_i)-\mu_{t,i}}{w_{t,i}},\qquad i=1,\ldots,n,
 \]</span></p>
-<p>con <span class="math inline">\(\eta_{t,i}={\bf x}_i^\top\boldsymbol{\theta}_t\)</span>, <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})\)</span> y <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})\)</span>. Como <span class="math inline">\(W_t\)</span> cancela el denominador <span class="math inline">\(w_{t,i}\)</span>, <span class="math display">\[
-X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\mu_{t,i}\big){\bf x}_i .
+<p>con <span class="math inline">\(\eta_{t,i}={\bf x}_i^\top\boldsymbol{\theta}_t\)</span>, <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})\)</span> y <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})\)</span>. Resulta <span class="math display">\[
+X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+X^\top\left(T({\bf y})-\boldsymbol{\mu}_t\right).
 \]</span></p>
-<p>Multiplicando por <span class="math inline">\((X^\top W_t X)^{-1}\)</span> resulta <span class="math display">\[
-(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\big[T({\bf y})-A'(\tilde{\boldsymbol{\eta}}_t)\big],
+<p>Finalmente, multiplicando por <span class="math inline">\((X^\top W_t X)^{-1}\)</span>, obtenemos <span class="math display">\[
+(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t=\boldsymbol{\theta}_t+(X^\top W_t X)^{-1}X^\top\left(T({\bf y})-\boldsymbol{\mu}_t\right),
 \]</span></p>
 <p>que es exactamente (2.3.8). Por lo tanto, (2.3.8) y (2.3.9) son equivalentes.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W_t\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}_t\)</span>, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre <span class="math inline">\(W_t^{1/2}X\)</span>) sin formar explícitamente <span class="math inline">\(X^\top W_t X\)</span>. Repitiendo el procedimiento se aproxima el estimador de máxima verosimilitud, aprovechando la curvatura de <span class="math inline">\(J\)</span> para dar pasos más precisos que un simple descenso por gradiente.</p>
+<p>Así, cada iteración de Newton equivale a resolver un problema de mínimos cuadrados ponderados con pesos <span class="math inline">\(W_t\)</span> y pseudo-respuesta <span class="math inline">\({\bf z}_t\)</span>, ambos recalculados en cada paso. Una ventaja de esta interpretación es que permite reutilizar solvers de mínimos cuadrados, que resuelven el problema de forma numéricamente estable (por ejemplo, con QR o Cholesky sobre <span class="math inline">\(W_t^{1/2}X\)</span>) sin formar explícitamente <span class="math inline">\(X^\top W_t X\)</span>.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -750,7 +754,7 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+\sum_{i=1}^n\big(T(y_i)-\m
 <p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
 <p>Calcular <span class="math inline">\(\tilde{\boldsymbol{\eta}}_t=X\boldsymbol{\theta}_t\)</span> y <span class="math inline">\(\boldsymbol{\mu}_t\in\mathbb{R}^n\)</span> tal que <span class="math inline">\(\mu_{t,i}=A'(\eta_{t,i})=\mathbb{E}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>.</p>
-<p>Construir la matriz diagonal de pesos <span class="math inline">\(W_t\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})=\mathop{\mathrm{Var}}\left[T(Y)\mid{\bf X}={\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>.</p>
+<p>Construir la matriz diagonal de pesos <span class="math inline">\(W_t\in\mathbb{R}^{n\times n}\)</span> tal que <span class="math inline">\(w_{t,i}=A''(\eta_{t,i})=\mathop{\mathrm{Var}}\left[T(Y)\mid{\bf x}_i;\boldsymbol{\theta}_t\right]\)</span>.</p>
 <p>Definir la pseudo-respuesta <span class="math inline">\({\bf z}_t=\tilde{\boldsymbol{\eta}}_t+W_t^{-1}\left(T({\bf y})-\boldsymbol{\mu}_t\right)\)</span>.</p>
 <p>Actualizar <span class="math display">\[\boldsymbol{\theta}_{t+1}:=(X^\top W_t X)^{-1}X^\top W_t{\bf z}_t.\]</span></p>
 <p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
@@ -829,7 +833,7 @@ h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi
 \]</span></p>
 <p>De hecho, <span class="math display">\[
 \frac{\partial A}{\partial\eta_j}=\frac{e^{\eta_j}}{1+\sum_{i=1}^{k-1}e^{\eta_i}}=\phi_j.
-\label{eq:funcion_softmax}
+\tag{2.3.12}
 \]</span></p>
 <p>La expresión (2.3.10) es la función de enlace, conocida como <em>logit generalizado</em>. Su inversa es la <em>función softmax</em>, <span class="math inline">\(\operatorname{softmax}:\mathbb{R}^{k-1}\to\mathbb{R}^{k-1}\)</span>, definida por <span class="math display">\[
 \operatorname{softmax}({\bf z})_i=\frac{e^{z_i}}{1+\sum_{i=1}^{k-1}e^{z_i}},
@@ -850,7 +854,7 @@ h(y)=1,\qquad A(\boldsymbol{\eta})=-\log\phi_k=-\log\left(1-\sum_{i=1}^{k-1}\phi
 p(Y=i\mid{\bf x};\boldsymbol{\Theta}):=\phi_i=\frac{\exp\{\boldsymbol{\theta}_i^\top{\bf x}\}}{1+\sum_{j=1}^{k-1}\exp\{\boldsymbol{\theta}_j^\top{\bf x}\}},\qquad i=1,\ldots,k-1,
 \]</span> <span class="math display">\[
 p(Y=k\mid{\bf x};\boldsymbol{\Theta}):=\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\boldsymbol{\theta}_j^\top{\bf x}\}}.
-\tag{2.3.11}
+\tag{2.3.13}
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -868,11 +872,11 @@ p(Y=k\mid{\bf x};\boldsymbol{\Theta}):=\phi_k=\frac{1}{1+\sum_{j=1}^{k-1}\exp\{\
 <h3 class="anchored" data-anchor-id="optimalidad-1">Optimalidad</h3>
 <p>El problema de optimización asociado es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar } &amp; \displaystyle\sum_{i=1}^n\left[A(\boldsymbol{\eta}_i)-\boldsymbol{\eta}_i^\top T(y_i)\right].
+\text{minimizar } &amp; \displaystyle\sum_{i=1}^n\left[A(\boldsymbol{\eta}_i)-\boldsymbol{\eta}_i^\top T(y_i)\right],
 \end{array}
 \]</span></p>
-<p>De (2.3.10) y (2.3.11), podemos escribir la función objetivo como <span class="math display">\[
-J(\boldsymbol{\Theta})=\sum_{i=1}^n\left[\log\left(1+\sum_{j=1}^{k-1}\exp\{\boldsymbol{\theta}_j^\top{\bf x}_i\}\right)-{\bf x}_i^\top\boldsymbol{\Theta}\, T(y_i)\right].
+<p>que, de (2.3.10) y (2.3.13), se escribe <span class="math display">\[
+J(\boldsymbol{\Theta})=\sum_{i=1}^n\left[\log\left(1+\sum_{\ell=1}^{k-1}\exp\{\boldsymbol{\theta}_\ell^\top{\bf x}_i\}\right)-{\bf x}_i^\top\boldsymbol{\Theta}\, T(y_i)\right].
 \]</span></p>
 <p>Derivando respecto a un vector <span class="math inline">\(\boldsymbol{\theta}_j\)</span>, <span class="math inline">\(j=1,\ldots,k-1\)</span>, obtenemos <span class="math display">\[
 \begin{align}
@@ -899,7 +903,7 @@ T = \begin{pmatrix}
 <div style="margin-top:2em;">
 
 </div>
-<p>Este vector gradiente de la función objetivo puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Sin embargo, de acuerdo a lo visto anteriormente, es más adecuado el algoritmo IRLS, para aprovechar la información del Hessiano y generar pasos más precisos y acelerar la convergencia.</p>
+<p>El vector gradiente obtenido puede utilizarse para aplicar el método de descenso por gradiente en regresión softmax. Para derivar el algoritmo IRLS, hay que tener en cuenta que, en este caso, el parámetro natural <span class="math inline">\(\boldsymbol{\eta}_i\)</span> es vectorial. En consecuencia, la matriz Hessiana se estructura en bloques asociados a las distintas componentes de <span class="math inline">\(\boldsymbol{\eta}_i\)</span>, lo que hace que su expresión resulte considerablemente más engorrosa que en el caso escalar. Por este motivo, omitimos aquí su desarrollo explícito.</p>
 <div style="margin-top:1.5em;">
 
 </div>
@@ -912,11 +916,11 @@ T = \begin{pmatrix}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>En este ejemplo utilizamos la implementación <code>LogisticRegression</code> de <code>scikit-learn</code>, la cual emplea por defecto el algoritmo LBFGS, un método cuasi-Newton ampliamente utilizado en problemas de optimización convexa. La implementación del algoritmo IRLS se abordará en las actividades prácticas.</p>
+<p>En este ejemplo utilizamos la implementación <code>LogisticRegression</code> de <code>scikit-learn</code>, la cual emplea por defecto el algoritmo LBFGS, un método cuasi-Newton ampliamente utilizado en problemas de optimización convexa.</p>
 </div>
 </div>
 </div>
-<div id="991770ab" class="cell" data-execution_count="1">
+<div id="b092a804" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
@@ -940,7 +944,7 @@ T = \begin{pmatrix}
 <span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="42d4e525" class="cell" data-execution_count="2">
+<div id="36f5278c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
