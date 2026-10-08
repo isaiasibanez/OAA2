@@ -220,8 +220,6 @@ Esta regla de actualización tambien se conoce como *regla de aprendizaje Widrow
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo LMS</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* $\eta>0$:
 
 <div style="margin-left: 1em">
@@ -237,8 +235,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 
@@ -259,8 +255,6 @@ $$
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo LMS estocástico</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* $\eta>0$:
 
 <div style="margin-left: 1em">
@@ -278,8 +272,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 
@@ -605,8 +597,6 @@ De los resultados anteriores, resultan de manera natural los algoritmos iterativ
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para regresión logística</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* $\eta>0$:
 
 <div style="margin-left: 1em">
@@ -623,8 +613,6 @@ $t\leftarrow 0.$
 
 </div>
 
-<hr>
-
 </div>
 
 <div style="margin-top:2em;"></div>
@@ -632,8 +620,6 @@ $t\leftarrow 0.$
 
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente estocástico para regresión logística</span>
-
-<hr>
 
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$ y una *tasa de aprendizaje* $\eta>0$:
 
@@ -652,8 +638,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 
@@ -689,8 +673,6 @@ $$
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de Newton para regresión logística</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
@@ -706,8 +688,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 

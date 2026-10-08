@@ -278,6 +278,12 @@ window.Quarto = {
   <li><a href="#función-de-verosimilitud" id="toc-función-de-verosimilitud" class="nav-link" data-scroll-target="#función-de-verosimilitud">Función de verosimilitud</a></li>
   <li><a href="#optimalidad" id="toc-optimalidad" class="nav-link" data-scroll-target="#optimalidad">Optimalidad</a></li>
   <li><a href="#resolución-por-descenso-por-gradiente" id="toc-resolución-por-descenso-por-gradiente" class="nav-link" data-scroll-target="#resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</a></li>
+  <li><a href="#resolución-por-método-de-newton-algoritmo-irls" id="toc-resolución-por-método-de-newton-algoritmo-irls" class="nav-link" data-scroll-target="#resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</a></li>
+  </ul></li>
+  <li><a href="#iii-regresión-softmax" id="toc-iii-regresión-softmax" class="nav-link" data-scroll-target="#iii-regresión-softmax">III <span style="color:#CCCCCC;">│</span> Regresión softmax</a>
+  <ul class="collapse">
+  <li><a href="#modelo" id="toc-modelo" class="nav-link" data-scroll-target="#modelo">Modelo</a></li>
+  <li><a href="#optimalidad-1" id="toc-optimalidad-1" class="nav-link" data-scroll-target="#optimalidad-1">Optimalidad</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -315,7 +321,7 @@ window.Quarto = {
 <p><a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 29/09/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 06/10/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -682,10 +688,9 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </div>
 </section>
 <section id="resolución-por-descenso-por-gradiente" class="level3">
-<h3 class="anchored">Resolución por descenso por gradiente</h3>
+<h3 class="anchored" data-anchor-id="resolución-por-descenso-por-gradiente">Resolución por descenso por gradiente</h3>
 <div class="alert alert-light text-dark" role="important">
 <p>⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para GLM</span></p>
-<hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
 <div style="margin-left: 1em">
 <p><span class="math inline">\(t\leftarrow 0.\)</span></p>
@@ -697,11 +702,11 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
-<hr>
 </div>
 <p>Por supuesto, también puede emplearse descenso por gradiente estocástico o <em>mini-batch</em>.</p>
+</section>
 <section id="resolución-por-método-de-newton-algoritmo-irls" class="level3">
-<h3 class="anchored">Resolución por método de Newton: algoritmo IRLS</h3>
+<h3 class="anchored" data-anchor-id="resolución-por-método-de-newton-algoritmo-irls">Resolución por método de Newton: algoritmo IRLS</h3>
 <p>Recordemos que el método de Newton actualiza los parámetros mediante <span class="math display">\[
 \boldsymbol{\theta}_{t+1}:=\boldsymbol{\theta}_t-\left[\nabla^2 J(\boldsymbol{\theta}_t)\right]^{-1}\nabla J(\boldsymbol{\theta}_t).
 \tag{2.3.7}
@@ -747,7 +752,6 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+X^\top\left(T({\bf y})-\bo
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p>⚙ <span class="badge bg-custom">Algoritmo IRLS</span></p>
-<hr>
 <p>Dado un <em>parámetro inicial</em> <span class="math inline">\(\boldsymbol{\theta}_0\in\mathbb{R}^{p}\)</span>:</p>
 <div style="margin-left: 1em">
 <p><span class="math inline">\(t\leftarrow 0.\)</span></p>
@@ -761,7 +765,6 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+X^\top\left(T({\bf y})-\bo
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
-<hr>
 </div>
 <div style="margin-top:2em;">
 
@@ -784,6 +787,8 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+X^\top\left(T({\bf y})-\bo
 <div style="margin-top:2.5em;">
 
 </div>
+</section>
+</section>
 <section id="iii-regresión-softmax" class="level2">
 <h2 class="anchored" data-anchor-id="iii-regresión-softmax">III <span style="color:#CCCCCC;">│</span> Regresión softmax</h2>
 <p>Consideremos un problema de clasificación en el que <span class="math inline">\(Y \in \{1, 2, \ldots, k\}\)</span>. Por ejemplo, en lugar de clasificar correos electrónicos en dos clases (spam o no spam), podríamos clasificarlos en tres clases: spam, correo personal y correo relacionado con el trabajo. Para modelar esta situación, usaremos la <em>distribución multinomial</em> con un único ensayo (también llamada <em>distribución categórica</em>) como un elemento de la familia exponencial. De esta manera, podremos construir un modelo GLM para clasificación multiclase, conocido como <em>regresión softmax</em> o <em>regresión logística multinomial</em>, que generaliza la regresión logística binaria a problemas con más de dos clases.</p>
@@ -920,31 +925,29 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="b092a804" class="cell" data-execution_count="1">
+<div id="abe3099f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, confusion_matrix</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Datos:</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>X, y <span class="op">=</span> make_classification(</span>
-<span id="cb1-10"><a href="#cb1-10"></a>    n_samples<span class="op">=</span><span class="dv">300</span>, n_features<span class="op">=</span><span class="dv">2</span>, n_informative<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    n_classes<span class="op">=</span><span class="dv">3</span>, n_clusters_per_class<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Datos:</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>X, y <span class="op">=</span> make_classification(</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    n_samples<span class="op">=</span><span class="dv">300</span>, n_features<span class="op">=</span><span class="dv">2</span>, n_informative<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    n_classes<span class="op">=</span><span class="dv">3</span>, n_clusters_per_class<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Modelo:</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">"lbfgs"</span>, penalty<span class="op">=</span><span class="va">None</span>, max_iter<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb1-18"><a href="#cb1-18"></a>model.fit(X_train, y_train)</span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Predicción:</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb1-22"><a href="#cb1-22"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># Modelo:</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">"lbfgs"</span>, penalty<span class="op">=</span><span class="va">None</span>, max_iter<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>model.fit(X_train, y_train)</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Predicción:</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="36f5278c" class="cell" data-execution_count="2">
+<div id="e59984e5" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -972,11 +975,6 @@ Matriz de Confusión:
 </div>
 
 
-</section>
-</section>
-</section></section></section></main></div>
-
-
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -991,10 +989,10 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 W10=
 </script>
+</section>
+</section>
 
-
-
- <!-- /main -->
+</main> <!-- /main -->
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W119
 </script>
@@ -1418,7 +1416,7 @@ window._ojs.runtime.interpretFromScriptTags();
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 
 
 

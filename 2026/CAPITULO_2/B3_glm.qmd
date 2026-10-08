@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 3"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 29/09/2026
+    Última actualización: 06/10/2026
   </span>
 
 </div>
@@ -523,8 +523,6 @@ En general, no existe una solución explícita para el punto óptimo $\hat{\bfth
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de descenso por gradiente para GLM</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
@@ -542,8 +540,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 
@@ -619,8 +615,6 @@ Así, cada iteración de Newton equivale a resolver un problema de mínimos cuad
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo IRLS</span>
 
-<hr>
-
 Dado un *parámetro inicial* $\bftheta_0\in\RR^{p}$:
 
 <div style="margin-left: 1em">
@@ -642,8 +636,6 @@ $t\leftarrow 0.$
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
-<hr>
 
 </div>
 
@@ -868,11 +860,9 @@ En este ejemplo utilizamos la implementación `LogisticRegression` de `scikit-le
 #| fig-align: "center"
 
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix
 
 # Datos:
 X, y = make_classification(
@@ -894,6 +884,9 @@ prob_pred = model.predict_proba(X_test)
 ```{python}
 #| echo: false
 #| fig-align: "center"
+
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report, confusion_matrix
 
 # 📈:
 # Malla:
