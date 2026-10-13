@@ -535,30 +535,29 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 </div>
 </div>
 </div>
-<div id="aa066fd0" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Datos:</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>X, y <span class="op">=</span> fetch_california_housing(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb1-11"><a href="#cb1-11"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-14"><a href="#cb1-14"></a></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Modelo:</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>lr <span class="op">=</span> LinearRegression()</span>
-<span id="cb1-17"><a href="#cb1-17"></a>lr.fit(X_train, y_train)</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># Predicción y MSE:</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
-<span id="cb1-21"><a href="#cb1-21"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="318fb46c" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Datos:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>X, y <span class="op">=</span> fetch_california_housing(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb1-10"><a href="#cb1-10"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># Modelo:</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>lr <span class="op">=</span> LinearRegression()</span>
+<span id="cb1-16"><a href="#cb1-16"></a>lr.fit(X_train, y_train)</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Predicción y MSE:</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="55406fac" class="cell" data-execution_count="2">
+<div id="9bf64925" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -855,30 +854,29 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="4673d699" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># Datos:</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-10"><a href="#cb3-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb3-11"><a href="#cb3-11"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb3-14"><a href="#cb3-14"></a></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># Modelo:</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>logreg <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb3-17"><a href="#cb3-17"></a>logreg.fit(X_train, y_train)</span>
-<span id="cb3-18"><a href="#cb3-18"></a></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co"># Predicción y accuracy:</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
-<span id="cb3-21"><a href="#cb3-21"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0d573495" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Datos:</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb3-10"><a href="#cb3-10"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co"># Modelo:</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>logreg <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>logreg.fit(X_train, y_train)</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># Predicción y accuracy:</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
+<span id="cb3-20"><a href="#cb3-20"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5e0dea89" class="cell" data-execution_count="4">
+<div id="76754bdc" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):

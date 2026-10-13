@@ -2,21 +2,29 @@
 title: "Métodos de regularización"
 subtitle: "Capítulo 2 - Sección 4"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c2s4.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c2s4.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 12/10/2026
+  </span>
 
 </div>
 
@@ -58,10 +66,8 @@ donde $t>0$ es un *hiperparámetro de umbral* ligado al valor de $\lambda$.
 
 Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales, *Ridge regression* y *Lasso*, aplicadas al problema de regresión lineal, analizando su formulación matemática y sus características principales. Ambos métodos serán estudiados tanto en su formulación penalizada (2.4.1) como en su versión restringida (2.4.2). Además, para un conjunto de datos de entrenamiento $\{(\xx_i,y_i)\}_{i=1}^n$, la función de pérdida está determinada por
 $$
-J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\bftheta^\top\xx_i)^2,
+J(\bftheta):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|\yy-X\bftheta\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\bftheta^\top\xx_i)^2.
 $$ 
-
-donde MSE son las siglas de *mean squared error* (error cuadrático medio). 
 
 
 <div style="border-top:1px solid #b7cdf5;
@@ -87,7 +93,7 @@ $$
 ## I <span style="color:#CCCCCC;">│</span> Regresión Ridge
 
 ::: {.definicion}
-**Definición 2.4.1.** (Problema Ridge) El *problema de regresión Ridge* es
+**Definición 2.4.1** (Problema Ridge). El *problema de regresión Ridge* es
 $$
 \begin{array}{ll}
 \text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2,
@@ -108,7 +114,7 @@ Vamos a ver que la expresión alternativa de (2.4.3) como problema de optimizaci
 
 $$
 \begin{array}{ll}
-\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\[3pt]
 \text{sujeto a} & \|\bftheta\|_2^2\leq t,
 \tag{2.4.4}
 \end{array},
@@ -121,7 +127,7 @@ $$
 
 donde $\calL$ es el Lagrangiano y $\lambda^\star$ es un punto óptimo del problema dual de Lagrange. Observar que está ultima expresión coincide, salvo una constante aditiva, con la función objetivo de (2.4.3), tomando $\lambda=\lambda^\star$. Es decir, que (2.4.3) y (2.4.4) son equivalentes o, lo que es lo mismo, que $\hat{\bftheta}=\hat{\bftheta}^{\text{ridge}}$. 
 
-No obstante, en la formulación penalizada (2.4.3) el parámetro $\lambda>0$ es fijado arbitrariamente. En consecuencia, para que ambos problemas sean efectivamente equivalentes, el valor de $t$ en (2.4.4) debe ser adecuado de modo que se satisfaga $\lambda^\star=\lambda$. Esto deriva en la siguiente pregunta:
+No obstante, en la formulación penalizada (2.4.3) el parámetro $\lambda>0$ es fijado arbitrariamente. Así, para que ambos problemas sean efectivamente equivalentes, el valor de $t$ en (2.4.4) debe ser adecuado de modo que se satisfaga $\lambda^\star=\lambda$. Esto deriva en la siguiente pregunta:
 
 <div style="margin-top:1em;"></div>
 
@@ -166,7 +172,7 @@ Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario
 
 ### Características del problema Ridge
 
-Desarrollamos la función objetivo del problema Ridge (2.4.3):
+Desarrollemos la función objetivo del problema Ridge (2.4.3):
 $$
 J(\bftheta)=\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_2^2=\frac{1}{2n}\bftheta^\top X^\top X\bftheta+\lambda\bftheta^\top\bftheta-\frac{1}{n}\bftheta^\top X^\top\yy+\frac{1}{2n}\yy^\top\yy.
 $$
@@ -253,9 +259,11 @@ Por supuesto, en problemas donde la aplicación directa de esta fórmula resulta
 Regresión Ridge en datos de diabetes
 </span>
 
-Utilizaremos el conjunto de datos de diabetes de `sklearn.datasets` [disponible aquí](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html), el cual consiste en 442 observaciones de 10 variables predictoras.
+Utilizaremos el conjunto de datos *Diabetes* [disponible aquí](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html), el cual consiste en 442 observaciones de 10 variables predictoras. La variable respuesta es una medida cuantitativa de la progresión de la diabetes, por lo que se trata de un problema de regresión. Veremos el efecto que causa el valor del parámetro $\lambda$ en el valor de los coeficientes estimados para el modelo. Además, elegiremos $\lambda$ por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.
 
-Veremos el efecto que causa el valor del parámetro $\lambda$ en el valor de los coeficientes estimados para el modelo. Además, elegiremos $\lambda$ por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.
+::: {.callout-warning appearance="simple"}
+En este ejemplo utilizamos la implementación `Ridge` de `scikit-learn`, la cual emplea por defecto un solver que selecciona automáticamente el algoritmo de optimización más adecuado para el problema. Entre los algoritmos disponibles se encuentran métodos directos e iterativos, como la factorización de Cholesky y LSQR.
+:::
 
 ```{python}
 #| code-summary: "Mostrar código"
@@ -264,7 +272,6 @@ Veremos el efecto que causa el valor del parámetro $\lambda$ en el valor de los
 #| fig-align: "center"
 
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.datasets import load_diabetes
 from sklearn.linear_model import Ridge, RidgeCV
 from sklearn.model_selection import cross_val_score
@@ -308,6 +315,9 @@ mse_best = mse_means[idx_best]
 ```{python}
 #| echo: false
 #| fig-align: "center"
+
+import matplotlib.pyplot as plt
+
 # 📈:
 plt.figure(figsize=(8, 6))
 
@@ -323,11 +333,9 @@ plt.legend(fontsize=12, loc='upper right')
 # MSE vs lambda:
 plt.subplot(2, 1, 2)
 plt.scatter(np.log10(lambdas), mse_means, s=20, alpha=0.5)
-plt.axvline(np.log10(best_lambda), color="k", ls="--", label=fr"$\lambda$ óptimo = {best_lambda:.2f}")
 plt.xlabel(r"$\log_{10}(\lambda)$", fontsize=13)
 plt.ylabel("MSE", fontsize=13)
 plt.title(r"MSE vs $\lambda$ (Ridge)", fontsize=15)
-plt.legend(fontsize=12, loc='upper left')
 plt.tight_layout()
 plt.show()
 
@@ -351,10 +359,10 @@ for i, coef in enumerate(Ridge_best.coef_):
 ## II <span style="color:#CCCCCC;">│</span> Lasso
 
 ::: {.definicion}
-**Definición 2.4.3.** (Problema Lasso) El *problema de regresión Lasso* es
+**Definición 2.4.3** (Problema Lasso). El *problema de regresión Lasso* es
 $$
 \begin{array}{ll}
-\text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_1,
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda\|\bftheta\|_1,
 \end{array}
 \tag{2.4.6}
 $$
@@ -367,7 +375,7 @@ con $\bftheta\in\RR^p$ las variables de optimización y $\lambda>0$ el hiperpar�
 De manera similar al análisis para el problema Ridge, el problema Lasso admite la siguiente formulación con restricciones:
 $$
 \begin{array}{ll}
-\text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\
+\text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2 \\[3pt]
 \text{sujeto a} & \|\bftheta\|_1\leq t.
 \end{array}
 \tag{2.4.7}
@@ -393,7 +401,7 @@ Si $\lambda>0$, entonces $t=\|\hat{\bftheta}^{\text{lasso}}\|_1$.
 
 ### Características del problema Lasso
 
-Una de las principales diferencias entre el problema Lasso y el problema Ridge queda determinado por la siguiente afirmación:
+Una de las principales diferencias entre el problema Lasso y el problema Ridge es que:
 
 ::: {.myhighlight}
 
@@ -426,6 +434,8 @@ t\hat{\bftheta}^{\text{lasso},1}+(1-t)\hat{\bftheta}^{\text{lasso},2},\qquad t\i
 $$
 también es una solución, por convexidad del conjunto solución de un problema de optimización convexa.
 
+
+<div style="margin-top:1em;"></div>
 
 Otras características importantes del problema Lasso se enuncian en el siguiente lema. 
 
@@ -513,19 +523,23 @@ Un par de características importantes son:
 
 - Si $f$ es diferenciable en $\xx_0$, entonces $\partial f(\xx_0)=\{\nabla f(\xx_0)\}$.
 
-- La condición de optimalidad para problemas de optimización *sin restricciones* está dada por el siguiente resultado. La prueba es sencilla y queda como ejercicio.
+</div>
+
+
+La condición de optimalidad para problemas de optimización *sin restricciones* puede expresarse en términos del subdiferencial, tal como establece el siguiente resultado. La prueba es sencilla y se deriva de la definición de subdiferencial.
 
 ::: {.teorema}
-**Teorema 2.4.5.** (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subdiferenciales) Sea $f:\RR^p \to \RR$ una función convexa. Entonces $\xx^\star\in\text{dom}\,f$ es un minimizador de $f$ si y solo si
+**Teorema 2.4.5** (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subdiferenciales). Sea $f:\RR^p \to \RR$ una función convexa. Entonces $\xx^\star\in\text{dom}\,f$ es un minimizador de $f$ si y solo si
 $$
 \bfzero \in \partial f(\xx^\star).
 $$
 
 :::
 
-</div>
 
 <div style="margin-top:2em;"></div>
+
+
 
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 2.4.6</span> 
@@ -552,8 +566,8 @@ $$
 $$
 
 <figure style="text-align: center;">
-  <img src="figuras/subdiferencial_ejemplo.JPG" alt="…" width="400px">
-  <figcaption> **Figura 2.4.3**. Subdiferencial de la función $f(x,y)=|x| + |y|$ en $(1,0)$.</figcaption>
+  <img src="figuras/ej_subdiferencial.png" alt="…" width="400px">
+  <figcaption> **Figura 2.4.3**. Subdiferencial de la norma 1 para $p=2$ en el punto $(1,0)$.</figcaption>
 </figure>
 
 :::
@@ -588,7 +602,7 @@ $$
 
 En la expresión (2.4.8), la componente $i$-ésima del vector del lado izquierdo mide la relación entre cada variable predictora $X_i$ y el residuo $\bfr:=\yy-X\hat{\bftheta}^{\text{lasso}}$. En efecto, cuando $X_i$ e $\yy$ están estandarizados, esta cantidad es proporcional a la correlación de Pearson:
 $$
-\text{cor}(X_i,\bfr):=\frac{\text{cov}(X_i,\bfr)}{\sqrt{\text{var}(X_i)\text{var}(\bfr)}}=\frac{\frac{1}{n}X_i^\top\bfr}{\sqrt{\frac{1}{n}\|\bfr\|_2^2}}\propto X_i^\top\bfr.
+\operatorname{cor}(X_i,\bfr):=\frac{\cov(X_i,\bfr)}{\displaystyle\sqrt{\var(\bfr)}}=\frac{\frac{1}{n}X_i^\top\bfr}{\sqrt{\frac{1}{n}\|\bfr\|_2^2}}\propto X_i^\top\bfr.
 $$
 
 <div style="margin-top:2em;"></div>
@@ -613,7 +627,7 @@ Así, las variables que son incluidas en el modelo tienen correlación absoluta 
 
 
 ::: {.definicion}
-**Definición 2.4.7.** (Conjunto de equicorrelación) Sea $\hat{\bftheta}^{\text{lasso}}$ una solución del problema Lasso. Se define el *conjunto de equicorrelación* $\calE$ como
+**Definición 2.4.7** (Conjunto de equicorrelación). Sea $\hat{\bftheta}^{\text{lasso}}$ una solución del problema Lasso. Se define el *conjunto de equicorrelación* $\calE$ como
 $$
 \calE:=\left\{i\in\{1,\ldots,p\} \mid \left|X_i^\top \left(\yy-X\hat{\bftheta}^{\text{lasso}}\right)\right|=n\lambda\right\}.
 $$
@@ -710,7 +724,7 @@ $$
 ::: {.callout .question}
 
 <span style="font-size: 1.3em;">✍️</span><br>
-Justifique la expresión (2.4.12), partiendo de (2.4.11) y marcando como constante los términos que no dependen de $k$.
+Justifique la expresión (2.4.12).
 
 :::
 
@@ -737,20 +751,20 @@ s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \t
 $$
 
 
-El estudio de (2.4.13) conduce a la denominada <mark>función de *soft-thresholding*</mark>, que presentamos a continuación. 
+El estudio de (2.4.13) conduce a la función de *soft-thresholding*, que presentamos a continuación. 
 
 
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-success text-light">Función de *soft-thresholding*</span>
 
-Un problema equivalente a (2.4.13) es el siguiente:
+Sean $s\in\RR$ y $\tau> 0$. Un problema equivalente a (2.4.13) es 
 $$
 \begin{array}{ll}
 \text{minimizar } & \displaystyle\frac{1}{2}(\theta-s)^2+\tau|\theta|.
 \end{array}
 $$
 
-Aquí, $s\in\RR$ y $\tau> 0$. La función objetivo $f$ es convexa pero no diferenciable. Su subdiferencial es
+La función objetivo $f$ es convexa y su subdiferencial es
 $$
 \partial f(\theta)=\left\{
   \begin{array}{cl}
@@ -758,6 +772,7 @@ $$
   [-s-\tau,-s+\tau] & \mbox{si }\theta = 0.
   \end{array}
   \right.
+\tag{2.4.14}
 $$
 
 Sabemos que $\theta^\star$ es punto óptimo si y solo si $0\in\partial f(\theta^\star)$. Del análisis de esta condición resulta
@@ -776,62 +791,27 @@ $$
 
 ::: {.panel-tabset}
 
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Caso $\theta^\star>0$*</span>
+### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
-Se tiene $\text{sign}\,\theta^\star=1$. Entonces la condición resulta en
-$$
-\begin{align}
-\theta^\star-s+\tau &= 0 \\
-\theta^\star &=s-\tau.
-\end{align}
-$$
-
-Esto es válido siempre que $s-\tau>0$.
-
-
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Caso $\theta^\star<0$*</span>
-
-Aquí $\text{sign}\,\theta^\star=-1$, tal que
-$$
-\begin{align}
-\theta^\star-s-\tau & = 0 \\
-\theta^\star &= s+\tau.
-\end{align}
-$$
-
-Esto es válido siempre que $s+\tau <0$.
-
-
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Caso $\theta^\star=0$*</span>
-
-Esto ocurre si y solo si
-$$
-\begin{align}
--s-\tau<&0<-s+\tau \\
--\tau <&s<\tau \\
-&|s|<\tau.
-\end{align}
-$$
+(Caso $\theta^\star>0$) Dado que $\sign\theta^\star=1$, la condición resulta en $\theta^\star-s+\tau = 0$; esto es, $\theta^\star =s-\tau$, lo cual es válido siempre que $s-\tau>0$. (Caso $\theta^\star<0$) Análogamente al caso anterior, obtenemos $s+\tau <0$. (Caso $\theta^\star=0$) Esto ocurre si y solo si $|s|<\tau$.
 
 :::
 </details>
 
 
-Una expresión alternativa es
+Una expresión alternativa  de (2.4.14) es
 $$
 \theta^\star=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 $$
 
 
 ::: {.definicion}
-**Definición 2.4.8.** (Función *soft-thresholding*) Sea $\tau>0$. La función *soft-thresholding* $\text{soft}_{\tau}:\RR\to\RR$ se define por 
+**Definición 2.4.8** (Función *soft-thresholding*). Sea $\tau>0$. La función *soft-thresholding* $\text{soft}_{\tau}:\RR\to\RR$ se define por 
 $$
 \text{soft}_{\tau}(s):=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 $$
 
 :::
-
-Veamos la gráfica:
 
 ```{pyodide-python}
 #| echo: false
@@ -900,27 +880,27 @@ Ya estamos en condiciones de definir el algoritmo iterativo de descenso por coor
 <div class="alert alert-light text-dark" role="important">
 ⚙ <span class="badge bg-custom">Algoritmo de descenso por coordenadas</span>
 
----
-
-Dado un *párametro inicial* $\bftheta^{(0)}\in\RR^p$ (en general, $\bftheta^{(0)}=\bfzero$) y un *hiperparámetro de penalización* $\lambda>0$:
+Dado un *párametro inicial* $\bftheta^{(0)}\in\RR^p$ y un *hiperparámetro de penalización* $\lambda>0$:
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 1,2,\dots$:
+$t\leftarrow 1.$
 
-> **1°** Inicializar $\bftheta^{(t)}=\bftheta^{(t-1)}$.
+**repetir**:
+
+> Inicializar $\bftheta^{(t)}=\bftheta^{(t-1)}$.
 >
-> **2°** Para $k=1,\ldots,p$:
+> Para $k=1,\ldots,p\,$:
 >
 > $\qquad$ ● Calcular $s_k=\left(v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i^{(t)}\right)/Q_{kk}$.
 >
 > $\qquad$ ● Actualizar $\theta_k^{(t)}=\text{soft}_{\tau}(s_k)$ con $\tau=\lambda/Q_{kk}$.
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
 </div>
-
----
 
 </div>
 
@@ -933,7 +913,7 @@ Observar que, en cada iteración $t$, el vector $\bftheta^{(t)}$ se va actualiza
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2.4.8</span> 
+<span class="badge bg-primary">Ejemplo 2.4.9</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Regresión Lasso en datos de diabetes
 </span>
@@ -1007,11 +987,9 @@ plt.legend(fontsize=12, loc='upper right')
 # MSE vs lambda:
 plt.subplot(2, 1, 2)
 plt.scatter(np.log10(lambdas), mse_means, s=20, alpha=0.5)
-plt.axvline(np.log10(best_lambda), color="k", ls="--", label=fr"$\lambda$ óptimo = {best_lambda:.2f}")
 plt.xlabel(r"$\log_{10}(\lambda)$", fontsize=13)
 plt.ylabel("MSE", fontsize=13)
 plt.title(r"MSE vs $\lambda$ (Lasso)", fontsize=15)
-plt.legend(fontsize=12, loc='upper left')
 plt.tight_layout()
 plt.show()
 
@@ -1036,7 +1014,7 @@ for i, coef in enumerate(Lasso_best.coef_):
 Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método *Elastic Net* combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunjs ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.
 
 ::: {.definicion}
-**Definición 2.4.9.** (Problema Elastic Net) El *problema de regresión Elastic Net* es
+**Definición 2.4.10** (Problema Elastic Net). El *problema de regresión Elastic Net* es
 $$
 \begin{array}{ll}
 \text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda_1\|\bftheta\|_1+\lambda_2\|\bftheta\|_2^2.
@@ -1057,7 +1035,7 @@ Asumiendo que $\bftheta^\star$ es el vector de coeficientes verdadero que genera
 
 <div style="margin-top:2em;"></div>
 
-- *Problema Ridge*: bajo las condiciones $\frac{1}{n}X^\top X\to\Sigma$ y $\lambda=\lambda(n)\to 0$, el estimador Ridge es consistente y sus predicciones tienden a las verdaderas.
+- **Problema Ridge**. Bajo las condiciones $\frac{1}{n}X^\top X\to\Sigma$ y $\lambda=\lambda(n)\to 0$, el estimador Ridge es consistente y sus predicciones tienden a las verdaderas.
 
     <small>📖 Hoerl, A. E., & Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67. </small>
     
@@ -1067,15 +1045,18 @@ Asumiendo que $\bftheta^\star$ es el vector de coeficientes verdadero que genera
     $$
     se puede descomponer el *riesgo* de la siguiente forma:
     $$
-    \frac{1}{n}\media\|X(\hat{\bftheta}^{\text{ridge}}-\bftheta^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\bftheta^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2),
+    \frac{1}{n}\media\|X(\hat{\bftheta}^{\text{ridge}}-\bftheta^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\bftheta^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2).
     $$
-    lo cual exhibe que existe un $\lambda_2^\star$ que minimiza el riesgo. Esto implica que, en señales densas y de alta colinealidad, Ridge puede predecir mejor que los otros métodos.
+    
+    Esta descomposición exhibe un balance entre sesgo y varianza. El primer término (sesgo cuadrático) crece con $\lambda$, pues una penalización mayor aleja la solución de $\bftheta^\star$. El segundo término (varianza) decrece con $\lambda$, ya que los autovalores de $S_\lambda$ son de la forma $d_j^2/(d_j^2+n\lambda)$, que son decrecientes en $\lambda$. Este balance garantiza la existencia de un valor óptimo $\lambda^\star>0$ que minimiza el riesgo.
+
+    En particular, en señales densas y de alta colinealidad, Ridge tiende a predecir mejor que los otros métodos.
 
     <small>📖 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The elements of statistical learning* (2nd ed.). Springer. </small>
 
 <div style="margin-top:2em;"></div>
 
-- *Problema Lasso*: existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción
+- **Problema Lasso**. Existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción
 $$
 \frac{1}{n}\|X(\hat{\bftheta}^{\text{lasso}}-\bftheta^\star)\|_2^2
 $$
@@ -1089,7 +1070,7 @@ y para $\|\hat{\bftheta}^{\text{lasso}}-\bftheta\|_1$ y $\|\hat{\bftheta}^{\text
 
 <div style="margin-top:2em;"></div>
 
-- *Elastic Net*: puede reescribirse como un problema Lasso sobre la matriz aumentada
+- **Elastic Net**. Puede reescribirse como un problema Lasso sobre la matriz aumentada
     $$
     \begin{pmatrix}
     X \\
@@ -1109,19 +1090,19 @@ y para $\|\hat{\bftheta}^{\text{lasso}}-\bftheta\|_1$ y $\|\hat{\bftheta}^{\text
 ### Ejemplos comparativos
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2.4.10</span> 
+<span class="badge bg-primary">Ejemplo 2.4.11</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Señal densa y alta correlación
 </span>
 
-Simularemos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero $\bftheta^\star\in\RR^p$ dado por
+Simulamos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero $\bftheta^\star\in\RR^p$ dado por
 $$
 \theta_j^\star=\frac{c}{\sqrt{p}}\qquad\forall j=1,\ldots,p,\qquad c\in\RR^+.
 $$
 
 La matriz de datos $X$ tiene correlación alta ($\rho=0.9$, por defecto) entre todas sus columnas. 
 
-Se espera un mejor rendimiento de Ridge en comparación con Lasso, ya que Ridge reparte la señal entre todas las variables altamente correlacionadas, mientras que Lasso tiende a sobre-encoger muchos coeficientes útiles. Elastic Net queda intermedio, combinando ambas estrategias.
+Se espera un mejor rendimiento de Ridge en comparación con Lasso, ya que Ridge reparte la señal entre todas las variables altamente correlacionadas, mientras que Lasso tiende a sobre-encoger muchos coeficientes útiles. Elastic Net seleccionará por validación cruzada un valor de $\lambda_1$ pequeño, comportándose de manera similar a Ridge en este escenario.
 
 ```{pyodide-python}
 #| echo: false
@@ -1136,9 +1117,11 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+np.random.seed(42)
+
 # ⚙️ Hiperparámetros de simulación: 
 n, p = n1, p1  
-rho = rho
+rho = rho1
 sigma = 1.0       
 c = c1           
 
@@ -1155,9 +1138,10 @@ y = X @ theta_star + sigma * np.random.randn(n)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Ajuste con validación cruzada:
-ridge = RidgeCV(alphas=np.logspace(-3, 3, 50), cv=5).fit(X_train, y_train)
-lasso = LassoCV(alphas=np.logspace(-3, 1, 50), cv=5, max_iter=5000).fit(X_train, y_train)
-elastic = ElasticNetCV(l1_ratio=[0.2, 0.5, 0.8], alphas=np.logspace(-3, 1, 30), cv=5, max_iter=5000).fit(X_train, y_train)
+alphas = np.logspace(-3, 2, 50)
+ridge   = RidgeCV(alphas=alphas, cv=5).fit(X_train, y_train)
+lasso   = LassoCV(alphas=alphas, cv=5, max_iter=5000).fit(X_train, y_train)
+elastic = ElasticNetCV(l1_ratio=[0.2, 0.5, 0.8], alphas=alphas, cv=5, max_iter=5000).fit(X_train, y_train)
 
 # Predicciones en test:
 y_pred_ridge = ridge.predict(X_test)
@@ -1170,19 +1154,19 @@ mse_lasso = mean_squared_error(y_test, y_pred_lasso)
 mse_en = mean_squared_error(y_test, y_pred_en)
 
 # 📋:
-print("MSE en test:")
-print(f" Ridge:      {mse_ridge:.4f}")
-print(f" Lasso:      {mse_lasso:.4f}")
-print(f" ElasticNet: {mse_en:.4f}")
+#print("MSE en test:")
+#print(f" Ridge:      {mse_ridge:.4f}")
+#print(f" Lasso:      {mse_lasso:.4f}")
+#print(f" ElasticNet: {mse_en:.4f}")
 
 # 📈:
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 6))
 plt.plot(theta_star, 'k--', label=r"$\theta^\ast$")
 plt.plot(ridge.coef_, 'b', label="Ridge", alpha=0.7)
 plt.plot(lasso.coef_, 'r', label="Lasso", alpha=0.7)
 plt.plot(elastic.coef_, 'g', label="Elastic Net", alpha=0.7)
 plt.legend(fontsize=14, loc='upper right')
-plt.title("Señal densa y alta correlación", fontsize=16)
+#plt.title("Señal densa y alta correlación", fontsize=16)
 plt.xlabel("Coeficientes", fontsize=14)
 plt.show()
 ```
@@ -1219,17 +1203,14 @@ viewof c1 = Inputs.range([0.5, 10], {
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2.4.11</span> 
+<span class="badge bg-primary">Ejemplo 2.4.12</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Señal esparsa y casi ortogonal
 </span>
 
-Simularemos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las $s$ *variables activas* ($s\ll p$) les asignamos el mismo valor $c\in\RR^+$. Además, la matriz de datos $X$ es casi ortogonal, es decir,
-$$
-X^\top X\approx n I_p.
-$$
+Simulamos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las $s$ *variables activas* ($s\ll p$) les asignamos el mismo valor $c\in\RR^+$. Además, la matriz de datos $X$ es casi ortogonal ($X^\top X\approx n I_p$).
 
-Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net queda intermedio, comportándose de manera similar a Lasso si el término de penalización $\lambda_2$ resulta pequeño.
+Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net, en este escenario, tenderá a seleccionar un predominio de la penalización $\ell_1$, acercándolo al comportamiento de Lasso.
 
 ```{pyodide-python}
 #| echo: false
@@ -1243,6 +1224,8 @@ from sklearn.linear_model import RidgeCV, LassoCV, ElasticNetCV
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+
+np.random.seed(42)
 
 # ⚙️ Hiperparámetros de simulación: 
 n, p = n2, p2
@@ -1279,19 +1262,19 @@ mse_lasso = mean_squared_error(y_test, y_pred_lasso)
 mse_en = mean_squared_error(y_test, y_pred_en)
 
 # 📋:
-print("MSE en test:")
-print(f" Ridge:      {mse_ridge:.4f}")
-print(f" Lasso:      {mse_lasso:.4f}")
-print(f" ElasticNet: {mse_en:.4f}")
+#print("MSE en test:")
+#print(f" Ridge:      {mse_ridge:.4f}")
+#print(f" Lasso:      {mse_lasso:.4f}")
+#print(f" ElasticNet: {mse_en:.4f}")
 
 # 📈:
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 6))
 plt.plot(theta_star, 'k--', label=r"$\theta^\ast$")
 plt.plot(ridge.coef_, 'b', label="Ridge", alpha=0.7)
 plt.plot(lasso.coef_, 'r', label="Lasso", alpha=0.7)
 plt.plot(elastic.coef_, 'g', label="Elastic Net", alpha=0.7)
-plt.legend(fontsize=14, loc='upper right')
-plt.title("Señal muy esparsa y casi ortogonal", fontsize=16)
+plt.legend(fontsize=14, loc='upper left')
+#plt.title("Señal muy esparsa y casi ortogonal", fontsize=16)
 plt.xlabel("Coeficientes", fontsize=14)
 plt.show()
 ```
@@ -1311,9 +1294,9 @@ viewof p2 = Inputs.range([10, 100], {
   value: 50
 })
 
-viewof s = Inputs.range([1, 50], {
-  step: 2,
-  label: "Correlación (ρ):",
+viewof s = Inputs.range([1, 20], {
+  step: 1,
+  label: "Esparsidad (s):",
   value: 5
 })
 
@@ -1328,12 +1311,12 @@ viewof c2 = Inputs.range([0.5, 10], {
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2.4.12</span> 
+<span class="badge bg-primary">Ejemplo 2.4.13</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Esparsidad por grupos
 </span>
 
-Simularemos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación ($\rho=0.9$, por defecto) y todos los coeficientes son no nulos.
+Simulamos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación ($\rho=0.9$, por defecto) y todos los coeficientes son no nulos.
 
 Se espera un mejor rendimiento de Elastic Net en comparación con Lasso y Ridge, ya que Elastic Net selecciona grupos completos de variables altamente correlacionadas, mientras que Lasso tiende a elegir solo un representante por grupo y Ridge no realiza selección de variables.
 
@@ -1350,15 +1333,17 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+np.random.seed(42)
+
 # ⚙️ Hiperparámetros de simulación:
-n, p = 300, 100
+n, p = n3, p3
 num_groups = n_g
 group_size = p // num_groups
-active_groups = np.random.choice(num_groups, size=a_g, replace=False)
+active_groups = np.random.choice(num_groups, a_g, replace=False)
 
 sigma = 1.0
 c = c3
-rho = 0.95 
+rho = rho3
 
 # Generación de datos:
 Sigma = np.eye(p) * (1 - rho)
@@ -1394,19 +1379,19 @@ mse_lasso = mean_squared_error(y_test, y_pred_lasso)
 mse_en = mean_squared_error(y_test, y_pred_en)
 
 # 📋:
-print("MSE en test:")
-print(f" Ridge:      {mse_ridge:.4f}")
-print(f" Lasso:      {mse_lasso:.4f}")
-print(f" ElasticNet: {mse_en:.4f}")
+#print("MSE en test:")
+#print(f" Ridge:      {mse_ridge:.4f}")
+#print(f" Lasso:      {mse_lasso:.4f}")
+#print(f" ElasticNet: {mse_en:.4f}")
 
 # 📈:
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 6))
 plt.plot(theta_star, 'k--', label=r"$\theta^\ast$")
 plt.plot(ridge.coef_, 'b', label="Ridge", alpha=0.7)
 plt.plot(lasso.coef_, 'r', label="Lasso", alpha=0.7)
 plt.plot(elastic.coef_, 'g', label="Elastic Net", alpha=0.7)
 plt.legend(fontsize=14, loc='upper right')
-plt.title("Señal con esparsidad por grupos", fontsize=16)
+#plt.title("Señal con esparsidad por grupos", fontsize=16)
 plt.xlabel("Coeficientes", fontsize=14)
 plt.show()
 ```
@@ -1417,19 +1402,19 @@ plt.show()
 viewof n3 = Inputs.range([50, 500], {
   step: 50,
   label: "N° obs. (n):",
-  value: 300
+  value: 200
 })
 
-viewof p3 = Inputs.range([10, 200], {
+viewof p3 = Inputs.range([10, 100], {
   step: 5,
   label: "N° pred. (p):",
-  value: 100
+  value: 80
 })
 
 viewof n_g = Inputs.range([1, 20], {
   step: 1,
   label: "N° grupos:",
-  value: 8
+  value: 10
 })
 
 viewof a_g = Inputs.range([1, 10], {
@@ -1441,13 +1426,13 @@ viewof a_g = Inputs.range([1, 10], {
 viewof rho3 = Inputs.range([0.5, 1], {
   step: 0.1,
   label: "Correlación (ρ):",
-  value: 0.90
+  value: 0.95
 })
 
 viewof c3 = Inputs.range([0.5, 10], {
   step: 0.5,
   label: "Escala (c):",
-  value: 3.0
+  value: 1.5
 })
 ```
 
@@ -1459,7 +1444,7 @@ viewof c3 = Inputs.range([0.5, 10], {
 
 ## IV <span style="color:#CCCCCC;">│</span>  Sobre GLM penalizados
 
-En la sección anterior ([C2-S3](https://isaiasibanez.github.io/OML2/CAPITULO_2/B3_glm.html#optimalidad)) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). En la expresión (2.3.4) habíamos definido el problema de optimización asociado, que puede ser escrito también como
+En ([C2-S3](https://isaiasibanez.github.io/OML2/CAPITULO_2/B3_glm.html#optimalidad)) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). En la expresión (2.3.6) habíamos definido el problema de optimización asociado, que puede ser escrito también como
 $$
 \begin{array}{ll}
 \text{minimizar } & \displaystyle\frac{1}{n}\sum_{i=1}^n\left[A(\bftheta^\top\xx_i)-\bftheta^\top\xx_i\, T(y_i)\right].
@@ -1474,16 +1459,16 @@ donde $\bfmu\in\RR^n$ está determinado por $\mu_i:=A'(\bftheta^\top\xx_i)=\medi
 
 Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros $\bftheta$ da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Como sabemos, para el caso de problemas de optimización sin restricciones, dichas condiciones se reducen a la condición de estacionariedad. Por ejemplo, para Elastic Net resulta
 $$
-\frac{1}{n}X^\top(\bfmu-T(\yy))+\lambda_1\partial\|\bftheta\|_1+2\lambda_2\bftheta=\bfzero.
+\bfzero\in \frac{1}{n}X^\top(\bfmu-T(\yy))+\lambda_1\partial\|\bftheta\|_1+2\lambda_2\bftheta.
 $$
 
 Los estimadores penalizados Ridge, Lasso y Elastic Net se comportan de manera análoga a los casos lineales: Ridge reduce varianza en señales densas y correlacionadas, Lasso permite recuperación de soporte bajo ciertas condiciones de curvatura, y Elastic Net combina la selección de Lasso con mayor estabilidad frente a colinealidad. Las tasas no-asintóticas y garantías de consistencia se expresan de forma similar, adaptando al contexto de la familia exponencial.
 
 Respecto a los algoritmos iterativos que se utilizan para aproximar $\hat{\bftheta}$, los más comunes son:
 
-- *IRLS*: para GLKM con penalización Ridge, el algoritmo IRLS se mantiene esencialmente sin modificaciones respecto al caso no penalizado. En cada iteración se resuelve un problema de mínimos cuadrados ponderados (WLS), incorporando la penalización $\ell_2$ al cálculo.
+- **IRLS**. Para GLM con penalización Ridge, el algoritmo IRLS se mantiene esencialmente sin modificaciones respecto al caso no penalizado. En cada iteración se resuelve un problema de mínimos cuadrados ponderados (WLS), incorporando la penalización $\ell_2$ al cálculo.
 
-- *Descenso por coordenadas cíclico*: para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando el operador de *soft-thresholding*. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado, por ejemplo, en [`sklearn.linear_model`](https://scikit-learn.org/stable/modules/linear_model.html).
+- **Descenso por coordenadas**. Para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando el operador de *soft-thresholding*. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado, por ejemplo, en [`sklearn.linear_model`](https://scikit-learn.org/stable/modules/linear_model.html).
 
 
 

@@ -320,9 +320,12 @@ window.Quarto = {
 <p>$$ </p>
 <p>$$</p>
 </div>
+<div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
-<p><a href="../material/apunte_c2s4.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
-<p><a href="../material/tp_c2s4.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+<p><a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
+<p><a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+</div>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 12/10/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -349,9 +352,8 @@ J(\boldsymbol{\theta})=\sum_{i=1}^n\text{loss}\,(y_i,f({\bf x}_i;\boldsymbol{\th
 \]</span></p>
 <p>donde <span class="math inline">\(t&gt;0\)</span> es un <em>hiperparámetro de umbral</em> ligado al valor de <span class="math inline">\(\lambda\)</span>.</p>
 <p>Dependiendo de la forma del término de penalización, se obtienen diferentes métodos de regularización. En este apunte nos centraremos en las dos variantes principales, <em>Ridge regression</em> y <em>Lasso</em>, aplicadas al problema de regresión lineal, analizando su formulación matemática y sus características principales. Ambos métodos serán estudiados tanto en su formulación penalizada (2.4.1) como en su versión restringida (2.4.2). Además, para un conjunto de datos de entrenamiento <span class="math inline">\(\{({\bf x}_i,y_i)\}_{i=1}^n\)</span>, la función de pérdida está determinada por <span class="math display">\[
-J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\boldsymbol{\theta}^\top{\bf x}_i)^2,
+J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\sum_{i=1}^n(y_i-\boldsymbol{\theta}^\top{\bf x}_i)^2.
 \]</span></p>
-<p>donde MSE son las siglas de <em>mean squared error</em> (error cuadrático medio).</p>
 <div style="border-top:1px solid #b7cdf5;
             background-color: #fafbff;
             padding:0.1em 0;
@@ -369,7 +371,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <section id="i-regresión-ridge" class="level2">
 <h2 class="anchored" data-anchor-id="i-regresión-ridge">I <span style="color:#CCCCCC;">│</span> Regresión Ridge</h2>
 <div class="definicion">
-<p><strong>Definición 2.4.1.</strong> (Problema Ridge) El <em>problema de regresión Ridge</em> es <span class="math display">\[
+<p><strong>Definición 2.4.1</strong> (Problema Ridge). El <em>problema de regresión Ridge</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2,
 \tag{2.4.3}
@@ -384,7 +386,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <p>Vamos a ver que la expresión alternativa de (2.4.3) como problema de optimización con restricciones, a saber</p>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
+\text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\[3pt]
 \text{sujeto a} &amp; \|\boldsymbol{\theta}\|_2^2\leq t,
 \tag{2.4.4}
 \end{array},
@@ -393,7 +395,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 \mathcal{L}(\boldsymbol{\theta},\lambda^\star)=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda^\star(\|\boldsymbol{\theta}\|_2^2-t),
 \]</span></p>
 <p>donde <span class="math inline">\(\mathcal{L}\)</span> es el Lagrangiano y <span class="math inline">\(\lambda^\star\)</span> es un punto óptimo del problema dual de Lagrange. Observar que está ultima expresión coincide, salvo una constante aditiva, con la función objetivo de (2.4.3), tomando <span class="math inline">\(\lambda=\lambda^\star\)</span>. Es decir, que (2.4.3) y (2.4.4) son equivalentes o, lo que es lo mismo, que <span class="math inline">\(\hat{\boldsymbol{\theta}}=\hat{\boldsymbol{\theta}}^{\text{ridge}}\)</span>.</p>
-<p>No obstante, en la formulación penalizada (2.4.3) el parámetro <span class="math inline">\(\lambda&gt;0\)</span> es fijado arbitrariamente. En consecuencia, para que ambos problemas sean efectivamente equivalentes, el valor de <span class="math inline">\(t\)</span> en (2.4.4) debe ser adecuado de modo que se satisfaga <span class="math inline">\(\lambda^\star=\lambda\)</span>. Esto deriva en la siguiente pregunta:</p>
+<p>No obstante, en la formulación penalizada (2.4.3) el parámetro <span class="math inline">\(\lambda&gt;0\)</span> es fijado arbitrariamente. Así, para que ambos problemas sean efectivamente equivalentes, el valor de <span class="math inline">\(t\)</span> en (2.4.4) debe ser adecuado de modo que se satisfaga <span class="math inline">\(\lambda^\star=\lambda\)</span>. Esto deriva en la siguiente pregunta:</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -429,7 +431,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 </div>
 <section id="características-del-problema-ridge" class="level3">
 <h3 class="anchored" data-anchor-id="características-del-problema-ridge">Características del problema Ridge</h3>
-<p>Desarrollamos la función objetivo del problema Ridge (2.4.3): <span class="math display">\[
+<p>Desarrollemos la función objetivo del problema Ridge (2.4.3): <span class="math display">\[
 J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_2^2=\frac{1}{2n}\boldsymbol{\theta}^\top X^\top X\boldsymbol{\theta}+\lambda\boldsymbol{\theta}^\top\boldsymbol{\theta}-\frac{1}{n}\boldsymbol{\theta}^\top X^\top{\bf y}+\frac{1}{2n}{\bf y}^\top{\bf y}.
 \]</span></p>
 <div style="margin-top:1em;">
@@ -496,51 +498,59 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.4.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Ridge en datos de diabetes </span></p>
-<p>Utilizaremos el conjunto de datos de diabetes de <code>sklearn.datasets</code> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>, el cual consiste en 442 observaciones de 10 variables predictoras.</p>
-<p>Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
-<div id="ca37516f" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Datos:</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb1-11"><a href="#cb1-11"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Parámetro lambda:</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Entrenamiento de Ridge:</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>coefs <span class="op">=</span> []</span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb1-19"><a href="#cb1-19"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    ridge.fit(X, y)</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    coefs.append(ridge.coef_)</span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>coefs <span class="op">=</span> np.array(coefs)</span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co"># MSE:</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a>mse_means <span class="op">=</span> []</span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
-<span id="cb1-28"><a href="#cb1-28"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a)</span>
-<span id="cb1-29"><a href="#cb1-29"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(ridge, X, y,</span>
-<span id="cb1-30"><a href="#cb1-30"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb1-32"><a href="#cb1-32"></a>    mse_means.append(mse_scores.mean())</span>
-<span id="cb1-33"><a href="#cb1-33"></a></span>
-<span id="cb1-34"><a href="#cb1-34"></a><span class="co"># Mejor lambda por CV:</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>Ridge_cv <span class="op">=</span> RidgeCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>)</span>
-<span id="cb1-36"><a href="#cb1-36"></a>Ridge_cv.fit(X, y)</span>
-<span id="cb1-37"><a href="#cb1-37"></a>best_lambda <span class="op">=</span> Ridge_cv.alpha_</span>
-<span id="cb1-38"><a href="#cb1-38"></a></span>
-<span id="cb1-39"><a href="#cb1-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
-<span id="cb1-40"><a href="#cb1-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Utilizaremos el conjunto de datos <em>Diabetes</em> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html">disponible aquí</a>, el cual consiste en 442 observaciones de 10 variables predictoras. La variable respuesta es una medida cuantitativa de la progresión de la diabetes, por lo que se trata de un problema de regresión. Veremos el efecto que causa el valor del parámetro <span class="math inline">\(\lambda\)</span> en el valor de los coeficientes estimados para el modelo. Además, elegiremos <span class="math inline">\(\lambda\)</span> por validación cruzada y presentaremos los coeficientes resultantes del modelo ajustado.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="e70cc5c0" class="cell" data-execution_count="2">
+<div class="callout-body-container">
+<p>En este ejemplo utilizamos la implementación <code>Ridge</code> de <code>scikit-learn</code>, la cual emplea por defecto un solver que selecciona automáticamente el algoritmo de optimización más adecuado para el problema. Entre los algoritmos disponibles se encuentran métodos directos e iterativos, como la factorización de Cholesky y LSQR.</p>
+</div>
+</div>
+</div>
+<div id="f31c63d4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Datos:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>X, y <span class="op">=</span> load_diabetes(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb1-10"><a href="#cb1-10"></a>X <span class="op">=</span> scaler.fit_transform(X)  </span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Parámetro lambda:</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>lambdas <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">200</span>) </span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Entrenamiento de Ridge:</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>coefs <span class="op">=</span> []</span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a, fit_intercept<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    ridge.fit(X, y)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    coefs.append(ridge.coef_)</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>coefs <span class="op">=</span> np.array(coefs)</span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="co"># MSE:</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>mse_means <span class="op">=</span> []</span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="cf">for</span> a <span class="kw">in</span> lambdas:</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span>a)</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    mse_scores <span class="op">=</span> <span class="op">-</span>cross_val_score(ridge, X, y,</span>
+<span id="cb1-29"><a href="#cb1-29"></a>                                  scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30"></a>                                  cv<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    mse_means.append(mse_scores.mean())</span>
+<span id="cb1-32"><a href="#cb1-32"></a></span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="co"># Mejor lambda por CV:</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>Ridge_cv <span class="op">=</span> RidgeCV(alphas<span class="op">=</span>lambdas, cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35"></a>Ridge_cv.fit(X, y)</span>
+<span id="cb1-36"><a href="#cb1-36"></a>best_lambda <span class="op">=</span> Ridge_cv.alpha_</span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb1-39"><a href="#cb1-39"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="41d4f902" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -571,9 +581,9 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <section id="ii-lasso" class="level2">
 <h2 class="anchored" data-anchor-id="ii-lasso">II <span style="color:#CCCCCC;">│</span> Lasso</h2>
 <div class="definicion">
-<p><strong>Definición 2.4.3.</strong> (Problema Lasso) El <em>problema de regresión Lasso</em> es <span class="math display">\[
+<p><strong>Definición 2.4.3</strong> (Problema Lasso). El <em>problema de regresión Lasso</em> es <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_1,
+\text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\|\boldsymbol{\theta}\|_1,
 \end{array}
 \tag{2.4.6}
 \]</span> con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda&gt;0\)</span> el hiperparámetro. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>, es el <em>estimador Lasso</em> de los coeficientes de la regresión.</p>
@@ -583,7 +593,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 <p>De manera similar al análisis para el problema Ridge, el problema Lasso admite la siguiente formulación con restricciones: <span class="math display">\[
 \begin{array}{ll}
-\text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\
+\text{minimizar} &amp; \displaystyle\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2 \\[3pt]
 \text{sujeto a} &amp; \|\boldsymbol{\theta}\|_1\leq t.
 \end{array}
 \tag{2.4.7}
@@ -606,7 +616,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 <section id="características-del-problema-lasso" class="level3">
 <h3 class="anchored" data-anchor-id="características-del-problema-lasso">Características del problema Lasso</h3>
-<p>Una de las principales diferencias entre el problema Lasso y el problema Ridge queda determinado por la siguiente afirmación:</p>
+<p>Una de las principales diferencias entre el problema Lasso y el problema Ridge es que:</p>
 <div class="myhighlight">
 <p>El problema Lasso o bien tiene solución única o bien tiene infinitas soluciones.</p>
 </div>
@@ -635,6 +645,9 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 t\hat{\boldsymbol{\theta}}^{\text{lasso},1}+(1-t)\hat{\boldsymbol{\theta}}^{\text{lasso},2},\qquad t\in(0,1),
 \]</span> también es una solución, por convexidad del conjunto solución de un problema de optimización convexa.</p></li>
 </ul>
+<div style="margin-top:1em;">
+
+</div>
 <p>Otras características importantes del problema Lasso se enuncian en el siguiente lema.</p>
 <div class="teorema">
 <p><strong>Lema 2.4.4.</strong> Sean <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, <span class="math inline">\({\bf y}\in\mathbb{R}^n\)</span> y <span class="math inline">\(\lambda&gt;0\)</span>. El valor <em>fiteado</em> <span class="math inline">\(X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> y la norma <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}\|_1\)</span> son independientes de la elección del estimador Lasso.</p>
@@ -699,13 +712,13 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <ul>
 <li><p>El subdiferencial <span class="math inline">\(\partial f({\bf x}_0)\)</span> es siempre un conjunto convexo no vacío.</p></li>
 <li><p>Si <span class="math inline">\(f\)</span> es diferenciable en <span class="math inline">\({\bf x}_0\)</span>, entonces <span class="math inline">\(\partial f({\bf x}_0)=\{\nabla f({\bf x}_0)\}\)</span>.</p></li>
-<li><p>La condición de optimalidad para problemas de optimización <em>sin restricciones</em> está dada por el siguiente resultado. La prueba es sencilla y queda como ejercicio.</p></li>
 </ul>
+</div>
+<p>La condición de optimalidad para problemas de optimización <em>sin restricciones</em> puede expresarse en términos del subdiferencial, tal como establece el siguiente resultado. La prueba es sencilla y se deriva de la definición de subdiferencial.</p>
 <div class="teorema">
-<p><strong>Teorema 2.4.5.</strong> (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subdiferenciales) Sea <span class="math inline">\(f:\mathbb{R}^p \to \mathbb{R}\)</span> una función convexa. Entonces <span class="math inline">\({\bf x}^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
+<p><strong>Teorema 2.4.5</strong> (Condición suficiente y necesaria de optimalidad de primer orden para problemas convexos sin restricciones mediante subdiferenciales). Sea <span class="math inline">\(f:\mathbb{R}^p \to \mathbb{R}\)</span> una función convexa. Entonces <span class="math inline">\({\bf x}^\star\in\text{dom}\,f\)</span> es un minimizador de <span class="math inline">\(f\)</span> si y solo si <span class="math display">\[
 \mathbf{0}\in \partial f({\bf x}^\star).
 \]</span></p>
-</div>
 </div>
 <div style="margin-top:2em;">
 
@@ -725,9 +738,9 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 \end{cases}
 \]</span></p>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/subdiferencial_ejemplo.JPG" alt="…" width="400px" class="figure-img">
+<img src="figuras/ej_subdiferencial.png" alt="…" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.3</strong>. Subdiferencial de la función <span class="math inline">\(f(x,y)=|x| + |y|\)</span> en <span class="math inline">\((1,0)\)</span>.
+<strong>Figura 2.4.3</strong>. Subdiferencial de la norma 1 para <span class="math inline">\(p=2\)</span> en el punto <span class="math inline">\((1,0)\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -752,7 +765,7 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 \tag{2.4.9}
 \]</span></p>
 <p>En la expresión (2.4.8), la componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\({\bf r}:={\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>. En efecto, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\({\bf y}\)</span> están estandarizados, esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
-\text{cor}(X_i,{\bf r}):=\frac{\text{cov}(X_i,{\bf r})}{\sqrt{\text{var}(X_i)\text{var}({\bf r})}}=\frac{\frac{1}{n}X_i^\top{\bf r}}{\sqrt{\frac{1}{n}\|{\bf r}\|_2^2}}\propto X_i^\top{\bf r}.
+\operatorname{cor}(X_i,{\bf r}):=\frac{\mathop{\mathrm{Cov}}(X_i,{\bf r})}{\displaystyle\sqrt{\mathop{\mathrm{Var}}({\bf r})}}=\frac{\frac{1}{n}X_i^\top{\bf r}}{\sqrt{\frac{1}{n}\|{\bf r}\|_2^2}}\propto X_i^\top{\bf r}.
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -770,7 +783,7 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 
 </div>
 <div class="definicion">
-<p><strong>Definición 2.4.7.</strong> (Conjunto de equicorrelación) Sea <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> una solución del problema Lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
+<p><strong>Definición 2.4.7</strong> (Conjunto de equicorrelación). Sea <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span> una solución del problema Lasso. Se define el <em>conjunto de equicorrelación</em> <span class="math inline">\(\mathcal{E}\)</span> como <span class="math display">\[
 \mathcal{E}:=\left\{i\in\{1,\ldots,p\} \mid \left|X_i^\top \left({\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\right)\right|=n\lambda\right\}.
 \]</span></p>
 </div>
@@ -851,7 +864,7 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> Justifique la expresión (2.4.12), partiendo de (2.4.11) y marcando como constante los términos que no dependen de <span class="math inline">\(k\)</span>.</p>
+<p><span style="font-size: 1.3em;">✍️</span><br> Justifique la expresión (2.4.12).</p>
 </div>
 </div>
 </div>
@@ -872,21 +885,22 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 \]</span> con <span class="math display">\[
 s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \tau=\frac{\lambda}{Q_{kk}}.
 \]</span></p>
-<p>El estudio de (2.4.13) conduce a la denominada <mark>función de <em>soft-thresholding</em></mark>, que presentamos a continuación.</p>
+<p>El estudio de (2.4.13) conduce a la función de <em>soft-thresholding</em>, que presentamos a continuación.</p>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success text-light">Función de <em>soft-thresholding</em></span></p>
-<p>Un problema equivalente a (2.4.13) es el siguiente: <span class="math display">\[
+<p>Sean <span class="math inline">\(s\in\mathbb{R}\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. Un problema equivalente a (2.4.13) es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \displaystyle\frac{1}{2}(\theta-s)^2+\tau|\theta|.
 \end{array}
 \]</span></p>
-<p>Aquí, <span class="math inline">\(s\in\mathbb{R}\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. La función objetivo <span class="math inline">\(f\)</span> es convexa pero no diferenciable. Su subdiferencial es <span class="math display">\[
+<p>La función objetivo <span class="math inline">\(f\)</span> es convexa y su subdiferencial es <span class="math display">\[
 \partial f(\theta)=\left\{
   \begin{array}{cl}
   \{\theta-s+\tau\,\text{sign}\,\theta\} &amp; \mbox{si }\theta\neq 0\\
   [-s-\tau,-s+\tau] &amp; \mbox{si }\theta = 0.
   \end{array}
   \right.
+\tag{2.4.14}
 \]</span></p>
 <p>Sabemos que <span class="math inline">\(\theta^\star\)</span> es punto óptimo si y solo si <span class="math inline">\(0\in\partial f(\theta^\star)\)</span>. Del análisis de esta condición resulta <span class="math display">\[
 \theta^\star=\left\{\begin{array}{cl}
@@ -901,47 +915,22 @@ s+\tau &amp; \mbox{si }s&lt;-\tau.
 <span style="color:#0056b3;">ℹ Ver más información</span>
 </summary>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star&gt;0\)</span></em></span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star&lt;0\)</span></em></span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Caso <span class="math inline">\(\theta^\star=0\)</span></em></span></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Se tiene <span class="math inline">\(\text{sign}\,\theta^\star=1\)</span>. Entonces la condición resulta en <span class="math display">\[
-\begin{align}
-\theta^\star-s+\tau &amp;= 0 \\
-\theta^\star &amp;=s-\tau.
-\end{align}
-\]</span></p>
-<p>Esto es válido siempre que <span class="math inline">\(s-\tau&gt;0\)</span>.</p>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>Aquí <span class="math inline">\(\text{sign}\,\theta^\star=-1\)</span>, tal que <span class="math display">\[
-\begin{align}
-\theta^\star-s-\tau &amp; = 0 \\
-\theta^\star &amp;= s+\tau.
-\end{align}
-\]</span></p>
-<p>Esto es válido siempre que <span class="math inline">\(s+\tau &lt;0\)</span>.</p>
-</div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<p>Esto ocurre si y solo si <span class="math display">\[
-\begin{align}
--s-\tau&lt;&amp;0&lt;-s+\tau \\
--\tau &lt;&amp;s&lt;\tau \\
-&amp;|s|&lt;\tau.
-\end{align}
-\]</span></p>
+<p>(Caso <span class="math inline">\(\theta^\star&gt;0\)</span>) Dado que <span class="math inline">\(\mathop{\mathrm{sign}}\theta^\star=1\)</span>, la condición resulta en <span class="math inline">\(\theta^\star-s+\tau = 0\)</span>; esto es, <span class="math inline">\(\theta^\star =s-\tau\)</span>, lo cual es válido siempre que <span class="math inline">\(s-\tau&gt;0\)</span>. (Caso <span class="math inline">\(\theta^\star&lt;0\)</span>) Análogamente al caso anterior, obtenemos <span class="math inline">\(s+\tau &lt;0\)</span>. (Caso <span class="math inline">\(\theta^\star=0\)</span>) Esto ocurre si y solo si <span class="math inline">\(|s|&lt;\tau\)</span>.</p>
 </div>
 </div>
 </div>
 </details>
-<p>Una expresión alternativa es <span class="math display">\[
+<p>Una expresión alternativa de (2.4.14) es <span class="math display">\[
 \theta^\star=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 \]</span></p>
 <div class="definicion">
-<p><strong>Definición 2.4.8.</strong> (Función <em>soft-thresholding</em>) Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\mathbb{R}\to\mathbb{R}\)</span> se define por <span class="math display">\[
+<p><strong>Definición 2.4.8</strong> (Función <em>soft-thresholding</em>). Sea <span class="math inline">\(\tau&gt;0\)</span>. La función <em>soft-thresholding</em> <span class="math inline">\(\text{soft}_{\tau}:\mathbb{R}\to\mathbb{R}\)</span> se define por <span class="math display">\[
 \text{soft}_{\tau}(s):=\text{sign}(s)\cdot\max\{|s|-\tau,0\}.
 \]</span></p>
 </div>
-<p>Veamos la gráfica:</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -951,11 +940,11 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="877" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 876;"><span id="cb3-877"><a href="#cb3-877" aria-hidden="true" tabindex="-1"></a>viewof tau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.5</span>]<span class="op">,</span> {</span>
-<span id="cb3-878"><a href="#cb3-878" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb3-879"><a href="#cb3-879" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"𝜏:"</span><span class="op">,</span></span>
-<span id="cb3-880"><a href="#cb3-880" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb3-881"><a href="#cb3-881" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="857" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 856;"><span id="cb3-857"><a href="#cb3-857" aria-hidden="true" tabindex="-1"></a>viewof tau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.5</span>]<span class="op">,</span> {</span>
+<span id="cb3-858"><a href="#cb3-858" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb3-859"><a href="#cb3-859" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"𝜏:"</span><span class="op">,</span></span>
+<span id="cb3-860"><a href="#cb3-860" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb3-861"><a href="#cb3-861" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -975,19 +964,19 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p>⚙ <span class="badge bg-custom">Algoritmo de descenso por coordenadas</span></p>
-<hr>
-<p>Dado un <em>párametro inicial</em> <span class="math inline">\(\boldsymbol{\theta}^{(0)}\in\mathbb{R}^p\)</span> (en general, <span class="math inline">\(\boldsymbol{\theta}^{(0)}=\mathbf{0}\)</span>) y un <em>hiperparámetro de penalización</em> <span class="math inline">\(\lambda&gt;0\)</span>:</p>
+<p>Dado un <em>párametro inicial</em> <span class="math inline">\(\boldsymbol{\theta}^{(0)}\in\mathbb{R}^p\)</span> y un <em>hiperparámetro de penalización</em> <span class="math inline">\(\lambda&gt;0\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 1,2,\dots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 1.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Inicializar <span class="math inline">\(\boldsymbol{\theta}^{(t)}=\boldsymbol{\theta}^{(t-1)}\)</span>.</p>
-<p><strong>2°</strong> Para <span class="math inline">\(k=1,\ldots,p\)</span>:</p>
+<p>Inicializar <span class="math inline">\(\boldsymbol{\theta}^{(t)}=\boldsymbol{\theta}^{(t-1)}\)</span>.</p>
+<p>Para <span class="math inline">\(k=1,\ldots,p\,\)</span>:</p>
 <p><span class="math inline">\(\qquad\)</span> ● Calcular <span class="math inline">\(s_k=\left(v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i^{(t)}\right)/Q_{kk}\)</span>.</p>
 <p><span class="math inline">\(\qquad\)</span> ● Actualizar <span class="math inline">\(\theta_k^{(t)}=\text{soft}_{\tau}(s_k)\)</span> con <span class="math inline">\(\tau=\lambda/Q_{kk}\)</span>.</p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
-<hr>
 </div>
 <div style="margin-top:2em;">
 
@@ -997,9 +986,9 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2.4.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
+<p><span class="badge bg-primary">Ejemplo 2.4.9</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
 <p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="e29e6b02" class="cell" data-execution_count="3">
+<div id="b81e59c2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1041,7 +1030,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a1314efc" class="cell" data-execution_count="4">
+<div id="d0e5e3de" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1073,7 +1062,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <h2 class="anchored" data-anchor-id="iii-elastic-net-convergencia-y-comparaciones">III <span style="color:#CCCCCC;">│</span> Elastic Net, convergencia y comparaciones</h2>
 <p>Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método <em>Elastic Net</em> combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunjs ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.</p>
 <div class="definicion">
-<p><strong>Definición 2.4.9.</strong> (Problema Elastic Net) El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
+<p><strong>Definición 2.4.10</strong> (Problema Elastic Net). El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda_1\|\boldsymbol{\theta}\|_1+\lambda_2\|\boldsymbol{\theta}\|_2^2.
 \tag{17}
@@ -1091,20 +1080,22 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 
 </div>
 <ul>
-<li><p><em>Problema Ridge</em>: bajo las condiciones <span class="math inline">\(\frac{1}{n}X^\top X\to\Sigma\)</span> y <span class="math inline">\(\lambda=\lambda(n)\to 0\)</span>, el estimador Ridge es consistente y sus predicciones tienden a las verdaderas.</p>
+<li><p><strong>Problema Ridge</strong>. Bajo las condiciones <span class="math inline">\(\frac{1}{n}X^\top X\to\Sigma\)</span> y <span class="math inline">\(\lambda=\lambda(n)\to 0\)</span>, el estimador Ridge es consistente y sus predicciones tienden a las verdaderas.</p>
 <p><small>📖 Hoerl, A. E., &amp; Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67. </small></p>
 <p>Por otra parte, definiendo <span class="math display">\[
   S_{\lambda}:=X(X^\top X+n\lambda I)^{-1}X^\top,
   \]</span> se puede descomponer el <em>riesgo</em> de la siguiente forma: <span class="math display">\[
-  \frac{1}{n}\mathbb{E}\|X(\hat{\boldsymbol{\theta}}^{\text{ridge}}-\boldsymbol{\theta}^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\boldsymbol{\theta}^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2),
-  \]</span> lo cual exhibe que existe un <span class="math inline">\(\lambda_2^\star\)</span> que minimiza el riesgo. Esto implica que, en señales densas y de alta colinealidad, Ridge puede predecir mejor que los otros métodos.</p>
+  \frac{1}{n}\mathbb{E}\|X(\hat{\boldsymbol{\theta}}^{\text{ridge}}-\boldsymbol{\theta}^\star)\|_2^2=\frac{1}{n}\|(S_{\lambda}-I)X\boldsymbol{\theta}^\star\|_2^2+\frac{\sigma^2}{n}\text{tr}\,(S_{\lambda}^2).
+  \]</span></p>
+<p>Esta descomposición exhibe un balance entre sesgo y varianza. El primer término (sesgo cuadrático) crece con <span class="math inline">\(\lambda\)</span>, pues una penalización mayor aleja la solución de <span class="math inline">\(\boldsymbol{\theta}^\star\)</span>. El segundo término (varianza) decrece con <span class="math inline">\(\lambda\)</span>, ya que los autovalores de <span class="math inline">\(S_\lambda\)</span> son de la forma <span class="math inline">\(d_j^2/(d_j^2+n\lambda)\)</span>, que son decrecientes en <span class="math inline">\(\lambda\)</span>. Este balance garantiza la existencia de un valor óptimo <span class="math inline">\(\lambda^\star&gt;0\)</span> que minimiza el riesgo.</p>
+<p>En particular, en señales densas y de alta colinealidad, Ridge tiende a predecir mejor que los otros métodos.</p>
 <p><small>📖 Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The elements of statistical learning</em> (2nd ed.). Springer. </small></p></li>
 </ul>
 <div style="margin-top:2em;">
 
 </div>
 <ul>
-<li><p><em>Problema Lasso</em>: existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción <span class="math display">\[
+<li><p><strong>Problema Lasso</strong>. Existen resultados de tasas no-asintóticas que proveen cotas para la estimación del error de predicción <span class="math display">\[
 \frac{1}{n}\|X(\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}^\star)\|_2^2
 \]</span> y para <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_1\)</span> y <span class="math inline">\(\|\hat{\boldsymbol{\theta}}^{\text{lasso}}-\boldsymbol{\theta}\|_2\)</span>, bajo condiciones razonables conocidas como <em>compatibilidad</em> y <em>RE</em> (<em>restricted eigenvalue</em>) que controlan el comportamiento de los datos, evitando que haya confusiones entre variables relevantes e irrelevantes.</p>
 <p><small>📖 Bühlmann, P., &amp; van de Geer, S. (2011). <em>Statistics for high-dimensional data: Methods, theory and applications</em>. Springer. </small></p>
@@ -1115,7 +1106,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 
 </div>
 <ul>
-<li><p><em>Elastic Net</em>: puede reescribirse como un problema Lasso sobre la matriz aumentada <span class="math display">\[
+<li><p><strong>Elastic Net</strong>. Puede reescribirse como un problema Lasso sobre la matriz aumentada <span class="math display">\[
   \begin{pmatrix}
   X \\
   \sqrt{n\lambda_2} I_p
@@ -1131,44 +1122,44 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <section id="ejemplos-comparativos" class="level3">
 <h3 class="anchored" data-anchor-id="ejemplos-comparativos">Ejemplos comparativos</h3>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2.4.10</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal densa y alta correlación </span></p>
-<p>Simularemos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\boldsymbol{\theta}^\star\in\mathbb{R}^p\)</span> dado por <span class="math display">\[
+<p><span class="badge bg-primary">Ejemplo 2.4.11</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal densa y alta correlación </span></p>
+<p>Simulamos un escenario donde todas las variables predictoras contribuyen al modelo, con vector de coeficientes verdadero <span class="math inline">\(\boldsymbol{\theta}^\star\in\mathbb{R}^p\)</span> dado por <span class="math display">\[
 \theta_j^\star=\frac{c}{\sqrt{p}}\qquad\forall j=1,\ldots,p,\qquad c\in\mathbb{R}^+.
 \]</span></p>
 <p>La matriz de datos <span class="math inline">\(X\)</span> tiene correlación alta (<span class="math inline">\(\rho=0.9\)</span>, por defecto) entre todas sus columnas.</p>
-<p>Se espera un mejor rendimiento de Ridge en comparación con Lasso, ya que Ridge reparte la señal entre todas las variables altamente correlacionadas, mientras que Lasso tiende a sobre-encoger muchos coeficientes útiles. Elastic Net queda intermedio, combinando ambas estrategias.</p>
+<p>Se espera un mejor rendimiento de Ridge en comparación con Lasso, ya que Ridge reparte la señal entre todas las variables altamente correlacionadas, mientras que Lasso tiende a sobre-encoger muchos coeficientes útiles. Elastic Net seleccionará por validación cruzada un valor de <span class="math inline">\(\lambda_1\)</span> pequeño, comportándose de manera similar a Ridge en este escenario.</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
 </div>
 <script type="pyodide-2-contents">
-eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4xIiwicDEiLCJyaG8xIiwiYzEiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxuIyDimpnvuI8gSGlwZXJwYXLDoW1ldHJvcyBkZSBzaW11bGFjacOzbjogXG5uLCBwID0gbjEsIHAxICBcbnJobyA9IHJob1xuc2lnbWEgPSAxLjAgICAgICAgXG5jID0gYzEgICAgICAgICAgIFxuXG4jIE1vZGVsbzpcbnRoZXRhX3N0YXIgPSAoYyAvIG5wLnNxcnQocCkpICogbnAub25lcyhwKSBcblxuIyBHZW5lcmFjacOzbiBkZSBkYXRvczpcblNpZ21hID0gcmhvICogbnAub25lcygocCwgcCkpICsgKDEgLSByaG8pICogbnAuZXllKHApXG5YX3JhdyA9IG5wLnJhbmRvbS5tdWx0aXZhcmlhdGVfbm9ybWFsKG5wLnplcm9zKHApLCBTaWdtYSwgc2l6ZT1uKVxuc2NhbGVyID0gU3RhbmRhcmRTY2FsZXIoKVxuWCA9IHNjYWxlci5maXRfdHJhbnNmb3JtKFhfcmF3KSAgXG55ID0gWCBAIHRoZXRhX3N0YXIgKyBzaWdtYSAqIG5wLnJhbmRvbS5yYW5kbihuKSAgICAgIFxuXG5YX3RyYWluLCBYX3Rlc3QsIHlfdHJhaW4sIHlfdGVzdCA9IHRyYWluX3Rlc3Rfc3BsaXQoWCwgeSwgdGVzdF9zaXplPTAuMywgcmFuZG9tX3N0YXRlPTQyKVxuXG4jIEFqdXN0ZSBjb24gdmFsaWRhY2nDs24gY3J1emFkYTpcbnJpZGdlID0gUmlkZ2VDVihhbHBoYXM9bnAubG9nc3BhY2UoLTMsIDMsIDUwKSwgY3Y9NSkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5sYXNzbyA9IExhc3NvQ1YoYWxwaGFzPW5wLmxvZ3NwYWNlKC0zLCAxLCA1MCksIGN2PTUsIG1heF9pdGVyPTUwMDApLmZpdChYX3RyYWluLCB5X3RyYWluKVxuZWxhc3RpYyA9IEVsYXN0aWNOZXRDVihsMV9yYXRpbz1bMC4yLCAwLjUsIDAuOF0sIGFscGhhcz1ucC5sb2dzcGFjZSgtMywgMSwgMzApLCBjdj01LCBtYXhfaXRlcj01MDAwKS5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyBQcmVkaWNjaW9uZXMgZW4gdGVzdDpcbnlfcHJlZF9yaWRnZSA9IHJpZGdlLnByZWRpY3QoWF90ZXN0KVxueV9wcmVkX2xhc3NvID0gbGFzc28ucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfZW4gPSBlbGFzdGljLnByZWRpY3QoWF90ZXN0KVxuXG4jIE1TRSBlbiB0ZXN0OlxubXNlX3JpZGdlID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX3JpZGdlKVxubXNlX2xhc3NvID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2xhc3NvKVxubXNlX2VuID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2VuKVxuXG4jIPCfk4s6XG5wcmludChcIk1TRSBlbiB0ZXN0OlwiKVxucHJpbnQoZlwiIFJpZGdlOiAgICAgIHttc2VfcmlkZ2U6LjRmfVwiKVxucHJpbnQoZlwiIExhc3NvOiAgICAgIHttc2VfbGFzc286LjRmfVwiKVxucHJpbnQoZlwiIEVsYXN0aWNOZXQ6IHttc2VfZW46LjRmfVwiKVxuXG4jIPCfk4g6XG5wbHQuZmlndXJlKGZpZ3NpemU9KDEwLCA2KSlcbnBsdC5wbG90KHRoZXRhX3N0YXIsICdrLS0nLCBsYWJlbD1yXCIkXFx0aGV0YV5cXGFzdCRcIilcbnBsdC5wbG90KHJpZGdlLmNvZWZfLCAnYicsIGxhYmVsPVwiUmlkZ2VcIiwgYWxwaGE9MC43KVxucGx0LnBsb3QobGFzc28uY29lZl8sICdyJywgbGFiZWw9XCJMYXNzb1wiLCBhbHBoYT0wLjcpXG5wbHQucGxvdChlbGFzdGljLmNvZWZfLCAnZycsIGxhYmVsPVwiRWxhc3RpYyBOZXRcIiwgYWxwaGE9MC43KVxucGx0LmxlZ2VuZChmb250c2l6ZT0xNCwgbG9jPSd1cHBlciByaWdodCcpXG5wbHQudGl0bGUoXCJTZcOxYWwgZGVuc2EgeSBhbHRhIGNvcnJlbGFjacOzblwiLCBmb250c2l6ZT0xNilcbnBsdC54bGFiZWwoXCJDb2VmaWNpZW50ZXNcIiwgZm9udHNpemU9MTQpXG5wbHQuc2hvdygpIn0=
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4xIiwicDEiLCJyaG8xIiwiYzEiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxubnAucmFuZG9tLnNlZWQoNDIpXG5cbiMg4pqZ77iPIEhpcGVycGFyw6FtZXRyb3MgZGUgc2ltdWxhY2nDs246IFxubiwgcCA9IG4xLCBwMSAgXG5yaG8gPSByaG8xXG5zaWdtYSA9IDEuMCAgICAgICBcbmMgPSBjMSAgICAgICAgICAgXG5cbiMgTW9kZWxvOlxudGhldGFfc3RhciA9IChjIC8gbnAuc3FydChwKSkgKiBucC5vbmVzKHApIFxuXG4jIEdlbmVyYWNpw7NuIGRlIGRhdG9zOlxuU2lnbWEgPSByaG8gKiBucC5vbmVzKChwLCBwKSkgKyAoMSAtIHJobykgKiBucC5leWUocClcblhfcmF3ID0gbnAucmFuZG9tLm11bHRpdmFyaWF0ZV9ub3JtYWwobnAuemVyb3MocCksIFNpZ21hLCBzaXplPW4pXG5zY2FsZXIgPSBTdGFuZGFyZFNjYWxlcigpXG5YID0gc2NhbGVyLmZpdF90cmFuc2Zvcm0oWF9yYXcpICBcbnkgPSBYIEAgdGhldGFfc3RhciArIHNpZ21hICogbnAucmFuZG9tLnJhbmRuKG4pICAgICAgXG5cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4zLCByYW5kb21fc3RhdGU9NDIpXG5cbiMgQWp1c3RlIGNvbiB2YWxpZGFjacOzbiBjcnV6YWRhOlxuYWxwaGFzID0gbnAubG9nc3BhY2UoLTMsIDIsIDUwKVxucmlkZ2UgICA9IFJpZGdlQ1YoYWxwaGFzPWFscGhhcywgY3Y9NSkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5sYXNzbyAgID0gTGFzc29DVihhbHBoYXM9YWxwaGFzLCBjdj01LCBtYXhfaXRlcj01MDAwKS5maXQoWF90cmFpbiwgeV90cmFpbilcbmVsYXN0aWMgPSBFbGFzdGljTmV0Q1YobDFfcmF0aW89WzAuMiwgMC41LCAwLjhdLCBhbHBoYXM9YWxwaGFzLCBjdj01LCBtYXhfaXRlcj01MDAwKS5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyBQcmVkaWNjaW9uZXMgZW4gdGVzdDpcbnlfcHJlZF9yaWRnZSA9IHJpZGdlLnByZWRpY3QoWF90ZXN0KVxueV9wcmVkX2xhc3NvID0gbGFzc28ucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfZW4gPSBlbGFzdGljLnByZWRpY3QoWF90ZXN0KVxuXG4jIE1TRSBlbiB0ZXN0OlxubXNlX3JpZGdlID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX3JpZGdlKVxubXNlX2xhc3NvID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2xhc3NvKVxubXNlX2VuID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2VuKVxuXG4jIPCfk4s6XG4jcHJpbnQoXCJNU0UgZW4gdGVzdDpcIilcbiNwcmludChmXCIgUmlkZ2U6ICAgICAge21zZV9yaWRnZTouNGZ9XCIpXG4jcHJpbnQoZlwiIExhc3NvOiAgICAgIHttc2VfbGFzc286LjRmfVwiKVxuI3ByaW50KGZcIiBFbGFzdGljTmV0OiB7bXNlX2VuOi40Zn1cIilcblxuIyDwn5OIOlxucGx0LmZpZ3VyZShmaWdzaXplPSgxMiwgNikpXG5wbHQucGxvdCh0aGV0YV9zdGFyLCAnay0tJywgbGFiZWw9clwiJFxcdGhldGFeXFxhc3QkXCIpXG5wbHQucGxvdChyaWRnZS5jb2VmXywgJ2InLCBsYWJlbD1cIlJpZGdlXCIsIGFscGhhPTAuNylcbnBsdC5wbG90KGxhc3NvLmNvZWZfLCAncicsIGxhYmVsPVwiTGFzc29cIiwgYWxwaGE9MC43KVxucGx0LnBsb3QoZWxhc3RpYy5jb2VmXywgJ2cnLCBsYWJlbD1cIkVsYXN0aWMgTmV0XCIsIGFscGhhPTAuNylcbnBsdC5sZWdlbmQoZm9udHNpemU9MTQsIGxvYz0ndXBwZXIgcmlnaHQnKVxuI3BsdC50aXRsZShcIlNlw7FhbCBkZW5zYSB5IGFsdGEgY29ycmVsYWNpw7NuXCIsIGZvbnRzaXplPTE2KVxucGx0LnhsYWJlbChcIkNvZWZpY2llbnRlc1wiLCBmb250c2l6ZT0xNClcbnBsdC5zaG93KCkifQ==
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1193" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1192;"><span id="cb6-1193"><a href="#cb6-1193" aria-hidden="true" tabindex="-1"></a>viewof n1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb6-1194"><a href="#cb6-1194" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb6-1195"><a href="#cb6-1195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb6-1196"><a href="#cb6-1196" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
-<span id="cb6-1197"><a href="#cb6-1197" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1198"><a href="#cb6-1198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1199"><a href="#cb6-1199" aria-hidden="true" tabindex="-1"></a>viewof p1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
-<span id="cb6-1200"><a href="#cb6-1200" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb6-1201"><a href="#cb6-1201" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb6-1202"><a href="#cb6-1202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
-<span id="cb6-1203"><a href="#cb6-1203" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1204"><a href="#cb6-1204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1205"><a href="#cb6-1205" aria-hidden="true" tabindex="-1"></a>viewof rho1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb6-1206"><a href="#cb6-1206" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb6-1207"><a href="#cb6-1207" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb6-1208"><a href="#cb6-1208" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.9</span></span>
-<span id="cb6-1209"><a href="#cb6-1209" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-1210"><a href="#cb6-1210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1211"><a href="#cb6-1211" aria-hidden="true" tabindex="-1"></a>viewof c1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb6-1212"><a href="#cb6-1212" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb6-1213"><a href="#cb6-1213" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb6-1214"><a href="#cb6-1214" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
-<span id="cb6-1215"><a href="#cb6-1215" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1177" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1176;"><span id="cb6-1177"><a href="#cb6-1177" aria-hidden="true" tabindex="-1"></a>viewof n1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb6-1178"><a href="#cb6-1178" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb6-1179"><a href="#cb6-1179" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb6-1180"><a href="#cb6-1180" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
+<span id="cb6-1181"><a href="#cb6-1181" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1182"><a href="#cb6-1182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1183"><a href="#cb6-1183" aria-hidden="true" tabindex="-1"></a>viewof p1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb6-1184"><a href="#cb6-1184" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb6-1185"><a href="#cb6-1185" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb6-1186"><a href="#cb6-1186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb6-1187"><a href="#cb6-1187" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1188"><a href="#cb6-1188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1189"><a href="#cb6-1189" aria-hidden="true" tabindex="-1"></a>viewof rho1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb6-1190"><a href="#cb6-1190" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb6-1191"><a href="#cb6-1191" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
+<span id="cb6-1192"><a href="#cb6-1192" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.9</span></span>
+<span id="cb6-1193"><a href="#cb6-1193" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-1194"><a href="#cb6-1194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1195"><a href="#cb6-1195" aria-hidden="true" tabindex="-1"></a>viewof c1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb6-1196"><a href="#cb6-1196" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb6-1197"><a href="#cb6-1197" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb6-1198"><a href="#cb6-1198" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
+<span id="cb6-1199"><a href="#cb6-1199" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -1200,43 +1191,41 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2.4.11</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal esparsa y casi ortogonal </span></p>
-<p>Simularemos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\mathbb{R}^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal, es decir, <span class="math display">\[
-X^\top X\approx n I_p.
-\]</span></p>
-<p>Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net queda intermedio, comportándose de manera similar a Lasso si el término de penalización <span class="math inline">\(\lambda_2\)</span> resulta pequeño.</p>
+<p><span class="badge bg-primary">Ejemplo 2.4.12</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Señal esparsa y casi ortogonal </span></p>
+<p>Simulamos un escenario donde solo unas pocas variables predictoras contribuyen al modelo; a las <span class="math inline">\(s\)</span> <em>variables activas</em> (<span class="math inline">\(s\ll p\)</span>) les asignamos el mismo valor <span class="math inline">\(c\in\mathbb{R}^+\)</span>. Además, la matriz de datos <span class="math inline">\(X\)</span> es casi ortogonal (<span class="math inline">\(X^\top X\approx n I_p\)</span>).</p>
+<p>Se espera un mejor rendimiento de Lasso en comparación con Ridge, ya que Lasso identifica correctamente el soporte de las pocas variables activas y pone a cero los coeficientes irrelevantes. Elastic Net, en este escenario, tenderá a seleccionar un predominio de la penalización <span class="math inline">\(\ell_1\)</span>, acercándolo al comportamiento de Lasso.</p>
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
 </div>
 <script type="pyodide-3-contents">
-eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4yIiwicDIiLCJzIiwiYzIiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxuIyDimpnvuI8gSGlwZXJwYXLDoW1ldHJvcyBkZSBzaW11bGFjacOzbjogXG5uLCBwID0gbjIsIHAyXG5zID0gcyAgICAgIFxuc2lnbWEgPSAxLjBcbmMgPSBjMlxuXG4jIE1vZGVsbzpcbnRoZXRhX3N0YXIgPSBucC56ZXJvcyhwKVxuYWN0aXZlX2lkeCA9IG5wLnJhbmRvbS5jaG9pY2UocCwgcywgcmVwbGFjZT1GYWxzZSlcbnRoZXRhX3N0YXJbYWN0aXZlX2lkeF0gPSBjXG5cbiMgR2VuZXJhY2nDs24gZGUgZGF0b3M6IFxuWF9yYXcgPSBucC5yYW5kb20ucmFuZG4obiwgcClcbnNjYWxlciA9IFN0YW5kYXJkU2NhbGVyKClcblggPSBzY2FsZXIuZml0X3RyYW5zZm9ybShYX3JhdylcbnkgPSBYIEAgdGhldGFfc3RhciArIHNpZ21hICogbnAucmFuZG9tLnJhbmRuKG4pXG5cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4zLCByYW5kb21fc3RhdGU9NDIpXG5cbiMgQWp1c3RlIGNvbiB2YWxpZGFjacOzbiBjcnV6YWRhOlxucmlkZ2UgPSBSaWRnZUNWKGFscGhhcz1ucC5sb2dzcGFjZSgtMywgMywgNTApLCBjdj01KS5maXQoWF90cmFpbiwgeV90cmFpbilcbmxhc3NvID0gTGFzc29DVihhbHBoYXM9bnAubG9nc3BhY2UoLTMsIDEsIDUwKSwgY3Y9NSwgbWF4X2l0ZXI9NTAwMCkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5lbGFzdGljID0gRWxhc3RpY05ldENWKGwxX3JhdGlvPVswLjIsIDAuNSwgMC44XSwgYWxwaGFzPW5wLmxvZ3NwYWNlKC0zLCAxLCAzMCksIGN2PTUsIG1heF9pdGVyPTUwMDApLmZpdChYX3RyYWluLCB5X3RyYWluKVxuXG4jIFByZWRpY2Npb25lcyBlbiB0ZXN0OlxueV9wcmVkX3JpZGdlID0gcmlkZ2UucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfbGFzc28gPSBsYXNzby5wcmVkaWN0KFhfdGVzdClcbnlfcHJlZF9lbiA9IGVsYXN0aWMucHJlZGljdChYX3Rlc3QpXG5cbiMgTVNFIGVuIHRlc3Q6XG5tc2VfcmlkZ2UgPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfcmlkZ2UpXG5tc2VfbGFzc28gPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfbGFzc28pXG5tc2VfZW4gPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfZW4pXG5cbiMg8J+TizpcbnByaW50KFwiTVNFIGVuIHRlc3Q6XCIpXG5wcmludChmXCIgUmlkZ2U6ICAgICAge21zZV9yaWRnZTouNGZ9XCIpXG5wcmludChmXCIgTGFzc286ICAgICAge21zZV9sYXNzbzouNGZ9XCIpXG5wcmludChmXCIgRWxhc3RpY05ldDoge21zZV9lbjouNGZ9XCIpXG5cbiMg8J+TiDpcbnBsdC5maWd1cmUoZmlnc2l6ZT0oMTAsIDYpKVxucGx0LnBsb3QodGhldGFfc3RhciwgJ2stLScsIGxhYmVsPXJcIiRcXHRoZXRhXlxcYXN0JFwiKVxucGx0LnBsb3QocmlkZ2UuY29lZl8sICdiJywgbGFiZWw9XCJSaWRnZVwiLCBhbHBoYT0wLjcpXG5wbHQucGxvdChsYXNzby5jb2VmXywgJ3InLCBsYWJlbD1cIkxhc3NvXCIsIGFscGhhPTAuNylcbnBsdC5wbG90KGVsYXN0aWMuY29lZl8sICdnJywgbGFiZWw9XCJFbGFzdGljIE5ldFwiLCBhbHBoYT0wLjcpXG5wbHQubGVnZW5kKGZvbnRzaXplPTE0LCBsb2M9J3VwcGVyIHJpZ2h0JylcbnBsdC50aXRsZShcIlNlw7FhbCBtdXkgZXNwYXJzYSB5IGNhc2kgb3J0b2dvbmFsXCIsIGZvbnRzaXplPTE2KVxucGx0LnhsYWJlbChcIkNvZWZpY2llbnRlc1wiLCBmb250c2l6ZT0xNClcbnBsdC5zaG93KCkifQ==
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4yIiwicDIiLCJzIiwiYzIiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxubnAucmFuZG9tLnNlZWQoNDIpXG5cbiMg4pqZ77iPIEhpcGVycGFyw6FtZXRyb3MgZGUgc2ltdWxhY2nDs246IFxubiwgcCA9IG4yLCBwMlxucyA9IHMgICAgICBcbnNpZ21hID0gMS4wXG5jID0gYzJcblxuIyBNb2RlbG86XG50aGV0YV9zdGFyID0gbnAuemVyb3MocClcbmFjdGl2ZV9pZHggPSBucC5yYW5kb20uY2hvaWNlKHAsIHMsIHJlcGxhY2U9RmFsc2UpXG50aGV0YV9zdGFyW2FjdGl2ZV9pZHhdID0gY1xuXG4jIEdlbmVyYWNpw7NuIGRlIGRhdG9zOiBcblhfcmF3ID0gbnAucmFuZG9tLnJhbmRuKG4sIHApXG5zY2FsZXIgPSBTdGFuZGFyZFNjYWxlcigpXG5YID0gc2NhbGVyLmZpdF90cmFuc2Zvcm0oWF9yYXcpXG55ID0gWCBAIHRoZXRhX3N0YXIgKyBzaWdtYSAqIG5wLnJhbmRvbS5yYW5kbihuKVxuXG5YX3RyYWluLCBYX3Rlc3QsIHlfdHJhaW4sIHlfdGVzdCA9IHRyYWluX3Rlc3Rfc3BsaXQoWCwgeSwgdGVzdF9zaXplPTAuMywgcmFuZG9tX3N0YXRlPTQyKVxuXG4jIEFqdXN0ZSBjb24gdmFsaWRhY2nDs24gY3J1emFkYTpcbnJpZGdlID0gUmlkZ2VDVihhbHBoYXM9bnAubG9nc3BhY2UoLTMsIDMsIDUwKSwgY3Y9NSkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5sYXNzbyA9IExhc3NvQ1YoYWxwaGFzPW5wLmxvZ3NwYWNlKC0zLCAxLCA1MCksIGN2PTUsIG1heF9pdGVyPTUwMDApLmZpdChYX3RyYWluLCB5X3RyYWluKVxuZWxhc3RpYyA9IEVsYXN0aWNOZXRDVihsMV9yYXRpbz1bMC4yLCAwLjUsIDAuOF0sIGFscGhhcz1ucC5sb2dzcGFjZSgtMywgMSwgMzApLCBjdj01LCBtYXhfaXRlcj01MDAwKS5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyBQcmVkaWNjaW9uZXMgZW4gdGVzdDpcbnlfcHJlZF9yaWRnZSA9IHJpZGdlLnByZWRpY3QoWF90ZXN0KVxueV9wcmVkX2xhc3NvID0gbGFzc28ucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfZW4gPSBlbGFzdGljLnByZWRpY3QoWF90ZXN0KVxuXG4jIE1TRSBlbiB0ZXN0OlxubXNlX3JpZGdlID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX3JpZGdlKVxubXNlX2xhc3NvID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2xhc3NvKVxubXNlX2VuID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2VuKVxuXG4jIPCfk4s6XG4jcHJpbnQoXCJNU0UgZW4gdGVzdDpcIilcbiNwcmludChmXCIgUmlkZ2U6ICAgICAge21zZV9yaWRnZTouNGZ9XCIpXG4jcHJpbnQoZlwiIExhc3NvOiAgICAgIHttc2VfbGFzc286LjRmfVwiKVxuI3ByaW50KGZcIiBFbGFzdGljTmV0OiB7bXNlX2VuOi40Zn1cIilcblxuIyDwn5OIOlxucGx0LmZpZ3VyZShmaWdzaXplPSgxMiwgNikpXG5wbHQucGxvdCh0aGV0YV9zdGFyLCAnay0tJywgbGFiZWw9clwiJFxcdGhldGFeXFxhc3QkXCIpXG5wbHQucGxvdChyaWRnZS5jb2VmXywgJ2InLCBsYWJlbD1cIlJpZGdlXCIsIGFscGhhPTAuNylcbnBsdC5wbG90KGxhc3NvLmNvZWZfLCAncicsIGxhYmVsPVwiTGFzc29cIiwgYWxwaGE9MC43KVxucGx0LnBsb3QoZWxhc3RpYy5jb2VmXywgJ2cnLCBsYWJlbD1cIkVsYXN0aWMgTmV0XCIsIGFscGhhPTAuNylcbnBsdC5sZWdlbmQoZm9udHNpemU9MTQsIGxvYz0ndXBwZXIgbGVmdCcpXG4jcGx0LnRpdGxlKFwiU2XDsWFsIG11eSBlc3BhcnNhIHkgY2FzaSBvcnRvZ29uYWxcIiwgZm9udHNpemU9MTYpXG5wbHQueGxhYmVsKFwiQ29lZmljaWVudGVzXCIsIGZvbnRzaXplPTE0KVxucGx0LnNob3coKSJ9
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1302" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1301;"><span id="cb7-1302"><a href="#cb7-1302" aria-hidden="true" tabindex="-1"></a>viewof n2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb7-1303"><a href="#cb7-1303" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb7-1304"><a href="#cb7-1304" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb7-1305"><a href="#cb7-1305" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
-<span id="cb7-1306"><a href="#cb7-1306" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1307"><a href="#cb7-1307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1308"><a href="#cb7-1308" aria-hidden="true" tabindex="-1"></a>viewof p2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
-<span id="cb7-1309"><a href="#cb7-1309" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb7-1310"><a href="#cb7-1310" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb7-1311"><a href="#cb7-1311" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
-<span id="cb7-1312"><a href="#cb7-1312" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1313"><a href="#cb7-1313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1314"><a href="#cb7-1314" aria-hidden="true" tabindex="-1"></a>viewof s <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {</span>
-<span id="cb7-1315"><a href="#cb7-1315" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb7-1316"><a href="#cb7-1316" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb7-1317"><a href="#cb7-1317" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">5</span></span>
-<span id="cb7-1318"><a href="#cb7-1318" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-1319"><a href="#cb7-1319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-1320"><a href="#cb7-1320" aria-hidden="true" tabindex="-1"></a>viewof c2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb7-1321"><a href="#cb7-1321" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb7-1322"><a href="#cb7-1322" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb7-1323"><a href="#cb7-1323" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span></span>
-<span id="cb7-1324"><a href="#cb7-1324" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1285" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1284;"><span id="cb7-1285"><a href="#cb7-1285" aria-hidden="true" tabindex="-1"></a>viewof n2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb7-1286"><a href="#cb7-1286" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb7-1287"><a href="#cb7-1287" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb7-1288"><a href="#cb7-1288" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
+<span id="cb7-1289"><a href="#cb7-1289" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1290"><a href="#cb7-1290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1291"><a href="#cb7-1291" aria-hidden="true" tabindex="-1"></a>viewof p2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb7-1292"><a href="#cb7-1292" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb7-1293"><a href="#cb7-1293" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb7-1294"><a href="#cb7-1294" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb7-1295"><a href="#cb7-1295" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1296"><a href="#cb7-1296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1297"><a href="#cb7-1297" aria-hidden="true" tabindex="-1"></a>viewof s <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb7-1298"><a href="#cb7-1298" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb7-1299"><a href="#cb7-1299" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Esparsidad (s):"</span><span class="op">,</span></span>
+<span id="cb7-1300"><a href="#cb7-1300" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb7-1301"><a href="#cb7-1301" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-1302"><a href="#cb7-1302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-1303"><a href="#cb7-1303" aria-hidden="true" tabindex="-1"></a>viewof c2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb7-1304"><a href="#cb7-1304" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb7-1305"><a href="#cb7-1305" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb7-1306"><a href="#cb7-1306" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span></span>
+<span id="cb7-1307"><a href="#cb7-1307" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -1268,53 +1257,53 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 2.4.12</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Esparsidad por grupos </span></p>
-<p>Simularemos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación (<span class="math inline">\(\rho=0.9\)</span>, por defecto) y todos los coeficientes son no nulos.</p>
+<p><span class="badge bg-primary">Ejemplo 2.4.13</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Esparsidad por grupos </span></p>
+<p>Simulamos un escenario donde las variables predictoras se organizan en grupos, de los cuales solo unos pocos están activos. Además, dentro de cada grupo activo, hay alta correlación (<span class="math inline">\(\rho=0.9\)</span>, por defecto) y todos los coeficientes son no nulos.</p>
 <p>Se espera un mejor rendimiento de Elastic Net en comparación con Lasso y Ridge, ya que Elastic Net selecciona grupos completos de variables altamente correlacionadas, mientras que Lasso tiende a elegir solo un representante por grupo y Ridge no realiza selección de variables.</p>
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
 </div>
 <script type="pyodide-4-contents">
-eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4zIiwicDMiLCJuX2ciLCJhX2ciLCJyaG8zIiwiYzMiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxuIyDimpnvuI8gSGlwZXJwYXLDoW1ldHJvcyBkZSBzaW11bGFjacOzbjpcbm4sIHAgPSAzMDAsIDEwMFxubnVtX2dyb3VwcyA9IG5fZ1xuZ3JvdXBfc2l6ZSA9IHAgLy8gbnVtX2dyb3Vwc1xuYWN0aXZlX2dyb3VwcyA9IG5wLnJhbmRvbS5jaG9pY2UobnVtX2dyb3Vwcywgc2l6ZT1hX2csIHJlcGxhY2U9RmFsc2UpXG5cbnNpZ21hID0gMS4wXG5jID0gYzNcbnJobyA9IDAuOTUgXG5cbiMgR2VuZXJhY2nDs24gZGUgZGF0b3M6XG5TaWdtYSA9IG5wLmV5ZShwKSAqICgxIC0gcmhvKVxuZm9yIGcgaW4gcmFuZ2UobnVtX2dyb3Vwcyk6XG4gICAgaWR4ID0gc2xpY2UoZypncm91cF9zaXplLCAoZysxKSpncm91cF9zaXplKVxuICAgIFNpZ21hW2lkeCwgaWR4XSArPSByaG9cblxudGhldGFfc3RhciA9IG5wLnplcm9zKHApXG5mb3IgZyBpbiBhY3RpdmVfZ3JvdXBzOlxuICAgIGlkeCA9IHNsaWNlKGcqZ3JvdXBfc2l6ZSwgKGcrMSkqZ3JvdXBfc2l6ZSlcbiAgICB0aGV0YV9zdGFyW2lkeF0gPSBjIC8gbnAuc3FydChncm91cF9zaXplKSAgXG5cblhfcmF3ID0gbnAucmFuZG9tLm11bHRpdmFyaWF0ZV9ub3JtYWwobnAuemVyb3MocCksIFNpZ21hLCBzaXplPW4pXG5zY2FsZXIgPSBTdGFuZGFyZFNjYWxlcigpXG5YID0gc2NhbGVyLmZpdF90cmFuc2Zvcm0oWF9yYXcpXG55ID0gWCBAIHRoZXRhX3N0YXIgKyBzaWdtYSAqIG5wLnJhbmRvbS5yYW5kbihuKVxuXG5YX3RyYWluLCBYX3Rlc3QsIHlfdHJhaW4sIHlfdGVzdCA9IHRyYWluX3Rlc3Rfc3BsaXQoWCwgeSwgdGVzdF9zaXplPTAuMywgcmFuZG9tX3N0YXRlPTQyKVxuXG4jIEFqdXN0ZSBjb24gdmFsaWRhY2nDs24gY3J1emFkYTpcbnJpZGdlID0gUmlkZ2VDVihhbHBoYXM9bnAubG9nc3BhY2UoLTMsIDMsIDUwKSwgY3Y9NSkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5sYXNzbyA9IExhc3NvQ1YoYWxwaGFzPW5wLmxvZ3NwYWNlKC0zLCAxLCA1MCksIGN2PTUsIG1heF9pdGVyPTUwMDApLmZpdChYX3RyYWluLCB5X3RyYWluKVxuZWxhc3RpYyA9IEVsYXN0aWNOZXRDVihsMV9yYXRpbz1bMC4yLCAwLjUsIDAuOF0sIGFscGhhcz1ucC5sb2dzcGFjZSgtMywgMSwgMzApLCBjdj01LCBtYXhfaXRlcj01MDAwKS5maXQoWF90cmFpbiwgeV90cmFpbilcblxuIyBQcmVkaWNjaW9uZXMgZW4gdGVzdDpcbnlfcHJlZF9yaWRnZSA9IHJpZGdlLnByZWRpY3QoWF90ZXN0KVxueV9wcmVkX2xhc3NvID0gbGFzc28ucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfZW4gPSBlbGFzdGljLnByZWRpY3QoWF90ZXN0KVxuXG4jIE1TRSBlbiB0ZXN0OlxubXNlX3JpZGdlID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX3JpZGdlKVxubXNlX2xhc3NvID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2xhc3NvKVxubXNlX2VuID0gbWVhbl9zcXVhcmVkX2Vycm9yKHlfdGVzdCwgeV9wcmVkX2VuKVxuXG4jIPCfk4s6XG5wcmludChcIk1TRSBlbiB0ZXN0OlwiKVxucHJpbnQoZlwiIFJpZGdlOiAgICAgIHttc2VfcmlkZ2U6LjRmfVwiKVxucHJpbnQoZlwiIExhc3NvOiAgICAgIHttc2VfbGFzc286LjRmfVwiKVxucHJpbnQoZlwiIEVsYXN0aWNOZXQ6IHttc2VfZW46LjRmfVwiKVxuXG4jIPCfk4g6XG5wbHQuZmlndXJlKGZpZ3NpemU9KDEwLCA2KSlcbnBsdC5wbG90KHRoZXRhX3N0YXIsICdrLS0nLCBsYWJlbD1yXCIkXFx0aGV0YV5cXGFzdCRcIilcbnBsdC5wbG90KHJpZGdlLmNvZWZfLCAnYicsIGxhYmVsPVwiUmlkZ2VcIiwgYWxwaGE9MC43KVxucGx0LnBsb3QobGFzc28uY29lZl8sICdyJywgbGFiZWw9XCJMYXNzb1wiLCBhbHBoYT0wLjcpXG5wbHQucGxvdChlbGFzdGljLmNvZWZfLCAnZycsIGxhYmVsPVwiRWxhc3RpYyBOZXRcIiwgYWxwaGE9MC43KVxucGx0LmxlZ2VuZChmb250c2l6ZT0xNCwgbG9jPSd1cHBlciByaWdodCcpXG5wbHQudGl0bGUoXCJTZcOxYWwgY29uIGVzcGFyc2lkYWQgcG9yIGdydXBvc1wiLCBmb250c2l6ZT0xNilcbnBsdC54bGFiZWwoXCJDb2VmaWNpZW50ZXNcIiwgZm9udHNpemU9MTQpXG5wbHQuc2hvdygpIn0=
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIm4zIiwicDMiLCJuX2ciLCJhX2ciLCJyaG8zIiwiYzMiXX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmxpbmVhcl9tb2RlbCBpbXBvcnQgUmlkZ2VDViwgTGFzc29DViwgRWxhc3RpY05ldENWXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgbWVhbl9zcXVhcmVkX2Vycm9yXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcblxubnAucmFuZG9tLnNlZWQoNDIpXG5cbiMg4pqZ77iPIEhpcGVycGFyw6FtZXRyb3MgZGUgc2ltdWxhY2nDs246XG5uLCBwID0gbjMsIHAzXG5udW1fZ3JvdXBzID0gbl9nXG5ncm91cF9zaXplID0gcCAvLyBudW1fZ3JvdXBzXG5hY3RpdmVfZ3JvdXBzID0gbnAucmFuZG9tLmNob2ljZShudW1fZ3JvdXBzLCBhX2csIHJlcGxhY2U9RmFsc2UpXG5cbnNpZ21hID0gMS4wXG5jID0gYzNcbnJobyA9IHJobzNcblxuIyBHZW5lcmFjacOzbiBkZSBkYXRvczpcblNpZ21hID0gbnAuZXllKHApICogKDEgLSByaG8pXG5mb3IgZyBpbiByYW5nZShudW1fZ3JvdXBzKTpcbiAgICBpZHggPSBzbGljZShnKmdyb3VwX3NpemUsIChnKzEpKmdyb3VwX3NpemUpXG4gICAgU2lnbWFbaWR4LCBpZHhdICs9IHJob1xuXG50aGV0YV9zdGFyID0gbnAuemVyb3MocClcbmZvciBnIGluIGFjdGl2ZV9ncm91cHM6XG4gICAgaWR4ID0gc2xpY2UoZypncm91cF9zaXplLCAoZysxKSpncm91cF9zaXplKVxuICAgIHRoZXRhX3N0YXJbaWR4XSA9IGMgLyBucC5zcXJ0KGdyb3VwX3NpemUpICBcblxuWF9yYXcgPSBucC5yYW5kb20ubXVsdGl2YXJpYXRlX25vcm1hbChucC56ZXJvcyhwKSwgU2lnbWEsIHNpemU9bilcbnNjYWxlciA9IFN0YW5kYXJkU2NhbGVyKClcblggPSBzY2FsZXIuZml0X3RyYW5zZm9ybShYX3JhdylcbnkgPSBYIEAgdGhldGFfc3RhciArIHNpZ21hICogbnAucmFuZG9tLnJhbmRuKG4pXG5cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4zLCByYW5kb21fc3RhdGU9NDIpXG5cbiMgQWp1c3RlIGNvbiB2YWxpZGFjacOzbiBjcnV6YWRhOlxucmlkZ2UgPSBSaWRnZUNWKGFscGhhcz1ucC5sb2dzcGFjZSgtMywgMywgNTApLCBjdj01KS5maXQoWF90cmFpbiwgeV90cmFpbilcbmxhc3NvID0gTGFzc29DVihhbHBoYXM9bnAubG9nc3BhY2UoLTMsIDEsIDUwKSwgY3Y9NSwgbWF4X2l0ZXI9NTAwMCkuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5lbGFzdGljID0gRWxhc3RpY05ldENWKGwxX3JhdGlvPVswLjIsIDAuNSwgMC44XSwgYWxwaGFzPW5wLmxvZ3NwYWNlKC0zLCAxLCAzMCksIGN2PTUsIG1heF9pdGVyPTUwMDApLmZpdChYX3RyYWluLCB5X3RyYWluKVxuXG4jIFByZWRpY2Npb25lcyBlbiB0ZXN0OlxueV9wcmVkX3JpZGdlID0gcmlkZ2UucHJlZGljdChYX3Rlc3QpXG55X3ByZWRfbGFzc28gPSBsYXNzby5wcmVkaWN0KFhfdGVzdClcbnlfcHJlZF9lbiA9IGVsYXN0aWMucHJlZGljdChYX3Rlc3QpXG5cbiMgTVNFIGVuIHRlc3Q6XG5tc2VfcmlkZ2UgPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfcmlkZ2UpXG5tc2VfbGFzc28gPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfbGFzc28pXG5tc2VfZW4gPSBtZWFuX3NxdWFyZWRfZXJyb3IoeV90ZXN0LCB5X3ByZWRfZW4pXG5cbiMg8J+TizpcbiNwcmludChcIk1TRSBlbiB0ZXN0OlwiKVxuI3ByaW50KGZcIiBSaWRnZTogICAgICB7bXNlX3JpZGdlOi40Zn1cIilcbiNwcmludChmXCIgTGFzc286ICAgICAge21zZV9sYXNzbzouNGZ9XCIpXG4jcHJpbnQoZlwiIEVsYXN0aWNOZXQ6IHttc2VfZW46LjRmfVwiKVxuXG4jIPCfk4g6XG5wbHQuZmlndXJlKGZpZ3NpemU9KDEyLCA2KSlcbnBsdC5wbG90KHRoZXRhX3N0YXIsICdrLS0nLCBsYWJlbD1yXCIkXFx0aGV0YV5cXGFzdCRcIilcbnBsdC5wbG90KHJpZGdlLmNvZWZfLCAnYicsIGxhYmVsPVwiUmlkZ2VcIiwgYWxwaGE9MC43KVxucGx0LnBsb3QobGFzc28uY29lZl8sICdyJywgbGFiZWw9XCJMYXNzb1wiLCBhbHBoYT0wLjcpXG5wbHQucGxvdChlbGFzdGljLmNvZWZfLCAnZycsIGxhYmVsPVwiRWxhc3RpYyBOZXRcIiwgYWxwaGE9MC43KVxucGx0LmxlZ2VuZChmb250c2l6ZT0xNCwgbG9jPSd1cHBlciByaWdodCcpXG4jcGx0LnRpdGxlKFwiU2XDsWFsIGNvbiBlc3BhcnNpZGFkIHBvciBncnVwb3NcIiwgZm9udHNpemU9MTYpXG5wbHQueGxhYmVsKFwiQ29lZmljaWVudGVzXCIsIGZvbnRzaXplPTE0KVxucGx0LnNob3coKSJ9
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1417" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1416;"><span id="cb8-1417"><a href="#cb8-1417" aria-hidden="true" tabindex="-1"></a>viewof n3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
-<span id="cb8-1418"><a href="#cb8-1418" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
-<span id="cb8-1419"><a href="#cb8-1419" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
-<span id="cb8-1420"><a href="#cb8-1420" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">300</span></span>
-<span id="cb8-1421"><a href="#cb8-1421" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1422"><a href="#cb8-1422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1423"><a href="#cb8-1423" aria-hidden="true" tabindex="-1"></a>viewof p3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">200</span>]<span class="op">,</span> {</span>
-<span id="cb8-1424"><a href="#cb8-1424" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb8-1425"><a href="#cb8-1425" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
-<span id="cb8-1426"><a href="#cb8-1426" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">100</span></span>
-<span id="cb8-1427"><a href="#cb8-1427" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1428"><a href="#cb8-1428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1429"><a href="#cb8-1429" aria-hidden="true" tabindex="-1"></a>viewof n_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb8-1430"><a href="#cb8-1430" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb8-1431"><a href="#cb8-1431" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos:"</span><span class="op">,</span></span>
-<span id="cb8-1432"><a href="#cb8-1432" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">8</span></span>
-<span id="cb8-1433"><a href="#cb8-1433" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1434"><a href="#cb8-1434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1435"><a href="#cb8-1435" aria-hidden="true" tabindex="-1"></a>viewof a_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb8-1436"><a href="#cb8-1436" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb8-1437"><a href="#cb8-1437" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos activos:"</span><span class="op">,</span></span>
-<span id="cb8-1438"><a href="#cb8-1438" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span></span>
-<span id="cb8-1439"><a href="#cb8-1439" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1440"><a href="#cb8-1440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1441"><a href="#cb8-1441" aria-hidden="true" tabindex="-1"></a>viewof rho3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb8-1442"><a href="#cb8-1442" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb8-1443"><a href="#cb8-1443" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
-<span id="cb8-1444"><a href="#cb8-1444" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.90</span></span>
-<span id="cb8-1445"><a href="#cb8-1445" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-1446"><a href="#cb8-1446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-1447"><a href="#cb8-1447" aria-hidden="true" tabindex="-1"></a>viewof c3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
-<span id="cb8-1448"><a href="#cb8-1448" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb8-1449"><a href="#cb8-1449" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
-<span id="cb8-1450"><a href="#cb8-1450" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">3.0</span></span>
-<span id="cb8-1451"><a href="#cb8-1451" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1402" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1401;"><span id="cb8-1402"><a href="#cb8-1402" aria-hidden="true" tabindex="-1"></a>viewof n3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">50</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {</span>
+<span id="cb8-1403"><a href="#cb8-1403" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb8-1404"><a href="#cb8-1404" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° obs. (n):"</span><span class="op">,</span></span>
+<span id="cb8-1405"><a href="#cb8-1405" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">200</span></span>
+<span id="cb8-1406"><a href="#cb8-1406" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1407"><a href="#cb8-1407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1408"><a href="#cb8-1408" aria-hidden="true" tabindex="-1"></a>viewof p3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb8-1409"><a href="#cb8-1409" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb8-1410"><a href="#cb8-1410" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° pred. (p):"</span><span class="op">,</span></span>
+<span id="cb8-1411"><a href="#cb8-1411" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">80</span></span>
+<span id="cb8-1412"><a href="#cb8-1412" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1413"><a href="#cb8-1413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1414"><a href="#cb8-1414" aria-hidden="true" tabindex="-1"></a>viewof n_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb8-1415"><a href="#cb8-1415" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-1416"><a href="#cb8-1416" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos:"</span><span class="op">,</span></span>
+<span id="cb8-1417"><a href="#cb8-1417" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span></span>
+<span id="cb8-1418"><a href="#cb8-1418" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1419"><a href="#cb8-1419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1420"><a href="#cb8-1420" aria-hidden="true" tabindex="-1"></a>viewof a_g <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb8-1421"><a href="#cb8-1421" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-1422"><a href="#cb8-1422" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"N° grupos activos:"</span><span class="op">,</span></span>
+<span id="cb8-1423"><a href="#cb8-1423" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span></span>
+<span id="cb8-1424"><a href="#cb8-1424" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1425"><a href="#cb8-1425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1426"><a href="#cb8-1426" aria-hidden="true" tabindex="-1"></a>viewof rho3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb8-1427"><a href="#cb8-1427" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb8-1428"><a href="#cb8-1428" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Correlación (ρ):"</span><span class="op">,</span></span>
+<span id="cb8-1429"><a href="#cb8-1429" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.95</span></span>
+<span id="cb8-1430"><a href="#cb8-1430" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-1431"><a href="#cb8-1431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-1432"><a href="#cb8-1432" aria-hidden="true" tabindex="-1"></a>viewof c3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb8-1433"><a href="#cb8-1433" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb8-1434"><a href="#cb8-1434" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Escala (c):"</span><span class="op">,</span></span>
+<span id="cb8-1435"><a href="#cb8-1435" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb8-1436"><a href="#cb8-1436" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -1366,7 +1355,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </section>
 <section id="iv-sobre-glm-penalizados" class="level2">
 <h2 class="anchored" data-anchor-id="iv-sobre-glm-penalizados">IV <span style="color:#CCCCCC;">│</span> Sobre GLM penalizados</h2>
-<p>En la sección anterior (<a href="https://isaiasibanez.github.io/OML2/CAPITULO_2/B3_glm.html#optimalidad">C2-S3</a>) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). En la expresión (2.3.4) habíamos definido el problema de optimización asociado, que puede ser escrito también como <span class="math display">\[
+<p>En (<a href="https://isaiasibanez.github.io/OML2/CAPITULO_2/B3_glm.html#optimalidad">C2-S3</a>) hemos estudiado la aplicación del principio de máxima verosimilitud para el ajuste de parámetros de un modelo lineal generalizado (GLM). En la expresión (2.3.6) habíamos definido el problema de optimización asociado, que puede ser escrito también como <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \displaystyle\frac{1}{n}\sum_{i=1}^n\left[A(\boldsymbol{\theta}^\top{\bf x}_i)-\boldsymbol{\theta}^\top{\bf x}_i\, T(y_i)\right].
 \end{array}
@@ -1375,13 +1364,13 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 \nabla J(\boldsymbol{\theta})=\frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y})),
 \]</span> donde <span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^n\)</span> está determinado por <span class="math inline">\(\mu_i:=A'(\boldsymbol{\theta}^\top{\bf x}_i)=\mathbb{E}\left[T(Y)\mid {\bf X}={\bf x}_i\right]\)</span>.</p>
 <p>Por supuesto, la inclusión de un término de regularización sobre el vector de parámetros <span class="math inline">\(\boldsymbol{\theta}\)</span> da lugar a las versiones penalizadas de GLM: Ridge, Lasso y Elastic Net. Cada caso conserva una estructura convexa y, en consecuencia, las condiciones KKT son suficientes y necesarias. Como sabemos, para el caso de problemas de optimización sin restricciones, dichas condiciones se reducen a la condición de estacionariedad. Por ejemplo, para Elastic Net resulta <span class="math display">\[
-\frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y}))+\lambda_1\partial\|\boldsymbol{\theta}\|_1+2\lambda_2\boldsymbol{\theta}=\mathbf{0}.
+\mathbf{0}\in \frac{1}{n}X^\top(\boldsymbol{\mu}-T({\bf y}))+\lambda_1\partial\|\boldsymbol{\theta}\|_1+2\lambda_2\boldsymbol{\theta}.
 \]</span></p>
 <p>Los estimadores penalizados Ridge, Lasso y Elastic Net se comportan de manera análoga a los casos lineales: Ridge reduce varianza en señales densas y correlacionadas, Lasso permite recuperación de soporte bajo ciertas condiciones de curvatura, y Elastic Net combina la selección de Lasso con mayor estabilidad frente a colinealidad. Las tasas no-asintóticas y garantías de consistencia se expresan de forma similar, adaptando al contexto de la familia exponencial.</p>
 <p>Respecto a los algoritmos iterativos que se utilizan para aproximar <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>, los más comunes son:</p>
 <ul>
-<li><p><em>IRLS</em>: para GLKM con penalización Ridge, el algoritmo IRLS se mantiene esencialmente sin modificaciones respecto al caso no penalizado. En cada iteración se resuelve un problema de mínimos cuadrados ponderados (WLS), incorporando la penalización <span class="math inline">\(\ell_2\)</span> al cálculo.</p></li>
-<li><p><em>Descenso por coordenadas cíclico</em>: para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando el operador de <em>soft-thresholding</em>. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado, por ejemplo, en <a href="https://scikit-learn.org/stable/modules/linear_model.html"><code>sklearn.linear_model</code></a>.</p></li>
+<li><p><strong>IRLS</strong>. Para GLM con penalización Ridge, el algoritmo IRLS se mantiene esencialmente sin modificaciones respecto al caso no penalizado. En cada iteración se resuelve un problema de mínimos cuadrados ponderados (WLS), incorporando la penalización <span class="math inline">\(\ell_2\)</span> al cálculo.</p></li>
+<li><p><strong>Descenso por coordenadas</strong>. Para Lasso y Elastic Net, se actualiza cada componente secuencialmente aplicando el operador de <em>soft-thresholding</em>. La convergencia global está garantizada por la convexidad de la función objetivo y la actualización cíclica. Este es el enfoque utilizado, por ejemplo, en <a href="https://scikit-learn.org/stable/modules/linear_model.html"><code>sklearn.linear_model</code></a>.</p></li>
 </ul>
 <p><br><br></p>
 <div class="refs">
@@ -1414,7 +1403,7 @@ W10=
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB0YXUgPSBJbnB1dHMucmFuZ2UoWzAuMSwgMi41XSwge1xuICBzdGVwOiAwLjEsXG4gIGxhYmVsOiBcIvCdnI86XCIsXG4gIHZhbHVlOiAxXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG52aWV3b2YgbjEgPSBJbnB1dHMucmFuZ2UoWzUwLCA1MDBdLCB7XG4gIHN0ZXA6IDUwLFxuICBsYWJlbDogXCJOwrAgb2JzLiAobik6XCIsXG4gIHZhbHVlOiAyMDBcbn0pXG5cbnZpZXdvZiBwMSA9IElucHV0cy5yYW5nZShbMTAsIDEwMF0sIHtcbiAgc3RlcDogNSxcbiAgbGFiZWw6IFwiTsKwIHByZWQuIChwKTpcIixcbiAgdmFsdWU6IDUwXG59KVxuXG52aWV3b2YgcmhvMSA9IElucHV0cy5yYW5nZShbMC41LCAxXSwge1xuICBzdGVwOiAwLjEsXG4gIGxhYmVsOiBcIkNvcnJlbGFjacOzbiAoz4EpOlwiLFxuICB2YWx1ZTogMC45XG59KVxuXG52aWV3b2YgYzEgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMTBdLCB7XG4gIHN0ZXA6IDAuNSxcbiAgbGFiZWw6IFwiRXNjYWxhIChjKTpcIixcbiAgdmFsdWU6IDMuMFxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIG4yID0gSW5wdXRzLnJhbmdlKFs1MCwgNTAwXSwge1xuICBzdGVwOiA1MCxcbiAgbGFiZWw6IFwiTsKwIG9icy4gKG4pOlwiLFxuICB2YWx1ZTogMjAwXG59KVxuXG52aWV3b2YgcDIgPSBJbnB1dHMucmFuZ2UoWzEwLCAxMDBdLCB7XG4gIHN0ZXA6IDUsXG4gIGxhYmVsOiBcIk7CsCBwcmVkLiAocCk6XCIsXG4gIHZhbHVlOiA1MFxufSlcblxudmlld29mIHMgPSBJbnB1dHMucmFuZ2UoWzEsIDUwXSwge1xuICBzdGVwOiAyLFxuICBsYWJlbDogXCJDb3JyZWxhY2nDs24gKM+BKTpcIixcbiAgdmFsdWU6IDVcbn0pXG5cbnZpZXdvZiBjMiA9IElucHV0cy5yYW5nZShbMC41LCAxMF0sIHtcbiAgc3RlcDogMC41LFxuICBsYWJlbDogXCJFc2NhbGEgKGMpOlwiLFxuICB2YWx1ZTogMS4wXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG52aWV3b2YgbjMgPSBJbnB1dHMucmFuZ2UoWzUwLCA1MDBdLCB7XG4gIHN0ZXA6IDUwLFxuICBsYWJlbDogXCJOwrAgb2JzLiAobik6XCIsXG4gIHZhbHVlOiAzMDBcbn0pXG5cbnZpZXdvZiBwMyA9IElucHV0cy5yYW5nZShbMTAsIDIwMF0sIHtcbiAgc3RlcDogNSxcbiAgbGFiZWw6IFwiTsKwIHByZWQuIChwKTpcIixcbiAgdmFsdWU6IDEwMFxufSlcblxudmlld29mIG5fZyA9IElucHV0cy5yYW5nZShbMSwgMjBdLCB7XG4gIHN0ZXA6IDEsXG4gIGxhYmVsOiBcIk7CsCBncnVwb3M6XCIsXG4gIHZhbHVlOiA4XG59KVxuXG52aWV3b2YgYV9nID0gSW5wdXRzLnJhbmdlKFsxLCAxMF0sIHtcbiAgc3RlcDogMSxcbiAgbGFiZWw6IFwiTsKwIGdydXBvcyBhY3Rpdm9zOlwiLFxuICB2YWx1ZTogM1xufSlcblxudmlld29mIHJobzMgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMV0sIHtcbiAgc3RlcDogMC4xLFxuICBsYWJlbDogXCJDb3JyZWxhY2nDs24gKM+BKTpcIixcbiAgdmFsdWU6IDAuOTBcbn0pXG5cbnZpZXdvZiBjMyA9IElucHV0cy5yYW5nZShbMC41LCAxMF0sIHtcbiAgc3RlcDogMC41LFxuICBsYWJlbDogXCJFc2NhbGEgKGMpOlwiLFxuICB2YWx1ZTogMy4wXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0YXUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbjEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncDEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmhvMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCduMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2MyJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ24zJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3AzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ25fZycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhX2cnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmhvMycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjMycpIn1dfQ==
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB0YXUgPSBJbnB1dHMucmFuZ2UoWzAuMSwgMi41XSwge1xuICBzdGVwOiAwLjEsXG4gIGxhYmVsOiBcIvCdnI86XCIsXG4gIHZhbHVlOiAxXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG52aWV3b2YgbjEgPSBJbnB1dHMucmFuZ2UoWzUwLCA1MDBdLCB7XG4gIHN0ZXA6IDUwLFxuICBsYWJlbDogXCJOwrAgb2JzLiAobik6XCIsXG4gIHZhbHVlOiAyMDBcbn0pXG5cbnZpZXdvZiBwMSA9IElucHV0cy5yYW5nZShbMTAsIDEwMF0sIHtcbiAgc3RlcDogNSxcbiAgbGFiZWw6IFwiTsKwIHByZWQuIChwKTpcIixcbiAgdmFsdWU6IDUwXG59KVxuXG52aWV3b2YgcmhvMSA9IElucHV0cy5yYW5nZShbMC41LCAxXSwge1xuICBzdGVwOiAwLjEsXG4gIGxhYmVsOiBcIkNvcnJlbGFjacOzbiAoz4EpOlwiLFxuICB2YWx1ZTogMC45XG59KVxuXG52aWV3b2YgYzEgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMTBdLCB7XG4gIHN0ZXA6IDAuNSxcbiAgbGFiZWw6IFwiRXNjYWxhIChjKTpcIixcbiAgdmFsdWU6IDMuMFxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIG4yID0gSW5wdXRzLnJhbmdlKFs1MCwgNTAwXSwge1xuICBzdGVwOiA1MCxcbiAgbGFiZWw6IFwiTsKwIG9icy4gKG4pOlwiLFxuICB2YWx1ZTogMjAwXG59KVxuXG52aWV3b2YgcDIgPSBJbnB1dHMucmFuZ2UoWzEwLCAxMDBdLCB7XG4gIHN0ZXA6IDUsXG4gIGxhYmVsOiBcIk7CsCBwcmVkLiAocCk6XCIsXG4gIHZhbHVlOiA1MFxufSlcblxudmlld29mIHMgPSBJbnB1dHMucmFuZ2UoWzEsIDIwXSwge1xuICBzdGVwOiAxLFxuICBsYWJlbDogXCJFc3BhcnNpZGFkIChzKTpcIixcbiAgdmFsdWU6IDVcbn0pXG5cbnZpZXdvZiBjMiA9IElucHV0cy5yYW5nZShbMC41LCAxMF0sIHtcbiAgc3RlcDogMC41LFxuICBsYWJlbDogXCJFc2NhbGEgKGMpOlwiLFxuICB2YWx1ZTogMS4wXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG52aWV3b2YgbjMgPSBJbnB1dHMucmFuZ2UoWzUwLCA1MDBdLCB7XG4gIHN0ZXA6IDUwLFxuICBsYWJlbDogXCJOwrAgb2JzLiAobik6XCIsXG4gIHZhbHVlOiAyMDBcbn0pXG5cbnZpZXdvZiBwMyA9IElucHV0cy5yYW5nZShbMTAsIDEwMF0sIHtcbiAgc3RlcDogNSxcbiAgbGFiZWw6IFwiTsKwIHByZWQuIChwKTpcIixcbiAgdmFsdWU6IDgwXG59KVxuXG52aWV3b2Ygbl9nID0gSW5wdXRzLnJhbmdlKFsxLCAyMF0sIHtcbiAgc3RlcDogMSxcbiAgbGFiZWw6IFwiTsKwIGdydXBvczpcIixcbiAgdmFsdWU6IDEwXG59KVxuXG52aWV3b2YgYV9nID0gSW5wdXRzLnJhbmdlKFsxLCAxMF0sIHtcbiAgc3RlcDogMSxcbiAgbGFiZWw6IFwiTsKwIGdydXBvcyBhY3Rpdm9zOlwiLFxuICB2YWx1ZTogM1xufSlcblxudmlld29mIHJobzMgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMV0sIHtcbiAgc3RlcDogMC4xLFxuICBsYWJlbDogXCJDb3JyZWxhY2nDs24gKM+BKTpcIixcbiAgdmFsdWU6IDAuOTVcbn0pXG5cbnZpZXdvZiBjMyA9IElucHV0cy5yYW5nZShbMC41LCAxMF0sIHtcbiAgc3RlcDogMC41LFxuICBsYWJlbDogXCJFc2NhbGEgKGMpOlwiLFxuICB2YWx1ZTogMS41XG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0YXUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbjEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncDEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmhvMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCduMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2MyJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ24zJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3AzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ25fZycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhX2cnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmhvMycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjMycpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
