@@ -322,10 +322,10 @@ window.Quarto = {
 </div>
 <div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
-<p><a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
-<p><a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+<p><a href="../material/apunte_c2s4.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
+<p><a href="../material/tp_c2s4.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 12/10/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 13/10/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -509,7 +509,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 </div>
 </div>
-<div id="f31c63d4" class="cell" data-execution_count="1">
+<div id="740d8cc9" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
@@ -550,7 +550,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <span id="cb1-38"><a href="#cb1-38"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb1-39"><a href="#cb1-39"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="41d4f902" class="cell" data-execution_count="2">
+<div id="3e1ccc1d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -758,10 +758,10 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 \tag{2.4.8}
 \]</span></p>
 <p>Del Ejemplo 2.4.6, el vector <span class="math inline">\(\boldsymbol{\gamma}\)</span> debe verificar lo siguiente: <span class="math display">\[
-\gamma_i=\begin{cases}
-{\text{sign}(\hat{\theta}_i^{\text{lasso}})} &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\
-[-1,1] &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
-\end{cases}
+\begin{array}{cl}
+\gamma_i=\mathop{\mathrm{sign}}(\hat{\theta}_i^{\text{lasso}}) &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\[3pt]
+\gamma_i\in[-1,1] &amp; \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
+\end{array}
 \tag{2.4.9}
 \]</span></p>
 <p>En la expresión (2.4.8), la componente <span class="math inline">\(i\)</span>-ésima del vector del lado izquierdo mide la relación entre cada variable predictora <span class="math inline">\(X_i\)</span> y el residuo <span class="math inline">\({\bf r}:={\bf y}-X\hat{\boldsymbol{\theta}}^{\text{lasso}}\)</span>. En efecto, cuando <span class="math inline">\(X_i\)</span> e <span class="math inline">\({\bf y}\)</span> están estandarizados, esta cantidad es proporcional a la correlación de Pearson: <span class="math display">\[
@@ -885,7 +885,7 @@ f(\boldsymbol{\theta})=\frac{1}{2}\sum_{i=1}^p\sum_{j=1}^p \theta_i Q_{ij}\theta
 \]</span> con <span class="math display">\[
 s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \tau=\frac{\lambda}{Q_{kk}}.
 \]</span></p>
-<p>El estudio de (2.4.13) conduce a la función de <em>soft-thresholding</em>, que presentamos a continuación.</p>
+<p>Nótese que cuando <span class="math inline">\(\lambda=0\)</span>, la solución es <span class="math inline">\(\theta_k^\star = s\)</span>; es decir, <span class="math inline">\(s\)</span> representa la para <span class="math inline">\(\theta_k\)</span> con los demás coeficientes fijos. El estudio de (2.4.13) conduce a la función de <em>soft-thresholding</em>, que presentamos a continuación.</p>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success text-light">Función de <em>soft-thresholding</em></span></p>
 <p>Sean <span class="math inline">\(s\in\mathbb{R}\)</span> y <span class="math inline">\(\tau&gt; 0\)</span>. Un problema equivalente a (2.4.13) es <span class="math display">\[
@@ -955,7 +955,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div style="margin-top:2em;">
 
 </div>
-<p>Volvamos al problema de interés (2.4.13). Recordemos que el propósito era analizar la solución del problema Lasso cuando fijamos todos los parámetros excepto uno. De acuerdo a lo visto, para minimizar <span class="math inline">\(\theta_k\)</span> para algún <span class="math inline">\(k=1,\ldots,p\)</span>, manteniendo el resto fijo, resulta <span class="math display">\[
+<p>Volviendo al problema de interés (2.4.13), recordemos que el propósito era analizar la solución del problema Lasso cuando fijamos todos los parámetros excepto uno. De acuerdo con lo visto, con penalización (<span class="math inline">\(\lambda &gt; 0\)</span>), la solución no es simplemente <span class="math inline">\(s\)</span> sino que resulta o bien desplazada hacia cero en una cantidad <span class="math inline">\(\tau\)</span>, o bien directamente anulada si <span class="math inline">\(|s|\leq\tau\)</span>. En efecto, resulta <span class="math display">\[
 \theta_k^\star=\text{soft}_{\tau}\left(\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}}\right),\qquad \tau=\frac{\lambda}{Q_{kk}}.
 \]</span></p>
 <p>Ya estamos en condiciones de definir el algoritmo iterativo de descenso por coordenadas para resolver un problema Lasso.</p>
@@ -988,7 +988,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.4.9</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
 <p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="b81e59c2" class="cell" data-execution_count="3">
+<div id="8ab22eff" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1030,7 +1030,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="d0e5e3de" class="cell" data-execution_count="4">
+<div id="e77b54ac" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1060,12 +1060,12 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </section>
 <section id="iii-elastic-net-convergencia-y-comparaciones" class="level2">
 <h2 class="anchored" data-anchor-id="iii-elastic-net-convergencia-y-comparaciones">III <span style="color:#CCCCCC;">│</span> Elastic Net, convergencia y comparaciones</h2>
-<p>Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método <em>Elastic Net</em> combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunjs ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.</p>
+<p>Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método <em>Elastic Net</em> combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunos ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.</p>
 <div class="definicion">
 <p><strong>Definición 2.4.10</strong> (Problema Elastic Net). El <em>problema de regresión Elastic Net</em> es <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar} &amp; \frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda_1\|\boldsymbol{\theta}\|_1+\lambda_2\|\boldsymbol{\theta}\|_2^2.
-\tag{17}
+\tag{2.4.15}
 \end{array}
 \]</span></p>
 <p>con <span class="math inline">\(\boldsymbol{\theta}\in\mathbb{R}^p\)</span> las variables de optimización y <span class="math inline">\(\lambda_1,\lambda_2&gt;0\)</span> hiperparámetros. El punto óptimo, denotado por <span class="math inline">\(\hat{\boldsymbol{\theta}}^{\text{EN}}\)</span>, es el <em>estimador Elastic Net</em> de los coeficientes de la regresión.</p>

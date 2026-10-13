@@ -11,11 +11,11 @@ subtitle: "Capítulo 2 - Sección 4"
 
   <div class="d-flex gap-2">
     
-  <a href="../material/apunte_c2s3.pdf" target="_blank" class="btn btn-outline-primary">
+  <a href="../material/apunte_c2s4.pdf" target="_blank" class="btn btn-outline-primary">
     <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
   </a>
 
-  <a href="../material/tp_c2s3.pdf" target="_blank" class="btn btn-outline-success">
+  <a href="../material/tp_c2s4.pdf" target="_blank" class="btn btn-outline-success">
     <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
   </a>
 
@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 4"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 12/10/2026
+    Última actualización: 13/10/2026
   </span>
 
 </div>
@@ -593,10 +593,10 @@ $$
 
 Del Ejemplo 2.4.6, el vector $\bfgamma$ debe verificar lo siguiente:
 $$
-\gamma_i=\begin{cases}
-{\text{sign}(\hat{\theta}_i^{\text{lasso}})} & \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\
-[-1,1] & \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
-\end{cases}
+\begin{array}{cl}
+\gamma_i=\sign(\hat{\theta}_i^{\text{lasso}}) & \mbox{si }\hat{\theta}_i^{\text{lasso}}\neq 0,\\[3pt]
+\gamma_i\in[-1,1] & \mbox{si }\hat{\theta}_i^{\text{lasso}}=0.
+\end{array}
 \tag{2.4.9}
 $$
 
@@ -751,7 +751,7 @@ s=\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}},\qquad \t
 $$
 
 
-El estudio de (2.4.13) conduce a la función de *soft-thresholding*, que presentamos a continuación. 
+Nótese que cuando $\lambda=0$, la solución es $\theta_k^\star = s$; es decir, $s$ representa la \textit{solución OLS parcial} para $\theta_k$ con los demás coeficientes fijos. El estudio de (2.4.13) conduce a la función de *soft-thresholding*, que presentamos a continuación. 
 
 
 <div class="alert alert-light text-dark" role="important">
@@ -867,7 +867,7 @@ viewof tau = Inputs.range([0.1, 2.5], {
 <div style="margin-top:2em;"></div>
 
 
-Volvamos al problema de interés (2.4.13). Recordemos que el propósito era analizar la solución del problema Lasso cuando fijamos todos los parámetros excepto uno. De acuerdo a lo visto, para minimizar $\theta_k$ para algún $k=1,\ldots,p$, manteniendo el resto fijo, resulta
+Volviendo al problema de interés (2.4.13), recordemos que el propósito era analizar la solución del problema Lasso cuando fijamos todos los parámetros excepto uno. De acuerdo con lo visto, con penalización ($\lambda > 0$), la solución no es simplemente $s$ sino que resulta o bien desplazada hacia cero en una cantidad $\tau$, o bien directamente anulada si $|s|\leq\tau$. En efecto, resulta
 $$
 \theta_k^\star=\text{soft}_{\tau}\left(\frac{v_k-\sum_{\substack{i=1 \\ i \neq k}}^pQ_{ik}\theta_i}{Q_{kk}}\right),\qquad \tau=\frac{\lambda}{Q_{kk}}.
 $$
@@ -1011,14 +1011,14 @@ for i, coef in enumerate(Lasso_best.coef_):
 
 ## III <span style="color:#CCCCCC;">│</span>  Elastic Net, convergencia y comparaciones
 
-Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método *Elastic Net* combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunjs ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.
+Hasta este punto hemos estudiado los métodos de regularización Ridge y Lasso. El método *Elastic Net* combina ambas penalizaciones en una única formulación, permitiendo equilibrar ambos enfoques. En esta sección presentaremos su formulación, veremos algunos ejemplos comparativos y discutiremos algunos aspectos relacionados con la convergencia de los algoritmos de optimización.
 
 ::: {.definicion}
 **Definición 2.4.10** (Problema Elastic Net). El *problema de regresión Elastic Net* es
 $$
 \begin{array}{ll}
 \text{minimizar} & \frac{1}{2n}\|\yy-X\bftheta\|_2^2+\lambda_1\|\bftheta\|_1+\lambda_2\|\bftheta\|_2^2.
-\tag{17}
+\tag{2.4.15}
 \end{array}
 $$
 
