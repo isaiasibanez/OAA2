@@ -2,21 +2,29 @@
 title: "Máquinas de vectores soporte"
 subtitle: "Capítulo 2 - Sección 5"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c2s5.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c2s5.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c2s5.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c2s5.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 15/10/2026
+  </span>
 
 </div>
 
@@ -28,7 +36,16 @@ En esta sección vamos a estudiar un algoritmo de aprendizaje supervisado amplia
 
 Una característica distintiva de estos métodos es que su desarrollo se apoya fuertemente en la formulación dual de problemas de optimización y en las condiciones de Karush-Kuhn-Tucker (KKT), lo que permite interpretar la solución en términos de los vectores soporte y comprender el funcionamiento del método.
 
-Durante esta sección, vamos a considerar un problema de clasificación binaria. Sin pérdida de generalidad, supondremos que el conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$ tiene etiquetas $y_i\in\{-1,+1\}$.
+<div style="border-top:1px solid #b7cdf5;
+            background-color: #fafbff;
+            padding:0.1em 0;
+            margin-top:1.5em;">
+
+📄 **Notación**
+
+Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$ de un problema de clasificación binaria, denotaremos las etiquetas por $y_i\in\{-1,+1\}$.
+
+</div>
 
 <div style="margin-top:2.5em;"></div>
 
@@ -40,7 +57,7 @@ El caso más simple de análisis surge de suponer que las clases $\{\xx_i \mid y
 
 
 ::: {.definicion}
-**Definición 2.5.1.** (Separabilidad lineal) Un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, con $y_i\in\{-1,+1\}$, se dice que es *linealmente separable* si existen $\bfbeta\in\RR^p$ y $\beta_0\in\RR$ tales que
+**Definición 2.5.1** (Separabilidad lineal). Un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, con $y_i\in\{-1,+1\}$, se dice que es *linealmente separable* si existen $\bfbeta\in\RR^p$ y $\beta_0\in\RR$ tales que
 $$
 y_i=\sign(\bfbeta^\top\xx_i+\beta_0)\qquad \forall i=1,\ldots,n.
 \tag{2.5.1}
@@ -50,21 +67,20 @@ El hiperplano $\bfbeta^\top\xx+\beta_0=0$ se denomina *hiperplano separador* y l
 
 :::
 
-<div style="margin-top:1em;"></div>
+<div style="margin-top:1.5em;"></div>
 
-::: {.callout .question}
+El vector normal al hiperplano $\bfbeta^\top\xx+\beta_0=0$ es $\bfbeta$ y la distancia entre un punto $\xx\in\RR^p$ y dicho hiperplano es igual a $|f(\xx)|/\|\bfbeta\|_2$. Esto último es cierto ya que, si $\xx_0$ es un punto sobre el hiperplano, entonces dicha distancia resulta de la proyección de $\xx-\xx_0$ sobre el vector normal $\bfbeta/\|\bfbeta\|_2$:
+$$
+\left|\frac{\bfbeta^\top}{\|\bfbeta\|}(\xx-\xx_0)\right|=\frac{\left|\bfbeta^\top\xx-\bfbeta^\top\xx_0\right|}{\|\bfbeta\|_2}=\frac{\left|\bfbeta^\top\xx+\beta_0\right|}{\|\bfbeta\|_2}=\frac{|f(\xx)|}{\|\bfbeta\|_2}.
+$$
 
-<span style="font-size: 1.3em;">✍️</span><br>
-Pruebe que $\bfbeta$ es el vector normal al hiperplano $\bfbeta^\top\xx+\beta_0=0$ y que la distancia entre un punto $\xx_0\in\RR^p$ y dicho hiperplano es igual a $|f(\xx_0)|/\|\bfbeta\|_2$.
-
-:::
 
 <div style="margin-top:2em;"></div>
 
 
 <figure style="text-align: center;">
   <img src="figuras/svm_datos_ls.svg" alt="…" width="500px">
-  <figcaption> **Figura 2.5.1**. Datos linealmente separables y algunos hiperplanos separadores. </figcaption>
+  <figcaption> **Figura 2.5.1:** Datos linealmente separables y algunos hiperplanos separadores. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -75,15 +91,13 @@ y_i(\bfbeta^\top\xx_i+\beta_0)>0\qquad\forall i=1,\ldots, n.
 \tag{2.5.2}
 $$
 
-Algo intuitivo (ver Figura 2.5.1) es que si las clases son totalmente separables, existen infinitos hiperplanos separadores. Por lo tanto, resulta necesario definir un criterio que permita seleccionar un hiperplano único y óptimo. 
-
-En primer lugar, establecemos lo siguiente:
+Algo intuitivo (ver Figura 2.5.1) es que si las clases son totalmente separables, existen infinitos hiperplanos separadores. Por lo tanto, resulta necesario definir un criterio que permita seleccionar un hiperplano único y óptimo. En primer lugar, establecemos lo siguiente:
 
 <div style="margin-top:-0.5em;"></div>
 
-::: {.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
+
 <span style="font-size:0.8em;">*Primer principio*</span>
-<div style="margin-top:0em;"></div>
 
 Cada vector $\bfbeta\in\RR^p$ puede definir un único hiperplano separador.
 
@@ -97,9 +111,9 @@ Este primer principio justifica considerar a $\bfbeta\in\RR^p$ como variable de 
 <div style="margin-top:1em;"></div>
 
 
-::: {.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
+
 <span style="font-size:0.8em;">*Segundo principio*</span>
-<div style="margin-top:0em;"></div>
 
 Se restringe la elección de $\bfbeta$ a aquellos vectores que cumplen $\|\bfbeta\|_2=1$.
 
@@ -127,28 +141,17 @@ con igualdad para al menos un punto de cada clase. Al valor $M$ lo denominamos *
 
 <div style="margin-top:2em;"></div>
 
-Es importante observar que los puntos para los cuales se cumple la igualdad en la restricción son los que caracterizan al hiperplano; estos se denominan <mark>vectores soporte</mark> (su definición formal se presentará más adelante).
-
-
-<div style="margin-top:2em;"></div>
-
 <figure style="text-align: center;">
   <img src="figuras/svm_margenes.svg" alt="…" width="550px">
-  <figcaption> **Figura 2.5.2**. Hiperplanos separadores y sus margenes asociados. </figcaption>
+  <figcaption> **Figura 2.5.2:** Hiperplanos separadores y sus margenes asociados. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
-Ya estamos en condiciones de determinar qué consideraremos como hiperplano separador óptimo de un conjunto de datos linealmente separables.
+Es importante observar que los puntos para los cuales se cumple la igualdad en la restricción son los que caracterizan al hiperplano; estos se denominan *vectores soporte* (su definición formal se presentará más adelante). A continuación, definiremos qué consideraremos como hiperplano separador óptimo de un conjunto de datos linealmente separables.
 
 ::: {.definicion}
-**Definición 2.5.3.** (Hiperplano separador óptimo) Sea $\{(\xx_i,y_i)\}_{i=1}^n$, con $y_i\in\{-1,+1\}$, un conjunto de datos linealmente separable. El *hiperplano separador óptimo* es aquel que maximiza el *margen* $M$.
-
-:::
-
-<div style="margin-top:1em;"></div>
-
-En base a lo descrito, la búsqueda del hiperplano separador óptimo queda determinada por el siguiente problema de optimización:
+**Definición 2.5.3** (Hiperplano separador óptimo). Sea $\{(\xx_i,y_i)\}_{i=1}^n$, con $y_i\in\{-1,+1\}$, un conjunto de datos linealmente separable. El *hiperplano separador óptimo* es aquel que maximiza el *margen* $M$, es decir, resuelve el problema
 
 $$
 \begin{array}{ll}
@@ -159,8 +162,11 @@ $$
 \tag{2.5.3}
 $$
 
+:::
 
-Observar que las variables de optimización son $\bfbeta\in\RR^p$ y $\beta_0\in\RR$. Si bien esta formulación refleja directamente la intención de maximizar el margen, vamos a ajustarla para obtener una formulación clásica más conveniente.
+<div style="margin-top:1em;"></div>
+
+Si bien esta formulación refleja directamente la intención de maximizar el margen, vamos a ajustarla para obtener una formulación clásica más conveniente.
 
 <div style="margin-top:1em;"></div>
 
@@ -196,11 +202,11 @@ donde $M^\star$ es el margen óptimo.
 
 <div style="margin-top:2em;"></div>
 
-Esta idea nos va a permitir reformular nuestro problema de optimización. En efecto, bajo estas nuevas condiciones, maximizar $M$ es equivalente a minimizar $\|\bfbeta\|_2$ y, convenientemente,  también equivalente a minimizar $\frac{1}{2}\|\bfbeta\|_2^2$. Finalmente:
+Esta idea nos va a permitir reformular nuestro problema de optimización. En efecto, bajo estas nuevas condiciones, maximizar $M$ es equivalente a minimizar $\|\bfbeta\|_2$ y, convenientemente,  también equivalente a minimizar $\frac{1}{2}\|\bfbeta\|_2^2$. Finalmente obtenemos la versión final del problema de optimización de interés.
 
 ::: {.definicion}
 
-**Definición 2.5.4.** (Problema de optimización del hiperplano separador óptimo) Dado un conjunto de datos  $\{(\xx_i,y_i)\}_{i=1}^n$ linealmente separables, el hiperplano separador óptimo es 
+**Definición 2.5.4** (Problema de optimización del hiperplano separador óptimo). Dado un conjunto de datos  $\{(\xx_i,y_i)\}_{i=1}^n$ linealmente separables, el hiperplano separador óptimo es 
 $$
 (\bfbeta^\star)^\top\xx+\beta_0^\star=0,
 $$
@@ -245,9 +251,12 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-::: {.highlight}
-⚠️ Si bien las condiciones KKT permiten caracterizar completamente la solución óptima, no proporcionan un método directo y eficiente para calcular $\bflambda^\star$. Por ello, resulta conveniente formular el problema dual de Lagrange, cuya resolución es computacionalmente más sencilla, esto último debido a que resulta ser un problema de optimización cuadrática.
-:::
+<div class="alert alert-light text-dark" role="important">
+
+ℹ Si bien las condiciones KKT permiten caracterizar completamente la solución óptima, no proporcionan un método directo y eficiente para calcular $\bflambda^\star$. Por ello, resulta conveniente formular el problema dual de Lagrange, cuya resolución es computacionalmente más sencilla, esto último debido a que resulta ser un problema de optimización cuadrática.
+
+</div>
+
 
 <div style="margin-top:2em;"></div>
 
@@ -277,7 +286,7 @@ $$
 <div style="margin-top:2em;" class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Observar, en la primera igualdad de (2.5.6), el término 
+Observar, en el desarrollo de (2.5.6), el término 
 $$
 -\beta_0\sum_{i=1}^n\lambda_i y_i.
 $$
@@ -326,7 +335,6 @@ donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}$. Aquí, cada término se obt
 
 </div>
 
-Luego, una vez obtenidos los puntos óptimos $\bfbeta^\star$ y $\beta_0^\star$, resultan:
 
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
   <tr>
@@ -361,7 +369,7 @@ $$
 
 De la condición de holgura complementaria, podemos afirmar que
 $$
-\lambda_i^\star>0 \Rightarrow y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)=1,
+\lambda_i^\star>0 \Longrightarrow y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)=1,
 \tag{2.5.8}
 $$
 lo cual significa que $\xx_i$ está sobre el *borde* del margen. Esto motiva la siguiente definición.
@@ -370,7 +378,7 @@ lo cual significa que $\xx_i$ está sobre el *borde* del margen. Esto motiva la 
 
 
 ::: {.definicion}
-**Definición 2.5.5.** (Vector soporte) Un dato $\xx_i$ se denomina *vector soporte* si el multiplicador asociado $\lambda_i$ es estrictamente positivo. 
+**Definición 2.5.5** (Vector soporte). Un dato $\xx_i$ se denomina *vector soporte* si el multiplicador asociado $\lambda_i$ es estrictamente positivo. 
 
 :::
 
@@ -388,7 +396,7 @@ De la solución $\bfbeta^\star$ obtenida previamente, queda claro que los vector
 
 <figure style="text-align: center;">
   <img src="figuras/svm_vectores_soporte.svg" alt="…" width="550px">
-  <figcaption> **Figura 2.5.3**. Vectores soporte de un hiperplano separador óptimo. </figcaption>
+  <figcaption> **Figura 2.5.3:** Vectores soporte del hiperplano separador óptimo de un conjunto de datos linealmente separables. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -412,7 +420,6 @@ Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos 
 #| fig-align: "center"
 
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.svm import SVC
 
 # Datos:
@@ -434,6 +441,8 @@ b = clf.intercept_[0]
 ```{python}
 #| echo: false
 #| fig-align: "center"
+
+import matplotlib.pyplot as plt
 
 # 📈:
 plt.figure(figsize=(7,5))
@@ -474,7 +483,7 @@ En la formulación del hiperplano separador óptimo, se asume que el conjunto de
 
 <figure style="text-align: center;">
   <img src="figuras/svm_holgura.svg" alt="…" width="550px">
-  <figcaption> **Figura 2.5.4**. Variables de holgura. </figcaption>
+  <figcaption> **Figura 2.5.4:** Variables de holgura. </figcaption>
 </figure>
 
 
@@ -657,7 +666,7 @@ Todo vector soporte se encuentra en una de las siguientes posiciones respecto al
 
 <figure style="text-align: center;">
   <img src="figuras/svm_vectores_soporte_2.svg" alt="…" width="550px">
-  <figcaption> **Figura 2.5.5**. Vectores soporte de un hiperplano óptimo con margen suave. </figcaption>
+  <figcaption> **Figura 2.5.5:** Vectores soporte de un hiperplano óptimo con margen suave. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -925,7 +934,7 @@ El cálculo de productos internos (2.5.12) en $\calH$ será fundamental para la 
 
 
 ::: {.definicion}
-**Definición 2.5.9.** (RKHS) Un espacio de Hilbert $\calH$ es un *espacio de Hilbert con núcleo reproductor* (RKHS) si admite un *núcleo reproductor* $k:\RR^p\times\RR^p\to\RR$ que verifica las siguientes propiedades:
+**Definición 2.5.9** (RKHS). Un espacio de Hilbert $\calH$ es un *espacio de Hilbert con núcleo reproductor* (RKHS) si admite un *núcleo reproductor* $k:\RR^p\times\RR^p\to\RR$ que verifica las siguientes propiedades:
 
 - Para todo $\xx\in\RR^p$, $k(\xx,\cdot)\in\calH$.
 
@@ -951,7 +960,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/rkhs.svg" alt="…" width="400px">
-  <figcaption> **Figura 2.5.6**. Mapeo característico $\phi:\RR^p\to\calH$ asociado a un RKHS. </figcaption>
+  <figcaption> **Figura 2.5.6:** Mapeo característico $\phi:\RR^p\to\calH$ asociado a un RKHS. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -977,7 +986,7 @@ Para responder a esta pregunta, es necesario introducir la siguiente definición
 
 
 ::: {.definicion}
-**Definición 2.5.10.** Una función $k:\RR^p\times\RR^p\to\RR$ se dice *definida positiva* si para todo $n\in\NN$, $\alpha_1,\ldots,\alpha_n\in\RR$ y $\xx_1,\ldots,\xx_n\in\RR^p$ resulta
+**Definición 2.5.10** (Función definida positiva). Una función $k:\RR^p\times\RR^p\to\RR$ se dice *definida positiva* si para todo $n\in\NN$, $\alpha_1,\ldots,\alpha_n\in\RR$ y $\xx_1,\ldots,\xx_n\in\RR^p$ resulta
 $$
 \sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jk(\xx_i,\xx_j)\geq 0.
 \tag{2.5.13}

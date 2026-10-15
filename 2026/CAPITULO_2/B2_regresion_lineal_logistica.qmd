@@ -162,7 +162,7 @@ lo cual es la función de costo asociada a mínimos cuadrados.
 
 <figure style="text-align: center;">
   <img src="figuras/linear_regression_hastie.png" alt="…" width="350px">
-  <figcaption> **Figura 2.2.1**. Interpretación geométrica del modelo de regresión lineal en $\RR^2$. El objetivo es hallar la función lineal de $X$ que minimice la suma de los residuos al cuadrado respecto de $Y$. (*Figura 3.1 de (Hastie, Tibshirani y Friedman 2009)*). </figcaption>
+  <figcaption> **Figura 2.2.1:** Interpretación geométrica del modelo de regresión lineal en $\RR^2$. El objetivo es hallar la función lineal de $X$ que minimice la suma de los residuos al cuadrado respecto de $Y$. (*Figura 3.1 de (Hastie, Tibshirani y Friedman 2009)*). </figcaption>
 </figure>
 
 

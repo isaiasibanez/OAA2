@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -423,7 +423,7 @@ J(\boldsymbol{\theta}):=\frac{1}{2}\text{MSE}=\frac{1}{2n}\|{\bf y}-X\boldsymbol
 <figure style="text-align: center;" class="figure">
 <img src="figuras/ridge.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.1</strong>. Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
+<strong>Figura 2.4.1:</strong> Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_2^2\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -509,7 +509,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 </div>
 </div>
 </div>
-<div id="740d8cc9" class="cell" data-execution_count="1">
+<div id="966397a3" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge, RidgeCV</span>
@@ -550,7 +550,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <span id="cb1-38"><a href="#cb1-38"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb1-39"><a href="#cb1-39"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3e1ccc1d" class="cell" data-execution_count="2">
+<div id="d11efe58" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -608,7 +608,7 @@ J(\boldsymbol{\theta})=\frac{1}{2n}\|{\bf y}-X\boldsymbol{\theta}\|_2^2+\lambda\
 <figure style="text-align: center;" class="figure">
 <img src="figuras/lasso.svg" alt="…" width="450px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.2</strong>. Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
+<strong>Figura 2.4.2:</strong> Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición <span class="math inline">\(\lambda&gt;0\)</span>, el punto óptimo ocurre en la frontera del conjunto factible <span class="math inline">\(\Omega:=\{\boldsymbol{\theta}\in\mathbb{R}^p \mid \|\boldsymbol{\theta}\|_1\leq t\}\)</span>.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
@@ -740,7 +740,7 @@ X \hat{\boldsymbol{\theta}}^{\text{lasso},1} = X \hat{\boldsymbol{\theta}}^{\tex
 <figure style="text-align: center;" class="figure">
 <img src="figuras/ej_subdiferencial.png" alt="…" width="400px" class="figure-img">
 <figcaption>
-<strong>Figura 2.4.3</strong>. Subdiferencial de la norma 1 para <span class="math inline">\(p=2\)</span> en el punto <span class="math inline">\((1,0)\)</span>.
+<strong>Figura 2.4.3:</strong> Subdiferencial de la norma 1 para <span class="math inline">\(p=2\)</span> en el punto <span class="math inline">\((1,0)\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -988,7 +988,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.4.9</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Regresión Lasso en datos de diabetes </span></p>
 <p>Al igual que en el Ejemplo 2.4.2 para el caso de Ridge, implementaremos Lasso sobre el conjunto de datos de diabetes. Esta vez, podemos esperar que algunos coeficientes se anulen, lo que reflejará la selección de variables realizada por el modelo.</p>
-<div id="8ab22eff" class="cell" data-execution_count="3">
+<div id="debe2d63" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
@@ -1030,7 +1030,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <span id="cb4-39"><a href="#cb4-39"></a>idx_best <span class="op">=</span> np.where(lambdas <span class="op">==</span> best_lambda)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb4-40"><a href="#cb4-40"></a>mse_best <span class="op">=</span> mse_means[idx_best]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e77b54ac" class="cell" data-execution_count="4">
+<div id="9863b96d" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -769,7 +769,7 @@ Algunas características son:
 
 - El vector $\bfa$ es *normal* al hiperplano. Dado un punto $\xx_0$ del hiperplano, se verifica $\bfa^\top (\xx-\xx_0)=0$ para cualquier otro punto $\xx$ del hiperplano.
 
-- El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. De hecho, probaremos más adelante que la distancia del hiperplano al origen es $b/\|\bfa\|_2$.
+- El escalar $b$ determina el desplazamiento del hiperplano respecto del origen. De hecho, probaremos más adelante que la distancia del hiperplano al origen es $|b|/\|\bfa\|_2$.
 
 - Un hiperplano divide a $\RR^p$ en dos *semiespacios*. Un semiespacio cerrado es un conjunto de la forma
   $$

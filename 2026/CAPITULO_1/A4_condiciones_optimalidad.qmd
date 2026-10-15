@@ -1402,7 +1402,7 @@ $$
 p^\star=\frac{b^2}{\|\bfa\|_2^2}.
 $$
 
-Observar que esto muestra que la distancia del hiperplano $\bfa^\top\xx=b$ al origen es $b/\|\bfa\|_2$, tal como lo mencionamos en [C1-S2](A2_optimizacion_convexa.html).
+Observar que esto muestra que la distancia del hiperplano $\bfa^\top\xx=b$ al origen es $|b|/\|\bfa\|_2$, tal como lo mencionamos en [C1-S2](A2_optimizacion_convexa.html).
 :::
 
 <div style="margin-top:2em;"></div>

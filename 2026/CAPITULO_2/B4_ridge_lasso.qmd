@@ -163,7 +163,7 @@ Debe quedar claro que la solución del problema (2.4.4) para un valor arbitrario
 
 <figure style="text-align: center;">
   <img src="figuras/ridge.svg" alt="…" width="450px">
-  <figcaption> **Figura 2.4.1**. Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}$. </figcaption>
+  <figcaption> **Figura 2.4.1:** Interpretación geométrica del problema Ridge, de acuerdo a su formulación con restricciones (2.4.4). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_2^2\leq t\}$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -393,7 +393,7 @@ Si $\lambda>0$, entonces $t=\|\hat{\bftheta}^{\text{lasso}}\|_1$.
 
 <figure style="text-align: center;">
   <img src="figuras/lasso.svg" alt="…" width="450px">
-  <figcaption> **Figura 2.4.2**. Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}$. </figcaption>
+  <figcaption> **Figura 2.4.2:** Interpretación geométrica del problema Lasso, de acuerdo a su formulación con restricciones (2.4.7). Bajo la suposición $\lambda>0$, el punto óptimo ocurre en la frontera del conjunto factible $\Omega:=\{\bftheta\in\RR^p \mid \|\bftheta\|_1\leq t\}$. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -567,7 +567,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/ej_subdiferencial.png" alt="…" width="400px">
-  <figcaption> **Figura 2.4.3**. Subdiferencial de la norma 1 para $p=2$ en el punto $(1,0)$.</figcaption>
+  <figcaption> **Figura 2.4.3:** Subdiferencial de la norma 1 para $p=2$ en el punto $(1,0)$.</figcaption>
 </figure>
 
 :::
