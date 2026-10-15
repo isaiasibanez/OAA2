@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -511,8 +511,8 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 \begin{align}
 \mathcal{G}(\boldsymbol{\lambda}):&amp;=\inf_{\boldsymbol{\beta},\beta_0}\mathcal{L}(\boldsymbol{\beta},\beta_0,\boldsymbol{\lambda})\\
 &amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i{\bf x}_i\right\|_2^2-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j{\bf x}_j\right)^\top{\bf x}_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i\\
-&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
-&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i.
+&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_j-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
+&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j.
 \end{align}
 \tag{2.5.6}
 \]</span></p>
@@ -531,7 +531,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 </div>
 <p>Finalmente, el problema dual es <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq\mathbf{0}.
 \end{array}
 \tag{2.5.7}
@@ -628,7 +628,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.5.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
 <p>Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos el hiperplano separador óptimo e identificaremos los vectores soporte.</p>
-<div id="6d9058b6" class="cell" data-execution_count="1">
+<div id="79b15311" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -647,7 +647,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <span id="cb1-16"><a href="#cb1-16"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
 <span id="cb1-17"><a href="#cb1-17"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="6d98bd75" class="cell" data-execution_count="2">
+<div id="548c8a3c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -726,20 +726,20 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 <p>La función dual resulta <span class="math display">\[
 \begin{align}
 \mathcal{G}(\boldsymbol{\lambda})&amp;=\frac{1}{2}\left\|\sum_{i=1}^n\lambda_iy_i{\bf x}_i\right\|_2^2+C\sum_{i=1}^n\xi_i-\sum_{i=1}^n\lambda_iy_i\left(\sum_{j=1}^n\lambda_jy_j{\bf x}_j\right)^\top{\bf x}_i-\beta_0\underbrace{\sum_{i=1}^n\lambda_iy_i}_{=0}+\sum_{i=1}^n\lambda_i-\sum_{i=1}^n\underbrace{(\lambda_i+\mu_i)}_{=C}\xi_i\\
-&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_i-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
-&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i.
+&amp;=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j {\bf x}_i^\top{\bf x}_j-\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j{\bf x}_j^\top{\bf x}_i+\sum_{i=1}^n\lambda_i\\
+&amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j.
 \end{align}
 \]</span></p>
 <p>Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción <span class="math inline">\(\boldsymbol{\mu}\succeq \mathbf{0}\)</span>: <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq\mathbf{0},\;\boldsymbol{\mu}\succeq\mathbf{0}.
 \end{array}
 \tag{2.5.10}
 \]</span></p>
 <p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (2.5.10) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_j^\top{\bf x}_i\\
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
                   &amp; 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
 \end{array}
