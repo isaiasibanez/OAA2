@@ -549,7 +549,7 @@ Ahora bien, dado que $\Omega$ es un poliedro (y, por lo tanto, un conjunto conve
 
 
 ::: {.teorema}
-**Corolario 1.4.8.** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral) 
+**Corolario 1.4.8** (Condición necesaria de optimalidad de primer orden para un conjunto factible poliedral). 
 Sea $\Omega$ el poliedro definido por (1.4.6), y sea $f:\RR^p\to\RR$ una función diferenciable. Si $\xx^\star\in \Omega$ es un minimizador de $f$ sobre $\Omega$, entonces existen $\bflambda^\star\in(\RR_0^+)^r$ y $\bfnu^\star\in\RR^m$ tales que $\lambda_i^\star(\bfa_i^\top\xx^\star-b_i)=0$ para todo $i=1,\ldots,r$ y
 $$
 -\nabla f(\xx^\star)=\sum_{i=1}^r\lambda_i\bfa_i+\sum_{j=1}^m \nu_j\cc_j.

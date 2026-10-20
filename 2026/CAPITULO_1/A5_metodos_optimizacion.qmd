@@ -466,7 +466,7 @@ Sustituyendo esto último en (1.5.2)  y reordenando, se obtiene la cota enunciad
 
 
 ::: {.teorema}
-**Teorema 1.5.6.** Sea $f:\RR^p\to\RR$ una función $L$-suave y convexa con minimizador $\xx^\star \in \RR^p$, y sea $0 < \eta \leq \frac{1}{L}$. El método de descenso por gradiente verifica
+**Teorema 1.5.6** (Tasa de convergencia del descenso por gradiente para funciones convexas). Sea $f:\RR^p\to\RR$ una función $L$-suave y convexa con minimizador $\xx^\star \in \RR^p$, y sea $0 < \eta \leq \frac{1}{L}$. El método de descenso por gradiente verifica
 $$
 f(\xx_{t}) - f(\xx^{*}) \leq \frac{\|\xx^\star - \xx_{0}\|_{2}^{2}}{2 t \eta} \qquad \forall t\in\NN.
 $$
@@ -827,7 +827,7 @@ A pesar de que en este Teorema, en relación con el lema del descenso por gradie
 
 
 ::: {.teorema}
-**Teorema 1.5.9.** 
+**Teorema 1.5.9** (Tasa de convergencia del descenso por gradiente proyectado para funciones convexas). 
 Sea $f:\RR^p\to\RR$ una función convexa y $L$-suave, con minimizador $\xx^\star\in\Omega$, donde $\Omega\subset\RR^p$ es un conjunto cerrado y convexo, y sea $0<\eta\leq\frac{1}{L}$. El método de descenso por gradiente proyectado verifica
 
 $$
@@ -1231,7 +1231,7 @@ En primer lugar, enunciamos el siguiente teorema de convergencia.
 
 
 ::: {.teorema}
-**Teorema 1.5.11.** 
+**Teorema 1.5.11** (Convergencia local del método de Newton). 
 Sea $f:\RR^p\to\RR$ una función dos veces diferenciable y sea $\xx_\star$ un punto crítico. Supongamos que existe una bola $B(\xx_\star,\varepsilon)\subset \dom f$ tal que:
 
 (i) Existe $\alpha>0$ tal que
@@ -1256,7 +1256,7 @@ $$
 Para concluir la idea de la rapidez de convergencia, el siguiente resultado establece la condición de cercanía de $\xx_0$ respecto al punto crítico $\xx_\star$. Por supuesto, como caso particular, también aplica a nuestro real interés de hallar $\xx^\star$, siempre que se cumplan las condiciones.
 
 ::: {.teorema}
-**Corolario 1.5.12.** 
+**Corolario 1.5.12** (Cota del error del método de Newton). 
 Bajo las condiciones del Teorema 6, si además
 $$
 \|\xx_0-\xx_\star\|_2\leq \frac{\alpha}{M},

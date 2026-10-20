@@ -92,7 +92,7 @@ $$
 ## I <span style="color:#CCCCCC;">│</span> La familia exponencial
 
 ::: {.definicion}
-**Definición 2.3.1.** (Familia exponencial)  Decimos que una clase de distribuciones pertenece a la *familia exponencial* si se puede escribir en la forma
+**Definición 2.3.1** (Familia exponencial). Decimos que una clase de distribuciones pertenece a la *familia exponencial* si se puede escribir en la forma
 
 $$
 p(y \mid \bfeta) := h(y) \exp\left\{\bfeta^\top T(y) - A(\bfeta)\right\},

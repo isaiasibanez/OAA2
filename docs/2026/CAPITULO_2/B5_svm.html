@@ -321,7 +321,7 @@ window.Quarto = {
 <p><a href="../material/apunte_c2s5.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c2s5.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
-<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 15/10/2026 </span></p>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 19/10/2026 </span></p>
 </div>
 <div style="margin-top:20px">
 
@@ -628,7 +628,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.5.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
 <p>Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos el hiperplano separador óptimo e identificaremos los vectores soporte.</p>
-<div id="79b15311" class="cell" data-execution_count="1">
+<div id="d755aacc" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -647,7 +647,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <span id="cb1-16"><a href="#cb1-16"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
 <span id="cb1-17"><a href="#cb1-17"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="548c8a3c" class="cell" data-execution_count="2">
+<div id="27f983c6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -673,7 +673,7 @@ Número de vectores soporte: 3</code></pre>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/svm_holgura.svg" alt="…" width="550px" class="figure-img">
 <figcaption>
-<strong>Figura 2.5.4:</strong> Variables de holgura.
+<strong>Figura 2.5.4:</strong> Variables de holgura en un conjunto de datos linealmente no separable.
 </figcaption>
 </figure>
 <p>La incorporación de las variables de holgura <span class="math inline">\(\boldsymbol{\xi}\)</span> al problema de optimización (2.5.5) conduce al siguiente problema de optimización: <span class="math display">\[
@@ -682,34 +682,34 @@ Número de vectores soporte: 3</code></pre>
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   &amp; \boldsymbol{\xi}\succeq\mathbf{0},\;\sum_{i=1}^n\xi_i\leq\text{cte}.
 \end{array}
-\tag{2.5.8}
+\tag{2.5.9}
 \]</span></p>
-<p>Este nuevo problema de optimización tiene variables <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>, <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> y <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^{n}\)</span>. La restricción <span class="math inline">\(\sum_{i=1}^n=\xi_i\leq\text{cte}\)</span> permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, derivando en la siguiente forma alternativa de (2.5.8):</p>
+<p>Este nuevo problema de optimización tiene variables <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span>, <span class="math inline">\(\beta_0\in\mathbb{R}\)</span> y <span class="math inline">\(\boldsymbol{\xi}\in\mathbb{R}^{n}\)</span>. La restricción <span class="math inline">\(\sum_{i=1}^n=\xi_i\leq\text{cte}\)</span> permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, lo cual deriva en la siguiente forma alternativa de (2.5.9):</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; \displaystyle\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\
 \text{sujeto a }  &amp; y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   &amp; \boldsymbol{\xi}\succeq\mathbf{0}.
 \end{array}
-\tag{2.5.9}
+\tag{2.5.10}
 \]</span></p>
-<p>A <span class="math inline">\(C&gt;0\)</span> se lo conoce como <em>hiperparámetro de costo</em>. Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho.</p>
+<p>A <span class="math inline">\(C&gt;0\)</span> se lo conoce como <em>hiperparámetro de costo</em>. Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho. Es claro que:</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="myhighlight">
-<p>El problema (2.5.9) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
+<p>El problema (2.5.10) es un problema de optimización convexa cuyo conjunto factible es un poliedro.</p>
 </div>
 <div style="margin-top:2em;">
 
 </div>
-<p>Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos a este nuevo método como <mark>Máquina de Vectores Soporte (SVM)</mark> lineal.</p>
+<p>Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos a este nuevo método como <em>máquina de vectores soporte (SVM) lineal</em>.</p>
 <div style="margin-top:2em;">
 
 </div>
 <section id="optimalidad-1" class="level3">
 <h3 class="anchored" data-anchor-id="optimalidad-1">Optimalidad</h3>
-<p>En el problema de optimización (2.5.9) se distinguen <span class="math inline">\(2n\)</span> restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, <span class="math inline">\(\boldsymbol{\xi}\succeq 0\)</span>, distinguiremos sus multiplicadores con la notación <span class="math inline">\(\boldsymbol{\mu}=(\mu_1,\ldots,\mu_n)\)</span>. Las condiciones KKT son <span class="math display">\[
+<p>En el problema de optimización (2.5.10) se distinguen <span class="math inline">\(2n\)</span> restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, <span class="math inline">\(\boldsymbol{\xi}\succeq 0\)</span>, distinguiremos sus multiplicadores con la notación <span class="math inline">\(\boldsymbol{\mu}=(\mu_1,\ldots,\mu_n)\)</span>. Las condiciones KKT son <span class="math display">\[
 \begin{array}{cl}
 y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 0\qquad\forall i=1,\ldots,n\qquad&amp;\text{(Factibilidad primal)}\\[3pt]
 \lambda_i^\star\geq 0,\;\mu_i^\star\geq 0\qquad\forall i=1,\ldots,n\qquad &amp;\text{(Factibilidad dual)}\\[3pt]
@@ -730,20 +730,20 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 &amp;=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j.
 \end{align}
 \]</span></p>
-<p>Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción <span class="math inline">\(\boldsymbol{\mu}\succeq \mathbf{0}\)</span>: <span class="math display">\[
+<p>Hemos obtenido la misma función dual del caso linealmente separable. El problema dual es <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq\mathbf{0},\;\boldsymbol{\mu}\succeq\mathbf{0}.
 \end{array}
-\tag{2.5.10}
+\tag{2.5.11}
 \]</span></p>
-<p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (2.5.10) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
+<p>Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad <span class="math inline">\(C=\lambda_i+\mu_i\)</span>, y escribir en (2.5.11) simplemente <span class="math inline">\(0\leq \lambda_i\leq C\)</span> para todo <span class="math inline">\(i=1,\ldots,n\)</span>. Esto deriva en la versión final del problema dual: <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j{\bf x}_i^\top{\bf x}_j\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
                   &amp; 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
 \end{array}
-\tag{2.5.11}
+\tag{2.5.12}
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -752,7 +752,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 <p><span class="badge bg-success">SVM lineal</span></p>
 <p>Para obtener el hiperplano óptimo de margen suave de un conjunto de datos, los pasos a seguir son los siguientes:</p>
 <ol type="1">
-<li><p>Se resuelve el problema dual (2.5.11) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
+<li><p>Se resuelve el problema dual (2.5.12) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
 \boldsymbol{\beta}^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_i{\bf x}_i.
 \]</span></p></li>
@@ -761,7 +761,6 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 \]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Aquí, cada término se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
 </ol>
 </div>
-<p>Luego, una vez obtenidos los puntos óptimos <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
 <tbody><tr>
 <td style="padding: 16px 8px; border: none;">
@@ -804,7 +803,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i)\geq 0\qqua
 
 </div>
 <p>En este caso, la holgura complementaria conduce a <span class="math display">\[
-\lambda_i^\star&gt;0 \Rightarrow
+\lambda_i^\star&gt;0 \Longrightarrow
 y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star,
 \]</span></p>
 <p>lo cual implica dos opciones para los vectores soporte:</p>
@@ -827,7 +826,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star,
 </div>
 <p>En consecuencia, podemos afirmar que:</p>
 <div class="myhighlight">
-<p>Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen o fuera del margen pero mal clasificado.</p>
+<p>Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen (bien o mal clasificado) o fuera del margen pero mal clasificado.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -899,7 +898,7 @@ Posición respecto al margen
 <input type="checkbox" name="cono1">
 </td>
 <td>
-<select name="miSelect1"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+<select name="miSelect1"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde del margen, bien clasificado.</option> <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
 </td>
 </tr>
 <tr>
@@ -913,7 +912,7 @@ Posición respecto al margen
 <input type="checkbox" name="cono2">
 </td>
 <td>
-<select name="miSelect2"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+<select name="miSelect2"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde del margen, bien clasificado.</option> <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option> <option value="opcion5">Fuera del margen, bien clasificado</option> <option value="opcion6">Fuera del margen, mal clasificado</option> </select>
 </td>
 </tr>
 <tr>
@@ -927,7 +926,7 @@ Posición respecto al margen
 <input type="checkbox" name="cono2">
 </td>
 <td>
-<select name="miSelect3"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde, bien clasificado.</option> <option value="opcion2">En el borde o fuera, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">Viola el margen, bien o mal clasificado.</option> <option value="opcion5">Fuera, bien clasificado</option> <option value="opcion6">Fuera, mal clasificado</option> </select>
+<select name="miSelect3"> <option value="" disabled="" selected="">Seleccioná una opción…</option> <option value="opcion1">En el borde del margen, bien clasificado.</option> <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option> <option value="opcion3">Viola el margen, mal clasificado.</option> <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option> <option value="opcion5">Fuera del margen, bien clasificado</option> <option value="opcion6">Fuera del margen, mal clasificado</option> </select>
 </td>
 </tr>
 </tbody>
@@ -950,10 +949,10 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="855" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 854;"><span id="cb3-855"><a href="#cb3-855" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb3-856"><a href="#cb3-856" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb3-857"><a href="#cb3-857" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb3-858"><a href="#cb3-858" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="853" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 852;"><span id="cb3-853"><a href="#cb3-853" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb3-854"><a href="#cb3-854" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb3-855"><a href="#cb3-855" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb3-856"><a href="#cb3-856" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -972,15 +971,15 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <p>El uso de hiperplanos separadores tiene la limitación de que determina una frontera de decisión lineal. En muchos problemas reales, esta hipótesis resulta demasiado restrictiva: los datos pueden estar distribuidos de manera tal que no exista un hiperplano capaz de separarlos correctamente, ni siquiera permitiendo un margen suave. Para graficar esto, veamos el siguiente ejemplo.</p>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.5.8</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Transformación de datos de <span class="math inline">\(\mathbb{R}^2\)</span> a <span class="math inline">\(\mathbb{R}^3\)</span> </span></p>
-<p>En la siguiente figura se presenta un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>.</p>
+<p>Consideremos un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>, dispuestos de manera tal que una clase rodea a la otra, tal como muestra la siguiente figura.</p>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/svm_ej_motivador.png" alt="…" width="350px" class="figure-img">
+<img src="figuras/svm_ej_motivador.svg" alt="…" width="350px" class="figure-img">
 </figure>
 <p>Claramente no sería conveniente intentar clasificar mediante una frontera de decisión lineal. Una estrategia más apropiada es transformar los datos a <span class="math inline">\(\mathbb{R}^3\)</span>, añadiendo la variable <span class="math display">\[
 Z = X_1^2+X_2^2.
 \]</span></p>
 <figure style="text-align: center;" class="figure">
-<img src="figuras/svm_ej_motivador_3d.png" alt="…" width="350px" class="figure-img">
+<img src="figuras/svm_ej_motivador_3d.svg" alt="…" width="350px" class="figure-img">
 </figure>
 <p>En el espacio transformado <span class="math inline">\(\mathbb{R}^3\)</span>, los puntos de las dos clases están ahora claramente separados a lo largo de la coordenada <span class="math inline">\(Z\)</span>. Por lo tanto, es apropiado aplicar allí un hiperplano separador, ya que ahora existe una frontera lineal que separa perfectamente las dos clases.</p>
 </div>
@@ -990,10 +989,7 @@ Z = X_1^2+X_2^2.
 <p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma <span class="math display">\[
 \phi:\mathbb{R}^p\to\mathcal{H},
 \]</span></p>
-<p>donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido. La condición de que <span class="math inline">\(\mathcal{H}\)</span> sea un espacio de Hilbert nos posibilita hacer cálculos en el espacio transformado: <span class="math display">\[
-\langle \phi({\bf x}_1),\phi({\bf x}_2)\rangle_{\mathcal{H}}\qquad\forall{\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
-\tag{2.5.12}
-\]</span></p>
+<p>donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1009,9 +1005,13 @@ Z = X_1^2+X_2^2.
 </div>
 <section id="núcleos-reproductores" class="level3">
 <h3 class="anchored" data-anchor-id="núcleos-reproductores">Núcleos reproductores</h3>
-<p>El cálculo de productos internos (2.5.12) en <span class="math inline">\(\mathcal{H}\)</span> será fundamental para la generalización de SVM. Para un <span class="math inline">\(\mathcal{H}\)</span> arbitrario, conocer explícitamente su producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> resulta ser una limitación práctica. Una manera de sortear esto es utilizar un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS).</p>
+<p>El cálculo de productos internos en <span class="math inline">\(\mathcal{H}\)</span>, de la forma <span class="math display">\[
+\langle \phi({\bf x}_1),\phi({\bf x}_2)\rangle_{\mathcal{H}}\qquad\forall{\bf x}_1,{\bf x}_2\in\mathbb{R}^p,
+\tag{2.5.13}
+\]</span></p>
+<p>es fundamental para la generalización de SVM. Sin embargo, para un <span class="math inline">\(\mathcal{H}\)</span> arbitrario, conocer explícitamente su producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> resulta ser una limitación práctica. Una manera de sortear esto es trabajar con un tipo especial de espacios de Hilbert.</p>
 <div class="definicion">
-<p><strong>Definición 2.5.9</strong> (RKHS). Un espacio de Hilbert <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> que verifica las siguientes propiedades:</p>
+<p><strong>Definición 2.5.9</strong> (Espacio de Hilbert con núcleo reproductor). Un espacio de Hilbert <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS, <em>reproducing kernel Hilbert space</em>) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> que verifica las siguientes propiedades:</p>
 <ul>
 <li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span>, <span class="math inline">\(k({\bf x},\cdot)\in\mathcal{H}\)</span>.</p></li>
 <li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> y toda <span class="math inline">\(h\in\mathcal{H}\)</span>, <span class="math display">\[
@@ -1022,7 +1022,7 @@ h({\bf x})=\langle h,k({\bf x},\cdot)\rangle_{\mathcal{H}}.
 <div style="margin-top:1em;">
 
 </div>
-<p>Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (2.5.12). Las propiedades de la Definición 2.5.9 implican:</p>
+<p>Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (2.5.13). Las propiedades de la Definición 2.5.9 implican:</p>
 <div class="myhighlight">
 <p><span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\mathcal{H}}\qquad\forall {\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
@@ -1057,7 +1057,7 @@ k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\ma
 <div class="definicion">
 <p><strong>Definición 2.5.10</strong> (Función definida positiva). Una función <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> se dice <em>definida positiva</em> si para todo <span class="math inline">\(n\in\mathbb{N}\)</span>, <span class="math inline">\(\alpha_1,\ldots,\alpha_n\in\mathbb{R}\)</span> y <span class="math inline">\({\bf x}_1,\ldots,{\bf x}_n\in\mathbb{R}^p\)</span> resulta <span class="math display">\[
 \sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jk({\bf x}_i,{\bf x}_j)\geq 0.
-\tag{2.5.13}
+\tag{2.5.14}
 \]</span></p>
 <p>Por otra parte, <span class="math inline">\(k\)</span> es <em>simétrica</em> si <span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=k({\bf x}_2,{\bf x}_1)\qquad\forall{\bf x}_1,{\bf x}_2\in\mathbb{R}^p.
@@ -1066,7 +1066,7 @@ k({\bf x}_1,{\bf x}_2)=k({\bf x}_2,{\bf x}_1)\qquad\forall{\bf x}_1,{\bf x}_2\in
 <div style="margin-top:2em;">
 
 </div>
-<p>La expresión (2.5.13) se puede escribir matricialmente como <span class="math inline">\(K\succeq 0\)</span>, donde <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> es la <em>matriz de Gram</em> definida por <span class="math display">\[
+<p>La expresión (2.5.14) se puede escribir matricialmente como <span class="math inline">\(K\succeq 0\)</span>, donde <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> es la <em>matriz de Gram</em> definida por <span class="math display">\[
 K_{ij}=k({\bf x}_i,{\bf x}_j).
 \]</span></p>
 <div style="margin-top:1em;">
@@ -1082,7 +1082,7 @@ k({\bf x}_1,{\bf x}_2)={\bf x}_1^\top{\bf x}_2.
 <li><p><em>Núcleo polinómico</em>: <span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=(\gamma\,{\bf x}_1^\top{\bf x}_2+b)^d.
 \]</span></p></li>
-<li><p><em>Núcleo gaussiano (RBF)</em>: <span class="math display">\[
+<li><p><em>Núcleo gaussiano</em>: <span class="math display">\[
 k({\bf x}_1,{\bf x}_2)=\exp\left\{-\gamma\,\|{\bf x}_1-{\bf x}_2\|_2^2\right\}.
 \]</span></p></li>
 <li><p><em>Núcleo sigmoide</em>: <span class="math display">\[
@@ -1096,7 +1096,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 </section>
 <section id="formulación-del-problema" class="level3">
 <h3 class="anchored" data-anchor-id="formulación-del-problema">Formulación del problema</h3>
-<p>La idea básica es aplicar la metodología de hiperplano separador con margen suave en el <mark>espacio de características</mark> <span class="math inline">\(\mathcal{H}\)</span>. Esto significa que la función dual es <span class="math display">\[
+<p>La idea básica es aplicar la metodología de hiperplano separador con margen suave en <span class="math inline">\(\mathcal{H}\)</span>. Esto resulta en la siguiente función dual: <span class="math display">\[
 \mathcal{G}(\lambda)=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j \underbrace{\langle k({\bf x}_i,\cdot), k({\bf x}_j,\cdot)\rangle_{\mathcal{H}}}_{k({\bf x}_i,{\bf x}_j)}.
 \]</span></p>
 <p>El problema dual correspondiente es <span class="math display">\[
@@ -1104,7 +1104,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\displaystyle\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j k({\bf x}_i,{\bf x}_j)\\
 \text{sujeto a }  &amp; \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\boldsymbol{\lambda}\succeq 0.
 \end{array}
-\tag{2.5.14}
+\tag{2.5.15}
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -1113,7 +1113,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 <p><span class="badge bg-success">SVM no lineal</span></p>
 <p>Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS, los pasos a seguir son:</p>
 <ol type="1">
-<li><p>Se resuelve el problema dual (2.4.14) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
+<li><p>Se resuelve el problema dual (2.5.15) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
 \boldsymbol{\beta}^\star=\sum_{\substack{i=1\\\lambda_i^\star\neq 0}}^n\lambda_i^\star y_ik({\bf x}_i,\cdot).
 \]</span></p></li>
@@ -1125,7 +1125,6 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 <div style="margin-top:2em;">
 
 </div>
-<p>Una vez obtenidos los puntos óptimos <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, resultan:</p>
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7;">
 <tbody><tr style="border-bottom: 1px solid #cccccc;">
 <td style="padding: 16px 8px;">
@@ -1159,30 +1158,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1192" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1191;"><span id="cb4-1192"><a href="#cb4-1192" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1193"><a href="#cb4-1193" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb4-1194"><a href="#cb4-1194" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb4-1195"><a href="#cb4-1195" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1196"><a href="#cb4-1196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1197"><a href="#cb4-1197" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1198"><a href="#cb4-1198" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb4-1199"><a href="#cb4-1199" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb4-1200"><a href="#cb4-1200" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1201"><a href="#cb4-1201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1202"><a href="#cb4-1202" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1203"><a href="#cb4-1203" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb4-1204"><a href="#cb4-1204" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb4-1205"><a href="#cb4-1205" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1206"><a href="#cb4-1206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1207"><a href="#cb4-1207" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1208"><a href="#cb4-1208" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1209"><a href="#cb4-1209" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb4-1210"><a href="#cb4-1210" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1211"><a href="#cb4-1211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1212"><a href="#cb4-1212" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1213"><a href="#cb4-1213" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1214"><a href="#cb4-1214" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb4-1215"><a href="#cb4-1215" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1190" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1189;"><span id="cb4-1190"><a href="#cb4-1190" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1191"><a href="#cb4-1191" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb4-1192"><a href="#cb4-1192" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb4-1193"><a href="#cb4-1193" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1194"><a href="#cb4-1194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1195"><a href="#cb4-1195" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1196"><a href="#cb4-1196" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb4-1197"><a href="#cb4-1197" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb4-1198"><a href="#cb4-1198" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1199"><a href="#cb4-1199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1200"><a href="#cb4-1200" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1201"><a href="#cb4-1201" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb4-1202"><a href="#cb4-1202" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb4-1203"><a href="#cb4-1203" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1204"><a href="#cb4-1204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1205"><a href="#cb4-1205" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1206"><a href="#cb4-1206" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1207"><a href="#cb4-1207" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb4-1208"><a href="#cb4-1208" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1209"><a href="#cb4-1209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1210"><a href="#cb4-1210" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1211"><a href="#cb4-1211" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1212"><a href="#cb4-1212" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb4-1213"><a href="#cb4-1213" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -1231,30 +1230,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1297" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1296;"><span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1306"><a href="#cb5-1306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1307"><a href="#cb5-1307" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1308"><a href="#cb5-1308" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb5-1309"><a href="#cb5-1309" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb5-1310"><a href="#cb5-1310" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1311"><a href="#cb5-1311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1312"><a href="#cb5-1312" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1313"><a href="#cb5-1313" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1314"><a href="#cb5-1314" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb5-1315"><a href="#cb5-1315" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1316"><a href="#cb5-1316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1317"><a href="#cb5-1317" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1318"><a href="#cb5-1318" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1319"><a href="#cb5-1319" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb5-1320"><a href="#cb5-1320" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1295" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1294;"><span id="cb5-1295"><a href="#cb5-1295" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1296"><a href="#cb5-1296" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1306"><a href="#cb5-1306" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb5-1307"><a href="#cb5-1307" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb5-1308"><a href="#cb5-1308" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1309"><a href="#cb5-1309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1310"><a href="#cb5-1310" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1311"><a href="#cb5-1311" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1312"><a href="#cb5-1312" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb5-1313"><a href="#cb5-1313" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1314"><a href="#cb5-1314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1315"><a href="#cb5-1315" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1316"><a href="#cb5-1316" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1317"><a href="#cb5-1317" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb5-1318"><a href="#cb5-1318" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -1303,30 +1302,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1411" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1410;"><span id="cb6-1411"><a href="#cb6-1411" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1412"><a href="#cb6-1412" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb6-1413"><a href="#cb6-1413" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb6-1414"><a href="#cb6-1414" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1415"><a href="#cb6-1415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1416"><a href="#cb6-1416" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1417"><a href="#cb6-1417" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb6-1418"><a href="#cb6-1418" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb6-1419"><a href="#cb6-1419" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1420"><a href="#cb6-1420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1421"><a href="#cb6-1421" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1422"><a href="#cb6-1422" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb6-1423"><a href="#cb6-1423" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb6-1424"><a href="#cb6-1424" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1425"><a href="#cb6-1425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1426"><a href="#cb6-1426" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1427"><a href="#cb6-1427" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1428"><a href="#cb6-1428" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb6-1429"><a href="#cb6-1429" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1430"><a href="#cb6-1430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1431"><a href="#cb6-1431" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1432"><a href="#cb6-1432" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1433"><a href="#cb6-1433" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb6-1434"><a href="#cb6-1434" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1409" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1408;"><span id="cb6-1409"><a href="#cb6-1409" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1410"><a href="#cb6-1410" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb6-1411"><a href="#cb6-1411" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb6-1412"><a href="#cb6-1412" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1413"><a href="#cb6-1413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1414"><a href="#cb6-1414" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1415"><a href="#cb6-1415" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb6-1416"><a href="#cb6-1416" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb6-1417"><a href="#cb6-1417" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1418"><a href="#cb6-1418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1419"><a href="#cb6-1419" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1420"><a href="#cb6-1420" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb6-1421"><a href="#cb6-1421" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb6-1422"><a href="#cb6-1422" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1423"><a href="#cb6-1423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1424"><a href="#cb6-1424" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1425"><a href="#cb6-1425" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1426"><a href="#cb6-1426" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb6-1427"><a href="#cb6-1427" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1428"><a href="#cb6-1428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1429"><a href="#cb6-1429" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1430"><a href="#cb6-1430" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1431"><a href="#cb6-1431" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb6-1432"><a href="#cb6-1432" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">

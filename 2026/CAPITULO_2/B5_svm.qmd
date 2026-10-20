@@ -23,7 +23,7 @@ subtitle: "Capítulo 2 - Sección 5"
 
   <span class="text-muted small">
     <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 15/10/2026
+    Última actualización: 19/10/2026
   </span>
 
 </div>
@@ -483,7 +483,7 @@ En la formulación del hiperplano separador óptimo, se asume que el conjunto de
 
 <figure style="text-align: center;">
   <img src="figuras/svm_holgura.svg" alt="…" width="550px">
-  <figcaption> **Figura 2.5.4:** Variables de holgura. </figcaption>
+  <figcaption> **Figura 2.5.4:** Variables de holgura en un conjunto de datos linealmente no separable. </figcaption>
 </figure>
 
 
@@ -494,10 +494,10 @@ $$
 \text{sujeto a }  & y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   & \bfxi\succeq\bfzero,\;\sum_{i=1}^n\xi_i\leq\text{cte}.
 \end{array}
-\tag{2.5.8}
+\tag{2.5.9}
 $$
 
-Este nuevo problema de optimización tiene variables $\bfbeta\in\RR^p$, $\beta_0\in\RR$ y $\bfxi\in\RR^{n}$. La restricción $\sum_{i=1}^n=\xi_i\leq\text{cte}$ permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, derivando en la siguiente forma alternativa de (2.5.8):
+Este nuevo problema de optimización tiene variables $\bfbeta\in\RR^p$, $\beta_0\in\RR$ y $\bfxi\in\RR^{n}$. La restricción $\sum_{i=1}^n=\xi_i\leq\text{cte}$ permite controlar el grado de tolerancia a puntos que están dentro o del lado incorrecto del margen. Este control es más natural pensarlo como una penalización en la función objetivo, lo cual deriva en la siguiente forma alternativa de (2.5.9):
 
 $$
 \begin{array}{ll}
@@ -505,21 +505,21 @@ $$
 \text{sujeto a }  & y_i(\bfbeta^\top\xx_i+\beta_0)\geq 1-\xi_i,\qquad i=1,\ldots,n,\\
                   & \bfxi\succeq\bfzero.
 \end{array}
-\tag{2.5.9}
+\tag{2.5.10}
 $$
 
-A $C>0$ se lo conoce como *hiperparámetro de costo*.  Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho. 
+A $C>0$ se lo conoce como *hiperparámetro de costo*.  Cuanto mayor es su valor, mayor es la penalización que el modelo impone sobre las violaciones del margen, lo que conduce a un clasificador más estricto que busca minimizar los errores de clasificación a costa de un margen posiblemente más estrecho. Es claro que:
 
 <div style="margin-top:2em;"></div>
 
 ::: {.myhighlight}
-El problema (2.5.9) es un problema de optimización convexa cuyo conjunto factible es un poliedro.
+El problema (2.5.10) es un problema de optimización convexa cuyo conjunto factible es un poliedro.
 :::
 
 <div style="margin-top:2em;"></div>
 
 
-Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos a este nuevo método como <mark>Máquina de Vectores Soporte (SVM)</mark> lineal.
+Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tucker (KKT) y la dualidad para caracterizar la solución de este problema. De ahora en adelante, nos referiremos a este nuevo método como *máquina de vectores soporte (SVM) lineal*.
 
 <div style="margin-top:2em;"></div>
 
@@ -527,7 +527,7 @@ Estamos en condiciones de aplicar nuevamente las condiciones de Karush-Kuhn-Tuck
 
 ### Optimalidad
 
-En el problema de optimización (2.5.9) se distinguen $2n$ restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, $\bfxi\succeq 0$, distinguiremos sus multiplicadores con la notación $\bfmu=(\mu_1,\ldots,\mu_n)$. Las condiciones KKT son
+En el problema de optimización (2.5.10) se distinguen $2n$ restricciones de desigualdad. Para aquellas asociadas a las variables de holgura, $\bfxi\succeq 0$, distinguiremos sus multiplicadores con la notación $\bfmu=(\mu_1,\ldots,\mu_n)$. Las condiciones KKT son
 $$
 \begin{array}{cl}
 y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)-(1-\xi_i^\star)\geq 0\qquad\forall i=1,\ldots,n\qquad&\text{(Factibilidad primal)}\\[3pt]
@@ -554,24 +554,24 @@ $$
 $$
 
 
-Hemos obtenido la misma función dual que para el caso sin variables de holgura. Sin embargo, el problema dual no es el mismo, puesto que hay que considerar la restricción $\bfmu\succeq \bfzero$:
+Hemos obtenido la misma función dual del caso linealmente separable. El problema dual es
 $$
 \begin{array}{ll}
 \text{maximizar } & \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_i^\top\xx_j\\
 \text{sujeto a }  & \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq\bfzero,\;\bfmu\succeq\bfzero.
 \end{array}
-\tag{2.5.10}
+\tag{2.5.11}
 $$
 
 
-Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad $C=\lambda_i+\mu_i$, y escribir en (2.5.10) simplemente $0\leq \lambda_i\leq C$ para todo $i=1,\ldots,n$. Esto deriva en la versión final del problema dual:
+Sin embargo, podemos combinar las restricciones de negatividad, en virtud de la condición de estacionariedad $C=\lambda_i+\mu_i$, y escribir en (2.5.11) simplemente $0\leq \lambda_i\leq C$ para todo $i=1,\ldots,n$. Esto deriva en la versión final del problema dual:
 $$
 \begin{array}{ll}
 \text{maximizar } & \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_iy_j\xx_i^\top\xx_j\\
 \text{sujeto a }  & \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
                   & 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
 \end{array}
-\tag{2.5.11}
+\tag{2.5.12}
 $$
 
 <div style="margin-top:2em;"></div>
@@ -583,7 +583,7 @@ $$
 
 Para obtener el hiperplano óptimo de margen suave de un conjunto de datos, los pasos a seguir son los siguientes:
 
-1. Se resuelve el problema dual (2.5.11) para obtener $\bflambda^\star$.
+1. Se resuelve el problema dual (2.5.12) para obtener $\bflambda^\star$.
 
 2. Se obtiene el punto óptimo $\bfbeta^\star$ mediante la condición de estacionariedad
 $$
@@ -597,8 +597,6 @@ $$
 donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Aquí, cada término se obtiene al despejar $\beta_0^\star$ de la condición de holgura complementaria para los puntos que verifican $\lambda_i^\star\neq 0$ y $\xi_i^\star=0$.
 
 </div>
-
-Luego, una vez obtenidos los puntos óptimos $\bfbeta^\star$ y $\beta_0^\star$, resultan:
 
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
   <tr>
@@ -635,7 +633,7 @@ $$
 
 En este caso, la holgura complementaria conduce a
 $$
-\lambda_i^\star>0 \Rightarrow
+\lambda_i^\star>0 \Longrightarrow
 y_i((\bfbeta^\star)^\top\xx_i+\beta_0^\star)=1-\xi_i^\star,
 $$
 
@@ -657,7 +655,7 @@ En consecuencia, podemos afirmar que:
 
 ::: {.myhighlight}
 
-Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen o fuera del margen pero mal clasificado.
+Todo vector soporte se encuentra en una de las siguientes posiciones respecto al margen: en el borde, dentro del margen (bien o mal clasificado) o fuera del margen pero mal clasificado.
 
 :::
 
@@ -744,10 +742,10 @@ A continuación, analicemos las posibilidades para un punto $\xx_i$ con multipli
       <td>
       <select name="miSelect1">
       <option value="" disabled selected>Seleccioná una opción...</option>
-      <option value="opcion1">En el borde, bien clasificado.</option>
-      <option value="opcion2">En el borde o fuera, pero bien clasificado.</option>
+      <option value="opcion1">En el borde del margen, bien clasificado.</option>
+      <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option>
       <option value="opcion3">Viola el margen, mal clasificado.</option>
-      <option value="opcion4">Viola el margen, bien o mal clasificado.</option>
+      <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option>
       <option value="opcion5">Fuera, bien clasificado</option>
       <option value="opcion6">Fuera, mal clasificado</option>
       </select>
@@ -760,12 +758,12 @@ A continuación, analicemos las posibilidades para un punto $\xx_i$ con multipli
       <td>
       <select name="miSelect2">
       <option value="" disabled selected>Seleccioná una opción...</option>
-      <option value="opcion1">En el borde, bien clasificado.</option>
-      <option value="opcion2">En el borde o fuera, pero bien clasificado.</option>
+      <option value="opcion1">En el borde del margen, bien clasificado.</option>
+      <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option>
       <option value="opcion3">Viola el margen, mal clasificado.</option>
-      <option value="opcion4">Viola el margen, bien o mal clasificado.</option>
-      <option value="opcion5">Fuera, bien clasificado</option>
-      <option value="opcion6">Fuera, mal clasificado</option>
+      <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option>
+      <option value="opcion5">Fuera del margen, bien clasificado</option>
+      <option value="opcion6">Fuera del margen, mal clasificado</option>
       </select>
       </td>
     </tr>
@@ -776,12 +774,12 @@ A continuación, analicemos las posibilidades para un punto $\xx_i$ con multipli
       <td>
       <select name="miSelect3">
       <option value="" disabled selected>Seleccioná una opción...</option>
-      <option value="opcion1">En el borde, bien clasificado.</option>
-      <option value="opcion2">En el borde o fuera, pero bien clasificado.</option>
+      <option value="opcion1">En el borde del margen, bien clasificado.</option>
+      <option value="opcion2">En el borde o fuera del margen, pero bien clasificado.</option>
       <option value="opcion3">Viola el margen, mal clasificado.</option>
-      <option value="opcion4">Viola el margen, bien o mal clasificado.</option>
-      <option value="opcion5">Fuera, bien clasificado</option>
-      <option value="opcion6">Fuera, mal clasificado</option>
+      <option value="opcion4">En el borde, dentro del margen (bien o mal clasificado) o fuera del margen (mal clasificado).</option>
+      <option value="opcion5">Fuera del margen, bien clasificado</option>
+      <option value="opcion6">Fuera del margen, mal clasificado</option>
       </select>
       </td>
     </tr>
@@ -875,10 +873,10 @@ El uso de hiperplanos separadores tiene la limitación de que determina una fron
 Transformación de datos de $\RR^2$ a $\RR^3$
 </span>
 
-En la siguiente figura se presenta un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras $X_1$ y $X_2$.
+Consideremos un conjunto de datos de entrenamiento correspondiente a un problema de clasificación binaria con predictoras $X_1$ y $X_2$, dispuestos de manera tal que una clase rodea a la otra, tal como muestra la siguiente figura.
 
 <figure style="text-align: center;">
-  <img src="figuras/svm_ej_motivador.png" alt="…" width="350px">
+  <img src="figuras/svm_ej_motivador.svg" alt="…" width="350px">
 </figure>
 
 Claramente no sería conveniente intentar clasificar mediante una frontera de decisión lineal. Una estrategia más apropiada es transformar los datos a $\RR^3$, añadiendo la variable
@@ -887,7 +885,7 @@ Z = X_1^2+X_2^2.
 $$
 
 <figure style="text-align: center;">
-  <img src="figuras/svm_ej_motivador_3d.png" alt="…" width="350px">
+  <img src="figuras/svm_ej_motivador_3d.svg" alt="…" width="350px">
 </figure>
 
 
@@ -902,11 +900,7 @@ $$
 \phi:\RR^p\to\calH,
 $$
 
-donde $\calH$ es un *espacio de Hilbert*; es decir, un espacio donde tenemos un producto interno $\langle\cdot,\cdot\rangle_{\calH}$ definido. La condición de que $\calH$ sea un espacio de Hilbert nos posibilita hacer cálculos en el espacio transformado:
-$$
-\langle \phi(\xx_1),\phi(\xx_2)\rangle_{\calH}\qquad\forall\xx_1,\xx_2\in\RR^p.
-\tag{2.5.12}
-$$
+donde $\calH$ es un *espacio de Hilbert*; es decir, un espacio donde tenemos un producto interno $\langle\cdot,\cdot\rangle_{\calH}$ definido. 
 
 <div style="margin-top:2em;"></div>
 
@@ -930,11 +924,17 @@ Veremos que esto no representa ninguna dificultad adicional; por el contrario, p
 
 ### Núcleos reproductores
 
-El cálculo de productos internos (2.5.12) en $\calH$ será fundamental para la generalización de SVM. Para un $\calH$ arbitrario, conocer explícitamente su producto interno $\langle\cdot,\cdot\rangle_{\calH}$ resulta ser una limitación práctica. Una manera de sortear esto es utilizar un *espacio de Hilbert con núcleo reproductor* (RKHS).
+El cálculo de productos internos en $\calH$, de la forma
+$$
+\langle \phi(\xx_1),\phi(\xx_2)\rangle_{\calH}\qquad\forall\xx_1,\xx_2\in\RR^p,
+\tag{2.5.13}
+$$
+
+es fundamental para la generalización de SVM. Sin embargo, para un $\calH$ arbitrario, conocer explícitamente su producto interno $\langle\cdot,\cdot\rangle_{\calH}$ resulta ser una limitación práctica. Una manera de sortear esto es trabajar con un tipo especial de espacios de Hilbert.
 
 
 ::: {.definicion}
-**Definición 2.5.9** (RKHS). Un espacio de Hilbert $\calH$ es un *espacio de Hilbert con núcleo reproductor* (RKHS) si admite un *núcleo reproductor* $k:\RR^p\times\RR^p\to\RR$ que verifica las siguientes propiedades:
+**Definición 2.5.9** (Espacio de Hilbert con núcleo reproductor). Un espacio de Hilbert $\calH$ es un *espacio de Hilbert con núcleo reproductor* (RKHS, *reproducing kernel Hilbert space*) si admite un *núcleo reproductor* $k:\RR^p\times\RR^p\to\RR$ que verifica las siguientes propiedades:
 
 - Para todo $\xx\in\RR^p$, $k(\xx,\cdot)\in\calH$.
 
@@ -947,7 +947,7 @@ El cálculo de productos internos (2.5.12) en $\calH$ será fundamental para la 
 
 <div style="margin-top:1em;"></div>
 
-Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (2.5.12). Las propiedades de la Definición 2.5.9 implican:
+Veamos el efecto de trabajar con RKHS para el cálculo de productos internos de la forma (2.5.13). Las propiedades de la Definición 2.5.9 implican:
 
 ::: {.myhighlight}
 $$
@@ -989,7 +989,7 @@ Para responder a esta pregunta, es necesario introducir la siguiente definición
 **Definición 2.5.10** (Función definida positiva). Una función $k:\RR^p\times\RR^p\to\RR$ se dice *definida positiva* si para todo $n\in\NN$, $\alpha_1,\ldots,\alpha_n\in\RR$ y $\xx_1,\ldots,\xx_n\in\RR^p$ resulta
 $$
 \sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jk(\xx_i,\xx_j)\geq 0.
-\tag{2.5.13}
+\tag{2.5.14}
 $$
 
 Por otra parte, $k$ es *simétrica* si
@@ -1002,7 +1002,7 @@ $$
 <div style="margin-top:2em;"></div>
 
 
-La expresión (2.5.13) se puede escribir matricialmente como $K\succeq 0$, donde $K\in\RR^{n\times n}$ es la *matriz de Gram* definida por
+La expresión (2.5.14) se puede escribir matricialmente como $K\succeq 0$, donde $K\in\RR^{n\times n}$ es la *matriz de Gram* definida por
 $$
 K_{ij}=k(\xx_i,\xx_j).
 $$
@@ -1025,7 +1025,7 @@ $$
 k(\xx_1,\xx_2)=(\gamma\,\xx_1^\top\xx_2+b)^d.
 $$
 
-- *Núcleo gaussiano (RBF)*:
+- *Núcleo gaussiano*:
 $$
 k(\xx_1,\xx_2)=\exp\left\{-\gamma\,\|\xx_1-\xx_2\|_2^2\right\}.
 $$
@@ -1043,7 +1043,7 @@ $$
 
 ### Formulación del problema
 
-La idea básica es aplicar la metodología de hiperplano separador con margen suave en el <mark>espacio de características</mark> $\calH$. Esto significa que la función dual es
+La idea básica es aplicar la metodología de hiperplano separador con margen suave en $\calH$. Esto resulta en la siguiente función dual:
 $$
 \calG(\lambda)=\sum_{i=1}^n\lambda_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j \underbrace{\langle k(\xx_i,\cdot), k(\xx_j,\cdot)\rangle_{\calH}}_{k(\xx_i,\xx_j)}.
 $$
@@ -1054,7 +1054,7 @@ $$
 \text{maximizar } & \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\displaystyle\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j k(\xx_i,\xx_j)\\
 \text{sujeto a }  & \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq 0. 
 \end{array}
-\tag{2.5.14}
+\tag{2.5.15}
 $$
 
 <div style="margin-top:2em;"></div>
@@ -1066,7 +1066,7 @@ $$
 
 Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS, los pasos a seguir son:
 
-1. Se resuelve el problema dual (2.4.14) para obtener $\bflambda^\star$.
+1. Se resuelve el problema dual (2.5.15) para obtener $\bflambda^\star$.
 
 2. Se obtiene el punto óptimo $\bfbeta^\star$ mediante la condición de estacionariedad
 $$
@@ -1082,8 +1082,6 @@ donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Como ante
 </div>
 
 <div style="margin-top:2em;"></div>
-
-Una vez obtenidos los puntos óptimos $\bfbeta^\star$ y $\beta_0^\star$, resultan:
 
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7;">
   <tr style="border-bottom: 1px solid #cccccc;">
