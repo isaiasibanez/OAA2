@@ -498,7 +498,7 @@ $$
 C:=\left\{\left.\sum_{i\in I(\xx)}\lambda_i\bfa_i+\sum_{j=1}^m\nu_j\cc_j\,\right| \lambda_i\in\RR_0^+,\;\nu_j\in\RR\right\}
 $$
 
-Por reducción al absurdo, supongamos $\dd\notin C$. Dado que $C$ es un cono convexo cerrado no vacío (esto es fácil de verificar y queda como ejercicio), podemos separar $C$ y $\dd$ mediante un hiperplano; esto es, existe $\uu\in\RR^n$ tal que
+Por reducción al absurdo, supongamos $\dd\notin C$. Dado que $C$ es un cono convexo cerrado no vacío (la verificación es directa a partir de la definición), podemos separar $C$ y $\dd$ mediante un hiperplano; esto es, existe $\uu\in\RR^n$ tal que
 $$
 \langle \uu,\dd\rangle_2<0\qquad\text{y}\qquad \langle\uu,\mathbf{p}\rangle_2\geq 0\;\;\forall\mathbf{p}\in C.
 $$

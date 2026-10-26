@@ -8,6 +8,21 @@ subtitle: "Capítulo 3 - Sección 2"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c3s2.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c3s2.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
 
 Hasta ahora hemos abordado la tarea de predecir los valores de una respuesta variable $Y\in\RR$, continua (*regresión*) o discreta (*clasificación*) a partir de un conjunto de variables predictoras $\XX\in\RR^p$. Este tipo de problemas se enmarca en lo que se conoce como *aprendizaje supervisado*. 
 
@@ -115,9 +130,9 @@ La función
 $$
 J(C,\bfmu) := \sum_{i=1}^n\|\xx_i-\bfmu_{C(i)}\|_2^2
 $$
-se denomina *función de distorsión*; mide la pérdida de fidelidad al representar cada observación $\xx_i$ por su centroide $\bfmu_{C(i)}$. El algoritmo de $K$-medias realiza exactamente un descenso por coordenadas de $J$. En primer lugar, se minimiza $J$ con respecto a $C$ manteniendo $\bfmu$ fijo, y luego se minimiza $J$ con respecto a $\bfmu$ manteniendo $C$ fijo. 
+se denomina *función de distorsión*; mide la pérdida de fidelidad al representar cada observación $\xx_i$ por su centroide $\bfmu_{C(i)}$. El algoritmo de $K$-medias realiza exactamente un descenso por coordenadas de $J$. En primer lugar, se minimiza $J$ con respecto a $C$ manteniendo $\bfmu$ fijo, y luego se minimiza $J$ con respecto a $\bfmu$ manteniendo $C$ fijo. (✏1) 
 
-La función de distorsión no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, $K$-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar $K$-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión $J$.
+La función de distorsión no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, $K$-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar $K$-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión $J$. (✏2)
 
 </div>
 
@@ -243,7 +258,7 @@ $$
 f(\xx\mid\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma^{-1}(\xx-\bfmu_k)\right\}.
 $$
 
-Una forma útil de interpretar este modelo es introducir una <mark>variable latente</mark> $Z\in\{1,\ldots,K\}$ que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta
+Una forma útil de interpretar este modelo es introducir una *variable latente* $Z\in\{1,\ldots,K\}$ que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta
 $$
 p(\xx,z)=p(\xx\mid z)\,p(z)
 $$
@@ -353,7 +368,7 @@ plt.show()
 
 Los métodos de clustering basado en densidad identifican grupos de observaciones como regiones densas del espacio de datos, separadas por áreas donde los puntos son escasos. Esto permite detectar clusters de forma arbitraria, no necesariamente esféricos, y además identificar puntos aislados o ruido que no pertenecen a ningún cluster.
 
-Uno de los métodos más conocidos es DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*), el cual define un vecindario de radio $\varepsilon>0$ alrededor de cada punto y considera *densos* aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan <mark>*objetos núcleos*</mark> y sirven como semilla para formar clusters. 
+Uno de los métodos más conocidos es DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*), el cual define un vecindario de radio $\varepsilon>0$ alrededor de cada punto y considera *densos* aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan *objetos núcleos* y sirven como semilla para formar clusters. 
 
 Es importante remarcar que la idea de *vecindario* requiere trabajar con una métrica $d:\RR^p\times\RR^p\to\RR$. 
 
@@ -393,7 +408,7 @@ Observar que un cluster contiene únicamente objetos núcleos. Para el resto de 
 
 - Un *objeto de frontera* es un punto que no es núcleo, pero que se encuentra dentro del vecindario de al menos un objeto núcleo. Los objetos de frontera se asignan al cluster correspondiente al objeto núcleo del cual son vecinos.
 
-- Un *ruido* es un punto que no pertenece al vecindario de ningún objeto núcleo y, por lo tanto, no se asigna a ningún cluster.
+- Un *ruido* es un punto que no pertenece al vecindario de ningún objeto núcleo y, por lo tanto, no se asigna a ningún cluster. (✏3)
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_3.svg" alt="…" width="500px">
@@ -579,7 +594,7 @@ Algunas características de los biclusters son:
 
 - **Tamaño**: está determinado por el número de filas $N$ en $I$ y el número de columnas $M$ en $J$ que forman un *área* $N\times M$.
 
-- **Tipo**: los biclusters pueden ser *homogéneos* (mismo tipo de datos) o *heterogéneos*. Por ejemplo, las matrices numéricas son datos homogéneos, así como también las matrices binarias, estas últimas utilizadas en estudios de presencia o ausencia. Por su parte, los datos heterogéneos combinan distintos tipos de información o incorporan dimensiones adicionales, como el tiempo o el espacio, algo frecuentes en análisis de datos clínicos.
+- **Tipo**: los biclusters pueden ser *homogéneos* (mismo tipo de datos) o *heterogéneos*. Por ejemplo, las matrices numéricas son datos homogéneos, así como también las matrices binarias, estas últimas utilizadas en estudios de presencia o ausencia. Por su parte, los datos heterogéneos combinan distintos tipos de información o incorporan dimensiones adicionales, como el tiempo o el espacio, algo frecuente en análisis de datos clínicos.
 
 - **Contigüidad**: un *bicluster contiguo* (C-Bicluster) tiene un orden entre sus filas o columnas. Este tipo de biclusters es especialmente útil en dominios donde existe una secuencia natural, como en las series temporales.
 
@@ -827,43 +842,6 @@ axes[1].set_title(f"Spectral BiClustering\nÍndice de Jaccard: {score2:.3f}");
 
 
 <br><br>
-
-## Actividades {.unnumbered}
-
-
-💻 **Prácticas**  
-<hr class="linea-corta">
-
-<div style="display:flex; align-items:center; text-align:left;">
-  <a href="https://colab.research.google.com/drive/1dGzSEjz_aqWtJrZsGYcoLdYIwllit1JW?usp=sharing" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" 
-         alt="Colab" 
-         style="height:1.4em; margin-right:0.5em;">
-  </a>
-  <p style="margin:0; font-size:1em;">$K$-medias. GMM.</p>
-</div>
-
-<div style="margin-top:0.5em;"></div>
-
-<div style="display:flex; align-items:center; text-align:left;">
-  <a href="https://colab.research.google.com/drive/1YjDOvzbNEdEhqwGCespEluK368r_5myx?usp=sharing" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" 
-         alt="Colab" 
-         style="height:1.4em; margin-right:0.5em;">
-  </a>
-  <p style="margin:0; font-size:1em;">DBSCAN. Biclustering.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div style="margin-top: 5em;"></div>
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>

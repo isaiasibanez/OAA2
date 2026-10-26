@@ -1052,7 +1052,8 @@ El problema dual correspondiente es
 $$
 \begin{array}{ll}
 \text{maximizar } & \displaystyle\sum_{i=1}^n\lambda_i-\frac{1}{2}\displaystyle\sum_{i=1}^n\sum_{j=1}^n\lambda_i\lambda_j y_i y_j k(\xx_i,\xx_j)\\
-\text{sujeto a }  & \displaystyle\sum_{i=1}^n\lambda_i y_i=0,\;\bflambda\succeq 0. 
+\text{sujeto a }  & \displaystyle\sum_{i=1}^n\lambda_i y_i=0, \\
+	                & 0\leq \lambda_i\leq C,\quad i=1,\ldots,n.
 \end{array}
 \tag{2.5.15}
 $$

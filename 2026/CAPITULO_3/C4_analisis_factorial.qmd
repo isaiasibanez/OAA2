@@ -1,0 +1,438 @@
+---
+title: "Análisis factorial"
+subtitle: "Capítulo 3 - Sección 4"
+---
+
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+
+{{< include ../macros.qmd >}}
+
+
+<div class="d-flex gap-2">
+
+<a href="../material/apunte_c3s4.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c3s4.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
+
+En la sección anterior aplicamos el algoritmo EM a una mezcla de gaussianas, en un contexto donde disponíamos de suficientes datos como para discernir la estructura de varias componentes. Ese sería el caso, por ejemplo, si el tamaño del conjunto de entrenamiento $n$ fuera significativamente mayor que la dimensión $p$ de los datos.
+
+En esta sección consideramos el escenario opuesto: $p > n$. Allí puede resultar difícil modelar los datos incluso con una sola gaussiana, mucho menos con una mezcla. El *análisis factorial* es un modelo con variable latente que permite ajustar una gaussiana razonable en ese régimen, capturando estructura de correlación sin necesidad de estimar una matriz de covarianza completa. Como veremos, su estimación también se resuelve con EM.
+
+
+<div style="border-top:1px solid #b7cdf5;
+            background-color: #fafbff;
+            padding:0.1em 1em;
+            margin-top:1.5em;">
+
+📄 **Notación**
+
+Durante esta sección consideramos un conjunto de datos $\{\xx_i\}_{i=1}^n$ con $\xx_i\in\RR^p$. La variable latente $\zz\in\RR^k$, con $k<p$, es ahora **continua**, a diferencia de la variable categórica de la sección anterior.
+
+Denotamos $\Lambda\in\RR^{p\times k}$ la *matriz de cargas factoriales* y $\Psi\in\RR^{p\times p}$ una matriz diagonal de varianzas específicas.
+
+</div>
+
+<div style="margin-top:2.5em;"></div>
+
+
+
+## I <span style="color:#CCCCCC;">│</span> El problema de estimar $\Sigma$ con pocos datos
+
+Supongamos que modelamos los datos con una única gaussiana y estimamos sus parámetros con los MLE habituales, vistos en la [C3-S1](C1_gda.html):
+$$
+\hat{\bfmu} = \frac{1}{n} \sum_{i=1}^{n} \xx_i,\qquad
+\hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} (\xx_i - \hat{\bfmu})(\xx_i - \hat{\bfmu})^\top.
+$$
+
+Si $p>n$, los $n$ puntos abarcan únicamente un subespacio de baja dimensión de $\RR^p$ y la matriz $\hat{\Sigma}$ resulta **singular**. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
+
+<div style="margin-top:1em;"></div>
+
+::: {.myhighlight3}
+
+Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el espacio afín generado por los datos, lo cual corresponde a una covarianza singular.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+Más generalmente, a menos que $n$ exceda a $p$ por una cantidad razonable, las estimaciones de la media y la covarianza suelen ser bastante deficientes. No obstante, nos gustaría poder ajustar un modelo gaussiano razonable y capturar alguna estructura de covarianza interesante. Veamos primero dos restricciones posibles sobre $\Sigma$ y por qué ninguna resulta satisfactoria.
+
+<div style="margin-top:1em;"></div>
+
+### Restricciones sobre $\Sigma$
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+**Covarianza diagonal.** Si imponemos que $\Sigma$ sea diagonal, el MLE resulta
+$$
+\hat{\Sigma}_{jj} = \frac{1}{n} \sum_{i=1}^n (x_{ij} - \hat\mu_j)^2,
+$$
+es decir, la estimación empírica de la varianza de la $j$-ésima coordenada. Geométricamente, una $\Sigma$ diagonal corresponde a una gaussiana cuyos contornos son elipses con ejes principales alineados con los ejes coordenados.
+
+<div style="margin-top:1em;"></div>
+
+**Covarianza esférica.** Podemos imponer además que todas las entradas diagonales sean iguales, $\Sigma=\sigma^2 I$. El MLE es entonces
+$$
+\hat{\sigma}^2 = \frac{1}{np} \sum_{j=1}^p \sum_{i=1}^n (x_{ij} - \hat{\mu}_j)^2,
+$$
+y los contornos de densidad pasan a ser circunferencias o hiperesferas.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+Para ajustar una $\Sigma$ completa y sin restricciones se necesita $n \geq p + 1$ para que el MLE no sea singular; bajo cualquiera de las dos restricciones anteriores basta $n \geq 2$. Sin embargo, el precio es alto:
+
+::: {.myhighlight}
+
+Restringir $\Sigma$ a ser diagonal equivale a modelar las coordenadas de $\XX$ como no correlacionadas. Perdemos justamente la estructura de correlación que querríamos capturar.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+El modelo de análisis factorial ofrece una vía intermedia: usa más parámetros que una $\Sigma$ diagonal y captura correlaciones, pero sin ajustar una matriz de covarianza completa.
+
+<div style="margin-top:2.5em;"></div>
+
+
+
+## II <span style="color:#CCCCCC;">│</span> El modelo de análisis factorial
+
+En este modelo, los datos se generan como una combinación lineal de variables latentes más ruido gaussiano.
+
+:::{.myhighlight2}
+
+<span style="font-size:0.8em;">*Supuestos del modelo*</span>
+
+<div style="margin-top:-0.5em;"></div>
+
+$$
+\begin{array}{c}
+\zz \sim \calN(\bfzero, I) \\[2pt]
+\XX\mid \zz \sim \calN(\bfmu + \Lambda \zz,\, \Psi)
+\end{array}
+$$
+
+:::
+
+<div style="margin-top:1em;"></div>
+
+Los parámetros del modelo son:
+
+- $\bfmu\in\RR^p$: vector de medias de las variables observadas.
+
+- $\Lambda\in\RR^{p \times k}$, con $k<p$: *matriz de cargas factoriales*, que define la relación lineal entre las variables latentes y las observadas.
+
+- $\Psi\in\RR^{p\times p}$ diagonal: la varianza específica o ruido asociado a cada variable observada.
+
+<div style="margin-top:1em;"></div>
+
+La lectura generativa es: cada punto $\xx_i$ se obtiene muestreando una gaussiana $k$-dimensional $\zz_i$, mapeándola al espacio afín $\bfmu + \Lambda \zz_i\subset\RR^p$, y agregando finalmente ruido de covarianza $\Psi$. De manera equivalente, el modelo puede escribirse como
+$$
+\zz \sim \calN(\bfzero, I),\qquad \boldsymbol{\varepsilon} \sim \calN(\bfzero, \Psi),\qquad \XX = \bfmu + \Lambda \zz + \boldsymbol{\varepsilon},
+$$
+con $\zz$ y $\boldsymbol{\varepsilon}$ independientes.
+
+<div style="margin-top:2em;"></div>
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Recordatorio</span>
+
+El desarrollo que sigue usa de manera intensiva las distribuciones marginales y condicionales de una normal multivariada, vistas en la [C3-S1](C1_gda.html#la-normal-multivariada). Recordemos el resultado: si
+$$
+\begin{pmatrix}\XX_1\\ \XX_2\end{pmatrix}\sim\calN\left(\begin{pmatrix}\bfmu_1\\ \bfmu_2\end{pmatrix},\begin{pmatrix}\Sigma_{11} & \Sigma_{12}\\ \Sigma_{21} & \Sigma_{22}\end{pmatrix}\right),
+$$
+entonces $\XX_1\sim\calN(\bfmu_1,\Sigma_{11})$ y
+$$
+\XX_1\mid \XX_2=\xx_2\sim\calN\left(\bfmu_1 + \Sigma_{12} \Sigma_{22}^{-1} (\xx_2 - \bfmu_2),\;\; \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}\right).
+$$
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+### Distribución conjunta de $(\zz,\XX)$
+
+Las variables $\zz$ y $\XX$ tienen distribución conjunta gaussiana,
+$$
+\begin{pmatrix} \zz \\ \XX \end{pmatrix} \sim \calN(\bfmu_{z x}, \Sigma_{zx}),
+$$
+
+y vamos a determinar sus parámetros. Por un lado, $\media[\zz] = \bfzero$ por hipótesis, y
+$$
+\media[\XX] = \media[\bfmu + \Lambda \zz + \boldsymbol{\varepsilon}] = \bfmu + \Lambda \media[\zz] + \media[\boldsymbol{\varepsilon}] = \bfmu,
+$$
+de donde $\bfmu_{zx} = (\bfzero, \bfmu)$.
+
+<div style="margin-top:1em;"></div>
+
+Por otro lado, necesitamos los tres bloques de $\Sigma_{zx}$. El primero es inmediato: $\Sigma_{zz} = \cov(\zz) = I$. Para el bloque cruzado,
+$$
+\begin{align*}
+\media\left[(\zz - \media[\zz])(\XX - \media[\XX])^\top\right] &= \media\left[\zz(\bfmu + \Lambda \zz + \boldsymbol{\varepsilon} - \bfmu)^\top\right]\\
+&= \media\left[\zz\zz^\top \Lambda^\top + \zz \boldsymbol{\varepsilon}^\top\right]\\
+&= \Lambda^\top,
+\end{align*}
+$$
+donde usamos que $\media[\zz\zz^\top] = \cov(\zz)=I$ (pues $\zz$ tiene media cero) y que $\media[\zz\boldsymbol{\varepsilon}^\top] = \media[\zz]\media[\boldsymbol{\varepsilon}]^\top = \bfzero$ (pues $\zz$ y $\boldsymbol{\varepsilon}$ son independientes). De manera análoga,
+$$
+\begin{align*}
+\media\left[(\XX - \media[\XX])(\XX - \media[\XX])^\top\right] &= \media\left[(\Lambda \zz + \boldsymbol{\varepsilon})(\Lambda \zz + \boldsymbol{\varepsilon})^\top\right]\\
+&= \media\left[\Lambda \zz\zz^\top \Lambda^\top + \boldsymbol{\varepsilon} \zz^\top \Lambda^\top + \Lambda \zz \boldsymbol{\varepsilon}^\top + \boldsymbol{\varepsilon} \boldsymbol{\varepsilon}^\top\right]\\
+&= \Lambda \media[\zz\zz^\top] \Lambda^\top + \media[\boldsymbol{\varepsilon} \boldsymbol{\varepsilon}^\top]\\
+&= \Lambda \Lambda^\top + \Psi.
+\end{align*}
+$$
+
+<div style="margin-top:1em;"></div>
+
+Combinando todo:
+
+::: {.myhighlight}
+
+$$
+\begin{pmatrix} \zz \\ \XX \end{pmatrix} \sim \calN\left(\begin{pmatrix} \bfzero \\ \bfmu \end{pmatrix},
+\begin{pmatrix} I & \Lambda^\top \\ \Lambda & \Lambda \Lambda^\top + \Psi \end{pmatrix}\right).
+$$
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+De aquí, aplicando el recordatorio anterior, se obtienen los dos resultados que necesitaremos:
+
+- **Distribución marginal de $\XX$**:
+    $$
+    \XX \sim \calN(\bfmu,\; \Lambda\Lambda^\top + \Psi).
+    \tag{3.4.1}
+    $$
+
+- **Distribución condicional de $\zz$ dado $\XX$**: es gaussiana, $\zz\mid \XX=\xx\sim\calN(\bfmu_{z\mid x},\Sigma_{z\mid x})$, con
+    $$
+    \bfmu_{z \mid x} = \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}(\xx - \bfmu), \qquad
+    \Sigma_{z \mid x} = I - \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}\Lambda.
+    \tag{3.4.2}
+    $$
+
+<div style="margin-top:2em;"></div>
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">✍️</span><br>
+
+Observe la expresión (3.4.1). ¿Cuántos parámetros libres tiene $\Lambda\Lambda^\top+\Psi$ frente a una matriz de covarianza completa? ¿Y frente a una diagonal?
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Al contar los parámetros conviene tener presente que $\Lambda$ *no* queda determinada por el modelo. En efecto, si $R\in\RR^{k\times k}$ es una matriz ortogonal, entonces $(\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top$, de modo que $\Lambda$ y $\Lambda R$ producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)
+
+<div style="margin-top:1em;"></div>
+
+En consecuencia, las cargas se determinan únicamente *a menos de una rotación* del espacio de factores: los datos no permiten distinguir entre $\Lambda$ y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual ---"el factor 1 mide tal cosa"--- no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como *varimax*, que buscan cargas fáciles de interpretar.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+De (3.4.1) resulta que la log-verosimilitud de los datos observados es
+$$
+\ell(\bfmu, \Lambda, \Psi) = \sum_{i=1}^n\log\left[ \frac{1}{(2\pi)^{p/2} |\Lambda \Lambda^\top + \Psi|^{1/2}} \exp\left(-\frac{1}{2} (\xx_i - \bfmu)^\top (\Lambda \Lambda^\top + \Psi)^{-1} (\xx_i - \bfmu)\right)\right].
+\tag{3.4.3}
+$$
+
+Maximizar (3.4.3) explícitamente es difícil y no se conoce una solución en forma cerrada. Por lo tanto, recurrimos nuevamente al algoritmo EM, tomando $\zz$ como variable latente.
+
+<div style="margin-top:2.5em;"></div>
+
+
+
+## III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial
+
+A diferencia del caso de mezcla de gaussianas, aquí la variable latente es **continua**, de manera que las sumas sobre $z$ se reemplazan por integrales y las responsabilidades por una densidad condicional completa.
+
+<div style="margin-top:1em;"></div>
+
+### Paso E
+
+El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir $Q_i(\zz_i) = p(\zz_i \mid \xx_i; \bfmu, \Lambda, \Psi)$. Por (3.4.2), esta distribución es
+$$
+\zz_i \mid \xx_i; \bfmu, \Lambda, \Psi \sim \calN(\bfmu_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
+$$
+con
+$$
+\bfmu_{z_i \mid x_i} = \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} (\xx_i - \bfmu),\qquad
+\Sigma_{z_i \mid x_i} = I - \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} \Lambda.
+$$
+
+<div style="margin-top:1em;"></div>
+
+Notar que $\Sigma_{z_i\mid x_i}$ no depende de $i$: la incertidumbre a posteriori sobre $\zz$ es la misma para todas las observaciones.
+
+<div style="margin-top:2em;"></div>
+
+### Paso M
+
+En el paso M debemos maximizar
+$$
+\sum_{i=1}^n \int_{\zz_i} Q_i(\zz_i) \log \frac{p(\xx_i, \zz_i; \bfmu, \Lambda, \Psi)}{Q_i(\zz_i)}\, d\zz_i
+$$
+respecto de $\bfmu$, $\Lambda$ y $\Psi$. Desarrollemos la expresión:
+$$
+\begin{align*}
+&\sum_{i=1}^n \int_{\zz_i} Q_i(\zz_i) \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log Q_i(\zz_i) \big]\, d\zz_i \\
+&\qquad= \sum_{i=1}^n \media_{\zz_i \sim Q_i} \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log Q_i(\zz_i) \big].
+\end{align*}
+$$
+
+Al eliminar los términos que no dependen de los parámetros, queda por maximizar
+$$
+\begin{align*}
+&\sum_{i=1}^n \media \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) \big]\\
+&\qquad=\sum_{i=1}^n \media \left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right].
+\end{align*}
+\tag{3.4.4}
+$$
+
+<div style="margin-top:2em;"></div>
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-success text-light">Maximización respecto de $\Lambda$</span>
+
+Solo el último término de (3.4.4) depende de $\Lambda$. Derivando, y usando que $\operatorname{tr}(AB) = \operatorname{tr}(BA)$ junto con $\nabla_A\operatorname{tr}(ABA^\top C) = CAB + C^\top AB^\top$, obtenemos
+$$
+\begin{align*}
+&\nabla_\Lambda \sum_{i=1}^n \media \left[ -\frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right]\\
+&\qquad= \sum_{i=1}^n \nabla_\Lambda \media \left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda \zz_i \zz_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \Lambda^\top \big) \right]\\
+&\qquad= \sum_{i=1}^n \media \left[ -\Psi^{-1} \Lambda \zz_i \zz_i^{\top} + \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \right].
+\end{align*}
+$$
+
+Igualando a cero y simplificando,
+$$
+\sum_{i=1}^n \Lambda\, \media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] = \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim Q_i} \big[ \zz_i^{\top} \big],
+$$
+de donde
+$$
+\Lambda = \left( \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim Q_i} \big[ \zz_i^{\top} \big] \right) \left( \sum_{i=1}^n \media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] \right)^{-1}.
+\tag{3.4.5}
+$$
+
+<div style="margin-top:1em;"></div>
+
+Finalmente, como $Q_i$ es gaussiana con media $\bfmu_{z_i \mid x_i}$ y covarianza $\Sigma_{z_i \mid x_i}$, resulta
+$$
+\media_{\zz_i \sim Q_i} \big[ \zz_i \big] = \bfmu_{z_i \mid x_i},\qquad
+\media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] = \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
+$$
+donde la segunda igualdad proviene de $\cov(Y) = \media[YY^\top] - \media[Y]\media[Y]^\top$. Sustituyendo en (3.4.5) se obtiene la actualización buscada.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+::: {.myhighlight}
+
+Las actualizaciones del paso M son
+$$
+\bfmu^{(t+1)} = \frac{1}{n} \sum_{i=1}^n \xx_i,
+$$
+$$
+\Lambda^{(t+1)} = \left( \sum_{i=1}^n (\xx_i - \bfmu)\, \bfmu_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
+$$
+$$
+\Psi^{(t+1)} = \diag(\Phi),\qquad \Phi := \frac{1}{n} \sum_{i=1}^n \Big[\xx_i \xx_i^{\top} - \Lambda \bfmu_{z_i \mid x_i} \xx_i^{\top} - \xx_i \bfmu_{z_i \mid x_i}^\top \Lambda^\top + \Lambda \big( \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \Lambda^\top\Big].
+$$
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">✍️</span><br>
+
+Derive las actualizaciones de $\bfmu$ y $\Psi$ a partir de (3.4.4), siguiendo el mismo procedimiento que se usó para $\Lambda$.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Importante</span>
+
+Notar la presencia de $\Sigma_{z_i \mid x_i}$ en la actualización de $\Lambda$. Esta es la covarianza de la distribución a posteriori $p(\zz_i \mid \xx_i)$, y el paso M debe tener en cuenta esa incertidumbre sobre $\zz_i$.
+
+<div style="margin-top:1em;"></div>
+
+Un error frecuente al derivar EM es suponer que en el paso E basta con calcular la esperanza $\media[\zz]$ de la variable latente, para luego usarla en el paso M donde aparece $\zz$. Esto funcionó en el caso de mezclas de gaussianas, pero acá necesitamos además $\media[\zz\zz^\top]$, que incorpora $\Sigma_{z_i\mid x_i}$.
+
+</div>
+
+<div style="margin-top:2em;"></div>
+
+### Relación con las ecuaciones normales
+
+Resulta interesante comparar (3.4.5) con la ecuación normal de la regresión por mínimos cuadrados ordinarios, vista en la [C2-S2](../CAPITULO_2/B2_regresion_lineal_logistica.html):
+$$
+\bftheta^\top = (\yy^\top X)(X^\top X)^{-1}.
+$$
+
+La analogía es directa: los $\xx$ son una función lineal de los $\zz$ más ruido. Dadas las "estimaciones" de $\zz$ obtenidas en el paso E, el paso M estima la linealidad desconocida $\Lambda$ que relaciona $\xx$ con $\zz$. La diferencia importante, como señalamos arriba, es el término $\Sigma_{z_i\mid x_i}$: EM no usa la mejor estimación puntual de $\zz$, sino que promedia sobre toda la incertidumbre a posteriori.
+
+<div style="margin-top:2em;"></div>
+
+::: {.callout-example}
+<span class="badge bg-primary">Ejemplo 3.4.1</span>
+<span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
+Análisis factorial en datos simulados
+</span>
+
+Simularemos datos en $\RR^p$ generados por un modelo factorial con $k$ factores, con $p>n$, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada $\Lambda\Lambda^\top+\Psi$ con la verdadera y evaluaremos el error de reconstrucción.
+
+```{python}
+#| code-summary: "Mostrar código"
+#| code-fold: true
+#| fig-align: "center"
+
+# (código del ajuste por EM del modelo de análisis factorial)
+```
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad de manera interpretable a través de las cargas $\Lambda$, y sortear el problema de las matrices de covarianza singulares cuando $n$ es chico frente a $p$.
+
+
+
+
+<br><br>
+
+::: {.refs}
+<span style="color: #444;"><strong>Referencias</strong></span>
+
+Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Information Science and Statistics. New York: Springer.
+
+Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
+
+Ng, A. (2022). *Stanford CS229: Machine Learning - Lecture Notes*. Standford University. 🔗 [ir al sitio web](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
+
+:::

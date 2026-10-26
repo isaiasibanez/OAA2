@@ -31,8 +31,18 @@ website:
             text: "2.3 Modelos lineales generalizados"
           - href: CAPITULO_2/B4_ridge_lasso.qmd
             text: "2.4 Métodos de regularización"
-          - href: CAPITULO_2\B5_svm.qmd
+          - href: CAPITULO_2/B5_svm.qmd
             text: "2.5 Máquinas de vectores soporte"
+      - section: "3. MODELOS GENERATIVOS"
+        contents:
+          - href: CAPITULO_3/C1_gda.qmd
+            text: "3.1 Modelos generativos para clasificación"
+          - href: CAPITULO_3/C2_clustering.qmd
+            text: "3.2 Métodos de clustering"
+          - href: CAPITULO_3/C3_em.qmd
+            text: "3.3 Algoritmo EM"
+          - href: CAPITULO_3/C4_analisis_factorial.qmd
+            text: "3.4 Análisis factorial"
   page-navigation: true  # Activar navegación entre páginas
 
 format:

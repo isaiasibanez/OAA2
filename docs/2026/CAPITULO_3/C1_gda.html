@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Modelos generativos para clasificación – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,9 +21,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -37,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -68,16 +64,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<link href="../CAPITULO_3/C2_clustering.html" rel="next">
+<link href="../CAPITULO_2/B5_svm.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -94,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -112,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -125,7 +122,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -144,7 +141,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../style.css">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -153,9 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Optimización y Aprendizaje Automático II - 2026
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3. MODELOS GENERATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3.1 Modelos generativos para clasificación</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -262,6 +257,41 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3. MODELOS GENERATIVOS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C1_gda.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3.1 Modelos generativos para clasificación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C2_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 Métodos de clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C3_em.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 Algoritmo EM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C4_analisis_factorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.4 Análisis factorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -272,7 +302,10 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#la-normal-multivariada" id="toc-la-normal-multivariada" class="nav-link active" data-scroll-target="#la-normal-multivariada">La Normal multivariada</a></li>
+  <li><a href="#la-normal-multivariada" id="toc-la-normal-multivariada" class="nav-link active" data-scroll-target="#la-normal-multivariada">La Normal multivariada</a>
+  <ul class="collapse">
+  <li><a href="#marginales-y-condicionales" id="toc-marginales-y-condicionales" class="nav-link" data-scroll-target="#marginales-y-condicionales">Marginales y condicionales</a></li>
+  </ul></li>
   <li><a href="#análisis-discriminante-lineal-lda" id="toc-análisis-discriminante-lineal-lda" class="nav-link" data-scroll-target="#análisis-discriminante-lineal-lda">Análisis discriminante lineal (LDA)</a>
   <ul class="collapse">
   <li><a href="#regla-de-decisión" id="toc-regla-de-decisión" class="nav-link" data-scroll-target="#regla-de-decisión">Regla de decisión</a></li>
@@ -287,14 +320,13 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#clasificación-de-texto" id="toc-clasificación-de-texto" class="nav-link" data-scroll-target="#clasificación-de-texto">Clasificación de texto</a></li>
   </ul></li>
-  <li><a href="#actividades" id="toc-actividades" class="nav-link" data-scroll-target="#actividades">Actividades</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3. MODELOS GENERATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3.1 Modelos generativos para clasificación</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Modelos generativos para clasificación</h1>
 <p class="subtitle lead">Capítulo 3 - Sección 1</p>
@@ -319,7 +351,14 @@ window.Quarto = {
 <p>$$ </p>
 <p>$$</p>
 </div>
-<p>En el capítulo anerior hemos trabajado con métodos que modelan la distribución condicional <span class="math inline">\(p(y\mid {\bf x}; \boldsymbol{\theta})\)</span>. Como caso general, los modelos lineales generalizados asumen dicha distribución en una familia exponencial con parámetro natural <span class="math inline">\(\boldsymbol{\eta}=\boldsymbol{\Theta}^\top{\bf x}\)</span>.</p>
+<div class="d-flex gap-2">
+<p><a href="../material/apunte_c3s1.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
+<p><a href="../material/tp_c3s1.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+</div>
+<div style="margin-top:20px">
+
+</div>
+<p>En el capítulo anterior hemos trabajado con métodos que modelan la distribución condicional <span class="math inline">\(p(y\mid {\bf x}; \boldsymbol{\theta})\)</span>. Como caso general, los modelos lineales generalizados asumen dicha distribución en una familia exponencial con parámetro natural <span class="math inline">\(\boldsymbol{\eta}=\boldsymbol{\Theta}^\top{\bf x}\)</span>.</p>
 <p>En este capítulo adoptaremos un enfoque diferente. Dado un problema de clasificación <span class="math inline">\(Y|{\bf X}\)</span>, el propósito será modelar la distribución conjunta <span class="math display">\[
 p({\bf x},y):=p({\bf x}\mid y)\, p(y),
 \]</span> donde <span class="math inline">\(p({\bf x}\mid y)\)</span> es la distribución condicional de las variables predictoras para la clase <span class="math inline">\(Y=y\)</span>, y <span class="math inline">\(p(y)\)</span> es la distribución de probabilidad <em>a priori</em> de dicha clase. Esto conduce a modelos generativos que describen el proceso de generación de los datos. No obstante, para fines de clasificación, lo que nos interesa es determinar la clase más probable dada una observación. En este contexto, la <em>regla de Bayes</em> nos indica que <span class="math display">\[
@@ -372,22 +411,22 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="115" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 114;"><span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>viewof mu1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"μ₁:"</span><span class="op">,</span></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>viewof mu2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"μ₂:"</span><span class="op">,</span></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="co">// Matriz Σ</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>viewof sigma11 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₁₁:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>})</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>viewof sigma12 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₁₂=σ₂₁:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>})</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>viewof sigma22 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₂₂:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="130" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 129;"><span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>viewof mu1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"μ₁:"</span><span class="op">,</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>viewof mu2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"μ₂:"</span><span class="op">,</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="co">// Matriz Σ</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>viewof sigma11 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₁₁:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>})</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>viewof sigma12 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₁₂=σ₂₁:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>})</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>viewof sigma22 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₂₂:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -496,6 +535,78 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 <div style="margin-top:2.5em;">
 
 </div>
+<div style="margin-top:2em;">
+
+</div>
+<section id="marginales-y-condicionales" class="level3">
+<h3 class="anchored" data-anchor-id="marginales-y-condicionales">Marginales y condicionales</h3>
+<p>Antes de pasar a los modelos de clasificación, nos detenemos en un resultado sobre la normal multivariada que será de uso frecuente: cómo obtener las distribuciones marginales y condicionales de un vector gaussiano particionado en bloques.</p>
+<p>Supongamos que tenemos una variable aleatoria vectorial <span class="math display">\[
+{\bf X}=
+\begin{pmatrix}
+{\bf X}_1 \\
+{\bf X}_2
+\end{pmatrix},
+\]</span> donde <span class="math inline">\({\bf X}_1 \in \mathbb{R}^r\)</span>, <span class="math inline">\({\bf X}_2 \in \mathbb{R}^s\)</span> y <span class="math inline">\({\bf X}\in \mathbb{R}^{r+s}\)</span>, tal que <span class="math inline">\({\bf X}\sim \mathcal{N}(\boldsymbol{\mu}, \Sigma)\)</span> con <span class="math display">\[
+\boldsymbol{\mu}=
+\begin{pmatrix}
+\boldsymbol{\mu}_1 \\
+\boldsymbol{\mu}_2
+\end{pmatrix},
+\qquad
+\Sigma =
+\begin{pmatrix}
+\Sigma_{11} &amp; \Sigma_{12} \\
+\Sigma_{21} &amp; \Sigma_{22}
+\end{pmatrix}.
+\]</span></p>
+<p>Aquí <span class="math inline">\(\boldsymbol{\mu}_1 \in \mathbb{R}^r\)</span>, <span class="math inline">\(\boldsymbol{\mu}_2 \in \mathbb{R}^s\)</span>, <span class="math inline">\(\Sigma_{11} \in \mathbb{R}^{r \times r}\)</span>, <span class="math inline">\(\Sigma_{22} \in \mathbb{R}^{s \times s}\)</span>, y así sucesivamente. Notar que, al ser <span class="math inline">\(\Sigma\)</span> simétrica, se cumple <span class="math inline">\(\Sigma_{12} = \Sigma_{21}^\top\)</span>.</p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="teorema">
+<p><strong>Proposición 2.</strong> (Marginales y condicionales de una normal multivariada) Bajo las condiciones anteriores, se verifica <span class="math display">\[
+{\bf X}_1 \sim \mathcal{N}(\boldsymbol{\mu}_1, \Sigma_{11}),
+\]</span> <span class="math display">\[
+{\bf X}_1 \mid {\bf X}_2={\bf x}_2 \sim \mathcal{N}(\boldsymbol{\mu}_{1 \mid 2}, \Sigma_{1 \mid 2}),
+\]</span> donde <span class="math display">\[
+\boldsymbol{\mu}_{1 \mid 2} = \boldsymbol{\mu}_1 + \Sigma_{12} \Sigma_{22}^{-1} ({\bf x}_2 - \boldsymbol{\mu}_2),
+\qquad
+\Sigma_{1 \mid 2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}.
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Para la marginal, es inmediato que <span class="math inline">\(\mathbb{E}[{\bf X}_1] = \boldsymbol{\mu}_1\)</span>. Para ver que <span class="math inline">\(\mathop{\mathrm{Cov}}[{\bf X}_1] = \Sigma_{11}\)</span>, basta observar que, por definición de la covarianza conjunta, <span class="math display">\[
+\mathop{\mathrm{Cov}}[{\bf X}] =
+\mathbb{E}\left[
+\begin{pmatrix}
+{\bf X}_1 - \boldsymbol{\mu}_1 \\
+{\bf X}_2 - \boldsymbol{\mu}_2
+\end{pmatrix}
+\begin{pmatrix}
+{\bf X}_1 - \boldsymbol{\mu}_1 \\
+{\bf X}_2 - \boldsymbol{\mu}_2
+\end{pmatrix}^\top
+\right],
+\]</span> y emparejar los bloques correspondientes (✏1).</p>
+<p>La expresión de la condicional tiene una lectura intuitiva: observar <span class="math inline">\({\bf X}_2\)</span> corrige la media de <span class="math inline">\({\bf X}_1\)</span> en una cantidad proporcional al desvío <span class="math inline">\({\bf x}_2-\boldsymbol{\mu}_2\)</span>, con factor de proporcionalidad <span class="math inline">\(\Sigma_{12}\Sigma_{22}^{-1}\)</span>, y reduce su covarianza en <span class="math inline">\(\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}\)</span>. En particular, si <span class="math inline">\(\Sigma_{12}=0\)</span> los bloques son independientes y condicionar no aporta información.</p>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">📝</span><br></p>
+<p>Verifique la expresión de <span class="math inline">\(\mathop{\mathrm{Cov}}[{\bf X}_1]\)</span> desarrollando el producto anterior.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
 </section>
 <section id="análisis-discriminante-lineal-lda" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-discriminante-lineal-lda">Análisis discriminante lineal (LDA)</h2>
@@ -553,7 +664,7 @@ p(y=1\mid{\bf x})&amp;=\frac{e^{\boldsymbol{\theta}^\top{\bf x}+\theta_0}}{1+e^{
 \]</span></p>
 <p>En consecuencia, bajo el modelo LDA, la distribución condicional <span class="math inline">\(p(y\mid{\bf x})\)</span> sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir <span class="math inline">\(p(y\mid{\bf x})\)</span> logística no implica que <span class="math inline">\(p({\bf x}\mid y)\)</span> es gaussiana.</p>
 <p>Esto muestra que LDA hace suposiciones más fuertes que la regresión logística. Si estas suposiciones son correctas, LDA será un mejor modelo.</p>
-<p>Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, existen otros casos de suposiciones sobre la distribución de <span class="math inline">\({\bf X}\mid Y\)</span> que conducen a que <span class="math inline">\(p(y\mid {\bf x})\)</span> sea una función logística. Allí, puede esperarse que la regresión logística funcione mejor que LDA.</p>
+<p>Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, existen otros casos de suposiciones sobre la distribución de <span class="math inline">\({\bf X}\mid Y\)</span> que conducen a que <span class="math inline">\(p(y\mid {\bf x})\)</span> sea una función logística, lo cual se analizará en las actividades conceptuales (✏3). Allí, puede esperarse que la regresión logística funcione mejor que LDA.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -601,7 +712,7 @@ G({\bf x})=1\quad\text{si}\quad \log\frac{p(y=1\mid {\bf x})}{p(y=0\mid {\bf x})
 <div style="margin-top:2em;">
 
 </div>
-<p>Para concluir, haremos énfasis en la regla de clasificación para un <mark>problema multiclase</mark>:</p>
+<p>Para concluir, haremos énfasis en la regla de clasificación para un <em>problema multiclase</em>:</p>
 <p><span class="math display">\[
 \begin{align*}
 G(x) &amp;= \arg\max_{y} p(y\mid {\bf x}) \\
@@ -710,10 +821,10 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos simulados de clasificación binaria </span></p>
 <p>Simulamos un conjunto de datos en <span class="math inline">\(\mathbb{R}^2\)</span> perteneciente a dos clases. Al aplicar LDA, el modelo estima una frontera lineal de decisión que separa ambas regiones.</p>
-<div id="72f0275f" class="cell" data-execution_count="1">
+<div id="363ddc4b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Mostrar código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
@@ -753,7 +864,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x_1$"</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"$x_2$"</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -768,10 +879,10 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <p><span class="badge bg-primary">Ejemplo 3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos el conjunto de datos <em>wine</em> disponible en <code>scikit-learn</code>, que contiene mediciones químicas de tres tipos de vino. Para visualizar el resultado de la clasificación, consideramos únicamente dos variables predictoras: la intensidad de color y el matiz.</p>
 <p>El modelo LDA estima las fronteras lineales que separan las tres clases, utilizando la comparación de a pares.</p>
-<div id="efff3f14" class="cell" data-execution_count="2">
+<div id="1881dea5" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
@@ -812,7 +923,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Intensidad del color"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Matiz"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -830,7 +941,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 </section>
 <section id="análisis-discriminante-cuadrático-qda" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-discriminante-cuadrático-qda">Análisis discriminante cuadrático (QDA)</h2>
-<p>Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde ls clases tienen diferentes formas y orientaciones.</p>
+<p>Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde las clases tienen diferentes formas y orientaciones.</p>
 <div class="myhighlight2">
 <span style="font-size:0.8em;"><em>Supuestos del modelo</em></span>
 <div style="margin-top:-0.1em;">
@@ -884,7 +995,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 </section>
 <section id="estimación-por-máxima-verosimilitud-1" class="level3">
 <h3 class="anchored" data-anchor-id="estimación-por-máxima-verosimilitud-1">Estimación por máxima verosimilitud</h3>
-<p>De manera similar al caso de LDA, se obtienen los estimadores por máxima verosimilitud para los parámetros <span class="math inline">\(\varphi\in\mathbb{R}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_0, \boldsymbol{\mu}_1\in\mathbb{R}^p\)</span> y <span class="math inline">\(\Sigma_0, \Sigma_1\in\mathbf{S}_{++}^p\)</span>.</p>
+<p>De manera similar al caso de LDA, se obtienen los estimadores por máxima verosimilitud para los parámetros <span class="math inline">\(\varphi\in\mathbb{R}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_0, \boldsymbol{\mu}_1\in\mathbb{R}^p\)</span> y <span class="math inline">\(\Sigma_0, \Sigma_1\in\mathbf{S}_{++}^p\)</span>. La derivación queda para las actividades conceptuales (✏4).</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -906,10 +1017,10 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> QDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos los mismos datos del Ejemplo 3, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.</p>
-<div id="9e67570b" class="cell" data-execution_count="3">
+<div id="0829dd99" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Mostrar código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
@@ -949,7 +1060,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Intensidad del color"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Matiz"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -990,7 +1101,7 @@ p({\bf x}\mid y)=\prod_{i=1}^p p(x_i\mid y).
 <div style="margin-top:2em;">
 
 </div>
-<p>El uso de Naive Bayes para variables discretas es particularmente útil cuando los predictores representan <em>conteos</em>, como en <mark>clasificación de textos</mark>, donde cada <span class="math inline">\(X_i\)</span> indica la presencia de una palabra en un documento o la cantidad de veces que aparece. A continuación, veremos más en detalle esta aplicación.</p>
+<p>El uso de Naive Bayes para variables discretas es particularmente útil cuando los predictores representan <em>conteos</em>, como en <em>clasificación de textos</em>, donde cada <span class="math inline">\(X_i\)</span> indica la presencia de una palabra en un documento o la cantidad de veces que aparece. A continuación, veremos más en detalle esta aplicación.</p>
 <section id="clasificación-de-texto" class="level3">
 <h3 class="anchored" data-anchor-id="clasificación-de-texto">Clasificación de texto</h3>
 <p>Sea <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span> una variable cuya dimensión coincide con el número de palabras disponibles, a cuyo conjunto nos referiremos como <em>vocabulario</em>, de manera tal que <span class="math inline">\(X_i\)</span> indica la presencia o ausencia de la <span class="math inline">\(i\)</span>-ésima palabra en un documento dado. Por ejemplo, la observación <span class="math display">\[
@@ -1053,7 +1164,7 @@ L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid 
 <p>La log-verosimilitud es <span class="math display">\[
 \ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y\mid\varphi).
 \]</span></p>
-<p>Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y queda como ejercicio.</p>
+<p>Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y se deja al lector; los estimadores resultantes son los siguientes.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1070,7 +1181,7 @@ L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid 
 
 </div>
 <p>Con esto hemos desarrollado el método de Naive Bayes para el caso de características binarias <span class="math inline">\(X_i\)</span>. La generalización al caso de variables discretas que toman valores en <span class="math inline">\(\{1,2,\ldots,k\}\)</span> es directa, mediante el uso de la <em>distribución categórica</em>, aplicable a otros tipos de problemas donde cada variable puede asumir más de dos categorías (clasificación de encuestas, diagnóstico médico, entre otros).</p>
-<p>En el caso particular de <em>clasificación de textos</em>, es común modelar las variables como <mark>conteos</mark> de palabras en lugar de variables binarias de presencia/auscencia. En ese contexto, se utiliza el <em>Naive Bayes Multinomial</em>, que asume independencia entre apariciones de palabras, lo cual permite modelar <span class="math inline">\(p({\bf x}\mid y)\)</span> mediante la distribución Multinomial.</p>
+<p>En el caso particular de <em>clasificación de textos</em>, es común modelar las variables como <em>conteos</em> de palabras en lugar de variables binarias de presencia/ausencia. En ese contexto, se utiliza el <em>Naive Bayes Multinomial</em>, que asume independencia entre apariciones de palabras, lo cual permite modelar <span class="math inline">\(p({\bf x}\mid y)\)</span> mediante la distribución Multinomial.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1084,7 +1195,7 @@ p(y=1\mid {\bf x})=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x
 \]</span> <span class="math display">\[
 \hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=1\}+2}
 \]</span></p>
-<p>Este procedimiento es un caso particular de la estimación de <mark> máxima a posteriori (MAP)</mark>. Este principio utiliza información a priori a la hora de estimar, definiendo una distribución previa sobre los parámetros del modelo. La diferencia con MLE se ve directamente en sus formulaciones: <span class="math display">\[
+<p>Este procedimiento es un caso particular de la estimación de <em>máxima a posteriori</em> (MAP). Este principio utiliza información a priori a la hora de estimar, definiendo una distribución previa sobre los parámetros del modelo. La diferencia con MLE se ve directamente en sus formulaciones: <span class="math display">\[
 \hat{\boldsymbol{\theta}}_{\text{MLE}}=\arg\max_{\boldsymbol{\theta}}p({\bf x}\mid\boldsymbol{\theta}),
 \]</span> <span class="math display">\[
 \hat{\boldsymbol{\theta}}_{\text{MAP}}=\arg\max_{\boldsymbol{\theta}}p({\bf x}\mid\boldsymbol{\theta})\,p(\boldsymbol{\theta}).
@@ -1095,252 +1206,6 @@ p(y=1\mid {\bf x})=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x
 <p>En particular, <span class="math inline">\(\text{Beta}(1,1)\)</span> conduce al suavizado de Laplace. Dado que <span class="math inline">\(\text{Beta}(1,1)=\text{Uniforme}([0,1])\)</span>, esto equivale a no introducir sesgo a priori sobre los parámetros <span class="math inline">\(\phi_j\)</span>, de manera que cada valor entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> es igualmente probable antes de observar los datos.</p>
 </div>
 <p><br><br></p>
-</section>
-</section>
-</section>
-<section id="actividades" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="actividades">Actividades</h2>
-✏️ <strong>Conceptuales</strong><br>
-
-<hr class="linea-corta">
-<details>
-<summary>
-Mostrar
-</summary>
-<div style="margin-top:1em;">
-
-</div>
-<ol type="1">
-<li><p>Construya un clasificador para <span class="math inline">\(Y \in \{0,1\}\)</span> dado <span class="math inline">\(X \in [0,6)\)</span> utilizando el Teorema de Bayes. Las funciones de densidad condicional para cada clase son las siguientes: <span class="math display">\[
-P(X=x \mid Y=0) =
-\begin{cases}
-\dfrac{1}{6}, &amp; 0 \le x &lt; 6,\\[6pt]
-0, &amp; \text{en otro caso.}
-\end{cases}
-\]</span> <span class="math display">\[
-P(X=x \mid Y=1) =
-\begin{cases}
-\dfrac{x-1}{4}, &amp; 1 \le x &lt; 3,\\[6pt]
-\dfrac{5-x}{4}, &amp; 3 \le x &lt; 5,\\[6pt]
-0, &amp; \text{en otro caso.}
-\end{cases}
-\]</span></p>
-<ol type="a">
-<li><p>Suponiendo probabilidades a priori iguales, <span class="math inline">\(P(Y=0)=P(Y=1)=0.5\)</span>, clasificar una observación con <span class="math inline">\(x=2.5\)</span>.</p></li>
-<li><p>Suponiendo probabilidades a priori desiguales, <span class="math inline">\(P(Y=0)=0.7\)</span> y <span class="math inline">\(P(Y=1)=0.3\)</span>, clasificar una observación con <span class="math inline">\(x=4\)</span>.</p></li>
-</ol></li>
-<li><p>Considere el modelo QDA.</p>
-<ol type="a">
-<li>Demuestre que los MLE de los parámetros son: <span class="math display">\[
-\widehat{\varphi} = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\{ y_i = 1 \},
-\]</span> <span class="math display">\[
-\widehat{\boldsymbol{\mu}}_y =
-\frac{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \} \mathbf{x}_i}
-{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}},
-\]</span> <span class="math display">\[
-\widehat{\boldsymbol{\Sigma}}_y =
-\frac{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}
-(\mathbf{x}_i - \widehat{\boldsymbol{\mu}}_{y})
-(\mathbf{x}_i - \widehat{\boldsymbol{\mu}}_{y})^{\top}}
-{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}}.
-\]</span></li>
-</ol>
-<p><em>Ayuda</em>: sean <span class="math inline">\(\mathbf{x} \in \mathbb{R}^{n}\)</span>, <span class="math inline">\(\mathbf{A} \in \mathbb{R}^{n \times n}\)</span> simétrica y <span class="math inline">\(\mathbf{X}, \mathbf{B} \in \mathbb{R}^{n \times n}\)</span>, se cumple:</p>
-<ul>
-<li><span class="math inline">\(\frac{\partial (\mathbf{x}^\top\mathbf{A}\mathbf{x})}{\partial \mathbf{x}} = 2\mathbf{A}\mathbf{x}\)</span>.</li>
-<li><span class="math inline">\(\frac{\partial \ \text{tr}(\mathbf{X}^{-1}\mathbf{B})}{\partial \mathbf{X}} = -\mathbf{X}^{-1}\mathbf{B}\mathbf{X}^{-1}\)</span>.</li>
-<li><span class="math inline">\(\frac{\partial \ \ln|\mathbf{X}|}{\partial \mathbf{X}} = \mathbf{X}^{-1}\)</span>.</li>
-</ul>
-<ol start="2" type="a">
-<li><p>Construya el clasificador de Bayes usando los estimadores obtenidos.</p></li>
-<li><p>Encuentre la frontera de decisión e indique las diferencias con la hallada para el modelo LDA.</p></li>
-</ol></li>
-<li><p>En un estudio médico, 100 pacientes fueron clasificados en una de tres clases: <strong>Neumonía</strong>, <strong>Gripe</strong> o <strong>Sano</strong>. La siguiente base de datos indica cuántos pacientes en cada clase presentaron fiebre y dolor de cabeza.</p>
-<p><strong>Neumonía</strong>:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Fiebre</th>
-<th style="text-align: center;">Dolor de cabeza</th>
-<th style="text-align: center;">Frecuencia</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>—</strong></td>
-<td style="text-align: center;"><strong>Total:</strong></td>
-<td style="text-align: center;"><strong>10</strong></td>
-</tr>
-</tbody>
-</table>
-<div style="margin-top:2em;">
-
-</div>
-<p><strong>Gripe</strong>:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Fiebre</th>
-<th style="text-align: center;">Dolor de cabeza</th>
-<th style="text-align: center;">Frecuencia</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>—</strong></td>
-<td style="text-align: center;"><strong>Total:</strong></td>
-<td style="text-align: center;"><strong>20</strong></td>
-</tr>
-</tbody>
-</table>
-<div style="margin-top:2em;">
-
-</div>
-<p><strong>Sano</strong>:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Fiebre</th>
-<th style="text-align: center;">Dolor de cabeza</th>
-<th style="text-align: center;">Frecuencia</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">7</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">F</td>
-<td style="text-align: center;">58</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>—</strong></td>
-<td style="text-align: center;"><strong>Total:</strong></td>
-<td style="text-align: center;"><strong>70</strong></td>
-</tr>
-</tbody>
-</table>
-<div style="margin-top:2em;">
-
-</div>
-<p>Considere un paciente con fiebre pero sin dolor de cabeza.</p>
-<ol type="a">
-<li><p>¿Qué valores asignaría un clasificador Bayesiano óptimo a los tres diagnósticos? (un clasificador Bayesiano óptimo no realiza ninguna suposición de independencia sobre las variables). <em>Sus respuestas no necesitan sumar 1 — explique por qué.</em></p></li>
-<li><p>¿Qué probabilidad asignaría un clasificador Bayesiano óptimo a la proposición de que un paciente es sano? Muestre su procedimiento (los tres valores deben sumar 1).</p></li>
-<li><p>¿Qué valores asignaría un clasificador naive Bayes a los tres posibles diagnósticos? Muestre su procedimiento.</p></li>
-<li><p>¿Qué probabilidad asignaría un clasificador naive Bayes a la proposición de que un paciente es sano? Muestre su procedimiento.</p></li>
-</ol></li>
-<li><p>Se quiere predecir si a una persona le gusta <em>Pokémon</em>, utilizando información sobre sus preferencias por otros programas populares. Para ello, se recolectaron datos de <span class="math inline">\(n=30\)</span> individuos, registrando si a cada uno le gusta <em>Star Wars</em> y <em>Harry Potter</em>, además de si le gusta <em>Pokémon</em>. Considere <span class="math inline">\(X_1 = 1\)</span> si le gusta <em>Star Wars</em>, <span class="math inline">\(X_2 = 1\)</span> si le gusta <em>Harry Potter</em> e <span class="math inline">\(Y = 1\)</span> si le gusta <em>Pokémon</em> (en caso negativo toman el valor 0). Los datos de entrenamiento son:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Y/X1</th>
-<th style="text-align: center;">0</th>
-<th style="text-align: center;">1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">13</td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Y/X2</th>
-<th style="text-align: center;">0</th>
-<th style="text-align: center;">1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">8</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">10</td>
-</tr>
-</tbody>
-</table>
-<p>Suponga que a una nueva persona le gusta <em>Star Wars</em> pero no le gusta <em>Harry Potter</em>. ¿Le gustará <em>Pokémon</em>? ¿Qué tipo de clasificador de Bayes (naive u óptimo) puede construir con la información dada para responder a la pregunta?</p></li>
-</ol>
-</details>
-<div style="margin-top:2em;">
-
-</div>
-💻 <strong>Prácticas</strong><br>
-
-<hr class="linea-corta">
-<div style="text-align:left;">
-<p><a href="https://colab.research.google.com/drive/1N_Ne6Aop8DJ39X0xMIHADey6dgqu_Gch?usp=drive_link" target="_blank"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="height:1.4em;"> </a></p>
-</div>
-<div style="margin-top: 5em;">
-
-</div>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Ng, A. Apuntes del curso Stanford CS229: Machine Learning. Disponible <a href="https://cs229.stanford.edu/notes2022fall/main_notes.pdf">aquí</a>.</p>
@@ -1365,6 +1230,8 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 W10=
 </script>
 </section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
@@ -1379,243 +1246,236 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1623,161 +1483,197 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../CAPITULO_2/B5_svm.html" class="pagination-link" aria-label="2.5 Máquinas de vectores soporte">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.5 Máquinas de vectores soporte</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../CAPITULO_3/C2_clustering.html" class="pagination-link" aria-label="3.2 Métodos de clustering">
+        <span class="nav-page-text">3.2 Métodos de clustering</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

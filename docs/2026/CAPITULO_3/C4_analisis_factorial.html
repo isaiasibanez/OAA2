@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Análisis factorial – Optimización y Aprendizaje Automático II - 2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../CAPITULO_3/C3_em.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3. MODELOS GENERATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_3/C4_analisis_factorial.html">3.4 Análisis factorial</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Optimización y Aprendizaje Automático II - 2026</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1. OPTIMIZACIÓN MATEMÁTICA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A1_intro_optimizacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Introducción a la optimización</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A2_optimizacion_convexa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Optimización convexa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A3_programas_conicos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.3 Programas cónicos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A4_condiciones_optimalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.4 Condiciones de optimalidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_1/A5_metodos_optimizacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.5 Métodos de optimización</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2. MODELOS DISCRIMINATIVOS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B1_maxima_verosimilitud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.1 Principio de máxima verosimilitud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B2_regresion_lineal_logistica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.2 Regresión lineal y regresión logística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B3_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Modelos lineales generalizados</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B4_ridge_lasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.4 Métodos de regularización</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_2/B5_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.5 Máquinas de vectores soporte</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3. MODELOS GENERATIVOS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C1_gda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.1 Modelos generativos para clasificación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C2_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 Métodos de clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C3_em.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 Algoritmo EM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CAPITULO_3/C4_analisis_factorial.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3.4 Análisis factorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#i-el-problema-de-estimar-sigma-con-pocos-datos" id="toc-i-el-problema-de-estimar-sigma-con-pocos-datos" class="nav-link active" data-scroll-target="#i-el-problema-de-estimar-sigma-con-pocos-datos">I <span style="color:#CCCCCC;">│</span> El problema de estimar <span class="math inline">\(\Sigma\)</span> con pocos datos</a>
+  <ul class="collapse">
+  <li><a href="#restricciones-sobre-sigma" id="toc-restricciones-sobre-sigma" class="nav-link" data-scroll-target="#restricciones-sobre-sigma">Restricciones sobre <span class="math inline">\(\Sigma\)</span></a></li>
+  </ul></li>
+  <li><a href="#ii-el-modelo-de-análisis-factorial" id="toc-ii-el-modelo-de-análisis-factorial" class="nav-link" data-scroll-target="#ii-el-modelo-de-análisis-factorial">II <span style="color:#CCCCCC;">│</span> El modelo de análisis factorial</a>
+  <ul class="collapse">
+  <li><a href="#distribución-conjunta-de-bf-zbf-x" id="toc-distribución-conjunta-de-bf-zbf-x" class="nav-link" data-scroll-target="#distribución-conjunta-de-bf-zbf-x">Distribución conjunta de <span class="math inline">\(({\bf z},{\bf X})\)</span></a></li>
+  </ul></li>
+  <li><a href="#iii-algoritmo-em-para-análisis-factorial" id="toc-iii-algoritmo-em-para-análisis-factorial" class="nav-link" data-scroll-target="#iii-algoritmo-em-para-análisis-factorial">III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial</a>
+  <ul class="collapse">
+  <li><a href="#paso-e" id="toc-paso-e" class="nav-link" data-scroll-target="#paso-e">Paso E</a></li>
+  <li><a href="#paso-m" id="toc-paso-m" class="nav-link" data-scroll-target="#paso-m">Paso M</a></li>
+  <li><a href="#relación-con-las-ecuaciones-normales" id="toc-relación-con-las-ecuaciones-normales" class="nav-link" data-scroll-target="#relación-con-las-ecuaciones-normales">Relación con las ecuaciones normales</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../CAPITULO_3/C1_gda.html">3. MODELOS GENERATIVOS</a></li><li class="breadcrumb-item"><a href="../CAPITULO_3/C4_analisis_factorial.html">3.4 Análisis factorial</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Análisis factorial</h1>
+<p class="subtitle lead">Capítulo 3 - Sección 4</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr style="border: 1px solid rgba(50, 0, 0, 1);">
+<div class="hidden">
+<p>$$ </p>
+<p>$$</p>
+</div>
+<div class="d-flex gap-2">
+<p><a href="../material/apunte_c3s4.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
+<p><a href="../material/tp_c3s4.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
+</div>
+<div style="margin-top:20px">
+
+</div>
+<p>En la sección anterior aplicamos el algoritmo EM a una mezcla de gaussianas, en un contexto donde disponíamos de suficientes datos como para discernir la estructura de varias componentes. Ese sería el caso, por ejemplo, si el tamaño del conjunto de entrenamiento <span class="math inline">\(n\)</span> fuera significativamente mayor que la dimensión <span class="math inline">\(p\)</span> de los datos.</p>
+<p>En esta sección consideramos el escenario opuesto: <span class="math inline">\(p &gt; n\)</span>. Allí puede resultar difícil modelar los datos incluso con una sola gaussiana, mucho menos con una mezcla. El <em>análisis factorial</em> es un modelo con variable latente que permite ajustar una gaussiana razonable en ese régimen, capturando estructura de correlación sin necesidad de estimar una matriz de covarianza completa. Como veremos, su estimación también se resuelve con EM.</p>
+<div style="border-top:1px solid #b7cdf5;
+            background-color: #fafbff;
+            padding:0.1em 1em;
+            margin-top:1.5em;">
+<p>📄 <strong>Notación</strong></p>
+<p>Durante esta sección consideramos un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> con <span class="math inline">\({\bf x}_i\in\mathbb{R}^p\)</span>. La variable latente <span class="math inline">\({\bf z}\in\mathbb{R}^k\)</span>, con <span class="math inline">\(k&lt;p\)</span>, es ahora <strong>continua</strong>, a diferencia de la variable categórica de la sección anterior.</p>
+<p>Denotamos <span class="math inline">\(\Lambda\in\mathbb{R}^{p\times k}\)</span> la <em>matriz de cargas factoriales</em> y <span class="math inline">\(\Psi\in\mathbb{R}^{p\times p}\)</span> una matriz diagonal de varianzas específicas.</p>
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+<section id="i-el-problema-de-estimar-sigma-con-pocos-datos" class="level2">
+<h2 class="anchored" data-anchor-id="i-el-problema-de-estimar-sigma-con-pocos-datos">I <span style="color:#CCCCCC;">│</span> El problema de estimar <span class="math inline">\(\Sigma\)</span> con pocos datos</h2>
+<p>Supongamos que modelamos los datos con una única gaussiana y estimamos sus parámetros con los MLE habituales, vistos en la <a href="C1_gda.html">C3-S1</a>: <span class="math display">\[
+\hat{\boldsymbol{\mu}} = \frac{1}{n} \sum_{i=1}^{n} {\bf x}_i,\qquad
+\hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} ({\bf x}_i - \hat{\boldsymbol{\mu}})({\bf x}_i - \hat{\boldsymbol{\mu}})^\top.
+\]</span></p>
+<p>Si <span class="math inline">\(p&gt;n\)</span>, los <span class="math inline">\(n\)</span> puntos abarcan únicamente un subespacio de baja dimensión de <span class="math inline">\(\mathbb{R}^p\)</span> y la matriz <span class="math inline">\(\hat{\Sigma}\)</span> resulta <strong>singular</strong>. Esto significa que <span class="math inline">\(\hat{\Sigma}^{-1}\)</span> no existe y que <span class="math inline">\(1/|\hat{\Sigma}|^{1/2}=1/0\)</span>; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.</p>
+<div style="margin-top:1em;">
+
+</div>
+<div class="myhighlight3">
+<p>Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el espacio afín generado por los datos, lo cual corresponde a una covarianza singular.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Más generalmente, a menos que <span class="math inline">\(n\)</span> exceda a <span class="math inline">\(p\)</span> por una cantidad razonable, las estimaciones de la media y la covarianza suelen ser bastante deficientes. No obstante, nos gustaría poder ajustar un modelo gaussiano razonable y capturar alguna estructura de covarianza interesante. Veamos primero dos restricciones posibles sobre <span class="math inline">\(\Sigma\)</span> y por qué ninguna resulta satisfactoria.</p>
+<div style="margin-top:1em;">
+
+</div>
+<section id="restricciones-sobre-sigma" class="level3">
+<h3 class="anchored" data-anchor-id="restricciones-sobre-sigma">Restricciones sobre <span class="math inline">\(\Sigma\)</span></h3>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p><strong>Covarianza diagonal.</strong> Si imponemos que <span class="math inline">\(\Sigma\)</span> sea diagonal, el MLE resulta <span class="math display">\[
+\hat{\Sigma}_{jj} = \frac{1}{n} \sum_{i=1}^n (x_{ij} - \hat\mu_j)^2,
+\]</span> es decir, la estimación empírica de la varianza de la <span class="math inline">\(j\)</span>-ésima coordenada. Geométricamente, una <span class="math inline">\(\Sigma\)</span> diagonal corresponde a una gaussiana cuyos contornos son elipses con ejes principales alineados con los ejes coordenados.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p><strong>Covarianza esférica.</strong> Podemos imponer además que todas las entradas diagonales sean iguales, <span class="math inline">\(\Sigma=\sigma^2 I\)</span>. El MLE es entonces <span class="math display">\[
+\hat{\sigma}^2 = \frac{1}{np} \sum_{j=1}^p \sum_{i=1}^n (x_{ij} - \hat{\mu}_j)^2,
+\]</span> y los contornos de densidad pasan a ser circunferencias o hiperesferas.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Para ajustar una <span class="math inline">\(\Sigma\)</span> completa y sin restricciones se necesita <span class="math inline">\(n \geq p + 1\)</span> para que el MLE no sea singular; bajo cualquiera de las dos restricciones anteriores basta <span class="math inline">\(n \geq 2\)</span>. Sin embargo, el precio es alto:</p>
+<div class="myhighlight">
+<p>Restringir <span class="math inline">\(\Sigma\)</span> a ser diagonal equivale a modelar las coordenadas de <span class="math inline">\({\bf X}\)</span> como no correlacionadas. Perdemos justamente la estructura de correlación que querríamos capturar.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>El modelo de análisis factorial ofrece una vía intermedia: usa más parámetros que una <span class="math inline">\(\Sigma\)</span> diagonal y captura correlaciones, pero sin ajustar una matriz de covarianza completa.</p>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+</section>
+<section id="ii-el-modelo-de-análisis-factorial" class="level2">
+<h2 class="anchored" data-anchor-id="ii-el-modelo-de-análisis-factorial">II <span style="color:#CCCCCC;">│</span> El modelo de análisis factorial</h2>
+<p>En este modelo, los datos se generan como una combinación lineal de variables latentes más ruido gaussiano.</p>
+<div class="myhighlight2">
+<p><span style="font-size:0.8em;"><em>Supuestos del modelo</em></span></p>
+<div style="margin-top:-0.5em;">
+
+</div>
+<p><span class="math display">\[
+\begin{array}{c}
+{\bf z}\sim \mathcal{N}(\mathbf{0}, I) \\[2pt]
+{\bf X}\mid {\bf z}\sim \mathcal{N}(\boldsymbol{\mu}+ \Lambda {\bf z},\, \Psi)
+\end{array}
+\]</span></p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>Los parámetros del modelo son:</p>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{\mu}\in\mathbb{R}^p\)</span>: vector de medias de las variables observadas.</p></li>
+<li><p><span class="math inline">\(\Lambda\in\mathbb{R}^{p \times k}\)</span>, con <span class="math inline">\(k&lt;p\)</span>: <em>matriz de cargas factoriales</em>, que define la relación lineal entre las variables latentes y las observadas.</p></li>
+<li><p><span class="math inline">\(\Psi\in\mathbb{R}^{p\times p}\)</span> diagonal: la varianza específica o ruido asociado a cada variable observada.</p></li>
+</ul>
+<div style="margin-top:1em;">
+
+</div>
+<p>La lectura generativa es: cada punto <span class="math inline">\({\bf x}_i\)</span> se obtiene muestreando una gaussiana <span class="math inline">\(k\)</span>-dimensional <span class="math inline">\({\bf z}_i\)</span>, mapeándola al espacio afín <span class="math inline">\(\boldsymbol{\mu}+ \Lambda {\bf z}_i\subset\mathbb{R}^p\)</span>, y agregando finalmente ruido de covarianza <span class="math inline">\(\Psi\)</span>. De manera equivalente, el modelo puede escribirse como <span class="math display">\[
+{\bf z}\sim \mathcal{N}(\mathbf{0}, I),\qquad \boldsymbol{\varepsilon} \sim \mathcal{N}(\mathbf{0}, \Psi),\qquad {\bf X}= \boldsymbol{\mu}+ \Lambda {\bf z}+ \boldsymbol{\varepsilon},
+\]</span> con <span class="math inline">\({\bf z}\)</span> y <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> independientes.</p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Recordatorio</span></p>
+<p>El desarrollo que sigue usa de manera intensiva las distribuciones marginales y condicionales de una normal multivariada, vistas en la <a href="C1_gda.html#la-normal-multivariada">C3-S1</a>. Recordemos el resultado: si <span class="math display">\[
+\begin{pmatrix}{\bf X}_1\\ {\bf X}_2\end{pmatrix}\sim\mathcal{N}\left(\begin{pmatrix}\boldsymbol{\mu}_1\\ \boldsymbol{\mu}_2\end{pmatrix},\begin{pmatrix}\Sigma_{11} &amp; \Sigma_{12}\\ \Sigma_{21} &amp; \Sigma_{22}\end{pmatrix}\right),
+\]</span> entonces <span class="math inline">\({\bf X}_1\sim\mathcal{N}(\boldsymbol{\mu}_1,\Sigma_{11})\)</span> y <span class="math display">\[
+{\bf X}_1\mid {\bf X}_2={\bf x}_2\sim\mathcal{N}\left(\boldsymbol{\mu}_1 + \Sigma_{12} \Sigma_{22}^{-1} ({\bf x}_2 - \boldsymbol{\mu}_2),\;\; \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}\right).
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<section id="distribución-conjunta-de-bf-zbf-x" class="level3">
+<h3 class="anchored" data-anchor-id="distribución-conjunta-de-bf-zbf-x">Distribución conjunta de <span class="math inline">\(({\bf z},{\bf X})\)</span></h3>
+<p>Las variables <span class="math inline">\({\bf z}\)</span> y <span class="math inline">\({\bf X}\)</span> tienen distribución conjunta gaussiana, <span class="math display">\[
+\begin{pmatrix} {\bf z}\\ {\bf X}\end{pmatrix} \sim \mathcal{N}(\boldsymbol{\mu}_{z x}, \Sigma_{zx}),
+\]</span></p>
+<p>y vamos a determinar sus parámetros. Por un lado, <span class="math inline">\(\mathbb{E}[{\bf z}] = \mathbf{0}\)</span> por hipótesis, y <span class="math display">\[
+\mathbb{E}[{\bf X}] = \mathbb{E}[\boldsymbol{\mu}+ \Lambda {\bf z}+ \boldsymbol{\varepsilon}] = \boldsymbol{\mu}+ \Lambda \mathbb{E}[{\bf z}] + \mathbb{E}[\boldsymbol{\varepsilon}] = \boldsymbol{\mu},
+\]</span> de donde <span class="math inline">\(\boldsymbol{\mu}_{zx} = (\mathbf{0}, \boldsymbol{\mu})\)</span>.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Por otro lado, necesitamos los tres bloques de <span class="math inline">\(\Sigma_{zx}\)</span>. El primero es inmediato: <span class="math inline">\(\Sigma_{zz} = \mathop{\mathrm{Cov}}({\bf z}) = I\)</span>. Para el bloque cruzado, <span class="math display">\[
+\begin{align*}
+\mathbb{E}\left[({\bf z}- \mathbb{E}[{\bf z}])({\bf X}- \mathbb{E}[{\bf X}])^\top\right] &amp;= \mathbb{E}\left[{\bf z}(\boldsymbol{\mu}+ \Lambda {\bf z}+ \boldsymbol{\varepsilon} - \boldsymbol{\mu})^\top\right]\\
+&amp;= \mathbb{E}\left[{\bf z}{\bf z}^\top \Lambda^\top + {\bf z}\boldsymbol{\varepsilon}^\top\right]\\
+&amp;= \Lambda^\top,
+\end{align*}
+\]</span> donde usamos que <span class="math inline">\(\mathbb{E}[{\bf z}{\bf z}^\top] = \mathop{\mathrm{Cov}}({\bf z})=I\)</span> (pues <span class="math inline">\({\bf z}\)</span> tiene media cero) y que <span class="math inline">\(\mathbb{E}[{\bf z}\boldsymbol{\varepsilon}^\top] = \mathbb{E}[{\bf z}]\mathbb{E}[\boldsymbol{\varepsilon}]^\top = \mathbf{0}\)</span> (pues <span class="math inline">\({\bf z}\)</span> y <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> son independientes). De manera análoga, <span class="math display">\[
+\begin{align*}
+\mathbb{E}\left[({\bf X}- \mathbb{E}[{\bf X}])({\bf X}- \mathbb{E}[{\bf X}])^\top\right] &amp;= \mathbb{E}\left[(\Lambda {\bf z}+ \boldsymbol{\varepsilon})(\Lambda {\bf z}+ \boldsymbol{\varepsilon})^\top\right]\\
+&amp;= \mathbb{E}\left[\Lambda {\bf z}{\bf z}^\top \Lambda^\top + \boldsymbol{\varepsilon} {\bf z}^\top \Lambda^\top + \Lambda {\bf z}\boldsymbol{\varepsilon}^\top + \boldsymbol{\varepsilon} \boldsymbol{\varepsilon}^\top\right]\\
+&amp;= \Lambda \mathbb{E}[{\bf z}{\bf z}^\top] \Lambda^\top + \mathbb{E}[\boldsymbol{\varepsilon} \boldsymbol{\varepsilon}^\top]\\
+&amp;= \Lambda \Lambda^\top + \Psi.
+\end{align*}
+\]</span></p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Combinando todo:</p>
+<div class="myhighlight">
+<p><span class="math display">\[
+\begin{pmatrix} {\bf z}\\ {\bf X}\end{pmatrix} \sim \mathcal{N}\left(\begin{pmatrix} \mathbf{0}\\ \boldsymbol{\mu}\end{pmatrix},
+\begin{pmatrix} I &amp; \Lambda^\top \\ \Lambda &amp; \Lambda \Lambda^\top + \Psi \end{pmatrix}\right).
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>De aquí, aplicando el recordatorio anterior, se obtienen los dos resultados que necesitaremos:</p>
+<ul>
+<li><p><strong>Distribución marginal de <span class="math inline">\({\bf X}\)</span></strong>: <span class="math display">\[
+  {\bf X}\sim \mathcal{N}(\boldsymbol{\mu},\; \Lambda\Lambda^\top + \Psi).
+  \tag{3.4.1}
+  \]</span></p></li>
+<li><p><strong>Distribución condicional de <span class="math inline">\({\bf z}\)</span> dado <span class="math inline">\({\bf X}\)</span></strong>: es gaussiana, <span class="math inline">\({\bf z}\mid {\bf X}={\bf x}\sim\mathcal{N}(\boldsymbol{\mu}_{z\mid x},\Sigma_{z\mid x})\)</span>, con <span class="math display">\[
+  \boldsymbol{\mu}_{z \mid x} = \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}({\bf x}- \boldsymbol{\mu}), \qquad
+  \Sigma_{z \mid x} = I - \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}\Lambda.
+  \tag{3.4.2}
+  \]</span></p></li>
+</ul>
+<div style="margin-top:2em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br></p>
+<p>Observe la expresión (3.4.1). ¿Cuántos parámetros libres tiene <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> frente a una matriz de covarianza completa? ¿Y frente a una diagonal?</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Al contar los parámetros conviene tener presente que <span class="math inline">\(\Lambda\)</span> <em>no</em> queda determinada por el modelo. En efecto, si <span class="math inline">\(R\in\mathbb{R}^{k\times k}\)</span> es una matriz ortogonal, entonces <span class="math inline">\((\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top\)</span>, de modo que <span class="math inline">\(\Lambda\)</span> y <span class="math inline">\(\Lambda R\)</span> producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>En consecuencia, las cargas se determinan únicamente <em>a menos de una rotación</em> del espacio de factores: los datos no permiten distinguir entre <span class="math inline">\(\Lambda\)</span> y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual —“el factor 1 mide tal cosa”— no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como <em>varimax</em>, que buscan cargas fáciles de interpretar.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>De (3.4.1) resulta que la log-verosimilitud de los datos observados es <span class="math display">\[
+\ell(\boldsymbol{\mu}, \Lambda, \Psi) = \sum_{i=1}^n\log\left[ \frac{1}{(2\pi)^{p/2} |\Lambda \Lambda^\top + \Psi|^{1/2}} \exp\left(-\frac{1}{2} ({\bf x}_i - \boldsymbol{\mu})^\top (\Lambda \Lambda^\top + \Psi)^{-1} ({\bf x}_i - \boldsymbol{\mu})\right)\right].
+\tag{3.4.3}
+\]</span></p>
+<p>Maximizar (3.4.3) explícitamente es difícil y no se conoce una solución en forma cerrada. Por lo tanto, recurrimos nuevamente al algoritmo EM, tomando <span class="math inline">\({\bf z}\)</span> como variable latente.</p>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+</section>
+<section id="iii-algoritmo-em-para-análisis-factorial" class="level2">
+<h2 class="anchored" data-anchor-id="iii-algoritmo-em-para-análisis-factorial">III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial</h2>
+<p>A diferencia del caso de mezcla de gaussianas, aquí la variable latente es <strong>continua</strong>, de manera que las sumas sobre <span class="math inline">\(z\)</span> se reemplazan por integrales y las responsabilidades por una densidad condicional completa.</p>
+<div style="margin-top:1em;">
+
+</div>
+<section id="paso-e" class="level3">
+<h3 class="anchored" data-anchor-id="paso-e">Paso E</h3>
+<p>El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir <span class="math inline">\(Q_i({\bf z}_i) = p({\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}, \Lambda, \Psi)\)</span>. Por (3.4.2), esta distribución es <span class="math display">\[
+{\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}, \Lambda, \Psi \sim \mathcal{N}(\boldsymbol{\mu}_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
+\]</span> con <span class="math display">\[
+\boldsymbol{\mu}_{z_i \mid x_i} = \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} ({\bf x}_i - \boldsymbol{\mu}),\qquad
+\Sigma_{z_i \mid x_i} = I - \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} \Lambda.
+\]</span></p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Notar que <span class="math inline">\(\Sigma_{z_i\mid x_i}\)</span> no depende de <span class="math inline">\(i\)</span>: la incertidumbre a posteriori sobre <span class="math inline">\({\bf z}\)</span> es la misma para todas las observaciones.</p>
+<div style="margin-top:2em;">
+
+</div>
+</section>
+<section id="paso-m" class="level3">
+<h3 class="anchored" data-anchor-id="paso-m">Paso M</h3>
+<p>En el paso M debemos maximizar <span class="math display">\[
+\sum_{i=1}^n \int_{{\bf z}_i} Q_i({\bf z}_i) \log \frac{p({\bf x}_i, {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi)}{Q_i({\bf z}_i)}\, d{\bf z}_i
+\]</span> respecto de <span class="math inline">\(\boldsymbol{\mu}\)</span>, <span class="math inline">\(\Lambda\)</span> y <span class="math inline">\(\Psi\)</span>. Desarrollemos la expresión: <span class="math display">\[
+\begin{align*}
+&amp;\sum_{i=1}^n \int_{{\bf z}_i} Q_i({\bf z}_i) \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log Q_i({\bf z}_i) \big]\, d{\bf z}_i \\
+&amp;\qquad= \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log Q_i({\bf z}_i) \big].
+\end{align*}
+\]</span></p>
+<p>Al eliminar los términos que no dependen de los parámetros, queda por maximizar <span class="math display">\[
+\begin{align*}
+&amp;\sum_{i=1}^n \mathbb{E}\big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) \big]\\
+&amp;\qquad=\sum_{i=1}^n \mathbb{E}\left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right].
+\end{align*}
+\tag{3.4.4}
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success text-light">Maximización respecto de <span class="math inline">\(\Lambda\)</span></span></p>
+<p>Solo el último término de (3.4.4) depende de <span class="math inline">\(\Lambda\)</span>. Derivando, y usando que <span class="math inline">\(\operatorname{tr}(AB) = \operatorname{tr}(BA)\)</span> junto con <span class="math inline">\(\nabla_A\operatorname{tr}(ABA^\top C) = CAB + C^\top AB^\top\)</span>, obtenemos <span class="math display">\[
+\begin{align*}
+&amp;\nabla_\Lambda \sum_{i=1}^n \mathbb{E}\left[ -\frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right]\\
+&amp;\qquad= \sum_{i=1}^n \nabla_\Lambda \mathbb{E}\left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \Lambda^\top \big) \right]\\
+&amp;\qquad= \sum_{i=1}^n \mathbb{E}\left[ -\Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} + \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \right].
+\end{align*}
+\]</span></p>
+<p>Igualando a cero y simplificando, <span class="math display">\[
+\sum_{i=1}^n \Lambda\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i^{\top} \big],
+\]</span> de donde <span class="math display">\[
+\Lambda = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i^{\top} \big] \right) \left( \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] \right)^{-1}.
+\tag{3.4.5}
+\]</span></p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Finalmente, como <span class="math inline">\(Q_i\)</span> es gaussiana con media <span class="math inline">\(\boldsymbol{\mu}_{z_i \mid x_i}\)</span> y covarianza <span class="math inline">\(\Sigma_{z_i \mid x_i}\)</span>, resulta <span class="math display">\[
+\mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i \big] = \boldsymbol{\mu}_{z_i \mid x_i},\qquad
+\mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
+\]</span> donde la segunda igualdad proviene de <span class="math inline">\(\mathop{\mathrm{Cov}}(Y) = \mathbb{E}[YY^\top] - \mathbb{E}[Y]\mathbb{E}[Y]^\top\)</span>. Sustituyendo en (3.4.5) se obtiene la actualización buscada.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="myhighlight">
+<p>Las actualizaciones del paso M son <span class="math display">\[
+\boldsymbol{\mu}^{(t+1)} = \frac{1}{n} \sum_{i=1}^n {\bf x}_i,
+\]</span> <span class="math display">\[
+\Lambda^{(t+1)} = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \boldsymbol{\mu}_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
+\]</span> <span class="math display">\[
+\Psi^{(t+1)} = \mathop{\mathrm{diag}}(\Phi),\qquad \Phi := \frac{1}{n} \sum_{i=1}^n \Big[{\bf x}_i {\bf x}_i^{\top} - \Lambda \boldsymbol{\mu}_{z_i \mid x_i} {\bf x}_i^{\top} - {\bf x}_i \boldsymbol{\mu}_{z_i \mid x_i}^\top \Lambda^\top + \Lambda \big( \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \Lambda^\top\Big].
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br></p>
+<p>Derive las actualizaciones de <span class="math inline">\(\boldsymbol{\mu}\)</span> y <span class="math inline">\(\Psi\)</span> a partir de (3.4.4), siguiendo el mismo procedimiento que se usó para <span class="math inline">\(\Lambda\)</span>.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>Notar la presencia de <span class="math inline">\(\Sigma_{z_i \mid x_i}\)</span> en la actualización de <span class="math inline">\(\Lambda\)</span>. Esta es la covarianza de la distribución a posteriori <span class="math inline">\(p({\bf z}_i \mid {\bf x}_i)\)</span>, y el paso M debe tener en cuenta esa incertidumbre sobre <span class="math inline">\({\bf z}_i\)</span>.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Un error frecuente al derivar EM es suponer que en el paso E basta con calcular la esperanza <span class="math inline">\(\mathbb{E}[{\bf z}]\)</span> de la variable latente, para luego usarla en el paso M donde aparece <span class="math inline">\({\bf z}\)</span>. Esto funcionó en el caso de mezclas de gaussianas, pero acá necesitamos además <span class="math inline">\(\mathbb{E}[{\bf z}{\bf z}^\top]\)</span>, que incorpora <span class="math inline">\(\Sigma_{z_i\mid x_i}\)</span>.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+</section>
+<section id="relación-con-las-ecuaciones-normales" class="level3">
+<h3 class="anchored" data-anchor-id="relación-con-las-ecuaciones-normales">Relación con las ecuaciones normales</h3>
+<p>Resulta interesante comparar (3.4.5) con la ecuación normal de la regresión por mínimos cuadrados ordinarios, vista en la <a href="../CAPITULO_2/B2_regresion_lineal_logistica.html">C2-S2</a>: <span class="math display">\[
+\boldsymbol{\theta}^\top = ({\bf y}^\top X)(X^\top X)^{-1}.
+\]</span></p>
+<p>La analogía es directa: los <span class="math inline">\({\bf x}\)</span> son una función lineal de los <span class="math inline">\({\bf z}\)</span> más ruido. Dadas las “estimaciones” de <span class="math inline">\({\bf z}\)</span> obtenidas en el paso E, el paso M estima la linealidad desconocida <span class="math inline">\(\Lambda\)</span> que relaciona <span class="math inline">\({\bf x}\)</span> con <span class="math inline">\({\bf z}\)</span>. La diferencia importante, como señalamos arriba, es el término <span class="math inline">\(\Sigma_{z_i\mid x_i}\)</span>: EM no usa la mejor estimación puntual de <span class="math inline">\({\bf z}\)</span>, sino que promedia sobre toda la incertidumbre a posteriori.</p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 3.4.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Análisis factorial en datos simulados </span></p>
+<p>Simularemos datos en <span class="math inline">\(\mathbb{R}^p\)</span> generados por un modelo factorial con <span class="math inline">\(k\)</span> factores, con <span class="math inline">\(p&gt;n\)</span>, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> con la verdadera y evaluaremos el error de reconstrucción.</p>
+<div id="ae5af59e" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Mostrar código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (código del ajuste por EM del modelo de análisis factorial)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad de manera interpretable a través de las cargas <span class="math inline">\(\Lambda\)</span>, y sortear el problema de las matrices de covarianza singulares cuando <span class="math inline">\(n\)</span> es chico frente a <span class="math inline">\(p\)</span>.</p>
+<p><br><br></p>
+<div class="refs">
+<p><span style="color: #444;"><strong>Referencias</strong></span></p>
+<p>Bishop, C. M. (2006). <em>Pattern Recognition and Machine Learning</em>. Information Science and Statistics. New York: Springer.</p>
+<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed.&nbsp;Springer Series in Statistics. New York: Springer.</p>
+<p>Ng, A. (2022). <em>Stanford CS229: Machine Learning - Lecture Notes</em>. Standford University. 🔗 <a href="https://cs229.stanford.edu/notes2022fall/main_notes.pdf">ir al sitio web</a>.</p>
+</div>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../CAPITULO_3";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../CAPITULO_3/C3_em.html" class="pagination-link" aria-label="3.3 Algoritmo EM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3.3 Algoritmo EM</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -8,8 +8,23 @@ subtitle: "Capítulo 3 - Sección 1"
 {{< include ../macros.qmd >}}
 
 
+<div class="d-flex gap-2">
 
-En el capítulo anerior hemos trabajado con métodos que modelan la distribución condicional $p(y\mid \xx; \bftheta)$. Como caso general, los modelos lineales generalizados asumen dicha distribución en una familia exponencial con parámetro natural $\bfeta=\bfTheta^\top\xx$. 
+<a href="../material/apunte_c3s1.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
+
+<a href="../material/tp_c3s1.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
+
+</div>
+
+<div style="margin-top:20px"></div>
+
+
+
+En el capítulo anterior hemos trabajado con métodos que modelan la distribución condicional $p(y\mid \xx; \bftheta)$. Como caso general, los modelos lineales generalizados asumen dicha distribución en una familia exponencial con parámetro natural $\bfeta=\bfTheta^\top\xx$. 
 
 En este capítulo adoptaremos un enfoque diferente. Dado un problema de clasificación $Y|\XX$, el propósito será modelar la distribución conjunta
 $$
@@ -227,6 +242,86 @@ $$
 <div style="margin-top:2.5em;"></div>
 
 
+<div style="margin-top:2em;"></div>
+
+### Marginales y condicionales
+
+Antes de pasar a los modelos de clasificación, nos detenemos en un resultado sobre la normal multivariada que será de uso frecuente: cómo obtener las distribuciones marginales y condicionales de un vector gaussiano particionado en bloques.
+
+Supongamos que tenemos una variable aleatoria vectorial
+$$
+\XX =
+\begin{pmatrix}
+\XX_1 \\
+\XX_2
+\end{pmatrix},
+$$
+donde $\XX_1 \in \RR^r$, $\XX_2 \in \RR^s$ y $\XX \in \RR^{r+s}$, tal que $\XX \sim \calN(\bfmu, \Sigma)$ con
+$$
+\bfmu =
+\begin{pmatrix}
+\bfmu_1 \\
+\bfmu_2
+\end{pmatrix},
+\qquad
+\Sigma =
+\begin{pmatrix}
+\Sigma_{11} & \Sigma_{12} \\
+\Sigma_{21} & \Sigma_{22}
+\end{pmatrix}.
+$$
+
+Aquí $\bfmu_1 \in \RR^r$, $\bfmu_2 \in \RR^s$, $\Sigma_{11} \in \RR^{r \times r}$, $\Sigma_{22} \in \RR^{s \times s}$, y así sucesivamente. Notar que, al ser $\Sigma$ simétrica, se cumple $\Sigma_{12} = \Sigma_{21}^\top$.
+
+<div style="margin-top:2em;"></div>
+
+::: {.teorema}
+**Proposición 2.** (Marginales y condicionales de una normal multivariada) Bajo las condiciones anteriores, se verifica
+$$
+\XX_1 \sim \calN(\bfmu_1, \Sigma_{11}),
+$$
+$$
+\XX_1 \mid \XX_2=\xx_2 \sim \calN(\bfmu_{1 \mid 2}, \Sigma_{1 \mid 2}),
+$$
+donde
+$$
+\bfmu_{1 \mid 2} = \bfmu_1 + \Sigma_{12} \Sigma_{22}^{-1} (\xx_2 - \bfmu_2),
+\qquad
+\Sigma_{1 \mid 2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}.
+$$
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+Para la marginal, es inmediato que $\media[\XX_1] = \bfmu_1$. Para ver que $\cov[\XX_1] = \Sigma_{11}$, basta observar que, por definición de la covarianza conjunta,
+$$
+\cov[\XX] =
+\media\left[
+\begin{pmatrix}
+\XX_1 - \bfmu_1 \\
+\XX_2 - \bfmu_2
+\end{pmatrix}
+\begin{pmatrix}
+\XX_1 - \bfmu_1 \\
+\XX_2 - \bfmu_2
+\end{pmatrix}^\top
+\right],
+$$
+y emparejar los bloques correspondientes (✏1).
+
+La expresión de la condicional tiene una lectura intuitiva: observar $\XX_2$ corrige la media de $\XX_1$ en una cantidad proporcional al desvío $\xx_2-\bfmu_2$, con factor de proporcionalidad $\Sigma_{12}\Sigma_{22}^{-1}$, y reduce su covarianza en $\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}$. En particular, si $\Sigma_{12}=0$ los bloques son independientes y condicionar no aporta información.
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+
+Verifique la expresión de $\cov[\XX_1]$ desarrollando el producto anterior.
+
+:::
+
+<div style="margin-top:2.5em;"></div>
+
 
 ## Análisis discriminante lineal (LDA)
 
@@ -299,7 +394,7 @@ En consecuencia, bajo el modelo LDA, la distribución condicional $p(y\mid\xx)$ 
 
 Esto muestra que LDA hace suposiciones más fuertes que la regresión logística. Si estas suposiciones son correctas, LDA será un mejor modelo.
 
-Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, existen otros casos de suposiciones sobre la distribución de $\XX\mid Y$ que conducen a que $p(y\mid \xx)$ sea una función logística. Allí, puede esperarse que la regresión logística funcione mejor que LDA.
+Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, existen otros casos de suposiciones sobre la distribución de $\XX\mid Y$ que conducen a que $p(y\mid \xx)$ sea una función logística, lo cual se analizará en las actividades conceptuales (✏3). Allí, puede esperarse que la regresión logística funcione mejor que LDA.
 
 ::: {.callout .question}
 
@@ -354,7 +449,7 @@ $$
 <div style="margin-top:2em;"></div>
 
 
-Para concluir, haremos énfasis en la regla de clasificación para un <mark>problema multiclase</mark>:
+Para concluir, haremos énfasis en la regla de clasificación para un *problema multiclase*:
 
 $$
 \begin{align*}
@@ -617,7 +712,7 @@ plt.show()
 
 ## Análisis discriminante cuadrático (QDA)
 
-Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde ls clases tienen diferentes formas y orientaciones.
+Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde las clases tienen diferentes formas y orientaciones.
 
 
 :::{.myhighlight2}
@@ -679,7 +774,7 @@ $$
 
 ### Estimación por máxima verosimilitud
 
-De manera similar al caso de LDA, se obtienen los estimadores por máxima verosimilitud para los parámetros $\varphi\in\RR$, $\bfmu_0, \bfmu_1\in\RR^p$ y $\Sigma_0, \Sigma_1\in\mathbf{S}_{++}^p$.
+De manera similar al caso de LDA, se obtienen los estimadores por máxima verosimilitud para los parámetros $\varphi\in\RR$, $\bfmu_0, \bfmu_1\in\RR^p$ y $\Sigma_0, \Sigma_1\in\mathbf{S}_{++}^p$. La derivación queda para las actividades conceptuales (✏4).
 
 <div style="margin-top:2em;"></div>
 
@@ -800,7 +895,7 @@ Esto permite utilizar diferentes distribuciones univariadas para modelar $p(x_i\
 <div style="margin-top:2em;"></div>
 
 
-El uso de Naive Bayes para variables discretas es particularmente útil cuando los predictores representan *conteos*, como en <mark>clasificación de textos</mark>, donde cada $X_i$ indica la presencia de una palabra en un documento o la cantidad de veces que aparece. A continuación, veremos más en detalle esta aplicación.
+El uso de Naive Bayes para variables discretas es particularmente útil cuando los predictores representan *conteos*, como en *clasificación de textos*, donde cada $X_i$ indica la presencia de una palabra en un documento o la cantidad de veces que aparece. A continuación, veremos más en detalle esta aplicación.
 
 
 ### Clasificación de texto
@@ -887,7 +982,7 @@ $$
 $$
 
 
-Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y queda como ejercicio.
+Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y se deja al lector; los estimadores resultantes son los siguientes.
 
 <div style="margin-top:2em;"></div>
 
@@ -911,7 +1006,7 @@ $$
 
 Con esto hemos desarrollado el método de Naive Bayes para el caso de características binarias $X_i$. La generalización al caso de variables discretas que toman valores en $\{1,2,\ldots,k\}$ es directa, mediante el uso de la *distribución categórica*, aplicable a otros tipos de problemas donde cada variable puede asumir más de dos categorías (clasificación de encuestas, diagnóstico médico, entre otros).
 
-En el caso particular de *clasificación de textos*, es común modelar las variables como <mark>conteos</mark> de palabras en lugar de variables binarias de presencia/auscencia. En ese contexto, se utiliza el *Naive Bayes Multinomial*, que asume independencia entre apariciones de palabras, lo cual permite modelar $p(\xx\mid y)$ mediante la distribución Multinomial.
+En el caso particular de *clasificación de textos*, es común modelar las variables como *conteos* de palabras en lugar de variables binarias de presencia/ausencia. En ese contexto, se utiliza el *Naive Bayes Multinomial*, que asume independencia entre apariciones de palabras, lo cual permite modelar $p(\xx\mid y)$ mediante la distribución Multinomial.
 
 
 <div style="margin-top:2em;"></div>
@@ -934,7 +1029,7 @@ $$
 \hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\bfone\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\bfone\{y_i=1\}+2}
 $$
 
-Este procedimiento es un caso particular de la estimación de <mark> máxima a posteriori (MAP)</mark>. Este principio utiliza información a priori a la hora de estimar, definiendo una distribución previa sobre los parámetros del modelo. La diferencia con MLE se ve directamente en sus formulaciones:
+Este procedimiento es un caso particular de la estimación de *máxima a posteriori* (MAP). Este principio utiliza información a priori a la hora de estimar, definiendo una distribución previa sobre los parámetros del modelo. La diferencia con MLE se ve directamente en sus formulaciones:
 $$
 \hat{\bftheta}_{\text{MLE}}=\arg\max_{\bftheta}p(\xx\mid\bftheta),
 $$
@@ -960,167 +1055,6 @@ En particular, $\text{Beta}(1,1)$ conduce al suavizado de Laplace. Dado que $\te
 
 
 <br><br>
-
-## Actividades {.unnumbered}
-
-
-✏️ **Conceptuales**  
-<hr class="linea-corta">
-
-<details>
-<summary>Mostrar</summary>
-<div style="margin-top:1em;"></div>
-
-1. Construya un clasificador para $Y \in \{0,1\}$ dado $X \in [0,6)$ utilizando el Teorema de
-Bayes. Las funciones de densidad condicional para cada clase son las siguientes:
-$$
-P(X=x \mid Y=0) =
-\begin{cases}
-\dfrac{1}{6}, & 0 \le x < 6,\\[6pt]
-0, & \text{en otro caso.}
-\end{cases}
-$$
-$$
-P(X=x \mid Y=1) =
-\begin{cases}
-\dfrac{x-1}{4}, & 1 \le x < 3,\\[6pt]
-\dfrac{5-x}{4}, & 3 \le x < 5,\\[6pt]
-0, & \text{en otro caso.}
-\end{cases}
-$$
-
-    a. Suponiendo probabilidades a priori iguales, $P(Y=0)=P(Y=1)=0.5$, clasificar una observación con $x=2.5$.
-
-    b. Suponiendo probabilidades a priori desiguales, $P(Y=0)=0.7$ y $P(Y=1)=0.3$, clasificar una observación con $x=4$.
-
-
-2. Considere el modelo QDA.
-
-    a. Demuestre que los MLE de los parámetros son:
-    $$
-    \widehat{\varphi} = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\{ y_i = 1 \},
-    $$
-    $$
-    \widehat{\boldsymbol{\mu}}_y =
-    \frac{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \} \mathbf{x}_i}
-    {\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}},
-    $$
-    $$
-    \widehat{\boldsymbol{\Sigma}}_y =
-    \frac{\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}
-    (\mathbf{x}_i - \widehat{\boldsymbol{\mu}}_{y})
-    (\mathbf{x}_i - \widehat{\boldsymbol{\mu}}_{y})^{\top}}
-    {\sum_{i=1}^{n} \mathbf{1}\{ y_i = y \}}.
-    $$
-
-    *Ayuda*: sean $\mathbf{x} \in \mathbb{R}^{n}$, $\mathbf{A} \in \mathbb{R}^{n \times n}$ simétrica y $\mathbf{X}, \mathbf{B} \in \mathbb{R}^{n \times n}$, se cumple:
-
-    - $\frac{\partial (\mathbf{x}^\top\mathbf{A}\mathbf{x})}{\partial \mathbf{x}} = 2\mathbf{A}\mathbf{x}$.
-    - $\frac{\partial \ \text{tr}(\mathbf{X}^{-1}\mathbf{B})}{\partial \mathbf{X}} = -\mathbf{X}^{-1}\mathbf{B}\mathbf{X}^{-1}$.
-    - $\frac{\partial \ \ln|\mathbf{X}|}{\partial \mathbf{X}} = \mathbf{X}^{-1}$.
-
-    b. Construya el clasificador de Bayes usando los estimadores obtenidos.
-
-    c. Encuentre la frontera de decisión e indique las diferencias con la hallada para el modelo LDA.
-
-
-4. En un estudio médico, 100 pacientes fueron clasificados en una de tres clases: 
-**Neumonía**, **Gripe** o **Sano**. La siguiente base de datos indica cuántos pacientes en cada clase presentaron fiebre y dolor de cabeza.
-
-    **Neumonía**:
-
-    | Fiebre | Dolor de cabeza | Frecuencia |
-    |:------:|:---------------:|:----------:|
-    | T | T | 5 |
-    | T | F | 0 |
-    | F | T | 4 |
-    | F | F | 1 |
-    | **—** | **Total:** | **10** |
-
-    <div style="margin-top:2em;"></div>
-
-    **Gripe**:
-
-    | Fiebre | Dolor de cabeza | Frecuencia |
-    |:------:|:---------------:|:----------:|
-    | T | T | 9 |
-    | T | F | 6 |
-    | F | T | 3 |
-    | F | F | 2 |
-    | **—** | **Total:** | **20** |
-
-    <div style="margin-top:2em;"></div>
-
-    **Sano**:
-
-    | Fiebre | Dolor de cabeza | Frecuencia |
-    |:------:|:---------------:|:----------:|
-    | T | T | 2 |
-    | T | F | 3 |
-    | F | T | 7 |
-    | F | F | 58 |
-    | **—** | **Total:** | **70** |
-
-    <div style="margin-top:2em;"></div>
-
-
-    Considere un paciente con fiebre pero sin dolor de cabeza.
-
-    a. ¿Qué valores asignaría un clasificador Bayesiano óptimo a los tres diagnósticos? (un clasificador Bayesiano óptimo no realiza ninguna suposición de independencia sobre las variables).
-    *Sus respuestas no necesitan sumar 1 — explique por qué.*
-
-    b. ¿Qué probabilidad asignaría un clasificador Bayesiano óptimo a la proposición de que un paciente es sano? Muestre su procedimiento (los tres valores deben sumar 1).
-
-    c. ¿Qué valores asignaría un clasificador naive Bayes a los tres posibles diagnósticos?
-    Muestre su procedimiento.
-    
-    d. ¿Qué probabilidad asignaría un clasificador naive Bayes a la proposición de que un paciente es sano? Muestre su procedimiento.
-
-
-5. Se quiere predecir si a una persona le gusta *Pokémon*, utilizando información sobre sus
-preferencias por otros programas populares. Para ello, se recolectaron datos de $n=30$ individuos, registrando si a cada uno le gusta *Star Wars* y *Harry Potter*, además de si le
-gusta *Pokémon*. Considere $X_1 = 1$ si le gusta *Star Wars*, $X_2 = 1$ si le gusta *Harry Potter* e $Y = 1$ si le gusta *Pokémon* (en caso negativo toman el valor 0). Los datos de
-entrenamiento son:
-
-    | Y/X1 | 0 | 1 |
-    |:----:|:-:|:-:|
-    | 0 | 3 | 10 |
-    | 1 | 4 | 13 |
-    
-    | Y/X2 | 0 | 1 |
-    |:----:|:-:|:-:|
-    | 0 | 5 | 8 |
-    | 1 | 7 | 10 |
-
-    Suponga que a una nueva persona le gusta *Star Wars* pero no le gusta *Harry Potter*. ¿Le gustará *Pokémon*? ¿Qué tipo de clasificador de Bayes (naive u óptimo) puede construir con la información dada para responder a la pregunta?
-
-</details>
-
-
-<div style="margin-top:2em;"></div>
-
-
-💻 **Prácticas**  
-<hr class="linea-corta">
-
-<div style="text-align:left;">
-  <a href="https://colab.research.google.com/drive/1N_Ne6Aop8DJ39X0xMIHADey6dgqu_Gch?usp=drive_link" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" 
-         alt="Colab" 
-         style="height:1.4em;">
-  </a>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div style="margin-top: 5em;"></div>
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>

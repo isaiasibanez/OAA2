@@ -77,7 +77,7 @@ $$
 
 📄 **Notación**
 
-Denotaremos $\hat{\bftheta}^{\text{OLS}}$ al estimador de <mark>mínimos cuadrados ordinarios (OLS)</mark>, solución del problema de regresión lineal sin regularización:
+Denotaremos $\hat{\bftheta}^{\text{OLS}}$ al estimador de *mínimos cuadrados ordinarios* (OLS), solución del problema de regresión lineal sin regularización:
 $$
 \begin{array}{ll}
 \text{minimizar} & \displaystyle\frac{1}{2n}\|\yy-X\bftheta\|_2^2.

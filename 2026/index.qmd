@@ -89,3 +89,27 @@ navbar:
 
 <h4 style="color:#8B0000; border-bottom: 2px solid #8B0000; padding-bottom:5px;">3 Modelos generativos</h4>
 
+<ul>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_3/C1_gda.qmd" style="color:#333333; text-decoration:none;"><b>3.1 Modelos generativos para clasificación</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  La normal multivariada. Análisis discriminante lineal y cuadrático. Naive Bayes.
+  </div>
+  </li>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_3/C2_clustering.qmd" style="color:#333333; text-decoration:none;"><b>3.2 Métodos de clustering</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  K-medias. Mezcla de gaussianas. DBSCAN. Biclustering.
+  </div>
+  </li>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_3/C3_em.qmd" style="color:#333333; text-decoration:none;"><b>3.3 Algoritmo EM</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  Variables latentes. El algoritmo EM: pasos E y M. EM para mezcla de gaussianas. Desigualdad de Jensen y propiedad de monotonía.
+  </div>
+  </li>
+  <li style="margin-bottom:10px;"><a href="CAPITULO_3/C4_analisis_factorial.qmd" style="color:#333333; text-decoration:none;"><b>3.4 Análisis factorial</b></a>
+  <div style="color:gray; margin-left:28px;font-size:0.8em;">
+  Estimación de la covarianza con pocos datos. El modelo de análisis factorial. Algoritmo EM para análisis factorial.
+  </div>
+  </li>
+</ul>
+
+
