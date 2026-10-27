@@ -998,7 +998,7 @@ Dado un punto inicial $\xx_0 \in \mathrm{dom}\, f$:
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Una variante es el *método de Newton con paso reducido*, donde se introduce la tasa de aprendizaje $0<\eta\leq 1$. Esta se utiliza en en la práctica para controlar la magnitud de las actualizaciones y hacer el método más estable.La actualización queda dada por
+Una variante es el *método de Newton con paso reducido*, donde se introduce la tasa de aprendizaje $0<\eta\leq 1$. Esta se utiliza en la práctica para controlar la magnitud de las actualizaciones y hacer el método más estable. La actualización queda dada por
 $$
 \xx_{t+1} := \xx_t-\eta \left[\nabla^2 f(\xx_t)\right]^{-1}\nabla f(\xx_t)
 $$

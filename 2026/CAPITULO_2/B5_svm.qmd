@@ -387,7 +387,7 @@ lo cual significa que $\xx_i$ está sobre el *borde* del margen. Esto motiva la 
 
 De la solución $\bfbeta^\star$ obtenida previamente, queda claro que los vectores soportes son quienes caracterizan el hiperplano separador óptimo. Además:
 
-- La recíproca de la implicación (2.5.8) no es cierta. Es decir, que un punto esté sobre el borde del margen no garantiza que su multiplicador sea positivo. Esto puede ocurrir cuando hay redundancia lineal entre las restricciones activas (más puntos sobre el margen que los estrictamente necesarios para determinar el hiperplano), en cuyo caso el problema dual admite múltiples soluciones óptimas. En la práctica, este fenómeno dificilmente ocurre.
+- La recíproca de la implicación (2.5.8) no es cierta. Es decir, que un punto esté sobre el borde del margen no garantiza que su multiplicador sea positivo. Esto puede ocurrir cuando hay redundancia lineal entre las restricciones activas (más puntos sobre el margen que los estrictamente necesarios para determinar el hiperplano), en cuyo caso el problema dual admite múltiples soluciones óptimas. En la práctica, este fenómeno difícilmente ocurre.
 
 - Combinando la factibilidad primal con la holgura complementaria, se sigue que los puntos que no están en el borde necesariamente tienen multiplicador nulo. Por lo tanto, no pueden ser vectores soporte y no contribuyen a la solución del problema.
 

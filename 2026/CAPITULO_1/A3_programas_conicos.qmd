@@ -389,7 +389,7 @@ donde $W=\diag(w_1,\ldots,w_k)\in\RR^{k\times k}$, con $w_i>0$, es una matriz de
 Máquina de vectores soporte (SVM)
 </span>
 
-Dado un conjunto de datos etiquetados, el objetivo de una *máquina de vectores de soporte* (SVM) es encontrar un hiperplano que separe las dos clases con el mayor margen posible. Cuando los datos no son perfectamente separables, se introducen variables de holgura que permiten ciertas violaciones de las restricciones de clasificación, penalizándolas en la función objetivo.  Esto conduce al siguiente QP con variable de optimización es $(\bfbeta,\beta_0,\bfxi)\in\RR^{p+1+n}$:
+Dado un conjunto de datos etiquetados, el objetivo de una *máquina de vectores de soporte* (SVM) es encontrar un hiperplano que separe las dos clases con el mayor margen posible. Cuando los datos no son perfectamente separables, se introducen variables de holgura que permiten ciertas violaciones de las restricciones de clasificación, penalizándolas en la función objetivo.  Esto conduce al siguiente QP con variable de optimización $(\bfbeta,\beta_0,\bfxi)\in\RR^{p+1+n}$:
 $$
 \begin{array}{ll}
 \text{minimizar } & \displaystyle\frac{1}{2}\|\bfbeta\|_2^2+C\displaystyle\sum_{i=1}^n\xi_i\\[3pt]

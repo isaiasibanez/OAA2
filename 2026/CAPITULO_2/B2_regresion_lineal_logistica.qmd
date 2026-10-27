@@ -50,7 +50,7 @@ Para un conjunto de datos $\{(\xx_i,y_i)\}_{i=1}^n$, denotamos  $\yy\in\RR^n$ el
 
 <div style="margin-top:1.5em;"></div>
 
-En modelos probabilisticos, la tarea de obtener un estimador $\hat{\bftheta}$ puede ser formulada a través de un problema de optimización de la forma
+En modelos probabilísticos, la tarea de obtener un estimador $\hat{\bftheta}$ puede ser formulada a través de un problema de optimización de la forma
 $$
 \begin{array}{ll}
 	\text{minimizar } & J(\bftheta),
@@ -213,7 +213,7 @@ $$
 \bftheta_{t+1}:=\bftheta_t-\eta \nabla J(\bftheta_t),\qquad\eta>0.
 $$
 
-Esta regla de actualización tambien se conoce como *regla de aprendizaje Widrow-Hoff*.
+Esta regla de actualización también se conoce como *regla de aprendizaje Widrow-Hoff*.
 
 <div style="margin-top:2em;"></div>
 

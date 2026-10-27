@@ -158,7 +158,7 @@ Una gran parte del éxito de los métodos de optimización convexa radica en una
 
 ### Conceptos básicos
 
-Introduciremos tres tipos fundamentales de conjuntos que aparecen en optimización: conjuntos afines, conjuntos convexos y conos. Antes, es necesario recordar la forma parámetrica de *rectas* y *segmentos de recta*. 
+Introduciremos tres tipos fundamentales de conjuntos que aparecen en optimización: conjuntos afines, conjuntos convexos y conos. Antes, es necesario recordar la forma paramétrica de *rectas* y *segmentos de recta*. 
 
 Sean $\xx_{1} \neq \xx_{2}$ dos puntos en $\RR^{p}$. La recta que pasa por $\xx_1$ y $\xx_2$ puede describirse paramétricamente (con parámetro real $\theta$) mediante la siguiente ecuación:
 $$
@@ -482,7 +482,7 @@ A cada una de las clases de conjuntos introducidas anteriormente puede asociarse
 
 Sea $C\subset\RR^p$. Se definen:
 
-- La *envolvente afín* es el conjunto de todas las combinaciones afínes de puntos en $C$. Denotamos
+- La *envolvente afín* es el conjunto de todas las combinaciones afines de puntos en $C$. Denotamos
 $$
 \aff C := \left\{\theta_{1} \xx_{1} + \cdots + \theta_{k} \xx_{k}\,\left|\,\xx_{i} \in C,\;\sum_{i=1}^k\theta_{i} = 1\right.\right\}.
 $$
@@ -1272,7 +1272,7 @@ De manera simétrica se obtiene la otra desigualdad.
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración de 2 y 3*</span>
 
-Dado que $\varphi_+'(t_0)$ es un límite de pendientes de rectas secantes y que, de 1, dichas pendientes son monótononas, podemos afirmar que dicho límite o bien existe o bien es $-\infty$. De hecho, podemos escribir
+Dado que $\varphi_+'(t_0)$ es un límite de pendientes de rectas secantes y que, de 1, dichas pendientes son monótonas, podemos afirmar que dicho límite o bien existe o bien es $-\infty$. De hecho, podemos escribir
 $$
 \frac{\varphi(t)-\varphi(t_0)}{t-t_0}\ \ge\ \varphi'_+(t_0)\qquad\forall t>t_0,
 $$
@@ -1447,7 +1447,7 @@ Una consecuencia importante del Teorema 1.2.19 es la siguiente: si $f$ es convex
 Si $f$ es una función convexa, cuyo $\dom f$ es un conjunto abierto, entonces:
 
 <div style="text-align:center;">
-$\xx^\star$ es minímo global de $f$ si y solo si $\nabla f(\xx^\star)=\bfzero$.
+$\xx^\star$ es mínimo global de $f$ si y solo si $\nabla f(\xx^\star)=\bfzero$.
 </div>
 
 :::
@@ -1646,7 +1646,7 @@ con $\dom g = \{\xx \mid A\xx + \bb \in\dom f\}$, conserva la convexidad o conca
 $$
 f(\xx) = \max\{f_1(\xx), f_2(\xx)\},
 $$
-con $\dom f = \dom f_1 \cap \dom f_2$, también es convexa. Este resultado se puede extender a un conjunto $\{f_1,\ldots,f_m\}$ de funciones convexas. De manera similar, el mínimo puntual de un conjunto de funciones cóncavas es una función concava.
+con $\dom f = \dom f_1 \cap \dom f_2$, también es convexa. Este resultado se puede extender a un conjunto $\{f_1,\ldots,f_m\}$ de funciones convexas. De manera similar, el mínimo puntual de un conjunto de funciones cóncavas es una función cóncava.
 
 - **Supremo puntual**. La propiedad del máximo puntual se extiende al *supremo puntual* sobre un conjunto infinito de funciones convexas. Si para $i\in\mathcal{A}$, donde $\mathcal{A}$ es un conjunto de índices, se tiene que $f_i(\xx)$ es convexa, entonces la función $f$ definida por
 $$

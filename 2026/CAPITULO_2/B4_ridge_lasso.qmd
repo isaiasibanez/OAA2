@@ -1486,7 +1486,7 @@ Respecto a los algoritmos iterativos que se utilizan para aproximar $\hat{\bfthe
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 
-Rockafellar, R. T. (1970). *Convex analysis*. Princeton Landmarks in Mathmenatics. Princeton University Press.
+Rockafellar, R. T. (1970). *Convex analysis*. Princeton Landmarks in Mathematics. Princeton University Press.
 
 Rothman, A. J. (2024). *STAT 5701: Lasso-penalized Least Squares*. University of Minnesota.
 
