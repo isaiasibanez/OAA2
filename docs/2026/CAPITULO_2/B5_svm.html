@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Máquinas de vectores soporte – Optimización y Aprendizaje Automático II - 2026</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,9 +21,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -37,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -70,16 +66,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../CAPITULO_3/C1_gda.html" rel="next">
 <link href="../CAPITULO_2/B4_ridge_lasso.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-327735d1480bff6f7510335fe22ad292.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -96,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -114,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -127,7 +122,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -146,7 +141,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../style.css">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -436,7 +431,7 @@ y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)&gt;0\qquad\forall i=1,\ldots, n.
 
 </div>
 <div class="definicion">
-<p><strong>Definición 2.5.2.</strong> (Hiperplano separador asociado a un vector) A un vector <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> se le asocia el hiperplano separador <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> cuya distancia mínima a ambas clases es la misma. Es decir, existe <span class="math inline">\(M\in\mathbb{R}^+\)</span> tal que <span class="math display">\[
+<p><strong>Definición 2.5.2</strong> (Hiperplano separador asociado a un vector). A un vector <span class="math inline">\(\boldsymbol{\beta}\in\mathbb{R}^p\)</span> se le asocia el hiperplano separador <span class="math inline">\(\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span> cuya distancia mínima a ambas clases es la misma. Es decir, existe <span class="math inline">\(M\in\mathbb{R}^+\)</span> tal que <span class="math display">\[
 y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\geq M\qquad\forall i=1,\ldots,n,
 \]</span> con igualdad para al menos un punto de cada clase. Al valor <span class="math inline">\(M\)</span> lo denominamos <em>margen</em> del hiperplano separador asociado a <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
 </div>
@@ -585,7 +580,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-(\boldsymbol{\beta}^\star)^\top{\bf x}_i\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}\)</span>. Aquí, cada término se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}\)</span>. Observar que cada término de la suma se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span>. El promedio se toma por estabilidad numérica.</p></li>
 </ol>
 </div>
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
@@ -664,8 +659,8 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.5.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos linealmente separables </span></p>
 <p>Vamos a simular un conjunto de datos linealmente separables. Luego, obtendremos el hiperplano separador óptimo e identificaremos los vectores soporte.</p>
-<div id="599b9843" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="a3e42908" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Datos:</span></span>
@@ -681,9 +676,9 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-1\geq 0\qquad\forall
 <span id="cb1-14"><a href="#cb1-14"></a></span>
 <span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Parámetros óptimos:</span></span>
 <span id="cb1-16"><a href="#cb1-16"></a>w <span class="op">=</span> clf.coef_[<span class="dv">0</span>]</span>
-<span id="cb1-17"><a href="#cb1-17"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-17"><a href="#cb1-17"></a>b <span class="op">=</span> clf.intercept_[<span class="dv">0</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6e5a51a7" class="cell" data-execution_count="2">
+<div id="68882af5" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -794,7 +789,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)-(1-\xi_i^\star)\geq 
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span>, mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} \left(y_i-(\boldsymbol{\beta}^\star)^\top{\bf x}_i\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Aquí, cada término se obtiene al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid 0&lt;\lambda_i^\star&lt; C\}\)</span>. Observar que, en este conjunto, las condiciones <span class="math inline">\(C=\lambda_i^\star+\mu_i^\star\)</span> y <span class="math inline">\(\mu_i^\star\xi_i^\star=0\)</span> fuerzan <span class="math inline">\(\xi_i^\star=0\)</span>; cada término de la suma se obtiene entonces al despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria, tal como antes.</p></li>
 </ol>
 </div>
 <table style="margin-left:auto; margin-right:auto; border-collapse: collapse; text-align: center; background-color: #f7faf7; border: none;">
@@ -826,6 +821,14 @@ Clasificador
 <div style="margin-top:2em;">
 
 </div>
+<p>Cabe aclarar que el procedimiento anterior no requiere calcular las holguras. De todos modos, una vez conocidos <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> y <span class="math inline">\(\beta_0^\star\)</span>, se deduce (✏3) que <span class="math display">\[
+\xi_i^\star=\max\left\{0,\;1-y_i\big((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star\big)\right\},
+\]</span> es decir, la holgura de cada observación mide cuánto le falta para alcanzar el margen. Esta expresión se conoce como <em>pérdida bisagra</em> (<em>hinge loss</em>) y da lugar a una formulación alternativa de (2.5.10), sin restricciones: <span class="math display">\[
+\min_{\boldsymbol{\beta},\beta_0}\;\frac{1}{2}\|\boldsymbol{\beta}\|_2^2+C\sum_{i=1}^n\max\left\{0,\;1-y_i(\boldsymbol{\beta}^\top{\bf x}_i+\beta_0)\right\}.
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
 <section id="interpretación-de-condiciones-kkt-1" class="level4">
 <h4 class="anchored" data-anchor-id="interpretación-de-condiciones-kkt-1">Interpretación de condiciones KKT</h4>
 <p>Nuevamente pongamos foco en la factibilidad primal y la holgura complementaria:</p>
@@ -845,7 +848,7 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star,
 <p>lo cual implica dos opciones para los vectores soporte:</p>
 <ul>
 <li>Si <span class="math inline">\(\xi_i^\star=0\)</span>, <span class="math inline">\({\bf x}_i\)</span> está sobre el <em>borde</em> del margen.</li>
-<li>Si, por el contrario, <span class="math inline">\(\xi_i&gt;0\)</span>, entonces <span class="math inline">\({\bf x}_i\)</span> viola el margen.</li>
+<li>Si, por el contrario, <span class="math inline">\(\xi_i^\star&gt;0\)</span>, entonces <span class="math inline">\({\bf x}_i\)</span> viola el margen.</li>
 </ul>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -900,11 +903,31 @@ y_i((\boldsymbol{\beta}^\star)^\top{\bf x}_i+\beta_0^\star)=1-\xi_i^\star,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><span style="font-size: 1.3em;">✍️</span><br> <style> table { border-collapse: collapse; width: 100%; text-align: center; }</p>
-<p>th, td { padding: 8px; }</p>
-<p>th { color: black; }</p>
-<p>tr { border-bottom: 1px solid lightgray; }</p>
-<p>td:first-child, th:first-child { white-space: nowrap; text-align: center; } </style></p>
+<span style="font-size: 1.3em;">✍️</span><br>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  th {
+    color: black;
+  }
+
+  tr {
+    border-bottom: 1px solid lightgray;
+  }
+
+  td:first-child, th:first-child {
+    white-space: nowrap;
+    text-align: center;
+  }
+</style>
 <table>
 <thead>
 <tr>
@@ -985,10 +1008,10 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="853" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 852;"><span id="cb3-853"><a href="#cb3-853" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb3-854"><a href="#cb3-854" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb3-855"><a href="#cb3-855" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb3-856"><a href="#cb3-856" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="866" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 865;"><span id="cb3-866"><a href="#cb3-866" aria-hidden="true" tabindex="-1"></a>viewof C <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb3-867"><a href="#cb3-867" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb3-868"><a href="#cb3-868" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb3-869"><a href="#cb3-869" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -1022,10 +1045,7 @@ Z = X_1^2+X_2^2.
 <div style="margin-top:2em;">
 
 </div>
-<p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma <span class="math display">\[
-\phi:\mathbb{R}^p\to\mathcal{H},
-\]</span></p>
-<p>donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido.</p>
+<p>El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma <span class="math inline">\(\phi:\mathbb{R}^p\to\mathcal{H}\)</span>, donde <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert</em>; es decir, un espacio donde tenemos un producto interno <span class="math inline">\(\langle\cdot,\cdot\rangle_{\mathcal{H}}\)</span> definido.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1050,9 +1070,7 @@ Z = X_1^2+X_2^2.
 <p><strong>Definición 2.5.9</strong> (Espacio de Hilbert con núcleo reproductor). Un espacio de Hilbert <span class="math inline">\(\mathcal{H}\)</span> es un <em>espacio de Hilbert con núcleo reproductor</em> (RKHS, <em>reproducing kernel Hilbert space</em>) si admite un <em>núcleo reproductor</em> <span class="math inline">\(k:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span> que verifica las siguientes propiedades:</p>
 <ul>
 <li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span>, <span class="math inline">\(k({\bf x},\cdot)\in\mathcal{H}\)</span>.</p></li>
-<li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> y toda <span class="math inline">\(h\in\mathcal{H}\)</span>, <span class="math display">\[
-h({\bf x})=\langle h,k({\bf x},\cdot)\rangle_{\mathcal{H}}.
-\]</span></p></li>
+<li><p>Para todo <span class="math inline">\({\bf x}\in\mathbb{R}^p\)</span> y toda <span class="math inline">\(h\in\mathcal{H}\)</span>, se verifica <span class="math inline">\(h({\bf x})=\langle h,k({\bf x},\cdot)\rangle_{\mathcal{H}}\)</span>.</p></li>
 </ul>
 </div>
 <div style="margin-top:1em;">
@@ -1067,6 +1085,13 @@ k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\ma
 <div style="margin-top:2em;">
 
 </div>
+<p>Este último resultado es crucial: permite afirmar que, dado un <em>mapeo característico</em> de la forma <span class="math display">\[
+{\bf x}\mapsto k({\bf x},\cdot),
+\]</span></p>
+<p>lo único que necesitamos para poder calcular productos internos en <span class="math inline">\(\mathcal{H}\)</span> es conocer explícitamente el núcleo reproductor <span class="math inline">\(k\)</span>.</p>
+<div style="margin-top:2em;">
+
+</div>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/rkhs.svg" alt="…" width="400px" class="figure-img">
 <figcaption>
@@ -1076,17 +1101,14 @@ k({\bf x}_1,{\bf x}_2)=\langle k({\bf x}_1,\cdot),k({\bf x}_2,\cdot)\rangle_{\ma
 <div style="margin-top:2em;">
 
 </div>
-<p>Este último resultado es crucial: permite afirmar que, dado un <em>mapeo característico</em> de la forma <span class="math display">\[
-{\bf x}\mapsto k({\bf x},\cdot),
-\]</span></p>
-<p>lo único que necesitamos para poder calcular productos internos en <span class="math inline">\(\mathcal{H}\)</span> es conocer explícitamente el núcleo reproductor <span class="math inline">\(k\)</span>. Ahora bien:</p>
+<p>Ahora bien:</p>
 <div class="myhighlight3">
 <p>¿Cómo se construye un núcleo <span class="math inline">\(k\)</span> válido?</p>
 </div>
 <div style="margin-top:1em;">
 
 </div>
-<p>Para responder a esta pregunta, es necesario introducir la siguiente definición.</p>
+<p>La respuesta a esta pregunta motiva la siguiente definición.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -1102,30 +1124,34 @@ k({\bf x}_1,{\bf x}_2)=k({\bf x}_2,{\bf x}_1)\qquad\forall{\bf x}_1,{\bf x}_2\in
 <div style="margin-top:2em;">
 
 </div>
-<p>La expresión (2.5.14) se puede escribir matricialmente como <span class="math inline">\(K\succeq 0\)</span>, donde <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> es la <em>matriz de Gram</em> definida por <span class="math display">\[
-K_{ij}=k({\bf x}_i,{\bf x}_j).
-\]</span></p>
+<p>La expresión (2.5.14) se puede escribir matricialmente como <span class="math inline">\(K\succeq 0\)</span>, donde <span class="math inline">\(K\in\mathbb{R}^{n\times n}\)</span> es la <em>matriz de Gram</em> definida por <span class="math inline">\(K_{ij}=k({\bf x}_i,{\bf x}_j)\)</span>. Observar que (2.5.14) es una desigualdad no estricta; la denominación <em>definida positiva</em> para núcleos, en lugar de <em>semidefinida positiva</em>, es la convención habitual en la literatura y es la que seguiremos aquí.</p>
 <div style="margin-top:1em;">
 
 </div>
-<div class="alert alert-light text-dark" role="important">
-<p><span class="badge bg-warning text-dark">Importante</span></p>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br> Verifique que todo núcleo reproductor es simétrico y definido positivo.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<p>La relevancia de esta definición está dada por el <em>teorema de Moore–Aronszajn</em> (Aronszajn 1950): toda función simétrica y definida positiva es el núcleo reproductor de un único RKHS. Es decir, la condición (2.5.14) no sólo es necesaria (como acabamos de verificar), sino también suficiente. Esto responde la pregunta planteada: para construir un núcleo válido alcanza con comprobar que sea simétrico y definido positivo, sin necesidad de exhibir el espacio <span class="math inline">\(\mathcal{H}\)</span> ni el mapeo característico asociados.</p>
+<div style="margin-top:1em;">
+
+</div>
 <p>Algunos de los núcleos más habituales en aplicaciones de SVM son:</p>
 <ul>
-<li><p><em>Núcleo lineal</em>: corresponde a SVM lineal; es decir, no hay transformación de los datos. <span class="math display">\[
-k({\bf x}_1,{\bf x}_2)={\bf x}_1^\top{\bf x}_2.
-\]</span></p></li>
-<li><p><em>Núcleo polinómico</em>: <span class="math display">\[
-k({\bf x}_1,{\bf x}_2)=(\gamma\,{\bf x}_1^\top{\bf x}_2+b)^d.
-\]</span></p></li>
-<li><p><em>Núcleo gaussiano</em>: <span class="math display">\[
-k({\bf x}_1,{\bf x}_2)=\exp\left\{-\gamma\,\|{\bf x}_1-{\bf x}_2\|_2^2\right\}.
-\]</span></p></li>
-<li><p><em>Núcleo sigmoide</em>: <span class="math display">\[
-k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
-\]</span></p></li>
+<li><p><em>Núcleo lineal</em>: <span class="math inline">\(k({\bf x}_1,{\bf x}_2)={\bf x}_1^\top{\bf x}_2\)</span> (corresponde a SVM lineal, es decir, no hay transformación de los datos).</p></li>
+<li><p><em>Núcleo polinómico</em>: <span class="math inline">\(k({\bf x}_1,{\bf x}_2)=(\gamma\,{\bf x}_1^\top{\bf x}_2+b)^d\)</span>.</p></li>
+<li><p><em>Núcleo gaussiano</em>: <span class="math inline">\(k({\bf x}_1,{\bf x}_2)=\exp\left\{-\gamma\,\|{\bf x}_1-{\bf x}_2\|_2^2\right\}\)</span>.</p></li>
+<li><p><em>Núcleo sigmoide</em>: <span class="math inline">\(k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b)\)</span>.</p></li>
 </ul>
-</div>
 <div style="margin-top:2em;">
 
 </div>
@@ -1148,7 +1174,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success">SVM no lineal</span></p>
-<p>Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS, los pasos a seguir son:</p>
+<p>Para obtener el hiperplano separador óptimo en <span class="math inline">\(\mathcal{H}\)</span>, que determina una frontera de decisión no lineal en <span class="math inline">\(\mathbb{R}^p\)</span>, los pasos a seguir son:</p>
 <ol type="1">
 <li><p>Se resuelve el problema dual (2.5.15) para obtener <span class="math inline">\(\boldsymbol{\lambda}^\star\)</span>.</p></li>
 <li><p>Se obtiene el punto óptimo <span class="math inline">\(\boldsymbol{\beta}^\star\)</span> mediante la condición de estacionariedad <span class="math display">\[
@@ -1156,7 +1182,7 @@ k({\bf x}_1,{\bf x}_2)=\tanh(\gamma\,{\bf x}_1^\top{\bf x}_2+b).
 \]</span></p></li>
 <li><p>Se calcula el intercepto <span class="math inline">\(\beta_0^\star\)</span> mediante el promedio <span class="math display">\[
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\langle \boldsymbol{\beta}^\star, k({\bf x}_i,\cdot)\rangle_{\mathcal{H}}\right)=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\sum_{\substack{j=1\\\lambda_j^\star\neq 0}}^n\lambda_j^\star y_j k({\bf x}_i,{\bf x}_j)\right),
-\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}\)</span>. Como antes, esto último resulta de despejar <span class="math inline">\(\beta_0^\star\)</span> de la condición de holgura complementaria para los puntos que verifican <span class="math inline">\(\lambda_i^\star\neq 0\)</span> y <span class="math inline">\(\xi_i^\star=0\)</span>.</p></li>
+\]</span> donde <span class="math inline">\(\mathcal{S}=\{i\mid 0&lt;\lambda_i^\star&lt; C\}\)</span>.</p></li>
 </ol>
 </div>
 <div style="margin-top:2em;">
@@ -1185,7 +1211,7 @@ Clasificador
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.5.11</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con diferentes patrones </span></p>
-<p>Mostraremos diferentes estructuras de datos de clasificación binaria y veremos cómo se adaptan los diferentes núcleos. Además, veremos el efecto del valor de <span class="math inline">\(C\)</span>. Es importante remarcar que, en estos ejemplos, los distintos hiperparámetros de los modelos se utilizan con sus valores por defecto. Sin embargo, el rendimiento de un modelo puede mejorarse significativamente seleccionando cuidadosamente los hiperparámetros mediante algún proceso de validación.</p>
+<p>Veremos cómo se adaptan los distintos núcleos a diferentes estructuras de datos, y el efecto del valor de <span class="math inline">\(C\)</span>. En estos ejemplos los hiperparámetros toman sus valores por defecto; ajustarlos mediante algún proceso de validación suele mejorar notablemente el rendimiento.</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -1195,30 +1221,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1191" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1190;"><span id="cb4-1191"><a href="#cb4-1191" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1192"><a href="#cb4-1192" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb4-1193"><a href="#cb4-1193" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb4-1194"><a href="#cb4-1194" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1195"><a href="#cb4-1195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1196"><a href="#cb4-1196" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1197"><a href="#cb4-1197" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb4-1198"><a href="#cb4-1198" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb4-1199"><a href="#cb4-1199" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1200"><a href="#cb4-1200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1201"><a href="#cb4-1201" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1202"><a href="#cb4-1202" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb4-1203"><a href="#cb4-1203" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb4-1204"><a href="#cb4-1204" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1205"><a href="#cb4-1205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1206"><a href="#cb4-1206" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1207"><a href="#cb4-1207" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1208"><a href="#cb4-1208" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb4-1209"><a href="#cb4-1209" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-1210"><a href="#cb4-1210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-1211"><a href="#cb4-1211" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb4-1212"><a href="#cb4-1212" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb4-1213"><a href="#cb4-1213" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb4-1214"><a href="#cb4-1214" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1192" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1191;"><span id="cb4-1192"><a href="#cb4-1192" aria-hidden="true" tabindex="-1"></a>viewof C_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1193"><a href="#cb4-1193" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb4-1194"><a href="#cb4-1194" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb4-1195"><a href="#cb4-1195" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1196"><a href="#cb4-1196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1197"><a href="#cb4-1197" aria-hidden="true" tabindex="-1"></a>viewof kernel_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1198"><a href="#cb4-1198" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb4-1199"><a href="#cb4-1199" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb4-1200"><a href="#cb4-1200" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1201"><a href="#cb4-1201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1202"><a href="#cb4-1202" aria-hidden="true" tabindex="-1"></a>viewof gamma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1203"><a href="#cb4-1203" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb4-1204"><a href="#cb4-1204" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb4-1205"><a href="#cb4-1205" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1206"><a href="#cb4-1206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1207"><a href="#cb4-1207" aria-hidden="true" tabindex="-1"></a>viewof d_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1208"><a href="#cb4-1208" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1209"><a href="#cb4-1209" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb4-1210"><a href="#cb4-1210" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-1211"><a href="#cb4-1211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-1212"><a href="#cb4-1212" aria-hidden="true" tabindex="-1"></a>viewof r_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-1213"><a href="#cb4-1213" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb4-1214"><a href="#cb4-1214" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb4-1215"><a href="#cb4-1215" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -1267,30 +1293,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1296" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1295;"><span id="cb5-1296"><a href="#cb5-1296" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1306"><a href="#cb5-1306" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1307"><a href="#cb5-1307" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb5-1308"><a href="#cb5-1308" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb5-1309"><a href="#cb5-1309" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1310"><a href="#cb5-1310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1311"><a href="#cb5-1311" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1312"><a href="#cb5-1312" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1313"><a href="#cb5-1313" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb5-1314"><a href="#cb5-1314" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-1315"><a href="#cb5-1315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-1316"><a href="#cb5-1316" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb5-1317"><a href="#cb5-1317" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb5-1318"><a href="#cb5-1318" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb5-1319"><a href="#cb5-1319" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1297" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1296;"><span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a>viewof C_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a>viewof kernel_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1306"><a href="#cb5-1306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1307"><a href="#cb5-1307" aria-hidden="true" tabindex="-1"></a>viewof gamma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1308"><a href="#cb5-1308" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb5-1309"><a href="#cb5-1309" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb5-1310"><a href="#cb5-1310" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1311"><a href="#cb5-1311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1312"><a href="#cb5-1312" aria-hidden="true" tabindex="-1"></a>viewof d_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1313"><a href="#cb5-1313" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1314"><a href="#cb5-1314" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb5-1315"><a href="#cb5-1315" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-1316"><a href="#cb5-1316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1317"><a href="#cb5-1317" aria-hidden="true" tabindex="-1"></a>viewof r_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb5-1318"><a href="#cb5-1318" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb5-1319"><a href="#cb5-1319" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb5-1320"><a href="#cb5-1320" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -1339,30 +1365,30 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1410" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1409;"><span id="cb6-1410"><a href="#cb6-1410" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1411"><a href="#cb6-1411" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
-<span id="cb6-1412"><a href="#cb6-1412" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
-<span id="cb6-1413"><a href="#cb6-1413" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1414"><a href="#cb6-1414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1415"><a href="#cb6-1415" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1416"><a href="#cb6-1416" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
-<span id="cb6-1417"><a href="#cb6-1417" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
-<span id="cb6-1418"><a href="#cb6-1418" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1419"><a href="#cb6-1419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1420"><a href="#cb6-1420" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1421"><a href="#cb6-1421" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
-<span id="cb6-1422"><a href="#cb6-1422" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
-<span id="cb6-1423"><a href="#cb6-1423" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1424"><a href="#cb6-1424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1425"><a href="#cb6-1425" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1426"><a href="#cb6-1426" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1427"><a href="#cb6-1427" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
-<span id="cb6-1428"><a href="#cb6-1428" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-1429"><a href="#cb6-1429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-1430"><a href="#cb6-1430" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb6-1431"><a href="#cb6-1431" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb6-1432"><a href="#cb6-1432" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
-<span id="cb6-1433"><a href="#cb6-1433" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1411" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1410;"><span id="cb6-1411"><a href="#cb6-1411" aria-hidden="true" tabindex="-1"></a>viewof C_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1412"><a href="#cb6-1412" aria-hidden="true" tabindex="-1"></a>  [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb6-1413"><a href="#cb6-1413" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"C:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span>}</span>
+<span id="cb6-1414"><a href="#cb6-1414" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1415"><a href="#cb6-1415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1416"><a href="#cb6-1416" aria-hidden="true" tabindex="-1"></a>viewof kernel_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1417"><a href="#cb6-1417" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"linear"</span><span class="op">,</span> <span class="st">"poly"</span><span class="op">,</span> <span class="st">"rbf"</span><span class="op">,</span> <span class="st">"sigmoid"</span>]<span class="op">,</span></span>
+<span id="cb6-1418"><a href="#cb6-1418" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Kernel:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"linear"</span>}</span>
+<span id="cb6-1419"><a href="#cb6-1419" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1420"><a href="#cb6-1420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1421"><a href="#cb6-1421" aria-hidden="true" tabindex="-1"></a>viewof gamma_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1422"><a href="#cb6-1422" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"scale"</span><span class="op">,</span> <span class="st">"auto"</span><span class="op">,</span> <span class="fl">0.001</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span></span>
+<span id="cb6-1423"><a href="#cb6-1423" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"γ:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"scale"</span>}</span>
+<span id="cb6-1424"><a href="#cb6-1424" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1425"><a href="#cb6-1425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1426"><a href="#cb6-1426" aria-hidden="true" tabindex="-1"></a>viewof d_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1427"><a href="#cb6-1427" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1428"><a href="#cb6-1428" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"d:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span>}</span>
+<span id="cb6-1429"><a href="#cb6-1429" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-1430"><a href="#cb6-1430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-1431"><a href="#cb6-1431" aria-hidden="true" tabindex="-1"></a>viewof r_3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb6-1432"><a href="#cb6-1432" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb6-1433"><a href="#cb6-1433" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"r:"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb6-1434"><a href="#cb6-1434" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -1403,6 +1429,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
+<p>Aronszajn, N. (1950). Theory of reproducing kernels. <em>Transactions of the American Mathematical Society</em>, 68(3), 337–404.</p>
 <p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed.&nbsp;Springer Series in Statistics. New York: Springer.</p>
 <p>Steinwart, I., &amp; Christmann, A. (2008). <em>Support Vector Machines</em>. Information Science and Statistics. New York: Springer.</p>
 </div>
@@ -1441,243 +1468,236 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1685,161 +1705,185 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../CAPITULO_2/B4_ridge_lasso.html" class="pagination-link" aria-label="2.4 Métodos de regularización">

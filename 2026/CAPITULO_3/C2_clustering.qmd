@@ -51,7 +51,7 @@ $$
 \begin{array}{ll}
 \text{minimizar } & W(C)=\displaystyle\frac{1}{2}\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(j)=k}d(\xx_i,\xx_j).
 \end{array}
-\tag{1}
+\tag{3.2.1}
 $$
 
 <div style="margin-top:2em;"></div>
@@ -60,7 +60,7 @@ $$
 
 <span style="font-size: 1.3em;">📝</span><br>
 
-Analice la equivalencia entre (1) y 
+Analice la equivalencia entre (3.2.1) y 
 $$
 \begin{array}{ll}
 \text{maximizar } & B(C)=\displaystyle\frac{1}{2}\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(j)\neq k}d(\xx_i,\xx_j).
@@ -71,7 +71,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-El problema de optimización planteado en (1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $N=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
+El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $N=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
 
 En $K$-medias, la medida de disimilaridad es
 $$
@@ -81,7 +81,7 @@ $$
 y la función de pérdida resulta en
 $$
 W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|\xx_i-\bar{\xx}_k\|_2^2,
-\tag{2}
+\tag{3.2.2}
 $$
 
 donde $\bar{\xx}_k$ es el vector de medias del $k$-ésimo cluster y $n_k$ es el tamaño de dicho cluster.  
@@ -91,7 +91,7 @@ donde $\bar{\xx}_k$ es el vector de medias del $k$-ésimo cluster y $n_k$ es el 
 
 <span style="font-size: 1.3em;">📝</span><br>
 
-Verifique la expresión (2).
+Verifique la expresión (3.2.2).
 
 :::
 
@@ -139,7 +139,7 @@ La función de distorsión no es convexa, por lo que no está garantizado alcanz
 <div style="margin-top: 2em;"></div>
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 1</span> 
+<span class="badge bg-primary">Ejemplo 3.2.1</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Aplicación de $K$-medias
 </span>
@@ -291,12 +291,12 @@ La optimización directa de esta función no es posible, ya que la suma dentro d
 <div style="margin-top: 2em;"></div>
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2</span> 
+<span class="badge bg-primary">Ejemplo 3.2.2</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Aplicación de GMM
 </span>
 
-Aplicaremos GMM a los mismos datos del Ejemplo 1, utilizando 3 componentes. 
+Aplicaremos GMM a los mismos datos del Ejemplo 3.2.1, utilizando 3 componentes. 
 
 ```{pyodide-python}
 #| echo: false
@@ -374,7 +374,7 @@ Es importante remarcar que la idea de *vecindario* requiere trabajar con una mé
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_1.svg" alt="…" width="500px">
-  <figcaption> **Figura 1**. Interpretación geométrica de objetos núcleos (en verde) y objetos no núcleos (en gris), considerando un número mínimo de 3 vecinos. </figcaption>
+  <figcaption> **Figura 3.2.1:** Interpretación geométrica de objetos núcleos (en verde) y objetos no núcleos (en gris), considerando un número mínimo de 3 vecinos. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -399,7 +399,7 @@ Dado $\varepsilon>0$ y un mínimo de puntos, un cluster $C$ es un subconjunto no
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_2.svg" alt="…" width="500px">
-  <figcaption> **Figura 2**. Clusters formados por objetos núcleos de un conjunto de puntos. </figcaption>
+  <figcaption> **Figura 3.2.2:** Clusters formados por objetos núcleos de un conjunto de puntos. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -412,7 +412,7 @@ Observar que un cluster contiene únicamente objetos núcleos. Para el resto de 
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_3.svg" alt="…" width="500px">
-  <figcaption> **Figura 3**. Interpretación geométrica de objetos frontera (uno por cada cluster) y ruidos (en gris), considerando un número mínimo de 3 vecinos. </figcaption>
+  <figcaption> **Figura 3.2.3:** Interpretación geométrica de objetos frontera (uno por cada cluster) y ruidos (en gris), considerando un número mínimo de 3 vecinos. </figcaption>
 </figure>
 
 <div style="margin-top: 2em;"></div>
@@ -420,18 +420,18 @@ Observar que un cluster contiene únicamente objetos núcleos. Para el resto de 
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_4.svg" alt="…" width="500px">
-  <figcaption> **Figura 4**. Agrupamiento obtenido por DBSCAN. Los hiperparámetros son $\varepsilon>0$ y el número mínimo de vecinos. </figcaption>
+  <figcaption> **Figura 3.2.4:** Agrupamiento obtenido por DBSCAN. Los hiperparámetros son $\varepsilon>0$ y el número mínimo de vecinos. </figcaption>
 </figure>
 
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 3</span> 
+<span class="badge bg-primary">Ejemplo 3.2.3</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Aplicación de DBSCAN
 </span>
 
-Aplicaremos DBSCAN a los mismos datos de los Ejemplos 1 y 2. Utilizaremos un valor de $\varepsilon$ adecuado que permita distinguir al menos 3 clusters.
+Aplicaremos DBSCAN a los mismos datos de los Ejemplos 3.2.1 y 3.2.2. Utilizaremos un valor de $\varepsilon$ adecuado que permita distinguir al menos 3 clusters.
 
 
 ```{pyodide-python}
@@ -492,7 +492,7 @@ plt.show()
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 4</span> 
+<span class="badge bg-primary">Ejemplo 3.2.4</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Clusters no esféricos
 </span>
@@ -576,7 +576,7 @@ Por otro lado, también se aplica a minería de texto, sistemas de recomendació
 
 
 ::: {.definicion}
-**Definición 1.** (Bicluster) Dada una matriz de datos $X\in\RR^{n\times p}$, un bicluster $B=(I,J)$ está determinado por un subconjunto $I\subset\{1,\ldots,n\}$ de filas y un subconjunto $J\subset\{1,\ldots,p\}$ de columnas.
+**Definición 3.2.5** (Bicluster). Dada una matriz de datos $X\in\RR^{n\times p}$, un bicluster $B=(I,J)$ está determinado por un subconjunto $I\subset\{1,\ldots,n\}$ de filas y un subconjunto $J\subset\{1,\ldots,p\}$ de columnas.
 :::
 
 <div style="margin-top:2em;"></div>
@@ -584,7 +584,7 @@ Por otro lado, también se aplica a minería de texto, sistemas de recomendació
 
 <figure style="text-align: center;">
   <img src="figuras/biclusters.png" alt="…" width="500px">
-  <figcaption> **Figura 5**. Ejemplo de una matriz de datos con 8 biclusters sin solapamiento. </figcaption>
+  <figcaption> **Figura 3.2.5:** Ejemplo de una matriz de datos con 8 biclusters sin solapamiento. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -626,7 +626,7 @@ La estructura de una solución de biclustering describe cómo se relacionan los 
 
 <figure style="text-align: center;">
   <img src="figuras/biclustering_estructuras.png" alt="…" width="600px">
-  <figcaption> **Figura 6**. Diferentes estructuras de biclustering. </figcaption>
+  <figcaption> **Figura 3.2.6:** Diferentes estructuras de biclustering. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -674,7 +674,7 @@ El puntaje final toma valores entre 0 y 1: el valor 0 indica ausencia total de c
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 5</span> 
+<span class="badge bg-primary">Ejemplo 3.2.6</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Datos con estructura de bloques diagonales constantes
 </span>
@@ -755,7 +755,7 @@ axes[1].set_title(f"Spectral BiClustering\nÍndice de Jaccard: {score2:.3f}");
 <div style="margin-top:2em;"></div>
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 5</span> 
+<span class="badge bg-primary">Ejemplo 3.2.7</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Datos con estructura tipo tablero de ajedrez
 </span>

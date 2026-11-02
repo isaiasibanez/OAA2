@@ -222,7 +222,7 @@ $$
 $$
 
 
-Este comportamiento de $f$ permite afirmar que no tiene direcciones de decrecimiento, también llamadas *direcciones de recesión*. Resultados teóricos (ver, por ejemplo, Teorema 27.1 de (Rockafellar, 1970)) aseguran que, en tales condiciones, un problema de optimización tiene al menos una solución.
+Este comportamiento de $f$ permite afirmar que no tiene direcciones de decrecimiento, también llamadas *direcciones de recesión*. Resultados teóricos (ver, por ejemplo, Teorema 27.1 de (Rockafellar 1970)) aseguran que, en tales condiciones, un problema de optimización tiene al menos una solución.
 
 </div>
 

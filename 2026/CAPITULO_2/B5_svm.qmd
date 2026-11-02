@@ -132,7 +132,7 @@ Con estas consideraciones, ya podemos definir el hiperplano separador asociado a
 <div style="margin-top:1em;"></div>
 
 ::: {.definicion}
-**Definición 2.5.2.** (Hiperplano separador asociado a un vector) A un vector $\bfbeta\in\RR^p$ se le asocia el hiperplano separador $\bfbeta^\top\xx+\beta_0=0$ cuya distancia mínima a ambas clases es la misma. Es decir, existe $M\in\RR^+$ tal que 
+**Definición 2.5.2** (Hiperplano separador asociado a un vector). A un vector $\bfbeta\in\RR^p$ se le asocia el hiperplano separador $\bfbeta^\top\xx+\beta_0=0$ cuya distancia mínima a ambas clases es la misma. Es decir, existe $M\in\RR^+$ tal que 
 $$
 y_i(\bfbeta^\top\xx_i+\beta_0)\geq M\qquad\forall i=1,\ldots,n,
 $$
@@ -331,7 +331,7 @@ $$
 $$
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-(\bfbeta^\star)^\top\xx_i\right),
 $$
-donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}$. Aquí, cada término se obtiene al despejar $\beta_0^\star$ de la condición de holgura complementaria para los puntos que verifican $\lambda_i^\star\neq 0$.
+donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\}$. Observar que cada término de la suma se obtiene al despejar $\beta_0^\star$ de la condición de holgura complementaria para los puntos que verifican $\lambda_i^\star\neq 0$. El promedio se toma por estabilidad numérica.
 
 </div>
 
@@ -594,7 +594,7 @@ $$
 $$
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} \left(y_i-(\bfbeta^\star)^\top\xx_i\right),
 $$
-donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Aquí, cada término se obtiene al despejar $\beta_0^\star$ de la condición de holgura complementaria para los puntos que verifican $\lambda_i^\star\neq 0$ y $\xi_i^\star=0$.
+donde $\mathcal{S}=\{i\mid 0<\lambda_i^\star< C\}$. Observar que, en este conjunto, las condiciones $C=\lambda_i^\star+\mu_i^\star$ y $\mu_i^\star\xi_i^\star=0$ fuerzan $\xi_i^\star=0$; cada término de la suma se obtiene entonces al despejar $\beta_0^\star$ de la condición de holgura complementaria, tal como antes.
 
 </div>
 
@@ -612,6 +612,18 @@ donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Aquí, ca
     <td style="padding: 16px 8px; border-top: 1px solid #a0c080;">$\hat{G}(\xx)=\text{sign}(\hat{f}(\xx))$</td>
   </tr>
 </table>
+
+<div style="margin-top:2em;"></div>
+
+Cabe aclarar que el procedimiento anterior no requiere calcular las holguras. De todos modos, una vez conocidos $\bfbeta^\star$ y $\beta_0^\star$, se deduce (✏3) que
+$$
+\xi_i^\star=\max\left\{0,\;1-y_i\big((\bfbeta^\star)^\top\xx_i+\beta_0^\star\big)\right\},
+$$
+es decir, la holgura de cada observación mide cuánto le falta para alcanzar el margen. Esta expresión se conoce como *pérdida bisagra* (*hinge loss*) y da lugar a una formulación alternativa de (2.5.10), sin restricciones:
+$$
+\min_{\bfbeta,\beta_0}\;\frac{1}{2}\|\bfbeta\|_2^2+C\sum_{i=1}^n\max\left\{0,\;1-y_i(\bfbeta^\top\xx_i+\beta_0)\right\}.
+$$
+
 
 <div style="margin-top:2em;"></div>
 
@@ -640,7 +652,8 @@ $$
 lo cual implica dos opciones para los vectores soporte:
 
 - Si $\xi_i^\star=0$, $\xx_i$ está sobre el *borde* del margen. 
-- Si, por el contrario, $\xi_i>0$, entonces $\xx_i$ viola el margen.
+- Si, por el contrario, $\xi_i^\star>0$, entonces $\xx_i$ viola el margen.
+
 
 ::: {.callout .question}
 
@@ -895,12 +908,7 @@ En el espacio transformado $\RR^3$, los puntos de las dos clases están ahora cl
 
 <div style="margin-top:2em;"></div>
 
-El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma
-$$
-\phi:\RR^p\to\calH,
-$$
-
-donde $\calH$ es un *espacio de Hilbert*; es decir, un espacio donde tenemos un producto interno $\langle\cdot,\cdot\rangle_{\calH}$ definido. 
+El ejemplo anterior motiva la idea de usar transformaciones no lineales para mejorar las condiciones de un problema. Dicha transformación debe ser de la forma $\phi:\RR^p\to\calH$, donde $\calH$ es un *espacio de Hilbert*; es decir, un espacio donde tenemos un producto interno $\langle\cdot,\cdot\rangle_{\calH}$ definido. 
 
 <div style="margin-top:2em;"></div>
 
@@ -938,10 +946,7 @@ es fundamental para la generalización de SVM. Sin embargo, para un $\calH$ arbi
 
 - Para todo $\xx\in\RR^p$, $k(\xx,\cdot)\in\calH$.
 
-- Para todo $\xx\in\RR^p$ y toda $h\in\calH$,
-  $$
-  h(\xx)=\langle h,k(\xx,\cdot)\rangle_{\calH}.
-  $$
+- Para todo $\xx\in\RR^p$ y toda $h\in\calH$, se verifica $h(\xx)=\langle h,k(\xx,\cdot)\rangle_{\calH}$.
 
 :::
 
@@ -958,6 +963,15 @@ $$
 
 <div style="margin-top:2em;"></div>
 
+Este último resultado es crucial: permite afirmar que, dado un *mapeo característico* de la forma
+$$
+\xx\mapsto k(\xx,\cdot),
+$$
+
+lo único que necesitamos para poder calcular productos internos en $\calH$ es conocer explícitamente el núcleo reproductor $k$.
+
+<div style="margin-top:2em;"></div>
+
 <figure style="text-align: center;">
   <img src="figuras/rkhs.svg" alt="…" width="400px">
   <figcaption> **Figura 2.5.6:** Mapeo característico $\phi:\RR^p\to\calH$ asociado a un RKHS. </figcaption>
@@ -965,12 +979,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-Este último resultado es crucial: permite afirmar que, dado un *mapeo característico* de la forma
-$$
-\xx\mapsto k(\xx,\cdot),
-$$
-
-lo único que necesitamos para poder calcular productos internos en $\calH$ es conocer explícitamente el núcleo reproductor $k$. Ahora bien:
+Ahora bien:
 
 ::: {.myhighlight3}
 
@@ -980,7 +989,7 @@ lo único que necesitamos para poder calcular productos internos en $\calH$ es c
 
 <div style="margin-top:1em;"></div>
 
-Para responder a esta pregunta, es necesario introducir la siguiente definición.
+La respuesta a esta pregunta motiva la siguiente definición.
 
 <div style="margin-top:1em;"></div>
 
@@ -1002,40 +1011,33 @@ $$
 <div style="margin-top:2em;"></div>
 
 
-La expresión (2.5.14) se puede escribir matricialmente como $K\succeq 0$, donde $K\in\RR^{n\times n}$ es la *matriz de Gram* definida por
-$$
-K_{ij}=k(\xx_i,\xx_j).
-$$
+La expresión (2.5.14) se puede escribir matricialmente como $K\succeq 0$, donde $K\in\RR^{n\times n}$ es la *matriz de Gram* definida por $K_{ij}=k(\xx_i,\xx_j)$. Observar que (2.5.14) es una desigualdad no estricta; la denominación *definida positiva* para núcleos, en lugar de *semidefinida positiva*, es la convención habitual en la literatura y es la que seguiremos aquí.
 
 <div style="margin-top:1em;"></div>
 
+::: {.callout .question}
 
-<div class="alert alert-light text-dark" role="important">
-<span class="badge bg-warning text-dark">Importante</span>
+<span style="font-size: 1.3em;">✍️</span><br>
+Verifique que todo núcleo reproductor es simétrico y definido positivo. 
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+La relevancia de esta definición está dada por el *teorema de Moore--Aronszajn* (Aronszajn 1950): toda función simétrica y definida positiva es el núcleo reproductor de un único RKHS. Es decir, la condición (2.5.14) no sólo es necesaria (como acabamos de verificar), sino también suficiente. Esto responde la pregunta planteada: para construir un núcleo válido alcanza con comprobar que sea simétrico y definido positivo, sin necesidad de exhibir el espacio $\calH$ ni el mapeo característico asociados. 
+
+<div style="margin-top:1em;"></div>
 
 Algunos de los núcleos más habituales en aplicaciones de SVM son:
 
-- *Núcleo lineal*: corresponde a SVM lineal; es decir, no hay transformación de los datos.
-$$
-k(\xx_1,\xx_2)=\xx_1^\top\xx_2.
-$$
+- *Núcleo lineal*: $k(\xx_1,\xx_2)=\xx_1^\top\xx_2$ (corresponde a SVM lineal, es decir, no hay transformación de los datos).
 
-- *Núcleo polinómico*:
-$$
-k(\xx_1,\xx_2)=(\gamma\,\xx_1^\top\xx_2+b)^d.
-$$
+- *Núcleo polinómico*: $k(\xx_1,\xx_2)=(\gamma\,\xx_1^\top\xx_2+b)^d$.
 
-- *Núcleo gaussiano*:
-$$
-k(\xx_1,\xx_2)=\exp\left\{-\gamma\,\|\xx_1-\xx_2\|_2^2\right\}.
-$$
+- *Núcleo gaussiano*: $k(\xx_1,\xx_2)=\exp\left\{-\gamma\,\|\xx_1-\xx_2\|_2^2\right\}$.
 
-- *Núcleo sigmoide*:
-$$
-k(\xx_1,\xx_2)=\tanh(\gamma\,\xx_1^\top\xx_2+b).
-$$
+- *Núcleo sigmoide*: $k(\xx_1,\xx_2)=\tanh(\gamma\,\xx_1^\top\xx_2+b)$.
 
-</div>
 
 <div style="margin-top:2em;"></div>
 
@@ -1065,7 +1067,7 @@ $$
 
 <span class="badge bg-success">SVM no lineal</span>
 
-Para obtener el hiperplano óptimo de un conjunto de datos en un RKHS, los pasos a seguir son:
+Para obtener el hiperplano separador óptimo en $\calH$, que determina una frontera de decisión no lineal en $\RR^p$, los pasos a seguir son:
 
 1. Se resuelve el problema dual (2.5.15) para obtener $\bflambda^\star$.
 
@@ -1078,7 +1080,7 @@ $$
 $$
 \beta_0^\star=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\langle \bfbeta^\star, k(\xx_i,\cdot)\rangle_{\calH}\right)=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}\left(y_i-\sum_{\substack{j=1\\\lambda_j^\star\neq 0}}^n\lambda_j^\star y_j k(\xx_i,\xx_j)\right),
 $$
-donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Como antes, esto último resulta de despejar $\beta_0^\star$ de la condición de holgura complementaria para los puntos que verifican $\lambda_i^\star\neq 0$ y $\xi_i^\star=0$.
+donde $\mathcal{S}=\{i\mid 0<\lambda_i^\star< C\}$.
 
 </div>
 
@@ -1104,8 +1106,7 @@ donde $\mathcal{S}=\{i\mid \lambda_i^\star\neq 0\land\xi_i^\star=0\}$. Como ante
 Datos con diferentes patrones
 </span>
 
-Mostraremos diferentes estructuras de datos de clasificación binaria y veremos cómo se adaptan los diferentes núcleos. Además, veremos el efecto del valor de $C$. Es importante remarcar que, en estos ejemplos, los distintos hiperparámetros de los modelos se utilizan con sus valores por defecto. Sin embargo, el rendimiento de un modelo puede mejorarse significativamente seleccionando cuidadosamente los hiperparámetros mediante algún proceso de validación.
-
+Veremos cómo se adaptan los distintos núcleos a diferentes estructuras de datos, y el efecto del valor de $C$. En estos ejemplos los hiperparámetros toman sus valores por defecto; ajustarlos mediante algún proceso de validación suele mejorar notablemente el rendimiento.
 
 ```{pyodide-python}
 #| echo: false
@@ -1450,6 +1451,8 @@ viewof r_3 = Inputs.select(
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
+
+Aronszajn, N. (1950). Theory of reproducing kernels. *Transactions of the American Mathematical Society*, 68(3), 337–404.
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd ed. Springer Series in Statistics. New York: Springer.
 

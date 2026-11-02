@@ -52,7 +52,7 @@ Trabajemos en una dimensión ($x\in\RR$) y supongamos que recolectamos datos que
 
 <figure style="text-align: center;">
   <img src="figuras/em_datos_1d.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.1**. Datos en 1D: dos grupos visibles sobre la recta, lo que sugiere dos fuentes distintas. </figcaption>
+  <figcaption> **Figura 3.3.1:** Datos en 1D: dos grupos visibles sobre la recta, lo que sugiere dos fuentes distintas. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -125,7 +125,7 @@ La idea es optimizar $\ell(\bftheta)$ de forma **indirecta**, maximizando iterat
 <div style="margin-top:1em;"></div>
 
 ::: {.definicion}
-**Definición 3.3.1.** (Log-verosimilitud esperada) Sea $\bftheta^{(t)}$ el valor de los parámetros en la iteración $t$. Se denomina *log-verosimilitud esperada* a la función
+**Definición 3.3.1** (Log-verosimilitud esperada). Sea $\bftheta^{(t)}$ el valor de los parámetros en la iteración $t$. Se denomina *log-verosimilitud esperada* a la función
 $$
 Q(\bftheta\mid \bftheta^{(t)}) := \media\left(\ell_c(\bftheta)\mid \mathbf{x};\bftheta^{(t)}\right) = \sum_{i=1}^n \media\left(\log p(x_i, z_i; \bftheta)\mid \mathbf{x};\bftheta^{(t)}\right).
 \tag{3.3.3}
@@ -336,7 +336,7 @@ Veremos que el algoritmo EM satisface una propiedad de **monotonía**: la log-ve
 ### Desigualdad de Jensen
 
 ::: {.teorema}
-**Teorema 3.3.3.** (Desigualdad de Jensen) Sea $f:I\subset\RR\to\RR$ una función *cóncava*. Para $a_1,\ldots,a_n\in I$ y pesos $q_1,\ldots,q_n\geq 0$ con $\sum_{i=1}^n q_i=1$, se verifica
+**Teorema 3.3.3** (Desigualdad de Jensen). Sea $f:I\subset\RR\to\RR$ una función *cóncava*. Para $a_1,\ldots,a_n\in I$ y pesos $q_1,\ldots,q_n\geq 0$ con $\sum_{i=1}^n q_i=1$, se verifica
 $$
 f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 \tag{3.3.6}
@@ -400,7 +400,7 @@ con igualdad solo si todos los $a_i$ son iguales.
 ### Propiedad de monotonía
 
 ::: {.teorema}
-**Proposición 3.3.4.** (Monotonía del algoritmo EM) Sea $\{\bftheta^{(t)}\}$ la sucesión de estimadores generada por el algoritmo EM, es decir, tal que
+**Teorema 3.3.4** (Monotonía del algoritmo EM). Sea $\{\bftheta^{(t)}\}$ la sucesión de estimadores generada por el algoritmo EM, es decir, tal que
 $$
 \bftheta^{(t+1)} = \arg\max_{\bftheta} Q(\bftheta \mid \bftheta^{(t)}).
 $$
@@ -479,7 +479,7 @@ Finalmente, combinando (3.3.8), (3.3.9) y (3.3.10) se obtiene la monotonía.
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-La Proposición 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto **no garantiza** que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
+El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto **no garantiza** que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
 
 <div style="margin-top:1em;"></div>
 
@@ -507,22 +507,22 @@ Las siguientes figuras ilustran el procedimiento.
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_1.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.2**. La log-verosimilitud $\ell(\bftheta)$ a maximizar. </figcaption>
+  <figcaption> **Figura 3.3.2:** La log-verosimilitud $\ell(\bftheta)$ a maximizar. </figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_2.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.3**. Paso E en $\bftheta^{(0)}$: la cota $Q(\bftheta\mid \bftheta^{(0)})$ toca a $\ell$ en $\bftheta^{(0)}$. Su máximo define $\bftheta^{(1)}$. </figcaption>
+  <figcaption> **Figura 3.3.3:** Paso E en $\bftheta^{(0)}$: la cota $Q(\bftheta\mid \bftheta^{(0)})$ toca a $\ell$ en $\bftheta^{(0)}$. Su máximo define $\bftheta^{(1)}$. </figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_3.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.4**. Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la secuencia $\bftheta^{(0)}\to\bftheta^{(1)}\to\bftheta^{(2)}\to\cdots$ asciende. </figcaption>
+  <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la secuencia $\bftheta^{(0)}\to\bftheta^{(1)}\to\bftheta^{(2)}\to\cdots$ asciende. </figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_4.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.5**. Si $\ell$ tiene múltiples máximos, EM puede converger a uno local según la inicialización. </figcaption>
+  <figcaption> **Figura 3.3.5:** Si $\ell$ tiene múltiples máximos, EM puede converger a uno local según la inicialización. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>

@@ -2,21 +2,29 @@
 title: "Modelos generativos para clasificación"
 subtitle: "Capítulo 3 - Sección 1"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c3s1.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c3s1.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c3s1.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c3s1.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 02/11/2026
+  </span>
 
 </div>
 
@@ -37,10 +45,12 @@ $$
 
 Observar que, al momento de clasificar una observación $\xx$, es suficiente comparar los numeradores $p(\xx\mid y)\,p(y)$ para cada clase, puesto que $p(\xx)$ actúa como una constante de normalización que no depende de $y$. De esta forma, la regla de decisión bayesiana es
 $$
-h^*(\xx):=\arg\max_{y} p(\xx\mid y)\,p(y).
+h^\star(\xx):=\arg\max_{y} p(\xx\mid y)\,p(y).
 $$
 
-En esta sección estudiaremos tres ejemplos representativos de modelos generativos utilizados en clasificación: los modelos discriminativos gaussianos (LDA y QDA) y Naive Bayes.
+Esta regla es óptima, en el sentido de que minimiza la probabilidad de clasificar incorrectamente una nueva observación. Sin embargo, no es computable: requiere conocer $p(\xx\mid y)$ y $p(y)$, que son justamente las distribuciones desconocidas. Los modelos que siguen son distintas maneras de aproximar $h^\star$, cada una a partir de supuestos sobre $p(\xx\mid y)$; denotaremos con $G$ la regla de decisión que resulta de cada uno de ellos.
+
+En esta sección estudiaremos tres ejemplos representativos de modelos generativos utilizados en clasificación: los modelos discriminantes gaussianos (LDA y QDA) y Naive Bayes.
 
 
 <div style="margin-top:2em;"></div>
@@ -48,7 +58,7 @@ En esta sección estudiaremos tres ejemplos representativos de modelos generativ
 
 En lo que sigue, vamos a asumir que estamos trabajando con un conjunto de datos de entrenamiento $\{(\xx_i,y_i)\}_{i=1}^n$ de un problema de clasificación binaria cuya variable respuesta es $Y\in\{0,1\}$. Por supuesto, los modelos presentados se extienden de forma natural a problemas multiclase. 
 
-Además, es importante remarcar que $p(\xx\mid y)$ implica trabajar con distribuciones multivariadas de $\XX\in\RR^p$. En particular, la distribución Normal multivariada será la base para los modelos discriminativos gaussianos que estudiaremos en esta sección.
+Además, es importante remarcar que $p(\xx\mid y)$ implica trabajar con distribuciones multivariadas de $\XX\in\RR^p$. En particular, la distribución Normal multivariada será la base para los modelos discriminantes gaussianos que estudiaremos en esta sección.
 
 <div style="margin-top:2.5em;"></div>
 
@@ -56,7 +66,7 @@ Además, es importante remarcar que $p(\xx\mid y)$ implica trabajar con distribu
 ## La Normal multivariada
 
 ::: {.definicion}
-**Definición 1.** (Distribución Normal multivariada) Una variable aleatoria $\XX\in\RR^p$ se distribuye normal multivariada con media $\bfmu\in\RR^p$ y matriz de covarianza $\Sigma\in\mathbf{S}_+^p$, y denotamos
+**Definición 3.1.1** (Distribución Normal multivariada). Una variable aleatoria $\XX\in\RR^p$ se distribuye normal multivariada con media $\bfmu\in\RR^p$ y matriz de covarianza $\Sigma\in\mathbf{S}_+^p$, y denotamos
 $$
 \XX\sim \calN(\bfmu,\Sigma),
 $$
@@ -149,7 +159,7 @@ viewof sigma22 = Inputs.range([0.1, 2], {step: 0.1, label: "σ₂₂:", value: 1
 <div style="margin-top:2em;"></div>
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 1</span> 
+<span class="badge bg-primary">Ejemplo 3.1.2</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 Curvas de nivel de una normal bivariada
 </span>
@@ -165,7 +175,7 @@ $$
 1 & 0.5 \\
 0.5 & 2
 \end{pmatrix}.
-\tag{1}
+\tag{3.1.1}
 $$
 
 La función de densidad es
@@ -183,7 +193,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/curvas_nivel_normal_bivariada.svg" alt="…" width="400px">
-  <figcaption> **Figura 1**. Curvas de nivel de la función de densidad de la distribución normal bivariada con parámetros dados por (1). </figcaption>
+  <figcaption> **Figura 3.1.1:** Curvas de nivel de la función de densidad de la distribución normal bivariada con parámetros dados por (3.1.1). </figcaption>
 </figure>
 
 :::
@@ -218,10 +228,10 @@ $$
 \begin{array}{ll} 
 \text{maximizar } & -\frac{n}{2}\log|\Sigma|-\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu})^\top\Sigma^{-1}(\xx_i-\hat{\bfmu}).
 \end{array}
-\tag{2}
+\tag{3.1.2}
 $$
 
-Es conveniente derivar la función objetivo en (2) respecto de $\Sigma^{-1}$ y tener en cuenta algunos resultados importantes de análisis matricial:
+Es conveniente derivar la función objetivo en (3.1.2) respecto de $\Sigma^{-1}$ y tener en cuenta algunos resultados importantes de análisis matricial:
 $$
 \nabla_{A^{-1}} \log |A|=-A,\qquad\nabla_A\text{tr}(BA)=B^\top.
 $$
@@ -276,7 +286,7 @@ Aquí $\bfmu_1 \in \RR^r$, $\bfmu_2 \in \RR^s$, $\Sigma_{11} \in \RR^{r \times r
 <div style="margin-top:2em;"></div>
 
 ::: {.teorema}
-**Proposición 2.** (Marginales y condicionales de una normal multivariada) Bajo las condiciones anteriores, se verifica
+**Teorema 3.1.3** (Marginales y condicionales de una normal multivariada). Bajo las condiciones anteriores, se verifica
 $$
 \XX_1 \sim \calN(\bfmu_1, \Sigma_{11}),
 $$
@@ -344,7 +354,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/lda_toy.svg" alt="…" width="500px">
-  <figcaption> **Figura 2**. Modelo LDA para clasificación binaria. </figcaption>
+  <figcaption> **Figura 3.1.2:** Modelo LDA para clasificación binaria. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -419,8 +429,8 @@ $$
 
 Otro punto de vista es el *cociente de verosimilitudes*, que determina el criterio de decisión de la siguiente manera:
 $$
-G(\xx)=1\quad\text{si}\quad \log\frac{p(y=1\mid \xx)}{p(y=0\mid \xx)}>0.
-\tag{3}
+h^\star(\xx)=1\quad\text{si}\quad \log\frac{p(y=1\mid \xx)}{p(y=0\mid \xx)}>0.
+\tag{3.1.3}
 $$
 
 Claramente, la frontera de decisión está determinada por
@@ -443,7 +453,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/lda_toy_frontera.svg" alt="…" width="500px">
-  <figcaption> **Figura 3**. Frontera de decisión lineal del modelo LDA en clasificación binaria.</figcaption>
+  <figcaption> **Figura 3.1.3:** Frontera de decisión lineal del modelo LDA en clasificación binaria.</figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -453,7 +463,7 @@ Para concluir, haremos énfasis en la regla de clasificación para un *problema 
 
 $$
 \begin{align*}
-G(x) &= \arg\max_{y} p(y\mid \xx) \\
+h^\star(\xx) &= \arg\max_{y} p(y\mid \xx) \\
 &=\arg\max_{y} p(\xx\mid y)\,p(y) \\
 & = \arg\max_{y} \left[\log p(\xx\mid y)+\log p(y)\right]
 \end{align*}
@@ -484,7 +494,7 @@ $$
 & = \sum_{i=1}^n\log\left[p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma)\,p(y_i\mid\varphi)\right]\\
 & = \sum_{i=1}^n\log p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma) + \sum_{i=1}^n\log p(y_i\mid\varphi).
 \end{align}
-\tag{4}
+\tag{3.1.4}
 $$
 
 
@@ -510,37 +520,37 @@ Verifique el resultado anterior.
 
 <div style="margin-top:2em;"></div>
 
-Ahora bien, si fijamos $\Sigma$ en (4), el problema de optimización para hallar $\bfmu_y$, para $y\in\{0,1\}$, es
+Ahora bien, si fijamos $\Sigma$ en (3.1.4), el problema de optimización para hallar $\bfmu_y$, para $y\in\{0,1\}$, es
 
 $$
 \begin{array}{ll}
 \text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i:y_i=y}^n(\xx_i-\bfmu_y)^\top\Sigma^{-1}(\xx_i-\bfmu_y)
 \end{array}
-\tag{5}
+\tag{3.1.5}
 $$
 
-La función objetivo en (5) es claramente cóncava, ya que $\Sigma\succ 0$ implica $\Sigma^{-1}\succ 0$. Por lo tanto, al igualar el gradiente a cero obtenemos
+La función objetivo en (3.1.5) es claramente cóncava, ya que $\Sigma\succ 0$ implica $\Sigma^{-1}\succ 0$. Por lo tanto, al igualar el gradiente a cero obtenemos
 $$
 \begin{align}
 \sum_{i:y_i=y}^n\Sigma^{-1}(\xx_i-\hat{\bfmu}_y)&=0 \\
 \sum_{i:y_i=y}^n(\xx_i-\hat{\bfmu}_y)&=0 \\
 \hat{\bfmu}_y &= \frac{\sum_{i=1}^n\bfone\{y_i=y\}\xx_i}{\sum_{i=1}^n\bfone\{y_i=y\}},
-\tag{6}
+\tag{3.1.6}
 \end{align}
 $$
 
-lo cual es la media muestral de la clase $Y=y$, es decir, del conjunto $\{\xx_i\mid y_i=y\}$. Observar que (6) no depende de $\Sigma$, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.
+lo cual es la media muestral de la clase $Y=y$, es decir, del conjunto $\{\xx_i\mid y_i=y\}$. Observar que (3.1.6) no depende de $\Sigma$, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.
 
-Por último, reemplazaremos (6) en (4) para construir el siguiente problema de optimización:
+Por último, reemplazaremos (3.1.6) en (3.1.4) para construir el siguiente problema de optimización:
 
 $$
 \begin{array}{ll}
 \text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})^\top\Sigma^{-1}(\xx_i+\hat{\bfmu}_{y_i})-\frac{n}{2}\log |\Sigma|.
 \end{array}
-\tag{7}
+\tag{3.1.7}
 $$
 
-Vamos a reformular (7), utilizando que: 
+Vamos a reformular (3.1.7), utilizando que: 
 
 - $\log|\Sigma^{-1}|=\log(1/|\Sigma|)=-\log|\Sigma|$.
 
@@ -551,10 +561,10 @@ $$
 \begin{array}{ll}
 \text{maximizar } & \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top\right]
 \end{array}
-\tag{8}
+\tag{3.1.8}
 $$
 
-Si consideramos como variable de optimización a $\Sigma^{-1}$, la función objetivo en (8) es estrictamente cóncava. Luego, al igualar el gradiente a cero obtenemos
+Si consideramos como variable de optimización a $\Sigma^{-1}$, la función objetivo en (3.1.8) es estrictamente cóncava. Luego, al igualar el gradiente a cero obtenemos
 $$
 \begin{align*}
 \frac{n}{2}\hat{\Sigma}-\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top&=0 \\
@@ -583,7 +593,7 @@ $$
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 2</span> 
+<span class="badge bg-primary">Ejemplo 3.1.4</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 LDA en datos simulados de clasificación binaria
 </span>
@@ -643,7 +653,7 @@ plt.show()
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 3</span> 
+<span class="badge bg-primary">Ejemplo 3.1.5</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 LDA en datos de clasificación multiclase
 </span>
@@ -732,7 +742,7 @@ $$
 
 <figure style="text-align: center;">
   <img src="figuras/qda_toy.svg" alt="…" width="500px">
-  <figcaption> **Figura 4**. Modelo QDA para clasificación binaria. </figcaption>
+  <figcaption> **Figura 3.1.4:** Modelo QDA para clasificación binaria. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
@@ -800,12 +810,12 @@ $$\hat{\Sigma}_y =
 
 
 ::: {.callout-example}
-<span class="badge bg-primary">Ejemplo 4</span> 
+<span class="badge bg-primary">Ejemplo 3.1.6</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
 QDA en datos de clasificación multiclase
 </span>
 
-En este ejemplo utilizamos los mismos datos del Ejemplo 3, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.
+En este ejemplo utilizamos los mismos datos del Ejemplo 3.1.5, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.
 
 ```{python}
 #| code-summary: "Mostrar código"
