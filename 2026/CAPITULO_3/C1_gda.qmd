@@ -266,7 +266,7 @@ $$
 \end{align}
 $$
 
-Al estar expresada en términos de $\Sigma^{-1}$, la función objetivo resulta estrictamente cóncava, ya que $\log|\Sigma^{-1}|$ es cóncava y la traza es lineal. Por lo tanto, $\hat{\Sigma}$ es el máximo de la segunda etapa y, en consecuencia, $(\hat{\bfmu},\hat{\Sigma})$ es el máximo global de $\ell$.
+Si se escribe $-\log|\Sigma|=\log|\Sigma^{-1}|$, la función objetivo queda expresada enteramente en términos de $\Sigma^{-1}$ y resulta estrictamente cóncava: $\log|\Sigma^{-1}|$ lo es y la traza es lineal. Por lo tanto, $\hat{\Sigma}$ es el máximo de la segunda etapa y, en consecuencia, $(\hat{\bfmu},\hat{\Sigma})$ es el máximo global de $\ell$.
 
 <div style="margin-top:2.5em;"></div>
 
@@ -361,10 +361,10 @@ $$
 p(y)=\varphi^y(1-\varphi)^{1-y},
 $$
 $$
-p(\xx\mid y=0)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_0)^\top\Sigma^{-1}(\xx-\bfmu_0)\right\},
+p(\xx\mid y=0)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_0)^\top\Sigma^{-1}(\xx-\bfmu_0)\right\},
 $$
 $$
-p(\xx\mid y=1)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_1)^\top\Sigma^{-1}(\xx-\bfmu_1)\right\}.
+p(\xx\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_1)^\top\Sigma^{-1}(\xx-\bfmu_1)\right\}.
 $$
 
 
@@ -430,13 +430,12 @@ h^\star(\xx)=1\quad\text{si}\quad \log\frac{p(y=1\mid \xx)}{p(y=0\mid \xx)}>0.
 \tag{3.1.3}
 $$
 
-Claramente, la frontera de decisión está determinada por
+Apliquemos este enfoque para construir la regla de decisión $G$ del modelo LDA. La frontera de decisión es el conjunto de puntos en los que ambas clases resultan igualmente probables, esto es, $\log p(y=1\mid\xx)=\log p(y=0\mid\xx)$. Reemplazando las densidades del modelo en la proporcionalidad anterior y simplificando los términos comunes a ambas clases, resulta
 $$
 \begin{align*}
-\log p(y=1\mid \xx) &= \log p(y=0\mid \xx) \\[3pt]
 -\frac{1}{2}(\xx-\bfmu_1)^\top\Sigma^{-1}(\xx-\bfmu_1) + \log p(y=1) &= -\frac{1}{2}(\xx-\bfmu_0)^\top\Sigma^{-1}(\xx-\bfmu_0) + \log p(y=0) \\[3pt]
 (\xx-\bfmu_0)^\top \Sigma^{-1}(\xx-\bfmu_0)-(\xx-\bfmu_1)^\top \Sigma^{-1}(\xx-\bfmu_1) &= 2\log\frac{p(y=0)}{p(y=1)} \\[3pt] 
-\underbrace{(\bfmu_1-\bfmu_0)^\top\Sigma^{-1}}_{\bfbeta^\top}\xx &=\underbrace{\log\frac{p(y=0)}{p(y=1)}+\frac{1}{2}\left(\bfmu_1^\top\Sigma^{-1}\bfmu_1-\bfmu_0^\top\Sigma^{-1}\bfmu_0\right)}_{-\beta_0}
+\underbrace{(\bfmu_1-\bfmu_0)^\top\Sigma^{-1}}_{\bfbeta^\top}\xx &=\underbrace{\log\frac{p(y=0)}{p(y=1)}+\frac{1}{2}\left(\bfmu_1^\top\Sigma^{-1}\bfmu_1-\bfmu_0^\top\Sigma^{-1}\bfmu_0\right)}_{-\beta_0}.
 \end{align*}
 $$
 
@@ -521,7 +520,7 @@ Ahora bien, si fijamos $\Sigma$ en (3.1.4), el problema de optimización para ha
 
 $$
 \begin{array}{ll}
-\text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i:y_i=y}^n(\xx_i-\bfmu_y)^\top\Sigma^{-1}(\xx_i-\bfmu_y)
+\text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i:y_i=y}(\xx_i-\bfmu_y)^\top\Sigma^{-1}(\xx_i-\bfmu_y)
 \end{array}
 \tag{3.1.5}
 $$
@@ -529,45 +528,51 @@ $$
 La función objetivo en (3.1.5) es claramente cóncava, ya que $\Sigma\succ 0$ implica $\Sigma^{-1}\succ 0$. Por lo tanto, al igualar el gradiente a cero obtenemos
 $$
 \begin{align}
-\sum_{i:y_i=y}^n\Sigma^{-1}(\xx_i-\hat{\bfmu}_y)&=0 \\
-\sum_{i:y_i=y}^n(\xx_i-\hat{\bfmu}_y)&=0 \\
+\sum_{i:y_i=y}\Sigma^{-1}(\xx_i-\hat{\bfmu}_y)&=0 \\
+\sum_{i:y_i=y}(\xx_i-\hat{\bfmu}_y)&=0 \\
 \hat{\bfmu}_y &= \frac{\sum_{i=1}^n\bfone\{y_i=y\}\xx_i}{\sum_{i=1}^n\bfone\{y_i=y\}},
 \tag{3.1.6}
 \end{align}
 $$
 
-lo cual es la media muestral de la clase $Y=y$, es decir, del conjunto $\{\xx_i\mid y_i=y\}$. Observar que (3.1.6) no depende de $\Sigma$, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.
+lo cual es la media muestral de la clase $Y=y$, es decir, del conjunto $\{\xx_i\mid y_i=y\}$. Si denotamos con $n_0$ y $n_1$ la cantidad de observaciones con etiqueta $y=0$ e $y=1$, respectivamente, esto se escribe
+$$
+\hat{\bfmu}_0=\frac{1}{n_0}\sum_{i:y_i=0}\xx_i,\qquad \hat{\bfmu}_1=\frac{1}{n_1}\sum_{i:y_i=1}\xx_i.
+$$
+
+Observar que (3.1.6) no depende de $\Sigma$, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.
 
 Por último, reemplazaremos (3.1.6) en (3.1.4) para construir el siguiente problema de optimización:
 
 $$
 \begin{array}{ll}
-\text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})^\top\Sigma^{-1}(\xx_i+\hat{\bfmu}_{y_i})-\frac{n}{2}\log |\Sigma|.
+\text{maximizar } & -\displaystyle\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})^\top\Sigma^{-1}(\xx_i-\hat{\bfmu}_{y_i})-\frac{n}{2}\log |\Sigma|.
 \end{array}
 \tag{3.1.7}
 $$
 
-Vamos a reformular (3.1.7), utilizando que: 
-
-- $\log|\Sigma^{-1}|=\log(1/|\Sigma|)=-\log|\Sigma|$.
-
-- $\begin{align*}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})^\top\Sigma^{-1}(\xx_i+\hat{\bfmu}_{y_i})&=\sum_{i=1}^n\text{tr}[(\xx_i-\hat{\bfmu}_{y_i})^\top\Sigma^{-1}(\xx_i+\hat{\bfmu}_{y_i})]\\&=\sum_{i=1}^n\text{tr}[\Sigma^{-1}(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top]\\&=\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top\right]\end{align*}$
-
-Resulta
+Procediendo como en la deducción del MLE de la normal multivariada, el problema (3.1.7) se reescribe
 $$
 \begin{array}{ll}
-\text{maximizar } & \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top\right]
+\text{maximizar } & \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i-\hat{\bfmu}_{y_i})^\top\right]
 \end{array}
 \tag{3.1.8}
 $$
 
-Si consideramos como variable de optimización a $\Sigma^{-1}$, la función objetivo en (3.1.8) es estrictamente cóncava. Luego, al igualar el gradiente a cero obtenemos
+Tomando como variable de optimización a $\Sigma^{-1}$, la función objetivo es estrictamente cóncava y, al igualar el gradiente a cero, resulta
 $$
 \begin{align*}
-\frac{n}{2}\hat{\Sigma}-\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top&=0 \\
-\hat{\Sigma}&=\frac{1}{n}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top.
+\frac{n}{2}\hat{\Sigma}-\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i-\hat{\bfmu}_{y_i})^\top&=0 \\
+\hat{\Sigma}&=\frac{1}{n}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i-\hat{\bfmu}_{y_i})^\top.
 \end{align*}
 $$
+
+Agrupando los términos según la clase, $\hat{\Sigma}$ resulta un promedio ponderado de las covarianzas muestrales de cada clase,
+$$
+\hat{\Sigma}=\frac{n_0}{n}\hat{\Sigma}_0+\frac{n_1}{n}\hat{\Sigma}_1,\qquad \hat{\Sigma}_y:=\frac{1}{n_y}\sum_{i:y_i=y}(\xx_i-\hat{\bfmu}_y)(\xx_i-\hat{\bfmu}_y)^\top,
+$$
+
+con pesos iguales a las proporciones estimadas de cada clase. Es la expresión que hace visible el supuesto del modelo: una única matriz compartida, estimada combinando la información de todas las clases.
 
 En resumen:
 
@@ -581,7 +586,7 @@ $$
 \hat{\bfmu}_y = \frac{\sum_{i=1}^n\bfone\{y_i=y\}\xx_i}{\sum_{i=1}^n\bfone\{y_i=y\}},
 $$
 $$
-\hat{\Sigma} =\frac{1}{n}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i+\hat{\bfmu}_{y_i})^\top.
+\hat{\Sigma} =\frac{1}{n}\sum_{i=1}^n(\xx_i-\hat{\bfmu}_{y_i})(\xx_i-\hat{\bfmu}_{y_i})^\top.
 $$
 
 :::
@@ -749,10 +754,10 @@ $$
 p(y)=\varphi^y(1-\varphi)^{1-y},
 $$
 $$
-p(\xx\mid y=0)=\frac{1}{(2\pi)^{d/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_0)^\top\Sigma_0^{-1}(\xx-\bfmu_0)\right\},
+p(\xx\mid y=0)=\frac{1}{(2\pi)^{p/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_0)^\top\Sigma_0^{-1}(\xx-\bfmu_0)\right\},
 $$
 $$
-p(\xx\mid y=1)=\frac{1}{(2\pi)^{d/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_1)^\top\Sigma_1^{-1}(\xx-\bfmu_1)\right\}.
+p(\xx\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_1)^\top\Sigma_1^{-1}(\xx-\bfmu_1)\right\}.
 $$
 
 
@@ -764,7 +769,7 @@ El no suponer la misma matriz de covarianza para todas las clases tiene las sigu
 
 - El término $-\log |\Sigma_y|$ no puede ser descartado, pues es diferente para cada clase.
 
-- Los términos cuadráticos $\xx^\top\Sigma_y^{-1}\xx$ no se cancelan y, por lo tanto, la frontera de decisión es cuadrática con término cuadrático $\xx^\top(\Sigma_1-\Sigma_0)^{-1}\xx$.
+- Los términos cuadráticos $\xx^\top\Sigma_y^{-1}\xx$ no se cancelan y, por lo tanto, la frontera de decisión es cuadrática, con término $-\frac{1}{2}\xx^\top(\Sigma_1^{-1}-\Sigma_0^{-1})\xx$.
 
 <div style="margin-top:2em;"></div>
 
@@ -985,7 +990,7 @@ $$
 
 La log-verosimilitud es
 $$
-\ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y\mid\varphi).
+\ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y_i\mid\varphi).
 $$
 
 

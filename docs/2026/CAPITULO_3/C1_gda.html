@@ -559,7 +559,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 \hat{\Sigma} &amp;= \frac{1}{n}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}})({\bf x}_i-\hat{\boldsymbol{\mu}})^\top.
 \end{align}
 \]</span></p>
-<p>Al estar expresada en términos de <span class="math inline">\(\Sigma^{-1}\)</span>, la función objetivo resulta estrictamente cóncava, ya que <span class="math inline">\(\log|\Sigma^{-1}|\)</span> es cóncava y la traza es lineal. Por lo tanto, <span class="math inline">\(\hat{\Sigma}\)</span> es el máximo de la segunda etapa y, en consecuencia, <span class="math inline">\((\hat{\boldsymbol{\mu}},\hat{\Sigma})\)</span> es el máximo global de <span class="math inline">\(\ell\)</span>.</p>
+<p>Si se escribe <span class="math inline">\(-\log|\Sigma|=\log|\Sigma^{-1}|\)</span>, la función objetivo queda expresada enteramente en términos de <span class="math inline">\(\Sigma^{-1}\)</span> y resulta estrictamente cóncava: <span class="math inline">\(\log|\Sigma^{-1}|\)</span> lo es y la traza es lineal. Por lo tanto, <span class="math inline">\(\hat{\Sigma}\)</span> es el máximo de la segunda etapa y, en consecuencia, <span class="math inline">\((\hat{\boldsymbol{\mu}},\hat{\Sigma})\)</span> es el máximo global de <span class="math inline">\(\ell\)</span>.</p>
 <div style="margin-top:2.5em;">
 
 </div>
@@ -641,9 +641,9 @@ Y\sim\text{Bernoulli}(\varphi) \\[2pt]
 <p>Así, las distribuciones de este modelo son: <span class="math display">\[
 p(y)=\varphi^y(1-\varphi)^{1-y},
 \]</span> <span class="math display">\[
-p({\bf x}\mid y=0)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
+p({\bf x}\mid y=0)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
 \]</span> <span class="math display">\[
-p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_1)\right\}.
+p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_1)\right\}.
 \]</span></p>
 <div style="margin-top:2em;">
 
@@ -694,12 +694,11 @@ p(y\mid{\bf x})\propto p({\bf x}\mid y)\,p(y).
 h^\star({\bf x})=1\quad\text{si}\quad \log\frac{p(y=1\mid {\bf x})}{p(y=0\mid {\bf x})}&gt;0.
 \tag{3.1.3}
 \]</span></p>
-<p>Claramente, la frontera de decisión está determinada por <span class="math display">\[
+<p>Apliquemos este enfoque para construir la regla de decisión <span class="math inline">\(G\)</span> del modelo LDA. La frontera de decisión es el conjunto de puntos en los que ambas clases resultan igualmente probables, esto es, <span class="math inline">\(\log p(y=1\mid{\bf x})=\log p(y=0\mid{\bf x})\)</span>. Reemplazando las densidades del modelo en la proporcionalidad anterior y simplificando los términos comunes a ambas clases, resulta <span class="math display">\[
 \begin{align*}
-\log p(y=1\mid {\bf x}) &amp;= \log p(y=0\mid {\bf x}) \\[3pt]
 -\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_1) + \log p(y=1) &amp;= -\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_0) + \log p(y=0) \\[3pt]
 ({\bf x}-\boldsymbol{\mu}_0)^\top \Sigma^{-1}({\bf x}-\boldsymbol{\mu}_0)-({\bf x}-\boldsymbol{\mu}_1)^\top \Sigma^{-1}({\bf x}-\boldsymbol{\mu}_1) &amp;= 2\log\frac{p(y=0)}{p(y=1)} \\[3pt]
-\underbrace{(\boldsymbol{\mu}_1-\boldsymbol{\mu}_0)^\top\Sigma^{-1}}_{\boldsymbol{\beta}^\top}{\bf x}&amp;=\underbrace{\log\frac{p(y=0)}{p(y=1)}+\frac{1}{2}\left(\boldsymbol{\mu}_1^\top\Sigma^{-1}\boldsymbol{\mu}_1-\boldsymbol{\mu}_0^\top\Sigma^{-1}\boldsymbol{\mu}_0\right)}_{-\beta_0}
+\underbrace{(\boldsymbol{\mu}_1-\boldsymbol{\mu}_0)^\top\Sigma^{-1}}_{\boldsymbol{\beta}^\top}{\bf x}&amp;=\underbrace{\log\frac{p(y=0)}{p(y=1)}+\frac{1}{2}\left(\boldsymbol{\mu}_1^\top\Sigma^{-1}\boldsymbol{\mu}_1-\boldsymbol{\mu}_0^\top\Sigma^{-1}\boldsymbol{\mu}_0\right)}_{-\beta_0}.
 \end{align*}
 \]</span></p>
 <p>Esto es un hiperplano de la forma <span class="math inline">\(f({\bf x})=\boldsymbol{\beta}^\top{\bf x}+\beta_0=0\)</span>, con vector normal <span class="math display">\[
@@ -773,43 +772,45 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <p>Ahora bien, si fijamos <span class="math inline">\(\Sigma\)</span> en (3.1.4), el problema de optimización para hallar <span class="math inline">\(\boldsymbol{\mu}_y\)</span>, para <span class="math inline">\(y\in\{0,1\}\)</span>, es</p>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; -\displaystyle\frac{1}{2}\sum_{i:y_i=y}^n({\bf x}_i-\boldsymbol{\mu}_y)^\top\Sigma^{-1}({\bf x}_i-\boldsymbol{\mu}_y)
+\text{maximizar } &amp; -\displaystyle\frac{1}{2}\sum_{i:y_i=y}({\bf x}_i-\boldsymbol{\mu}_y)^\top\Sigma^{-1}({\bf x}_i-\boldsymbol{\mu}_y)
 \end{array}
 \tag{3.1.5}
 \]</span></p>
 <p>La función objetivo en (3.1.5) es claramente cóncava, ya que <span class="math inline">\(\Sigma\succ 0\)</span> implica <span class="math inline">\(\Sigma^{-1}\succ 0\)</span>. Por lo tanto, al igualar el gradiente a cero obtenemos <span class="math display">\[
 \begin{align}
-\sum_{i:y_i=y}^n\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
-\sum_{i:y_i=y}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
+\sum_{i:y_i=y}\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
+\sum_{i:y_i=y}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
 \hat{\boldsymbol{\mu}}_y &amp;= \frac{\sum_{i=1}^n\mathbf{1}\{y_i=y\}{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{y_i=y\}},
 \tag{3.1.6}
 \end{align}
 \]</span></p>
-<p>lo cual es la media muestral de la clase <span class="math inline">\(Y=y\)</span>, es decir, del conjunto <span class="math inline">\(\{{\bf x}_i\mid y_i=y\}\)</span>. Observar que (3.1.6) no depende de <span class="math inline">\(\Sigma\)</span>, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.</p>
+<p>lo cual es la media muestral de la clase <span class="math inline">\(Y=y\)</span>, es decir, del conjunto <span class="math inline">\(\{{\bf x}_i\mid y_i=y\}\)</span>. Si denotamos con <span class="math inline">\(n_0\)</span> y <span class="math inline">\(n_1\)</span> la cantidad de observaciones con etiqueta <span class="math inline">\(y=0\)</span> e <span class="math inline">\(y=1\)</span>, respectivamente, esto se escribe <span class="math display">\[
+\hat{\boldsymbol{\mu}}_0=\frac{1}{n_0}\sum_{i:y_i=0}{\bf x}_i,\qquad \hat{\boldsymbol{\mu}}_1=\frac{1}{n_1}\sum_{i:y_i=1}{\bf x}_i.
+\]</span></p>
+<p>Observar que (3.1.6) no depende de <span class="math inline">\(\Sigma\)</span>, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.</p>
 <p>Por último, reemplazaremos (3.1.6) en (3.1.4) para construir el siguiente problema de optimización:</p>
 <p><span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; -\displaystyle\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\Sigma^{-1}({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})-\frac{n}{2}\log |\Sigma|.
+\text{maximizar } &amp; -\displaystyle\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})-\frac{n}{2}\log |\Sigma|.
 \end{array}
 \tag{3.1.7}
 \]</span></p>
-<p>Vamos a reformular (3.1.7), utilizando que:</p>
-<ul>
-<li><p><span class="math inline">\(\log|\Sigma^{-1}|=\log(1/|\Sigma|)=-\log|\Sigma|\)</span>.</p></li>
-<li><p><span class="math inline">\(\begin{align*}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\Sigma^{-1}({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})&amp;=\sum_{i=1}^n\text{tr}[({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\Sigma^{-1}({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})]\\&amp;=\sum_{i=1}^n\text{tr}[\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top]\\&amp;=\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top\right]\end{align*}\)</span></p></li>
-</ul>
-<p>Resulta <span class="math display">\[
+<p>Procediendo como en la deducción del MLE de la normal multivariada, el problema (3.1.7) se reescribe <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top\right]
+\text{maximizar } &amp; \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\right]
 \end{array}
 \tag{3.1.8}
 \]</span></p>
-<p>Si consideramos como variable de optimización a <span class="math inline">\(\Sigma^{-1}\)</span>, la función objetivo en (3.1.8) es estrictamente cóncava. Luego, al igualar el gradiente a cero obtenemos <span class="math display">\[
+<p>Tomando como variable de optimización a <span class="math inline">\(\Sigma^{-1}\)</span>, la función objetivo es estrictamente cóncava y, al igualar el gradiente a cero, resulta <span class="math display">\[
 \begin{align*}
-\frac{n}{2}\hat{\Sigma}-\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top&amp;=0 \\
-\hat{\Sigma}&amp;=\frac{1}{n}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top.
+\frac{n}{2}\hat{\Sigma}-\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top&amp;=0 \\
+\hat{\Sigma}&amp;=\frac{1}{n}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top.
 \end{align*}
 \]</span></p>
+<p>Agrupando los términos según la clase, <span class="math inline">\(\hat{\Sigma}\)</span> resulta un promedio ponderado de las covarianzas muestrales de cada clase, <span class="math display">\[
+\hat{\Sigma}=\frac{n_0}{n}\hat{\Sigma}_0+\frac{n_1}{n}\hat{\Sigma}_1,\qquad \hat{\Sigma}_y:=\frac{1}{n_y}\sum_{i:y_i=y}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)({\bf x}_i-\hat{\boldsymbol{\mu}}_y)^\top,
+\]</span></p>
+<p>con pesos iguales a las proporciones estimadas de cada clase. Es la expresión que hace visible el supuesto del modelo: una única matriz compartida, estimada combinando la información de todas las clases.</p>
 <p>En resumen:</p>
 <div class="myhighlight">
 <p>Los MLE de los parámetros del modelo LDA son <span class="math display">\[
@@ -817,7 +818,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 \]</span> <span class="math display">\[
 \hat{\boldsymbol{\mu}}_y = \frac{\sum_{i=1}^n\mathbf{1}\{y_i=y\}{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{y_i=y\}},
 \]</span> <span class="math display">\[
-\hat{\Sigma} =\frac{1}{n}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i+\hat{\boldsymbol{\mu}}_{y_i})^\top.
+\hat{\Sigma} =\frac{1}{n}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top.
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -826,7 +827,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.1.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos simulados de clasificación binaria </span></p>
 <p>Simulamos un conjunto de datos en <span class="math inline">\(\mathbb{R}^2\)</span> perteneciente a dos clases. Al aplicar LDA, el modelo estima una frontera lineal de decisión que separa ambas regiones.</p>
-<div id="347fa5f8" class="cell" data-execution_count="1">
+<div id="92aceead" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -884,7 +885,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <p><span class="badge bg-primary">Ejemplo 3.1.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos el conjunto de datos <em>wine</em> disponible en <code>scikit-learn</code>, que contiene mediciones químicas de tres tipos de vino. Para visualizar el resultado de la clasificación, consideramos únicamente dos variables predictoras: la intensidad de color y el matiz.</p>
 <p>El modelo LDA estima las fronteras lineales que separan las tres clases, utilizando la comparación de a pares.</p>
-<div id="c90e7656" class="cell" data-execution_count="2">
+<div id="fd98ef5a" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -972,9 +973,9 @@ Y\sim\text{Bernoulli}(\varphi) \\[2pt]
 <p>Las distribuciones son: <span class="math display">\[
 p(y)=\varphi^y(1-\varphi)^{1-y},
 \]</span> <span class="math display">\[
-p({\bf x}\mid y=0)=\frac{1}{(2\pi)^{d/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma_0^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
+p({\bf x}\mid y=0)=\frac{1}{(2\pi)^{p/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma_0^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
 \]</span> <span class="math display">\[
-p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{d/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma_1^{-1}({\bf x}-\boldsymbol{\mu}_1)\right\}.
+p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma_1^{-1}({\bf x}-\boldsymbol{\mu}_1)\right\}.
 \]</span></p>
 <section id="regla-de-decisión-1" class="level3">
 <h3 class="anchored" data-anchor-id="regla-de-decisión-1">Regla de decisión</h3>
@@ -984,7 +985,7 @@ p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{d/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}
 <p>El no suponer la misma matriz de covarianza para todas las clases tiene las siguientes consecuencias a la hora de determinar la regla de decisión:</p>
 <ul>
 <li><p>El término <span class="math inline">\(-\log |\Sigma_y|\)</span> no puede ser descartado, pues es diferente para cada clase.</p></li>
-<li><p>Los términos cuadráticos <span class="math inline">\({\bf x}^\top\Sigma_y^{-1}{\bf x}\)</span> no se cancelan y, por lo tanto, la frontera de decisión es cuadrática con término cuadrático <span class="math inline">\({\bf x}^\top(\Sigma_1-\Sigma_0)^{-1}{\bf x}\)</span>.</p></li>
+<li><p>Los términos cuadráticos <span class="math inline">\({\bf x}^\top\Sigma_y^{-1}{\bf x}\)</span> no se cancelan y, por lo tanto, la frontera de decisión es cuadrática, con término <span class="math inline">\(-\frac{1}{2}{\bf x}^\top(\Sigma_1^{-1}-\Sigma_0^{-1}){\bf x}\)</span>.</p></li>
 </ul>
 <div style="margin-top:2em;">
 
@@ -1022,7 +1023,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.1.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> QDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos los mismos datos del Ejemplo 3.1.5, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.</p>
-<div id="89a87966" class="cell" data-execution_count="3">
+<div id="99032c38" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Mostrar código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1167,7 +1168,7 @@ L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid 
 \end{align}
 \]</span></p>
 <p>La log-verosimilitud es <span class="math display">\[
-\ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y\mid\varphi).
+\ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y_i\mid\varphi).
 \]</span></p>
 <p>Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y se deja al lector; los estimadores resultantes son los siguientes.</p>
 <div style="margin-top:2em;">

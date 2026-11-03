@@ -71,7 +71,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $N=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
+El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $n=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
 
 En $K$-medias, la medida de disimilaridad es
 $$
@@ -103,7 +103,7 @@ Verifique la expresión (3.2.2).
 
 ---
 
-Dado un conjunto de *centroides iniciales* $\{\bfmu_1,\ldots,\bfmu_k\}\subset\RR^p$:
+Dado un conjunto de *centroides iniciales* $\{\bfmu_1,\ldots,\bfmu_K\}\subset\RR^p$:
 
 <div style="margin-left: 1em">
 
@@ -255,7 +255,7 @@ donde $\phi_k\geq 0$ son los pesos, $\sum_{k=1}^K \phi_k=1$  y $f(\xx\mid\bfthet
 
 El modelo de mezcla más popular surge de considerar componentes Gaussianas:
 $$
-f(\xx\mid\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma^{-1}(\xx-\bfmu_k)\right\}.
+f(\xx\mid\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma_k^{-1}(\xx-\bfmu_k)\right\}.
 $$
 
 Una forma útil de interpretar este modelo es introducir una *variable latente* $Z\in\{1,\ldots,K\}$ que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta
@@ -281,7 +281,7 @@ $$
 
 Los parámetros del modelo son $\bfphi$, $\bfmu_k$ y $\Sigma_k$. Observar que, para un conjunto de datos $\{\xx_i\}_{i=1}^n$, la función de log-verosimilitud es
 $$
-\ell(\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log p(\xx_i\mid\bfphi,\bfmu,\bfSigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p(\xx_i\mid \bfmu_k, \Sigma_k).
+\ell(\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log p(\xx_i\mid\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p(\xx_i\mid \bfmu_k, \Sigma_k).
 $$
 
 
@@ -384,7 +384,7 @@ Las siguientes definiciones son la base del método:
  
   - Dos objetos núcleos $\mathbf{p}_1$ y $\mathbf{p}_2$ son *$\varepsilon$-alcanzables* si $d(\mathbf{p}_1,\mathbf{p}_2)<\varepsilon$.
 
-  - Dos objetos núcleos  $\mathbf{p}_1$ y $\mathbf{p}_2$ están *conectados por densidad* si, o bien son $\varepsilon$-alcanzables, o bien existen objetos núcleos $\mathbf{r}_1, \ldots, \mathbf{r}_l$ tales que $\mathbf{p_1}$ y $\mathbf{r}_1$ son $\varepsilon$-alcanzables, $\mathbf{r}_i$ y $\mathbf{r}_{i+1}$ ($1\leq i<l$) son $\varepsilon$-alcanzables, y $\mathbf{r}_l$ y $\mathbf{p}_2$ son $\varepsilon$-alcanzables.
+  - Dos objetos núcleos  $\mathbf{p}_1$ y $\mathbf{p}_2$ están *conectados por densidad* si, o bien son $\varepsilon$-alcanzables, o bien existen objetos núcleos $\mathbf{r}_1, \ldots, \mathbf{r}_l$ tales que $\mathbf{p}_1$ y $\mathbf{r}_1$ son $\varepsilon$-alcanzables, $\mathbf{r}_i$ y $\mathbf{r}_{i+1}$ ($1\leq i<l$) son $\varepsilon$-alcanzables, y $\mathbf{r}_l$ y $\mathbf{p}_2$ son $\varepsilon$-alcanzables.
 
 
 En base a esto, se define la noción de cluster para el método DBSCAN.
@@ -760,7 +760,7 @@ axes[1].set_title(f"Spectral BiClustering\nÍndice de Jaccard: {score2:.3f}");
 Datos con estructura tipo tablero de ajedrez
 </span>
 
-La función `make_checkerboard` de `scikit-learn` genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos $200 \times 200$ con 5 grupos de filas y 3 grupos de columnas.
+La función `make_checkerboard` de `scikit-learn` genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos $300 \times 300$ con 5 grupos de filas y 3 grupos de columnas.
 
 ```{python}
 #| code-summary: "Mostrar código"

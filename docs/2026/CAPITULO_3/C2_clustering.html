@@ -396,7 +396,7 @@ k=C(i)
 <div style="margin-top:2em;">
 
 </div>
-<p>El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con <span class="math inline">\(n\)</span> y <span class="math inline">\(K\)</span>. Por ejemplo, existen más de <span class="math inline">\(10^{10}\)</span> formas de asignar <span class="math inline">\(N=19\)</span> observaciones a <span class="math inline">\(K=4\)</span> clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de <span class="math inline">\(K\)</span>-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida <span class="math inline">\(W(C)\)</span>.</p>
+<p>El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con <span class="math inline">\(n\)</span> y <span class="math inline">\(K\)</span>. Por ejemplo, existen más de <span class="math inline">\(10^{10}\)</span> formas de asignar <span class="math inline">\(n=19\)</span> observaciones a <span class="math inline">\(K=4\)</span> clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de <span class="math inline">\(K\)</span>-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida <span class="math inline">\(W(C)\)</span>.</p>
 <p>En <span class="math inline">\(K\)</span>-medias, la medida de disimilaridad es <span class="math display">\[
 d({\bf x}_i,{\bf x}_j)=\|{\bf x}_i-{\bf x}_j\|_2^2,
 \]</span></p>
@@ -422,7 +422,7 @@ W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|{\bf x}_i-\bar{{\bf x}}_k\|_2^2,
 <div class="highlight">
 <p><span class="badge bg-custom">Algoritmo <span class="math inline">\(K\)</span>-medias</span></p>
 <hr>
-<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_k\}\subset\mathbb{R}^p\)</span>:</p>
+<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K\}\subset\mathbb{R}^p\)</span>:</p>
 <div style="margin-left: 1em">
 <p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
 <blockquote class="blockquote">
@@ -489,7 +489,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 p({\bf x})=\sum_{k=1}^K\phi_k f({\bf x}\mid\boldsymbol{\theta}_k),
 \]</span> donde <span class="math inline">\(\phi_k\geq 0\)</span> son los pesos, <span class="math inline">\(\sum_{k=1}^K \phi_k=1\)</span> y <span class="math inline">\(f({\bf x}\mid\boldsymbol{\theta}_k)\)</span> es la función de densidad de la componente <span class="math inline">\(k\)</span>, parametrizada por <span class="math inline">\(\boldsymbol{\theta}_k\)</span>.</p>
 <p>El modelo de mezcla más popular surge de considerar componentes Gaussianas: <span class="math display">\[
-f({\bf x}\mid\boldsymbol{\mu}_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_k)^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu}_k)\right\}.
+f({\bf x}\mid\boldsymbol{\mu}_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_k)^\top\Sigma_k^{-1}({\bf x}-\boldsymbol{\mu}_k)\right\}.
 \]</span></p>
 <p>Una forma útil de interpretar este modelo es introducir una <em>variable latente</em> <span class="math inline">\(Z\in\{1,\ldots,K\}\)</span> que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta <span class="math display">\[
 p({\bf x},z)=p({\bf x}\mid z)\,p(z)
@@ -508,7 +508,7 @@ Z\sim\text{Multinomial}(1,\boldsymbol{\phi}) \\[2pt]
 \]</span></p>
 </div>
 <p>Los parámetros del modelo son <span class="math inline">\(\boldsymbol{\phi}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_k\)</span> y <span class="math inline">\(\Sigma_k\)</span>. Observar que, para un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span>, la función de log-verosimilitud es <span class="math display">\[
-\ell(\boldsymbol{\phi},\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\log p({\bf x}_i\mid\boldsymbol{\phi},\boldsymbol{\mu},\boldsymbol{\Sigma})=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p({\bf x}_i\mid \boldsymbol{\mu}_k, \Sigma_k).
+\ell(\boldsymbol{\phi},\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\log p({\bf x}_i\mid\boldsymbol{\phi},\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p({\bf x}_i\mid \boldsymbol{\mu}_k, \Sigma_k).
 \]</span></p>
 <p>La optimización directa de esta función no es posible, ya que la suma dentro del logaritmo impide obtener una forma cerrada para los estimadores de máxima verosimilitud. Además, la variable latente <span class="math inline">\(Z\)</span> no es observable, lo que complica aún más dicha tarea. En consecuencia, es necesario recurrir a un algoritmo iterativo para la estimación. En particular, el algoritmo <em>Expectation-Maximization</em> (EM) ofrece una forma práctica y eficiente de pasos alternados. Nos enfocaremos en dicho algoritmo en la próxima sección.</p>
 <div style="margin-top: 2em;">
@@ -547,7 +547,7 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoi
 <p>Las siguientes definiciones son la base del método:</p>
 <ul>
 <li><p>Dos objetos núcleos <span class="math inline">\(\mathbf{p}_1\)</span> y <span class="math inline">\(\mathbf{p}_2\)</span> son <em><span class="math inline">\(\varepsilon\)</span>-alcanzables</em> si <span class="math inline">\(d(\mathbf{p}_1,\mathbf{p}_2)&lt;\varepsilon\)</span>.</p></li>
-<li><p>Dos objetos núcleos <span class="math inline">\(\mathbf{p}_1\)</span> y <span class="math inline">\(\mathbf{p}_2\)</span> están <em>conectados por densidad</em> si, o bien son <span class="math inline">\(\varepsilon\)</span>-alcanzables, o bien existen objetos núcleos <span class="math inline">\(\mathbf{r}_1, \ldots, \mathbf{r}_l\)</span> tales que <span class="math inline">\(\mathbf{p_1}\)</span> y <span class="math inline">\(\mathbf{r}_1\)</span> son <span class="math inline">\(\varepsilon\)</span>-alcanzables, <span class="math inline">\(\mathbf{r}_i\)</span> y <span class="math inline">\(\mathbf{r}_{i+1}\)</span> (<span class="math inline">\(1\leq i&lt;l\)</span>) son <span class="math inline">\(\varepsilon\)</span>-alcanzables, y <span class="math inline">\(\mathbf{r}_l\)</span> y <span class="math inline">\(\mathbf{p}_2\)</span> son <span class="math inline">\(\varepsilon\)</span>-alcanzables.</p></li>
+<li><p>Dos objetos núcleos <span class="math inline">\(\mathbf{p}_1\)</span> y <span class="math inline">\(\mathbf{p}_2\)</span> están <em>conectados por densidad</em> si, o bien son <span class="math inline">\(\varepsilon\)</span>-alcanzables, o bien existen objetos núcleos <span class="math inline">\(\mathbf{r}_1, \ldots, \mathbf{r}_l\)</span> tales que <span class="math inline">\(\mathbf{p}_1\)</span> y <span class="math inline">\(\mathbf{r}_1\)</span> son <span class="math inline">\(\varepsilon\)</span>-alcanzables, <span class="math inline">\(\mathbf{r}_i\)</span> y <span class="math inline">\(\mathbf{r}_{i+1}\)</span> (<span class="math inline">\(1\leq i&lt;l\)</span>) son <span class="math inline">\(\varepsilon\)</span>-alcanzables, y <span class="math inline">\(\mathbf{r}_l\)</span> y <span class="math inline">\(\mathbf{p}_2\)</span> son <span class="math inline">\(\varepsilon\)</span>-alcanzables.</p></li>
 </ul>
 <p>En base a esto, se define la noción de cluster para el método DBSCAN.</p>
 <div class="myhighlight">
@@ -726,7 +726,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura de bloques diagonales constantes </span></p>
 <p>La función <code>make_biclusters</code> de <code>scikit-learn</code> genera datos con estructura de bloques diagonales constantes. Vamos a generar una matriz de datos <span class="math inline">\(200\times 200\)</span> con una estructura con 5 biclusters.</p>
-<div id="3ac9f4ca" class="cell" data-execution_count="1">
+<div id="6de84a2c" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_biclusters</span>
@@ -759,7 +759,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="91c3587a" class="cell" data-execution_count="2">
+<div id="2f9f8cc6" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>
@@ -803,8 +803,8 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura tipo tablero de ajedrez </span></p>
-<p>La función <code>make_checkerboard</code> de <code>scikit-learn</code> genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos <span class="math inline">\(200 \times 200\)</span> con 5 grupos de filas y 3 grupos de columnas.</p>
-<div id="6c25dea6" class="cell" data-execution_count="3">
+<p>La función <code>make_checkerboard</code> de <code>scikit-learn</code> genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos <span class="math inline">\(300 \times 300\)</span> con 5 grupos de filas y 3 grupos de columnas.</p>
+<div id="63cf7477" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_checkerboard</span>
@@ -837,7 +837,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="d3bca34b" class="cell" data-execution_count="4">
+<div id="ce0fe300" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>
