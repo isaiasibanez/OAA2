@@ -446,6 +446,19 @@ J(C,\boldsymbol{\mu}) := \sum_{i=1}^n\|{\bf x}_i-\boldsymbol{\mu}_{C(i)}\|_2^2
 <div style="margin-top: 2em;">
 
 </div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Observación</span></p>
+<p>Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior. Allí también optimizamos alternando dos bloques, primero <span class="math inline">\(\boldsymbol{\mu}\)</span> con <span class="math inline">\(\Sigma\)</span> fija y luego <span class="math inline">\(\Sigma\)</span>, y sin embargo bastó una sola pasada.</p>
+<p>Podría pensarse que la diferencia está en que allí la solución de un bloque no depende del otro, pero no es eso. Consideremos <span class="math display">\[
+J(x,y)=(x-y)^2+(x-2)^2.
+\]</span> Al anular las derivadas parciales se obtiene <span class="math inline">\(\hat{x}(y)=\frac{y+2}{2}\)</span> y <span class="math inline">\(\hat{y}(x)=x\)</span>, de modo que cada bloque depende del otro. Pese a ello, al sustituir el primero resulta <span class="math display">\[
+J(\hat{x}(y),y)=\frac{1}{2}(y-2)^2,
+\]</span> que se minimiza en <span class="math inline">\(\hat{y}=2\)</span>, y de allí <span class="math inline">\(\hat{x}=2\)</span>. El óptimo se alcanza sin iterar.</p>
+<p>Lo que decide, entonces, es si el problema reducido puede resolverse. La identidad <span class="math inline">\(\inf_{C,\boldsymbol{\mu}}J=\inf_{C}\left(\inf_{\boldsymbol{\mu}}J\right)\)</span> vale siempre; lo que falla en <span class="math inline">\(K\)</span>-medias es que, una vez sustituidos los centroides óptimos, el problema reducido sigue siendo minimizar sobre todas las asignaciones <span class="math inline">\(C\)</span>, que es justamente el problema combinatorio intratable del que partimos. Por eso hay que iterar y por eso sólo se garantiza un mínimo local.</p>
+</div>
+<div style="margin-top: 2em;">
+
+</div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Aplicación de <span class="math inline">\(K\)</span>-medias </span></p>
 <p>Vamos a ver cómo evoluciona el agrupamiento del algoritmo de <span class="math inline">\(K\)</span>-medias para el siguiente conjunto de datos simulados.</p>
@@ -467,11 +480,11 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="233" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 232;"><span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="254" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -726,7 +739,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura de bloques diagonales constantes </span></p>
 <p>La función <code>make_biclusters</code> de <code>scikit-learn</code> genera datos con estructura de bloques diagonales constantes. Vamos a generar una matriz de datos <span class="math inline">\(200\times 200\)</span> con una estructura con 5 biclusters.</p>
-<div id="fe59f8c0" class="cell" data-execution_count="1">
+<div id="0a305e71" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_biclusters</span>
@@ -759,7 +772,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="4601ad60" class="cell" data-execution_count="2">
+<div id="98684ebc" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>
@@ -804,7 +817,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura tipo tablero de ajedrez </span></p>
 <p>La función <code>make_checkerboard</code> de <code>scikit-learn</code> genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos <span class="math inline">\(300 \times 300\)</span> con 5 grupos de filas y 3 grupos de columnas.</p>
-<div id="a54a2a9a" class="cell" data-execution_count="3">
+<div id="61bfee51" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_checkerboard</span>
@@ -837,7 +850,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="e6f68f71" class="cell" data-execution_count="4">
+<div id="af9032ba" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>

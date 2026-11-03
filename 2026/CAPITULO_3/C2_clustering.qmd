@@ -138,6 +138,27 @@ La función de distorsión no es convexa, por lo que no está garantizado alcanz
 
 <div style="margin-top: 2em;"></div>
 
+<div class="alert alert-light text-dark" role="important">
+<span class="badge bg-warning text-dark">Observación</span>
+
+Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior. Allí también optimizamos alternando dos bloques, primero $\bfmu$ con $\Sigma$ fija y luego $\Sigma$, y sin embargo bastó una sola pasada.
+
+Podría pensarse que la diferencia está en que allí la solución de un bloque no depende del otro, pero no es eso. Consideremos
+$$
+J(x,y)=(x-y)^2+(x-2)^2.
+$$
+Al anular las derivadas parciales se obtiene $\hat{x}(y)=\frac{y+2}{2}$ y $\hat{y}(x)=x$, de modo que cada bloque depende del otro. Pese a ello, al sustituir el primero resulta
+$$
+J(\hat{x}(y),y)=\frac{1}{2}(y-2)^2,
+$$
+que se minimiza en $\hat{y}=2$, y de allí $\hat{x}=2$. El óptimo se alcanza sin iterar.
+
+Lo que decide, entonces, es si el problema reducido puede resolverse. La identidad $\inf_{C,\bfmu}J=\inf_{C}\left(\inf_{\bfmu}J\right)$ vale siempre; lo que falla en $K$-medias es que, una vez sustituidos los centroides óptimos, el problema reducido sigue siendo minimizar sobre todas las asignaciones $C$, que es justamente el problema combinatorio intratable del que partimos. Por eso hay que iterar y por eso sólo se garantiza un mínimo local.
+
+</div>
+
+<div style="margin-top: 2em;"></div>
+
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 3.2.1</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">

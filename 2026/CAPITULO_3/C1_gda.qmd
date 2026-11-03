@@ -465,7 +465,7 @@ h^\star(\xx) &= \arg\max_{y} p(y\mid \xx) \\
 \end{align*}
 $$
 
-Además, denotamos $\pi_y:=\mathbb{P}\{Y=y\}$ las probabilidades *a priori* de cada clase. De esta manera, y tras eliminar los términos constantes que no dependen de $\xx$, se obtiene el siguiente resultado.
+Además, denotamos $\pi_y:=\mathbb{P}\{Y=y\}$ las probabilidades *a priori* de cada clase, que en el caso binario se reducen a $\pi_1=\varphi$ y $\pi_0=1-\varphi$. De esta manera, y tras eliminar los términos constantes que no dependen de $\xx$, se obtiene el siguiente resultado.
 
 <div style="margin-top:2em;"></div>
 
@@ -540,9 +540,7 @@ $$
 \hat{\bfmu}_0=\frac{1}{n_0}\sum_{i:y_i=0}\xx_i,\qquad \hat{\bfmu}_1=\frac{1}{n_1}\sum_{i:y_i=1}\xx_i.
 $$
 
-Observar que (3.1.6) no depende de $\Sigma$, lo cual valida este resultado para nuestro objetivo de maximizar la verosimilitud.
-
-Por último, reemplazaremos (3.1.6) en (3.1.4) para construir el siguiente problema de optimización:
+Observar que $\hat{\bfmu}_y$ no depende de $\Sigma$: como en la deducción anterior, el máximo de la primera etapa es el mismo cualquiera sea $\Sigma$. La segunda etapa consiste entonces en reemplazar (3.1.6) en (3.1.4), lo que da el problema
 
 $$
 \begin{array}{ll}
@@ -962,7 +960,7 @@ $$
 \phi_{j\mid y=1}:=p(x_j=1\mid y=1),
 $$
 $$
-\phi_y:=p(y=1).
+\varphi:=p(y=1).
 $$
 
 
@@ -990,7 +988,7 @@ $$
 
 La log-verosimilitud es
 $$
-\ell(\phi_y,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y_i\mid\varphi).
+\ell(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y_i\mid\varphi).
 $$
 
 
