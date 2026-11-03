@@ -63,10 +63,10 @@ Además, es importante remarcar que $p(\xx\mid y)$ implica trabajar con distribu
 <div style="margin-top:2.5em;"></div>
 
 
-## La Normal multivariada
+## I <span style="color:#CCCCCC;">│</span> La Normal multivariada
 
 ::: {.definicion}
-**Definición 3.1.1** (Distribución Normal multivariada). Una variable aleatoria $\XX\in\RR^p$ se distribuye normal multivariada con media $\bfmu\in\RR^p$ y matriz de covarianza $\Sigma\in\mathbf{S}_+^p$, y denotamos
+**Definición 3.1.1** (Distribución Normal multivariada). Una variable aleatoria $\XX\in\RR^p$ se distribuye normal multivariada con media $\bfmu\in\RR^p$ y matriz de covarianza $\Sigma\in\mathbf{S}_{++}^p$, y denotamos
 $$
 \XX\sim \calN(\bfmu,\Sigma),
 $$
@@ -206,14 +206,31 @@ $$
 \ell(\bfmu,\Sigma)=\sum_{i=1}^n\left(-\frac{p}{2}\log(2\pi)-\frac{1}{2}\log|\Sigma|-\frac{1}{2}(\xx_i-\bfmu)^\top\Sigma^{-1}(\xx_i-\bfmu)\right)
 $$
 
-En primer lugar, mantendremos $\Sigma$ fijo, de manera tal de trabajar con el problema 
+Maximizaremos por etapas: primero en $\bfmu$ con $\Sigma$ fijo, y luego en $\Sigma$. Esto es válido porque maximizar sobre el par equivale a maximizar por etapas,
+$$
+\sup_{\bfmu,\,\Sigma}\;\ell(\bfmu,\Sigma)=\sup_{\Sigma}\;\left(\sup_{\bfmu}\;\ell(\bfmu,\Sigma)\right),
+$$
+
+identidad que no requiere ninguna hipótesis sobre $\ell$, siempre que cada etapa alcance su máximo. La aclaración no es ociosa: $\ell$ no es cóncava en $(\bfmu,\Sigma)$, de modo que no podemos concluir que un punto estacionario sea un máximo global, y es el argumento anterior el que lo garantiza.
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+
+Verifique que $\ell$ no es cóncava en $\Sigma$, restringiéndola a la dirección $\Sigma=vI$ con $v>0$ y observando que $\ell''(v)>0$ para $v$ suficientemente grande. Deduzca que tampoco es cóncava en $(\bfmu,\Sigma)$.
+
+:::
+
+<div style="margin-top:2em;"></div>
+
+Manteniendo entonces $\Sigma$ fijo, la primera etapa es el problema 
 $$ 
 \begin{array}{ll} 
 \text{maximizar } & -\frac{1}{2}\displaystyle\sum_{i=1}^n(\xx_i-\bfmu)^\top\Sigma^{-1}(\xx_i  -\bfmu).
 \end{array}
 $$
 
-La condición de optimalidad resulta
+La función objetivo es cuadrática con hessiano $-n\Sigma^{-1}\prec 0$, de manera que es estrictamente cóncava y su máximo queda caracterizado por la condición de optimalidad:
 $$
 \begin{align}
 \sum_{i=1}^n\Sigma^{-1}(\xx_i-\hat{\bfmu})&=0\\
@@ -223,7 +240,7 @@ $$
 $$
 
 
-Dado que el estimador obtenido es independiente de $\Sigma$, podemos reemplazarlo en la función de log-verosimilitud y, a partir de allí, optimizar respecto a $\Sigma$. Esto deriva en el problema
+Observar que $\hat{\bfmu}$ no depende de $\Sigma$: el máximo de la primera etapa es el mismo cualquiera sea $\Sigma$. La segunda etapa consiste entonces en maximizar $\ell(\hat{\bfmu},\Sigma)$, esto es, el problema
 $$ 
 \begin{array}{ll} 
 \text{maximizar } & -\frac{n}{2}\log|\Sigma|-\frac{1}{2}\sum_{i=1}^n(\xx_i-\hat{\bfmu})^\top\Sigma^{-1}(\xx_i-\hat{\bfmu}).
@@ -248,6 +265,8 @@ $$
 \hat{\Sigma} &= \frac{1}{n}\sum_{i=1}^n(\xx_i-\hat{\bfmu})(\xx_i-\hat{\bfmu})^\top.
 \end{align}
 $$
+
+Al estar expresada en términos de $\Sigma^{-1}$, la función objetivo resulta estrictamente cóncava, ya que $\log|\Sigma^{-1}|$ es cóncava y la traza es lineal. Por lo tanto, $\hat{\Sigma}$ es el máximo de la segunda etapa y, en consecuencia, $(\hat{\bfmu},\hat{\Sigma})$ es el máximo global de $\ell$.
 
 <div style="margin-top:2.5em;"></div>
 
@@ -304,36 +323,14 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-Para la marginal, es inmediato que $\media[\XX_1] = \bfmu_1$. Para ver que $\cov[\XX_1] = \Sigma_{11}$, basta observar que, por definición de la covarianza conjunta,
-$$
-\cov[\XX] =
-\media\left[
-\begin{pmatrix}
-\XX_1 - \bfmu_1 \\
-\XX_2 - \bfmu_2
-\end{pmatrix}
-\begin{pmatrix}
-\XX_1 - \bfmu_1 \\
-\XX_2 - \bfmu_2
-\end{pmatrix}^\top
-\right],
-$$
-y emparejar los bloques correspondientes (✏1).
+Enunciamos el resultado sin demostración; la deducción completa puede consultarse en (Bishop 2006).
 
-La expresión de la condicional tiene una lectura intuitiva: observar $\XX_2$ corrige la media de $\XX_1$ en una cantidad proporcional al desvío $\xx_2-\bfmu_2$, con factor de proporcionalidad $\Sigma_{12}\Sigma_{22}^{-1}$, y reduce su covarianza en $\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}$. En particular, si $\Sigma_{12}=0$ los bloques son independientes y condicionar no aporta información.
-
-::: {.callout .question}
-
-<span style="font-size: 1.3em;">📝</span><br>
-
-Verifique la expresión de $\cov[\XX_1]$ desarrollando el producto anterior.
-
-:::
+La expresión de la condicional tiene una lectura intuitiva: observar $\XX_2$ corrige la media de $\XX_1$ en una cantidad proporcional al desvío $\xx_2-\bfmu_2$, con factor de proporcionalidad $\Sigma_{12}\Sigma_{22}^{-1}$, y reduce su covarianza en $\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}$. En particular, si $\Sigma_{12}=0$ los bloques son independientes y condicionar no aporta información. (✏1)
 
 <div style="margin-top:2.5em;"></div>
 
 
-## Análisis discriminante lineal (LDA)
+## II <span style="color:#CCCCCC;">│</span> Análisis discriminante lineal (LDA)
 
 En este modelo, asumiremos que $p(\xx\mid y)$ es una distribución normal multivariada, con matriz de covarianza $\Sigma$ constante para todas las clases.
 
@@ -720,7 +717,7 @@ plt.show()
 <div style="margin-top:2.5em;"></div>
 
 
-## Análisis discriminante cuadrático (QDA)
+## III <span style="color:#CCCCCC;">│</span> Análisis discriminante cuadrático (QDA)
 
 Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde las clases tienen diferentes formas y orientaciones.
 
@@ -871,7 +868,7 @@ plt.show()
 
 
 
-## Naive Bayes
+## IV <span style="color:#CCCCCC;">│</span> Naive Bayes
 
 Los métodos de Naive Bayes son un conjunto de algoritmos basados en la aplicación del teorema de Bayes, con la suposición *ingenua* de independencia condicional entre las características dado el valor de la clase.
 
@@ -1068,6 +1065,8 @@ En particular, $\text{Beta}(1,1)$ conduce al suavizado de Laplace. Dado que $\te
 
 ::: {.refs}
 <span style="color: #444;"><strong>Referencias</strong></span>
+
+Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Information Science and Statistics. New York: Springer.
 
 Ng, A. Apuntes del curso Stanford CS229: Machine Learning. Disponible [aquí](https://cs229.stanford.edu/notes2022fall/main_notes.pdf).
 

@@ -40,7 +40,7 @@ El problema de *clustering* puede abordarse desde distintas perspectivas. De man
 
 
 
-## $K$-medias
+## I <span style="color:#CCCCCC;">│</span> $K$-medias
 
 En los métodos combinatorios, las observaciones se asignan directamente a un cluster, estableciendo de antemano un número de clusters $K<n$.  La tarea está caracterizada por un mapeo
 $$
@@ -245,7 +245,7 @@ viewof iter = Inputs.range([1, 7], {
 
 
 
-## Mezcla de Gaussianas (GMM)
+## II <span style="color:#CCCCCC;">│</span> Mezcla de Gaussianas (GMM)
 
 Los modelos de mezcla asumen que la función de densidad de $\XX\in\RR^p$ es de la forma
 $$
@@ -364,7 +364,7 @@ plt.show()
 
 
 
-## DBSCAN
+## III <span style="color:#CCCCCC;">│</span> DBSCAN
 
 Los métodos de clustering basado en densidad identifican grupos de observaciones como regiones densas del espacio de datos, separadas por áreas donde los puntos son escasos. Esto permite detectar clusters de forma arbitraria, no necesariamente esféricos, y además identificar puntos aislados o ruido que no pertenecen a ningún cluster.
 
@@ -554,7 +554,7 @@ plt.show()
 
 
 
-## Biclustering
+## IV <span style="color:#CCCCCC;">│</span> Biclustering
 
 El *biclustering* es una técnica que agrupa de forma simultánea filas y columnas de una matriz de datos. Este enfoque presenta dos claras ventajas:
 
