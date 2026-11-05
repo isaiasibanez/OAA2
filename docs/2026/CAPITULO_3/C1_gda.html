@@ -669,7 +669,7 @@ p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({
 p(y=1\mid{\bf x})&amp;=\frac{e^{\boldsymbol{\theta}^\top{\bf x}+\theta_0}}{1+e^{\boldsymbol{\theta}^\top{\bf x}+\theta_0}}.
 \end{align*}
 \]</span></p>
-<p>En consecuencia, bajo el modelo LDA, la distribución condicional <span class="math inline">\(p(y\mid{\bf x})\)</span> sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir <span class="math inline">\(p(y\mid{\bf x})\)</span> logística no implica que <span class="math inline">\(p({\bf x}\mid y)\)</span> es gaussiana.</p>
+<p>En consecuencia, bajo el modelo LDA, la distribución condicional <span class="math inline">\(p(y\mid{\bf x})\)</span> sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir <span class="math inline">\(p(y\mid{\bf x})\)</span> logística no implica que <span class="math inline">\(p({\bf x}\mid y)\)</span> sea gaussiana.</p>
 <p>Esto muestra que LDA hace suposiciones más fuertes que la regresión logística. Si estas suposiciones son correctas, LDA será un mejor modelo.</p>
 <p>Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, hay otras suposiciones sobre <span class="math inline">\({\bf X}\mid Y\)</span> que conducen a la misma forma funcional para <span class="math inline">\(p(y\mid {\bf x})\)</span>: el caso <span class="math inline">\({\bf X}\mid Y=y\sim\text{Poisson}(\lambda_y)\)</span> se analizará en las actividades conceptuales (✏3). Allí, puede esperarse que la regresión logística funcione mejor que LDA.</p>
 </div>
@@ -809,7 +809,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 </div>
 </div>
 </div>
-<div id="90969e4f" class="cell" data-execution_count="1">
+<div id="fd6fadcd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -1241,7 +1241,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="9b574a42" class="cell" data-execution_count="2">
+<div id="d24d3d8f" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1255,7 +1255,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p><span class="badge bg-primary">Ejemplo 3.1.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos el conjunto de datos <em>wine</em> disponible en <code>scikit-learn</code>, que contiene mediciones químicas de tres tipos de vino. Para visualizar el resultado de la clasificación, consideramos únicamente dos variables predictoras: la intensidad de color y el matiz.</p>
 <p>El modelo LDA estima una función discriminante para cada clase, a partir de las cuales se determinan las regiones de decisión y sus correspondientes fronteras lineales.</p>
-<div id="e21f219d" class="cell" data-execution_count="3">
+<div id="9498e9cf" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
@@ -1687,7 +1687,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="d8b63004" class="cell" data-execution_count="4">
+<div id="3b8df812" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1779,11 +1779,11 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>En este ejemplo utilizamos la implementación <code>LinearDiscriminantAnalysis</code> de <code>scikit-learn</code>. La implementación del método se realizará en las actividades prácticas.</p>
+<p>En este ejemplo utilizamos la implementación <code>QuadraticDiscriminantAnalysis</code> de <code>scikit-learn</code>. La implementación del método se realizará en las actividades prácticas.</p>
 </div>
 </div>
 </div>
-<div id="7e7171f5" class="cell" data-execution_count="5">
+<div id="40f0897a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis <span class="im">as</span> QDA</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -2215,7 +2215,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>QuadraticDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>QuadraticDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html">?<span>Documentation for QuadraticDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>QuadraticDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="0a849b22" class="cell" data-execution_count="6">
+<div id="b611f702" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2250,7 +2250,7 @@ p({\bf x}\mid y)=\prod_{i=1}^p p(x_i\mid y).
 <p>Esto permite utilizar diferentes distribuciones univariadas para modelar <span class="math inline">\(p(x_i\mid y)\)</span>. Por lo tanto, no existe un solo tipo de clasificador Naive Bayes. Los tipos más comunes son:</p>
 <ul>
 <li><p><strong>NB Gaussiano</strong>: útil para trabajar con variables continuas <span class="math inline">\(X_i\)</span>; se asume <span class="math inline">\(p(x_i|y)\sim\mathcal{N}(\mu_{iy},\sigma_{iy}^2)\)</span>.</p></li>
-<li><p><strong>NB Bernoulli</strong>: útil para trabajar con variables discretas booleanas (que asumen dos variables, 0 y 1); se asume <span class="math inline">\(p(x_i\mid y)\sim\text{Bernoulli}(p_{iy})\)</span>.</p></li>
+<li><p><strong>NB Bernoulli</strong>: útil para trabajar con variables discretas booleanas (que asumen dos valores, 0 y 1); se asume <span class="math inline">\(p(x_i\mid y)\sim\text{Bernoulli}(p_{iy})\)</span>.</p></li>
 </ul>
 <div style="margin-top:1.5em;">
 
@@ -2338,9 +2338,9 @@ G({\bf x})=\arg\max_{y} \left(\varphi^{y}(1-\varphi)^{1-y}\prod_{j=1}^p\phi_{j\m
 <p>El método de Naive Bayes funciona bien en muchos problemas, pero en clasificación de textos puede presentar un problema: si aparece una palabra en un documento que nunca se vio en el conjunto de entrenamiento, los estimadores asociados se anulan y, en consecuencia, la probabilidad a posteriori <span class="math inline">\(p(y\mid{\bf x})\)</span> queda indeterminada. En efecto, en la expresión <span class="math display">\[
 p(y=1\mid {\bf x})=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x_j\mid y=0)\,p(y=0)+\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}
 \]</span> cada uno de los términos <span class="math inline">\(\prod_{j=1}^pp(x_j\mid y)\)</span> se anula.</p>
-<p>Para evitar esto, una herramienta es el <em>suavizado de Laplace</em>, un criterio general para estimar probabilidades a partir de frecuencias: si la variable toma <span class="math inline">\(k\)</span> valores, en lugar de la proporción observada se suma un 1 al numerador y <span class="math inline">\(k\)</span> al denominador, lo que equivale a calcular la proporción habitual sobre una muestra ampliada con una observación ficticia de cada valor posible. Aplicado a cada <span class="math inline">\(p(x_j\mid y)\)</span>, que en el caso Bernoulli tiene <span class="math inline">\(k=2\)</span>, resulta <span class="math display">\[
-\hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=0\}+2}
-\]</span> <span class="math display">\[
+<p>Para evitar esto, una herramienta es el <em>suavizado de Laplace</em>, un criterio general para estimar probabilidades a partir de frecuencias: si la variable toma <span class="math inline">\(k\)</span> valores, en lugar de la proporción observada se suma un 1 al numerador y <span class="math inline">\(k\)</span> al denominador, lo que equivale a calcular la proporción habitual sobre una muestra ampliada con una observación ficticia de cada valor posible, que es de donde sale el sumando del denominador. El procedimiento se aplica por separado a cada distribución que se estima, y a todas ellas: aunque la frecuencia nula aparezca en una sola clase, suavizar unas sí y otras no dejaría las verosimilitudes estimadas con criterios distintos, y la clasificación pasaría a depender de cuál se eligió corregir.</p>
+<p>En el caso Bernoulli, cada <span class="math inline">\(p(x_j\mid y)\)</span> toma <span class="math inline">\(k=2\)</span> valores. Entonces, el suavizado de Laplace implica estimar como sigue: <span class="math display">\[
+\hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=0\}+2},\qquad
 \hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=1\}+2}.
 \]</span></p>
 <p>Este procedimiento admite una lectura bayesiana. A diferencia de la estimación por máxima verosimilitud, la estimación de <em>máxima a posteriori</em> (MAP) incorpora información previa sobre los parámetros mediante una distribución a priori: <span class="math display">\[

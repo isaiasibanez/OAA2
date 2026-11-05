@@ -404,7 +404,7 @@ p(y=1\mid\xx)&=\frac{e^{\bftheta^\top\xx+\theta_0}}{1+e^{\bftheta^\top\xx+\theta
 \end{align*}
 $$
 
-En consecuencia, bajo el modelo LDA, la distribución condicional $p(y\mid\xx)$ sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir $p(y\mid\xx)$ logística no implica que $p(\xx\mid y)$ es gaussiana.
+En consecuencia, bajo el modelo LDA, la distribución condicional $p(y\mid\xx)$ sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir $p(y\mid\xx)$ logística no implica que $p(\xx\mid y)$ sea gaussiana.
 
 Esto muestra que LDA hace suposiciones más fuertes que la regresión logística. Si estas suposiciones son correctas, LDA será un mejor modelo.
 
@@ -809,7 +809,7 @@ QDA en datos de clasificación multiclase
 En este ejemplo utilizamos los mismos datos del Ejemplo 3.1.5, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.
 
 ::: {.callout-warning appearance="simple"}
-En este ejemplo utilizamos la implementación `LinearDiscriminantAnalysis` de `scikit-learn`. La implementación del método se realizará en las actividades prácticas.
+En este ejemplo utilizamos la implementación `QuadraticDiscriminantAnalysis` de `scikit-learn`. La implementación del método se realizará en las actividades prácticas.
 :::
 
 ```{python}
@@ -901,7 +901,7 @@ Esto permite utilizar diferentes distribuciones univariadas para modelar $p(x_i\
 
 - **NB Gaussiano**: útil para trabajar con variables continuas $X_i$; se asume $p(x_i|y)\sim\calN(\mu_{iy},\sigma_{iy}^2)$.
 
-- **NB Bernoulli**: útil para trabajar con variables discretas booleanas (que asumen dos variables, 0 y 1); se asume $p(x_i\mid y)\sim\text{Bernoulli}(p_{iy})$.
+- **NB Bernoulli**: útil para trabajar con variables discretas booleanas (que asumen dos valores, 0 y 1); se asume $p(x_i\mid y)\sim\text{Bernoulli}(p_{iy})$.
 
 <div style="margin-top:1.5em;"></div>
 
@@ -1014,11 +1014,11 @@ p(y=1\mid \xx)=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x_j\m
 $$
 cada uno de los términos $\prod_{j=1}^pp(x_j\mid y)$ se anula.
 
-Para evitar esto, una herramienta es el *suavizado de Laplace*, un criterio general para estimar probabilidades a partir de frecuencias: si la variable toma $k$ valores, en lugar de la proporción observada se suma un 1 al numerador y $k$ al denominador, lo que equivale a calcular la proporción habitual sobre una muestra ampliada con una observación ficticia de cada valor posible. Aplicado a cada $p(x_j\mid y)$, que en el caso Bernoulli tiene $k=2$, resulta
+Para evitar esto, una herramienta es el *suavizado de Laplace*, un criterio general para estimar probabilidades a partir de frecuencias: si la variable toma $k$ valores, en lugar de la proporción observada se suma un 1 al numerador y $k$ al denominador, lo que equivale a calcular la proporción habitual sobre una muestra ampliada con una observación ficticia de cada valor posible, que es de donde sale el sumando del denominador. El procedimiento se aplica por separado a cada distribución que se estima, y a todas ellas: aunque la frecuencia nula aparezca en una sola clase, suavizar unas sí y otras no dejaría las verosimilitudes estimadas con criterios distintos, y la clasificación pasaría a depender de cuál se eligió corregir.
+
+En el caso Bernoulli, cada $p(x_j\mid y)$ toma $k=2$ valores. Entonces, el suavizado de Laplace implica estimar como sigue:
 $$
-\hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\bfone\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\bfone\{y_i=0\}+2}
-$$
-$$
+\hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\bfone\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\bfone\{y_i=0\}+2},\qquad
 \hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\bfone\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\bfone\{y_i=1\}+2}.
 $$
 
