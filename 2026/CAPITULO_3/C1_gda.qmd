@@ -1034,16 +1034,14 @@ $$
 $$
 donde $n_{jy}$ es la cantidad de documentos de la clase $y$ que contienen la palabra $j$ y $n_y$ el total de documentos de esa clase.
 
+Existen distintos criterios para obtener una estimación puntual a partir de la posterior; los más usuales son su media, estimador bayesiano bajo pérdida cuadrática, y su moda, el estimador MAP. Dado que la media de $\text{Beta}(a,b)$ es $a/(a+b)$ y su moda $(a-1)/(a+b-2)$, se verifica que el suavizado de Laplace admite ambas interpretaciones: es la media a posteriori bajo el prior $\text{Beta}(1,1)$ (es decir, $\text{Uniforme}([0,1])$), y es la moda a posteriori bajo el prior $\text{Beta}(2,2)$.
+
+En términos de conteos, el prior se lee como observaciones ficticias agregadas a los datos, aunque cuántas depende del criterio: la media agrega $\alpha$ apariciones y $\beta$ no apariciones, y la moda, $\alpha-1$ y $\beta-1$. En ambas lecturas el suavizado de Laplace agrega exactamente una aparición y una no aparición, que son el $+1$ del numerador y el $+2$ del denominador.
+
 <figure style="text-align: center;">
   <img src="figuras/distribucion_beta.svg" alt="…" width="500px">
   <figcaption> **Figura 3.1.6:** Densidades de los priors $\text{Beta}(1,1)$ y $\text{Beta}(2,2)$ sobre $\phi_j$. La primera es uniforme y admite cualquier valor; la segunda se anula en $0$ y en $1$, descartando de antemano que una palabra sea imposible o segura. </figcaption>
 </figure>
-
-<div style="margin-top:2em;"></div>
-
-Existen distintos criterios para obtener una estimación puntual a partir de la posterior; los más usuales son su media, estimador bayesiano bajo pérdida cuadrática, y su moda, el estimador MAP. Dado que la media de $\text{Beta}(a,b)$ es $a/(a+b)$ y su moda $(a-1)/(a+b-2)$, se verifica que el suavizado de Laplace admite ambas interpretaciones: es la media a posteriori bajo el prior $\text{Beta}(1,1)$ (es decir, $\text{Uniforme}([0,1])$), y es la moda a posteriori bajo el prior $\text{Beta}(2,2)$.
-
-En términos de conteos, el prior se lee como observaciones ficticias agregadas a los datos, aunque cuántas depende del criterio: la media agrega $\alpha$ apariciones y $\beta$ no apariciones, y la moda, $\alpha-1$ y $\beta-1$. En ambas lecturas el suavizado de Laplace agrega exactamente una aparición y una no aparición, que son el $+1$ del numerador y el $+2$ del denominador.
 
 
 </div>
