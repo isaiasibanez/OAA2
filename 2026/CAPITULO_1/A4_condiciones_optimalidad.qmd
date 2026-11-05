@@ -743,7 +743,7 @@ x_1^\star+x_2^\star-1.5=0.
 \tag{1.4.10}
 $$
 
-Ahora, veamos que $x_1^\star\neq 0$ y $x_2^\star\neq 0$. Si $x_1^\star=0$ (análogamente para $x_2^\star$), de la primera ecuación en (\ref{eq:sist_ecua_ej_11}) se deduce $\lambda_2^\star=\lambda_1^\star-2$, tal que $\lambda_1^\star\geq 2$. Además, (\ref{eq:holg_compl_ej_11}) resulta en $x_2^\star=1.5$. Así, de la segunda ecuación de (\ref{eq:sist_ecua_ej_11}) se deduce
+Ahora, veamos que $x_1^\star\neq 0$ y $x_2^\star\neq 0$. Si $x_1^\star=0$ (análogamente para $x_2^\star$), de la primera ecuación en (1.4.9) se deduce $\lambda_2^\star=\lambda_1^\star-2$, tal que $\lambda_1^\star\geq 2$. Además, (1.4.10) resulta en $x_2^\star=1.5$. Así, de la segunda ecuación de (1.4.9) se deduce
 $$
 \lambda_3^\star=4+\lambda_1^\star\geq 6, 
 $$

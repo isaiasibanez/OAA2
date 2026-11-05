@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -106,6 +106,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
@@ -470,7 +473,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </div>
 </div>
 <p style="text-align:center; font-size:0.9em; color:#6c757d;">
-<b>Figura 3.1.1:</b> Función de densidad de una distribución normal bivariada.
+<strong>Figura 3.1.1:</strong> Función de densidad de una distribución normal bivariada.
 </p>
 <div style="margin-top:2em;">
 
@@ -511,10 +514,10 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 <p>Veamos a continuación cómo obtener los estimadores MLE de los parámetros <span class="math inline">\(\boldsymbol{\mu}\)</span> y <span class="math inline">\(\Sigma\)</span> a partir de un conjunto de datos <span class="math inline">\(\{{\bf x}_1,\ldots,{\bf x}_n\}\)</span>. La función de log-verosimilitud es <span class="math display">\[
 \ell(\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\left(-\frac{p}{2}\log(2\pi)-\frac{1}{2}\log|\Sigma|-\frac{1}{2}({\bf x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}_i-\boldsymbol{\mu})\right)
 \]</span></p>
-<p>Maximizaremos por etapas: primero en <span class="math inline">\(\boldsymbol{\mu}\)</span> con <span class="math inline">\(\Sigma\)</span> fijo, y luego en <span class="math inline">\(\Sigma\)</span>. Esto es válido porque maximizar sobre el par equivale a maximizar por etapas, <span class="math display">\[
+<p>Maximizaremos por etapas: primero en <span class="math inline">\(\boldsymbol{\mu}\)</span> con <span class="math inline">\(\Sigma\)</span> fijo, y luego en <span class="math inline">\(\Sigma\)</span>. Esto es válido porque maximizar sobre el par equivale a maximizar por etapas, esto es <span class="math display">\[
 \sup_{\boldsymbol{\mu},\,\Sigma}\;\ell(\boldsymbol{\mu},\Sigma)=\sup_{\Sigma}\;\left(\sup_{\boldsymbol{\mu}}\;\ell(\boldsymbol{\mu},\Sigma)\right),
 \]</span></p>
-<p>identidad que no requiere ninguna hipótesis sobre <span class="math inline">\(\ell\)</span>, siempre que cada etapa alcance su máximo. La aclaración no es ociosa: <span class="math inline">\(\ell\)</span> no es cóncava en <span class="math inline">\((\boldsymbol{\mu},\Sigma)\)</span>, de modo que no podemos concluir que un punto estacionario sea un máximo global, y es el argumento anterior el que lo garantiza.</p>
+<p>identidad que no requiere ninguna hipótesis sobre <span class="math inline">\(\ell\)</span>. Además, si los supremos se alcanzan, pueden reemplazarse por máximos. Por lo tanto, para garantizar la optimalidad global, debemos resolver globalmente cada etapa y verificar que los máximos se alcancen. Esta estrategia resulta particularmente útil porque <span class="math inline">\(\ell\)</span> no es cóncava en <span class="math inline">\((\boldsymbol\mu,\Sigma)\)</span>, por lo que no podemos concluir que un punto estacionario sea un máximo global.</p>
 <div class="question callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -526,15 +529,16 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 </div>
 </div>
 </div>
-<div style="margin-top:2em;">
+<div style="margin-top:1.5em;">
 
 </div>
+<p>Otra alternativa consiste en reformular el problema utilizando los parámetros naturales de la distribución normal multivariada, aprovechando su estructura de familia exponencial. En esta parametrización, la log-verosimilitud es cóncava, lo que proporciona una vía alternativa para justificar la optimalidad global. No desarrollaremos este enfoque aquí, ya que el procedimiento de optimización por etapas resulta más directo para este problema.</p>
 <p>Manteniendo entonces <span class="math inline">\(\Sigma\)</span> fijo, la primera etapa es el problema <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; -\frac{1}{2}\displaystyle\sum_{i=1}^n({\bf x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}_i  -\boldsymbol{\mu}).
+\text{maximizar } &amp; -\displaystyle\frac{1}{2}\displaystyle\sum_{i=1}^n({\bf x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}_i  -\boldsymbol{\mu}).
 \end{array}
 \]</span></p>
-<p>La función objetivo es cuadrática con hessiano <span class="math inline">\(-n\Sigma^{-1}\prec 0\)</span>, de manera que es estrictamente cóncava y su máximo queda caracterizado por la condición de optimalidad: <span class="math display">\[
+<p>La función objetivo es cuadrática con Hessiana <span class="math inline">\(-n\Sigma^{-1}\prec 0\)</span>, de manera que es estrictamente cóncava y su máximo queda caracterizado por la condición de optimalidad: <span class="math display">\[
 \begin{align}
 \sum_{i=1}^n\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}})&amp;=0\\
 \Sigma^{-1}\left(\sum_{i=1}^n{\bf x}_i-n\hat{\boldsymbol{\mu}}\right) &amp;=0 \\
@@ -543,7 +547,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 \]</span></p>
 <p>Observar que <span class="math inline">\(\hat{\boldsymbol{\mu}}\)</span> no depende de <span class="math inline">\(\Sigma\)</span>: el máximo de la primera etapa es el mismo cualquiera sea <span class="math inline">\(\Sigma\)</span>. La segunda etapa consiste entonces en maximizar <span class="math inline">\(\ell(\hat{\boldsymbol{\mu}},\Sigma)\)</span>, esto es, el problema <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; -\frac{n}{2}\log|\Sigma|-\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}})^\top\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}).
+\text{maximizar } &amp; -\displaystyle\frac{n}{2}\log|\Sigma|-\frac{1}{2}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}})^\top\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}).
 \end{array}
 \tag{3.1.2}
 \]</span></p>
@@ -568,8 +572,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 </div>
 <section id="marginales-y-condicionales" class="level3">
 <h3 class="anchored" data-anchor-id="marginales-y-condicionales">Marginales y condicionales</h3>
-<p>Antes de pasar a los modelos de clasificación, nos detenemos en un resultado sobre la normal multivariada que será de uso frecuente: cómo obtener las distribuciones marginales y condicionales de un vector gaussiano particionado en bloques.</p>
-<p>Supongamos que tenemos una variable aleatoria vectorial <span class="math display">\[
+<p>Antes de pasar a los modelos de clasificación, veamos un resultado útil. Supongamos <span class="math display">\[
 {\bf X}=
 \begin{pmatrix}
 {\bf X}_1 \\
@@ -588,7 +591,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 \Sigma_{21} &amp; \Sigma_{22}
 \end{pmatrix}.
 \]</span></p>
-<p>Aquí <span class="math inline">\(\boldsymbol{\mu}_1 \in \mathbb{R}^r\)</span>, <span class="math inline">\(\boldsymbol{\mu}_2 \in \mathbb{R}^s\)</span>, <span class="math inline">\(\Sigma_{11} \in \mathbb{R}^{r \times r}\)</span>, <span class="math inline">\(\Sigma_{22} \in \mathbb{R}^{s \times s}\)</span>, y así sucesivamente. Notar que, al ser <span class="math inline">\(\Sigma\)</span> simétrica, se cumple <span class="math inline">\(\Sigma_{12} = \Sigma_{21}^\top\)</span>.</p>
+<p>Aquí <span class="math inline">\(\boldsymbol{\mu}_1 \in \mathbb{R}^r\)</span>, <span class="math inline">\(\boldsymbol{\mu}_2 \in \mathbb{R}^s\)</span>, <span class="math inline">\(\Sigma_{11} \in \mathbb{R}^{r \times r}\)</span>, <span class="math inline">\(\Sigma_{22} \in \mathbb{R}^{s \times s}\)</span>, <span class="math inline">\(\Sigma_{12} \in \mathbb{R}^{r \times s}\)</span> y <span class="math inline">\(\Sigma_{21} \in \mathbb{R}^{s \times r}\)</span>. Notar que, al ser <span class="math inline">\(\Sigma\)</span> simétrica, se cumple <span class="math inline">\(\Sigma_{12} = \Sigma_{21}^\top\)</span>.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -606,8 +609,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 <div style="margin-top:2em;">
 
 </div>
-<p>Enunciamos el resultado sin demostración; la deducción completa puede consultarse en (Bishop 2006).</p>
-<p>La expresión de la condicional tiene una lectura intuitiva: observar <span class="math inline">\({\bf X}_2\)</span> corrige la media de <span class="math inline">\({\bf X}_1\)</span> en una cantidad proporcional al desvío <span class="math inline">\({\bf x}_2-\boldsymbol{\mu}_2\)</span>, con factor de proporcionalidad <span class="math inline">\(\Sigma_{12}\Sigma_{22}^{-1}\)</span>, y reduce su covarianza en <span class="math inline">\(\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}\)</span>. En particular, si <span class="math inline">\(\Sigma_{12}=0\)</span> los bloques son independientes y condicionar no aporta información. (✏1)</p>
+<p>Enunciamos el resultado sin demostración; la deducción completa puede consultarse en (Bishop 2006). La expresión de la condicional tiene una lectura intuitiva: observar <span class="math inline">\({\bf X}_2\)</span> corrige la media de <span class="math inline">\({\bf X}_1\)</span> en una cantidad proporcional al desvío <span class="math inline">\({\bf x}_2-\boldsymbol{\mu}_2\)</span>, con factor de proporcionalidad <span class="math inline">\(\Sigma_{12}\Sigma_{22}^{-1}\)</span>, y reduce su covarianza en <span class="math inline">\(\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}\)</span>. En particular, si <span class="math inline">\(\Sigma_{12}=0\)</span> los bloques son independientes y condicionar no aporta información. (✏1)</p>
 <div style="margin-top:2.5em;">
 
 </div>
@@ -616,7 +618,7 @@ p({\bf x})&amp;=\frac{1}{2\pi\sqrt{\frac{7}{4}}}\exp\left\{-\frac{1}{2}(x_1,x_2)
 <section id="ii-análisis-discriminante-lineal-lda" class="level2">
 <h2 class="anchored" data-anchor-id="ii-análisis-discriminante-lineal-lda">II <span style="color:#CCCCCC;">│</span> Análisis discriminante lineal (LDA)</h2>
 <p>En este modelo, asumiremos que <span class="math inline">\(p({\bf x}\mid y)\)</span> es una distribución normal multivariada, con matriz de covarianza <span class="math inline">\(\Sigma\)</span> constante para todas las clases.</p>
-<div class="myhighlight2">
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuestos del modelo</em></span>
 <div style="margin-top:-0.1em;">
 
@@ -669,18 +671,7 @@ p(y=1\mid{\bf x})&amp;=\frac{e^{\boldsymbol{\theta}^\top{\bf x}+\theta_0}}{1+e^{
 \]</span></p>
 <p>En consecuencia, bajo el modelo LDA, la distribución condicional <span class="math inline">\(p(y\mid{\bf x})\)</span> sigue necesariamente una función logística. Sin embargo, lo contrario no es cierto: asumir <span class="math inline">\(p(y\mid{\bf x})\)</span> logística no implica que <span class="math inline">\(p({\bf x}\mid y)\)</span> es gaussiana.</p>
 <p>Esto muestra que LDA hace suposiciones más fuertes que la regresión logística. Si estas suposiciones son correctas, LDA será un mejor modelo.</p>
-<p>Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, existen otros casos de suposiciones sobre la distribución de <span class="math inline">\({\bf X}\mid Y\)</span> que conducen a que <span class="math inline">\(p(y\mid {\bf x})\)</span> sea una función logística, lo cual se analizará en las actividades conceptuales (✏3). Allí, puede esperarse que la regresión logística funcione mejor que LDA.</p>
-<div class="question callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br></p>
-<p>Como ejemplo de distribuciones no gaussianas que conducen a <span class="math inline">\(p(y\mid {\bf x})\)</span> logística, considere <span class="math inline">\({\bf X}\mid Y=y\sim\text{Poisson}(\lambda_y)\)</span>.</p>
-</div>
-</div>
-</div>
+<p>Por otro lado, al hacer suposiciones más débiles, la regresión logística es menos sensible a suposiciones de modelado incorrectas. De hecho, hay otras suposiciones sobre <span class="math inline">\({\bf X}\mid Y\)</span> que conducen a la misma forma funcional para <span class="math inline">\(p(y\mid {\bf x})\)</span>: el caso <span class="math inline">\({\bf X}\mid Y=y\sim\text{Poisson}(\lambda_y)\)</span> se analizará en las actividades conceptuales (✏3). Allí, puede esperarse que la regresión logística funcione mejor que LDA.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -752,39 +743,21 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 \text{maximizar } &amp; \displaystyle\sum_{i=1}^n\log p(y_i\mid\varphi),
 \end{array}
 \]</span></p>
-<p>cuya función objetivo es la función de verosimilitud de <span class="math inline">\(Y\sim\text{Bernoulli}(\varphi)\)</span>. Es fácil ver que <span class="math display">\[
+<p>cuya función objetivo es la función de verosimilitud de <span class="math inline">\(Y\sim\text{Bernoulli}(\varphi)\)</span>. El MLE resulta <span class="math display">\[
 \hat{\varphi}=\frac{1}{n}\sum_{i=1}^n y_i=\frac{1}{n}\sum_{i=1}^n\mathbf{1}\{y_i=1\}.
 \]</span></p>
-<div class="question callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><span style="font-size: 1.3em;">📝</span><br></p>
-<p>Verifique el resultado anterior.</p>
-</div>
-</div>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<p>Ahora bien, si fijamos <span class="math inline">\(\Sigma\)</span> en (3.1.4), el problema de optimización para hallar <span class="math inline">\(\boldsymbol{\mu}_y\)</span>, para <span class="math inline">\(y\in\{0,1\}\)</span>, es</p>
+<p>Ahora bien, si fijamos <span class="math inline">\(\Sigma\)</span> en (3.1.4), podemos estimar <span class="math inline">\(\boldsymbol{\mu}_y\)</span>, para <span class="math inline">\(y\in\{0,1\}\)</span>, resolviendo el problema</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; -\displaystyle\frac{1}{2}\sum_{i:y_i=y}({\bf x}_i-\boldsymbol{\mu}_y)^\top\Sigma^{-1}({\bf x}_i-\boldsymbol{\mu}_y)
 \end{array}
 \tag{3.1.5}
 \]</span></p>
-<p>La función objetivo en (3.1.5) es claramente cóncava, ya que <span class="math inline">\(\Sigma\succ 0\)</span> implica <span class="math inline">\(\Sigma^{-1}\succ 0\)</span>. Por lo tanto, al igualar el gradiente a cero obtenemos <span class="math display">\[
-\begin{align}
-\sum_{i:y_i=y}\Sigma^{-1}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
-\sum_{i:y_i=y}({\bf x}_i-\hat{\boldsymbol{\mu}}_y)&amp;=0 \\
-\hat{\boldsymbol{\mu}}_y &amp;= \frac{\sum_{i=1}^n\mathbf{1}\{y_i=y\}{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{y_i=y\}},
+<p>La función objetivo en (3.1.5) es claramente cóncava, ya que <span class="math inline">\(\Sigma\succ 0\)</span> implica <span class="math inline">\(\Sigma^{-1}\succ 0\)</span>. Luego, al igualar el gradiente a cero obtenemos <span class="math display">\[
+\hat{\boldsymbol{\mu}}_y = \frac{\sum_{i=1}^n\mathbf{1}\{y_i=y\}{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{y_i=y\}},
 \tag{3.1.6}
-\end{align}
 \]</span></p>
-<p>lo cual es la media muestral de la clase <span class="math inline">\(Y=y\)</span>, es decir, del conjunto <span class="math inline">\(\{{\bf x}_i\mid y_i=y\}\)</span>. Si denotamos con <span class="math inline">\(n_0\)</span> y <span class="math inline">\(n_1\)</span> la cantidad de observaciones con etiqueta <span class="math inline">\(y=0\)</span> e <span class="math inline">\(y=1\)</span>, respectivamente, esto se escribe <span class="math display">\[
+<p>lo cual es la media muestral de la clase <span class="math inline">\(Y=y\)</span>. De hecho, si denotamos con <span class="math inline">\(n_0\)</span> y <span class="math inline">\(n_1\)</span> la cantidad de observaciones con etiqueta <span class="math inline">\(y=0\)</span> e <span class="math inline">\(y=1\)</span>, respectivamente, (3.1.6) se puede escribir <span class="math display">\[
 \hat{\boldsymbol{\mu}}_0=\frac{1}{n_0}\sum_{i:y_i=0}{\bf x}_i,\qquad \hat{\boldsymbol{\mu}}_1=\frac{1}{n_1}\sum_{i:y_i=1}{\bf x}_i.
 \]</span></p>
 <p>Observar que <span class="math inline">\(\hat{\boldsymbol{\mu}}_y\)</span> no depende de <span class="math inline">\(\Sigma\)</span>: como en la deducción anterior, el máximo de la primera etapa es el mismo cualquiera sea <span class="math inline">\(\Sigma\)</span>. La segunda etapa consiste entonces en reemplazar (3.1.6) en (3.1.4), lo que da el problema</p>
@@ -794,7 +767,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 \end{array}
 \tag{3.1.7}
 \]</span></p>
-<p>Procediendo como en la deducción del MLE de la normal multivariada, el problema (3.1.7) se reescribe <span class="math display">\[
+<p>Procediendo como en la deducción del MLE de la normal multivariada, el problema (3.1.7) se reescribe como <span class="math display">\[
 \begin{array}{ll}
 \text{maximizar } &amp; \displaystyle\frac{n}{2}\log|\Sigma^{-1}|-\frac{1}{2}\text{tr}\left[\Sigma^{-1}\sum_{i=1}^n({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})({\bf x}_i-\hat{\boldsymbol{\mu}}_{y_i})^\top\right]
 \end{array}
@@ -826,55 +799,453 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.1.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos simulados de clasificación binaria </span></p>
 <p>Simulamos un conjunto de datos en <span class="math inline">\(\mathbb{R}^2\)</span> perteneciente a dos clases. Al aplicar LDA, el modelo estima una frontera lineal de decisión que separa ambas regiones.</p>
-<div id="bdcc296d" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Mostrar código</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    n_samples<span class="op">=</span><span class="dv">200</span>, n_features<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>, n_informative<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    n_clusters_per_class<span class="op">=</span><span class="dv">1</span>, class_sep<span class="op">=</span><span class="fl">2.0</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo LDA:</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LDA()</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>lda.fit(X, y)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> X[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">1</span>, X[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> X[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">1</span>, X[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(x_min, x_max, <span class="dv">300</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                     np.linspace(y_min, y_max, <span class="dv">300</span>))</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> lda.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Colores:</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>bg_colors <span class="op">=</span> [<span class="st">'lightcoral'</span>, <span class="st">'lightblue'</span>]   <span class="co"># regiones</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>pt_colors <span class="op">=</span> [<span class="st">'darkred'</span>, <span class="st">'navy'</span>]           <span class="co"># puntos (clases)</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>cmap_bg <span class="op">=</span> ListedColormap(bg_colors)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>cmap_pts <span class="op">=</span> ListedColormap(pt_colors)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, levels<span class="op">=</span>[<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>], colors<span class="op">=</span>bg_colors, alpha<span class="op">=</span><span class="fl">0.35</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:,<span class="dv">0</span>], X[:,<span class="dv">1</span>], c<span class="op">=</span>y, cmap<span class="op">=</span>cmap_pts, edgecolor<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">60</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x_1$"</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"$x_2$"</span>, size<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>En este ejemplo utilizamos la implementación <code>LinearDiscriminantAnalysis</code> de <code>scikit-learn</code>. La implementación del método se realizará en las actividades prácticas.</p>
+</div>
+</div>
+</div>
+<div id="06b8ce7d" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Datos:</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>X, y <span class="op">=</span> make_classification(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    n_samples<span class="op">=</span><span class="dv">200</span>, n_features<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">0</span>, n_informative<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    n_clusters_per_class<span class="op">=</span><span class="dv">1</span>, class_sep<span class="op">=</span><span class="fl">2.0</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># Modelo:</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>lda <span class="op">=</span> LDA()</span>
+<span id="cb2-12"><a href="#cb2-12"></a>lda.fit(X, y)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
+</div>
+</div>
+<div id="df188302" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="C1_gda_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="663" height="471"></p>
+<p><img src="C1_gda_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="663" height="471"></p>
 </figure>
 </div>
 </div>
@@ -883,57 +1254,444 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.1.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos el conjunto de datos <em>wine</em> disponible en <code>scikit-learn</code>, que contiene mediciones químicas de tres tipos de vino. Para visualizar el resultado de la clasificación, consideramos únicamente dos variables predictoras: la intensidad de color y el matiz.</p>
-<p>El modelo LDA estima las fronteras lineales que separan las tres clases, utilizando la comparación de a pares.</p>
-<div id="a22f1d1a" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Mostrar código</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>wine <span class="op">=</span> load_wine()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> wine.data[:, [<span class="dv">9</span>, <span class="dv">10</span>]]  </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> wine.target</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>target_names <span class="op">=</span> wine.target_names</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo LDA:</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LDA()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>lda.fit(X, y)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> X[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.5</span>, X[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.5</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> X[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.5</span>, X[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.5</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(x_min, x_max, <span class="dv">500</span>),</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                     np.linspace(y_min, y_max, <span class="dv">500</span>))</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> lda.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>bg_colors <span class="op">=</span> [<span class="st">'#FDEDEC'</span>, <span class="st">'#EBF5FB'</span>, <span class="st">'#E8F8F5'</span>]</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>pt_colors <span class="op">=</span> [<span class="st">'#E74C3C'</span>, <span class="st">'#3498DB'</span>, <span class="st">'#16A085'</span>]</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>cmap_bg <span class="op">=</span> ListedColormap(bg_colors)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>cmap_pts <span class="op">=</span> ListedColormap(pt_colors)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.7</span>, cmap<span class="op">=</span>cmap_bg)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.contour(xx, yy, Z, levels<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">3</span>), colors<span class="op">=</span><span class="st">'gray'</span>, linewidths<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, name <span class="kw">in</span> <span class="bu">enumerate</span>(target_names):</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    plt.scatter(X[y<span class="op">==</span>i,<span class="dv">0</span>], X[y<span class="op">==</span>i,<span class="dv">1</span>], label<span class="op">=</span>name,</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>pt_colors[i], edgecolor<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">60</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Intensidad del color"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Matiz"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<p>El modelo LDA estima una función discriminante para cada clase, a partir de las cuales se determinan las regiones de decisión y sus correspondientes fronteras lineales.</p>
+<div id="bc3a77fc" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Datos:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>wine <span class="op">=</span> load_wine()</span>
+<span id="cb3-6"><a href="#cb3-6"></a>X <span class="op">=</span> wine.data[:, [<span class="dv">9</span>, <span class="dv">10</span>]]</span>
+<span id="cb3-7"><a href="#cb3-7"></a>y <span class="op">=</span> wine.target</span>
+<span id="cb3-8"><a href="#cb3-8"></a>target_names <span class="op">=</span> wine.target_names</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># Modelo:</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>lda <span class="op">=</span> LDA()</span>
+<span id="cb3-12"><a href="#cb3-12"></a>lda.fit(X, y)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<style>#sk-container-id-2 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-2 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-2 pre {
+  padding: 0;
+}
+
+#sk-container-id-2 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-2 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-2 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-2 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-2 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-2 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-2 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-2 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-2 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-2 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-2 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label label.sk-toggleable__label,
+#sk-container-id-2 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-2 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-2 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-2 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-2 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-2 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-2 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
+</div>
+</div>
+<div id="aa5cc564" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="C1_gda_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="662" height="470"></p>
+<p><img src="C1_gda_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="662" height="470"></p>
 </figure>
 </div>
 </div>
@@ -947,7 +1705,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <section id="iii-análisis-discriminante-cuadrático-qda" class="level2">
 <h2 class="anchored" data-anchor-id="iii-análisis-discriminante-cuadrático-qda">III <span style="color:#CCCCCC;">│</span> Análisis discriminante cuadrático (QDA)</h2>
 <p>Vamos a extender el modelo LDA, permitiendo diferentes matrices de covarianza para cada clase. Esto proporciona mayor flexibilidad para modelar datos donde las clases tienen diferentes formas y orientaciones.</p>
-<div class="myhighlight2">
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuestos del modelo</em></span>
 <div style="margin-top:-0.1em;">
 
@@ -969,18 +1727,11 @@ Y\sim\text{Bernoulli}(\varphi) \\[2pt]
 <div style="margin-top:2em;">
 
 </div>
-<p>Las distribuciones son: <span class="math display">\[
-p(y)=\varphi^y(1-\varphi)^{1-y},
-\]</span> <span class="math display">\[
-p({\bf x}\mid y=0)=\frac{1}{(2\pi)^{p/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma_0^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
-\]</span> <span class="math display">\[
-p({\bf x}\mid y=1)=\frac{1}{(2\pi)^{p/2}|\Sigma_1|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_1)^\top\Sigma_1^{-1}({\bf x}-\boldsymbol{\mu}_1)\right\}.
+<p>En este caso, las distribuciones de las clases son <span class="math display">\[
+p({\bf x}\mid y)=\frac{1}{(2\pi)^{p/2}|\Sigma_0|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_0)^\top\Sigma_y^{-1}({\bf x}-\boldsymbol{\mu}_0)\right\},
 \]</span></p>
 <section id="regla-de-decisión-1" class="level3">
 <h3 class="anchored" data-anchor-id="regla-de-decisión-1">Regla de decisión</h3>
-<div style="margin-top:2em;">
-
-</div>
 <p>El no suponer la misma matriz de covarianza para todas las clases tiene las siguientes consecuencias a la hora de determinar la regla de decisión:</p>
 <ul>
 <li><p>El término <span class="math inline">\(-\log |\Sigma_y|\)</span> no puede ser descartado, pues es diferente para cada clase.</p></li>
@@ -1022,55 +1773,453 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.1.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> QDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos los mismos datos del Ejemplo 3.1.5, pero aplicamos el modelo QDA. A diferencia del LDA, este modelo permite que cada clase tenga su propia matriz de covarianza, lo que da lugar a fronteras de decisión no lineales que se adaptan mejor a la estructura de los datos.</p>
-<div id="7824f68e" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Mostrar código</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis <span class="im">as</span> QDA</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>wine <span class="op">=</span> load_wine()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> wine.data[:, [<span class="dv">9</span>, <span class="dv">10</span>]]  <span class="co"># Intensidad de color y matiz</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> wine.target</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>target_names <span class="op">=</span> wine.target_names</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo QDA:</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>qda <span class="op">=</span> QDA()</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>qda.fit(X, y)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈:</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> X[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.5</span>, X[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.5</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> X[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.5</span>, X[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.5</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(x_min, x_max, <span class="dv">500</span>),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                     np.linspace(y_min, y_max, <span class="dv">500</span>))</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> qda.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>bg_colors <span class="op">=</span> [<span class="st">'#FDEDEC'</span>, <span class="st">'#EBF5FB'</span>, <span class="st">'#E8F8F5'</span>]</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>pt_colors <span class="op">=</span> [<span class="st">'#E74C3C'</span>, <span class="st">'#3498DB'</span>, <span class="st">'#16A085'</span>]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>cmap_bg <span class="op">=</span> ListedColormap(bg_colors)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>cmap_pts <span class="op">=</span> ListedColormap(pt_colors)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.7</span>, cmap<span class="op">=</span>cmap_bg)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.contour(xx, yy, Z, levels<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">3</span>), colors<span class="op">=</span><span class="st">'gray'</span>, linewidths<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, name <span class="kw">in</span> <span class="bu">enumerate</span>(target_names):</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    plt.scatter(X[y<span class="op">==</span>i,<span class="dv">0</span>], X[y<span class="op">==</span>i,<span class="dv">1</span>], label<span class="op">=</span>name,</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>pt_colors[i], edgecolor<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">60</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Intensidad del color"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Matiz"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>En este ejemplo utilizamos la implementación <code>LinearDiscriminantAnalysis</code> de <code>scikit-learn</code>. La implementación del método se realizará en las actividades prácticas.</p>
+</div>
+</div>
+</div>
+<div id="808dbce9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis <span class="im">as</span> QDA</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># Datos:</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>wine <span class="op">=</span> load_wine()</span>
+<span id="cb4-6"><a href="#cb4-6"></a>X <span class="op">=</span> wine.data[:, [<span class="dv">9</span>, <span class="dv">10</span>]]</span>
+<span id="cb4-7"><a href="#cb4-7"></a>y <span class="op">=</span> wine.target</span>
+<span id="cb4-8"><a href="#cb4-8"></a>target_names <span class="op">=</span> wine.target_names</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># Modelo QDA:</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>qda <span class="op">=</span> QDA()</span>
+<span id="cb4-12"><a href="#cb4-12"></a>qda.fit(X, y)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<style>#sk-container-id-3 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-3 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-3 pre {
+  padding: 0;
+}
+
+#sk-container-id-3 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-3 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-3 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-3 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-3 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-3 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-3 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-3 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-3 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-3 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-3 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-3 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-3 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-3 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-3 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-3 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-3 div.sk-label label.sk-toggleable__label,
+#sk-container-id-3 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-3 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-3 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-3 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-3 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-3 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-3 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-3 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-3 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-3 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>QuadraticDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>QuadraticDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html">?<span>Documentation for QuadraticDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>QuadraticDiscriminantAnalysis()</pre></div> </div></div></div></div>
+</div>
+</div>
+<div id="67a29f16" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="C1_gda_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="662" height="470"></p>
+<p><img src="C1_gda_files/figure-html/cell-7-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="662" height="470"></p>
 </figure>
 </div>
 </div>
@@ -1084,7 +2233,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 <section id="iv-naive-bayes" class="level2">
 <h2 class="anchored" data-anchor-id="iv-naive-bayes">IV <span style="color:#CCCCCC;">│</span> Naive Bayes</h2>
 <p>Los métodos de Naive Bayes son un conjunto de algoritmos basados en la aplicación del teorema de Bayes, con la suposición <em>ingenua</em> de independencia condicional entre las características dado el valor de la clase.</p>
-<div class="myhighlight2">
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuesto del modelo</em></span>
 <div style="margin-top:-0.1em;">
 
@@ -1103,7 +2252,7 @@ p({\bf x}\mid y)=\prod_{i=1}^p p(x_i\mid y).
 <li><p><strong>NB Gaussiano</strong>: útil para trabajar con variables continuas <span class="math inline">\(X_i\)</span>; se asume <span class="math inline">\(p(x_i|y)\sim\mathcal{N}(\mu_{iy},\sigma_{iy}^2)\)</span>.</p></li>
 <li><p><strong>NB Bernoulli</strong>: útil para trabajar con variables discretas booleanas (que asumen dos variables, 0 y 1); se asume <span class="math inline">\(p(x_i\mid y)\sim\text{Bernoulli}(p_{iy})\)</span>.</p></li>
 </ul>
-<div style="margin-top:2em;">
+<div style="margin-top:1.5em;">
 
 </div>
 <p>El uso de Naive Bayes para variables discretas es particularmente útil cuando los predictores representan <em>conteos</em>, como en <em>clasificación de textos</em>, donde cada <span class="math inline">\(X_i\)</span> indica la presencia de una palabra en un documento o la cantidad de veces que aparece. A continuación, veremos más en detalle esta aplicación.</p>
@@ -1128,19 +2277,18 @@ p({\bf x}\mid y)=\prod_{i=1}^p p(x_i\mid y).
 \text{perro}\end{matrix}
 \]</span></p>
 <p>representa un documento que contiene las palabras “casa” y “comprar”, pero no “bicicleta”, “zapato” y “perro”. Ahora bien, si suponemos que el vocabulario está compuesto por 50000 palabras, modelar cada observación <span class="math inline">\({\bf x}\)</span> por separado para obtener la distribución conjunta da lugar a <span class="math inline">\(2^{50000}-1\)</span> parámetros. Por tal motivo, el uso de Naive Bayes simplifica mucho el problema; el precio a pagar es la suposición ingenua de independencia: se asume que saber si la <span class="math inline">\(i\)</span>-ésima palabra aparece o no en un documento no aporta información sobre la presencia o ausencia de la <span class="math inline">\(j\)</span>-ésima palabra.</p>
-<div class="myhighlight2">
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuesto del modelo</em></span>
 <div style="margin-top:-0.1em;">
 
 </div>
 <p><span class="math display">\[
-Y\sim\text{Bernoulli}(\varphi)
-\]</span> <span class="math display">\[
-X_j\mid Y=0\sim\text{Bernoulli}(\phi_{j\mid y=0})
-\]</span> <span class="math display">\[
-X_j\mid Y=1\sim\text{Bernoulli}(\phi_{j\mid y=1})
-\]</span> <span class="math display">\[
-p({\bf x}_i\mid y_i)=\prod_{j=1}^p p(x_{ij}\mid y_i)\qquad \forall i=1,\ldots, n
+\begin{array}{c}
+    Y\sim\text{Bernoulli}(\varphi) \\[2pt]
+    X_j\mid Y=0\sim\text{Bernoulli}(\phi_{j\mid y=0}) \\[2pt]
+    X_j\mid Y=1\sim\text{Bernoulli}(\phi_{j\mid y=1}) \\[3pt]
+    p({\bf x}_i\mid y_i)=\prod_{j=1}^p p(x_{ij}\mid y_i)\qquad \forall i=1,\ldots, n
+\end{array}
 \]</span></p>
 </div>
 <p>Los parámetros del modelo son <span class="math display">\[
@@ -1150,26 +2298,15 @@ p({\bf x}_i\mid y_i)=\prod_{j=1}^p p(x_{ij}\mid y_i)\qquad \forall i=1,\ldots, n
 \]</span> <span class="math display">\[
 \varphi:=p(y=1).
 \]</span></p>
-<section id="regla-de-decisión-2" class="level4">
-<h4 class="anchored" data-anchor-id="regla-de-decisión-2">Regla de decisión</h4>
 <div class="myhighlight">
 <p>Para un problema de clasificación multiclase, la regla de decisión del modelo Naive Bayes con características Bernoulli es <span class="math display">\[
 G({\bf x})=\arg\max_{y} \left(\varphi^{y}(1-\varphi)^{1-y}\prod_{j=1}^p\phi_{j\mid y}^{x_{j}}(1-\phi_{j\mid y})^{1-x_{j}}\right).
 \]</span></p>
 </div>
-</section>
-<section id="estimación-por-máxima-verosimilitud-2" class="level4">
-<h4 class="anchored" data-anchor-id="estimación-por-máxima-verosimilitud-2">Estimación por máxima verosimilitud</h4>
-<p>La función de verosimilitud es <span class="math display">\[
-\begin{align}
-L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid y_i; \phi_{i\mid y=0}, \phi_{i\mid y=1})\,p(y_i\mid\varphi) \\
-&amp;=\prod_{i=1}^n\left(\prod_{j=1}^p\phi_{j\mid y=y_i}^{x_{ij}}(1-\phi_{j\mid y=y_i})^{1-x_{ij}}\right)\underbrace{p(y_i\mid\varphi)}_{\varphi^{y_i}(1-\varphi)^{1-y_i}}.
-\end{align}
-\]</span></p>
-<p>La log-verosimilitud es <span class="math display">\[
-\ell(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})=\sum_{i=1}^n\sum_{j=1}^p\left(x_{ij}\log\phi_{i\mid y=y_i}+(1-x_{ij})\log(1-\phi_{i\mid y=y_i})\right)+\sum_{i=1}^n\log p(y_i\mid\varphi).
-\]</span></p>
-<p>Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y se deja al lector; los estimadores resultantes son los siguientes.</p>
+<div style="margin-top:1.5em;">
+
+</div>
+<p>Dado que estamos trabajando con distribuciones Bernoulli, la maximización de la verosimilitud es sencilla y se deja al lector; los estimadores resultantes son los siguientes:</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1186,7 +2323,7 @@ L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid 
 
 </div>
 <p>Con esto hemos desarrollado el método de Naive Bayes para el caso de características binarias <span class="math inline">\(X_i\)</span>. La generalización al caso de variables discretas que toman valores en <span class="math inline">\(\{1,2,\ldots,k\}\)</span> es directa, mediante el uso de la <em>distribución categórica</em>, aplicable a otros tipos de problemas donde cada variable puede asumir más de dos categorías (clasificación de encuestas, diagnóstico médico, entre otros).</p>
-<p>En el caso particular de <em>clasificación de textos</em>, es común modelar las variables como <em>conteos</em> de palabras en lugar de variables binarias de presencia/ausencia. En ese contexto, se utiliza el <em>Naive Bayes Multinomial</em>, que asume independencia entre apariciones de palabras, lo cual permite modelar <span class="math inline">\(p({\bf x}\mid y)\)</span> mediante la distribución Multinomial.</p>
+<p>En el caso particular de <em>clasificación de textos</em>, es común modelar las variables como <em>conteos</em> de palabras en lugar de variables binarias de presencia/ausencia. En ese contexto, se utiliza el <em>Naive Bayes Multinomial</em>, que asume independencia entre apariciones de palabras, lo cual permite modelar <span class="math inline">\(p({\bf x}\mid y)\)</span> mediante la distribución Multinomial. Su desarrollo puede consultarse en (Manning, Raghavan &amp; Schütze 2008), y la comparación empírica entre este modelo y el de Bernoulli presentado aquí, en (McCallum &amp; Nigam 1998).</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -1195,25 +2332,36 @@ L(\varphi,\phi_{i\mid y=0},\phi_{i\mid y=1})&amp;=\prod_{i=1}^n p({\bf x}_i\mid 
 <p>El método de Naive Bayes funciona bien en muchos problemas, pero en clasificación de textos puede presentar un problema: si aparece una palabra en un documento que nunca se vio en el conjunto de entrenamiento, los estimadores asociados se anulan y, en consecuencia, la probabilidad a posteriori <span class="math inline">\(p(y\mid{\bf x})\)</span> queda indeterminada. En efecto, en la expresión <span class="math display">\[
 p(y=1\mid {\bf x})=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x_j\mid y=0)\,p(y=0)+\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}
 \]</span> cada uno de los términos <span class="math inline">\(\prod_{j=1}^pp(x_j\mid y)\)</span> se anula.</p>
-<p>Para evitar esto, una herramienta es el <em>suavizado de Laplace</em>, que consiste en sumar al numerador un 1 y al denominador <span class="math inline">\(k\)</span> (aquí, <span class="math inline">\(k\)</span> es el número de clases) en los estimadores. Esto es, para el caso Bernoulli resulta <span class="math display">\[
+<p>Para evitar esto, una herramienta es el <em>suavizado de Laplace</em>, que consiste en sumar un 1 al numerador y, al denominador, el número de valores posibles de la variable. Esto es, para el caso Bernoulli, en el que ese número es 2, resulta <span class="math display">\[
 \hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=0\}+2}
 \]</span> <span class="math display">\[
-\hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=1\}+2}
+\hat{\phi}_{j\mid y=1}=\frac{\sum_{i=1}^n\mathbf{1}\{x_{ij}=1\land y_i=1\}+1}{\sum_{i=1}^n\mathbf{1}\{y_i=1\}+2}.
 \]</span></p>
-<p>Este procedimiento es un caso particular de la estimación de <em>máxima a posteriori</em> (MAP). Este principio utiliza información a priori a la hora de estimar, definiendo una distribución previa sobre los parámetros del modelo. La diferencia con MLE se ve directamente en sus formulaciones: <span class="math display">\[
-\hat{\boldsymbol{\theta}}_{\text{MLE}}=\arg\max_{\boldsymbol{\theta}}p({\bf x}\mid\boldsymbol{\theta}),
-\]</span> <span class="math display">\[
+<p>Este procedimiento admite una lectura bayesiana. A diferencia de la estimación por máxima verosimilitud, la estimación de <em>máxima a posteriori</em> (MAP) incorpora información previa sobre los parámetros mediante una distribución a priori: <span class="math display">\[
+\hat{\boldsymbol{\theta}}_{\text{MLE}}=\arg\max_{\boldsymbol{\theta}}p({\bf x}\mid\boldsymbol{\theta}),\qquad
 \hat{\boldsymbol{\theta}}_{\text{MAP}}=\arg\max_{\boldsymbol{\theta}}p({\bf x}\mid\boldsymbol{\theta})\,p(\boldsymbol{\theta}).
 \]</span></p>
-<p>En el caso Bernoulli, se suele asumir una distribución Beta como prior, a saber, <span class="math display">\[
-\phi_{j}\sim\text{Beta}(\alpha,\beta).
-\]</span></p>
-<p>En particular, <span class="math inline">\(\text{Beta}(1,1)\)</span> conduce al suavizado de Laplace. Dado que <span class="math inline">\(\text{Beta}(1,1)=\text{Uniforme}([0,1])\)</span>, esto equivale a no introducir sesgo a priori sobre los parámetros <span class="math inline">\(\phi_j\)</span>, de manera que cada valor entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> es igualmente probable antes de observar los datos.</p>
+<p>En el caso Bernoulli se asume una distribución Beta como prior, <span class="math inline">\(\phi_j\sim\text{Beta}(\alpha,\beta)\)</span>. Por conjugación, la distribución a posteriori también es Beta: <span class="math display">\[
+\phi_j\mid\text{datos}\sim\text{Beta}\big(n_{jy}+\alpha,\;n_y-n_{jy}+\beta\big),
+\]</span> donde <span class="math inline">\(n_{jy}\)</span> es la cantidad de documentos de la clase <span class="math inline">\(y\)</span> que contienen la palabra <span class="math inline">\(j\)</span> y <span class="math inline">\(n_y\)</span> el total de documentos de esa clase.</p>
+<figure style="text-align: center;" class="figure">
+<img src="figuras/distribucion_beta.svg" alt="…" width="600px" class="figure-img">
+<figcaption>
+<strong>Figura 3.1.6:</strong> Densidades de los priors <span class="math inline">\(\text{Beta}(1,1)\)</span> y <span class="math inline">\(\text{Beta}(2,2)\)</span> sobre <span class="math inline">\(\phi_j\)</span>. La primera es uniforme y admite cualquier valor; la segunda se anula en <span class="math inline">\(0\)</span> y en <span class="math inline">\(1\)</span>, descartando de antemano que una palabra sea imposible o segura.
+</figcaption>
+</figure>
+<div style="margin-top:2em;">
+
+</div>
+<p>Existen distintos criterios para obtener una estimación puntual a partir de la posterior; los más usuales son su media, estimador bayesiano bajo pérdida cuadrática, y su moda, el estimador MAP. Dado que la media de <span class="math inline">\(\text{Beta}(a,b)\)</span> es <span class="math inline">\(a/(a+b)\)</span> y su moda <span class="math inline">\((a-1)/(a+b-2)\)</span>, se verifica que el suavizado de Laplace admite ambas interpretaciones: es la media a posteriori bajo el prior <span class="math inline">\(\text{Beta}(1,1)\)</span> (es decir, <span class="math inline">\(\text{Uniforme}([0,1])\)</span>), y es la moda a posteriori bajo el prior <span class="math inline">\(\text{Beta}(2,2)\)</span>.</p>
+<p>En términos de conteos, el prior se lee como observaciones ficticias agregadas a los datos, aunque cuántas depende del criterio: la media agrega <span class="math inline">\(\alpha\)</span> apariciones y <span class="math inline">\(\beta\)</span> no apariciones, y la moda, <span class="math inline">\(\alpha-1\)</span> y <span class="math inline">\(\beta-1\)</span>. En ambas lecturas el suavizado de Laplace agrega exactamente una aparición y una no aparición, que son el <span class="math inline">\(+1\)</span> del numerador y el <span class="math inline">\(+2\)</span> del denominador.</p>
 </div>
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
 <p>Bishop, C. M. (2006). <em>Pattern Recognition and Machine Learning</em>. Information Science and Statistics. New York: Springer.</p>
+<p>Manning, C. D., Raghavan, P., &amp; Schütze, H. (2008). Text Classification and Naive Bayes. En <em>Introduction to Information Retrieval</em> (pp.&nbsp;234-265). Cambridge: Cambridge University Press.</p>
+<p>McCallum, A., &amp; Nigam, K. (1998). A Comparison of Event Models for Naive Bayes Text Classification. En <em>AAAI-98 Workshop on Learning for Text Categorization</em> (pp.&nbsp;41-48).</p>
 <p>Ng, A. Apuntes del curso Stanford CS229: Machine Learning. Disponible <a href="https://cs229.stanford.edu/notes2022fall/main_notes.pdf">aquí</a>.</p>
 </div>
 
@@ -1235,7 +2383,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 </section>
 
