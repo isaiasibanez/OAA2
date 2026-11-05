@@ -949,6 +949,8 @@ $$
 
 :::
 
+<div style="margin-top:1.5em;"></div>
+
 Los parámetros del modelo son
 $$
 \phi_{j\mid y=0}:=p(x_j=1\mid y=0),
@@ -960,6 +962,7 @@ $$
 \varphi:=p(y=1).
 $$
 
+<div style="margin-top:1.5em;"></div>
 
 ::: {.myhighlight}
 
@@ -1011,7 +1014,7 @@ p(y=1\mid \xx)=\frac{\prod_{j=1}^p p(x_j\mid y=1)\,p(y=1)}{\prod_{j=1}^p p(x_j\m
 $$
 cada uno de los términos $\prod_{j=1}^pp(x_j\mid y)$ se anula.
 
-Para evitar esto, una herramienta es el *suavizado de Laplace*, que consiste en sumar un 1 al numerador y, al denominador, el número de valores posibles de la variable. Esto es, para el caso Bernoulli, en el que ese número es 2, resulta
+Para evitar esto, una herramienta es el *suavizado de Laplace*, un criterio general para estimar probabilidades a partir de frecuencias: si la variable toma $k$ valores, en lugar de la proporción observada se suma un 1 al numerador y $k$ al denominador, lo que equivale a calcular la proporción habitual sobre una muestra ampliada con una observación ficticia de cada valor posible. Aplicado a cada $p(x_j\mid y)$, que en el caso Bernoulli tiene $k=2$, resulta
 $$
 \hat{\phi}_{j\mid y=0}=\frac{\sum_{i=1}^n\bfone\{x_{ij}=1\land y_i=0\}+1}{\sum_{i=1}^n\bfone\{y_i=0\}+2}
 $$
@@ -1032,7 +1035,7 @@ $$
 donde $n_{jy}$ es la cantidad de documentos de la clase $y$ que contienen la palabra $j$ y $n_y$ el total de documentos de esa clase.
 
 <figure style="text-align: center;">
-  <img src="figuras/distribucion_beta.svg" alt="…" width="600px">
+  <img src="figuras/distribucion_beta.svg" alt="…" width="500px">
   <figcaption> **Figura 3.1.6:** Densidades de los priors $\text{Beta}(1,1)$ y $\text{Beta}(2,2)$ sobre $\phi_j$. La primera es uniforme y admite cualquier valor; la segunda se anula en $0$ y en $1$, descartando de antemano que una palabra sea imposible o segura. </figcaption>
 </figure>
 
