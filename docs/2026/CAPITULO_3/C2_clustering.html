@@ -366,15 +366,16 @@ window.Quarto = {
 </div>
 <section id="i-k-medias" class="level2">
 <h2 class="anchored" data-anchor-id="i-k-medias">I <span style="color:#CCCCCC;">│</span> <span class="math inline">\(K\)</span>-medias</h2>
-<p>En los métodos combinatorios, las observaciones se asignan directamente a un cluster, estableciendo de antemano un número de clusters <span class="math inline">\(K&lt;n\)</span>. La tarea está caracterizada por un mapeo <span class="math display">\[
-k=C(i)
-\]</span> que asigna a la <span class="math inline">\(i\)</span>-ésima observación el <span class="math inline">\(k\)</span>-ésimo cluster. Los <em>parámetros</em> de este procedimiento son cada una de las asignaciones de las observaciones, y se ajustan de manera tal de <em>minimizar</em> una función de pérdida basada en una <em>medida de disimilaridad</em> <span class="math inline">\(d({\bf x}_i,{\bf x}_j)\)</span> entre pares de observaciones. Una elección natural de la función de pérdida deriva en el siguiente problema de optimización: <span class="math display">\[
+<p>En los métodos combinatorios, las observaciones se asignan directamente a un cluster, estableciendo de antemano un número de clusters <span class="math inline">\(K&lt;n\)</span>. La tarea está caracterizada por un mapeo <span class="math inline">\(C:\{1,\ldots,n\}\to\{1,\ldots,K\}\)</span>, definido por <span class="math display">\[
+k=C(i),
+\]</span></p>
+<p>que asigna a la <span class="math inline">\(i\)</span>-ésima observación el <span class="math inline">\(k\)</span>-ésimo cluster. Los parámetros de este procedimiento son cada una de las asignaciones de las observaciones, y se ajustan de manera tal de <em>minimizar</em> una función de pérdida basada en una <em>medida de disimilaridad</em> <span class="math inline">\(d({\bf x}_i,{\bf x}_j)\)</span> entre pares de observaciones. Una elección natural de la función de pérdida deriva en el siguiente problema de optimización: <span class="math display">\[
 \begin{array}{ll}
 \text{minimizar } &amp; W(C)=\displaystyle\frac{1}{2}\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(j)=k}d({\bf x}_i,{\bf x}_j).
 \end{array}
 \tag{3.2.1}
 \]</span></p>
-<div style="margin-top:2em;">
+<div style="margin-top:1.5em;">
 
 </div>
 <div class="question callout callout-style-simple callout-none no-icon">
@@ -395,7 +396,7 @@ k=C(i)
 <div style="margin-top:2em;">
 
 </div>
-<p>El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con <span class="math inline">\(n\)</span> y <span class="math inline">\(K\)</span>. Por ejemplo, existen más de <span class="math inline">\(10^{10}\)</span> formas de asignar <span class="math inline">\(n=19\)</span> observaciones a <span class="math inline">\(K=4\)</span> clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de <span class="math inline">\(K\)</span>-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida <span class="math inline">\(W(C)\)</span>.</p>
+<p>El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones es <span class="math inline">\(K^n\)</span>, lo cual crece muy rápido con <span class="math inline">\(n\)</span> y <span class="math inline">\(K\)</span>. Por ejemplo, existen más de <span class="math inline">\(10^{10}\)</span> formas de asignar <span class="math inline">\(n=19\)</span> observaciones a <span class="math inline">\(K=4\)</span> clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de <span class="math inline">\(K\)</span>-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida <span class="math inline">\(W(C)\)</span>.</p>
 <p>En <span class="math inline">\(K\)</span>-medias, la medida de disimilaridad es <span class="math display">\[
 d({\bf x}_i,{\bf x}_j)=\|{\bf x}_i-{\bf x}_j\|_2^2,
 \]</span></p>
@@ -414,25 +415,6 @@ W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|{\bf x}_i-\bar{{\bf x}}_k\|_2^2,
 <p>Verifique la expresión (3.2.2). <em>Ayuda: escriba <span class="math inline">\({\bf x}_i-{\bf x}_j=({\bf x}_i-\bar{{\bf x}}_k)-({\bf x}_j-\bar{{\bf x}}_k)\)</span> y desarrolle el cuadrado.</em></p>
 </div>
 </div>
-</div>
-<div style="margin-top:2em;">
-
-</div>
-<div class="highlight">
-<p><span class="badge bg-custom">Algoritmo <span class="math inline">\(K\)</span>-medias</span></p>
-<hr>
-<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}^{(0)}_1,\ldots,\boldsymbol{\mu}^{(0)}_K\}\subset\mathbb{R}^p\)</span>:</p>
-<div style="margin-left: 1em">
-<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
-<p><strong>repetir</strong>:</p>
-<blockquote class="blockquote">
-<p><strong>1°</strong> Calcular, para todo <span class="math inline">\(i=1,\ldots,n\)</span>, la asignación <span class="math display">\[C^{(t+1)}(i)=\arg\min_{j}\|{\bf x}_i-\boldsymbol{\mu}^{(t)}_j\|_2^2.\]</span></p>
-<p><strong>2°</strong> Actualizar, para todo <span class="math inline">\(j=1,\ldots,K\)</span>, el centroide mediante <span class="math display">\[\boldsymbol{\mu}^{(t+1)}_j=\frac{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}\,{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}}.\]</span></p>
-<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
-</blockquote>
-<p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
-</div>
-<hr>
 </div>
 <div style="margin-top: 2em;">
 
@@ -464,6 +446,21 @@ J(C,\boldsymbol{\mu}) := \sum_{i=1}^n\|{\bf x}_i-\boldsymbol{\mu}_{C(i)}\|_2^2
 <div style="margin-top: 2em;">
 
 </div>
+<div class="alert alert-light text-dark" role="important">
+<p>⚙ <span class="badge bg-custom">Algoritmo <span class="math inline">\(K\)</span>-medias</span></p>
+<hr>
+<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}^{(0)}_1,\ldots,\boldsymbol{\mu}^{(0)}_K\}\subset\mathbb{R}^p\)</span>:</p>
+<div style="margin-left: 1em">
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
+<blockquote class="blockquote">
+<p><strong>1°</strong> Calcular, para todo <span class="math inline">\(i=1,\ldots,n\)</span>, la asignación <span class="math display">\[C^{(t+1)}(i)=\arg\min_{j}\|{\bf x}_i-\boldsymbol{\mu}^{(t)}_j\|_2^2.\]</span></p>
+<p><strong>2°</strong> Actualizar, para todo <span class="math inline">\(j=1,\ldots,K\)</span>, el centroide mediante <span class="math display">\[\boldsymbol{\mu}^{(t+1)}_j=\frac{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}\,{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}}.\]</span></p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
+</blockquote>
+<p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
+</div>
+</div>
 <div style="margin-top: 2em;">
 
 </div>
@@ -475,24 +472,24 @@ J(C,\boldsymbol{\mu}) := \sum_{i=1}^n\|{\bf x}_i-\boldsymbol{\mu}_{C(i)}\|_2^2
 
 </div>
 <script type="pyodide-1-contents">
-eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoiY2VudGVyIiwiaW5jbHVkZSI6dHJ1ZX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmRhdGFzZXRzIGltcG9ydCBtYWtlX2Jsb2JzXG5cbiMgLS0tIDEuIFNpbXVsYXIgZGF0b3MgY29uIGNsdXN0ZXJzIG3DoXMgc29sYXBhZG9zIC0tLVxubnAucmFuZG9tLnNlZWQoMTAwKVxuWCwgeV90cnVlID0gbWFrZV9ibG9icyhcbiAgICBuX3NhbXBsZXM9NzUwLFxuICAgIGNlbnRlcnM9W1sxLCAxXSwgWy0xLCAtMV0sIFsxLCAtMV1dLCAgIyBtw6FzIGNlcmNhbm9zXG4gICAgY2x1c3Rlcl9zdGQ9MC40LCAgICAgICAgICAgICAgICAgICAjIG3DoXMgZGlzcGVyc2nDs25cbiAgICByYW5kb21fc3RhdGU9MFxuKVxuXG4jIC0tLSAyLiBHcmFmaWNhciBsb3MgZGF0b3MgaW5pY2lhbGVzIC0tLVxucGx0LmZpZ3VyZShmaWdzaXplPSg1LCA0KSlcbnBsdC5zY2F0dGVyKFhbOiwgMF0sIFhbOiwgMV0sIHM9MzUsIGNvbG9yPSdncmF5JylcbnBsdC54bGFiZWwoJyR4XzEkJylcbnBsdC55bGFiZWwoJyR4XzIkJylcbnBsdC5ncmlkKEZhbHNlKVxucGx0LnNob3coKSJ9
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoiY2VudGVyIiwiaW5jbHVkZSI6dHJ1ZX0sImNvZGUiOiJcbmltcG9ydCBudW1weSBhcyBucFxuaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuZnJvbSBza2xlYXJuLmRhdGFzZXRzIGltcG9ydCBtYWtlX2Jsb2JzXG5cbiMgLS0tIDEuIFNpbXVsYXIgZGF0b3MgY29uIGNsdXN0ZXJzIG3DoXMgc29sYXBhZG9zIC0tLVxubnAucmFuZG9tLnNlZWQoMTAwKVxuWCwgeV90cnVlID0gbWFrZV9ibG9icyhcbiAgICBuX3NhbXBsZXM9NzUwLFxuICAgIGNlbnRlcnM9W1sxLCAxXSwgWy0xLCAtMV0sIFsxLCAtMV1dLCAgIyBtw6FzIGNlcmNhbm9zXG4gICAgY2x1c3Rlcl9zdGQ9MC40LCAgICAgICAgICAgICAgICAgICAjIG3DoXMgZGlzcGVyc2nDs25cbiAgICByYW5kb21fc3RhdGU9MFxuKVxuXG4jIC0tLSAyLiBHcmFmaWNhciBsb3MgZGF0b3MgaW5pY2lhbGVzIC0tLVxucGx0LmZpZ3VyZShmaWdzaXplPSg1LCA0KSlcbnBsdC5zY2F0dGVyKFhbOiwgMF0sIFhbOiwgMV0sIHM9MzUsIGNvbG9yPSdncmF5JylcbnBsdC54bGFiZWwoJyRYXzEkJylcbnBsdC55bGFiZWwoJyRYXzIkJylcbnBsdC5ncmlkKEZhbHNlKVxucGx0LnNob3coKSJ9
 </script>
 </div>
-<p>Consideraremos <span class="math inline">\(K=3\)</span> y, en cada paso, graficaremos el agrupamiento resultante y calcularemos la función de distorsión.</p>
+<p>Considerando <span class="math inline">\(K=3\)</span>, al cabo de 4 iteraciones ya se logra convergencia en el algoritmo, con valor de la función de distorsión <span class="math inline">\(J=226.57\)</span>.</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
 </div>
 <script type="pyodide-2-contents">
-eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIml0ZXIiXX0sImNvZGUiOiIgXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcbmZyb20gc2tsZWFybi5kYXRhc2V0cyBpbXBvcnQgbWFrZV9ibG9ic1xuXG4jIC0tLSAxLiBTaW11bGFyIGRhdG9zIGNvbiBjbHVzdGVycyBtw6FzIHNvbGFwYWRvcyAtLS1cbm5wLnJhbmRvbS5zZWVkKDEwMClcblgsIHlfdHJ1ZSA9IG1ha2VfYmxvYnMoXG4gICAgbl9zYW1wbGVzPTc1MCxcbiAgICBjZW50ZXJzPVtbMSwgMV0sIFstMSwgLTFdLCBbMSwgLTFdXSwgICMgbcOhcyBjZXJjYW5vc1xuICAgIGNsdXN0ZXJfc3RkPTAuNCwgICAgICAgICAgICAgICAgICAgIyBtw6FzIGRpc3BlcnNpw7NuXG4gICAgcmFuZG9tX3N0YXRlPTBcbilcblxuIyAtLS0gMi4gUGFyw6FtZXRyb3MgZGVsIGFsZ29yaXRtbyAtLS1cbksgPSAzXG5tYXhfaXRlciA9IGl0ZXJcblxuIyAtLS0gMy4gSW5pY2lhbGl6YWNpw7NuIGFsZWF0b3JpYSAtLS1cbmluZGljZXMgPSBucC5yYW5kb20uY2hvaWNlKGxlbihYKSwgSywgcmVwbGFjZT1GYWxzZSlcbmNlbnRyb2lkcyA9IFhbaW5kaWNlc11cblxuIyAtLS0gNC4gRnVuY2nDs24gZGUgZGlzdG9yc2nDs24gLS0tXG5kZWYgZGlzdG9ydGlvbihYLCBjZW50cm9pZHMsIGxhYmVscyk6XG4gICAgcmV0dXJuIG5wLnN1bShucC5saW5hbGcubm9ybShYIC0gY2VudHJvaWRzW2xhYmVsc10sIGF4aXM9MSkgKiogMilcblxuIyAtLS0gNS4gQ2ljbG8gcHJpbmNpcGFsIC0tLVxuZm9yIHQgaW4gcmFuZ2UobWF4X2l0ZXIpOlxuICAgIGRpc3RhbmNlcyA9IG5wLmxpbmFsZy5ub3JtKFhbOiwgbnAubmV3YXhpcywgOl0gLSBjZW50cm9pZHNbbnAubmV3YXhpcywgOiwgOl0sIGF4aXM9MilcbiAgICBsYWJlbHMgPSBucC5hcmdtaW4oZGlzdGFuY2VzLCBheGlzPTEpXG5cbiAgICBuZXdfY2VudHJvaWRzID0gbnAuYXJyYXkoW1hbbGFiZWxzID09IGtdLm1lYW4oYXhpcz0wKSBmb3IgayBpbiByYW5nZShLKV0pXG5cbiAgICBKID0gZGlzdG9ydGlvbihYLCBjZW50cm9pZHMsIGxhYmVscylcbiAgICBwcmludChmXCJJdGVyYWNpw7NuIHt0KzF9OiBKID0ge0o6LjJmfVwiKVxuXG4gICAgY2VudHJvaWRzID0gbmV3X2NlbnRyb2lkc1xuXG4jIC0tLSA2LiBHcmFmaWNhciByZXN1bHRhZG8gZmluYWwgLS0tXG5wbHQuZmlndXJlKGZpZ3NpemU9KDUsIDQpKVxuZm9yIGsgaW4gcmFuZ2UoSyk6XG4gICAgcGx0LnNjYXR0ZXIoWFtsYWJlbHMgPT0gaywgMF0sIFhbbGFiZWxzID09IGssIDFdLCBzPTM1LCBsYWJlbD1mJ0NsdXN0ZXIge2srMX0nKVxucGx0LnNjYXR0ZXIoY2VudHJvaWRzWzosIDBdLCBjZW50cm9pZHNbOiwgMV0sIGM9J2JsYWNrJywgcz0xNTAsIG1hcmtlcj0nWCcsIGxhYmVsPSdDZW50cm9pZGVzJylcbnBsdC50aXRsZSgnSy1tZWRpYXMnKVxucGx0LmdyaWQoRmFsc2UpXG5wbHQuc2hvdygpIn0=
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbIml0ZXIiXX0sImNvZGUiOiIgXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcbmZyb20gc2tsZWFybi5kYXRhc2V0cyBpbXBvcnQgbWFrZV9ibG9ic1xuXG4jIC0tLSAxLiBTaW11bGFyIGRhdG9zIGNvbiBjbHVzdGVycyBtw6FzIHNvbGFwYWRvcyAtLS1cbm5wLnJhbmRvbS5zZWVkKDEwMClcblgsIHlfdHJ1ZSA9IG1ha2VfYmxvYnMoXG4gICAgbl9zYW1wbGVzPTc1MCxcbiAgICBjZW50ZXJzPVtbMSwgMV0sIFstMSwgLTFdLCBbMSwgLTFdXSwgICMgbcOhcyBjZXJjYW5vc1xuICAgIGNsdXN0ZXJfc3RkPTAuNCwgICAgICAgICAgICAgICAgICAgIyBtw6FzIGRpc3BlcnNpw7NuXG4gICAgcmFuZG9tX3N0YXRlPTBcbilcblxuIyAtLS0gMi4gUGFyw6FtZXRyb3MgZGVsIGFsZ29yaXRtbyAtLS1cbksgPSAzXG5tYXhfaXRlciA9IGl0ZXJcblxuIyAtLS0gMy4gSW5pY2lhbGl6YWNpw7NuIGFsZWF0b3JpYSAtLS1cbmluZGljZXMgPSBucC5yYW5kb20uY2hvaWNlKGxlbihYKSwgSywgcmVwbGFjZT1GYWxzZSlcbmNlbnRyb2lkcyA9IFhbaW5kaWNlc11cblxuIyAtLS0gNC4gRnVuY2nDs24gZGUgZGlzdG9yc2nDs24gLS0tXG5kZWYgZGlzdG9ydGlvbihYLCBjZW50cm9pZHMsIGxhYmVscyk6XG4gICAgcmV0dXJuIG5wLnN1bShucC5saW5hbGcubm9ybShYIC0gY2VudHJvaWRzW2xhYmVsc10sIGF4aXM9MSkgKiogMilcblxuIyAtLS0gNS4gQ2ljbG8gcHJpbmNpcGFsIC0tLVxuZm9yIHQgaW4gcmFuZ2UobWF4X2l0ZXIpOlxuICAgIGRpc3RhbmNlcyA9IG5wLmxpbmFsZy5ub3JtKFhbOiwgbnAubmV3YXhpcywgOl0gLSBjZW50cm9pZHNbbnAubmV3YXhpcywgOiwgOl0sIGF4aXM9MilcbiAgICBsYWJlbHMgPSBucC5hcmdtaW4oZGlzdGFuY2VzLCBheGlzPTEpXG5cbiAgICBuZXdfY2VudHJvaWRzID0gbnAuYXJyYXkoW1hbbGFiZWxzID09IGtdLm1lYW4oYXhpcz0wKSBmb3IgayBpbiByYW5nZShLKV0pXG5cbiAgICBjZW50cm9pZHMgPSBuZXdfY2VudHJvaWRzXG5cbiAgICBKID0gZGlzdG9ydGlvbihYLCBjZW50cm9pZHMsIGxhYmVscylcbiAgICBwcmludChmXCJJdGVyYWNpw7NuIHt0KzF9OiBKID0ge0o6LjJmfVwiKVxuXG4jIC0tLSA2LiBHcmFmaWNhciByZXN1bHRhZG8gZmluYWwgLS0tXG5wbHQuZmlndXJlKGZpZ3NpemU9KDUsIDQpKVxuZm9yIGsgaW4gcmFuZ2UoSyk6XG4gICAgcGx0LnNjYXR0ZXIoWFtsYWJlbHMgPT0gaywgMF0sIFhbbGFiZWxzID09IGssIDFdLCBzPTM1LCBsYWJlbD1mJ0NsdXN0ZXIge2srMX0nKVxucGx0LnNjYXR0ZXIoY2VudHJvaWRzWzosIDBdLCBjZW50cm9pZHNbOiwgMV0sIGM9J2JsYWNrJywgcz0xNTAsIG1hcmtlcj0nWCcsIGxhYmVsPSdDZW50cm9pZGVzJylcbnBsdC50aXRsZSgnSy1tZWRpYXMnKVxucGx0LmdyaWQoRmFsc2UpXG5wbHQuc2hvdygpIn0=
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="265" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 264;"><span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="261" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 260;"><span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -508,14 +505,12 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <h2 class="anchored" data-anchor-id="ii-mezcla-de-gaussianas-gmm">II <span style="color:#CCCCCC;">│</span> Mezcla de Gaussianas (GMM)</h2>
 <p>Los modelos de mezcla asumen que la función de densidad de <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span> es de la forma <span class="math display">\[
 p({\bf x})=\sum_{k=1}^K\phi_k f({\bf x}\mid\boldsymbol{\theta}_k),
-\]</span> donde <span class="math inline">\(\phi_k\geq 0\)</span> son los pesos, <span class="math inline">\(\sum_{k=1}^K \phi_k=1\)</span> y <span class="math inline">\(f({\bf x}\mid\boldsymbol{\theta}_k)\)</span> es la función de densidad de la componente <span class="math inline">\(k\)</span>, parametrizada por <span class="math inline">\(\boldsymbol{\theta}_k\)</span>.</p>
-<p>El modelo de mezcla más popular surge de considerar componentes Gaussianas: <span class="math display">\[
+\tag{3.2.3}
+\]</span> donde <span class="math inline">\(\phi_k\geq 0\)</span> son pesos que verifican <span class="math inline">\(\sum_{k=1}^K \phi_k=1\)</span> y <span class="math inline">\(f({\bf x}\mid\boldsymbol{\theta}_k)\)</span> es la función de densidad de la componente <span class="math inline">\(k\)</span>, parametrizada por <span class="math inline">\(\boldsymbol{\theta}_k\)</span>.</p>
+<p>El modelo de mezcla más popular es GMM (<em>Gaussian Mixture Model</em>), que surge de considerar <span class="math display">\[
 f({\bf x}\mid\boldsymbol{\mu}_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_k)^\top\Sigma_k^{-1}({\bf x}-\boldsymbol{\mu}_k)\right\}.
 \]</span></p>
-<p>Una forma útil de interpretar este modelo es introducir una <em>variable latente</em> <span class="math inline">\(Z\in\{1,\ldots,K\}\)</span> que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta <span class="math display">\[
-p({\bf x},z)=p({\bf x}\mid z)\,p(z)
-\]</span></p>
-<p>permite describir de forma probabilística al GMM como sigue.</p>
+<p>Esta formulación puede describirse probabilísticamente mediante una <em>variable latente</em> <span class="math inline">\(Z\in\{1,\ldots,K\}\)</span>, que indica a qué componente pertenece cada observación, de la siguiente manera.</p>
 <div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuestos del modelo</em></span>
 <div style="margin-top:-0.1em;">
@@ -528,7 +523,10 @@ Z\sim\text{Multinomial}(1,\boldsymbol{\phi}) \\[2pt]
 \end{array}
 \]</span></p>
 </div>
-<p>Los parámetros del modelo son <span class="math inline">\(\boldsymbol{\phi}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_k\)</span> y <span class="math inline">\(\Sigma_k\)</span>. Observar que, para un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span>, la función de log-verosimilitud es <span class="math display">\[
+<p>Los parámetros del modelo son <span class="math inline">\(\boldsymbol{\phi}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_k\)</span> y <span class="math inline">\(\Sigma_k\)</span>. Observar que la densidad marginal de <span class="math inline">\({\bf X}\)</span> tiene precisamente la forma (3.2.3), ya que la ley de la probabilidad total permite escribir <span class="math display">\[
+p({\bf x})=\sum_{k=1}^K \mathbb{P}(Z=k)f({\bf x}\mid Z=k)=\sum_{k=1}^K\phi_k f({\bf x}\mid\boldsymbol{\mu}_k,\Sigma_k)
+\]</span></p>
+<p>Para un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span>, la función de log-verosimilitud es <span class="math display">\[
 \ell(\boldsymbol{\phi},\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\log p({\bf x}_i\mid\boldsymbol{\phi},\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p({\bf x}_i\mid \boldsymbol{\mu}_k, \Sigma_k).
 \]</span></p>
 <p>La optimización directa de esta función no es posible, ya que la suma dentro del logaritmo impide obtener una forma cerrada para los estimadores de máxima verosimilitud. Además, la variable latente <span class="math inline">\(Z\)</span> no es observable, lo que complica aún más dicha tarea. En consecuencia, es necesario recurrir a un algoritmo iterativo para la estimación. En particular, el algoritmo <em>Expectation-Maximization</em> (EM) ofrece una forma práctica y eficiente de pasos alternados. Nos enfocaremos en dicho algoritmo en la próxima sección.</p>
@@ -554,8 +552,7 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoi
 <section id="iii-dbscan" class="level2">
 <h2 class="anchored" data-anchor-id="iii-dbscan">III <span style="color:#CCCCCC;">│</span> DBSCAN</h2>
 <p>Los métodos de clustering basado en densidad identifican grupos de observaciones como regiones densas del espacio de datos, separadas por áreas donde los puntos son escasos. Esto permite detectar clusters de forma arbitraria, no necesariamente esféricos, y además identificar puntos aislados o ruido que no pertenecen a ningún cluster.</p>
-<p>Uno de los métodos más conocidos es DBSCAN (<em>Density-Based Spatial Clustering of Applications with Noise</em>), el cual define un vecindario de radio <span class="math inline">\(\varepsilon&gt;0\)</span> alrededor de cada punto y considera <em>densos</em> aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan <em>objetos núcleos</em> y sirven como semilla para formar clusters.</p>
-<p>Es importante remarcar que la idea de <em>vecindario</em> requiere trabajar con una métrica <span class="math inline">\(d:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span>.</p>
+<p>Uno de los métodos más conocidos es DBSCAN (<em>Density-Based Spatial Clustering of Applications with Noise</em>), el cual define un vecindario de radio <span class="math inline">\(\varepsilon&gt;0\)</span> alrededor de cada punto y considera <em>densos</em> aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan <em>objetos núcleos</em> y sirven como semilla para formar clusters. Es importante remarcar que la idea de <em>vecindario</em> requiere trabajar con una métrica <span class="math inline">\(d:\mathbb{R}^p\times\mathbb{R}^p\to\mathbb{R}\)</span>.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/dbscan_1.svg" alt="…" width="500px" class="figure-img">
 <figcaption>
@@ -748,7 +745,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura de bloques diagonales constantes </span></p>
 <p>La función <code>make_biclusters</code> de <code>scikit-learn</code> genera datos con estructura de bloques diagonales constantes. Vamos a generar una matriz de datos <span class="math inline">\(200\times 200\)</span> con una estructura con 5 biclusters.</p>
-<div id="8bf2bc92" class="cell" data-execution_count="1">
+<div id="d44953f3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_biclusters</span>
@@ -781,7 +778,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="d07898ec" class="cell" data-execution_count="2">
+<div id="baaf10da" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>
@@ -861,7 +858,7 @@ Returning the number of logical cores instead. You can silence this warning by s
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura tipo tablero de ajedrez </span></p>
 <p>La función <code>make_checkerboard</code> de <code>scikit-learn</code> genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos <span class="math inline">\(300 \times 300\)</span> con 5 grupos de filas y 3 grupos de columnas.</p>
-<div id="8510eece" class="cell" data-execution_count="3">
+<div id="cf78e735" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_checkerboard</span>
@@ -894,7 +891,7 @@ Returning the number of logical cores instead. You can silence this warning by s
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="714d3cef" class="cell" data-execution_count="4">
+<div id="de71cf77" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>

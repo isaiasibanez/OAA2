@@ -52,11 +52,12 @@ Cerraremos la sección con el *biclustering*, que agrupa simultáneamente observ
 
 ## I <span style="color:#CCCCCC;">│</span> $K$-medias
 
-En los métodos combinatorios, las observaciones se asignan directamente a un cluster, estableciendo de antemano un número de clusters $K<n$.  La tarea está caracterizada por un mapeo
+En los métodos combinatorios, las observaciones se asignan directamente a un cluster, estableciendo de antemano un número de clusters $K<n$.  La tarea está caracterizada por un mapeo $C:\{1,\ldots,n\}\to\{1,\ldots,K\}$, definido por
 $$
-k=C(i)
+k=C(i),
 $$
-que asigna a la $i$-ésima observación el $k$-ésimo cluster. Los *parámetros* de este procedimiento son cada una de las asignaciones de las observaciones, y se ajustan de manera tal de *minimizar* una función de pérdida basada en una *medida de disimilaridad* $d(\xx_i,\xx_j)$ entre pares de observaciones. Una elección natural de la función de pérdida deriva en el siguiente problema de optimización:
+
+que asigna a la $i$-ésima observación el $k$-ésimo cluster. Los parámetros de este procedimiento son cada una de las asignaciones de las observaciones, y se ajustan de manera tal de *minimizar* una función de pérdida basada en una *medida de disimilaridad* $d(\xx_i,\xx_j)$ entre pares de observaciones. Una elección natural de la función de pérdida deriva en el siguiente problema de optimización:
 $$
 \begin{array}{ll}
 \text{minimizar } & W(C)=\displaystyle\frac{1}{2}\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(j)=k}d(\xx_i,\xx_j).
@@ -64,7 +65,7 @@ $$
 \tag{3.2.1}
 $$
 
-<div style="margin-top:2em;"></div>
+<div style="margin-top:1.5em;"></div>
 
 ::: {.callout .question}
 
@@ -81,7 +82,7 @@ $$
 
 <div style="margin-top:2em;"></div>
 
-El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $n=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
+El problema de optimización planteado en (3.2.1) resulta computacionalmente intratable para conjuntos de datos de tamaño moderado, ya que el número de posibles asignaciones es $K^n$, lo cual crece muy rápido con $n$ y $K$. Por ejemplo, existen más de $10^{10}$ formas de asignar $n=19$ observaciones a $K=4$ clusters. Por esta razón, los algoritmos existentes recurren a estrategias iterativas que buscan mejorar progresivamente una partición inicial. Entre estos métodos, el más utilizado y conceptualmente sencillo es el algoritmo de $K$-medias, que puede interpretarse como una forma de descenso iterativo sobre la función de pérdida $W(C)$.
 
 En $K$-medias, la medida de disimilaridad es
 $$
@@ -102,36 +103,6 @@ donde $\bar{\xx}_k$ es el vector de medias del $k$-ésimo cluster y $n_k$ es el 
 <span style="font-size: 1.3em;">📝</span><br>
 
 Verifique la expresión (3.2.2). *Ayuda: escriba $\xx_i-\xx_j=(\xx_i-\bar{\xx}_k)-(\xx_j-\bar{\xx}_k)$ y desarrolle el cuadrado.*
-
-:::
-
-<div style="margin-top:2em;"></div>
-
-
-::: {.highlight}
-<span class="badge bg-custom">Algoritmo $K$-medias</span>
-
----
-
-Dado un conjunto de *centroides iniciales* $\{\bfmu^{(0)}_1,\ldots,\bfmu^{(0)}_K\}\subset\RR^p$:
-
-<div style="margin-left: 1em">
-
-$t\leftarrow 0.$
-
-**repetir**:
-
-> **1°** Calcular, para todo $i=1,\ldots,n$, la asignación $$C^{(t+1)}(i)=\arg\min_{j}\|\xx_i-\bfmu^{(t)}_j\|_2^2.$$
->
-> **2°** Actualizar, para todo $j=1,\ldots,K$, el centroide mediante $$\bfmu^{(t+1)}_j=\frac{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}\,\xx_i}{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}}.$$
->
-> $t\leftarrow t+1$.
-
-**hasta** que el criterio de parada se satisfaga.
-
-</div>
-
----
 
 :::
 
@@ -168,6 +139,31 @@ Verifique que $\widetilde{W}$ no es convexa. *Ayuda: tome $p=1$, $K=2$ y el conj
 
 <div style="margin-top: 2em;"></div>
 
+<div class="alert alert-light text-dark" role="important">
+⚙ <span class="badge bg-custom">Algoritmo $K$-medias</span>
+
+---
+
+Dado un conjunto de *centroides iniciales* $\{\bfmu^{(0)}_1,\ldots,\bfmu^{(0)}_K\}\subset\RR^p$:
+
+<div style="margin-left: 1em">
+
+$t\leftarrow 0.$
+
+**repetir**:
+
+> **1°** Calcular, para todo $i=1,\ldots,n$, la asignación $$C^{(t+1)}(i)=\arg\min_{j}\|\xx_i-\bfmu^{(t)}_j\|_2^2.$$
+>
+> **2°** Actualizar, para todo $j=1,\ldots,K$, el centroide mediante $$\bfmu^{(t+1)}_j=\frac{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}\,\xx_i}{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}}.$$
+>
+> $t\leftarrow t+1$.
+
+**hasta** que el criterio de parada se satisfaga.
+
+</div>
+
+</div>
+
 <div style="margin-top: 2em;"></div>
 
 ::: {.callout-example}
@@ -198,14 +194,14 @@ X, y_true = make_blobs(
 # --- 2. Graficar los datos iniciales ---
 plt.figure(figsize=(5, 4))
 plt.scatter(X[:, 0], X[:, 1], s=35, color='gray')
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
+plt.xlabel('$X_1$')
+plt.ylabel('$X_2$')
 plt.grid(False)
 plt.show()
 ```
 
 
-Consideraremos $K=3$ y, en cada paso, graficaremos el agrupamiento resultante y calcularemos la función de distorsión.
+Considerando $K=3$, al cabo de 4 iteraciones ya se logra convergencia en el algoritmo, con valor de la función de distorsión $J=226.57$.
 
 ```{pyodide-python}
 #| echo: false
@@ -245,10 +241,10 @@ for t in range(max_iter):
 
     new_centroids = np.array([X[labels == k].mean(axis=0) for k in range(K)])
 
+    centroids = new_centroids
+
     J = distortion(X, centroids, labels)
     print(f"Iteración {t+1}: J = {J:.2f}")
-
-    centroids = new_centroids
 
 # --- 6. Graficar resultado final ---
 plt.figure(figsize=(5, 4))
@@ -282,20 +278,16 @@ viewof iter = Inputs.range([1, 7], {
 Los modelos de mezcla asumen que la función de densidad de $\XX\in\RR^p$ es de la forma
 $$
 p(\xx)=\sum_{k=1}^K\phi_k f(\xx\mid\bftheta_k),
+\tag{3.2.3}
 $$
-donde $\phi_k\geq 0$ son los pesos, $\sum_{k=1}^K \phi_k=1$  y $f(\xx\mid\bftheta_k)$ es la función de densidad de la componente $k$, parametrizada por $\bftheta_k$.
+donde $\phi_k\geq 0$ son pesos que verifican $\sum_{k=1}^K \phi_k=1$ y $f(\xx\mid\bftheta_k)$ es la función de densidad de la componente $k$, parametrizada por $\bftheta_k$.
 
-El modelo de mezcla más popular surge de considerar componentes Gaussianas:
+El modelo de mezcla más popular es GMM (*Gaussian Mixture Model*), que surge de considerar
 $$
 f(\xx\mid\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma_k^{-1}(\xx-\bfmu_k)\right\}.
 $$
 
-Una forma útil de interpretar este modelo es introducir una *variable latente* $Z\in\{1,\ldots,K\}$ que indica a qué componente pertenece cada observación. Así, la probabilidad conjunta
-$$
-p(\xx,z)=p(\xx\mid z)\,p(z)
-$$
-
-permite describir de forma probabilística al GMM como sigue.
+Esta formulación puede describirse probabilísticamente mediante una *variable latente* $Z\in\{1,\ldots,K\}$, que indica a qué componente pertenece cada observación, de la siguiente manera.
 
 ::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
@@ -311,7 +303,12 @@ $$
 
 :::
 
-Los parámetros del modelo son $\bfphi$, $\bfmu_k$ y $\Sigma_k$. Observar que, para un conjunto de datos $\{\xx_i\}_{i=1}^n$, la función de log-verosimilitud es
+Los parámetros del modelo son $\bfphi$, $\bfmu_k$ y $\Sigma_k$. Observar que la densidad marginal de $\XX$ tiene precisamente la forma (3.2.3), ya que la ley de la probabilidad total permite escribir
+$$
+p(\xx)=\sum_{k=1}^K \prob(Z=k)f(\xx\mid Z=k)=\sum_{k=1}^K\phi_k f(\xx\mid\bfmu_k,\Sigma_k)
+$$
+
+Para un conjunto de datos $\{\xx_i\}_{i=1}^n$, la función de log-verosimilitud es
 $$
 \ell(\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log p(\xx_i\mid\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p(\xx_i\mid \bfmu_k, \Sigma_k).
 $$
@@ -400,9 +397,7 @@ plt.show()
 
 Los métodos de clustering basado en densidad identifican grupos de observaciones como regiones densas del espacio de datos, separadas por áreas donde los puntos son escasos. Esto permite detectar clusters de forma arbitraria, no necesariamente esféricos, y además identificar puntos aislados o ruido que no pertenecen a ningún cluster.
 
-Uno de los métodos más conocidos es DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*), el cual define un vecindario de radio $\varepsilon>0$ alrededor de cada punto y considera *densos* aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan *objetos núcleos* y sirven como semilla para formar clusters. 
-
-Es importante remarcar que la idea de *vecindario* requiere trabajar con una métrica $d:\RR^p\times\RR^p\to\RR$. 
+Uno de los métodos más conocidos es DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*), el cual define un vecindario de radio $\varepsilon>0$ alrededor de cada punto y considera *densos* aquellos puntos cuyo vecindario contiene al menos un número mínimo de puntos. Los puntos que cumplen esta condición se denominan *objetos núcleos* y sirven como semilla para formar clusters. Es importante remarcar que la idea de *vecindario* requiere trabajar con una métrica $d:\RR^p\times\RR^p\to\RR$. 
 
 <figure style="text-align: center;">
   <img src="figuras/dbscan_1.svg" alt="…" width="500px">

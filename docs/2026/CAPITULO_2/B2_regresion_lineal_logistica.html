@@ -565,7 +565,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 </div>
 </div>
 </div>
-<div id="ba4f087d" class="cell" data-execution_count="1">
+<div id="258de9cd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -587,7 +587,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <span id="cb1-19"><a href="#cb1-19"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-20"><a href="#cb1-20"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="75776a40" class="cell" data-execution_count="2">
+<div id="cdf104e2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -884,7 +884,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="8fbe0987" class="cell" data-execution_count="3">
+<div id="951cb55c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -906,7 +906,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <span id="cb3-19"><a href="#cb3-19"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
 <span id="cb3-20"><a href="#cb3-20"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="54afd95c" class="cell" data-execution_count="4">
+<div id="212b7436" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):
