@@ -342,21 +342,25 @@ window.Quarto = {
 <p>$$ </p>
 <p>$$</p>
 </div>
+<div class="d-flex align-items-center justify-content-between">
 <div class="d-flex gap-2">
 <p><a href="../material/apunte_c3s2.pdf" target="_blank" class="btn btn-outline-primary"> <i class="fa-solid fa-file-lines me-2"></i>Versión PDF </a></p>
 <p><a href="../material/tp_c3s2.pdf" target="_blank" class="btn btn-outline-success"> <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades </a></p>
 </div>
+<p><span class="text-muted small"> <i class="fa-solid fa-clock-rotate-left me-1"></i> Última actualización: 09/11/2026 </span></p>
+</div>
 <div style="margin-top:20px">
 
 </div>
-<p>Hasta ahora hemos abordado la tarea de predecir los valores de una respuesta variable <span class="math inline">\(Y\in\mathbb{R}\)</span>, continua (<em>regresión</em>) o discreta (<em>clasificación</em>) a partir de un conjunto de variables predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. Este tipo de problemas se enmarca en lo que se conoce como <em>aprendizaje supervisado</em>.</p>
+<p>Hasta ahora hemos abordado la tarea de predecir los valores de una variable respuesta <span class="math inline">\(Y\in\mathbb{R}\)</span>, continua (<em>regresión</em>) o discreta (<em>clasificación</em>), a partir de un conjunto de variables predictoras <span class="math inline">\({\bf X}\in\mathbb{R}^p\)</span>. Este tipo de problemas se enmarca en lo que se conoce como <em>aprendizaje supervisado</em>.</p>
 <p>En esta sección nos centraremos en el <em>aprendizaje no supervisado</em>. En este caso, el conjunto de entrenamiento es <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> y la distribución asociada es <span class="math inline">\(p({\bf x})\)</span>. El objetivo ya no es predecir una variable respuesta, sino descubrir estructuras o patrones en los datos que resulten de interés. En particular, una de las tareas más comunes es la <em>segmentación</em> o <em>clustering</em>, cuyo propósito es identificar grupos dentro del conjunto de datos que se diferencien entre sí de manera significativa.</p>
 <p>El problema de <em>clustering</em> puede abordarse desde distintas perspectivas. De manera general, se distinguen tres tipos:</p>
 <ul>
-<li><p><em>Métodos combinatorios</em>: trabajan directamente sobre los datos observados, sin asumir un modelo probabilístico subyacente.</p></li>
-<li><p><em>Modelos de mezcla</em>: suponen que los datos son una muestra i.i.d. de una distribución de probabilidad compuesta por varios componentes.</p></li>
-<li><p><em>Búsqueda de modas</em>: adoptan una perspectiva no paramétrica, intentando estimar directamente las modas (máximos locales) de <span class="math inline">\(p({\bf x})\)</span>.</p></li>
+<li><p><em>Métodos combinatorios</em>: trabajan directamente sobre los datos observados, sin asumir un modelo probabilístico subyacente. Veremos <span class="math inline">\(K\)</span>-medias.</p></li>
+<li><p><em>Modelos de mezcla</em>: suponen que los datos son una muestra i.i.d. de una distribución de probabilidad compuesta por varios componentes, y el agrupamiento surge de estimar sus parámetros. Veremos mezclas de Gaussianas.</p></li>
+<li><p><em>Métodos basados en densidad</em>: adoptan una perspectiva no paramétrica sobre <span class="math inline">\(p({\bf x})\)</span>. Algunos estiman directamente sus modas (máximos locales) y asignan cada observación a la que la atrae, como <em>mean-shift</em>; otros identifican los clusters con regiones conexas de alta densidad, como DBSCAN, que es el que veremos.</p></li>
 </ul>
+<p>Cerraremos la sección con el <em>biclustering</em>, que agrupa simultáneamente observaciones y variables y escapa a esta clasificación.</p>
 <div style="margin-top:2.5em;">
 
 </div>
@@ -407,7 +411,7 @@ W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|{\bf x}_i-\bar{{\bf x}}_k\|_2^2,
 </div>
 <div class="callout-body-container">
 <p><span style="font-size: 1.3em;">📝</span><br></p>
-<p>Verifique la expresión (3.2.2).</p>
+<p>Verifique la expresión (3.2.2). <em>Ayuda: escriba <span class="math inline">\({\bf x}_i-{\bf x}_j=({\bf x}_i-\bar{{\bf x}}_k)-({\bf x}_j-\bar{{\bf x}}_k)\)</span> y desarrolle el cuadrado.</em></p>
 </div>
 </div>
 </div>
@@ -417,12 +421,14 @@ W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|{\bf x}_i-\bar{{\bf x}}_k\|_2^2,
 <div class="highlight">
 <p><span class="badge bg-custom">Algoritmo <span class="math inline">\(K\)</span>-medias</span></p>
 <hr>
-<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K\}\subset\mathbb{R}^p\)</span>:</p>
+<p>Dado un conjunto de <em>centroides iniciales</em> <span class="math inline">\(\{\boldsymbol{\mu}^{(0)}_1,\ldots,\boldsymbol{\mu}^{(0)}_K\}\subset\mathbb{R}^p\)</span>:</p>
 <div style="margin-left: 1em">
-<p><strong>repetir</strong> para <span class="math inline">\(t = 0,1,2,\ldots\)</span>:</p>
+<p><span class="math inline">\(t\leftarrow 0.\)</span></p>
+<p><strong>repetir</strong>:</p>
 <blockquote class="blockquote">
-<p><strong>1°</strong> Calcular, para todo <span class="math inline">\(i=1,\ldots,n\)</span>, la asignación <span class="math display">\[C(i)=\arg\min_{j}\|{\bf x}_i-\boldsymbol{\mu}_j\|_2^2.\]</span></p>
-<p><strong>2°</strong> Actualizar, para todo <span class="math inline">\(j=1,\ldots,K\)</span>, el centroide mediante <span class="math display">\[\boldsymbol{\mu}_j=\frac{\sum_{i=1}^n\mathbf{1}\{C(i)=j\}\,{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{C(i)=j\}}.\]</span></p>
+<p><strong>1°</strong> Calcular, para todo <span class="math inline">\(i=1,\ldots,n\)</span>, la asignación <span class="math display">\[C^{(t+1)}(i)=\arg\min_{j}\|{\bf x}_i-\boldsymbol{\mu}^{(t)}_j\|_2^2.\]</span></p>
+<p><strong>2°</strong> Actualizar, para todo <span class="math inline">\(j=1,\ldots,K\)</span>, el centroide mediante <span class="math display">\[\boldsymbol{\mu}^{(t+1)}_j=\frac{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}\,{\bf x}_i}{\sum_{i=1}^n\mathbf{1}\{C^{(t+1)}(i)=j\}}.\]</span></p>
+<p><span class="math inline">\(t\leftarrow t+1\)</span>.</p>
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
@@ -435,27 +441,34 @@ W(C)=\sum_{k=1}^K n_k\sum_{C(i)=k}\|{\bf x}_i-\bar{{\bf x}}_k\|_2^2,
 <p><span class="badge bg-warning text-dark">Importante</span></p>
 <p>La función <span class="math display">\[
 J(C,\boldsymbol{\mu}) := \sum_{i=1}^n\|{\bf x}_i-\boldsymbol{\mu}_{C(i)}\|_2^2
-\]</span> se denomina <em>función de distorsión</em>; mide la pérdida de fidelidad al representar cada observación <span class="math inline">\({\bf x}_i\)</span> por su centroide <span class="math inline">\(\boldsymbol{\mu}_{C(i)}\)</span>. El algoritmo de <span class="math inline">\(K\)</span>-medias realiza exactamente un descenso por coordenadas de <span class="math inline">\(J\)</span>. En primer lugar, se minimiza <span class="math inline">\(J\)</span> con respecto a <span class="math inline">\(C\)</span> manteniendo <span class="math inline">\(\boldsymbol{\mu}\)</span> fijo, y luego se minimiza <span class="math inline">\(J\)</span> con respecto a <span class="math inline">\(\boldsymbol{\mu}\)</span> manteniendo <span class="math inline">\(C\)</span> fijo. (✏1)</p>
-<p>La función de distorsión no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, <span class="math inline">\(K\)</span>-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar <span class="math inline">\(K\)</span>-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión <span class="math inline">\(J\)</span>. (✏2)</p>
+\]</span> se denomina <em>función de distorsión</em>; mide la pérdida de fidelidad al representar cada observación <span class="math inline">\({\bf x}_i\)</span> por su centroide <span class="math inline">\(\boldsymbol{\mu}_{C(i)}\)</span>, donde <span class="math inline">\(\boldsymbol{\mu}=(\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K)\)</span> son centroides libres en <span class="math inline">\(\mathbb{R}^p\)</span>, no necesariamente las medias <span class="math inline">\(\bar{{\bf x}}_k\)</span> de los clusters. El algoritmo de <span class="math inline">\(K\)</span>-medias realiza exactamente un descenso por coordenadas de <span class="math inline">\(J\)</span>. En primer lugar, se minimiza <span class="math inline">\(J\)</span> con respecto a <span class="math inline">\(C\)</span> manteniendo <span class="math inline">\(\boldsymbol{\mu}\)</span> fijo, y luego se minimiza <span class="math inline">\(J\)</span> con respecto a <span class="math inline">\(\boldsymbol{\mu}\)</span> manteniendo <span class="math inline">\(C\)</span> fijo. (✏1)</p>
+<p>Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior, donde también se optimizó alternando dos bloques y bastó una sola pasada. La diferencia no está en que allá un bloque no dependiera del otro: en <span class="math inline">\(J(x,y)=(x-y)^2+(x-2)^2\)</span> cada bloque depende del otro y, sin embargo, al sustituir <span class="math inline">\(\hat{x}(y)=\frac{y+2}{2}\)</span> queda <span class="math inline">\(\frac{1}{2}(y-2)^2\)</span>, que se minimiza sin iterar. Lo que decide es si el problema <em>reducido</em> se puede resolver: la identidad <span class="math inline">\(\inf_{C,\boldsymbol{\mu}}J=\inf_{C}\left(\inf_{\boldsymbol{\mu}}J\right)\)</span> vale siempre, pero en <span class="math inline">\(K\)</span>-medias, una vez sustituidos los centroides óptimos, lo que queda es minimizar sobre todas las asignaciones <span class="math inline">\(C\)</span>, es decir el problema combinatorio intratable del que partimos. Por eso hay que iterar.</p>
+<p>Para <span class="math inline">\(C\)</span> fijo, <span class="math inline">\(J\)</span> es convexa en <span class="math inline">\(\boldsymbol{\mu}\)</span>; la dificultad aparece al minimizar también en <span class="math inline">\(C\)</span>. La función reducida <span class="math display">\[
+\widetilde{W}(\boldsymbol{\mu})=\sum_{i=1}^n\min_{k}\|{\bf x}_i-\boldsymbol{\mu}_k\|_2^2
+\]</span> es un mínimo puntual de funciones convexas y en general no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, <span class="math inline">\(K\)</span>-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar <span class="math inline">\(K\)</span>-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión <span class="math inline">\(J\)</span>. (✏2)</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">📝</span><br></p>
+<p>Verifique que <span class="math inline">\(\widetilde{W}\)</span> no es convexa. <em>Ayuda: tome <span class="math inline">\(p=1\)</span>, <span class="math inline">\(K=2\)</span> y el conjunto <span class="math inline">\(\{0,10\}\)</span>, y compare el valor de <span class="math inline">\(\widetilde{W}\)</span> en <span class="math inline">\((0,10)\)</span> y en <span class="math inline">\((10,0)\)</span> con el que toma en el punto medio de ambos.</em></p>
+</div>
+</div>
 </div>
 <div style="margin-top: 2em;">
 
-</div>
-<div class="alert alert-light text-dark" role="important">
-<p><span class="badge bg-warning text-dark">Observación</span></p>
-<p>Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior. Allí también optimizamos alternando dos bloques, primero <span class="math inline">\(\boldsymbol{\mu}\)</span> con <span class="math inline">\(\Sigma\)</span> fija y luego <span class="math inline">\(\Sigma\)</span>, y sin embargo bastó una sola pasada.</p>
-<p>Podría pensarse que la diferencia está en que allí la solución de un bloque no depende del otro, pero no es eso. Consideremos <span class="math display">\[
-J(x,y)=(x-y)^2+(x-2)^2.
-\]</span> Al anular las derivadas parciales se obtiene <span class="math inline">\(\hat{x}(y)=\frac{y+2}{2}\)</span> y <span class="math inline">\(\hat{y}(x)=x\)</span>, de modo que cada bloque depende del otro. Pese a ello, al sustituir el primero resulta <span class="math display">\[
-J(\hat{x}(y),y)=\frac{1}{2}(y-2)^2,
-\]</span> que se minimiza en <span class="math inline">\(\hat{y}=2\)</span>, y de allí <span class="math inline">\(\hat{x}=2\)</span>. El óptimo se alcanza sin iterar.</p>
-<p>Lo que decide, entonces, es si el problema reducido puede resolverse. La identidad <span class="math inline">\(\inf_{C,\boldsymbol{\mu}}J=\inf_{C}\left(\inf_{\boldsymbol{\mu}}J\right)\)</span> vale siempre; lo que falla en <span class="math inline">\(K\)</span>-medias es que, una vez sustituidos los centroides óptimos, el problema reducido sigue siendo minimizar sobre todas las asignaciones <span class="math inline">\(C\)</span>, que es justamente el problema combinatorio intratable del que partimos. Por eso hay que iterar y por eso sólo se garantiza un mínimo local.</p>
 </div>
 <div style="margin-top: 2em;">
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3.2.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Aplicación de <span class="math inline">\(K\)</span>-medias </span></p>
+<p><span class="badge bg-primary">Ejemplo 3.2.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> <span class="math inline">\(K\)</span>-medias en datos simulados </span></p>
 <p>Vamos a ver cómo evoluciona el agrupamiento del algoritmo de <span class="math inline">\(K\)</span>-medias para el siguiente conjunto de datos simulados.</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
@@ -475,11 +488,11 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 </script>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="254" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="265" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 264;"><span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>viewof iter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -503,7 +516,7 @@ f({\bf x}\mid\boldsymbol{\mu}_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}
 p({\bf x},z)=p({\bf x}\mid z)\,p(z)
 \]</span></p>
 <p>permite describir de forma probabilística al GMM como sigue.</p>
-<div class="myhighlight2">
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
 <span style="font-size:0.8em;"><em>Supuestos del modelo</em></span>
 <div style="margin-top:-0.1em;">
 
@@ -523,7 +536,7 @@ Z\sim\text{Multinomial}(1,\boldsymbol{\phi}) \\[2pt]
 
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3.2.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Aplicación de GMM </span></p>
+<p><span class="badge bg-primary">Ejemplo 3.2.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> GMM en datos simulados </span></p>
 <p>Aplicaremos GMM a los mismos datos del Ejemplo 3.2.1, utilizando 3 componentes.</p>
 <div>
 <div id="pyodide-3" class="exercise-cell">
@@ -593,8 +606,9 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoi
 <strong>Figura 3.2.4:</strong> Agrupamiento obtenido por DBSCAN. Los hiperparámetros son <span class="math inline">\(\varepsilon&gt;0\)</span> y el número mínimo de vecinos.
 </figcaption>
 </figure>
+<p>A diferencia de <span class="math inline">\(K\)</span>-medias, DBSCAN no requiere fijar de antemano el número de clusters: éste queda determinado por los datos a través de los hiperparámetros <span class="math inline">\(\varepsilon\)</span> y el mínimo de puntos. A cambio, el resultado es sensible a esa elección, y el método tiene dificultades cuando los clusters presentan densidades muy distintas, ya que un mismo <span class="math inline">\(\varepsilon\)</span> debe servir para todos. Su ventaja principal es que, al no medir distancias a centroides, recupera clusters de forma arbitraria y además distingue las observaciones atípicas en lugar de forzar su asignación.</p>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3.2.3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Aplicación de DBSCAN </span></p>
+<p><span class="badge bg-primary">Ejemplo 3.2.3</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> DBSCAN en datos simulados </span></p>
 <p>Aplicaremos DBSCAN a los mismos datos de los Ejemplos 3.2.1 y 3.2.2. Utilizaremos un valor de <span class="math inline">\(\varepsilon\)</span> adecuado que permita distinguir al menos 3 clusters.</p>
 <div>
 <div id="pyodide-4" class="exercise-cell">
@@ -606,7 +620,7 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoi
 </div>
 </div>
 <div class="callout-example">
-<p><span class="badge bg-primary">Ejemplo 3.2.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Clusters no esféricos </span></p>
+<p><span class="badge bg-primary">Ejemplo 3.2.4</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> <span class="math inline">\(K\)</span>-medias y DBSCAN en datos no esféricos </span></p>
 <p>En este ejemplo aplicamos DBSCAN a un conjunto de datos con estructura no esférica. Este tipo de geometría es difícil de separar con métodos como <span class="math inline">\(K\)</span>-medias.</p>
 <div>
 <div id="pyodide-5" class="exercise-cell">
@@ -734,7 +748,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.6</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura de bloques diagonales constantes </span></p>
 <p>La función <code>make_biclusters</code> de <code>scikit-learn</code> genera datos con estructura de bloques diagonales constantes. Vamos a generar una matriz de datos <span class="math inline">\(200\times 200\)</span> con una estructura con 5 biclusters.</p>
-<div id="fefc1915" class="cell" data-execution_count="1">
+<div id="6684d39e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_biclusters</span>
@@ -767,7 +781,7 @@ J(A,B):=\frac{|A\cap B|}{|A\cup B|},
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="35f80626" class="cell" data-execution_count="2">
+<div id="210a494d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>
@@ -847,7 +861,7 @@ Returning the number of logical cores instead. You can silence this warning by s
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.2.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Datos con estructura tipo tablero de ajedrez </span></p>
 <p>La función <code>make_checkerboard</code> de <code>scikit-learn</code> genera matrices con una estructura tipo tablero de ajedrez, donde los valores dentro de cada bloque son aproximadamente constantes. Vamos a generar una matriz de datos <span class="math inline">\(300 \times 300\)</span> con 5 grupos de filas y 3 grupos de columnas.</p>
-<div id="b5bb4244" class="cell" data-execution_count="3">
+<div id="89f50822" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_checkerboard</span>
@@ -880,7 +894,7 @@ Returning the number of logical cores instead. You can silence this warning by s
 </div>
 </div>
 <p>Vamos a aplicar los algoritmos <code>SpectralCoclustering</code> y <code>SpectralBiclustering</code> y evaluar su rendimiento. Por la estructura de los datos, se espera que el primero logre un mejor desempeño, puesto que está especialmente diseñado para este tipo de datos.</p>
-<div id="9ceb8600" class="cell" data-execution_count="4">
+<div id="f5016a4a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralCoclustering</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> SpectralBiclustering</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> consensus_score</span>

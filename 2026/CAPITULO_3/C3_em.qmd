@@ -183,7 +183,7 @@ Dado un *parámetro inicial* $\bftheta^{(0)}$:
 
 Volvamos al modelo de mezcla, ahora en su forma general. Dado un conjunto de datos $\{\xx_i\}_{i=1}^n$ sin etiquetas, modelamos la distribución conjunta $p(\xx_i,z_i)=p(\xx_i\mid z_i)\,p(z_i)$ bajo los siguientes supuestos.
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
 <span style="font-size:0.8em;">*Supuestos del modelo*</span>
 

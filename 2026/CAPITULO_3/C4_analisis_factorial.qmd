@@ -113,7 +113,7 @@ El modelo de análisis factorial ofrece una vía intermedia: usa más parámetro
 
 En este modelo, los datos se generan como una combinación lineal de variables latentes más ruido gaussiano.
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
 <span style="font-size:0.8em;">*Supuestos del modelo*</span>
 

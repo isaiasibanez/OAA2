@@ -2,21 +2,29 @@
 title: "Métodos de clustering"
 subtitle: "Capítulo 3 - Sección 2"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c3s2.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c3s2.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c3s2.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c3s2.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 09/11/2026
+  </span>
 
 </div>
 
@@ -24,17 +32,19 @@ subtitle: "Capítulo 3 - Sección 2"
 
 
 
-Hasta ahora hemos abordado la tarea de predecir los valores de una respuesta variable $Y\in\RR$, continua (*regresión*) o discreta (*clasificación*) a partir de un conjunto de variables predictoras $\XX\in\RR^p$. Este tipo de problemas se enmarca en lo que se conoce como *aprendizaje supervisado*. 
+Hasta ahora hemos abordado la tarea de predecir los valores de una variable respuesta $Y\in\RR$, continua (*regresión*) o discreta (*clasificación*), a partir de un conjunto de variables predictoras $\XX\in\RR^p$. Este tipo de problemas se enmarca en lo que se conoce como *aprendizaje supervisado*. 
 
 En esta sección nos centraremos en el *aprendizaje no supervisado*. En este caso, el conjunto de entrenamiento es $\{\xx_i\}_{i=1}^n$ y la distribución asociada es $p(\xx)$. El objetivo ya no es predecir una variable respuesta, sino descubrir estructuras o patrones en los datos que resulten de interés. En particular, una de las tareas más comunes es la *segmentación* o *clustering*, cuyo propósito es identificar grupos dentro del conjunto de datos que se diferencien entre sí de manera significativa.
 
 El problema de *clustering* puede abordarse desde distintas perspectivas. De manera general, se distinguen tres tipos:
 
-- *Métodos combinatorios*: trabajan directamente sobre los datos observados, sin asumir un modelo probabilístico subyacente.
+- *Métodos combinatorios*: trabajan directamente sobre los datos observados, sin asumir un modelo probabilístico subyacente. Veremos $K$-medias.
 
-- *Modelos de mezcla*: suponen que los datos son una muestra i.i.d. de una distribución de probabilidad compuesta por varios componentes. 
+- *Modelos de mezcla*: suponen que los datos son una muestra i.i.d. de una distribución de probabilidad compuesta por varios componentes, y el agrupamiento surge de estimar sus parámetros. Veremos mezclas de Gaussianas.
 
-- *Búsqueda de modas*: adoptan una perspectiva no paramétrica, intentando estimar directamente las modas (máximos locales) de $p(\xx)$.
+- *Métodos basados en densidad*: adoptan una perspectiva no paramétrica sobre $p(\xx)$. Algunos estiman directamente sus modas (máximos locales) y asignan cada observación a la que la atrae, como *mean-shift*; otros identifican los clusters con regiones conexas de alta densidad, como DBSCAN, que es el que veremos.
+
+Cerraremos la sección con el *biclustering*, que agrupa simultáneamente observaciones y variables y escapa a esta clasificación.
 
 <div style="margin-top:2.5em;"></div>
 
@@ -91,7 +101,7 @@ donde $\bar{\xx}_k$ es el vector de medias del $k$-ésimo cluster y $n_k$ es el 
 
 <span style="font-size: 1.3em;">📝</span><br>
 
-Verifique la expresión (3.2.2).
+Verifique la expresión (3.2.2). *Ayuda: escriba $\xx_i-\xx_j=(\xx_i-\bar{\xx}_k)-(\xx_j-\bar{\xx}_k)$ y desarrolle el cuadrado.*
 
 :::
 
@@ -103,15 +113,19 @@ Verifique la expresión (3.2.2).
 
 ---
 
-Dado un conjunto de *centroides iniciales* $\{\bfmu_1,\ldots,\bfmu_K\}\subset\RR^p$:
+Dado un conjunto de *centroides iniciales* $\{\bfmu^{(0)}_1,\ldots,\bfmu^{(0)}_K\}\subset\RR^p$:
 
 <div style="margin-left: 1em">
 
-**repetir** para $t = 0,1,2,\ldots$:
+$t\leftarrow 0.$
 
-> **1°** Calcular, para todo $i=1,\ldots,n$, la asignación $$C(i)=\arg\min_{j}\|\xx_i-\bfmu_j\|_2^2.$$
+**repetir**:
+
+> **1°** Calcular, para todo $i=1,\ldots,n$, la asignación $$C^{(t+1)}(i)=\arg\min_{j}\|\xx_i-\bfmu^{(t)}_j\|_2^2.$$
 >
-> **2°** Actualizar, para todo $j=1,\ldots,K$, el centroide mediante $$\bfmu_j=\frac{\sum_{i=1}^n\bfone\{C(i)=j\}\,\xx_i}{\sum_{i=1}^n\bfone\{C(i)=j\}}.$$
+> **2°** Actualizar, para todo $j=1,\ldots,K$, el centroide mediante $$\bfmu^{(t+1)}_j=\frac{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}\,\xx_i}{\sum_{i=1}^n\bfone\{C^{(t+1)}(i)=j\}}.$$
+>
+> $t\leftarrow t+1$.
 
 **hasta** que el criterio de parada se satisfaga.
 
@@ -130,39 +144,36 @@ La función
 $$
 J(C,\bfmu) := \sum_{i=1}^n\|\xx_i-\bfmu_{C(i)}\|_2^2
 $$
-se denomina *función de distorsión*; mide la pérdida de fidelidad al representar cada observación $\xx_i$ por su centroide $\bfmu_{C(i)}$. El algoritmo de $K$-medias realiza exactamente un descenso por coordenadas de $J$. En primer lugar, se minimiza $J$ con respecto a $C$ manteniendo $\bfmu$ fijo, y luego se minimiza $J$ con respecto a $\bfmu$ manteniendo $C$ fijo. (✏1) 
+se denomina *función de distorsión*; mide la pérdida de fidelidad al representar cada observación $\xx_i$ por su centroide $\bfmu_{C(i)}$, donde $\bfmu=(\bfmu_1,\ldots,\bfmu_K)$ son centroides libres en $\RR^p$, no necesariamente las medias $\bar{\xx}_k$ de los clusters. El algoritmo de $K$-medias realiza exactamente un descenso por coordenadas de $J$. En primer lugar, se minimiza $J$ con respecto a $C$ manteniendo $\bfmu$ fijo, y luego se minimiza $J$ con respecto a $\bfmu$ manteniendo $C$ fijo. (✏1)
 
-La función de distorsión no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, $K$-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar $K$-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión $J$. (✏2)
+Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior, donde también se optimizó alternando dos bloques y bastó una sola pasada. La diferencia no está en que allá un bloque no dependiera del otro: en $J(x,y)=(x-y)^2+(x-2)^2$ cada bloque depende del otro y, sin embargo, al sustituir $\hat{x}(y)=\frac{y+2}{2}$ queda $\frac{1}{2}(y-2)^2$, que se minimiza sin iterar. Lo que decide es si el problema *reducido* se puede resolver: la identidad $\inf_{C,\bfmu}J=\inf_{C}\left(\inf_{\bfmu}J\right)$ vale siempre, pero en $K$-medias, una vez sustituidos los centroides óptimos, lo que queda es minimizar sobre todas las asignaciones $C$, es decir el problema combinatorio intratable del que partimos. Por eso hay que iterar.
+
+Para $C$ fijo, $J$ es convexa en $\bfmu$; la dificultad aparece al minimizar también en $C$. La función reducida
+$$
+\widetilde{W}(\bfmu)=\sum_{i=1}^n\min_{k}\|\xx_i-\bfmu_k\|_2^2
+$$
+es un mínimo puntual de funciones convexas y en general no es convexa, por lo que no está garantizado alcanzar un mínimo global. Aun así, $K$-medias funciona bien y produce agrupamientos muy buenos. Sin embargo, si se teme que el algoritmo quede atrapado en un mínimo local, una práctica común es ejecutar $K$-medias varias veces, usando diferentes valores iniciales para los centroides y, luego, entre todas las agrupaciones obtenidas, se elige aquella que tenga el menor valor de la distorsión $J$. (✏2)
 
 </div>
+
+<div style="margin-top:2em;"></div>
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">📝</span><br>
+
+Verifique que $\widetilde{W}$ no es convexa. *Ayuda: tome $p=1$, $K=2$ y el conjunto $\{0,10\}$, y compare el valor de $\widetilde{W}$ en $(0,10)$ y en $(10,0)$ con el que toma en el punto medio de ambos.*
+
+:::
 
 <div style="margin-top: 2em;"></div>
-
-<div class="alert alert-light text-dark" role="important">
-<span class="badge bg-warning text-dark">Observación</span>
-
-Conviene comparar esto con la estimación por máxima verosimilitud de la sección anterior. Allí también optimizamos alternando dos bloques, primero $\bfmu$ con $\Sigma$ fija y luego $\Sigma$, y sin embargo bastó una sola pasada.
-
-Podría pensarse que la diferencia está en que allí la solución de un bloque no depende del otro, pero no es eso. Consideremos
-$$
-J(x,y)=(x-y)^2+(x-2)^2.
-$$
-Al anular las derivadas parciales se obtiene $\hat{x}(y)=\frac{y+2}{2}$ y $\hat{y}(x)=x$, de modo que cada bloque depende del otro. Pese a ello, al sustituir el primero resulta
-$$
-J(\hat{x}(y),y)=\frac{1}{2}(y-2)^2,
-$$
-que se minimiza en $\hat{y}=2$, y de allí $\hat{x}=2$. El óptimo se alcanza sin iterar.
-
-Lo que decide, entonces, es si el problema reducido puede resolverse. La identidad $\inf_{C,\bfmu}J=\inf_{C}\left(\inf_{\bfmu}J\right)$ vale siempre; lo que falla en $K$-medias es que, una vez sustituidos los centroides óptimos, el problema reducido sigue siendo minimizar sobre todas las asignaciones $C$, que es justamente el problema combinatorio intratable del que partimos. Por eso hay que iterar y por eso sólo se garantiza un mínimo local.
-
-</div>
 
 <div style="margin-top: 2em;"></div>
 
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 3.2.1</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-Aplicación de $K$-medias
+$K$-medias en datos simulados
 </span>
 
 Vamos a ver cómo evoluciona el agrupamiento del algoritmo de $K$-medias para el siguiente conjunto de datos simulados.
@@ -286,7 +297,7 @@ $$
 
 permite describir de forma probabilística al GMM como sigue.
 
-:::{.myhighlight2}
+::: {.myhighlight2 style="color: rgb(204, 0, 0);"}
 
 <span style="font-size:0.8em;">*Supuestos del modelo*</span>
 <div style="margin-top:-0.1em;"></div>
@@ -314,7 +325,7 @@ La optimización directa de esta función no es posible, ya que la suma dentro d
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 3.2.2</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-Aplicación de GMM
+GMM en datos simulados
 </span>
 
 Aplicaremos GMM a los mismos datos del Ejemplo 3.2.1, utilizando 3 componentes. 
@@ -445,11 +456,14 @@ Observar que un cluster contiene únicamente objetos núcleos. Para el resto de 
 </figure>
 
 
+A diferencia de $K$-medias, DBSCAN no requiere fijar de antemano el número de clusters: éste queda determinado por los datos a través de los hiperparámetros $\varepsilon$ y el mínimo de puntos. A cambio, el resultado es sensible a esa elección, y el método tiene dificultades cuando los clusters presentan densidades muy distintas, ya que un mismo $\varepsilon$ debe servir para todos. Su ventaja principal es que, al no medir distancias a centroides, recupera clusters de forma arbitraria y además distingue las observaciones atípicas en lugar de forzar su asignación.
+
+
 
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 3.2.3</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-Aplicación de DBSCAN
+DBSCAN en datos simulados
 </span>
 
 Aplicaremos DBSCAN a los mismos datos de los Ejemplos 3.2.1 y 3.2.2. Utilizaremos un valor de $\varepsilon$ adecuado que permita distinguir al menos 3 clusters.
@@ -515,7 +529,7 @@ plt.show()
 ::: {.callout-example}
 <span class="badge bg-primary">Ejemplo 3.2.4</span> 
 <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;">
-Clusters no esféricos
+$K$-medias y DBSCAN en datos no esféricos
 </span>
 
 En este ejemplo aplicamos DBSCAN a un conjunto de datos con estructura no esférica. Este tipo de geometría es difícil de separar con métodos como $K$-medias.
