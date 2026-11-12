@@ -36,7 +36,7 @@ El algoritmo alterna dos etapas: el *paso E* (de esperanza) y el *paso M* (de ma
 
 📄 **Notación**
 
-Durante esta sección consideramos un conjunto de datos $\{\xx_i\}_{i=1}^n$ de observaciones independientes, cuya distribución depende de un vector de parámetros $\bftheta$. Asociada a cada observación $\xx_i$ hay una variable **latente** $Z_i$, no observable, que toma un número finito de valores.
+Durante esta sección consideramos un conjunto de datos $\{\xx_i\}_{i=1}^n$ de observaciones independientes, cuya distribución depende de un vector de parámetros $\bftheta$. Asociada a cada observación $\xx_i$ hay una variable *latente* $Z_i$, no observable, que toma un número finito de valores.
 
 Denotamos $\ell(\bftheta)$ la log-verosimilitud de los *datos observados* y $\ell_c(\bftheta)$ la de los *datos completos* $(\xx_i, z_i)$. Con $\bftheta^{(t)}$ indicamos el valor de los parámetros en la iteración $t$.
 
@@ -48,16 +48,22 @@ Denotamos $\ell(\bftheta)$ la log-verosimilitud de los *datos observados* y $\el
 
 ## I <span style="color:#CCCCCC;">│</span> Motivación: la variable latente
 
-Trabajemos en una dimensión ($x\in\RR$) y supongamos que recolectamos datos que, al graficarlos sobre la recta real, aparecen como puntos dispersos formando dos grupos separados. Parece razonable suponer que provienen de **dos fuentes gaussianas** diferentes.
+Trabajemos en una dimensión ($x\in\RR$) y supongamos que recolectamos datos que, al graficarlos sobre la recta real, aparecen como puntos dispersos formando dos grupos separados. Parece razonable suponer que provienen de *dos fuentes gaussianas* diferentes.
 
 <figure style="text-align: center;">
   <img src="figuras/em_datos_1d.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.1:** Datos en 1D: dos grupos visibles sobre la recta, lo que sugiere dos fuentes distintas. </figcaption>
+  <figcaption> **Figura 3.3.1:** Datos en una dimensión sobre la recta, que parecen provenir de dos fuentes distintas. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>
 
-### Si conociéramos las etiquetas
+::: {.myhighlight3}
+
+¿Qué pasaría si conociéramos las etiquetas?
+
+:::
+
+<div style="margin-top:2em;"></div>
 
 Imaginemos por un momento que supiéramos de qué gaussiana proviene cada punto. Introducimos entonces una variable $Z\in\{1,2\}$ que indica la fuente, de manera que
 $$
@@ -94,7 +100,7 @@ La expresión (3.3.1) sería fácil de optimizar: para cada observación sobrevi
 
 ### El problema real
 
-En la práctica **no sabemos** de qué gaussiana proviene cada punto: las etiquetas son **latentes**. Solo observamos $\{x_i\}_{i=1}^n$ sin rótulo, y aun así queremos estimar $\bftheta=(\phi_j,\mu_j,\sigma_j^2)$.
+En la práctica *no sabemos* de qué gaussiana proviene cada punto: las etiquetas son *latentes*. Solo observamos $\{x_i\}_{i=1}^n$ sin rótulo, y aun así queremos estimar $\bftheta=(\phi_j,\mu_j,\sigma_j^2)$.
 
 La log-verosimilitud de los datos observados se obtiene marginalizando sobre la variable latente:
 $$
@@ -120,7 +126,7 @@ Comparando (3.3.1) con (3.3.2) se ve el contraste: conocer $z$ volvería trivial
 
 ## II <span style="color:#CCCCCC;">│</span> El algoritmo EM
 
-La idea es optimizar $\ell(\bftheta)$ de forma **indirecta**, maximizando iterativamente la esperanza de la log-verosimilitud completa, condicionada a los datos observados y evaluada con los parámetros del paso anterior.
+La idea es optimizar $\ell(\bftheta)$ de forma *indirecta*, maximizando iterativamente la esperanza de la log-verosimilitud completa, condicionada a los datos observados y evaluada con los parámetros del paso anterior.
 
 <div style="margin-top:1em;"></div>
 
@@ -211,16 +217,16 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-¿Quién es $Z$? Es el **índice de la componente** que generó la observación. En aprendizaje no supervisado se lo interpreta como una **clase latente** o *cluster*.
+¿Quién es $Z$? Es el *índice de la componente* que generó la observación. En aprendizaje no supervisado se lo interpreta como una *clase latente* o *cluster*.
 
 <div style="margin-top:1em;"></div>
 
-Si se quiere una asignación **dura** de cada punto a un cluster, se usa la regla MAP:
+Si se quiere una asignación *dura* de cada punto a un cluster, se usa la regla MAP:
 $$
 \hat z_i=\arg\max_{j}\ p\left(Z_i=j \mid \xx_i\right)=\arg\max_{j}\ \phi_j\,\calN(\xx_i;\bfmu_j,\Sigma_j).
 $$
 
-Pero también podemos quedarnos con la asignación **blanda**, es decir, con la probabilidad de pertenecer a cada componente. Esto es lo que usa EM.
+Pero también podemos quedarnos con la asignación *blanda*, es decir, con la probabilidad de pertenecer a cada componente. Esto es lo que usa EM.
 
 </div>
 
@@ -295,7 +301,7 @@ Hay un paralelo directo con el algoritmo de $K$-medias de la [C3-S2](C2_clusteri
 
 <div style="margin-top:1em;"></div>
 
-En $K$-medias, el primer paso asigna cada punto al centroide más cercano: aunque esté apenas más cerca de uno que de otro, la asignación es **dura**, del 100% a ese cluster. EM, en cambio, hace una asignación **blanda**: reparte cada punto entre las componentes según las responsabilidades $w_{ij}$. El segundo paso actualiza las medias en consecuencia, promediando las observaciones con esos pesos en lugar de contarlas enteras.
+En $K$-medias, el primer paso asigna cada punto al centroide más cercano: aunque esté apenas más cerca de uno que de otro, la asignación es *dura*, del 100% a ese cluster. EM, en cambio, hace una asignación *blanda*: reparte cada punto entre las componentes según las responsabilidades $w_{ij}$. El segundo paso actualiza las medias en consecuencia, promediando las observaciones con esos pesos en lugar de contarlas enteras.
 
 <div style="margin-top:1em;"></div>
 
@@ -329,7 +335,7 @@ Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y apl
 
 ## IV <span style="color:#CCCCCC;">│</span> ¿Por qué funciona?
 
-Veremos que el algoritmo EM satisface una propiedad de **monotonía**: la log-verosimilitud de los datos observados no disminuye en ninguna iteración. Para probarlo necesitamos primero un resultado auxiliar.
+Veremos que el algoritmo EM satisface una propiedad de *monotonía*: la log-verosimilitud de los datos observados no disminuye en ninguna iteración. Para probarlo necesitamos primero un resultado auxiliar.
 
 <div style="margin-top:1em;"></div>
 
@@ -479,7 +485,7 @@ Finalmente, combinando (3.3.8), (3.3.9) y (3.3.10) se obtiene la monotonía.
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto **no garantiza** que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
+El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto *no garantiza* que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
 
 <div style="margin-top:1em;"></div>
 
@@ -491,7 +497,7 @@ Cuando la verosimilitud es multimodal, lo mejor que se puede garantizar es la co
 
 ### Interpretación geométrica
 
-La descomposición (3.3.7) es la base de todas las formulaciones del algoritmo EM. En particular, permite interpretar el paso M como la maximización de una **cota inferior** de la log-verosimilitud: la función $Q(\bftheta\mid \bftheta^{(t)})$, corregida por un término que no depende de $\bftheta$, nunca supera a $\ell(\bftheta)$ y la toca exactamente en $\bftheta^{(t)}$.
+La descomposición (3.3.7) es la base de todas las formulaciones del algoritmo EM. En particular, permite interpretar el paso M como la maximización de una *cota inferior* de la log-verosimilitud: la función $Q(\bftheta\mid \bftheta^{(t)})$, corregida por un término que no depende de $\bftheta$, nunca supera a $\ell(\bftheta)$ y la toca exactamente en $\bftheta^{(t)}$.
 
 <div style="margin-top:1em;"></div>
 

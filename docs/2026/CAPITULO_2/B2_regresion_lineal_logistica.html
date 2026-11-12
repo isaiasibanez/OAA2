@@ -379,7 +379,7 @@ window.Quarto = {
 \]</span> en principio sin restricciones. Aquí, la función objetivo <span class="math inline">\(J:\mathbb{R}^q\to\mathbb{R}\)</span>, conocida como , mide que tan bien se ajusta <span class="math inline">\(\boldsymbol{\theta}\)</span> a los datos observados. De acuerdo con lo visto en <a href="../CAPITULO_2/B1_maxima_verosimilitud.html">C2-S1</a>, bajo la suposición que los datos son i.i.d. (independientes e idénticamente distribuidos) con distribución condicional <span class="math inline">\(p(y\mid{\bf x};\boldsymbol{\theta})\)</span>, una estrategia para formular <span class="math inline">\(J\)</span> es el principio de máxima verosimilitud (MLE); es decir, <span class="math inline">\(J\)</span> se deriva de la función de verosimilitud <span class="math display">\[
 L(\boldsymbol{\theta}):=\prod_{i=1}^n p(y_i\mid{\bf x}_i;\boldsymbol{\theta}).
 \]</span> Si bien <span class="math inline">\(J\)</span> depende del problema específico, en general es de la forma <span class="math display">\[
-J(\boldsymbol{\theta})=\sum_{i=1}^n\mathop{\mathrm{loss}}(y_i,f({\bf x}_i,\boldsymbol{\theta})),
+J(\boldsymbol{\theta})=\sum_{i=1}^n\mathop{\mathrm{loss}}(y_i,f({\bf x}_i;\boldsymbol{\theta})),
 \]</span> donde <span class="math inline">\(\mathop{\mathrm{loss}}:\mathbb{R}\times\mathbb{R}\to\mathbb{R}_0^+\)</span> mide, para cada observación, el error entre el valor observado de la variable respuesta y el valor estimado por el modelo.</p>
 <div style="margin-top:2.5em;">
 
@@ -565,7 +565,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 </div>
 </div>
 </div>
-<div id="258de9cd" class="cell" data-execution_count="1">
+<div id="33d42cfd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -587,7 +587,7 @@ X^\top X\hat{\boldsymbol{\theta}} &amp;=X^\top{\bf y}.
 <span id="cb1-19"><a href="#cb1-19"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
 <span id="cb1-20"><a href="#cb1-20"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cdf104e2" class="cell" data-execution_count="2">
+<div id="42774f9b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>MSE en test: 0.556
 Coeficientes estimados:
@@ -707,7 +707,7 @@ Y\mid{\bf X}={\bf x}\sim\text{Bernoulli}(h_{\boldsymbol{\theta}}({\bf x})),
 <p>y la función <span class="math inline">\(A:\mathbb{R}\to\mathbb{R}\)</span> mediante <span class="math inline">\(A(\eta)=\log(1+e^{\eta})\)</span>. Resulta:</p>
 <div class="myhighlight">
 <p>La función de probabilidad condicional de <span class="math inline">\(Y\mid{\bf X}\)</span> en el modelo de regresión logística es <span class="math display">\[
-p(y \mid \eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\boldsymbol{\theta}^\top{\bf x}.
+p(y;\eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\boldsymbol{\theta}^\top{\bf x}.
 \tag{2.2.1}
 \]</span></p>
 </div>
@@ -884,7 +884,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 </div>
 </div>
 </div>
-<div id="951cb55c" class="cell" data-execution_count="3">
+<div id="488d1d43" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -906,7 +906,7 @@ W:=\mathop{\mathrm{diag}}(w_1,\ldots,w_n),\qquad w_i:=A''(\eta_i)=h_{\boldsymbol
 <span id="cb3-19"><a href="#cb3-19"></a>y_pred <span class="op">=</span> logreg.predict(X_test)</span>
 <span id="cb3-20"><a href="#cb3-20"></a>acc_test <span class="op">=</span> accuracy_score(y_test, y_pred)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="212b7436" class="cell" data-execution_count="4">
+<div id="fd1ebb9b" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy en test: 0.974
 Coeficientes estimados (θ̂):

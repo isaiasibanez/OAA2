@@ -362,10 +362,10 @@ window.Quarto = {
 <li><p>En regresión logística, <span class="math inline">\(Y\mid{\bf X}={\bf x}\sim\text{Bernoulli}(\sigma(\boldsymbol{\theta}^\top{\bf x}))\)</span>, con <span class="math inline">\(\sigma:\mathbb{R}\to\mathbb{R}\)</span> la función logística.</p></li>
 </ul>
 <p>Además, vimos que en regresión logística, la incorporación del parámetro natural <span class="math inline">\(\eta=\boldsymbol{\theta}^\top {\bf x}\)</span> y de la función <span class="math inline">\(A(\eta)=\log(1+e^\eta)\)</span> permiten escribir la función de probabilidad condicional como <span class="math display">\[
-p(y\mid\eta)=\exp\left\{\eta y-A(\eta)\right\}.
+p(y;\eta)=\exp\left\{\eta y-A(\eta)\right\}.
 \]</span></p>
 <p>Algo similar ocurre en regresión lineal si consideramos <span class="math inline">\(\sigma^2=1\)</span>, <span class="math inline">\(\eta=\boldsymbol{\theta}^\top{\bf x}\)</span> y <span class="math inline">\(A(\eta)=\eta^2/2\)</span>: <span class="math display">\[
-p(y\mid\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
+p(y;\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
 \]</span></p>
 <p>La elección <span class="math inline">\(\sigma^2=1\)</span> es sin pérdida de generalidad ya que, como vimos, el estimador de máxima verosimilitud de <span class="math inline">\(\boldsymbol{\theta}\)</span> no depende de <span class="math inline">\(\sigma^2\)</span>. De hecho, es fácil ver que para <span class="math inline">\(\sigma^2\)</span> arbitrario se mantiene la estructura lineal tomando <span class="math inline">\(\eta=\tilde{\boldsymbol{\theta}}^\top{\bf x}\)</span>, con <span class="math inline">\(\tilde{\boldsymbol{\theta}}=\boldsymbol{\theta}/\sigma^2\)</span>.</p>
 <p>Por último, es importante remarcar que en ambos modelos se cumple <span class="math display">\[
@@ -398,7 +398,7 @@ A'(\eta)=\mathbb{E}\left[Y\mid{\bf X}={\bf x}\right]\qquad\text{y}\qquad A''(\et
 <div class="definicion">
 <p><strong>Definición 2.3.1</strong> (Familia exponencial). Decimos que una clase de distribuciones pertenece a la <em>familia exponencial</em> si se puede escribir en la forma</p>
 <p><span class="math display">\[
-p(y \mid \boldsymbol{\eta}) := h(y) \exp\left\{\boldsymbol{\eta}^\top T(y) - A(\boldsymbol{\eta})\right\},
+p(y;\boldsymbol{\eta}) := h(y) \exp\left\{\boldsymbol{\eta}^\top T(y) - A(\boldsymbol{\eta})\right\},
 \tag{2.3.1}
 \]</span></p>
 <p>con <span class="math inline">\(h:\mathbb{R}\to\mathbb{R}\)</span>, <span class="math inline">\(\boldsymbol{\eta}\in\mathbb{R}^q\)</span>, <span class="math inline">\(T:\mathbb{R}\to\mathbb{R}^q\)</span> y <span class="math inline">\(A:\mathbb{R}^q\to\mathbb{R}\)</span>.</p>
@@ -414,20 +414,20 @@ p(y \mid \boldsymbol{\eta}) := h(y) \exp\left\{\boldsymbol{\eta}^\top T(y) - A(\
 <li><p><span class="math inline">\(A:\mathbb{R}^q\to\mathbb{R}\)</span> es la <em>función de log-partición</em> que normaliza la expresión, garantizando que la distribución integre a 1.</p></li>
 </ul>
 <p>Para un mismo <span class="math inline">\(h\)</span> y <span class="math inline">\(T\)</span>, la familia exponencial consiste en todas las distribuciones que se obtienen al variar el parámetro natural <span class="math inline">\(\boldsymbol{\eta}\)</span>. Observar que (2.3.1) puede expresarse también como <span class="math display">\[
-p(y\mid\boldsymbol{\eta})=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\exp\left\{A(\boldsymbol{\eta})\right\}}=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy}.
+p(y;\boldsymbol{\eta})=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\exp\left\{A(\boldsymbol{\eta})\right\}}=\frac{h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}}{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy}.
 \tag{2.3.2}
 \]</span></p>
-<p>lo cual resulta del hecho que <span class="math inline">\(\int p(y\mid\boldsymbol{\eta})\,dy=1\)</span>.</p>
+<p>lo cual resulta del hecho que <span class="math inline">\(\int p(y;\boldsymbol{\eta})\,dy=1\)</span>.</p>
 <div style="margin-top:2em;">
 
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distribución Bernoulli </span></p>
 <p>Sea <span class="math inline">\(Y\in\{0,1\}\)</span> tal que <span class="math inline">\(Y\sim\text{Bernoulli}(\phi)\)</span>, con <span class="math inline">\(\phi:=\mathbb{P}(Y=1)\)</span>. Entonces <span class="math display">\[
-p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
+p(y;\phi) = \phi^y(1-\phi)^{1-y}.
 \]</span></p>
 <p>De acuerdo a lo visto en regresión logística, la distribución de <span class="math inline">\(Y\)</span> se puede escribir como <span class="math display">\[
-p(y\mid\phi) = \exp\left\{\eta y-A(\eta)\right\}.
+p(y;\phi) = \exp\left\{\eta y-A(\eta)\right\}.
 \]</span> con parámetro natural <span class="math display">\[
 \eta=\mathop{\mathrm{logit}}\phi=\log\left(\frac{\phi}{1-\phi}\right)\in\mathbb{R},
 \]</span></p>
@@ -440,7 +440,7 @@ h(y)=1,\qquad A(\eta)=-\log(1-\phi)=\log(1+e^\eta).
 <p>Sea <span class="math inline">\(Y\in\mathbb{R}\)</span> tal que <span class="math inline">\(Y\sim\mathcal{N}(\mu,\sigma^2)\)</span>. Entonces</p>
 <p><span class="math display">\[
 \begin{align*}
-p(y \mid \mu, \sigma^2) &amp; = \frac{1}{\sqrt{2\pi}\sigma} \exp\left\{-\frac{(y - \mu)^2}{2\sigma^2}\right\} \\[2pt]
+p(y;\mu, \sigma^2) &amp; = \frac{1}{\sqrt{2\pi}\sigma} \exp\left\{-\frac{(y - \mu)^2}{2\sigma^2}\right\} \\[2pt]
 &amp; = \frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2\sigma^2}y^2+\frac{\mu}{\sigma^2}y-\frac{\mu^2}{2\sigma^2}-\log\sigma\right\} \\[2pt]
 &amp; = \frac{1}{\sqrt{2\pi}}\exp\left\{\left(\frac{\mu}{\sigma^2},-\frac{1}{2\sigma^2}\right)^\top (y,y^2)-\frac{\mu^2}{2\sigma^2}-\log\sigma\right\}.
 \end{align*}
@@ -494,11 +494,11 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 \nabla A(\boldsymbol{\eta})=\frac{\nabla\left[\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy\right]}{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy}=\frac{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\, T(y)\,dy}{\displaystyle\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\}\,dy},
 \]</span></p>
 <p>donde hemos asumido que la derivación bajo el signo integral es válida para <span class="math inline">\(\boldsymbol{\eta}\)</span> en un conjunto abierto. De (2.3.2) resulta <span class="math display">\[
-\nabla A(\boldsymbol{\eta})=\int T(y)\, p(y\mid\boldsymbol{\eta})\,dy=\mathbb{E}\left[T(Y)\right].
+\nabla A(\boldsymbol{\eta})=\int T(y)\, p(y;\boldsymbol{\eta})\,dy=\mathbb{E}\left[T(Y)\right].
 \]</span></p>
 <p>Ahora bien, aplicando regla del cociente, resulta <span class="math display">\[
 \begin{align*}
-\nabla^2 A(\boldsymbol{\eta}) &amp;= \displaystyle\int T(y)T(y)^\top p(y\mid\boldsymbol{\eta})\,dy - \displaystyle\int T(y)\,p(y\mid\boldsymbol{\eta})\,dy \int T(y)^\top p(y\mid\boldsymbol{\eta})\,dy \\[3pt]
+\nabla^2 A(\boldsymbol{\eta}) &amp;= \displaystyle\int T(y)T(y)^\top p(y;\boldsymbol{\eta})\,dy - \displaystyle\int T(y)\,p(y;\boldsymbol{\eta})\,dy \int T(y)^\top p(y;\boldsymbol{\eta})\,dy \\[3pt]
 &amp;=\mathbb{E}\left[T(Y) T(Y)^\top\right]-\mathbb{E}\left[T(Y)\right]\mathbb{E}\left[T(Y)\right]^\top \\[5pt]
 &amp;=\mathop{\mathrm{Cov}}\left[T(Y)\right].
 \end{align*}
@@ -661,7 +661,7 @@ A(\boldsymbol{\eta}):=\log\int h(y)\exp\left\{\boldsymbol{\eta}^\top T(y)\right\
 <section id="función-de-verosimilitud" class="level3">
 <h3 class="anchored" data-anchor-id="función-de-verosimilitud">Función de verosimilitud</h3>
 <p>De (2.3.1) resulta <span class="math display">\[
-\log p(y_i\mid\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
+\log p(y_i;\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
 \]</span></p>
 <p>Por lo tanto, la función de log-verosimilitud es <span class="math display">\[
 \ell(\boldsymbol{\theta})=\sum_{i=1}^n\left[\eta_i\, T(y_i)-A(\eta_i)\right]+\text{cte}.
@@ -828,7 +828,7 @@ X^\top W_t{\bf z}_t=X^\top W_t X\boldsymbol{\theta}_t+X^\top\left(T({\bf y})-\bo
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 2.3.7</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Distribución categórica </span></p>
 <p>Sea <span class="math inline">\(Y\in\mathbb{R}\)</span> tal que <span class="math inline">\(Y\sim\text{Multinomial}(1,\boldsymbol{\phi})\)</span>, con <span class="math inline">\(\boldsymbol{\phi}\in\mathbb{R}^k\)</span> tal que <span class="math inline">\(\sum_{i=1}^k\phi_i=1\)</span>. Entonces <span class="math display">\[
-p(y\mid\boldsymbol{\phi})=\phi_1^{\mathbf{1}\{y=1\}}\phi_2^{\mathbf{1}\{y=2\}}\ldots \phi_k^{\mathbf{1}\{y=k\}},
+p(y;\boldsymbol{\phi})=\phi_1^{\mathbf{1}\{y=1\}}\phi_2^{\mathbf{1}\{y=2\}}\ldots \phi_k^{\mathbf{1}\{y=k\}},
 \]</span></p>
 <p>donde <span class="math inline">\(\mathbf{1}\{\cdot\}\)</span> es la función indicatriz, que vale 1 si su argumento es cierto y 0 en caso contrario. Definimos el estadístico suficiente <span class="math inline">\(T(y)\in\mathbb{R}^{k-1}\)</span> mediante <span class="math display">\[
 (T(y))_i=\left\{
@@ -840,7 +840,7 @@ p(y\mid\boldsymbol{\phi})=\phi_1^{\mathbf{1}\{y=1\}}\phi_2^{\mathbf{1}\{y=2\}}\l
 \]</span></p>
 <p>Podemos escribir <span class="math display">\[
 \begin{align}
-p(y\mid\boldsymbol{\phi}) &amp;= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k-1}^{(T(y))_{k-1}}\phi_k^{1-\sum_{i=1}^{k-1}(T(y))_i} \\[2ex]
+p(y;\boldsymbol{\phi}) &amp;= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k-1}^{(T(y))_{k-1}}\phi_k^{1-\sum_{i=1}^{k-1}(T(y))_i} \\[2ex]
 &amp;=\exp\left\{\left(\log\left(\frac{\phi_1}{\phi_k}\right), \log\left(\frac{\phi_2}{\phi_k}\right),\ldots, \log\left(\frac{\phi_{k-1}}{\phi_k}\right)\right)^\top T(y)+\log \phi_k\right\}.
 \end{align}
 \]</span></p>
@@ -955,7 +955,7 @@ T = \begin{pmatrix}
 </div>
 </div>
 </div>
-<div id="badca352" class="cell" data-execution_count="1">
+<div id="adf8b896" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -977,7 +977,7 @@ T = \begin{pmatrix}
 <span id="cb1-19"><a href="#cb1-19"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb1-20"><a href="#cb1-20"></a>prob_pred <span class="op">=</span> model.predict_proba(X_test)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b927501c" class="cell" data-execution_count="2">
+<div id="98eb3572" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

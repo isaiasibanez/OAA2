@@ -40,12 +40,12 @@ Tanto en el modelo de regresión lineal como en el de regresión logística, asu
 
 Además, vimos que en regresión logística, la incorporación del parámetro natural $\eta=\bftheta^\top \xx$ y de la función $A(\eta)=\log(1+e^\eta)$ permiten escribir la función de probabilidad condicional como
 $$
-p(y\mid\eta)=\exp\left\{\eta y-A(\eta)\right\}.
+p(y;\eta)=\exp\left\{\eta y-A(\eta)\right\}.
 $$
 
 Algo similar ocurre en regresión lineal si consideramos $\sigma^2=1$, $\eta=\bftheta^\top\xx$ y $A(\eta)=\eta^2/2$:
 $$
-p(y\mid\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
+p(y;\eta)=\frac{1}{\sqrt{2\pi}}e^{-(y-\eta)^2/2}=h(y)\exp\left\{\eta y-A(\eta)\right\},\qquad h(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
 $$
 
 La elección $\sigma^2=1$ es sin pérdida de generalidad ya que, como vimos, el estimador de máxima verosimilitud de $\bftheta$ no depende de $\sigma^2$. De hecho, es fácil ver que para $\sigma^2$ arbitrario se mantiene la estructura lineal tomando $\eta=\tilde{\bftheta}^\top\xx$, con $\tilde{\bftheta}=\bftheta/\sigma^2$.
@@ -95,7 +95,7 @@ $$
 **Definición 2.3.1** (Familia exponencial). Decimos que una clase de distribuciones pertenece a la *familia exponencial* si se puede escribir en la forma
 
 $$
-p(y \mid \bfeta) := h(y) \exp\left\{\bfeta^\top T(y) - A(\bfeta)\right\},
+p(y;\bfeta) := h(y) \exp\left\{\bfeta^\top T(y) - A(\bfeta)\right\},
 \tag{2.3.1}
 $$
 
@@ -119,11 +119,11 @@ En la expresión (1) se distinguen los siguientes elementos:
 
 Para un mismo $h$ y $T$, la familia exponencial consiste en todas las distribuciones que se obtienen al variar el parámetro natural $\bfeta$. Observar que (2.3.1) puede expresarse también como
 $$
-p(y\mid\bfeta)=\frac{h(y)\exp\left\{\bfeta^\top T(y)\right\}}{\exp\left\{A(\bfeta)\right\}}=\frac{h(y)\exp\left\{\bfeta^\top T(y)\right\}}{\displaystyle\int h(y)\exp\left\{\bfeta^\top T(y)\right\}\,dy}.
+p(y;\bfeta)=\frac{h(y)\exp\left\{\bfeta^\top T(y)\right\}}{\exp\left\{A(\bfeta)\right\}}=\frac{h(y)\exp\left\{\bfeta^\top T(y)\right\}}{\displaystyle\int h(y)\exp\left\{\bfeta^\top T(y)\right\}\,dy}.
 \tag{2.3.2}
 $$
 
-lo cual resulta del hecho que $\int p(y\mid\bfeta)\,dy=1$.
+lo cual resulta del hecho que $\int p(y;\bfeta)\,dy=1$.
 
 <div style="margin-top:2em;"></div>
 
@@ -136,12 +136,12 @@ Distribución Bernoulli
 
 Sea $Y\in\{0,1\}$ tal que $Y\sim\text{Bernoulli}(\phi)$, con $\phi:=\prob(Y=1)$. Entonces
 $$
-p(y\mid\phi) = \phi^y(1-\phi)^{1-y}.
+p(y;\phi) = \phi^y(1-\phi)^{1-y}.
 $$
 
 De acuerdo a lo visto en regresión logística, la distribución de $Y$ se puede escribir como
 $$
-p(y\mid\phi) = \exp\left\{\eta y-A(\eta)\right\}.
+p(y;\phi) = \exp\left\{\eta y-A(\eta)\right\}.
 $$
 con parámetro natural
 $$
@@ -165,7 +165,7 @@ Sea $Y\in\RR$ tal que $Y\sim\calN(\mu,\sigma^2)$. Entonces
 
 $$
 \begin{align*}
-p(y \mid \mu, \sigma^2) & = \frac{1}{\sqrt{2\pi}\sigma} \exp\left\{-\frac{(y - \mu)^2}{2\sigma^2}\right\} \\[2pt]
+p(y;\mu, \sigma^2) & = \frac{1}{\sqrt{2\pi}\sigma} \exp\left\{-\frac{(y - \mu)^2}{2\sigma^2}\right\} \\[2pt]
 & = \frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2\sigma^2}y^2+\frac{\mu}{\sigma^2}y-\frac{\mu^2}{2\sigma^2}-\log\sigma\right\} \\[2pt]
 & = \frac{1}{\sqrt{2\pi}}\exp\left\{\left(\frac{\mu}{\sigma^2},-\frac{1}{2\sigma^2}\right)^\top (y,y^2)-\frac{\mu^2}{2\sigma^2}-\log\sigma\right\}.
 \end{align*}
@@ -229,13 +229,13 @@ $$
 
 donde hemos asumido que la derivación bajo el signo integral es válida para $\bfeta$ en un conjunto abierto. De (2.3.2) resulta
 $$
-\nabla A(\bfeta)=\int T(y)\, p(y\mid\bfeta)\,dy=\media\left[T(Y)\right].
+\nabla A(\bfeta)=\int T(y)\, p(y;\bfeta)\,dy=\media\left[T(Y)\right].
 $$
 
 Ahora bien, aplicando regla del cociente, resulta
 $$
 \begin{align*}
-\nabla^2 A(\bfeta) &= \displaystyle\int T(y)T(y)^\top p(y\mid\bfeta)\,dy - \displaystyle\int T(y)\,p(y\mid\bfeta)\,dy \int T(y)^\top p(y\mid\bfeta)\,dy \\[3pt]
+\nabla^2 A(\bfeta) &= \displaystyle\int T(y)T(y)^\top p(y;\bfeta)\,dy - \displaystyle\int T(y)\,p(y;\bfeta)\,dy \int T(y)^\top p(y;\bfeta)\,dy \\[3pt]
 &=\media\left[T(Y) T(Y)^\top\right]-\media\left[T(Y)\right]\media\left[T(Y)\right]^\top \\[5pt]
 &=\cov\left[T(Y)\right].
 \end{align*}
@@ -448,7 +448,7 @@ $$
 
 De (2.3.1) resulta
 $$
-\log p(y_i\mid\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
+\log p(y_i;\eta)=\log(h(y))+\eta\, T(y_i)-A(\eta).
 $$
 
 Por lo tanto, la función de log-verosimilitud es
@@ -687,7 +687,7 @@ Distribución categórica
 
 Sea $Y\in\RR$ tal que $Y\sim\text{Multinomial}(1,\bfphi)$, con $\bfphi\in\RR^k$ tal que $\sum_{i=1}^k\phi_i=1$. Entonces
 $$
-p(y\mid\bfphi)=\phi_1^{\bfone\{y=1\}}\phi_2^{\bfone\{y=2\}}\ldots \phi_k^{\bfone\{y=k\}},
+p(y;\bfphi)=\phi_1^{\bfone\{y=1\}}\phi_2^{\bfone\{y=2\}}\ldots \phi_k^{\bfone\{y=k\}},
 $$
 
 donde $\bfone\{\cdot\}$ es la función indicatriz, que vale 1 si su argumento es cierto y 0 en caso contrario. Definimos el estadístico suficiente $T(y)\in\RR^{k-1}$ mediante
@@ -703,7 +703,7 @@ $$
 Podemos escribir
 $$
 \begin{align}
-p(y\mid\bfphi) &= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k-1}^{(T(y))_{k-1}}\phi_k^{1-\sum_{i=1}^{k-1}(T(y))_i} \\[2ex]
+p(y;\bfphi) &= \phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\ldots\phi_{k-1}^{(T(y))_{k-1}}\phi_k^{1-\sum_{i=1}^{k-1}(T(y))_i} \\[2ex]
 &=\exp\left\{\left(\log\left(\frac{\phi_1}{\phi_k}\right), \log\left(\frac{\phi_2}{\phi_k}\right),\ldots, \log\left(\frac{\phi_{k-1}}{\phi_k}\right)\right)^\top T(y)+\log \phi_k\right\}.
 \end{align}
 $$

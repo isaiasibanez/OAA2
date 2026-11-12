@@ -80,7 +80,7 @@ $$
 si su función de densidad está dada por
 
 $$
-p(\xx\mid\bfmu,\Sigma)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu)^\top\Sigma^{-1}(\xx-\bfmu)\right\}.
+p(\xx;\bfmu,\Sigma)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu)^\top\Sigma^{-1}(\xx-\bfmu)\right\}.
 $$
 
 :::
@@ -485,9 +485,9 @@ $$
 Los parámetros del modelo son $\varphi\in\RR$, $\bfmu_0,\bfmu_1\in\RR^p$ y $\Sigma\in\mathbf{S}_{++}^p$. La estimación por máxima verosimilitud resulta de maximizar
 $$
 \begin{align}
-\ell(\varphi,\bfmu_0,\bfmu_1,\Sigma)&=\sum_{i=1}^n\log p(\xx_i,y_i\mid\varphi,\bfmu_0,\bfmu_1,\Sigma) \\
-& = \sum_{i=1}^n\log\left[p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma)\,p(y_i\mid\varphi)\right]\\
-& = \sum_{i=1}^n\log p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma) + \sum_{i=1}^n\log p(y_i\mid\varphi).
+\ell(\varphi,\bfmu_0,\bfmu_1,\Sigma)&=\sum_{i=1}^n\log p(\xx_i,y_i;\varphi,\bfmu_0,\bfmu_1,\Sigma) \\
+& = \sum_{i=1}^n\log\left[p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma)\,p(y_i;\varphi)\right]\\
+& = \sum_{i=1}^n\log p(\xx_i\mid y_i;\bfmu_{y_i},\Sigma) + \sum_{i=1}^n\log p(y_i;\varphi).
 \end{align}
 \tag{3.1.4}
 $$
@@ -496,7 +496,7 @@ $$
 Obtengamos en primer lugar el MLE de $\varphi$. Este es el punto óptimo de
 $$
 \begin{array}{ll}
-\text{maximizar } & \displaystyle\sum_{i=1}^n\log p(y_i\mid\varphi),
+\text{maximizar } & \displaystyle\sum_{i=1}^n\log p(y_i;\varphi),
 \end{array}
 $$
 

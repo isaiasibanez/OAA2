@@ -44,7 +44,7 @@ En esta sección introducimos el *principio de máxima verosimilitud* (MLE, *max
 
 📄 **Notación**
 
-Durante esta sección consideramos una muestra i.i.d. $\{y_1, \ldots, y_n\}$ de una variable aleatoria $Y\in\RR$ cuya distribución depende de un vector de parámetros $\bftheta \in \RR^q$. Denotamos con $p(y \mid \bftheta)$ la función de densidad (o masa de probabilidad) de $Y$.
+Durante esta sección consideramos una muestra i.i.d. $\{y_1, \ldots, y_n\}$ de una variable aleatoria $Y\in\RR$ cuya distribución depende de un vector de parámetros $\bftheta \in \RR^q$. Denotamos con $p(y;\bftheta)$ la función de densidad (o masa de probabilidad) de $Y$.
 
 Además, de ahora en adelante, denotamos $\mathbb{P}(A)$ la probabilidad de que ocurra un suceso $A$ y, para una variable aleatoria $Z$, se denota $\media\left[Z\right]$ su valor esperado y $\var\left[Z\right]$ su varianza.
 
@@ -57,9 +57,9 @@ Además, de ahora en adelante, denotamos $\mathbb{P}(A)$ la probabilidad de que 
 ## I <span style="color:#CCCCCC;">│</span>  Maximización de la verosimilitud
 
 ::: {.definicion}
-**Definición 2.1.1** (Función de verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot\mid\bftheta)$ un modelo probabilístico parametrizado por $\bftheta\in\RR^q$. Se denomina *función de verosimilitud* a $L:\RR^q\to\RR$ definida por
+**Definición 2.1.1** (Función de verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot;\bftheta)$ un modelo probabilístico parametrizado por $\bftheta\in\RR^q$. Se denomina *función de verosimilitud* a $L:\RR^q\to\RR$ definida por
 $$
-L(\bftheta) := \prod_{i=1}^{n} p(y_i \mid \bftheta).
+L(\bftheta) := \prod_{i=1}^{n} p(y_i;\bftheta).
 \tag{2.1.1}
 $$
 
@@ -78,7 +78,7 @@ $L(\bftheta)$ mide cuán *verosímiles* son los datos observados bajo el valor $
 
 <div style="margin-top:2em;"></div>
 
-A la hora de elegir un parámetro $\bftheta\in\RR^q$ para nuestro modelo probabilístico $p(\cdot\mid\bftheta)$, el principio de máxima verosimilitud sugiere elegir aquel que maximiza $L(\bftheta)$. Por supuesto, esto conduce al siguiente problema de optimización, formulado a partir de la muestra $\{y_1,\ldots,y_n\}$, cuya variable de optimización es justamente $\bftheta$:
+A la hora de elegir un parámetro $\bftheta\in\RR^q$ para nuestro modelo probabilístico $p(\cdot;\bftheta)$, el principio de máxima verosimilitud sugiere elegir aquel que maximiza $L(\bftheta)$. Por supuesto, esto conduce al siguiente problema de optimización, formulado a partir de la muestra $\{y_1,\ldots,y_n\}$, cuya variable de optimización es justamente $\bftheta$:
 $$
 \begin{array}{ll} 
 	\text{maximizar } & L(\bftheta) \\
@@ -92,7 +92,7 @@ donde $\Theta\subseteq\RR^q$ es el conjunto de valores admisibles para el parám
 <div style="margin-top:1.5em;"></div>
 
 ::: {.definicion}
-**Definición 2.1.2** (Estimador de máxima verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot\mid\bftheta)$ un modelo parametrizado por $\bftheta\in\RR^q$. Se denomina *estimador de máxima verosimilitud* (MLE) a cualquier punto óptimo del problema (2.1.2), a saber:
+**Definición 2.1.2** (Estimador de máxima verosimilitud). Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de una variable aleatoria $Y\in\RR$, y sea $p(\cdot;\bftheta)$ un modelo parametrizado por $\bftheta\in\RR^q$. Se denomina *estimador de máxima verosimilitud* (MLE) a cualquier punto óptimo del problema (2.1.2), a saber:
 $$
 \hat{\bftheta}_{\text{MLE}}\in\arg\max_{\bftheta\in\Theta}\;L(\bftheta).
 $$
@@ -109,9 +109,9 @@ Si el modelo está correctamente especificado, el MLE $\hat{\bftheta}$ constituy
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-success text-light">Función de log-verosimilitud</span>
 
-En la práctica, trabajar con el producto $\prod_{i=1}^n p(y_i \mid \theta)$ es numéricamente inconveniente: para muestras grandes los valores son extremadamente pequeños y propensos a desbordamiento numérico. Dado que el logaritmo es una función estrictamente creciente, maximizar $L(\bftheta)$ es equivalente a maximizar la función $\ell:\RR^q\to\RR$ definida como
+En la práctica, trabajar con el producto $\prod_{i=1}^n p(y_i;\bftheta)$ es numéricamente inconveniente: para muestras grandes los valores son extremadamente pequeños y propensos a desbordamiento numérico. Dado que el logaritmo es una función estrictamente creciente, maximizar $L(\bftheta)$ es equivalente a maximizar la función $\ell:\RR^q\to\RR$ definida como
 $$
-\ell(\bftheta) := \log L(\bftheta) = \sum_{i=1}^{n} \log p(y_i \mid \bftheta).
+\ell(\bftheta) := \log L(\bftheta) = \sum_{i=1}^{n} \log p(y_i;\bftheta).
 \tag{2.1.3}
 $$
 
@@ -164,7 +164,7 @@ Sea $\{y_1, \ldots, y_n\}$ una muestra i.i.d. de
 $Y \sim \text{Bernoulli}(\phi)$, con $0<\phi<1$. La función de masa de
 probabilidad es
 $$
-p(y \mid \phi) = \phi^y(1-\phi)^{1-y}, \qquad y \in \{0,1\}.
+p(y;\phi) = \phi^y(1-\phi)^{1-y}, \qquad y \in \{0,1\}.
 $$
 
 Entonces
@@ -242,7 +242,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
   \sqrt{n}\,(\hat{\bftheta}-\bftheta_\star)\overset{d}{\longrightarrow}\calN\left(\bfzero,\;\mathcal{I}(\bftheta_\star)^{-1}\right),
   $$
    
-  donde $\mathcal{I}(\bftheta) := -\mathbb{E}\left[\nabla^2_{\bftheta} \log p(Y \mid \bftheta)\right]$
+  donde $\mathcal{I}(\bftheta) := -\mathbb{E}\left[\nabla^2_{\bftheta} \log p(Y;\bftheta)\right]$
   es la *información de Fisher* de una observación, que cuantifica cuánta información sobre $\bftheta$ se espera obtener de ella si el parámetro toma dicho valor. La normalidad asintótica permite construir intervalos de confianza y tests de hipótesis de forma sistemática a partir del MLE.
 
 - **Eficiencia**. Bajo condiciones de regularidad, el MLE es asintóticamente eficiente: entre todos los estimadores que cumplen ciertas condiciones de regularidad, el MLE tiene la menor varianza, al menos para muestras grandes. En efecto, la varianza asintótica de $\hat{\bftheta}_n$ es
@@ -254,7 +254,7 @@ El estimador de máxima verosimilitud goza de propiedades asintóticas notables 
 
 <div style="margin-top:2em;"></div>
 
-En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las *condiciones de regularidad* a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre $p(y\mid \bftheta)$ que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.
+En problemas suficientemente complejos, estas propiedades pueden dejar de cumplirse y el MLE puede dejar de ser un buen estimador. Las *condiciones de regularidad* a las que se hacen referencia son, esencialmente, condiciones de suavidad sobre $p(y;\bftheta)$ que garantizan un comportamiento adecuado del modelo y de la función de verosimilitud. Salvo que se indique lo contrario, supondremos implícitamente que estas condiciones se cumplen.
 
 
 <div style="margin-top:1.5em;"></div>
@@ -268,12 +268,12 @@ Eficiencia del MLE para la distribución de Bernoulli
 
 Sea $\{y_1,\ldots,y_n\}$ una muestra i.i.d. de $Y\sim\text{Bernoulli}(\varphi)$, con $0<\phi<1$. Supongamos que el modelo está correctamente especificado, siendo $\phi_\star$ es el parámetro poblacional. Del Ejemplo 2.1.3, tenemos que
 $$
-\log p(y\mid \phi)=y\log \phi+(1-y)\log(1-\phi).
+\log p(y;\phi)=y\log \phi+(1-y)\log(1-\phi).
 $$
 	
 Resulta
 $$
-\frac{d^2 \log p(y\mid \phi)}{d\phi^2}=-\frac{y}{\phi^2}-\frac{1-y}{(1-\phi)^2},
+\frac{d^2 \log p(y;\phi)}{d\phi^2}=-\frac{y}{\phi^2}-\frac{1-y}{(1-\phi)^2},
 $$
 
 de manera que

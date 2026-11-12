@@ -394,7 +394,7 @@ h^\star({\bf x}):=\arg\max_{y} p({\bf x}\mid y)\,p(y).
 \]</span></p>
 <p>si su función de densidad está dada por</p>
 <p><span class="math display">\[
-p({\bf x}\mid\boldsymbol{\mu},\Sigma)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu})\right\}.
+p({\bf x};\boldsymbol{\mu},\Sigma)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}({\bf x}-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}-\boldsymbol{\mu})\right\}.
 \]</span></p>
 </div>
 <div style="margin-top:2em;">
@@ -732,15 +732,15 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 <h3 class="anchored" data-anchor-id="estimación-por-máxima-verosimilitud">Estimación por máxima verosimilitud</h3>
 <p>Los parámetros del modelo son <span class="math inline">\(\varphi\in\mathbb{R}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_0,\boldsymbol{\mu}_1\in\mathbb{R}^p\)</span> y <span class="math inline">\(\Sigma\in\mathbf{S}_{++}^p\)</span>. La estimación por máxima verosimilitud resulta de maximizar <span class="math display">\[
 \begin{align}
-\ell(\varphi,\boldsymbol{\mu}_0,\boldsymbol{\mu}_1,\Sigma)&amp;=\sum_{i=1}^n\log p({\bf x}_i,y_i\mid\varphi,\boldsymbol{\mu}_0,\boldsymbol{\mu}_1,\Sigma) \\
-&amp; = \sum_{i=1}^n\log\left[p({\bf x}_i\mid y_i;\boldsymbol{\mu}_{y_i},\Sigma)\,p(y_i\mid\varphi)\right]\\
-&amp; = \sum_{i=1}^n\log p({\bf x}_i\mid y_i;\boldsymbol{\mu}_{y_i},\Sigma) + \sum_{i=1}^n\log p(y_i\mid\varphi).
+\ell(\varphi,\boldsymbol{\mu}_0,\boldsymbol{\mu}_1,\Sigma)&amp;=\sum_{i=1}^n\log p({\bf x}_i,y_i;\varphi,\boldsymbol{\mu}_0,\boldsymbol{\mu}_1,\Sigma) \\
+&amp; = \sum_{i=1}^n\log\left[p({\bf x}_i\mid y_i;\boldsymbol{\mu}_{y_i},\Sigma)\,p(y_i;\varphi)\right]\\
+&amp; = \sum_{i=1}^n\log p({\bf x}_i\mid y_i;\boldsymbol{\mu}_{y_i},\Sigma) + \sum_{i=1}^n\log p(y_i;\varphi).
 \end{align}
 \tag{3.1.4}
 \]</span></p>
 <p>Obtengamos en primer lugar el MLE de <span class="math inline">\(\varphi\)</span>. Este es el punto óptimo de <span class="math display">\[
 \begin{array}{ll}
-\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\log p(y_i\mid\varphi),
+\text{maximizar } &amp; \displaystyle\sum_{i=1}^n\log p(y_i;\varphi),
 \end{array}
 \]</span></p>
 <p>cuya función objetivo es la función de verosimilitud de <span class="math inline">\(Y\sim\text{Bernoulli}(\varphi)\)</span>. El MLE resulta <span class="math display">\[
@@ -809,7 +809,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}({\bf x}-\boldsymbol{\mu}_y)^\top\Sigma
 </div>
 </div>
 </div>
-<div id="f85353ba" class="cell" data-execution_count="1">
+<div id="aac9afa2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -1241,7 +1241,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="d8451489" class="cell" data-execution_count="2">
+<div id="8289a96d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1255,7 +1255,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p><span class="badge bg-primary">Ejemplo 3.1.5</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> LDA en datos de clasificación multiclase </span></p>
 <p>En este ejemplo utilizamos el conjunto de datos <em>wine</em> disponible en <code>scikit-learn</code>, que contiene mediciones químicas de tres tipos de vino. Para visualizar el resultado de la clasificación, consideramos únicamente dos variables predictoras: la intensidad de color y el matiz.</p>
 <p>El modelo LDA estima una función discriminante para cada clase, a partir de las cuales se determinan las regiones de decisión y sus correspondientes fronteras lineales.</p>
-<div id="fbbb0805" class="cell" data-execution_count="3">
+<div id="f0e465d8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
@@ -1687,7 +1687,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">?<span>Documentation for LinearDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="5f47e724" class="cell" data-execution_count="4">
+<div id="5b68a3fc" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1783,7 +1783,7 @@ G({\bf x})=\arg\max_{y}\left[-\frac{1}{2}\log |\Sigma_y|-\frac{1}{2}({\bf x}-\bo
 </div>
 </div>
 </div>
-<div id="cb004687" class="cell" data-execution_count="5">
+<div id="d861a8bc" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_wine</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis <span class="im">as</span> QDA</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -2215,7 +2215,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>QuadraticDiscriminantAnalysis()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>QuadraticDiscriminantAnalysis</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html">?<span>Documentation for QuadraticDiscriminantAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>QuadraticDiscriminantAnalysis()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="c4785602" class="cell" data-execution_count="6">
+<div id="b3a91325" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

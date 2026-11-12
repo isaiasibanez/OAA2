@@ -62,7 +62,7 @@ L(\bftheta):=\prod_{i=1}^n p(y_i\mid\xx_i;\bftheta).
 $$
 Si bien $J$ depende del problema específico, en general es de la forma
 $$
-J(\bftheta)=\sum_{i=1}^n\loss(y_i,f(\xx_i,\bftheta)),
+J(\bftheta)=\sum_{i=1}^n\loss(y_i,f(\xx_i;\bftheta)),
 $$
 donde $\loss:\RR\times\RR\to\RR_0^+$ mide, para cada observación, el error entre el valor observado de la variable respuesta y el valor estimado por el modelo.
 
@@ -481,7 +481,7 @@ y la función $A:\RR\to\RR$ mediante $A(\eta)=\log(1+e^{\eta})$. Resulta:
 
 La función de probabilidad condicional de $Y\mid\XX$ en el modelo de regresión logística es
 $$
-p(y \mid \eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\bftheta^\top\xx.
+p(y;\eta)=\exp\left\{\eta y-A(\eta)\right\},\qquad \eta=\bftheta^\top\xx.
 \tag{2.2.1}
 $$
 

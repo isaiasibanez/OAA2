@@ -277,14 +277,14 @@ viewof iter = Inputs.range([1, 7], {
 
 Los modelos de mezcla asumen que la función de densidad de $\XX\in\RR^p$ es de la forma
 $$
-p(\xx)=\sum_{k=1}^K\phi_k f(\xx\mid\bftheta_k),
+p(\xx)=\sum_{k=1}^K\phi_k f(\xx;\bftheta_k),
 \tag{3.2.3}
 $$
-donde $\phi_k\geq 0$ son pesos que verifican $\sum_{k=1}^K \phi_k=1$ y $f(\xx\mid\bftheta_k)$ es la función de densidad de la componente $k$, parametrizada por $\bftheta_k$.
+donde $\phi_k\geq 0$ son pesos que verifican $\sum_{k=1}^K \phi_k=1$ y $f(\xx;\bftheta_k)$ es la función de densidad de la componente $k$, parametrizada por $\bftheta_k$.
 
 El modelo de mezcla más popular es GMM (*Gaussian Mixture Model*), que surge de considerar
 $$
-f(\xx\mid\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma_k^{-1}(\xx-\bfmu_k)\right\}.
+f(\xx;\bfmu_k,\Sigma_k)=\frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{-\frac{1}{2}(\xx-\bfmu_k)^\top\Sigma_k^{-1}(\xx-\bfmu_k)\right\}.
 $$
 
 Esta formulación puede describirse probabilísticamente mediante una *variable latente* $Z\in\{1,\ldots,K\}$, que indica a qué componente pertenece cada observación, de la siguiente manera.
@@ -303,14 +303,14 @@ $$
 
 :::
 
-Los parámetros del modelo son $\bfphi$, $\bfmu_k$ y $\Sigma_k$. Observar que la densidad marginal de $\XX$ tiene precisamente la forma (3.2.3), ya que la ley de la probabilidad total permite escribir
+Los parámetros del modelo son $\bfphi$, $\bfmu_k$ y $\Sigma_k$; escribimos $\bfmu=(\bfmu_1,\ldots,\bfmu_K)$ y $\Sigma=(\Sigma_1,\ldots,\Sigma_K)$. Observar que la densidad marginal de $\XX$ tiene precisamente la forma (3.2.3), ya que la ley de la probabilidad total permite escribir
 $$
-p(\xx)=\sum_{k=1}^K \prob(Z=k)f(\xx\mid Z=k)=\sum_{k=1}^K\phi_k f(\xx\mid\bfmu_k,\Sigma_k)
+p(\xx)=\sum_{k=1}^K \prob(Z=k)\,f(\xx\mid Z=k)=\sum_{k=1}^K\phi_k\, f(\xx;\bfmu_k,\Sigma_k).
 $$
 
 Para un conjunto de datos $\{\xx_i\}_{i=1}^n$, la función de log-verosimilitud es
 $$
-\ell(\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log p(\xx_i\mid\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, p(\xx_i\mid \bfmu_k, \Sigma_k).
+\ell(\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log p(\xx_i;\bfphi,\bfmu,\Sigma)=\sum_{i=1}^n\log\sum_{k=1}^K\phi_k\, f(\xx_i;\bfmu_k,\Sigma_k).
 $$
 
 
@@ -445,13 +445,12 @@ Observar que un cluster contiene únicamente objetos núcleos. Para el resto de 
 <div style="margin-top: 2em;"></div>
 
 
+A diferencia de $K$-medias, DBSCAN no requiere fijar de antemano el número de clusters: éste queda determinado por los datos a través de los hiperparámetros $\varepsilon$ y el mínimo de puntos. A cambio, el resultado es sensible a esa elección, y el método tiene dificultades cuando los clusters presentan densidades muy distintas, ya que un mismo $\varepsilon$ debe servir para todos. Su ventaja principal es que, al no medir distancias a centroides, recupera clusters de forma arbitraria y además distingue las observaciones atípicas en lugar de forzar su asignación.
+
 <figure style="text-align: center;">
   <img src="figuras/dbscan_4.svg" alt="…" width="500px">
   <figcaption> **Figura 3.2.4:** Agrupamiento obtenido por DBSCAN. Los hiperparámetros son $\varepsilon>0$ y el número mínimo de vecinos. </figcaption>
 </figure>
-
-
-A diferencia de $K$-medias, DBSCAN no requiere fijar de antemano el número de clusters: éste queda determinado por los datos a través de los hiperparámetros $\varepsilon$ y el mínimo de puntos. A cambio, el resultado es sensible a esa elección, y el método tiene dificultades cuando los clusters presentan densidades muy distintas, ya que un mismo $\varepsilon$ debe servir para todos. Su ventaja principal es que, al no medir distancias a centroides, recupera clusters de forma arbitraria y además distingue las observaciones atípicas en lugar de forzar su asignación.
 
 
 
