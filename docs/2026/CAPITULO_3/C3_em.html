@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -270,6 +304,17 @@ window.Quarto = {
   <ul>
   <li><a href="#i-motivación-la-variable-latente" id="toc-i-motivación-la-variable-latente" class="nav-link active" data-scroll-target="#i-motivación-la-variable-latente">I <span style="color:#CCCCCC;">│</span> Motivación: la variable latente</a></li>
   <li><a href="#ii-el-algoritmo-em" id="toc-ii-el-algoritmo-em" class="nav-link" data-scroll-target="#ii-el-algoritmo-em">II <span style="color:#CCCCCC;">│</span> El algoritmo EM</a></li>
+  <li><a href="#iii-em-para-mezcla-de-gaussianas" id="toc-iii-em-para-mezcla-de-gaussianas" class="nav-link" data-scroll-target="#iii-em-para-mezcla-de-gaussianas">III <span style="color:#CCCCCC;">│</span> EM para mezcla de gaussianas</a>
+  <ul class="collapse">
+  <li><a href="#paso-e-las-responsabilidades" id="toc-paso-e-las-responsabilidades" class="nav-link" data-scroll-target="#paso-e-las-responsabilidades">Paso E: las responsabilidades</a></li>
+  <li><a href="#paso-m-las-actualizaciones" id="toc-paso-m-las-actualizaciones" class="nav-link" data-scroll-target="#paso-m-las-actualizaciones">Paso M: las actualizaciones</a></li>
+  </ul></li>
+  <li><a href="#iv-por-qué-funciona" id="toc-iv-por-qué-funciona" class="nav-link" data-scroll-target="#iv-por-qué-funciona">IV <span style="color:#CCCCCC;">│</span> ¿Por qué funciona?</a>
+  <ul class="collapse">
+  <li><a href="#desigualdad-de-jensen" id="toc-desigualdad-de-jensen" class="nav-link" data-scroll-target="#desigualdad-de-jensen">Desigualdad de Jensen</a></li>
+  <li><a href="#propiedad-de-monotonía" id="toc-propiedad-de-monotonía" class="nav-link" data-scroll-target="#propiedad-de-monotonía">Propiedad de monotonía</a></li>
+  <li><a href="#interpretación-geométrica" id="toc-interpretación-geométrica" class="nav-link" data-scroll-target="#interpretación-geométrica">Interpretación geométrica</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -436,348 +481,251 @@ Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) := \mathbb{E}\left(\ell_c(\
 </blockquote>
 <p><strong>hasta</strong> que el criterio de parada se satisfaga.</p>
 </div>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td>## III <span style="color:#CCCCCC;">│</span> EM para mezcla de gaussianas</td>
-</tr>
-<tr class="even">
-<td>Volvamos al modelo de mezcla, ahora en su forma general. Dado un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> sin etiquetas, modelamos la distribución conjunta <span class="math inline">\(p({\bf x}_i,z_i)=p({\bf x}_i\mid z_i)\,p(z_i)\)</span> bajo los siguientes supuestos.</td>
-</tr>
-<tr class="odd">
-<td>::: {.myhighlight2 style=“color: rgb(204, 0, 0);”}</td>
-</tr>
-<tr class="even">
-<td><span style="font-size:0.8em;"><em>Supuestos del modelo</em></span></td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td><span class="math display">\[
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+<section id="iii-em-para-mezcla-de-gaussianas" class="level2">
+<h2 class="anchored" data-anchor-id="iii-em-para-mezcla-de-gaussianas">III <span style="color:#CCCCCC;">│</span> EM para mezcla de gaussianas</h2>
+<p>Volvamos al modelo de mezcla, ahora en su forma general. Dado un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> sin etiquetas, modelamos la distribución conjunta <span class="math inline">\(p({\bf x}_i,z_i)=p({\bf x}_i\mid z_i)\,p(z_i)\)</span> bajo los siguientes supuestos.</p>
+<div class="myhighlight2" style="color: rgb(204, 0, 0);">
+<p><span style="font-size:0.8em;"><em>Supuestos del modelo</em></span></p>
+<div style="margin-top:-0.5em;">
+
+</div>
+<p><span class="math display">\[
 \begin{array}{c}
 Z\sim\text{Multinomial}(1,\boldsymbol{\phi}) \\[2pt]
 {\bf X}\mid Z=k\sim\mathcal{N}(\boldsymbol{\mu}_k,\Sigma_k)
 \end{array}
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>:::</td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td>Aquí <span class="math inline">\(\phi_k\geq 0\)</span>, <span class="math inline">\(\sum_{k=1}^K \phi_k=1\)</span> y <span class="math inline">\(\phi_k=p(Z=k)\)</span>. Cada <span class="math inline">\({\bf x}_i\)</span> se genera eligiendo aleatoriamente un valor <span class="math inline">\(z_i\in\{1,\ldots,K\}\)</span> y extrayendo luego <span class="math inline">\({\bf x}_i\)</span> de la gaussiana correspondiente. Las distribuciones conjunta y marginal son <span class="math display">\[
+\]</span></p>
+</div>
+<div style="margin-top:1em;">
+
+</div>
+<p>Aquí <span class="math inline">\(\phi_k\geq 0\)</span>, <span class="math inline">\(\sum_{k=1}^K \phi_k=1\)</span> y <span class="math inline">\(\phi_k=p(Z=k)\)</span>. Cada <span class="math inline">\({\bf x}_i\)</span> se genera eligiendo aleatoriamente un valor <span class="math inline">\(z_i\in\{1,\ldots,K\}\)</span> y extrayendo luego <span class="math inline">\({\bf x}_i\)</span> de la gaussiana correspondiente. Las distribuciones conjunta y marginal son <span class="math display">\[
 p({\bf x}_i,z_i)=\prod_{k=1}^K \Big[\phi_k\,\mathcal{N}({\bf x}_i;\boldsymbol{\mu}_k,\Sigma_k)\Big]^{\mathbf{1}\{z_i=k\}},\qquad
 p({\bf x}_i)=\sum_{k=1}^K \phi_k\,\mathcal{N}({\bf x}_i;\boldsymbol{\mu}_k,\Sigma_k).
-\]</span></td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>¿Quién es <span class="math inline">\(Z\)</span>? Es el <em>índice de la componente</em> que generó la observación. En aprendizaje no supervisado se lo interpreta como una <em>clase latente</em> o <em>cluster</em>.</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>Si se quiere una asignación <em>dura</em> de cada punto a un cluster, se usa la regla MAP: <span class="math display">\[
+\]</span></p>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-warning text-dark">Importante</span></p>
+<p>¿Quién es <span class="math inline">\(Z\)</span>? Es el <em>índice de la componente</em> que generó la observación. En aprendizaje no supervisado se lo interpreta como una <em>clase latente</em> o <em>cluster</em>.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Si se quiere una asignación <em>dura</em> de cada punto a un cluster, se usa la regla MAP: <span class="math display">\[
 \hat z_i=\arg\max_{k}\ p\left(Z_i=k \mid {\bf x}_i\right)=\arg\max_{k}\ \phi_k\,\mathcal{N}({\bf x}_i;\boldsymbol{\mu}_k,\Sigma_k).
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>Pero también podemos quedarnos con la asignación <em>blanda</em>, es decir, con la probabilidad de pertenecer a cada componente. Esto es lo que usa EM.</td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>### Paso E: las responsabilidades</td>
-</tr>
-<tr class="odd">
-<td>Con los parámetros <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> fijos, la esperanza en (3.3.3) se calcula sobre las indicatrices <span class="math inline">\(\mathbf{1}\{z_i=k\}\)</span>. Como la esperanza de una indicatriz es la probabilidad del suceso, resulta <span class="math display">\[
+\]</span></p>
+<p>Pero también podemos quedarnos con la asignación <em>blanda</em>, es decir, con la probabilidad de pertenecer a cada componente. Esto es lo que usa EM.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<section id="paso-e-las-responsabilidades" class="level3">
+<h3 class="anchored" data-anchor-id="paso-e-las-responsabilidades">Paso E: las responsabilidades</h3>
+<p>Con los parámetros <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> fijos, la esperanza en (3.3.3) se calcula sobre las indicatrices <span class="math inline">\(\mathbf{1}\{z_i=k\}\)</span>. Como la esperanza de una indicatriz es la probabilidad del suceso, resulta <span class="math display">\[
 w_{ik}^{(t)} := \mathbb{E}\left(\mathbf{1}\{z_i=k\}\mid X;\boldsymbol{\theta}^{(t)}\right) = \mathbb{P}(Z_i=k\mid {\bf x}_i;\boldsymbol{\theta}^{(t)})
 = \frac{\phi_k^{(t)}\,\mathcal{N}({\bf x}_i;\boldsymbol{\mu}_k^{(t)},\Sigma_k^{(t)})}{\sum_{\ell=1}^K \phi_\ell^{(t)}\,\mathcal{N}({\bf x}_i;\boldsymbol{\mu}_\ell^{(t)},\Sigma_\ell^{(t)})},
 \tag{3.3.4}
-\]</span></td>
-</tr>
-<tr class="even">
-<td>donde la última igualdad es la regla de Bayes. Los valores <span class="math inline">\(w_{ik}^{(t)}\)</span> se denominan <em>responsabilidades</em>: miden cuánta responsabilidad le cabe a la componente <span class="math inline">\(k\)</span> en haber generado la observación <span class="math inline">\({\bf x}_i\)</span>.</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>Con ellas, la función <span class="math inline">\(Q\)</span> queda <span class="math display">\[
+\]</span></p>
+<p>donde la última igualdad es la regla de Bayes. Los valores <span class="math inline">\(w_{ik}^{(t)}\)</span> se denominan <em>responsabilidades</em>: miden cuánta responsabilidad le cabe a la componente <span class="math inline">\(k\)</span> en haber generado la observación <span class="math inline">\({\bf x}_i\)</span>.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>Con ellas, la función <span class="math inline">\(Q\)</span> queda <span class="math display">\[
 \begin{align*}
 Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) &amp;= \mathbb{E}\left(\ell_c(\boldsymbol{\theta})\mid X;\boldsymbol{\theta}^{(t)}\right) \\
 &amp;= \sum_{i=1}^n \mathbb{E}\left( \log p({\bf x}_i,z_i; \boldsymbol{\theta})\mid X;\boldsymbol{\theta}^{(t)}\right)\\
 &amp;= \sum_{i=1}^n \sum_{k=1}^K w_{ik}^{(t)} \Big(\log \phi_k + \log \mathcal{N}({\bf x}_i;\boldsymbol{\mu}_k,\Sigma_k) \Big).
 \end{align*}
 \tag{3.3.5}
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>::: {.callout .question}</td>
-</tr>
-<tr class="even">
-<td><span style="font-size: 1.3em;">✍️</span><br></td>
-</tr>
-<tr class="odd">
-<td>Compare (3.3.1) con (3.3.5) para <span class="math inline">\(K=2\)</span>. ¿Qué rol cumplen las responsabilidades respecto de las indicatrices?</td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>### Paso M: las actualizaciones</td>
-</tr>
-<tr class="odd">
-<td>Maximizando (3.3.5) respecto de <span class="math inline">\(\boldsymbol{\theta}\)</span>, sujeto a <span class="math inline">\(\sum_k\phi_k=1\)</span>, se obtienen las actualizaciones. Definiendo <span class="math inline">\(N_k^{(t)}=\sum_{i=1}^n w_{ik}^{(t)}\)</span>, resulta</td>
-</tr>
-<tr class="even">
-<td>::: {.myhighlight}</td>
-</tr>
-<tr class="odd">
-<td><span class="math display">\[
+\]</span></p>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br></p>
+<p>Compare (3.3.1) con (3.3.5) para <span class="math inline">\(K=2\)</span>. ¿Qué rol cumplen las responsabilidades respecto de las indicatrices?</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+</section>
+<section id="paso-m-las-actualizaciones" class="level3">
+<h3 class="anchored" data-anchor-id="paso-m-las-actualizaciones">Paso M: las actualizaciones</h3>
+<p>Maximizando (3.3.5) respecto de <span class="math inline">\(\boldsymbol{\theta}\)</span>, sujeto a <span class="math inline">\(\sum_k\phi_k=1\)</span>, se obtienen las actualizaciones. Definiendo <span class="math inline">\(N_k^{(t)}=\sum_{i=1}^n w_{ik}^{(t)}\)</span>, resulta</p>
+<div class="myhighlight">
+<p><span class="math display">\[
 \phi_k^{(t+1)}=\frac{N_k^{(t)}}{n},\qquad
 \boldsymbol{\mu}_k^{(t+1)}=\frac{1}{N_k^{(t)}}\sum_{i=1}^n w_{ik}^{(t)}\,{\bf x}_i,
 \]</span> <span class="math display">\[
 \Sigma_k^{(t+1)}=\frac{1}{N_k^{(t)}}\sum_{i=1}^n
 w_{ik}^{(t)}\big({\bf x}_i-\boldsymbol{\mu}_k^{(t+1)}\big)\big({\bf x}_i-\boldsymbol{\mu}_k^{(t+1)}\big)^{\top}.
-\]</span></td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>::: {.callout .question}</td>
-</tr>
-<tr class="odd">
-<td><span style="font-size: 1.3em;">✍️</span><br></td>
-</tr>
-<tr class="even">
-<td>Pruebe que las expresiones anteriores son efectivamente los maximizadores de <span class="math inline">\(Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)})\)</span>. Para <span class="math inline">\(\boldsymbol{\phi}\)</span>, tenga en cuenta la restricción <span class="math inline">\(\sum_{k=1}^K\phi_k=1\)</span>.</td>
-</tr>
-<tr class="odd">
-<td>:::</td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>Hay un paralelo directo con el algoritmo de <span class="math inline">\(K\)</span>-medias de la <a href="C2_clustering.html#k-medias">C3-S2</a>. Allí el primer paso asigna cada punto a su centroide más cercano —la asignación <em>dura</em> del recuadro anterior— y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades <span class="math inline">\(w_{ik}\)</span> y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>De hecho, si reemplazáramos <span class="math inline">\(w_{ik}^{(t)}\)</span> por <span class="math inline">\(\mathbf{1}\{z_i=k\}\)</span> en las actualizaciones del paso M, recuperaríamos exactamente los MLE por clase del modelo discriminante gaussiano, y el algoritmo se volvería muy parecido a <span class="math inline">\(K\)</span>-medias.</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td>::: {.callout-example} <span class="badge bg-primary">Ejemplo 3.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> EM en una mezcla de dos gaussianas </span></td>
-</tr>
-<tr class="even">
-<td>Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y aplicaremos el algoritmo EM, partiendo de una inicialización deliberadamente mala: ambas medias muy próximas entre sí, en el centro de los datos. Usamos la implementación de <code>scikit-learn</code>, combinando <code>max_iter=1</code> con <code>warm_start=True</code>, de manera que cada llamada a <code>fit</code> avanza exactamente una iteración conservando el estado.</td>
-</tr>
-<tr class="odd">
-<td>Desplace el control para avanzar las iteraciones y observar cómo evolucionan la densidad ajustada y las responsabilidades. El color de los puntos indica la responsabilidad <span class="math inline">\(w_{i1}\)</span>: azul si la primera componente se lleva casi toda la responsabilidad, rojo si se la lleva la segunda, y tonos intermedios en la zona de solapamiento, donde la asignación es genuinamente dudosa.</td>
-</tr>
-<tr class="even">
-<td>```nglpenkkqcuzkuaj #| echo: false #| fig-align: “center” #| context: ojs #| input: [t_em]</td>
-</tr>
-<tr class="odd">
-<td>import warnings warnings.filterwarnings(“ignore”)</td>
-</tr>
-<tr class="even">
-<td>import numpy as np import matplotlib.pyplot as plt from scipy.stats import norm from sklearn.mixture import GaussianMixture</td>
-</tr>
-<tr class="odd">
-<td># — 1. Simular datos de una mezcla de dos gaussianas — rng = np.random.default_rng(3) phi, mu, sd = [0.4, 0.6], [2.0, 6.5], [0.8, 1.2] n = 300 z = rng.choice(2, size=n, p=phi) x = rng.normal(np.array(mu)[z], np.array(sd)[z]).reshape(-1, 1)</td>
-</tr>
-<tr class="even">
-<td># — 2. Una iteración de EM por cada llamada a fit() — gmm = GaussianMixture(n_components=2, max_iter=1, warm_start=True, means_init=[[4.0], [5.0]], weights_init=[0.5, 0.5], precisions_init=[[[1.0]], [[1.0]]])</td>
-</tr>
-<tr class="odd">
-<td>for t in range(t_em): gmm.fit(x) print(f”Iteración {t+1}: l = {gmm.score(x) * n:.2f}“)</td>
-</tr>
-<tr class="even">
-<td>phi_h = gmm.weights_ mu_h = gmm.means_.ravel() sd_h = np.sqrt(gmm.covariances_.ravel()) resp = gmm.predict_proba(x)[:, 0] # responsabilidades de la componente 1</td>
-</tr>
-<tr class="odd">
-<td># — 3. Densidad ajustada y responsabilidades en la iteración actual — grilla = np.linspace(x.min() - 1, x.max() + 1, 400) c1 = phi_h[0] * norm.pdf(grilla, mu_h[0], sd_h[0]) c2 = phi_h[1] * norm.pdf(grilla, mu_h[1], sd_h[1])</td>
-</tr>
-<tr class="even">
-<td>plt.figure(figsize=(6, 4)) plt.hist(x.ravel(), bins=30, density=True, color=‘0.88’, edgecolor=‘white’) plt.plot(grilla, c1 + c2, color=‘0.35’, lw=2.5, label=‘mezcla <span class="math inline">\(p(x)\)</span>’) plt.plot(grilla, c1, color=‘tab:blue’, lw=1.2, label=‘componente 1’) plt.plot(grilla, c2, color=‘tab:red’, lw=1.2, label=‘componente 2’) plt.scatter(x.ravel(), np.full(n, -0.018), c=resp, cmap=‘coolwarm_r’, s=14, vmin=0, vmax=1) plt.ylim(-0.04, 0.33) plt.xlabel(‘<span class="math inline">\(x\)</span>’) plt.legend(frameon=False, fontsize=9) plt.title(f’EM — iteración {t_em}’) plt.grid(False) plt.show() ```</td>
-</tr>
-<tr class="odd">
-<td>```qdfmo //| echo: false viewof t_em = Inputs.range([1, 10], { step: 1, label: “t:”, value: 1 })</td>
-</tr>
-<tr class="even">
-<td>```</td>
-</tr>
-<tr class="odd">
-<td>La log-verosimilitud crece en cada iteración, tal como asegura el Teorema 3.3.4, y se estabiliza alrededor de la sexta.</td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>## IV <span style="color:#CCCCCC;">│</span> ¿Por qué funciona?</td>
-</tr>
-<tr class="odd">
-<td>Veremos que el algoritmo EM satisface una propiedad de <em>monotonía</em>: la log-verosimilitud de los datos observados no disminuye en ninguna iteración. Para probarlo necesitamos primero un resultado auxiliar.</td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td>### Desigualdad de Jensen</td>
-</tr>
-<tr class="even">
-<td>::: {.teorema} <strong>Teorema 3.3.3</strong> (Desigualdad de Jensen). Sea <span class="math inline">\(f:I\subset\mathbb{R}\to\mathbb{R}\)</span> una función <em>cóncava</em>. Para <span class="math inline">\(a_1,\ldots,a_n\in I\)</span> y pesos <span class="math inline">\(q_1,\ldots,q_n\geq 0\)</span> con <span class="math inline">\(\sum_{i=1}^n q_i=1\)</span>, se verifica <span class="math display">\[
+\]</span></p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br></p>
+<p>Pruebe que las expresiones anteriores son efectivamente los maximizadores de <span class="math inline">\(Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)})\)</span>. Para <span class="math inline">\(\boldsymbol{\phi}\)</span>, tenga en cuenta la restricción <span class="math inline">\(\sum_{k=1}^K\phi_k=1\)</span>.</p>
+</div>
+</div>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="alert alert-light text-dark" role="important">
+<p><span class="badge bg-success text-light">EM y <span class="math inline">\(K\)</span>-medias</span></p>
+<p>Hay un paralelo directo con el algoritmo de <span class="math inline">\(K\)</span>-medias de la <a href="C2_clustering.html#k-medias">C3-S2</a>. Allí el primer paso asigna cada punto a su centroide más cercano —la asignación <em>dura</em> del recuadro anterior— y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades <span class="math inline">\(w_{ik}\)</span> y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.</p>
+<div style="margin-top:1em;">
+
+</div>
+<p>De hecho, si reemplazáramos <span class="math inline">\(w_{ik}^{(t)}\)</span> por <span class="math inline">\(\mathbf{1}\{z_i=k\}\)</span> en las actualizaciones del paso M, recuperaríamos exactamente los MLE por clase del modelo discriminante gaussiano, y el algoritmo se volvería muy parecido a <span class="math inline">\(K\)</span>-medias.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="callout-example">
+<p><span class="badge bg-primary">Ejemplo 3.3.2</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> EM en una mezcla de dos gaussianas </span></p>
+<p>Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y aplicaremos el algoritmo EM, partiendo de una inicialización deliberadamente mala: ambas medias muy próximas entre sí, en el centro de los datos. Usamos la implementación de <code>scikit-learn</code>, combinando <code>max_iter=1</code> con <code>warm_start=True</code>, de manera que cada llamada a <code>fit</code> avanza exactamente una iteración conservando el estado.</p>
+<p>Desplace el control para avanzar las iteraciones y observar cómo evolucionan la densidad ajustada y las responsabilidades. El color de los puntos indica la responsabilidad <span class="math inline">\(w_{i1}\)</span>: azul si la primera componente se lleva casi toda la responsabilidad, rojo si se la lleva la segunda, y tonos intermedios en la zona de solapamiento, donde la asignación es genuinamente dudosa.</p>
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImZpZy1hbGlnbiI6ImNlbnRlciIsImluY2x1ZGUiOnRydWUsImlucHV0IjpbInRfZW0iXX0sImNvZGUiOiJcbmltcG9ydCB3YXJuaW5nc1xud2FybmluZ3MuZmlsdGVyd2FybmluZ3MoXCJpZ25vcmVcIilcblxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5mcm9tIHNjaXB5LnN0YXRzIGltcG9ydCBub3JtXG5mcm9tIHNrbGVhcm4ubWl4dHVyZSBpbXBvcnQgR2F1c3NpYW5NaXh0dXJlXG5cbiMgLS0tIDEuIFNpbXVsYXIgZGF0b3MgZGUgdW5hIG1lemNsYSBkZSBkb3MgZ2F1c3NpYW5hcyAtLS1cbnJuZyA9IG5wLnJhbmRvbS5kZWZhdWx0X3JuZygzKVxucGhpLCBtdSwgc2QgPSBbMC40LCAwLjZdLCBbMi4wLCA2LjVdLCBbMC44LCAxLjJdXG5uID0gMzAwXG56ID0gcm5nLmNob2ljZSgyLCBzaXplPW4sIHA9cGhpKVxueCA9IHJuZy5ub3JtYWwobnAuYXJyYXkobXUpW3pdLCBucC5hcnJheShzZClbel0pLnJlc2hhcGUoLTEsIDEpXG5cbiMgLS0tIDIuIFVuYSBpdGVyYWNpw7NuIGRlIEVNIHBvciBjYWRhIGxsYW1hZGEgYSBmaXQoKSAtLS1cbmdtbSA9IEdhdXNzaWFuTWl4dHVyZShuX2NvbXBvbmVudHM9MiwgbWF4X2l0ZXI9MSwgd2FybV9zdGFydD1UcnVlLFxuICAgICAgICAgICAgICAgICAgICAgIG1lYW5zX2luaXQ9W1s0LjBdLCBbNS4wXV0sIHdlaWdodHNfaW5pdD1bMC41LCAwLjVdLFxuICAgICAgICAgICAgICAgICAgICAgIHByZWNpc2lvbnNfaW5pdD1bW1sxLjBdXSwgW1sxLjBdXV0pXG5cbmZvciB0IGluIHJhbmdlKHRfZW0pOlxuICAgIGdtbS5maXQoeClcbiAgICBwcmludChmXCJJdGVyYWNpw7NuIHt0KzF9OiBsID0ge2dtbS5zY29yZSh4KSAqIG46LjJmfVwiKVxuXG5waGlfaCA9IGdtbS53ZWlnaHRzX1xubXVfaCA9IGdtbS5tZWFuc18ucmF2ZWwoKVxuc2RfaCA9IG5wLnNxcnQoZ21tLmNvdmFyaWFuY2VzXy5yYXZlbCgpKVxucmVzcCA9IGdtbS5wcmVkaWN0X3Byb2JhKHgpWzosIDBdICAgICAgICAgICMgcmVzcG9uc2FiaWxpZGFkZXMgZGUgbGEgY29tcG9uZW50ZSAxXG5cbiMgLS0tIDMuIERlbnNpZGFkIGFqdXN0YWRhIHkgcmVzcG9uc2FiaWxpZGFkZXMgZW4gbGEgaXRlcmFjacOzbiBhY3R1YWwgLS0tXG5ncmlsbGEgPSBucC5saW5zcGFjZSh4Lm1pbigpIC0gMSwgeC5tYXgoKSArIDEsIDQwMClcbmMxID0gcGhpX2hbMF0gKiBub3JtLnBkZihncmlsbGEsIG11X2hbMF0sIHNkX2hbMF0pXG5jMiA9IHBoaV9oWzFdICogbm9ybS5wZGYoZ3JpbGxhLCBtdV9oWzFdLCBzZF9oWzFdKVxuXG5wbHQuZmlndXJlKGZpZ3NpemU9KDYsIDQpKVxucGx0Lmhpc3QoeC5yYXZlbCgpLCBiaW5zPTMwLCBkZW5zaXR5PVRydWUsIGNvbG9yPScwLjg4JywgZWRnZWNvbG9yPSd3aGl0ZScpXG5wbHQucGxvdChncmlsbGEsIGMxICsgYzIsIGNvbG9yPScwLjM1JywgbHc9Mi41LCBsYWJlbD0nbWV6Y2xhICRwKHgpJCcpXG5wbHQucGxvdChncmlsbGEsIGMxLCBjb2xvcj0ndGFiOmJsdWUnLCBsdz0xLjIsIGxhYmVsPSdjb21wb25lbnRlIDEnKVxucGx0LnBsb3QoZ3JpbGxhLCBjMiwgY29sb3I9J3RhYjpyZWQnLCBsdz0xLjIsIGxhYmVsPSdjb21wb25lbnRlIDInKVxucGx0LnNjYXR0ZXIoeC5yYXZlbCgpLCBucC5mdWxsKG4sIC0wLjAxOCksIGM9cmVzcCwgY21hcD0nY29vbHdhcm1fcicsXG4gICAgICAgICAgICBzPTE0LCB2bWluPTAsIHZtYXg9MSlcbnBsdC55bGltKC0wLjA0LCAwLjMzKVxucGx0LnhsYWJlbCgnJHgkJylcbnBsdC5sZWdlbmQoZnJhbWVvbj1GYWxzZSwgZm9udHNpemU9OSlcbnBsdC50aXRsZShmJ0VNIOKAlCBpdGVyYWNpw7NuIHt0X2VtfScpXG5wbHQuZ3JpZChGYWxzZSlcbnBsdC5zaG93KCkifQ==
+</script>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="380" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 379;"><span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a>viewof t_em <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> {</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"t:"</span><span class="op">,</span></span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>La log-verosimilitud crece en cada iteración, tal como asegura el Teorema 3.3.4, y se estabiliza alrededor de la sexta.</p>
+</div>
+<div style="margin-top:2.5em;">
+
+</div>
+</section>
+</section>
+<section id="iv-por-qué-funciona" class="level2">
+<h2 class="anchored" data-anchor-id="iv-por-qué-funciona">IV <span style="color:#CCCCCC;">│</span> ¿Por qué funciona?</h2>
+<p>Veremos que el algoritmo EM satisface una propiedad de <em>monotonía</em>: la log-verosimilitud de los datos observados no disminuye en ninguna iteración. Para probarlo necesitamos primero un resultado auxiliar.</p>
+<div style="margin-top:1em;">
+
+</div>
+<section id="desigualdad-de-jensen" class="level3">
+<h3 class="anchored" data-anchor-id="desigualdad-de-jensen">Desigualdad de Jensen</h3>
+<div class="teorema">
+<p><strong>Teorema 3.3.3</strong> (Desigualdad de Jensen). Sea <span class="math inline">\(f:I\subset\mathbb{R}\to\mathbb{R}\)</span> una función <em>cóncava</em>. Para <span class="math inline">\(a_1,\ldots,a_n\in I\)</span> y pesos <span class="math inline">\(q_1,\ldots,q_n\geq 0\)</span> con <span class="math inline">\(\sum_{i=1}^n q_i=1\)</span>, se verifica <span class="math display">\[
 f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 \tag{3.3.6}
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>Si <span class="math inline">\(f\)</span> es estrictamente cóncava, hay igualdad solo si todos los <span class="math inline">\(a_i\)</span> son iguales (salvo pesos nulos).</td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>::: {.panel-tabset}</td>
-</tr>
-<tr class="odd">
-<td>### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></td>
-</tr>
-<tr class="even">
-<td>Para <span class="math inline">\(n=2\)</span>, la desigualdad es exactamente la definición de concavidad: <span class="math display">\[
+\]</span></p>
+<p>Si <span class="math inline">\(f\)</span> es estrictamente cóncava, hay igualdad solo si todos los <span class="math inline">\(a_i\)</span> son iguales (salvo pesos nulos).</p>
+</div>
+<details>
+<summary>
+<span style="color:#0056b3;">ℹ Ver más información</span>
+</summary>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Para <span class="math inline">\(n=2\)</span>, la desigualdad es exactamente la definición de concavidad: <span class="math display">\[
 f(\lambda a+(1-\lambda)b)\geq \lambda f(a)+(1-\lambda)f(b),\qquad \lambda\in[0,1].
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>Para <span class="math inline">\(n\geq 3\)</span>, sea <span class="math inline">\(s=\sum_{i=1}^{n-1} q_i = 1-q_n\)</span>. Si <span class="math inline">\(s=0\)</span> el resultado es trivial. Si <span class="math inline">\(s&gt;0\)</span>, definimos <span class="math display">\[
+\]</span></p>
+<p>Para <span class="math inline">\(n\geq 3\)</span>, sea <span class="math inline">\(s=\sum_{i=1}^{n-1} q_i = 1-q_n\)</span>. Si <span class="math inline">\(s=0\)</span> el resultado es trivial. Si <span class="math inline">\(s&gt;0\)</span>, definimos <span class="math display">\[
 r_i = \frac{q_i}{s},\quad i = 1,\ldots,n-1,\qquad m = \sum_{i=1}^{n-1} r_i a_i,
 \]</span> de manera que <span class="math inline">\(\sum_{i=1}^{n-1} r_i=1\)</span>. Por hipótesis inductiva, <span class="math display">\[
 f(m)\geq \sum_{i=1}^{n-1} r_i\,f(a_i).
-\]</span></td>
-</tr>
-<tr class="even">
-<td>Además, <span class="math inline">\(\sum_{i=1}^{n} q_i a_i = s\,m + q_n a_n\)</span>. Aplicando el caso <span class="math inline">\(n=2\)</span> a <span class="math inline">\(m\)</span> y <span class="math inline">\(a_n\)</span>: <span class="math display">\[
+\]</span></p>
+<p>Además, <span class="math inline">\(\sum_{i=1}^{n} q_i a_i = s\,m + q_n a_n\)</span>. Aplicando el caso <span class="math inline">\(n=2\)</span> a <span class="math inline">\(m\)</span> y <span class="math inline">\(a_n\)</span>: <span class="math display">\[
 f\big(s\,m+q_n a_n\big)\geq s\,f(m)+q_n f(a_n)
 \geq s\sum_{i=1}^{n-1} r_i f(a_i)+q_n f(a_n)
 = \sum_{i=1}^{n} q_i f(a_i),
-\]</span> lo cual prueba el resultado para todo <span class="math inline">\(n\)</span>.</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>Dado que <span class="math inline">\(\log\)</span> es cóncava en <span class="math inline">\((0,\infty)\)</span>, el caso que nos interesa es el siguiente.</td>
-</tr>
-<tr class="odd">
-<td>::: {.myhighlight}</td>
-</tr>
-<tr class="even">
-<td>Para <span class="math inline">\(a_i&gt;0\)</span> y pesos <span class="math inline">\(q_i\geq 0\)</span> con <span class="math inline">\(\sum_i q_i=1\)</span>, <span class="math display">\[
+\]</span> lo cual prueba el resultado para todo <span class="math inline">\(n\)</span>.</p>
+<div style="margin-top:-1em;">
+
+</div>
+<div style="text-align: right;">
+<span class="math inline">\(\blacksquare\)</span>
+</div>
+</div>
+</div>
+</div>
+</details>
+<div style="margin-top:2em;">
+
+</div>
+<p>Dado que <span class="math inline">\(\log\)</span> es cóncava en <span class="math inline">\((0,\infty)\)</span>, el caso que nos interesa es el siguiente.</p>
+<div class="myhighlight">
+<p>Para <span class="math inline">\(a_i&gt;0\)</span> y pesos <span class="math inline">\(q_i\geq 0\)</span> con <span class="math inline">\(\sum_i q_i=1\)</span>, <span class="math display">\[
 \log\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i \log(a_i),
-\]</span> con igualdad solo si todos los <span class="math inline">\(a_i\)</span> son iguales.</td>
-</tr>
-<tr class="odd">
-<td>:::</td>
-</tr>
-<tr class="even">
-<td></td>
-</tr>
-<tr class="odd">
-<td>### Propiedad de monotonía</td>
-</tr>
-<tr class="even">
-<td>::: {.teorema} <strong>Teorema 3.3.4</strong> (Monotonía del algoritmo EM). Sea <span class="math inline">\(\{\boldsymbol{\theta}^{(t)}\}\)</span> la sucesión de estimadores generada por el algoritmo EM, es decir, tal que <span class="math display">\[
+\]</span> con igualdad solo si todos los <span class="math inline">\(a_i\)</span> son iguales.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+</section>
+<section id="propiedad-de-monotonía" class="level3">
+<h3 class="anchored" data-anchor-id="propiedad-de-monotonía">Propiedad de monotonía</h3>
+<div class="teorema">
+<p><strong>Teorema 3.3.4</strong> (Monotonía del algoritmo EM). Sea <span class="math inline">\(\{\boldsymbol{\theta}^{(t)}\}\)</span> la sucesión de estimadores generada por el algoritmo EM, es decir, tal que <span class="math display">\[
 \boldsymbol{\theta}^{(t+1)} = \arg\max_{\boldsymbol{\theta}} Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}).
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>Entonces <span class="math display">\[
+\]</span></p>
+<p>Entonces <span class="math display">\[
 \ell(\boldsymbol{\theta}^{(t+1)}) \geq \ell(\boldsymbol{\theta}^{(t)})\qquad \forall\, t = 0, 1, 2, \ldots
-\]</span></td>
-</tr>
-<tr class="even">
-<td>:::</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>::: {.panel-tabset}</td>
-</tr>
-<tr class="odd">
-<td>### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></td>
-</tr>
-<tr class="even">
-<td>Por la regla de Bayes, <span class="math display">\[
+\]</span></p>
+</div>
+<details>
+<summary>
+<span style="color:#0056b3;">ℹ Ver más información</span>
+</summary>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Por la regla de Bayes, <span class="math display">\[
 \log p({\bf x};\boldsymbol{\theta}) = \log p({\bf x},z;\boldsymbol{\theta}) - \log p(z\mid {\bf x};\boldsymbol{\theta}),
 \]</span> de donde <span class="math display">\[
 \ell(\boldsymbol{\theta}) = \ell_c(\boldsymbol{\theta}) - \sum_{i=1}^n \log p(z_i \mid {\bf x}_i;\boldsymbol{\theta}).
-\]</span></td>
-</tr>
-<tr class="odd">
-<td>Tomando en ambos lados la esperanza condicional de <span class="math inline">\(Z\mid X\)</span> bajo los parámetros actuales <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span>, y puesto que el lado izquierdo no depende de <span class="math inline">\(z\)</span>, resulta <span class="math display">\[
+\]</span></p>
+<p>Tomando en ambos lados la esperanza condicional de <span class="math inline">\(Z\mid X\)</span> bajo los parámetros actuales <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span>, y puesto que el lado izquierdo no depende de <span class="math inline">\(z\)</span>, resulta <span class="math display">\[
 \ell(\boldsymbol{\theta}) = Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}),
 \tag{3.3.7}
 \]</span> donde <span class="math display">\[
 H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) := \mathbb{E}\left( \sum_{i=1}^n \log p(z_i \mid {\bf x}_i;\boldsymbol{\theta}) \,\Big|\, X;\boldsymbol{\theta}^{(t)}\right).
-\]</span></td>
-</tr>
-<tr class="even">
-<td>De (3.3.7) se obtiene $$ (^{(t+1)}) - (^{(t)}) = (Q(^{(t+1)} ^{(t)}) - Q(^{(t)} ^{(t)}))</td>
-</tr>
-</tbody>
-</table>
-<p>(H(^{(t+1)} ^{(t)}) - H(^{(t)} ^{(t)})). $$</p>
+\]</span></p>
+<p>De (3.3.7) se obtiene <span class="math display">\[
+\ell(\boldsymbol{\theta}^{(t+1)}) - \ell(\boldsymbol{\theta}^{(t)})
+=
+\Big(Q(\boldsymbol{\theta}^{(t+1)} \mid \boldsymbol{\theta}^{(t)}) - Q(\boldsymbol{\theta}^{(t)} \mid \boldsymbol{\theta}^{(t)})\Big)
+-
+\Big(H(\boldsymbol{\theta}^{(t+1)} \mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t)} \mid \boldsymbol{\theta}^{(t)})\Big).
+\tag{3.3.8}
+\]</span></p>
 <p>La primera diferencia es no negativa, porque <span class="math inline">\(\boldsymbol{\theta}^{(t+1)}\)</span> se elige de manera que <span class="math display">\[
 Q(\boldsymbol{\theta}^{(t+1)} \mid \boldsymbol{\theta}^{(t)}) \geq Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)})\qquad \forall\, \boldsymbol{\theta}.
 \tag{3.3.9}
@@ -799,8 +747,10 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t
 <div style="text-align: right;">
 <span class="math inline">\(\blacksquare\)</span>
 </div>
-:::
-
+</div>
+</div>
+</div>
+</details>
 <div style="margin-top:2em;">
 
 </div>
@@ -815,6 +765,7 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t
 <div style="margin-top:2em;">
 
 </div>
+</section>
 <section id="interpretación-geométrica" class="level3">
 <h3 class="anchored" data-anchor-id="interpretación-geométrica">Interpretación geométrica</h3>
 <p>La descomposición (3.3.7) es la base de todas las formulaciones del algoritmo EM. En particular, permite interpretar el paso M como la maximización de una <em>cota inferior</em> de la log-verosimilitud: la función <span class="math inline">\(Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)})\)</span>, corregida por un término que no depende de <span class="math inline">\(\boldsymbol{\theta}\)</span>, nunca supera a <span class="math inline">\(\ell(\boldsymbol{\theta})\)</span> y la toca exactamente en <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span>.</p>
@@ -866,10 +817,11 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t
 </div>
 
 
-</section>
-</div>
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3B5b2RpZGVfdmFsdWVfMSA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRQeXRob24sIGI2NERlY29kZX0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcInB5b2RpZGUtMS1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBQeXRob24gY29kZVxuICBjb25zdCByZXN1bHQgPSBweW9kaWRlT2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7dF9lbX0pO1xuXG4gIC8vIEVhcmx5IHlpZWxkIHdoaWxlIHdlIHdhaXQgZm9yIHRoZSBmaXJzdCBldmFsdWF0aW9uIGFuZCByZW5kZXJcbiAgaWYgKG9wdGlvbnMub3V0cHV0ICYmICEoXCIxXCIgaW4gcHlvZGlkZU9qcy5yZW5kZXJlZE9qcykpIHtcbiAgICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICAgIGNvbnN0IHNwaW5uZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuXG4gICAgaWYgKG9wdGlvbnMuZWNobykge1xuICAgICAgLy8gU2hvdyBvdXRwdXQgYXMgaGlnaGxpZ2h0ZWQgc291cmNlXG4gICAgICBjb25zdCBwcmVFbGVtID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInByZVwiKTtcbiAgICAgIGNvbnRhaW5lci5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGVcIjtcbiAgICAgIHByZUVsZW0uY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlIHB5dGhvblwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRQeXRob24oYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICBweW9kaWRlT2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
@@ -883,10 +835,11 @@ eyJjb250ZW50cyI6W119
 W10=
 </script>
 </section>
+</section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB0X2VtID0gSW5wdXRzLnJhbmdlKFsxLCAxMF0sIHtcbiAgc3RlcDogMSxcbiAgbGFiZWw6IFwidDpcIixcbiAgdmFsdWU6IDFcbn0pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgndF9lbScpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }

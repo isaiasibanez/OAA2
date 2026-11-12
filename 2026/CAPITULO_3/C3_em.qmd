@@ -183,7 +183,6 @@ $t\leftarrow 0.$
 
 </div>
 
----
 </div>
 
 <div style="margin-top:2.5em;"></div>
