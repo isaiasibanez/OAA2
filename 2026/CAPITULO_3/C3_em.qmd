@@ -317,9 +317,11 @@ De hecho, si reemplazáramos $w_{ik}^{(t)}$ por $\bfone\{z_i=k\}$ en las actuali
 EM en una mezcla de dos gaussianas
 </span>
 
-Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y aplicaremos el algoritmo EM, partiendo de una inicialización deliberadamente mala: ambas medias muy próximas entre sí, en el centro de los datos. Usamos la implementación de `scikit-learn`, combinando `max_iter=1` con `warm_start=True`, de manera que cada llamada a `fit` avanza exactamente una iteración conservando el estado.
+Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y aplicaremos el algoritmo EM, partiendo de una inicialización deliberadamente mala: ambas medias muy próximas entre sí, en el centro de los datos.
 
-Desplace el control para avanzar las iteraciones y observar cómo evolucionan la densidad ajustada y las responsabilidades. El color de los puntos indica la responsabilidad $w_{i1}$: azul si la primera componente se lleva casi toda la responsabilidad, rojo si se la lleva la segunda, y tonos intermedios en la zona de solapamiento, donde la asignación es genuinamente dudosa.
+> ⚠ En este ejemplo utilizamos la implementación `GaussianMixture` de `scikit-learn`. Combinando `max_iter=1` con `warm_start=True`, cada llamada a `fit` avanza exactamente una iteración del algoritmo, conservando el estado. La implementación del método se realizará en las actividades prácticas.
+
+Desplace el control para avanzar las iteraciones y observar cómo evolucionan la densidad ajustada y las responsabilidades.
 
 ```{pyodide-python}
 #| echo: false
@@ -349,8 +351,8 @@ gmm = GaussianMixture(n_components=2, max_iter=1, warm_start=True,
 
 for t in range(t_em):
     gmm.fit(x)
-    print(f"Iteración {t+1}: l = {gmm.score(x) * n:.2f}")
 
+ll = gmm.score(x) * n                      # log-verosimilitud observada
 phi_h = gmm.weights_
 mu_h = gmm.means_.ravel()
 sd_h = np.sqrt(gmm.covariances_.ravel())
@@ -369,9 +371,9 @@ plt.plot(grilla, c2, color='tab:red', lw=1.2, label='componente 2')
 plt.scatter(x.ravel(), np.full(n, -0.018), c=resp, cmap='coolwarm_r',
             s=14, vmin=0, vmax=1)
 plt.ylim(-0.04, 0.33)
-plt.xlabel('$x$')
+plt.xlabel('$x$', size=15)
 plt.legend(frameon=False, fontsize=9)
-plt.title(f'EM — iteración {t_em}')
+plt.title(f'Iteración {t_em}   ($\\ell = {ll:.1f}$)', fontsize=12)
 plt.grid(False)
 plt.show()
 ```
@@ -386,7 +388,7 @@ viewof t_em = Inputs.range([1, 10], {
 
 ```
 
-La log-verosimilitud crece en cada iteración, tal como asegura el Teorema 3.3.4, y se estabiliza alrededor de la sexta.
+El color de los puntos indica la responsabilidad $w_{i1}$: azul si la primera componente se lleva casi toda la responsabilidad, rojo si se la lleva la segunda, y tonos intermedios en la zona de solapamiento, donde la asignación es genuinamente dudosa. Observar que la log-verosimilitud crece en cada iteración, una propiedad general del algoritmo que demostraremos a continuación.
 
 :::
 
@@ -402,6 +404,8 @@ Veremos que el algoritmo EM satisface una propiedad de *monotonía*: la log-vero
 
 ### Desigualdad de Jensen
 
+En la [C1-S2](../CAPITULO_1/A2_optimizacion_convexa.html) vimos que la desigualdad que define a una función convexa se extiende a combinaciones convexas. La enunciamos aquí para funciones cóncavas, que es la forma en que la usaremos, y agregamos la condición de igualdad.
+
 ::: {.teorema}
 **Teorema 3.3.3** (Desigualdad de Jensen). Sea $f:I\subset\RR\to\RR$ una función *cóncava*. Para $a_1,\ldots,a_n\in I$ y pesos $q_1,\ldots,q_n\geq 0$ con $\sum_{i=1}^n q_i=1$, se verifica
 $$
@@ -413,40 +417,7 @@ Si $f$ es estrictamente cóncava, hay igualdad solo si todos los $a_i$ son igual
 
 :::
 
-<details>
-<summary><span style="color:#0056b3;">ℹ Ver más información</span></summary>
-
-::: {.panel-tabset}
-
-### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
-
-Para $n=2$, la desigualdad es exactamente la definición de concavidad:
-$$
-f(\lambda a+(1-\lambda)b)\geq \lambda f(a)+(1-\lambda)f(b),\qquad \lambda\in[0,1].
-$$
-
-Para $n\geq 3$, sea $s=\sum_{i=1}^{n-1} q_i = 1-q_n$. Si $s=0$ el resultado es trivial. Si $s>0$, definimos
-$$
-r_i = \frac{q_i}{s},\quad i = 1,\ldots,n-1,\qquad m = \sum_{i=1}^{n-1} r_i a_i,
-$$
-de manera que $\sum_{i=1}^{n-1} r_i=1$. Por hipótesis inductiva,
-$$
-f(m)\geq \sum_{i=1}^{n-1} r_i\,f(a_i).
-$$
-
-Además, $\sum_{i=1}^{n} q_i a_i = s\,m + q_n a_n$. Aplicando el caso $n=2$ a $m$ y $a_n$:
-$$
-f\big(s\,m+q_n a_n\big)\geq s\,f(m)+q_n f(a_n)
-\geq s\sum_{i=1}^{n-1} r_i f(a_i)+q_n f(a_n)
-= \sum_{i=1}^{n} q_i f(a_i),
-$$
-lo cual prueba el resultado para todo $n$.
-
-<div style="margin-top:-1em;"></div>
-<div style="text-align: right;">$\blacksquare$</div>
-
-:::
-</details>
+Es ese resultado aplicado a $-f$; la demostración, por inducción sobre $n$, se propone en la guía de actividades de aquella sección. La condición de igualdad se obtiene siguiendo la misma inducción, con desigualdad estricta en el caso $n=2$.
 
 <div style="margin-top:2em;"></div>
 
