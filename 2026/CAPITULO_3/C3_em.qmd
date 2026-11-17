@@ -301,7 +301,7 @@ Pruebe que las expresiones anteriores son efectivamente los maximizadores de $Q(
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-success text-light">EM y $K$-medias</span>
 
-Hay un paralelo directo con el algoritmo de $K$-medias de la [C3-S2](C2_clustering.html#k-medias). Allí el primer paso asigna cada punto a su centroide más cercano —la asignación *dura* del recuadro anterior— y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades $w_{ik}$ y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.
+Hay un paralelo directo con el algoritmo de $K$-medias de la [C3-S2](C2_clustering.html#k-medias). Allí el primer paso asigna cada punto a su centroide más cercano (la asignación *dura* del recuadro anterior) y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades $w_{ik}$ y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.
 
 <div style="margin-top:1em;"></div>
 
@@ -407,7 +407,7 @@ Veremos que el algoritmo EM satisface una propiedad de *monotonía*: la log-vero
 En la [C1-S2](../CAPITULO_1/A2_optimizacion_convexa.html) vimos que la desigualdad que define a una función convexa se extiende a combinaciones convexas. La enunciamos aquí para funciones cóncavas, que es la forma en que la usaremos, y agregamos la condición de igualdad.
 
 ::: {.teorema}
-**Teorema 3.3.3** (Desigualdad de Jensen). Sea $f:I\subset\RR\to\RR$ una función *cóncava*. Para $a_1,\ldots,a_n\in I$ y pesos $q_1,\ldots,q_n\geq 0$ con $\sum_{i=1}^n q_i=1$, se verifica
+**Teorema 3.3.3** (Desigualdad de Jensen). Sea $f:\RR\to\RR$ una función *cóncava*. Para $a_1,\ldots,a_n\in \operatorname{dom}f$ y pesos $q_1,\ldots,q_n\geq 0$ con $\sum_{i=1}^n q_i=1$, se verifica
 $$
 f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 \tag{3.3.6}
@@ -421,7 +421,7 @@ Es ese resultado aplicado a $-f$; la demostración, por inducción sobre $n$, se
 
 <div style="margin-top:2em;"></div>
 
-Dado que $\log$ es cóncava en $(0,\infty)$, el caso que nos interesa es el siguiente.
+Dado que $\log$ es cóncava en $(0,\infty)$, el caso que nos interesa es el siguiente:
 
 ::: {.myhighlight}
 
@@ -457,7 +457,12 @@ $$
 
 ### <span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;">*Demostración*</span>
 
-Por la regla de Bayes,
+De la regla de Bayes y por definición de probabilidad conjunta, resulta
+$$
+p(z\mid\xx;\bftheta)=\frac{p(\xx,z;\bftheta)}{p(\xx;\bftheta)}.
+$$
+
+Aplicando logaritmo y reordenando, obtenemos
 $$
 \log p(\xx;\bftheta) = \log p(\xx,z;\bftheta) - \log p(z\mid \xx;\bftheta),
 $$
@@ -492,7 +497,7 @@ Q(\bftheta^{(t+1)} \mid \bftheta^{(t)}) \geq Q(\bftheta \mid \bftheta^{(t)})\qqu
 \tag{3.3.9}
 $$
 
-Para la segunda, aplicamos la desigualdad de Jensen para el logaritmo a la suma sobre $z_i$, con pesos $p(z_i \mid \xx_i;\bftheta^{(t)})$ y valores los cocientes que los acompañan, de modo que los denominadores se cancelan dentro del logaritmo. Para cualquier $\bftheta$ resulta
+En la segunda, aplicamos la desigualdad de Jensen para el logaritmo a la suma sobre $z_i$, con pesos adecuados. Para cualquier $\bftheta$ se tiene que
 $$
 \begin{align*}
 H(\bftheta \mid \bftheta^{(t)}) - H(\bftheta^{(t)} \mid \bftheta^{(t)}) &=
@@ -517,7 +522,7 @@ Finalmente, combinando (3.3.8), (3.3.9) y (3.3.10) se obtiene la monotonía.
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto *no garantiza* que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
+El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto no garantiza que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
 
 <div style="margin-top:1em;"></div>
 
@@ -541,26 +546,21 @@ En cada iteración, EM construye una cota inferior de $\ell(\bftheta)$ que toca 
 
 <div style="margin-top:2em;"></div>
 
-Las siguientes figuras ilustran el procedimiento.
+Las siguientes figuras ilustran el procedimiento. Conviene precisar qué es lo que se dibuja: como (3.3.10) asegura que $H(\bftheta\mid\bftheta^{(t)})\leq H(\bftheta^{(t)}\mid\bftheta^{(t)})$ para todo $\bftheta$, al reemplazar esa cota en (3.3.7) resulta
+$$
+\ell(\bftheta)\ \geq\ Q(\bftheta\mid\bftheta^{(t)})-H(\bftheta^{(t)}\mid\bftheta^{(t)}).
+$$
 
-<figure style="text-align: center;">
-  <img src="figuras/em_cota_1.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.3:** La log-verosimilitud $\ell(\bftheta)$ a maximizar. </figcaption>
-</figure>
+El término que se resta tiene a $\bftheta^{(t)}$ en los dos argumentos, de manera que no depende de $\bftheta$: es una *constante*, y la cota resulta ser $Q$ desplazada verticalmente. Esa constante es justamente la que hace que la cota toque a $\ell$, ya que en $\bftheta=\bftheta^{(t)}$ la desigualdad se cumple con igualdad. Como sumar una constante no mueve el maximizador, el paso M puede maximizar $Q$ a secas: la constante, que además cambia en cada iteración, es irrelevante para el algoritmo.
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_2.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.4:** Paso E en $\bftheta^{(0)}$: la cota $Q(\bftheta\mid \bftheta^{(0)})$ toca a $\ell$ en $\bftheta^{(0)}$. Su máximo define $\bftheta^{(1)}$. </figcaption>
+  <figcaption> **Figura 3.3.3:** Paso E en $\bftheta^{(0)}$: la cota $Q(\bftheta\mid \bftheta^{(0)})$, corregida por un término que no depende de $\bftheta$, toca a $\ell$ en $\bftheta^{(0)}$. Su máximo define $\bftheta^{(1)}$. </figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_3.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.5:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la secuencia $\bftheta^{(0)}\to\bftheta^{(1)}\to\bftheta^{(2)}\to\cdots$ asciende. </figcaption>
-</figure>
-
-<figure style="text-align: center;">
-  <img src="figuras/em_cota_4.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.6:** Si $\ell$ tiene múltiples máximos, EM puede converger a uno local según la inicialización. </figcaption>
+  <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la sucesión $\bftheta^{(0)}\to\bftheta^{(1)}\to\bftheta^{(2)}\to\cdots$ asciende. </figcaption>
 </figure>
 
 <div style="margin-top:2em;"></div>

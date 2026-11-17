@@ -590,7 +590,7 @@ w_{ik}^{(t)}\big({\bf x}_i-\boldsymbol{\mu}_k^{(t+1)}\big)\big({\bf x}_i-\boldsy
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-success text-light">EM y <span class="math inline">\(K\)</span>-medias</span></p>
-<p>Hay un paralelo directo con el algoritmo de <span class="math inline">\(K\)</span>-medias de la <a href="C2_clustering.html#k-medias">C3-S2</a>. Allí el primer paso asigna cada punto a su centroide más cercano —la asignación <em>dura</em> del recuadro anterior— y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades <span class="math inline">\(w_{ik}\)</span> y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.</p>
+<p>Hay un paralelo directo con el algoritmo de <span class="math inline">\(K\)</span>-medias de la <a href="C2_clustering.html#k-medias">C3-S2</a>. Allí el primer paso asigna cada punto a su centroide más cercano (la asignación <em>dura</em> del recuadro anterior) y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades <span class="math inline">\(w_{ik}\)</span> y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -643,7 +643,7 @@ eyJhdHRyIjp7ImNvbnRleHQiOiJvanMiLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRy
 <h3 class="anchored" data-anchor-id="desigualdad-de-jensen">Desigualdad de Jensen</h3>
 <p>En la <a href="../CAPITULO_1/A2_optimizacion_convexa.html">C1-S2</a> vimos que la desigualdad que define a una función convexa se extiende a combinaciones convexas. La enunciamos aquí para funciones cóncavas, que es la forma en que la usaremos, y agregamos la condición de igualdad.</p>
 <div class="teorema">
-<p><strong>Teorema 3.3.3</strong> (Desigualdad de Jensen). Sea <span class="math inline">\(f:I\subset\mathbb{R}\to\mathbb{R}\)</span> una función <em>cóncava</em>. Para <span class="math inline">\(a_1,\ldots,a_n\in I\)</span> y pesos <span class="math inline">\(q_1,\ldots,q_n\geq 0\)</span> con <span class="math inline">\(\sum_{i=1}^n q_i=1\)</span>, se verifica <span class="math display">\[
+<p><strong>Teorema 3.3.3</strong> (Desigualdad de Jensen). Sea <span class="math inline">\(f:\mathbb{R}\to\mathbb{R}\)</span> una función <em>cóncava</em>. Para <span class="math inline">\(a_1,\ldots,a_n\in \operatorname{dom}f\)</span> y pesos <span class="math inline">\(q_1,\ldots,q_n\geq 0\)</span> con <span class="math inline">\(\sum_{i=1}^n q_i=1\)</span>, se verifica <span class="math display">\[
 f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 \tag{3.3.6}
 \]</span></p>
@@ -653,7 +653,7 @@ f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 <div style="margin-top:2em;">
 
 </div>
-<p>Dado que <span class="math inline">\(\log\)</span> es cóncava en <span class="math inline">\((0,\infty)\)</span>, el caso que nos interesa es el siguiente.</p>
+<p>Dado que <span class="math inline">\(\log\)</span> es cóncava en <span class="math inline">\((0,\infty)\)</span>, el caso que nos interesa es el siguiente:</p>
 <div class="myhighlight">
 <p>Para <span class="math inline">\(a_i&gt;0\)</span> y pesos <span class="math inline">\(q_i\geq 0\)</span> con <span class="math inline">\(\sum_i q_i=1\)</span>, <span class="math display">\[
 \log\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i \log(a_i),
@@ -681,7 +681,10 @@ f\Big(\sum_{i=1}^n q_i a_i\Big)\geq \sum_{i=1}^n q_i\,f(a_i).
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><span style="border: 1px solid #ddd; padding: 2px 6px; border-radius: 4px;"><em>Demostración</em></span></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Por la regla de Bayes, <span class="math display">\[
+<p>De la regla de Bayes y por definición de probabilidad conjunta, resulta <span class="math display">\[
+p(z\mid{\bf x};\boldsymbol{\theta})=\frac{p({\bf x},z;\boldsymbol{\theta})}{p({\bf x};\boldsymbol{\theta})}.
+\]</span></p>
+<p>Aplicando logaritmo y reordenando, obtenemos <span class="math display">\[
 \log p({\bf x};\boldsymbol{\theta}) = \log p({\bf x},z;\boldsymbol{\theta}) - \log p(z\mid {\bf x};\boldsymbol{\theta}),
 \]</span> de donde <span class="math display">\[
 \ell(\boldsymbol{\theta}) = \ell_c(\boldsymbol{\theta}) - \sum_{i=1}^n \log p(z_i \mid {\bf x}_i;\boldsymbol{\theta}).
@@ -704,7 +707,7 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) := \mathbb{E}\left( \sum_{i
 Q(\boldsymbol{\theta}^{(t+1)} \mid \boldsymbol{\theta}^{(t)}) \geq Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)})\qquad \forall\, \boldsymbol{\theta}.
 \tag{3.3.9}
 \]</span></p>
-<p>Para la segunda, aplicamos la desigualdad de Jensen para el logaritmo a la suma sobre <span class="math inline">\(z_i\)</span>, con pesos <span class="math inline">\(p(z_i \mid {\bf x}_i;\boldsymbol{\theta}^{(t)})\)</span> y valores los cocientes que los acompañan, de modo que los denominadores se cancelan dentro del logaritmo. Para cualquier <span class="math inline">\(\boldsymbol{\theta}\)</span> resulta <span class="math display">\[
+<p>En la segunda, aplicamos la desigualdad de Jensen para el logaritmo a la suma sobre <span class="math inline">\(z_i\)</span>, con pesos adecuados. Para cualquier <span class="math inline">\(\boldsymbol{\theta}\)</span> se tiene que <span class="math display">\[
 \begin{align*}
 H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t)} \mid \boldsymbol{\theta}^{(t)}) &amp;=
 \sum_{i=1}^n \mathbb{E}\left( \log \frac{ p(z_i \mid {\bf x}_i;\boldsymbol{\theta}) }{ p(z_i \mid {\bf x}_i;\boldsymbol{\theta}^{(t)}) } \,\Big|\, {\bf x}_i;\boldsymbol{\theta}^{(t)} \right) \\
@@ -730,7 +733,7 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>El Teorema 3.3.4 implica que si <span class="math inline">\(\{\ell(\boldsymbol{\theta}^{(t)})\}\)</span> es una sucesión acotada, entonces converge monótonamente a algún valor <span class="math inline">\(\ell^\star\)</span>. Pero esto <em>no garantiza</em> que <span class="math inline">\(\ell^\star\)</span> sea un máximo global si la función de verosimilitud no tiene un único máximo.</p>
+<p>El Teorema 3.3.4 implica que si <span class="math inline">\(\{\ell(\boldsymbol{\theta}^{(t)})\}\)</span> es una sucesión acotada, entonces converge monótonamente a algún valor <span class="math inline">\(\ell^\star\)</span>. Pero esto no garantiza que <span class="math inline">\(\ell^\star\)</span> sea un máximo global si la función de verosimilitud no tiene un único máximo.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -752,29 +755,20 @@ H(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(t)}) - H(\boldsymbol{\theta}^{(t
 <div style="margin-top:2em;">
 
 </div>
-<p>Las siguientes figuras ilustran el procedimiento.</p>
-<figure style="text-align: center;" class="figure">
-<img src="figuras/em_cota_1.svg" alt="…" width="500px" class="figure-img">
-<figcaption>
-<strong>Figura 3.3.3:</strong> La log-verosimilitud <span class="math inline">\(\ell(\boldsymbol{\theta})\)</span> a maximizar.
-</figcaption>
-</figure>
+<p>Las siguientes figuras ilustran el procedimiento. Conviene precisar qué es lo que se dibuja: como (3.3.10) asegura que <span class="math inline">\(H(\boldsymbol{\theta}\mid\boldsymbol{\theta}^{(t)})\leq H(\boldsymbol{\theta}^{(t)}\mid\boldsymbol{\theta}^{(t)})\)</span> para todo <span class="math inline">\(\boldsymbol{\theta}\)</span>, al reemplazar esa cota en (3.3.7) resulta <span class="math display">\[
+\ell(\boldsymbol{\theta})\ \geq\ Q(\boldsymbol{\theta}\mid\boldsymbol{\theta}^{(t)})-H(\boldsymbol{\theta}^{(t)}\mid\boldsymbol{\theta}^{(t)}).
+\]</span></p>
+<p>El término que se resta tiene a <span class="math inline">\(\boldsymbol{\theta}^{(t)}\)</span> en los dos argumentos, de manera que no depende de <span class="math inline">\(\boldsymbol{\theta}\)</span>: es una <em>constante</em>, y la cota resulta ser <span class="math inline">\(Q\)</span> desplazada verticalmente. Esa constante es justamente la que hace que la cota toque a <span class="math inline">\(\ell\)</span>, ya que en <span class="math inline">\(\boldsymbol{\theta}=\boldsymbol{\theta}^{(t)}\)</span> la desigualdad se cumple con igualdad. Como sumar una constante no mueve el maximizador, el paso M puede maximizar <span class="math inline">\(Q\)</span> a secas: la constante, que además cambia en cada iteración, es irrelevante para el algoritmo.</p>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/em_cota_2.svg" alt="…" width="500px" class="figure-img">
 <figcaption>
-<strong>Figura 3.3.4:</strong> Paso E en <span class="math inline">\(\boldsymbol{\theta}^{(0)}\)</span>: la cota <span class="math inline">\(Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(0)})\)</span> toca a <span class="math inline">\(\ell\)</span> en <span class="math inline">\(\boldsymbol{\theta}^{(0)}\)</span>. Su máximo define <span class="math inline">\(\boldsymbol{\theta}^{(1)}\)</span>.
+<strong>Figura 3.3.3:</strong> Paso E en <span class="math inline">\(\boldsymbol{\theta}^{(0)}\)</span>: la cota <span class="math inline">\(Q(\boldsymbol{\theta}\mid \boldsymbol{\theta}^{(0)})\)</span>, corregida por un término que no depende de <span class="math inline">\(\boldsymbol{\theta}\)</span>, toca a <span class="math inline">\(\ell\)</span> en <span class="math inline">\(\boldsymbol{\theta}^{(0)}\)</span>. Su máximo define <span class="math inline">\(\boldsymbol{\theta}^{(1)}\)</span>.
 </figcaption>
 </figure>
 <figure style="text-align: center;" class="figure">
 <img src="figuras/em_cota_3.svg" alt="…" width="500px" class="figure-img">
 <figcaption>
-<strong>Figura 3.3.5:</strong> Iteraciones sucesivas: cada cota toca a <span class="math inline">\(\ell\)</span> en el parámetro actual y la secuencia <span class="math inline">\(\boldsymbol{\theta}^{(0)}\to\boldsymbol{\theta}^{(1)}\to\boldsymbol{\theta}^{(2)}\to\cdots\)</span> asciende.
-</figcaption>
-</figure>
-<figure style="text-align: center;" class="figure">
-<img src="figuras/em_cota_4.svg" alt="…" width="500px" class="figure-img">
-<figcaption>
-<strong>Figura 3.3.6:</strong> Si <span class="math inline">\(\ell\)</span> tiene múltiples máximos, EM puede converger a uno local según la inicialización.
+<strong>Figura 3.3.4:</strong> Iteraciones sucesivas: cada cota toca a <span class="math inline">\(\ell\)</span> en el parámetro actual y la sucesión <span class="math inline">\(\boldsymbol{\theta}^{(0)}\to\boldsymbol{\theta}^{(1)}\to\boldsymbol{\theta}^{(2)}\to\cdots\)</span> asciende.
 </figcaption>
 </figure>
 <div style="margin-top:2em;">
