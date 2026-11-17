@@ -74,8 +74,6 @@ $$
 p(x,z;\bftheta)=\left[\phi_1\calN(x;\mu_1,\sigma_1^{2})\right]^{\bfone\{z=1\}}\left[\phi_2\calN(x;\mu_2,\sigma_2^{2})\right]^{\bfone\{z=2\}}.
 $$
 
-<div style="margin-top:1em;"></div>
-
 Con esto, la log-verosimilitud de los datos completos es
 $$
 \begin{align*}
@@ -88,11 +86,7 @@ $$
 \tag{3.3.1}
 $$
 
-<div style="margin-top:1em;"></div>
-
 La expresión (3.3.1) es fácil de optimizar: para cada observación sobrevive una sola de las dos componentes, de manera que los parámetros de cada gaussiana se estiman por separado, exactamente como en los modelos discriminantes gaussianos de la [C3-S1](C1_gda.html).
-
-<div style="margin-top:2em;"></div>
 
 Pero el problema real es que:
 
@@ -117,8 +111,6 @@ $$
 \tag{3.3.2}
 $$
 
-<div style="margin-top:1em;"></div>
-
 La suma dentro del logaritmo es la dificultad: impide separar los términos y conduce, en general, a un problema de optimización no convexo sin solución cerrada. Comparando (3.3.1) con (3.3.2) se ve el contraste: conocer $z$ volvería trivial el problema. EM explota esa idea: en lugar de decidir a qué componente pertenece cada punto, lo reparte entre ellas según su probabilidad.
 
 <div style="margin-top:2.5em;"></div>
@@ -128,8 +120,6 @@ La suma dentro del logaritmo es la dificultad: impide separar los términos y co
 ## II <span style="color:#CCCCCC;">│</span> El algoritmo EM
 
 Volvemos ahora al caso general con $\xx\in\RR^p$. La idea es optimizar $\ell(\bftheta)$ en (3.3.2) de forma *indirecta*, maximizando iterativamente la esperanza de la log-verosimilitud completa, condicionada a los datos observados y evaluada con los parámetros del paso anterior.
-
-<div style="margin-top:1em;"></div>
 
 ::: {.definicion}
 **Definición 3.3.1** (Log-verosimilitud esperada). Sea $\bftheta^{(t)}$ el valor de los parámetros en la iteración $t$. Se denomina *log-verosimilitud esperada* a la función
@@ -221,10 +211,6 @@ $$
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-¿Quién es $Z$? Es el *índice de la componente* que generó la observación. En aprendizaje no supervisado se lo interpreta como una *clase latente* o *cluster*.
-
-<div style="margin-top:1em;"></div>
-
 Si se quiere una asignación *dura* de cada punto a un cluster, se usa la regla MAP:
 $$
 \hat z_i=\arg\max_{k}\ p\left(Z_i=k \mid \xx_i\right)=\arg\max_{k}\ \phi_k\,\calN(\xx_i;\bfmu_k,\Sigma_k).
@@ -247,9 +233,14 @@ $$
 
 donde la última igualdad es la regla de Bayes. Los valores $w_{ik}^{(t)}$ se denominan *responsabilidades*: miden cuánta responsabilidad le cabe a la componente $k$ en haber generado la observación $\xx_i$.
 
-<div style="margin-top:1em;"></div>
+Observar que el denominador de (3.3.4) es precisamente $p(\xx_i;\bftheta^{(t)})$, la densidad de la mezcla evaluada en la observación. Por lo tanto, al calcular las responsabilidades se obtiene, sin costo adicional, la log-verosimilitud observada (3.3.2) en el parámetro actual:
+$$
+\ell(\bftheta^{(t)})=\sum_{i=1}^n\log\sum_{k=1}^K \phi_k^{(t)}\,\calN(\xx_i;\bfmu_k^{(t)},\Sigma_k^{(t)}).
+$$
 
-Con ellas, la función $Q$ queda
+Esta cantidad se monitorea a lo largo de las iteraciones para decidir la parada del algoritmo.
+
+Con las responsabilidades, la función $Q$ queda
 $$
 \begin{align*}
 Q(\bftheta\mid \bftheta^{(t)}) &= \media\left(\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right) \\
@@ -302,8 +293,6 @@ Pruebe que las expresiones anteriores son efectivamente los maximizadores de $Q(
 <span class="badge bg-success text-light">EM y $K$-medias</span>
 
 Hay un paralelo directo con el algoritmo de $K$-medias de la [C3-S2](C2_clustering.html#k-medias). Allí el primer paso asigna cada punto a su centroide más cercano (la asignación *dura* del recuadro anterior) y el segundo promedia los puntos de cada cluster. EM hace lo mismo con pesos: el paso E reparte cada punto según las responsabilidades $w_{ik}$ y el paso M promedia con esos pesos, en lugar de contar las observaciones enteras.
-
-<div style="margin-top:1em;"></div>
 
 De hecho, si reemplazáramos $w_{ik}^{(t)}$ por $\bfone\{z_i=k\}$ en las actualizaciones del paso M, recuperaríamos exactamente los MLE por clase del modelo discriminante gaussiano, y el algoritmo se volvería muy parecido a $K$-medias.
 
@@ -462,11 +451,12 @@ $$
 p(z\mid\xx;\bftheta)=\frac{p(\xx,z;\bftheta)}{p(\xx;\bftheta)}.
 $$
 
-Aplicando logaritmo y reordenando, obtenemos
+Aplicando logaritmo y reordenando,
 $$
-\log p(\xx;\bftheta) = \log p(\xx,z;\bftheta) - \log p(z\mid \xx;\bftheta),
+\log p(\xx;\bftheta)=\log p(\xx,z;\bftheta)-\log p(z\mid\xx;\bftheta).
 $$
-de donde
+
+La identidad vale para cualquier par $(\xx,z)$. Evaluándola y sumándola sobre la muestra, se obtiene
 $$
 \ell(\bftheta) = \ell_c(\bftheta) - \sum_{i=1}^n \log p(z_i \mid \xx_i;\bftheta).
 $$
@@ -524,8 +514,6 @@ Finalmente, combinando (3.3.8), (3.3.9) y (3.3.10) se obtiene la monotonía.
 
 El Teorema 3.3.4 implica que si $\{\ell(\bftheta^{(t)})\}$ es una sucesión acotada, entonces converge monótonamente a algún valor $\ell^\star$. Pero esto no garantiza que $\ell^\star$ sea un máximo global si la función de verosimilitud no tiene un único máximo.
 
-<div style="margin-top:1em;"></div>
-
 La monotonía garantiza que la sucesión de valores $\{\ell(\bftheta^{(t)})\}$ converge, pero no dice a qué converge la sucesión de estimadores: bajo condiciones de regularidad, lo que puede asegurarse es que sus puntos de acumulación son *puntos estacionarios* de $\ell$, habitualmente máximos locales, aunque no puede descartarse un punto silla. Cuando la verosimilitud es multimodal, cuál de ellos se alcanza depende de la elección del punto de partida; por lo tanto, al igual que en $K$-medias, es recomendable considerar varias inicializaciones y quedarse con la que alcance el mayor valor de $\ell$.
 
 </div>
@@ -534,7 +522,7 @@ La monotonía garantiza que la sucesión de valores $\{\ell(\bftheta^{(t)})\}$ c
 
 ### Interpretación geométrica
 
-La descomposición (3.3.7) es la base de todas las formulaciones del algoritmo EM. En particular, permite interpretar el paso M como la maximización de una *cota inferior* de la log-verosimilitud: la función $Q(\bftheta\mid \bftheta^{(t)})$, corregida por un término que no depende de $\bftheta$, nunca supera a $\ell(\bftheta)$ y la toca exactamente en $\bftheta^{(t)}$.
+La descomposición (3.3.7) permite interpretar el paso M como la maximización de una *cota inferior* de la log-verosimilitud. Esto es:
 
 <div style="margin-top:1em;"></div>
 
@@ -546,22 +534,24 @@ En cada iteración, EM construye una cota inferior de $\ell(\bftheta)$ que toca 
 
 <div style="margin-top:2em;"></div>
 
-Las siguientes figuras ilustran el procedimiento. Conviene precisar qué es lo que se dibuja: como (3.3.10) asegura que $H(\bftheta\mid\bftheta^{(t)})\leq H(\bftheta^{(t)}\mid\bftheta^{(t)})$ para todo $\bftheta$, al reemplazar esa cota en (3.3.7) resulta
+Las siguientes figuras ilustran el procedimiento. Como (3.3.10) asegura que $H(\bftheta\mid\bftheta^{(t)})\leq H(\bftheta^{(t)}\mid\bftheta^{(t)})$ para todo $\bftheta$, al reemplazar esa cota en (3.3.7) resulta
 $$
 \ell(\bftheta)\ \geq\ Q(\bftheta\mid\bftheta^{(t)})-H(\bftheta^{(t)}\mid\bftheta^{(t)}).
 $$
 
-El término que se resta tiene a $\bftheta^{(t)}$ en los dos argumentos, de manera que no depende de $\bftheta$: es una *constante*, y la cota resulta ser $Q$ desplazada verticalmente. Esa constante es justamente la que hace que la cota toque a $\ell$, ya que en $\bftheta=\bftheta^{(t)}$ la desigualdad se cumple con igualdad. Como sumar una constante no mueve el maximizador, el paso M puede maximizar $Q$ a secas: la constante, que además cambia en cada iteración, es irrelevante para el algoritmo.
+El término que se resta es una constante respecto de $\bftheta$: la cota es $Q$ desplazada verticalmente, y ese desplazamiento es el que la hace tocar a $\ell$, ya que en $\bftheta=\bftheta^{(t)}$ la desigualdad se cumple con igualdad. Como sumar una constante no mueve el maximizador, el paso M puede maximizar $Q$ a secas, aun cuando esa constante cambie en cada iteración.
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_2.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.3:** Paso E en $\bftheta^{(0)}$: la cota $Q(\bftheta\mid \bftheta^{(0)})$, corregida por un término que no depende de $\bftheta$, toca a $\ell$ en $\bftheta^{(0)}$. Su máximo define $\bftheta^{(1)}$. </figcaption>
+  <figcaption> **Figura 3.3.3:** Primera iteración: la cota toca a $\ell$ en $\bftheta^{(0)}$ y su máximo define $\bftheta^{(1)}$. </figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <img src="figuras/em_cota_3.svg" alt="…" width="500px">
-  <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la sucesión $\bftheta^{(0)}\to\bftheta^{(1)}\to\bftheta^{(2)}\to\cdots$ asciende. </figcaption>
+  <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la sucesión asciende. </figcaption>
 </figure>
+
+Observar que (3.3.7) es el punto de partida de las formulaciones más generales del algoritmo, en las que la cota inferior se construye sobre una distribución arbitraria de la variable latente.
 
 <div style="margin-top:2em;"></div>
 
