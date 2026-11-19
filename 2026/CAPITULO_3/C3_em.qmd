@@ -2,29 +2,21 @@
 title: "Algoritmo EM"
 subtitle: "Capítulo 3 - Sección 3"
 ---
+
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex align-items-center justify-content-between">
+<div class="d-flex gap-2">
 
-  <div class="d-flex gap-2">
-    
-  <a href="../material/apunte_c3s3.pdf" target="_blank" class="btn btn-outline-primary">
-    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-  </a>
+<a href="../material/apunte_c3s3.pdf" target="_blank" class="btn btn-outline-primary">
+<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+</a>
 
-  <a href="../material/tp_c3s3.pdf" target="_blank" class="btn btn-outline-success">
-    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-  </a>
-
-  </div>
-
-  <span class="text-muted small">
-    <i class="fa-solid fa-clock-rotate-left me-1"></i>
-    Última actualización: 17/11/2026
-  </span>
+<a href="../material/tp_c3s3.pdf" target="_blank" class="btn btn-outline-success">
+<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+</a>
 
 </div>
 
@@ -132,7 +124,7 @@ Volvemos ahora al caso general con $\xx\in\RR^p$. La idea es optimizar $\ell(\bf
 ::: {.definicion}
 **Definición 3.3.1** (Log-verosimilitud esperada). Sea $\bftheta^{(t)}$ el valor de los parámetros en la iteración $t$. Se denomina *log-verosimilitud esperada* a la función
 $$
-Q(\bftheta\mid \bftheta^{(t)}) := \media\left(\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right) = \sum_{i=1}^n \media\left(\log p(\xx_i, z_i; \bftheta)\mid X;\bftheta^{(t)}\right).
+Q(\bftheta\mid \bftheta^{(t)}) := \media\left[\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right] = \sum_{i=1}^n \media\left[\log p(\xx_i, z_i; \bftheta)\mid X;\bftheta^{(t)}\right].
 \tag{3.3.3}
 $$
 
@@ -171,7 +163,7 @@ $t\leftarrow 0.$
 
 **repetir**:
 
-> **1°** (*Paso E*) Calcular $$Q(\bftheta\mid \bftheta^{(t)}) = \media\left(\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right).$$
+> **1°** (*Paso E*) Calcular $$Q(\bftheta\mid \bftheta^{(t)}) = \media\left[\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right].$$
 >
 > **2°** (*Paso M*) Actualizar $$\bftheta^{(t+1)}=\arg\max_{\bftheta} Q(\bftheta\mid \bftheta^{(t)}).$$
 >
@@ -234,7 +226,7 @@ Pero también podemos quedarnos con la asignación *blanda*, es decir, con la pr
 
 Con los parámetros $\bftheta^{(t)}$ fijos, la esperanza en (3.3.3) se calcula sobre las indicatrices $\bfone\{z_i=k\}$. Como la esperanza de una indicatriz es la probabilidad del suceso, resulta
 $$
-w_{ik}^{(t)} := \media\left(\bfone\{z_i=k\}\mid X;\bftheta^{(t)}\right) = \prob(Z_i=k\mid \xx_i;\bftheta^{(t)})
+w_{ik}^{(t)} := \media\left[\bfone\{z_i=k\}\mid X;\bftheta^{(t)}\right] = \prob(Z_i=k\mid \xx_i;\bftheta^{(t)})
 = \frac{\phi_k^{(t)}\,\calN(\xx_i;\bfmu_k^{(t)},\Sigma_k^{(t)})}{\sum_{\ell=1}^K \phi_\ell^{(t)}\,\calN(\xx_i;\bfmu_\ell^{(t)},\Sigma_\ell^{(t)})},
 \tag{3.3.4}
 $$
@@ -251,8 +243,8 @@ Esta cantidad se monitorea a lo largo de las iteraciones para decidir la parada 
 Con las responsabilidades, la función $Q$ queda
 $$
 \begin{align*}
-Q(\bftheta\mid \bftheta^{(t)}) &= \media\left(\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right) \\
-&= \sum_{i=1}^n \media\left( \log p(\xx_i,z_i; \bftheta)\mid X;\bftheta^{(t)}\right)\\
+Q(\bftheta\mid \bftheta^{(t)}) &= \media\left[\ell_c(\bftheta)\mid X;\bftheta^{(t)}\right] \\
+&= \sum_{i=1}^n \media\left[ \log p(\xx_i,z_i; \bftheta)\mid X;\bftheta^{(t)}\right]\\
 &= \sum_{i=1}^n \sum_{k=1}^K w_{ik}^{(t)} \Big(\log \phi_k + \log \calN(\xx_i;\bfmu_k,\Sigma_k) \Big).
 \end{align*}
 \tag{3.3.5}
@@ -316,7 +308,9 @@ EM en una mezcla de dos gaussianas
 
 Simularemos datos provenientes de una mezcla de dos gaussianas univariadas y aplicaremos el algoritmo EM, partiendo de una inicialización deliberadamente mala: ambas medias muy próximas entre sí, en el centro de los datos.
 
-> ⚠ En este ejemplo utilizamos la implementación `GaussianMixture` de `scikit-learn`. Combinando `max_iter=1` con `warm_start=True`, cada llamada a `fit` avanza exactamente una iteración del algoritmo, conservando el estado. La implementación del método se realizará en las actividades prácticas.
+::: {.callout-warning appearance="simple"}
+En este ejemplo utilizamos la implementación `GaussianMixture` de `scikit-learn`. Combinando `max_iter=1` con `warm_start=True`, cada llamada a `fit` avanza exactamente una iteración del algoritmo, conservando el estado. La implementación del método se realizará en las actividades prácticas.
+:::
 
 Desplace el control para avanzar las iteraciones y observar cómo evolucionan la densidad ajustada y las responsabilidades.
 
@@ -476,7 +470,7 @@ $$
 $$
 donde
 $$
-H(\bftheta \mid \bftheta^{(t)}) := \media\left( \sum_{i=1}^n \log p(z_i \mid \xx_i;\bftheta) \,\Big|\, X;\bftheta^{(t)}\right).
+H(\bftheta \mid \bftheta^{(t)}) := \media\left[ \sum_{i=1}^n \log p(z_i \mid \xx_i;\bftheta) \,\Big|\, X;\bftheta^{(t)}\right].
 $$
 
 De (3.3.7) se obtiene
@@ -499,7 +493,7 @@ En la segunda, aplicamos la desigualdad de Jensen para el logaritmo a la suma so
 $$
 \begin{align*}
 H(\bftheta \mid \bftheta^{(t)}) - H(\bftheta^{(t)} \mid \bftheta^{(t)}) &=
-\sum_{i=1}^n \media\left( \log \frac{ p(z_i \mid \xx_i;\bftheta) }{ p(z_i \mid \xx_i;\bftheta^{(t)}) } \,\Big|\, \xx_i;\bftheta^{(t)} \right) \\
+\sum_{i=1}^n \media\left[ \log \frac{ p(z_i \mid \xx_i;\bftheta) }{ p(z_i \mid \xx_i;\bftheta^{(t)}) } \,\Big|\, \xx_i;\bftheta^{(t)} \right] \\
 &= \sum_{i=1}^n \sum_{z_i} p(z_i \mid \xx_i;\bftheta^{(t)})\,\log \frac{ p(z_i \mid \xx_i;\bftheta) }{ p(z_i \mid \xx_i;\bftheta^{(t)}) }\\
 &\leq \sum_{i=1}^n \log \sum_{z_i} p(z_i \mid \xx_i;\bftheta) \\
 &= \sum_{i=1}^n \log (1) = 0 .
@@ -559,7 +553,9 @@ El término que se resta es una constante respecto de $\bftheta$: la cota es $Q$
   <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la sucesión asciende. </figcaption>
 </figure>
 
-<div style="margin-top:1.5em;"></div>
+Observar que (3.3.7) es el punto de partida de las formulaciones más generales del algoritmo, en las que la cota inferior se construye sobre una distribución arbitraria de la variable latente.
+
+<div style="margin-top:2em;"></div>
 
 Para cerrar, vale remarcar que el algoritmo EM no es exclusivo de las mezclas de gaussianas: proporciona una metodología general para problemas de estimación con variables latentes, y se aplica en contextos tan diversos como los modelos de análisis factorial (que veremos en la próxima sección), la inferencia en modelos bayesianos, la estimación en cadenas ocultas de Markov o el tratamiento de datos faltantes.
 

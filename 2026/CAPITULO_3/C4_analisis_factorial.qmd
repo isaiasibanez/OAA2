@@ -54,15 +54,9 @@ $$
 \hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} (\xx_i - \hat{\bfmu})(\xx_i - \hat{\bfmu})^\top.
 $$
 
-Si $p>n$, los $n$ puntos abarcan únicamente un subespacio de baja dimensión de $\RR^p$ y la matriz $\hat{\Sigma}$ resulta *singular*. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
+Reuniendo las observaciones centradas en la matriz $X_c$, cuyas filas son los $\xx_i-\hat\bfmu$, resulta $\hat{\Sigma}=\frac1n X_c^\top X_c$ y, por lo tanto, $\operatorname{rango}(\hat{\Sigma})=\operatorname{rango}(X_c)\leq\min\{n-1,p\}$, donde el $n-1$ se debe a que las filas de $X_c$ suman cero. Si $p>n-1$, la matriz $\hat{\Sigma}$ tiene autovalores nulos y resulta *singular*. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
 
-<div style="margin-top:1em;"></div>
-
-::: {.myhighlight3}
-
-Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el espacio afín generado por los datos, lo cual corresponde a una covarianza singular.
-
-:::
+Más aún, en ese caso la fórmula de $\hat{\Sigma}$ deja de ser el estimador de máxima verosimilitud: su deducción supone $\Sigma$ definida positiva, y cuando $p>n-1$ la verosimilitud no está acotada, de modo que el problema de maximización no tiene solución. Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el subespacio generado por los datos, lo cual corresponde a una covarianza singular.
 
 <div style="margin-top:2em;"></div>
 
@@ -90,6 +84,20 @@ $$
 y los contornos de densidad pasan a ser circunferencias o hiperesferas.
 
 </div>
+
+<div style="margin-top:2em;"></div>
+
+::: {.callout .question}
+
+<span style="font-size: 1.3em;">✍️</span><br>
+
+Deduzca los dos estimadores anteriores. Para ello, recuerde la log-verosimilitud de la normal multivariada vista en la [C3-S1](C1_gda.html),
+$$
+\ell(\bfmu,\Sigma)=\sum_{i=1}^n\left(-\frac{p}{2}\log(2\pi)-\frac{1}{2}\log|\Sigma|-\frac{1}{2}(\xx_i-\bfmu)^\top\Sigma^{-1}(\xx_i-\bfmu)\right),
+$$
+y escríbala bajo cada una de las dos restricciones.
+
+:::
 
 <div style="margin-top:2em;"></div>
 
@@ -233,7 +241,7 @@ De aquí, aplicando el recordatorio anterior, se obtienen los dos resultados que
 
 <span style="font-size: 1.3em;">✍️</span><br>
 
-Observe la expresión (3.4.1). ¿Cuántos parámetros libres tiene $\Lambda\Lambda^\top+\Psi$ frente a una matriz de covarianza completa? ¿Y frente a una diagonal?
+Observe la expresión (3.4.1). ¿Cuántos parámetros tiene $\Lambda\Lambda^\top+\Psi$ frente a una matriz de covarianza completa? ¿Y frente a una diagonal?
 
 :::
 
@@ -242,11 +250,11 @@ Observe la expresión (3.4.1). ¿Cuántos parámetros libres tiene $\Lambda\Lamb
 <div class="alert alert-light text-dark" role="important">
 <span class="badge bg-warning text-dark">Importante</span>
 
-Al contar los parámetros conviene tener presente que $\Lambda$ *no* queda determinada por el modelo. En efecto, si $R\in\RR^{k\times k}$ es una matriz ortogonal, entonces $(\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top$, de modo que $\Lambda$ y $\Lambda R$ producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)
+Al resolver la tarea anterior conviene tener presente que $\Lambda$ *no* queda determinada por el modelo. En efecto, si $R\in\RR^{k\times k}$ es una matriz ortogonal, entonces $(\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top$, de modo que $\Lambda$ y $\Lambda R$ producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)
 
 <div style="margin-top:1em;"></div>
 
-En consecuencia, las cargas se determinan únicamente *a menos de una rotación* del espacio de factores: los datos no permiten distinguir entre $\Lambda$ y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual ---"el factor 1 mide tal cosa"--- no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como *varimax*, que buscan cargas fáciles de interpretar.
+En consecuencia, las cargas se determinan únicamente *a menos de una rotación* del espacio de factores: los datos no permiten distinguir entre $\Lambda$ y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual ("el factor 1 mide tal cosa") no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como *varimax*, que buscan cargas fáciles de interpretar.
 
 </div>
 
@@ -266,20 +274,20 @@ Maximizar (3.4.3) explícitamente es difícil y no se conoce una solución en fo
 
 ## III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial
 
-A diferencia del caso de mezcla de gaussianas, aquí la variable latente es *continua*, de manera que las sumas sobre $z$ se reemplazan por integrales y las responsabilidades por una densidad condicional completa.
+A diferencia del caso de mezcla de gaussianas, aquí la variable latente es *continua*, de manera que las sumas sobre $\zz$ se reemplazan por integrales y las responsabilidades por una densidad condicional completa.
 
 <div style="margin-top:1em;"></div>
 
 ### Paso E
 
-El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir $Q_i(\zz_i) = p(\zz_i \mid \xx_i; \bfmu, \Lambda, \Psi)$. Por (3.4.2), esta distribución es
+El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir $q_i(\zz_i) = p(\zz_i \mid \xx_i; \bfmu^{(t)}, \Lambda^{(t)}, \Psi^{(t)})$. Por (3.4.2), esta distribución es
 $$
-\zz_i \mid \xx_i; \bfmu, \Lambda, \Psi \sim \calN(\bfmu_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
+\zz_i \mid \xx_i; \bfmu^{(t)}, \Lambda^{(t)}, \Psi^{(t)} \sim \calN(\bfmu_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
 $$
 con
 $$
-\bfmu_{z_i \mid x_i} = \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} (\xx_i - \bfmu),\qquad
-\Sigma_{z_i \mid x_i} = I - \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} \Lambda.
+\bfmu_{z_i \mid x_i} = \Lambda^{(t)\top} (\Lambda^{(t)} \Lambda^{(t)\top} + \Psi^{(t)})^{-1} (\xx_i - \bfmu^{(t)}),\qquad
+\Sigma_{z_i \mid x_i} = I - \Lambda^{(t)\top} (\Lambda^{(t)} \Lambda^{(t)\top} + \Psi^{(t)})^{-1} \Lambda^{(t)}.
 $$
 
 <div style="margin-top:1em;"></div>
@@ -290,23 +298,23 @@ Notar que $\Sigma_{z_i\mid x_i}$ no depende de $i$: la incertidumbre a posterior
 
 ### Paso M
 
-En el paso M debemos maximizar
+En el paso M debemos maximizar la log-verosimilitud esperada, que es la misma función $Q$ de la sección anterior escrita como integral, ya que la variable latente es continua:
 $$
-\sum_{i=1}^n \int_{\zz_i} Q_i(\zz_i) \log \frac{p(\xx_i, \zz_i; \bfmu, \Lambda, \Psi)}{Q_i(\zz_i)}\, d\zz_i
+\sum_{i=1}^n \int_{\zz_i} q_i(\zz_i) \log \frac{p(\xx_i, \zz_i; \bfmu, \Lambda, \Psi)}{q_i(\zz_i)}\, d\zz_i
 $$
 respecto de $\bfmu$, $\Lambda$ y $\Psi$. Desarrollemos la expresión:
 $$
 \begin{align*}
-&\sum_{i=1}^n \int_{\zz_i} Q_i(\zz_i) \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log Q_i(\zz_i) \big]\, d\zz_i \\
-&\qquad= \sum_{i=1}^n \media_{\zz_i \sim Q_i} \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log Q_i(\zz_i) \big].
+&\sum_{i=1}^n \int_{\zz_i} q_i(\zz_i) \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log q_i(\zz_i) \big]\, d\zz_i \\
+&\qquad= \sum_{i=1}^n \media_{\zz_i \sim q_i} \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) + \log p(\zz_i) - \log q_i(\zz_i) \big].
 \end{align*}
 $$
 
 Al eliminar los términos que no dependen de los parámetros, queda por maximizar
 $$
 \begin{align*}
-&\sum_{i=1}^n \media \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) \big]\\
-&\qquad=\sum_{i=1}^n \media \left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right].
+&\sum_{i=1}^n \media_{\zz_i \sim q_i} \big[ \log p(\xx_i \mid \zz_i; \bfmu, \Lambda, \Psi) \big]\\
+&\qquad=\sum_{i=1}^n \media_{\zz_i \sim q_i} \left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right].
 \end{align*}
 \tag{3.4.4}
 $$
@@ -319,28 +327,28 @@ $$
 Solo el último término de (3.4.4) depende de $\Lambda$. Derivando, y usando que $\operatorname{tr}(AB) = \operatorname{tr}(BA)$ junto con $\nabla_A\operatorname{tr}(ABA^\top C) = CAB + C^\top AB^\top$, obtenemos
 $$
 \begin{align*}
-&\nabla_\Lambda \sum_{i=1}^n \media \left[ -\frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right]\\
-&\qquad= \sum_{i=1}^n \nabla_\Lambda \media \left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda \zz_i \zz_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \Lambda^\top \big) \right]\\
-&\qquad= \sum_{i=1}^n \media \left[ -\Psi^{-1} \Lambda \zz_i \zz_i^{\top} + \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \right].
+&\nabla_\Lambda \sum_{i=1}^n \media_{\zz_i \sim q_i} \left[ -\frac{1}{2} (\xx_i - \bfmu - \Lambda \zz_i)^\top \Psi^{-1} (\xx_i - \bfmu - \Lambda \zz_i) \right]\\
+&\qquad= \sum_{i=1}^n \nabla_\Lambda \media_{\zz_i \sim q_i} \left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda \zz_i \zz_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \Lambda^\top \big) \right]\\
+&\qquad= \sum_{i=1}^n \media_{\zz_i \sim q_i} \left[ -\Psi^{-1} \Lambda \zz_i \zz_i^{\top} + \Psi^{-1} (\xx_i - \bfmu) \zz_i^{\top} \right].
 \end{align*}
 $$
 
 Igualando a cero y simplificando,
 $$
-\sum_{i=1}^n \Lambda\, \media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] = \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim Q_i} \big[ \zz_i^{\top} \big],
+\sum_{i=1}^n \Lambda\, \media_{\zz_i \sim q_i} \big[ \zz_i \zz_i^{\top} \big] = \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim q_i} \big[ \zz_i^{\top} \big],
 $$
 de donde
 $$
-\Lambda = \left( \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim Q_i} \big[ \zz_i^{\top} \big] \right) \left( \sum_{i=1}^n \media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] \right)^{-1}.
+\Lambda = \left( \sum_{i=1}^n (\xx_i - \bfmu)\, \media_{\zz_i \sim q_i} \big[ \zz_i^{\top} \big] \right) \left( \sum_{i=1}^n \media_{\zz_i \sim q_i} \big[ \zz_i \zz_i^{\top} \big] \right)^{-1}.
 \tag{3.4.5}
 $$
 
 <div style="margin-top:1em;"></div>
 
-Finalmente, como $Q_i$ es gaussiana con media $\bfmu_{z_i \mid x_i}$ y covarianza $\Sigma_{z_i \mid x_i}$, resulta
+Finalmente, como $q_i$ es gaussiana con media $\bfmu_{z_i \mid x_i}$ y covarianza $\Sigma_{z_i \mid x_i}$, resulta
 $$
-\media_{\zz_i \sim Q_i} \big[ \zz_i \big] = \bfmu_{z_i \mid x_i},\qquad
-\media_{\zz_i \sim Q_i} \big[ \zz_i \zz_i^{\top} \big] = \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
+\media_{\zz_i \sim q_i} \big[ \zz_i \big] = \bfmu_{z_i \mid x_i},\qquad
+\media_{\zz_i \sim q_i} \big[ \zz_i \zz_i^{\top} \big] = \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
 $$
 donde la segunda igualdad proviene de $\cov(Y) = \media[YY^\top] - \media[Y]\media[Y]^\top$. Sustituyendo en (3.4.5) se obtiene la actualización buscada.
 
@@ -355,7 +363,7 @@ $$
 \bfmu^{(t+1)} = \frac{1}{n} \sum_{i=1}^n \xx_i,
 $$
 $$
-\Lambda^{(t+1)} = \left( \sum_{i=1}^n (\xx_i - \bfmu)\, \bfmu_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
+\Lambda^{(t+1)} = \left( \sum_{i=1}^n (\xx_i - \bfmu^{(t+1)})\, \bfmu_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
 $$
 $$
 \Psi^{(t+1)} = \diag(\Phi),\qquad \Phi := \frac{1}{n} \sum_{i=1}^n \Big[\xx_i \xx_i^{\top} - \Lambda \bfmu_{z_i \mid x_i} \xx_i^{\top} - \xx_i \bfmu_{z_i \mid x_i}^\top \Lambda^\top + \Lambda \big( \bfmu_{z_i \mid x_i} \bfmu_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \Lambda^\top\Big].
@@ -405,9 +413,11 @@ La analogía es directa: los $\xx$ son una función lineal de los $\zz$ más rui
 Análisis factorial en datos simulados
 </span>
 
-Simularemos datos en $\RR^p$ generados por un modelo factorial con $k$ factores, en el escenario $p>n$, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada $\Lambda\Lambda^\top+\Psi$ con la verdadera y con el MLE de una gaussiana sin restricciones.
+Simularemos datos en $\RR^p$ generados por un modelo factorial con $k$ factores, en el escenario $p>n$, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada $\Lambda\Lambda^\top+\Psi$ con la verdadera y con el MLE de una gaussiana sin restricciones. Las cargas se eligen con estructura de bloques, de manera que cada factor domina un tercio de las variables y la estructura de $\Sigma$ resulta visible en la figura; con cargas arbitrarias el ajuste es igual de bueno, pero no se distinguiría a simple vista.
 
-> ⚠ En este ejemplo utilizamos la implementación `FactorAnalysis` de `scikit-learn`, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.
+::: {.callout-warning appearance="simple"}
+En este ejemplo utilizamos la implementación `FactorAnalysis` de `scikit-learn`, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.
+:::
 
 ```{pyodide-python}
 #| echo: false
@@ -486,7 +496,11 @@ Las dos estimaciones se parecen, y es lo que se busca: el modelo factorial repro
 
 <div style="margin-top:2em;"></div>
 
-Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad de manera interpretable a través de las cargas $\Lambda$, y sortear el problema de las matrices de covarianza singulares cuando $n$ es chico frente a $p$.
+El ejemplo es favorable al método: los datos fueron generados por el propio modelo. En la práctica eso casi nunca ocurre, y el análisis factorial se usa igual, como una aproximación estructurada de $\Sigma$. El supuesto que realmente se invoca no es que existan $k$ factores reales, sino que la correlación entre las variables se explica razonablemente bien con unas pocas direcciones comunes. El número de factores queda entonces como un hiperparámetro, que se elige por validación o por criterios penalizados, y conviene recordar que, si no hay factores reales detrás, los que se obtienen son direcciones de ajuste y no causas.
+
+<div style="margin-top:2em;"></div>
+
+Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad representando cada observación por los $k$ factores $\media[\zz\mid\xx]$, y sortear el problema de las matrices de covarianza singulares cuando $n$ es chico frente a $p$.
 
 
 

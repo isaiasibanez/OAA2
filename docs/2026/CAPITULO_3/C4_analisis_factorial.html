@@ -338,13 +338,8 @@ window.Quarto = {
 \hat{\boldsymbol{\mu}} = \frac{1}{n} \sum_{i=1}^{n} {\bf x}_i,\qquad
 \hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} ({\bf x}_i - \hat{\boldsymbol{\mu}})({\bf x}_i - \hat{\boldsymbol{\mu}})^\top.
 \]</span></p>
-<p>Si <span class="math inline">\(p&gt;n\)</span>, los <span class="math inline">\(n\)</span> puntos abarcan únicamente un subespacio de baja dimensión de <span class="math inline">\(\mathbb{R}^p\)</span> y la matriz <span class="math inline">\(\hat{\Sigma}\)</span> resulta <em>singular</em>. Esto significa que <span class="math inline">\(\hat{\Sigma}^{-1}\)</span> no existe y que <span class="math inline">\(1/|\hat{\Sigma}|^{1/2}=1/0\)</span>; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.</p>
-<div style="margin-top:1em;">
-
-</div>
-<div class="myhighlight3">
-<p>Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el espacio afín generado por los datos, lo cual corresponde a una covarianza singular.</p>
-</div>
+<p>Reuniendo las observaciones centradas en la matriz <span class="math inline">\(X_c\)</span>, cuyas filas son los <span class="math inline">\({\bf x}_i-\hat\boldsymbol{\mu}\)</span>, resulta <span class="math inline">\(\hat{\Sigma}=\frac1n X_c^\top X_c\)</span> y, por lo tanto, <span class="math inline">\(\operatorname{rango}(\hat{\Sigma})=\operatorname{rango}(X_c)\leq\min\{n-1,p\}\)</span>, donde el <span class="math inline">\(n-1\)</span> se debe a que las filas de <span class="math inline">\(X_c\)</span> suman cero. Si <span class="math inline">\(p&gt;n-1\)</span>, la matriz <span class="math inline">\(\hat{\Sigma}\)</span> tiene autovalores nulos y resulta <em>singular</em>. Esto significa que <span class="math inline">\(\hat{\Sigma}^{-1}\)</span> no existe y que <span class="math inline">\(1/|\hat{\Sigma}|^{1/2}=1/0\)</span>; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.</p>
+<p>Más aún, en ese caso la fórmula de <span class="math inline">\(\hat{\Sigma}\)</span> deja de ser el estimador de máxima verosimilitud: su deducción supone <span class="math inline">\(\Sigma\)</span> definida positiva, y cuando <span class="math inline">\(p&gt;n-1\)</span> la verosimilitud no está acotada, de modo que el problema de maximización no tiene solución. Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el subespacio generado por los datos, lo cual corresponde a una covarianza singular.</p>
 <div style="margin-top:2em;">
 
 </div>
@@ -365,6 +360,22 @@ window.Quarto = {
 <p><strong>Covarianza esférica.</strong> Podemos imponer además que todas las entradas diagonales sean iguales, <span class="math inline">\(\Sigma=\sigma^2 I\)</span>. El MLE es entonces <span class="math display">\[
 \hat{\sigma}^2 = \frac{1}{np} \sum_{j=1}^p \sum_{i=1}^n (x_{ij} - \hat{\mu}_j)^2,
 \]</span> y los contornos de densidad pasan a ser circunferencias o hiperesferas.</p>
+</div>
+<div style="margin-top:2em;">
+
+</div>
+<div class="question callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span style="font-size: 1.3em;">✍️</span><br></p>
+<p>Deduzca los dos estimadores anteriores. Para ello, recuerde la log-verosimilitud de la normal multivariada vista en la <a href="C1_gda.html">C3-S1</a>, <span class="math display">\[
+\ell(\boldsymbol{\mu},\Sigma)=\sum_{i=1}^n\left(-\frac{p}{2}\log(2\pi)-\frac{1}{2}\log|\Sigma|-\frac{1}{2}({\bf x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}({\bf x}_i-\boldsymbol{\mu})\right),
+\]</span> y escríbala bajo cada una de las dos restricciones.</p>
+</div>
+</div>
 </div>
 <div style="margin-top:2em;">
 
@@ -486,7 +497,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <p><span style="font-size: 1.3em;">✍️</span><br></p>
-<p>Observe la expresión (3.4.1). ¿Cuántos parámetros libres tiene <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> frente a una matriz de covarianza completa? ¿Y frente a una diagonal?</p>
+<p>Observe la expresión (3.4.1). ¿Cuántos parámetros tiene <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> frente a una matriz de covarianza completa? ¿Y frente a una diagonal?</p>
 </div>
 </div>
 </div>
@@ -495,11 +506,11 @@ window.Quarto = {
 </div>
 <div class="alert alert-light text-dark" role="important">
 <p><span class="badge bg-warning text-dark">Importante</span></p>
-<p>Al contar los parámetros conviene tener presente que <span class="math inline">\(\Lambda\)</span> <em>no</em> queda determinada por el modelo. En efecto, si <span class="math inline">\(R\in\mathbb{R}^{k\times k}\)</span> es una matriz ortogonal, entonces <span class="math inline">\((\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top\)</span>, de modo que <span class="math inline">\(\Lambda\)</span> y <span class="math inline">\(\Lambda R\)</span> producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)</p>
+<p>Al resolver la tarea anterior conviene tener presente que <span class="math inline">\(\Lambda\)</span> <em>no</em> queda determinada por el modelo. En efecto, si <span class="math inline">\(R\in\mathbb{R}^{k\times k}\)</span> es una matriz ortogonal, entonces <span class="math inline">\((\Lambda R)(\Lambda R)^\top=\Lambda R R^\top \Lambda^\top=\Lambda\Lambda^\top\)</span>, de modo que <span class="math inline">\(\Lambda\)</span> y <span class="math inline">\(\Lambda R\)</span> producen exactamente la misma distribución marginal (3.4.1) y, por lo tanto, el mismo valor de verosimilitud. (✏1)</p>
 <div style="margin-top:1em;">
 
 </div>
-<p>En consecuencia, las cargas se determinan únicamente <em>a menos de una rotación</em> del espacio de factores: los datos no permiten distinguir entre <span class="math inline">\(\Lambda\)</span> y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual —“el factor 1 mide tal cosa”— no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como <em>varimax</em>, que buscan cargas fáciles de interpretar.</p>
+<p>En consecuencia, las cargas se determinan únicamente <em>a menos de una rotación</em> del espacio de factores: los datos no permiten distinguir entre <span class="math inline">\(\Lambda\)</span> y cualquiera de sus rotaciones. Esto tiene una lectura práctica importante: la interpretación de un factor individual (“el factor 1 mide tal cosa”) no está determinada por los datos, sino por la rotación que se elija. Las implementaciones suelen fijar una por convención, mediante criterios como <em>varimax</em>, que buscan cargas fáciles de interpretar.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -516,17 +527,17 @@ window.Quarto = {
 </section>
 <section id="iii-algoritmo-em-para-análisis-factorial" class="level2">
 <h2 class="anchored" data-anchor-id="iii-algoritmo-em-para-análisis-factorial">III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial</h2>
-<p>A diferencia del caso de mezcla de gaussianas, aquí la variable latente es <em>continua</em>, de manera que las sumas sobre <span class="math inline">\(z\)</span> se reemplazan por integrales y las responsabilidades por una densidad condicional completa.</p>
+<p>A diferencia del caso de mezcla de gaussianas, aquí la variable latente es <em>continua</em>, de manera que las sumas sobre <span class="math inline">\({\bf z}\)</span> se reemplazan por integrales y las responsabilidades por una densidad condicional completa.</p>
 <div style="margin-top:1em;">
 
 </div>
 <section id="paso-e" class="level3">
 <h3 class="anchored" data-anchor-id="paso-e">Paso E</h3>
-<p>El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir <span class="math inline">\(Q_i({\bf z}_i) = p({\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}, \Lambda, \Psi)\)</span>. Por (3.4.2), esta distribución es <span class="math display">\[
-{\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}, \Lambda, \Psi \sim \mathcal{N}(\boldsymbol{\mu}_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
+<p>El paso E consiste en calcular la distribución condicional de la variable latente dados los datos y los parámetros actuales, es decir <span class="math inline">\(q_i({\bf z}_i) = p({\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}^{(t)}, \Lambda^{(t)}, \Psi^{(t)})\)</span>. Por (3.4.2), esta distribución es <span class="math display">\[
+{\bf z}_i \mid {\bf x}_i; \boldsymbol{\mu}^{(t)}, \Lambda^{(t)}, \Psi^{(t)} \sim \mathcal{N}(\boldsymbol{\mu}_{z_i \mid x_i}, \Sigma_{z_i \mid x_i}),
 \]</span> con <span class="math display">\[
-\boldsymbol{\mu}_{z_i \mid x_i} = \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} ({\bf x}_i - \boldsymbol{\mu}),\qquad
-\Sigma_{z_i \mid x_i} = I - \Lambda^\top (\Lambda \Lambda^\top + \Psi)^{-1} \Lambda.
+\boldsymbol{\mu}_{z_i \mid x_i} = \Lambda^{(t)\top} (\Lambda^{(t)} \Lambda^{(t)\top} + \Psi^{(t)})^{-1} ({\bf x}_i - \boldsymbol{\mu}^{(t)}),\qquad
+\Sigma_{z_i \mid x_i} = I - \Lambda^{(t)\top} (\Lambda^{(t)} \Lambda^{(t)\top} + \Psi^{(t)})^{-1} \Lambda^{(t)}.
 \]</span></p>
 <div style="margin-top:1em;">
 
@@ -538,18 +549,18 @@ window.Quarto = {
 </section>
 <section id="paso-m" class="level3">
 <h3 class="anchored" data-anchor-id="paso-m">Paso M</h3>
-<p>En el paso M debemos maximizar <span class="math display">\[
-\sum_{i=1}^n \int_{{\bf z}_i} Q_i({\bf z}_i) \log \frac{p({\bf x}_i, {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi)}{Q_i({\bf z}_i)}\, d{\bf z}_i
+<p>En el paso M debemos maximizar la log-verosimilitud esperada, que es la misma función <span class="math inline">\(Q\)</span> de la sección anterior escrita como integral, ya que la variable latente es continua: <span class="math display">\[
+\sum_{i=1}^n \int_{{\bf z}_i} q_i({\bf z}_i) \log \frac{p({\bf x}_i, {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi)}{q_i({\bf z}_i)}\, d{\bf z}_i
 \]</span> respecto de <span class="math inline">\(\boldsymbol{\mu}\)</span>, <span class="math inline">\(\Lambda\)</span> y <span class="math inline">\(\Psi\)</span>. Desarrollemos la expresión: <span class="math display">\[
 \begin{align*}
-&amp;\sum_{i=1}^n \int_{{\bf z}_i} Q_i({\bf z}_i) \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log Q_i({\bf z}_i) \big]\, d{\bf z}_i \\
-&amp;\qquad= \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log Q_i({\bf z}_i) \big].
+&amp;\sum_{i=1}^n \int_{{\bf z}_i} q_i({\bf z}_i) \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log q_i({\bf z}_i) \big]\, d{\bf z}_i \\
+&amp;\qquad= \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) + \log p({\bf z}_i) - \log q_i({\bf z}_i) \big].
 \end{align*}
 \]</span></p>
 <p>Al eliminar los términos que no dependen de los parámetros, queda por maximizar <span class="math display">\[
 \begin{align*}
-&amp;\sum_{i=1}^n \mathbb{E}\big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) \big]\\
-&amp;\qquad=\sum_{i=1}^n \mathbb{E}\left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right].
+&amp;\sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \big[ \log p({\bf x}_i \mid {\bf z}_i; \boldsymbol{\mu}, \Lambda, \Psi) \big]\\
+&amp;\qquad=\sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \left[ -\frac{1}{2} \log |\Psi| - \frac{p}{2} \log (2\pi) - \frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right].
 \end{align*}
 \tag{3.4.4}
 \]</span></p>
@@ -560,23 +571,23 @@ window.Quarto = {
 <p><span class="badge bg-success text-light">Maximización respecto de <span class="math inline">\(\Lambda\)</span></span></p>
 <p>Solo el último término de (3.4.4) depende de <span class="math inline">\(\Lambda\)</span>. Derivando, y usando que <span class="math inline">\(\operatorname{tr}(AB) = \operatorname{tr}(BA)\)</span> junto con <span class="math inline">\(\nabla_A\operatorname{tr}(ABA^\top C) = CAB + C^\top AB^\top\)</span>, obtenemos <span class="math display">\[
 \begin{align*}
-&amp;\nabla_\Lambda \sum_{i=1}^n \mathbb{E}\left[ -\frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right]\\
-&amp;\qquad= \sum_{i=1}^n \nabla_\Lambda \mathbb{E}\left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \Lambda^\top \big) \right]\\
-&amp;\qquad= \sum_{i=1}^n \mathbb{E}\left[ -\Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} + \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \right].
+&amp;\nabla_\Lambda \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \left[ -\frac{1}{2} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i)^\top \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}- \Lambda {\bf z}_i) \right]\\
+&amp;\qquad= \sum_{i=1}^n \nabla_\Lambda \mathbb{E}_{{\bf z}_i \sim q_i} \left[ -\frac{1}{2} \operatorname{tr}\big( \Lambda^\top \Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} \big) + \operatorname{tr}\big( \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \Lambda^\top \big) \right]\\
+&amp;\qquad= \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \left[ -\Psi^{-1} \Lambda {\bf z}_i {\bf z}_i^{\top} + \Psi^{-1} ({\bf x}_i - \boldsymbol{\mu}) {\bf z}_i^{\top} \right].
 \end{align*}
 \]</span></p>
 <p>Igualando a cero y simplificando, <span class="math display">\[
-\sum_{i=1}^n \Lambda\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i^{\top} \big],
+\sum_{i=1}^n \Lambda\, \mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i^{\top} \big],
 \]</span> de donde <span class="math display">\[
-\Lambda = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i^{\top} \big] \right) \left( \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] \right)^{-1}.
+\Lambda = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i^{\top} \big] \right) \left( \sum_{i=1}^n \mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] \right)^{-1}.
 \tag{3.4.5}
 \]</span></p>
 <div style="margin-top:1em;">
 
 </div>
-<p>Finalmente, como <span class="math inline">\(Q_i\)</span> es gaussiana con media <span class="math inline">\(\boldsymbol{\mu}_{z_i \mid x_i}\)</span> y covarianza <span class="math inline">\(\Sigma_{z_i \mid x_i}\)</span>, resulta <span class="math display">\[
-\mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i \big] = \boldsymbol{\mu}_{z_i \mid x_i},\qquad
-\mathbb{E}_{{\bf z}_i \sim Q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
+<p>Finalmente, como <span class="math inline">\(q_i\)</span> es gaussiana con media <span class="math inline">\(\boldsymbol{\mu}_{z_i \mid x_i}\)</span> y covarianza <span class="math inline">\(\Sigma_{z_i \mid x_i}\)</span>, resulta <span class="math display">\[
+\mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i \big] = \boldsymbol{\mu}_{z_i \mid x_i},\qquad
+\mathbb{E}_{{\bf z}_i \sim q_i} \big[ {\bf z}_i {\bf z}_i^{\top} \big] = \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i},
 \]</span> donde la segunda igualdad proviene de <span class="math inline">\(\mathop{\mathrm{Cov}}(Y) = \mathbb{E}[YY^\top] - \mathbb{E}[Y]\mathbb{E}[Y]^\top\)</span>. Sustituyendo en (3.4.5) se obtiene la actualización buscada.</p>
 </div>
 <div style="margin-top:2em;">
@@ -586,7 +597,7 @@ window.Quarto = {
 <p>Las actualizaciones del paso M son <span class="math display">\[
 \boldsymbol{\mu}^{(t+1)} = \frac{1}{n} \sum_{i=1}^n {\bf x}_i,
 \]</span> <span class="math display">\[
-\Lambda^{(t+1)} = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu})\, \boldsymbol{\mu}_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
+\Lambda^{(t+1)} = \left( \sum_{i=1}^n ({\bf x}_i - \boldsymbol{\mu}^{(t+1)})\, \boldsymbol{\mu}_{z_i \mid x_i}^\top \right) \left( \sum_{i=1}^n \big( \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \right)^{-1},
 \]</span> <span class="math display">\[
 \Psi^{(t+1)} = \mathop{\mathrm{diag}}(\Phi),\qquad \Phi := \frac{1}{n} \sum_{i=1}^n \Big[{\bf x}_i {\bf x}_i^{\top} - \Lambda \boldsymbol{\mu}_{z_i \mid x_i} {\bf x}_i^{\top} - {\bf x}_i \boldsymbol{\mu}_{z_i \mid x_i}^\top \Lambda^\top + \Lambda \big( \boldsymbol{\mu}_{z_i \mid x_i} \boldsymbol{\mu}_{z_i \mid x_i}^\top + \Sigma_{z_i \mid x_i} \big) \Lambda^\top\Big].
 \]</span></p>
@@ -631,10 +642,17 @@ window.Quarto = {
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.4.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Análisis factorial en datos simulados </span></p>
-<p>Simularemos datos en <span class="math inline">\(\mathbb{R}^p\)</span> generados por un modelo factorial con <span class="math inline">\(k\)</span> factores, en el escenario <span class="math inline">\(p&gt;n\)</span>, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> con la verdadera y con el MLE de una gaussiana sin restricciones.</p>
-<blockquote class="blockquote">
-<p>⚠ En este ejemplo utilizamos la implementación <code>FactorAnalysis</code> de <code>scikit-learn</code>, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.</p>
-</blockquote>
+<p>Simularemos datos en <span class="math inline">\(\mathbb{R}^p\)</span> generados por un modelo factorial con <span class="math inline">\(k\)</span> factores, en el escenario <span class="math inline">\(p&gt;n\)</span>, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> con la verdadera y con el MLE de una gaussiana sin restricciones. Las cargas se eligen con estructura de bloques, de manera que cada factor domina un tercio de las variables y la estructura de <span class="math inline">\(\Sigma\)</span> resulta visible en la figura; con cargas arbitrarias el ajuste es igual de bueno, pero no se distinguiría a simple vista.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>En este ejemplo utilizamos la implementación <code>FactorAnalysis</code> de <code>scikit-learn</code>, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.</p>
+</div>
+</div>
+</div>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -648,7 +666,11 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoi
 <div style="margin-top:2em;">
 
 </div>
-<p>Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad de manera interpretable a través de las cargas <span class="math inline">\(\Lambda\)</span>, y sortear el problema de las matrices de covarianza singulares cuando <span class="math inline">\(n\)</span> es chico frente a <span class="math inline">\(p\)</span>.</p>
+<p>El ejemplo es favorable al método: los datos fueron generados por el propio modelo. En la práctica eso casi nunca ocurre, y el análisis factorial se usa igual, como una aproximación estructurada de <span class="math inline">\(\Sigma\)</span>. El supuesto que realmente se invoca no es que existan <span class="math inline">\(k\)</span> factores reales, sino que la correlación entre las variables se explica razonablemente bien con unas pocas direcciones comunes. El número de factores queda entonces como un hiperparámetro, que se elige por validación o por criterios penalizados, y conviene recordar que, si no hay factores reales detrás, los que se obtienen son direcciones de ajuste y no causas.</p>
+<div style="margin-top:2em;">
+
+</div>
+<p>Para cerrar, el análisis factorial permite modelar datos de alta dimensionalidad capturando su estructura latente con pocos parámetros, reducir la dimensionalidad representando cada observación por los <span class="math inline">\(k\)</span> factores <span class="math inline">\(\mathbb{E}[{\bf z}\mid{\bf x}]\)</span>, y sortear el problema de las matrices de covarianza singulares cuando <span class="math inline">\(n\)</span> es chico frente a <span class="math inline">\(p\)</span>.</p>
 <p><br><br></p>
 <div class="refs">
 <p><span style="color: #444;"><strong>Referencias</strong></span></p>
