@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -360,7 +326,7 @@ window.Quarto = {
             padding:0.1em 1em;
             margin-top:1.5em;">
 <p>📄 <strong>Notación</strong></p>
-<p>Durante esta sección consideramos un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> con <span class="math inline">\({\bf x}_i\in\mathbb{R}^p\)</span>. La variable latente <span class="math inline">\({\bf z}\in\mathbb{R}^k\)</span>, con <span class="math inline">\(k&lt;p\)</span>, es ahora <strong>continua</strong>, a diferencia de la variable categórica de la sección anterior.</p>
+<p>Durante esta sección consideramos un conjunto de datos <span class="math inline">\(\{{\bf x}_i\}_{i=1}^n\)</span> con <span class="math inline">\({\bf x}_i\in\mathbb{R}^p\)</span>. La variable latente <span class="math inline">\({\bf z}\in\mathbb{R}^k\)</span>, con <span class="math inline">\(k&lt;p\)</span>, es ahora <em>continua</em>, a diferencia de la variable categórica de la sección anterior.</p>
 <p>Denotamos <span class="math inline">\(\Lambda\in\mathbb{R}^{p\times k}\)</span> la <em>matriz de cargas factoriales</em> y <span class="math inline">\(\Psi\in\mathbb{R}^{p\times p}\)</span> una matriz diagonal de varianzas específicas.</p>
 </div>
 <div style="margin-top:2.5em;">
@@ -372,7 +338,7 @@ window.Quarto = {
 \hat{\boldsymbol{\mu}} = \frac{1}{n} \sum_{i=1}^{n} {\bf x}_i,\qquad
 \hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} ({\bf x}_i - \hat{\boldsymbol{\mu}})({\bf x}_i - \hat{\boldsymbol{\mu}})^\top.
 \]</span></p>
-<p>Si <span class="math inline">\(p&gt;n\)</span>, los <span class="math inline">\(n\)</span> puntos abarcan únicamente un subespacio de baja dimensión de <span class="math inline">\(\mathbb{R}^p\)</span> y la matriz <span class="math inline">\(\hat{\Sigma}\)</span> resulta <strong>singular</strong>. Esto significa que <span class="math inline">\(\hat{\Sigma}^{-1}\)</span> no existe y que <span class="math inline">\(1/|\hat{\Sigma}|^{1/2}=1/0\)</span>; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.</p>
+<p>Si <span class="math inline">\(p&gt;n\)</span>, los <span class="math inline">\(n\)</span> puntos abarcan únicamente un subespacio de baja dimensión de <span class="math inline">\(\mathbb{R}^p\)</span> y la matriz <span class="math inline">\(\hat{\Sigma}\)</span> resulta <em>singular</em>. Esto significa que <span class="math inline">\(\hat{\Sigma}^{-1}\)</span> no existe y que <span class="math inline">\(1/|\hat{\Sigma}|^{1/2}=1/0\)</span>; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -500,11 +466,11 @@ window.Quarto = {
 </div>
 <p>De aquí, aplicando el recordatorio anterior, se obtienen los dos resultados que necesitaremos:</p>
 <ul>
-<li><p><strong>Distribución marginal de <span class="math inline">\({\bf X}\)</span></strong>: <span class="math display">\[
+<li><p><em>Distribución marginal de <span class="math inline">\({\bf X}\)</span></em>: <span class="math display">\[
   {\bf X}\sim \mathcal{N}(\boldsymbol{\mu},\; \Lambda\Lambda^\top + \Psi).
   \tag{3.4.1}
   \]</span></p></li>
-<li><p><strong>Distribución condicional de <span class="math inline">\({\bf z}\)</span> dado <span class="math inline">\({\bf X}\)</span></strong>: es gaussiana, <span class="math inline">\({\bf z}\mid {\bf X}={\bf x}\sim\mathcal{N}(\boldsymbol{\mu}_{z\mid x},\Sigma_{z\mid x})\)</span>, con <span class="math display">\[
+<li><p><em>Distribución condicional de <span class="math inline">\({\bf z}\)</span> dado <span class="math inline">\({\bf X}\)</span></em>: es gaussiana, <span class="math inline">\({\bf z}\mid {\bf X}={\bf x}\sim\mathcal{N}(\boldsymbol{\mu}_{z\mid x},\Sigma_{z\mid x})\)</span>, con <span class="math display">\[
   \boldsymbol{\mu}_{z \mid x} = \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}({\bf x}- \boldsymbol{\mu}), \qquad
   \Sigma_{z \mid x} = I - \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}\Lambda.
   \tag{3.4.2}
@@ -550,7 +516,7 @@ window.Quarto = {
 </section>
 <section id="iii-algoritmo-em-para-análisis-factorial" class="level2">
 <h2 class="anchored" data-anchor-id="iii-algoritmo-em-para-análisis-factorial">III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial</h2>
-<p>A diferencia del caso de mezcla de gaussianas, aquí la variable latente es <strong>continua</strong>, de manera que las sumas sobre <span class="math inline">\(z\)</span> se reemplazan por integrales y las responsabilidades por una densidad condicional completa.</p>
+<p>A diferencia del caso de mezcla de gaussianas, aquí la variable latente es <em>continua</em>, de manera que las sumas sobre <span class="math inline">\(z\)</span> se reemplazan por integrales y las responsabilidades por una densidad condicional completa.</p>
 <div style="margin-top:1em;">
 
 </div>
@@ -665,13 +631,19 @@ window.Quarto = {
 </div>
 <div class="callout-example">
 <p><span class="badge bg-primary">Ejemplo 3.4.1</span> <span style="color: #0d6efd; font-family: Arial; font-weight: bold; font-size: 0.85em;"> Análisis factorial en datos simulados </span></p>
-<p>Simularemos datos en <span class="math inline">\(\mathbb{R}^p\)</span> generados por un modelo factorial con <span class="math inline">\(k\)</span> factores, con <span class="math inline">\(p&gt;n\)</span>, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> con la verdadera y evaluaremos el error de reconstrucción.</p>
-<div id="2fa8f4c3" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Mostrar código</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (código del ajuste por EM del modelo de análisis factorial)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<p>Simularemos datos en <span class="math inline">\(\mathbb{R}^p\)</span> generados por un modelo factorial con <span class="math inline">\(k\)</span> factores, en el escenario <span class="math inline">\(p&gt;n\)</span>, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada <span class="math inline">\(\Lambda\Lambda^\top+\Psi\)</span> con la verdadera y con el MLE de una gaussiana sin restricciones.</p>
+<blockquote class="blockquote">
+<p>⚠ En este ejemplo utilizamos la implementación <code>FactorAnalysis</code> de <code>scikit-learn</code>, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.</p>
+</blockquote>
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
 </div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZmlnLWFsaWduIjoiY2VudGVyIiwiaW5jbHVkZSI6dHJ1ZX0sImNvZGUiOiJcbmltcG9ydCB3YXJuaW5nc1xud2FybmluZ3MuZmlsdGVyd2FybmluZ3MoXCJpZ25vcmVcIilcblxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5mcm9tIHNrbGVhcm4uZGVjb21wb3NpdGlvbiBpbXBvcnQgRmFjdG9yQW5hbHlzaXNcblxuIyAtLS0gMS4gU2ltdWxhciBkYXRvcyBkZSB1biBtb2RlbG8gZmFjdG9yaWFsIGNvbiBwID4gbiAtLS1cbnJuZyA9IG5wLnJhbmRvbS5kZWZhdWx0X3JuZygxKVxucCwgaywgbiA9IDYwLCAzLCAyNVxuXG4jIGNhcmdhcyBjb24gZXN0cnVjdHVyYSBkZSBibG9xdWVzOiBjYWRhIGZhY3RvciBkb21pbmEgMjAgdmFyaWFibGVzXG5MYW1iZGEgPSBucC56ZXJvcygocCwgaykpXG5mb3IgaiBpbiByYW5nZShrKTpcbiAgICBMYW1iZGFbaioyMDooaisxKSoyMCwgal0gPSBybmcudW5pZm9ybSgxLjAsIDEuNiwgc2l6ZT0yMClcbkxhbWJkYSArPSBybmcubm9ybWFsKHNjYWxlPTAuMTUsIHNpemU9KHAsIGspKVxuXG5Qc2kgPSBybmcudW5pZm9ybSgwLjIsIDAuNiwgc2l6ZT1wKVxuU2lnbWEgPSBMYW1iZGEgQCBMYW1iZGEuVCArIG5wLmRpYWcoUHNpKVxuXG5aID0gcm5nLm5vcm1hbChzaXplPShuLCBrKSlcblggPSBaIEAgTGFtYmRhLlQgKyBybmcubm9ybWFsKHNpemU9KG4sIHApKSAqIG5wLnNxcnQoUHNpKVxuXG4jIC0tLSAyLiBBanVzdGFyIGVsIG1vZGVsbyBmYWN0b3JpYWwgcG9yIEVNIC0tLVxuZmEgPSBGYWN0b3JBbmFseXNpcyhuX2NvbXBvbmVudHM9aywgcmFuZG9tX3N0YXRlPTApLmZpdChYKVxuU2lnbWFfZmEgPSBmYS5nZXRfY292YXJpYW5jZSgpICAgICAgICAgICAgIyBMYW1iZGEgTGFtYmRhXlQgKyBQc2kgZXN0aW1hZGFcblNpZ21hX2VtcCA9IG5wLmNvdihYLlQsIGJpYXM9VHJ1ZSkgICAgICAgICMgTUxFIGRlIHVuYSBnYXVzc2lhbmEgc2luIHJlc3RyaWNjaW9uZXNcblxuZm9yIG5vbWJyZSwgUyBpbiBbKFwiZW1ww61yaWNhIFwiLCBTaWdtYV9lbXApLCAoXCJmYWN0b3JpYWxcIiwgU2lnbWFfZmEpXTpcbiAgICBwcmludChmXCJDb3ZhcmlhbnphIHtub21icmV9OiByYW5nbyB7bnAubGluYWxnLm1hdHJpeF9yYW5rKFMpfSBkZSB7cH0sIFwiXG4gICAgICAgICAgZlwibWVub3IgYXV0b3ZhbG9yID0ge25wLmxpbmFsZy5laWd2YWxzaChTKS5taW4oKTouNGZ9XCIpXG5wcmludChmXCJQYXLDoW1ldHJvcyBsaWJyZXMgICAgIDogY29tcGxldGEge3AqKHArMSkvLzJ9LCBmYWN0b3JpYWwge3AqayArIHB9XCIpXG5cbiMgLS0tIDMuIENvbXBhcmFyIGxhcyBjb3ZhcmlhbnphcyB5IHN1cyBlc3BlY3Ryb3MgLS0tXG5maWcgPSBwbHQuZmlndXJlKGZpZ3NpemU9KDEwLCA2LjQpKVxuZ3MgPSBmaWcuYWRkX2dyaWRzcGVjKDIsIDMsIGhlaWdodF9yYXRpb3M9WzEsIDAuNzhdLCBoc3BhY2U9MC4zNSwgd3NwYWNlPTAuMTIpXG5cbnYgPSBucC5hYnMoU2lnbWEpLm1heCgpXG50aXR1bG9zID0gW3InJFxcU2lnbWEkIHZlcmRhZGVyYScsXG4gICAgICAgICAgIHInJFxcaGF0e1xcU2lnbWF9JCBlbXDDrXJpY2EnLFxuICAgICAgICAgICByJyRcXExhbWJkYVxcTGFtYmRhXlxcdG9wK1xcUHNpJCBlc3RpbWFkYSddXG5cbmF4ZXMgPSBbZmlnLmFkZF9zdWJwbG90KGdzWzAsIGpdKSBmb3IgaiBpbiByYW5nZSgzKV1cbmZvciBheCwgUywgdCBpbiB6aXAoYXhlcywgW1NpZ21hLCBTaWdtYV9lbXAsIFNpZ21hX2ZhXSwgdGl0dWxvcyk6XG4gICAgaW0gPSBheC5pbXNob3coUywgY21hcD0nUmRCdV9yJywgdm1pbj0tdiwgdm1heD12KVxuICAgIGF4LnNldF90aXRsZSh0LCBmb250c2l6ZT0xMilcbiAgICBheC5zZXRfeHRpY2tzKFtdKVxuICAgIGF4LnNldF95dGlja3MoW10pXG5maWcuY29sb3JiYXIoaW0sIGF4PWF4ZXMsIHNocmluaz0wLjksIHBhZD0wLjAyKVxuXG5heCA9IGZpZy5hZGRfc3VicGxvdChnc1sxLCA6XSlcbm9yZGVuID0gbnAuYXJhbmdlKDEsIHAgKyAxKVxuZm9yIFMsIGNvbG9yLCB0IGluIFsoU2lnbWEsICcwLjM1JywgdGl0dWxvc1swXSksXG4gICAgICAgICAgICAgICAgICAgIChTaWdtYV9lbXAsICd0YWI6cmVkJywgdGl0dWxvc1sxXSksXG4gICAgICAgICAgICAgICAgICAgIChTaWdtYV9mYSwgJ3RhYjpibHVlJywgdGl0dWxvc1syXSldOlxuICAgIGF1dG92ID0gbnAubWF4aW11bShucC5saW5hbGcuZWlndmFsc2goUylbOjotMV0sIDFlLTQpICAgIyByZWNvcnRlIHBhcmEgbGEgZXNjYWxhIGxvZ1xuICAgIGF4LnNlbWlsb2d5KG9yZGVuLCBhdXRvdiwgJ28tJywgbXM9MywgY29sb3I9Y29sb3IsIGxhYmVsPXQpXG5cbmF4LmF4dmxpbmUobiAtIDEsIGNvbG9yPScwLjYnLCBscz0nOicsIGx3PTEpXG5heC5zZXRfeGxhYmVsKCdvcmRlbiBkZWwgYXV0b3ZhbG9yJylcbmF4LnNldF95bGFiZWwoJ2F1dG92YWxvciAoZXNjYWxhIGxvZyknKVxuYXgubGVnZW5kKGZyYW1lb249RmFsc2UsIGZvbnRzaXplPTkpXG5heC5ncmlkKEZhbHNlKVxuXG5wbHQuc2hvdygpIn0=
+</script>
+</div>
+<p>Las dos estimaciones se parecen, y es lo que se busca: el modelo factorial reproduce la estructura de bloques de la covarianza muestral con <span class="math inline">\(240\)</span> parámetros en lugar de <span class="math inline">\(1830\)</span>. La diferencia está en el espectro. La covarianza empírica tiene rango <span class="math inline">\(24\)</span>: sus últimos <span class="math inline">\(36\)</span> autovalores son exactamente cero, de manera que es singular, no se la puede invertir y ni siquiera permite evaluar la densidad normal. Además infla los autovalores intermedios muy por encima de los verdaderos. El modelo factorial, en cambio, sigue de cerca el espectro verdadero y mantiene todos sus autovalores positivos.</p>
 </div>
 <div style="margin-top:2em;">
 
@@ -686,8 +658,11 @@ window.Quarto = {
 </div>
 
 
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3B5b2RpZGVfdmFsdWVfMSA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRQeXRob24sIGI2NERlY29kZX0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcInB5b2RpZGUtMS1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBQeXRob24gY29kZVxuICBjb25zdCByZXN1bHQgPSBweW9kaWRlT2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjFcIiBpbiBweW9kaWRlT2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgcHl0aG9uXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFB5dGhvbihibG9jay5jb2RlKSk7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ncm93IHNwaW5uZXItZ3Jvdy1zbSBtLTIgcG9zaXRpb24tYWJzb2x1dGUgdG9wLTAgZW5kLTBcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQocHJlRWxlbSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWJvcmRlciBzcGlubmVyLWJvcmRlci1zbVwiO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgIH1cblxuICAgIHlpZWxkIGNvbnRhaW5lcjtcbiAgfVxuXG4gIHB5b2RpZGVPanMucmVuZGVyZWRPanNbXCIxXCJdID0gdHJ1ZTtcbiAgeWllbGQgYXdhaXQgcmVzdWx0O1xufVxuIn0seyJjZWxsTmFtZSI6InB5b2RpZGUtcHJlbHVkZSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InB5b2RpZGVPanMgPSB7XG4gIGNvbnN0IHtcbiAgICBQeW9kaWRlRXZhbHVhdG9yLFxuICAgIFB5b2RpZGVFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBQeXRob24sXG4gICAgc3RhcnRQeW9kaWRlV29ya2VyLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGgsXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyBQeW9kaWRlIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInB5b2RpZGUtZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIGxldCBweW9kaWRlUHJvbWlzZSA9IChhc3luYyAoKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBQeW9kaWRlYDtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgc3RhcnRQeW9kaWRlV29ya2VyKGRhdGEub3B0aW9ucyk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6IG1pY3JvcGlwYDtcbiAgICBhd2FpdCBweW9kaWRlLmxvYWRQYWNrYWdlKFwibWljcm9waXBcIik7XG4gICAgY29uc3QgbWljcm9waXAgPSBhd2FpdCBweW9kaWRlLnB5aW1wb3J0KFwibWljcm9waXBcIik7XG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gbWljcm9waXAuaW5zdGFsbChwa2cpO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuICAgIGF3YWl0IG1pY3JvcGlwLmRlc3Ryb3koKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGF3YWl0IHB5b2RpZGUuRlMubWtkaXIocGF0aCk7XG4gICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICBpZiAoZS5uYW1lICE9PSBcIkVycm5vRXJyb3JcIikgdGhyb3cgZTtcbiAgICAgICAgICBpZiAoZS5lcnJubyAhPT0gMjApIHtcbiAgICAgICAgICAgIGNvbnN0IGVycm9yVGV4dFB0ciA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5fc3RyZXJyb3IoZS5lcnJubyk7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYEZpbGVzeXN0ZW0gRXJyb3IgJHtlLmVycm5vfSBcIiR7ZXJyb3JUZXh0fVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgdHJ5IHtcbiAgICAgICAgcmV0dXJuIGF3YWl0IHB5b2RpZGUuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgIGNvbnN0IGVycm9yVGV4dFB0ciA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5fc3RyZXJyb3IoZS5lcnJubyk7XG4gICAgICAgIGNvbnN0IGVycm9yVGV4dCA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5VVEY4VG9TdHJpbmcoZXJyb3JUZXh0UHRyKTtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgIH1cbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgUHlvZGlkZSBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBQeXRob24ocHlvZGlkZSk7XG5cbiAgICBzdGF0dXNUZXh0LnJlbW92ZSgpO1xuICAgIGlmIChzdGF0dXNDb250YWluZXIuY2hpbGRyZW4ubGVuZ3RoID09IDApIHtcbiAgICAgIHN0YXR1c0NvbnRhaW5lci5wYXJlbnROb2RlLnJlbW92ZSgpO1xuICAgIH1cbiAgICByZXR1cm4gcHlvZGlkZTtcbiAgfSkoKS5jYXRjaCgoZXJyKSA9PiB7XG4gICAgc3RhdHVzVGV4dC5zdHlsZS5jb2xvciA9IFwidmFyKC0tZXhlcmNpc2UtZWRpdG9yLWhsLWVyLCAjQUQwMDAwKVwiO1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBlcnIubWVzc2FnZTtcbiAgICAvL2luZGljYXRvckNvbnRhaW5lci5xdWVyeVNlbGVjdG9yKFwiLnNwaW5uZXItZ3Jvd1wiKS5jbGFzc0xpc3QuYWRkKFwiZC1ub25lXCIpO1xuICAgIHRocm93IGVycjtcbiAgfSk7XG5cbiAgLy8gS2VlcCB0cmFjayBvZiBpbml0aWFsIE9KUyBibG9jayByZW5kZXJcbiAgY29uc3QgcmVuZGVyZWRPanMgPSB7fTtcblxuICBjb25zdCBwcm9jZXNzID0gYXN5bmMgKGNvbnRleHQsIGlucHV0cykgPT4ge1xuICAgIGNvbnN0IHB5b2RpZGUgPSBhd2FpdCBweW9kaWRlUHJvbWlzZTtcbiAgICBjb25zdCBldmFsdWF0b3IgPSBuZXcgUHlvZGlkZUV2YWx1YXRvcihweW9kaWRlLCBjb250ZXh0KTtcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBweW9kaWRlUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgICBwcm9jZXNzLFxuICB9O1xufVxuIn1dfQ==
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">

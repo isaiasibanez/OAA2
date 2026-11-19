@@ -36,7 +36,7 @@ En esta sección consideramos el escenario opuesto: $p > n$. Allí puede resulta
 
 📄 **Notación**
 
-Durante esta sección consideramos un conjunto de datos $\{\xx_i\}_{i=1}^n$ con $\xx_i\in\RR^p$. La variable latente $\zz\in\RR^k$, con $k<p$, es ahora **continua**, a diferencia de la variable categórica de la sección anterior.
+Durante esta sección consideramos un conjunto de datos $\{\xx_i\}_{i=1}^n$ con $\xx_i\in\RR^p$. La variable latente $\zz\in\RR^k$, con $k<p$, es ahora *continua*, a diferencia de la variable categórica de la sección anterior.
 
 Denotamos $\Lambda\in\RR^{p\times k}$ la *matriz de cargas factoriales* y $\Psi\in\RR^{p\times p}$ una matriz diagonal de varianzas específicas.
 
@@ -54,7 +54,7 @@ $$
 \hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} (\xx_i - \hat{\bfmu})(\xx_i - \hat{\bfmu})^\top.
 $$
 
-Si $p>n$, los $n$ puntos abarcan únicamente un subespacio de baja dimensión de $\RR^p$ y la matriz $\hat{\Sigma}$ resulta **singular**. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
+Si $p>n$, los $n$ puntos abarcan únicamente un subespacio de baja dimensión de $\RR^p$ y la matriz $\hat{\Sigma}$ resulta *singular*. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
 
 <div style="margin-top:1em;"></div>
 
@@ -214,13 +214,13 @@ $$
 
 De aquí, aplicando el recordatorio anterior, se obtienen los dos resultados que necesitaremos:
 
-- **Distribución marginal de $\XX$**:
+- *Distribución marginal de $\XX$*:
     $$
     \XX \sim \calN(\bfmu,\; \Lambda\Lambda^\top + \Psi).
     \tag{3.4.1}
     $$
 
-- **Distribución condicional de $\zz$ dado $\XX$**: es gaussiana, $\zz\mid \XX=\xx\sim\calN(\bfmu_{z\mid x},\Sigma_{z\mid x})$, con
+- *Distribución condicional de $\zz$ dado $\XX$*: es gaussiana, $\zz\mid \XX=\xx\sim\calN(\bfmu_{z\mid x},\Sigma_{z\mid x})$, con
     $$
     \bfmu_{z \mid x} = \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}(\xx - \bfmu), \qquad
     \Sigma_{z \mid x} = I - \Lambda^\top(\Lambda\Lambda^\top + \Psi)^{-1}\Lambda.
@@ -266,7 +266,7 @@ Maximizar (3.4.3) explícitamente es difícil y no se conoce una solución en fo
 
 ## III <span style="color:#CCCCCC;">│</span> Algoritmo EM para análisis factorial
 
-A diferencia del caso de mezcla de gaussianas, aquí la variable latente es **continua**, de manera que las sumas sobre $z$ se reemplazan por integrales y las responsabilidades por una densidad condicional completa.
+A diferencia del caso de mezcla de gaussianas, aquí la variable latente es *continua*, de manera que las sumas sobre $z$ se reemplazan por integrales y las responsabilidades por una densidad condicional completa.
 
 <div style="margin-top:1em;"></div>
 
@@ -405,15 +405,82 @@ La analogía es directa: los $\xx$ son una función lineal de los $\zz$ más rui
 Análisis factorial en datos simulados
 </span>
 
-Simularemos datos en $\RR^p$ generados por un modelo factorial con $k$ factores, con $p>n$, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada $\Lambda\Lambda^\top+\Psi$ con la verdadera y evaluaremos el error de reconstrucción.
+Simularemos datos en $\RR^p$ generados por un modelo factorial con $k$ factores, en el escenario $p>n$, y ajustaremos el modelo mediante EM. Compararemos la covarianza estimada $\Lambda\Lambda^\top+\Psi$ con la verdadera y con el MLE de una gaussiana sin restricciones.
 
-```{python}
-#| code-summary: "Mostrar código"
-#| code-fold: true
+> ⚠ En este ejemplo utilizamos la implementación `FactorAnalysis` de `scikit-learn`, que ajusta el modelo mediante el algoritmo EM. En las actividades prácticas se exploran la indeterminación por rotación y la comparación con componentes principales.
+
+```{pyodide-python}
+#| echo: false
 #| fig-align: "center"
 
-# (código del ajuste por EM del modelo de análisis factorial)
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import FactorAnalysis
+
+# --- 1. Simular datos de un modelo factorial con p > n ---
+rng = np.random.default_rng(1)
+p, k, n = 60, 3, 25
+
+# cargas con estructura de bloques: cada factor domina 20 variables
+Lambda = np.zeros((p, k))
+for j in range(k):
+    Lambda[j*20:(j+1)*20, j] = rng.uniform(1.0, 1.6, size=20)
+Lambda += rng.normal(scale=0.15, size=(p, k))
+
+Psi = rng.uniform(0.2, 0.6, size=p)
+Sigma = Lambda @ Lambda.T + np.diag(Psi)
+
+Z = rng.normal(size=(n, k))
+X = Z @ Lambda.T + rng.normal(size=(n, p)) * np.sqrt(Psi)
+
+# --- 2. Ajustar el modelo factorial por EM ---
+fa = FactorAnalysis(n_components=k, random_state=0).fit(X)
+Sigma_fa = fa.get_covariance()            # Lambda Lambda^T + Psi estimada
+Sigma_emp = np.cov(X.T, bias=True)        # MLE de una gaussiana sin restricciones
+
+for nombre, S in [("empírica ", Sigma_emp), ("factorial", Sigma_fa)]:
+    print(f"Covarianza {nombre}: rango {np.linalg.matrix_rank(S)} de {p}, "
+          f"menor autovalor = {np.linalg.eigvalsh(S).min():.4f}")
+print(f"Parámetros libres     : completa {p*(p+1)//2}, factorial {p*k + p}")
+
+# --- 3. Comparar las covarianzas y sus espectros ---
+fig = plt.figure(figsize=(10, 6.4))
+gs = fig.add_gridspec(2, 3, height_ratios=[1, 0.78], hspace=0.35, wspace=0.12)
+
+v = np.abs(Sigma).max()
+titulos = [r'$\Sigma$ verdadera',
+           r'$\hat{\Sigma}$ empírica',
+           r'$\Lambda\Lambda^\top+\Psi$ estimada']
+
+axes = [fig.add_subplot(gs[0, j]) for j in range(3)]
+for ax, S, t in zip(axes, [Sigma, Sigma_emp, Sigma_fa], titulos):
+    im = ax.imshow(S, cmap='RdBu_r', vmin=-v, vmax=v)
+    ax.set_title(t, fontsize=12)
+    ax.set_xticks([])
+    ax.set_yticks([])
+fig.colorbar(im, ax=axes, shrink=0.9, pad=0.02)
+
+ax = fig.add_subplot(gs[1, :])
+orden = np.arange(1, p + 1)
+for S, color, t in [(Sigma, '0.35', titulos[0]),
+                    (Sigma_emp, 'tab:red', titulos[1]),
+                    (Sigma_fa, 'tab:blue', titulos[2])]:
+    autov = np.maximum(np.linalg.eigvalsh(S)[::-1], 1e-4)   # recorte para la escala log
+    ax.semilogy(orden, autov, 'o-', ms=3, color=color, label=t)
+
+ax.axvline(n - 1, color='0.6', ls=':', lw=1)
+ax.set_xlabel('orden del autovalor')
+ax.set_ylabel('autovalor (escala log)')
+ax.legend(frameon=False, fontsize=9)
+ax.grid(False)
+
+plt.show()
 ```
+
+Las dos estimaciones se parecen, y es lo que se busca: el modelo factorial reproduce la estructura de bloques de la covarianza muestral con $240$ parámetros en lugar de $1830$. La diferencia está en el espectro. La covarianza empírica tiene rango $24$: sus últimos $36$ autovalores son exactamente cero, de manera que es singular, no se la puede invertir y ni siquiera permite evaluar la densidad normal. Además infla los autovalores intermedios muy por encima de los verdaderos. El modelo factorial, en cambio, sigue de cerca el espectro verdadero y mantiene todos sus autovalores positivos.
 
 :::
 
