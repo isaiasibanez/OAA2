@@ -58,7 +58,7 @@ $$
 \hat{\Sigma} = \frac{1}{n} \sum_{i=1}^{n} (\xx_i - \hat{\bfmu})(\xx_i - \hat{\bfmu})^\top.
 $$
 
-Reuniendo las observaciones centradas en la matriz $X_c$, cuyas filas son los $\xx_i-\hat\bfmu$, resulta $\hat{\Sigma}=\frac1n X_c^\top X_c$ y, por lo tanto, $\operatorname{rango}(\hat{\Sigma})=\operatorname{rango}(X_c)\leq\min\{n-1,p\}$, donde el $n-1$ se debe a que las filas de $X_c$ suman cero. Si $p>n-1$, la matriz $\hat{\Sigma}$ tiene autovalores nulos y resulta *singular*. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
+Reuniendo las observaciones centradas en la matriz $X_c$, cuyas filas son los $\xx_i-\hat{\bfmu}$, resulta $\hat{\Sigma}=\frac1n X_c^\top X_c$ y, por lo tanto, $\operatorname{rango}(\hat{\Sigma})=\operatorname{rango}(X_c)\leq\min\{n-1,p\}$, donde el $n-1$ se debe a que las filas de $X_c$ suman cero. Si $p>n-1$, la matriz $\hat{\Sigma}$ tiene autovalores nulos y resulta *singular*. Esto significa que $\hat{\Sigma}^{-1}$ no existe y que $1/|\hat{\Sigma}|^{1/2}=1/0$; ambos términos son necesarios para evaluar la densidad gaussiana multivariada.
 
 Más aún, en ese caso la fórmula de $\hat{\Sigma}$ deja de ser el estimador de máxima verosimilitud: su deducción supone $\Sigma$ definida positiva, y cuando $p>n-1$ la verosimilitud no está acotada, de modo que el problema de maximización no tiene solución. Otra forma de leer la dificultad: el MLE coloca toda la masa de probabilidad en el subespacio generado por los datos, lo cual corresponde a una covarianza singular.
 
