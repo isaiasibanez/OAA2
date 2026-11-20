@@ -2,21 +2,29 @@
 title: "Algoritmo EM"
 subtitle: "Capítulo 3 - Sección 3"
 ---
-
 <hr style="border: 1px solid rgba(50, 0, 0, 1);">
 
 {{< include ../macros.qmd >}}
 
 
-<div class="d-flex gap-2">
+<div class="d-flex align-items-center justify-content-between">
 
-<a href="../material/apunte_c3s3.pdf" target="_blank" class="btn btn-outline-primary">
-<i class="fa-solid fa-file-lines me-2"></i>Versión PDF
-</a>
+  <div class="d-flex gap-2">
+    
+  <a href="../material/apunte_c3s3.pdf" target="_blank" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-lines me-2"></i>Versión PDF
+  </a>
 
-<a href="../material/tp_c3s3.pdf" target="_blank" class="btn btn-outline-success">
-<i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
-</a>
+  <a href="../material/tp_c3s3.pdf" target="_blank" class="btn btn-outline-success">
+    <i class="fa-solid fa-clipboard-list me-2"></i>Guía de actividades
+  </a>
+
+  </div>
+
+  <span class="text-muted small">
+    <i class="fa-solid fa-clock-rotate-left me-1"></i>
+    Última actualización: 16/11/2026
+  </span>
 
 </div>
 
@@ -552,8 +560,6 @@ El término que se resta es una constante respecto de $\bftheta$: la cota es $Q$
   <img src="figuras/em_cota_3.svg" alt="…" width="500px">
   <figcaption> **Figura 3.3.4:** Iteraciones sucesivas: cada cota toca a $\ell$ en el parámetro actual y la sucesión asciende. </figcaption>
 </figure>
-
-Observar que (3.3.7) es el punto de partida de las formulaciones más generales del algoritmo, en las que la cota inferior se construye sobre una distribución arbitraria de la variable latente.
 
 <div style="margin-top:2em;"></div>
 
